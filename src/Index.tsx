@@ -4,7 +4,6 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { ApplicationStore } from "./redux/Store";
 import "./Index.css";
-import { BrowserRouter } from "react-router-dom";
 
 const appElement = document.getElementById("app");
 if (appElement === null) {
@@ -14,9 +13,7 @@ if (appElement === null) {
 createRoot(appElement).render(
   <React.StrictMode>
     <Provider store={ApplicationStore}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <App />
     </Provider>
   </React.StrictMode>
 );
