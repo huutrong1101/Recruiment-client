@@ -7,11 +7,15 @@ export default function Navbar() {
 
   const [leftMenu] = useState([
     {
+      name: "Home",
+      url: "/",
+    },
+    {
       name: "Jobs",
       url: "/",
     },
     {
-      name: "For Employers",
+      name: "Events",
       url: "/",
     },
   ]);
@@ -55,7 +59,7 @@ export default function Navbar() {
         {!signedIn ? (
           <div className={classNames(`flex flex-row gap-4`)}>
             <Link
-              to="/"
+              to="/login"
               className={classNames(
                 `px-3 py-2`,
                 `bg-emerald-600 text-white hover:bg-emerald-700`,
