@@ -59,7 +59,7 @@ export default function Navbar() {
         {!signedIn ? (
           <div className={classNames(`flex flex-row gap-4`)}>
             <Link
-              to="/login"
+              to="/auth/login"
               className={classNames(
                 `px-3 py-2`,
                 `bg-emerald-600 text-white hover:bg-emerald-700`,
@@ -70,7 +70,7 @@ export default function Navbar() {
               Login
             </Link>
             <Link
-              to="/"
+              to="/auth/signup"
               className={classNames(
                 `px-3 py-2`,
                 `border-emerald-600 border text-emerald-600`,
