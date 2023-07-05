@@ -17,11 +17,11 @@ export default function AuthenticateLogin() {
       className={classnames(
         `py-8 gap-4 items-center justify-center flex flex-col h-[400px]`,
         `bg-zinc-100 shadow-md`,
-        `rounded-xl`
+        `rounded-xl px-4 md:px-5 lg:px-6`
       )}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className=" items-center flex flex-col gap-4 w-full px-8">
+      <div className=" items-center flex flex-col gap-4 w-full px-8 lg:px-10 xl:px-12 2xl:px-14">
         <h1 className="text-xl font-semibold">Login</h1>
 
         {/* Input group with icons */}
