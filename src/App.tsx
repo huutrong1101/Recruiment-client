@@ -7,6 +7,7 @@ import Authenticate from "./pages/Authenticate/Authenticate";
 import AuthenticateLogin from "./pages/Authenticate/AuthenticateLogin";
 import AuthenticateSignUp from "./pages/Authenticate/AuthenticateSignUp";
 import VerifyEmail from "./pages/VerifyEmail/VerifyEmail";
+import Container from "./components/Container/Container";
 
 export default function App() {
   return (
@@ -15,7 +16,8 @@ export default function App() {
       <Navbar />
 
       {/* Route switcher */}
-      <div className={classNames(`px-32`)}>
+
+      <Container>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/auth/" element={<Authenticate />}>
@@ -25,7 +27,7 @@ export default function App() {
           </Route>
           <Route path="/verify-email" element={<VerifyEmail />}></Route>
         </Routes>
-      </div>
+      </Container>
     </BrowserRouter>
   );
 }
