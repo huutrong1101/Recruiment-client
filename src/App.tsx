@@ -6,6 +6,7 @@ import classNames from "classnames";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import AuthenticateLogin from "./pages/Authenticate/AuthenticateLogin";
 import AuthenticateSignUp from "./pages/Authenticate/AuthenticateSignUp";
+import VerifyEmail from "./pages/VerifyEmail/VerifyEmail";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
             <Route index path="signup" element={<AuthenticateSignUp />} />
             <Route index element={<Login />} />
           </Route>
+          <Route path="/verify-email" element={<VerifyEmail />}></Route>
         </Routes>
       </div>
     </BrowserRouter>
