@@ -1,4 +1,3 @@
-import React from "react";
 import classnames from "classnames";
 import image from "../../../images/sprite.png";
 import { Outlet } from "react-router-dom";

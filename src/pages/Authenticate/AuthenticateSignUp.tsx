@@ -1,4 +1,3 @@
-import React from "react";
 import classnames from "classnames";
 import { useForm } from "react-hook-form";
 import {
@@ -31,29 +30,6 @@ export default function AuthenticateSignUp() {
     >
       <div className=" items-center flex flex-col gap-4 w-full px-8 lg:px-10 xl:px-12 2xl:px-14">
         <h1 className="text-xl font-semibold">Sign up</h1>
-
-        {/* Input group with icons */}
-        {/* <div
-          className={classnames(
-            `flex flex-row items-center gap-2 py-2`,
-            `bg-white text-zinc-500`,
-            `rounded-md`,
-            `border`
-          )}
-        >
-          <EnvelopeIcon className={classnames(`w-[16px] ml-4`)} />
-          <input
-            type="text"
-            placeholder="email address"
-            {...register("credentialId")}
-            className={classnames(
-              `px-2 py-1`,
-              `font-light`,
-              `mr-4`,
-              `outline-none`
-            )}
-          />
-        </div> */}
 
         <InputIcon
           icon={<UserIcon />}
