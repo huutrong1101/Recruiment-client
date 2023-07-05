@@ -23,7 +23,6 @@ export default function Navbar() {
 
   return (
     <Container>
-
       <div
         className={classNames(
           `navbar-container`,
@@ -33,9 +32,12 @@ export default function Navbar() {
       >
         {/* Icons */}
         <div className={classNames(`flex flex-row items-center gap-12 flex-1`)}>
-          <h1 className={classNames(`font-bold text-3xl`, `text-zinc-900`)}>
+          <Link
+            to="/"
+            className={classNames(`font-bold text-3xl`, `text-zinc-900`)}
+          >
             JobPort
-          </h1>
+          </Link>
           <ul className="hidden md:block">
             <li className={classNames(`flex flex-row gap-12`, `font-semibold`)}>
               {leftMenu.map((item) => {
