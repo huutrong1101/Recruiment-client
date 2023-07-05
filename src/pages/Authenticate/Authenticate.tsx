@@ -5,8 +5,8 @@ import { Outlet } from "react-router-dom";
 
 export default function Authenticate() {
   return (
-    <div className={classnames("flex flex-row gap-12")}>
-      <div className="w-2/3 ">
+    <div className={classnames("flex flex-col md:flex-row  gap-12")}>
+      <div className="w-full md:w-1/3 lg:w-3/12 xl:w-3/12 2xl:w-2/12">
         <Outlet />
       </div>
       {/* Browse Job Frame */}
@@ -14,7 +14,7 @@ export default function Authenticate() {
         className={classnames(
           `bg-[#176A4B] rounded-3xl px-6 py-4`,
           `shadow-md`,
-          `relative flex flex-col gap-6`
+          `relative flex-1 flex flex-col gap-6`
         )}
       >
         <h1
