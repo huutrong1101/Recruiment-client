@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
+import { Transition } from "@headlessui/react";
 
 export default function VerifyEmail() {
   const handleResendEmail = () => {
@@ -18,31 +19,68 @@ export default function VerifyEmail() {
         )}
       >
         {/* Icons */}
-        <div className="flex flex-col items-center">
-          <EnvelopeIcon
-            className={classNames(`text-[#87D3B7] h-[256px] w-[256px]`)}
-          />
+        <div>
+          <Transition appear={true} show={true}>
+            <Transition.Child
+              className="flex flex-col items-center transition-all ease-in-out duration-700"
+              enter=" transform opacity-0 scale-50"
+              enterFrom="transform opacity-0  scale-50"
+              enterTo="transform opacity-100 scale-100"
+            >
+              <EnvelopeIcon className={classNames(`text-[#87D3B7] w-1/2`)} />
+            </Transition.Child>
+          </Transition>
         </div>
 
-        <h1
-          className={classNames(
-            `text-white text-3xl font-bold leading-10 my-4`
-          )}
+        <Transition
+          appear={true}
+          show={true}
+          className={`transition-all ease-in-out duration-700 delay-700`}
+          enter="transform opacity-0"
+          enterFrom="transform opacity-0 translate-y-12"
+          enterTo="transform opacity-100 translate-y-0"
         >
-          Everything is ready, only need one more step.
-        </h1>
+          <h1
+            className={classNames(
+              `text-white text-3xl font-bold leading-10 my-4`
+            )}
+          >
+            Everything is ready, only need one more step.
+          </h1>
+        </Transition>
 
-        <h2
-          className={classNames(
-            `text-[#87D3B7] font-bold leading-normal text-xl`
-          )}
+        <Transition
+          appear={true}
+          show={true}
+          className={`transition-all ease-in-out duration-700 delay-1000`}
+          enter="transform opacity-0"
+          enterFrom="transform opacity-0 translate-y-12"
+          enterTo="transform opacity-100 translate-y-0"
         >
-          Your email need to be verified, please check your email.
-        </h2>
+          <h2
+            className={classNames(
+              `text-[#87D3B7] font-bold leading-normal text-xl`
+            )}
+          >
+            Your email need to be verified, please check your email.
+          </h2>
+        </Transition>
 
-        <div className={classNames(`mt-8 flex flex-row-reverse`)}>
-          <PrimaryButton text="Resend the email" onClick={handleResendEmail} />
-        </div>
+        <Transition
+          show={true}
+          appear={true}
+          className={`transition-all ease-in-out duration-700 delay-1000`}
+          enter="transform opacity-0"
+          enterFrom=" opacity-0 "
+          enterTo="opacity-100"
+        >
+          <div className={classNames(`mt-8 flex flex-row-reverse`)}>
+            <PrimaryButton
+              text="Resend the email"
+              onClick={handleResendEmail}
+            />
+          </div>
+        </Transition>
       </div>
     </div>
   );
