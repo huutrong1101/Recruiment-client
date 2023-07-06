@@ -12,6 +12,7 @@ import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
 import EmailConfirmationLayout from "./pages/EmailConfirmation/EmailConfirmationLayout";
 import IncompleteConfirmEmail from "./pages/EmailConfirmation/IncompleteConfirmEmail";
 import CompleteConfirmEmail from "./pages/EmailConfirmation/CompleteConfirmEmail";
+import CandidateProfile from "./pages/Reccer/CandidateProfile";
 
 export default function App() {
   return (
@@ -45,6 +46,7 @@ export default function App() {
         <Route path="/interviewer" element={<InterviewerAppLayout />}>
           {/* Define interviewer routes here */}
         </Route>
+        <Route path="/" element={<CandidateProfile />} />
       </Routes>
     </BrowserRouter>
   );
