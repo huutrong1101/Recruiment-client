@@ -5,12 +5,14 @@
   "repository": "https://gitlab.com/PlayerNguyen/recruiment-client.git",
   "author": "Player Nguyên <daudaua3782@gmail.com>",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@headlessui/tailwindcss": "^0.1.3",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
