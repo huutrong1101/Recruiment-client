@@ -29,7 +29,7 @@ function CandidateProfile() {
     { label: "Address", value: "Some where" },
     { label: "City", value: "Ho Chi Minh" },
     { label: "Country", value: "Viet Nam" },
-    { label: "Postal Code:", value: "111111" },
+    { label: "Postal Code", value: "111111" },
     { label: "Mobile", value: "123-456-7890" },
   ];
 
@@ -55,14 +55,14 @@ function CandidateProfile() {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 grid-rows-3 gap-4">
+        <div className="grid grid-cols-3 grid-rows-4 gap-0">
           {/* PERSONAL INFO */}
-          <div className="Info col-start-3 row-start-1 row-span-3 mt-8 px-8 py-4">
-            <div className="grid grid-cols-2 bg-gray-100 rounded-3xl drop-shadow-lg px-2 py-4 sticky top-2">
-              <div className="font-semibold px-4 col-start-1">
+          <div className="Info col-start-3 row-start-1 row-span-5 mt-8 py-4">
+            <div className="grid grid-cols-2 bg-gray-100 rounded-3xl drop-shadow-lg px-1 py-4 sticky top-2">
+              <div className="font-semibold px-4 col-start-1 col-span-2">
                 Personal Detail:
               </div>
-              <table className="table border-collapse w-full px-4 py-6 col-start-1 col-span-2">
+              <table className="table border-collapse w-full py-6 col-start-1 col-span-2">
                 <tbody>
                   {personalDetails.map((detail) => (
                     <tr key={detail.label} className="font-light">
@@ -75,12 +75,11 @@ function CandidateProfile() {
                 </tbody>
               </table>
               <div className="bg-white rounded-xl shadow-inner col-start-1 col-span-2 text-center items-center flex flex-col mx-5">
-                <p className="px-2 mx-2 my-1 flex flex-row">
-                  {" "}
+                <p className="px-4 mx-2 my-1 flex flex-row">
                   <DocumentTextIcon className="w-7 h-7" />
                   rosaria-varagas-resume.pdf
                 </p>
-                <button className="rounded-lg bg-green-700 hover:bg-green-900 p-2 mx-2 my-1 text-white flex flex-row px-4">
+                <button className="rounded-lg bg-green-700 hover:bg-green-900 py-2 mx-2 my-1 text-white flex flex-row px-4">
                   <DocumentArrowDownIcon className="w-5 h-5" />
                   Download CV
                 </button>
@@ -90,7 +89,7 @@ function CandidateProfile() {
           {/* /PERSONAL INFO */}
 
           {/* DESCRIPTION */}
-          <div className="Desc mt-8 bg-white col-span-2 p-6">
+          <div className="Desc mt-8 bg-white col-span-2 row-span-2 p-6">
             <h2 className="text-lg font-semibold">Rosaria Varagas:</h2>
             <p className="text-lg font-light text-gray-500">
               Obviously I'm a Web Developer. Web Developer with over 3 years of
