@@ -8,26 +8,25 @@ import AuthenticateLogin from "./pages/Authenticate/AuthenticateLogin";
 import AuthenticateSignUp from "./pages/Authenticate/AuthenticateSignUp";
 import VerifyEmail from "./pages/VerifyEmail/VerifyEmail";
 import Container from "./components/Container/Container";
+import UserAppLayout from "./components/UserAppLayout/UserAppLayout";
 
 export default function App() {
   return (
     <BrowserRouter>
-      {/* Header navbar */}
-      <Navbar />
-
       {/* Route switcher */}
 
-      <Container>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/auth/" element={<Authenticate />}>
+      <Routes>
+        <Route path="/" element={<UserAppLayout />}>
+          <Route path="auth" element={<Authenticate />}>
             <Route index path="login" element={<AuthenticateLogin />} />
             <Route index path="signup" element={<AuthenticateSignUp />} />
             <Route index element={<Login />} />
           </Route>
           <Route path="/verify-email" element={<VerifyEmail />}></Route>
-        </Routes>
-      </Container>
+
+          <Route path="/" index element={<Home />} />
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 }
