@@ -13,10 +13,7 @@ import EmailConfirmationLayout from "./pages/EmailConfirmation/EmailConfirmation
 import IncompleteConfirmEmail from "./pages/EmailConfirmation/IncompleteConfirmEmail";
 import CompleteConfirmEmail from "./pages/EmailConfirmation/CompleteConfirmEmail";
 import CandidateProfile from "./pages/Reccer/CandidateProfile";
-import Footer from "./components/Footer/Footer";
 import ReccerDashboard from "./pages/Reccer/Reccer_dashboard";
-import Nav_Rec from "./components/Navbar_Rec/Nav_Rec";
-import Sidebar_Rec from "./components/Sidebar_Rec/Sidebar_Rec";
 
 export default function App() {
   const activeMenu = false;
@@ -46,6 +43,7 @@ export default function App() {
 
         <Route path="/recruiter" element={<RecruiterAppLayout />}>
           {/* Define recruiter routes here */}
+          <Route index element={<ReccerDashboard />} />
         </Route>
 
         <Route path="/interviewer" element={<InterviewerAppLayout />}>
