@@ -9,7 +9,7 @@ export default function RecruiterAppLayout() {
   return (
     <div className="flex flex-col min-h-screen">
       <div className="flex flex-1">
-        <LeftSidebar />
+       <LeftSidebar/>
 
         {/* Nav bar */}
         <nav className="flex-1">
