@@ -11,10 +11,7 @@ import AdminAppLayout from "./components/Layout/AdminAppLayout";
 import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
 import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
 // =======
-// import ReccerDashboard from "./pages/Reccer/Reccer_dashboard";
-// import Nav_Rec from "./components/Navbar_Rec/Nav_Rec";
-// import Sidebar_Rec from "./components/Sidebar_Rec/Sidebar_Rec";
-// >>>>>>> src/App.tsx
+import ReccerDashboard from "./pages/Reccer/Reccer_dashboard";
 
 export default function App() {
   const activeMenu = false;
@@ -41,6 +38,7 @@ export default function App() {
 
         <Route path="/recruiter" element={<RecruiterAppLayout />}>
           {/* Define recruiter routes here */}
+          <Route index element={<ReccerDashboard />} />
         </Route>
 
         <Route path="/interviewer" element={<InterviewerAppLayout />}>
