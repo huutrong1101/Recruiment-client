@@ -5,7 +5,10 @@ import Authenticate from "./pages/Authenticate/Authenticate";
 import AuthenticateLogin from "./pages/Authenticate/AuthenticateLogin";
 import AuthenticateSignUp from "./pages/Authenticate/AuthenticateSignUp";
 import VerifyEmail from "./pages/VerifyEmail/VerifyEmail";
-import UserAppLayout from "./components/UserAppLayout/UserAppLayout";
+import UserAppLayout from "./components/Layout/UserAppLayout";
+import AdminAppLayout from "./components/Layout/AdminAppLayout";
+import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
+import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
 
 export default function App() {
   return (
@@ -21,7 +24,19 @@ export default function App() {
           </Route>
           <Route path="/verify-email" element={<VerifyEmail />}></Route>
 
-          <Route path="/" index element={<Home />} />
+          <Route index element={<Home />} />
+        </Route>
+
+        <Route path="/admin" element={<AdminAppLayout />}>
+          {/* Define admin routes here */}
+        </Route>
+
+        <Route path="/recruiter" element={<RecruiterAppLayout />}>
+          {/* Define recruiter routes here */}
+        </Route>
+
+        <Route path="/interviewer" element={<InterviewerAppLayout />}>
+          {/* Define interviewer routes here */}
         </Route>
       </Routes>
     </BrowserRouter>
