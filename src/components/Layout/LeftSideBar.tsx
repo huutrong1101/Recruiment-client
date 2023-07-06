@@ -1,5 +1,5 @@
 import React from "react";
-import image from "../../../images/avatar.png";
+// import image from "../../../images/avatar.png";
 export default function LeftSidebar() {
   return (
     <>
@@ -10,7 +10,7 @@ export default function LeftSidebar() {
               <div className="Wbadge w-9 h-9 relative">
                 <img
                   className="Avatar w-9 h-9 left-0 top-0 absolute rounded-[64px]"
-                  src={image}
+                  // src={image}
                 />
                 <div className="Border w-[10.80px] h-[10.80px] p-[1.80px] left-[25.20px] top-[25.20px] absolute bg-white rounded-[64px] justify-center items-center inline-flex">
                   <div className="Badge w-[7.20px] h-[7.20px] relative flex-col justify-start items-start flex">
