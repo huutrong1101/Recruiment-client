@@ -6,22 +6,24 @@ import classNames from "classnames";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import AuthenticateLogin from "./pages/Authenticate/AuthenticateLogin";
 import AuthenticateSignUp from "./pages/Authenticate/AuthenticateSignUp";
+import CandidateProfile from "./pages/Reccer/CandidateProfile";
 
 export default function App() {
   return (
     <BrowserRouter>
       {/* Header navbar */}
-      <Navbar />
+      {/* <Navbar /> */}
 
       {/* Route switcher */}
       <div className={classNames(`px-32`)}>
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* <Route path="/" element={<Home />} />
           <Route path="/auth/" element={<Authenticate />}>
             <Route index path="login" element={<AuthenticateLogin />} />
             <Route index path="signup" element={<AuthenticateSignUp />} />
             <Route index element={<Login />} />
-          </Route>
+          </Route> */}
+          <Route path="/" element={<CandidateProfile />} />
         </Routes>
       </div>
     </BrowserRouter>
