@@ -15,6 +15,7 @@ import CompleteConfirmEmail from "./pages/EmailConfirmation/CompleteConfirmEmail
 import CandidateProfile from "./pages/Reccer/CandidateProfile";
 import ReccerDashboard from "./pages/Reccer/Reccer_dashboard";
 import CandidateProfile from "./pages/Reccer/CandidateProfile";
+import CandidateList from "./pages/Reccer/CandidateList";
 
 export default function App() {
   const activeMenu = false;
@@ -46,6 +47,7 @@ export default function App() {
           {/* Define recruiter routes here */}
           <Route path="Dashboard" index element={<ReccerDashboard />} />
           <Route path="cndinfo" index element={<CandidateProfile />} />
+          <Route path="cndlist" index element={<CandidateList />} />
         </Route>
 
         <Route path="/interviewer" element={<InterviewerAppLayout />}>
