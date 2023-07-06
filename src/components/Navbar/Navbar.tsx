@@ -18,6 +18,10 @@ export default function Navbar() {
       name: "Events",
       url: "/",
     },
+    {
+      name: "Dash board",
+      url: "rec",
+    },
   ]);
 
   return (

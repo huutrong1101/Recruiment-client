@@ -11,7 +11,7 @@ export default function AuthenticateLogin() {
   return (
     <form
       className={classnames(
-        `py-8 gap-4 items-center justify-center flex flex-col h-[400px]`,
+        `py-8 gap-1 items-center justify-center flex flex-col h-[400px]`,
         `bg-zinc-100 shadow-md`,
         `rounded-xl`
       )}
