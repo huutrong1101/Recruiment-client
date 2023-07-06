@@ -47,7 +47,7 @@ function CandidateProfile() {
           <div className="flex items-center space-x-4">
             <Avatar imageUrl={avatarUrl} size="large" />
             <div className="-space-y-2">
-              <h2 className="text-xl font-semibold pt-14">
+              <h2 className="text-xl font-semibold pt-16">
                 {"Mr. " + username}
               </h2>
               <h2 className="text-lg font-light text-gray-500">{title}</h2>
@@ -105,6 +105,7 @@ function CandidateProfile() {
               find your code is either taking too much time or taking too much
               space.
             </p>
+            <p></p>
           </div>
           {/* /DESCRIPTION */}
 
