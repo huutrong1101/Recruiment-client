@@ -43,7 +43,7 @@ export default function AuthenticateLogin() {
         />
 
         {/* Remember Me */}
-        <div className="flex flex-row gap-4 w-full px-1 text-zinc-600">
+        <div className="flex flex-row w-full gap-4 px-1 text-zinc-600">
           <input type="checkbox" id="remember" />
           <label htmlFor="remember">Remember me</label>
         </div>
@@ -51,8 +51,8 @@ export default function AuthenticateLogin() {
         {/* Forgot password */}
         <div className="Button w-full h-10 bg-white bg-opacity-0 rounded-lg flex-col justify-center items-center inline-flex text-sm">
           <div className="Basebutton px-3 py-1.5 justify-center items-center inline-flex">
-            <div className="Content justify-center items-center gap-2 flex">
-              <div className="Button text-emerald-800 font-semibold capitalize leading-7 tracking-wide">
+            <div className="flex items-center justify-center gap-2 Content">
+              <div className="font-semibold leading-7 tracking-wide capitalize Button text-emerald-800">
                 Forget Password?
               </div>
             </div>

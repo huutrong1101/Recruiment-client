@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 
 import Authenticate from "./pages/Authenticate/Authenticate";
@@ -13,6 +13,7 @@ import EmailConfirmationLayout from "./pages/EmailConfirmation/EmailConfirmation
 import IncompleteConfirmEmail from "./pages/EmailConfirmation/IncompleteConfirmEmail";
 import CompleteConfirmEmail from "./pages/EmailConfirmation/CompleteConfirmEmail";
 import CandidateProfile from "./pages/Reccer/CandidateProfile";
+import Footer from "./components/Footer/Footer";
 
 export default function App() {
   return (
