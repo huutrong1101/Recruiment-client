@@ -10,6 +10,7 @@ import AdminAppLayout from "./components/Layout/AdminAppLayout";
 import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
 import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
 import Jobs from "./pages/Jobs/Jobs";
+import Events from "./pages/Events/Events";
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
 
           <Route index element={<Home />} />
           <Route index path="jobs" element={<Jobs />} />
+          <Route index path="events" element={<Events />} />
         </Route>
 
         <Route path="/admin" element={<AdminAppLayout />}>
