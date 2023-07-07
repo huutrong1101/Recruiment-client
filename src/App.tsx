@@ -16,6 +16,7 @@ import ReccerDashboard from "./pages/Reccer/Reccer_dashboard";
 import CandidateProfile from "./pages/Reccer/CandidateProfile";
 import CandidateList from "./pages/Reccer/CandidateList";
 import Jobs from "./pages/Jobs/Jobs";
+import Events from "./pages/Events/Events";
 
 export default function App() {
   const activeMenu = false;
@@ -39,6 +40,7 @@ export default function App() {
 
           <Route index element={<Home />} />
           <Route index path="jobs" element={<Jobs />} />
+          <Route index path="events" element={<Events />} />
         </Route>
 
         <Route path="/admin" element={<AdminAppLayout />}>
