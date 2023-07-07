@@ -15,6 +15,7 @@ import CompleteConfirmEmail from "./pages/EmailConfirmation/CompleteConfirmEmail
 import ReccerDashboard from "./pages/Reccer/Reccer_dashboard";
 import CandidateProfile from "./pages/Reccer/CandidateProfile";
 import CandidateList from "./pages/Reccer/CandidateList";
+import Jobs from "./pages/Jobs/Jobs";
 
 export default function App() {
   const activeMenu = false;
@@ -37,6 +38,7 @@ export default function App() {
           </Route>
 
           <Route index element={<Home />} />
+          <Route index path="jobs" element={<Jobs />} />
         </Route>
 
         <Route path="/admin" element={<AdminAppLayout />}>

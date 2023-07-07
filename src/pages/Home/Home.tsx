@@ -1,15 +1,31 @@
-import React from "react";
+import React, { useState, Fragment } from "react";
 import home_page from "../../../images/home_page.png";
 import classnames from "classnames";
-import { CakeIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import {
+  CakeIcon,
+  MagnifyingGlassIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+} from "@heroicons/react/24/outline";
 
 import { Link } from "react-router-dom";
 import { data } from "../../data/homeData";
 import JobCard from "../../components/JobCard/JobCard";
 import BlogCard from "../../components/BlogCard/BlogCard";
 import Advertise from "../../components/Advertise/Advertise";
+import { Menu, Transition } from "@headlessui/react";
 
 export default function Home() {
+  const [showType, setShowType] = useState(false);
+
+  const [search, setSearch] = useState("");
+
+  const [type, setType] = useState(data.listTypeJobs[1].name);
+
+  const handleSubmit = () => {
+    alert("Giá trị thu được với từ khóa: " + search + " và loại: " + type);
+  };
+
   return (
     <div className={classnames("h-full")}>
       <div className={classnames("flex justify-between")}>
@@ -59,68 +75,79 @@ export default function Home() {
           <input
             type="text"
             placeholder="Search your Keywords"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             className={classnames(
               "w-[85%] h-full text-[17px] ml-3 focus:outline-none"
             )}
           />
         </div>
+
         <div className={classnames("flex items-center w-[27%] border-r-2")}>
           <CakeIcon className={classnames(`w-[20px] ml-4`)} />
-          <button
-            className={classnames("ml-4")}
-            id="dropdownHoverButton"
-            data-dropdown-toggle="dropdownHover"
-            data-dropdown-trigger="hover"
-          >
-            Full Time
-          </button>
+          <Menu as="div" className={classnames("relative")}>
+            <Menu.Button>
+              <div
+                className={classnames(
+                  "ml-4 cursor-pointer flex items-center justify-between"
+                )}
+                onClick={() => setShowType(!showType)}
+              >
+                {type}
+                {showType && (
+                  <ChevronUpIcon className={classnames("w-[20px] ml-4")} />
+                )}
+                {!showType && (
+                  <ChevronDownIcon className={classnames("w-[20px] ml-4")} />
+                )}
+              </div>
 
-          {/* <!-- Dropdown menu --> */}
-          <div
-            id="dropdownHover"
-            className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-          >
-            <ul
-              className="py-2 text-sm text-gray-700 dark:text-gray-200"
-              aria-labelledby="dropdownHoverButton"
+              {/* Drop down  */}
+            </Menu.Button>
+
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
             >
-              <li>
-                <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  Dashboard
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  Settings
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  Earnings
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  Sign out
-                </a>
-              </li>
-            </ul>
-          </div>
+              <Menu.Items className="absolute left-0 z-10 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className="py-1">
+                  {data.listTypeJobs &&
+                    data.listTypeJobs.map((type) => (
+                      <Menu.Item key={type.id}>
+                        {({ active }) => (
+                          <p
+                            className={classnames(
+                              active
+                                ? "bg-gray-100 text-gray-900"
+                                : "text-gray-700",
+                              "block px-4 py-2 text-sm"
+                            )}
+                            onClick={() => {
+                              setType(type.name);
+                              setShowType(false);
+                            }}
+                          >
+                            {type.name}
+                          </p>
+                        )}
+                      </Menu.Item>
+                    ))}
+                </div>
+              </Menu.Items>
+            </Transition>
+          </Menu>
         </div>
+
         <div className={classnames("w-[24%] flex items-center justify-center")}>
-          <button className="w-[222px] h-[56px] border rounded-md bg-emerald-700 shadow-md text-white">
+          <button
+            className="w-[222px] h-[56px] border rounded-md bg-emerald-700 shadow-md text-white"
+            onClick={() => handleSubmit()}
+          >
             Search
           </button>
         </div>
@@ -158,7 +185,7 @@ export default function Home() {
 
         <div className={classnames("flex items-center justify-center")}>
           <Link
-            to="/"
+            to="/jobs"
             className={classnames(
               "bg-emerald-700 text-white p-3 rounded-md flex"
             )}
@@ -190,7 +217,6 @@ export default function Home() {
 
         <div className="flex flex-wrap -mx-4 mt-[50px]">
           {/* <!-- Card --> */}
-
           {data.listEvent &&
             data.listEvent.map((event) => (
               <div key={event.id} className="w-full px-4 mb-8 md:w-1/3">

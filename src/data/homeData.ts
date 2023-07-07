@@ -1,5 +1,22 @@
 export const data = {
-  listTypeJobs: ["Full Time", "Past Time", "Freelance"],
+  listTypeJobs: [
+    {
+      id: 1,
+      name: "Full Time",
+    },
+    {
+      id: 2,
+      name: "Part Time",
+    },
+    {
+      id: 3,
+      name: "Frelancer ",
+    },
+    {
+      id: 4,
+      name: "Remote ",
+    },
+  ],
   listJobs: [
     {
       jobId: 1,
@@ -70,4 +87,21 @@ export const data = {
       title: "11 Tips To Help You Get New Clients Through Cold Calling",
     },
   ],
+  listFieldSearch: {
+    categories: [
+      { id: 1, category: "Category 1" },
+      { id: 2, category: "Category 2" },
+      { id: 3, category: "Category 3" },
+    ],
+    locations: [
+      { id: 1, location: "Location 1" },
+      { id: 2, location: "Location 2" },
+      { id: 3, location: "Location 3" },
+    ],
+    jobTypes: [
+      { id: 1, type: "Type 1" },
+      { id: 2, type: "Type 2" },
+      { id: 3, type: "Type 3" },
+    ],
+  },
 };
