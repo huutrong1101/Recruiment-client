@@ -3,7 +3,7 @@ import image from "../../../images/avatar.png";
 export default function RightSidebar() {
   return (
     <>
-       <aside className="w-1/4 bg-gray-200">
+       <aside className="w-1/5 bg-gray-200">
           {/* <!-- RSidebar content goes here --> */}
           <div className="Rightbar w-full h-[1024px] px-5 py-[22px] bg-white border border-black border-opacity-10 flex-col justify-start items-start gap-6 inline-flex">
             <div className="Notifications self-stretch h-[248px] flex-col justify-start items-start gap-3 flex">

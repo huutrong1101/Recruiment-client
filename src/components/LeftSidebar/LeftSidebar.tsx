@@ -3,8 +3,8 @@ import image from "../../../images/avatar.png";
 export default function LeftSidebar() {
   return (
     <>
-       <aside className="w-1/4 bg-gray-200">
-          <div className="Sidebar w-full h-[1024px] relative bg-white border border-black border-opacity-10">
+       <aside className="w-[13.67%] h full bg-gray-200">
+          <div className="Sidebar w-full h-full relative bg-white border border-black border-opacity-10">
             <div className="AvatarName w-[172px] h-8 pl-1 pr-2 py-1 left-[20px] top-[20px] absolute rounded-lg justify-start items-center gap-2 inline-flex">
               <div className="Avatar w-9 h-9 justify-center items-center gap-2.5 flex">
                 <div className="Wbadge w-9 h-9 relative">
@@ -72,9 +72,6 @@ export default function LeftSidebar() {
                 </div>
               </div>
               <div className="Pages self-stretch h-5" />
-            </div>
-            <div className="Logo w-[211px] h-[76px] px-[73px] left-0 top-[948px] absolute bg-gradient-to-b from-white to-white justify-center items-center inline-flex">
-              <div className="Logo w-[65px] h-5 relative" />
             </div>
           </div>
         </aside>

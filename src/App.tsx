@@ -12,6 +12,7 @@ import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
 import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
 // =======
 import ReccerDashboard from "./pages/Reccer/Reccer_dashboard";
+import ManageQuestion from "./pages/InterviewQuestion/ManageQuestion"
 
 export default function App() {
   const activeMenu = false;
@@ -43,7 +44,10 @@ export default function App() {
 
         <Route path="/interviewer" element={<InterviewerAppLayout />}>
           {/* Define interviewer routes here */}
+          {/* <Route index path ="/manageQuestion" element={<ManageQuestion />} /> */}
+          <Route index path ="manageQuestion" element={<ManageQuestion />} />
         </Route>
+        
       </Routes>
     </BrowserRouter>
 // =======
