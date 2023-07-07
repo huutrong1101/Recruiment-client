@@ -8,7 +8,7 @@ import {
   ArrowRightIcon,
 } from "@heroicons/react/24/outline";
 
-interface MyComponentProps {
+interface JobCardProps {
   job: {
     jobId: number;
     createdAt: string;
@@ -19,7 +19,7 @@ interface MyComponentProps {
   };
 }
 
-export default function JobCard({ job }: MyComponentProps) {
+export default function JobCard({ job }: JobCardProps) {
   return (
     <>
       <div className="p-6 bg-white rounded-lg shadow-lg">

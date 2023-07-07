@@ -9,6 +9,7 @@ import UserAppLayout from "./components/Layout/UserAppLayout";
 import AdminAppLayout from "./components/Layout/AdminAppLayout";
 import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
 import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
+import Jobs from "./pages/Jobs/Jobs";
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
           <Route path="/verify-email" element={<VerifyEmail />}></Route>
 
           <Route index element={<Home />} />
+          <Route index path="jobs" element={<Jobs />} />
         </Route>
 
         <Route path="/admin" element={<AdminAppLayout />}>

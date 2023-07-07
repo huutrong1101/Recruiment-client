@@ -13,11 +13,11 @@ export default function Navbar() {
     },
     {
       name: "Jobs",
-      url: "/",
+      url: "/jobs",
     },
     {
       name: "Events",
-      url: "/",
+      url: "/events",
     },
   ]);
 
