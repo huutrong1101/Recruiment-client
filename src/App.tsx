@@ -12,6 +12,7 @@ import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
 import EmailConfirmationLayout from "./pages/EmailConfirmation/EmailConfirmationLayout";
 import IncompleteConfirmEmail from "./pages/EmailConfirmation/IncompleteConfirmEmail";
 import CompleteConfirmEmail from "./pages/EmailConfirmation/CompleteConfirmEmail";
+import JobDetail from "./pages/JobDetail/JobDetail";
 
 export default function App() {
   return (
@@ -30,6 +31,8 @@ export default function App() {
             <Route path="incomplete" element={<IncompleteConfirmEmail />} />
             <Route path="complete" element={<CompleteConfirmEmail />} />
           </Route>
+
+          <Route path="/jobs/:jobId" element={<JobDetail />} />
 
           <Route index element={<Home />} />
         </Route>
