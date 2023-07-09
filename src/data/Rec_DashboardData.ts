@@ -32,7 +32,7 @@ export const data = {
       },
       {
         jobId: 6,
-        Type: "Application",
+        Type: "Applications",
         quantity: "821K",
         percentage: "11.01",
       },

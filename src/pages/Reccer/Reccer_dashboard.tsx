@@ -81,7 +81,7 @@ export default function Reccer_dashboard() {
                     {/* <!-- Card --> */}
                     {data.listJobs &&
                         data.listJobs.map((job) => (
-                            <div key={job.jobId} className=" px-4 mb-8 w-[23%]">
+                            <div key={job.jobId} className=" px-4 mb-8 md:w-1/4 ">
                                 <RecCard job={job} />
                             </div>
                         ))}
@@ -153,9 +153,9 @@ export default function Reccer_dashboard() {
                             </div>
                         </div>
                     </div>
-                    </div>
                 </div>
+            </div>
 
-            </>
-            )
+        </>
+    )
 }

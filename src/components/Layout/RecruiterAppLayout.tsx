@@ -12,7 +12,7 @@ export default function RecruiterAppLayout() {
   return (
     <>
       <div className="flex">
-        <div className="w-1/6 flex-1 bg-gray-200">
+        <div className="w-1/6 flex-1 ">
           {/* <!-- Left Sidebar Content --> */}
           <Rec_LeftSidebar />
         </div>
@@ -31,13 +31,13 @@ export default function RecruiterAppLayout() {
           </div>
 
           {/* <!-- Footer --> */}
-          <footer className="bg-gray-200 ">
+          <footer className=" ">
             <DashboardFooter />
           </footer>
         </div>
 
         {/* <!-- Right Sidebar --> */}
-        <div className="w-1/6 flex-1 bg-gray-200">
+        <div className="w-1/6 flex-1 ">
           <Rec_RightSidebar />
           {/* <!-- Right Sidebar Content --> */}
         </div>

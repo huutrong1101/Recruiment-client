@@ -1,8 +1,8 @@
-'use client'
 import React, { useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
-
+import { data } from "../../data/Rec_JobManagementData";
+import RecCard from "../../components/Rec_JobManagementCard/Rec_JobManagementCard";
 export default function Reccer_JobManagement() {
     const [activeSearch, setActiveSearch] = useState([])
 
@@ -15,22 +15,21 @@ export default function Reccer_JobManagement() {
     }
     return (
         <>
-            <form className='flex w-3/4 items-center mx-auto p-3'>
-                <div className="relative w-full ">
-                    <input type=" search" placeholder='Search' className='w-full p-4 rounded-full bg-gray-200 shadow' onChange={(e) => handleSearch(e)} />
-                    <button className='absolute right-1 top-1/2 -translate-y-1/2 p-4  rounded-full'>
+            <form className='flex w-3/4 items-center mx-auto p-2'>
+                <div className="relative w-full">
+                    <input type=" search" placeholder='Search' className='w-full p-2 rounded-lg bg-gray-200 shadow' onChange={(e) => handleSearch(e)} />
+                    <button className='absolute right-1 top-1/2 -translate-y-1/2 p-4'>
                         <AiOutlineSearch />
                     </button>
 
                 </div>
                 <div className="flex items-center max-w-md mx-auto p-5">
                     <Link to="#">
-                        <div className="w-[100px] h-[39px] relative" >
-                            <button className="w-[100px] h-[39px] left-5 top-0 absolute bg-green-700 text-white rounded-lg" type="submit">+ Add Job</button>
+                        <div className="w-[100px] h-[50px] relative" >
+                            <button className="w-full h-full left-5 top-0 absolute bg-[#48A280] hover:bg-emerald-700 text-white rounded-lg" type="submit">+ Add Job</button>
                         </div>
                     </Link>
                 </div>
-
                 {
                     activeSearch.length > 0 && (
                         <div className="absolute top-20 p-4 bg-slate-800 text-white w-full rounded-xl left-1/2 -translate-x-1/2 flex flex-col gap-2">
@@ -43,65 +42,30 @@ export default function Reccer_JobManagement() {
                     )
                 }
             </form>
+            <div className="flex flex-wrap justify-center items-center mt-[10px] ">
+                {/* <!-- Card --> */}
+                {data.listJobs &&
+                    data.listJobs.map((job) => (
+                        <div key={job.jobId} className=" px-4 mb-8 md:w-5/6 ">
+                            <RecCard job={job} />
+                        </div>
+                    ))}
+            </div>
+            <div className='grid md:grid-cols-12 grid-cols-1 mt-1'>
+                <div className='md:col-span-12 text-center justify-center'>
+                    <ul className='inline-flex items-center -space-x-px'>
+                        <li><a href='#' className='w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 bg-white rounded-s-3xl hover:text-white border border-gray-300  hover:border-emerald-600  hover:bg-emerald-600 '>1</a></li>
+                        <li>
+                            <a href='#' className='w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 hover:text-white bg-white border border-gray-300  hover:border-emerald-600 hover:bg-emerald-600 '>2
+                            </a>
+                        </li>
+                        <li><a href='#' className='w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 hover:text-white bg-white border border-gray-300  hover:border-emerald-600  hover:bg-emerald-600 '>3</a></li>
+                        <li><a href='#' className='w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 hover:text-white bg-white border border-gray-300  hover:border-emerald-600  hover:bg-emerald-600 '>4</a></li>
+                        <li><a href='#' className='w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 bg-white rounded-e-3xl hover:text-white border border-gray-300  hover:border-emerald-600 hover:bg-emerald-600 '>5</a></li>
+                    </ul>
 
-            <div className="Group33 w-[736px] h-[180px] relative">
-                <div className="Rectangle3884 w-[736px] h-[180px] left-0 top-0 absolute bg-white rounded-lg shadow" />
-                <div className="Rectangle3890 w-[736px] h-[180px] left-0 top-0 absolute bg-white rounded-lg shadow" />
-                <div className="DescriptionOneDisadvantageOfLorumIpsumIsThatInLatinCertainLettersAppearMoreFrequently w-[562px] left-[22px] top-[75px] absolute"><span className="text-black text-[10px] font-semibold capitalize leading-7 tracking-wide">description: </span><span className="text-black text-[10px] font-normal capitalize leading-7 tracking-wide">One disadvantage of Lorum Ipsum is that in Latin certain letters appear more frequently ....</span></div>
-                <div className="Rectangle3889 w-[736px] h-[39px] left-0 top-[141px] absolute bg-neutral-100 rounded-bl-lg rounded-br-lg" />
-                <div className="Group36 w-[149px] h-[26px] left-[569px] top-[147px] absolute">
-                    <div className="Rectangle3892 w-[149px] h-[26px] left-0 top-0 absolute bg-slate-500 rounded-lg" />
-                    <div className="CreateShedule left-[15px] top-[3px] absolute text-white text-[16px] font-semibold leading-none">Create Shedule</div>
                 </div>
-                <div className="Group38 w-[149px] h-[26px] left-[569px] top-[147px] absolute">
-                    <div className="Rectangle3892 w-[149px] h-[26px] left-0 top-0 absolute bg-slate-500 rounded-lg" />
-                    <div className="CreateShedule left-[15px] top-[3px] absolute text-white text-[16px] font-semibold leading-none">Create Shedule</div>
-                </div>
-                <div className="Group39 w-[149px] h-[26px] left-[569px] top-[147px] absolute">
-                    <div className="Rectangle3892 w-[149px] h-[26px] left-0 top-0 absolute bg-slate-500 rounded-lg" />
-                    <div className="CreateShedule left-[15px] top-[3px] absolute text-white text-[16px] font-semibold leading-none">Create Shedule</div>
-                </div>
-                <div className="Group37 w-[100px] h-[26px] left-[453px] top-[147px] absolute">
-                    <div className="Rectangle3893 w-[100px] h-[26px] left-0 top-0 absolute bg-slate-500 rounded-lg" />
-                    <div className="Edit left-[34px] top-[3px] absolute text-white text-[16px] font-semibold leading-none">Edit</div>
-                </div>
-                <div className="Group27 w-[346px] h-7 left-[22px] top-[108px] absolute">
-                    <div className="Group25 w-14 h-7 left-[210px] top-0 absolute">
-                        <div className="Rectangle3888 w-14 h-5 left-[56px] top-[4px] absolute origin-top-left rotate-180 bg-zinc-300 rounded-lg" />
-                        <div className="Graphics w-[48.16px] left-[3.36px] top-0 absolute text-center text-black text-[10px] font-semibold capitalize leading-7 tracking-wide">Graphics</div>
-                    </div>
-                    <div className="Group26 w-[68px] h-7 left-[278px] top-0 absolute">
-                        <div className="Rectangle3888 w-[66.67px] h-5 left-[68px] top-[4px] absolute origin-top-left rotate-180 bg-zinc-300 rounded-lg" />
-                        <div className="Photoshop w-[68px] left-0 top-0 absolute text-center text-black text-[10px] font-semibold capitalize leading-7 tracking-wide">Photoshop</div>
-                    </div>
-                    <div className="Group22 w-[50px] h-7 left-0 top-0 absolute">
-                        <div className="Rectangle3888 w-[50px] h-5 left-[50px] top-[4px] absolute origin-top-left rotate-180 bg-zinc-300 rounded-lg" />
-                        <div className="Html left-[10px] top-0 absolute text-center text-black text-[10px] font-semibold capitalize leading-7 tracking-wide">HTML</div>
-                    </div>
-                    <div className="Group23 w-[50px] h-7 left-[66px] top-0 absolute">
-                        <div className="Rectangle3888 w-[50px] h-5 left-[50px] top-[4px] absolute origin-top-left rotate-180 bg-zinc-300 rounded-lg" />
-                        <div className="Css left-[15px] top-0 absolute text-center text-black text-[10px] font-semibold capitalize leading-7 tracking-wide">CSS</div>
-                    </div>
-                    <div className="Group24 w-[61px] h-7 left-[131px] top-0 absolute">
-                        <div className="Rectangle3888 w-[61px] h-5 left-[61px] top-[4px] absolute origin-top-left rotate-180 bg-zinc-300 rounded-lg" />
-                        <div className="Reactjs w-[52.46px] left-[3.66px] top-0 absolute text-center text-black text-[10px] font-semibold capitalize leading-7 tracking-wide">REACTJS</div>
-                    </div>
-                </div>
-                <div className="Group30 w-[340px] h-14 left-[22px] top-[16px] absolute">
-                    <div className="DaysAgo left-[191px] top-0 absolute text-center text-stone-400 text-[10px] font-semibold capitalize leading-7 tracking-wide">2 days ago</div>
-                    <div className="EstTime1To3MothsHourly1620 left-[148px] top-[25px] absolute text-center text-stone-400 text-[10px] font-semibold capitalize leading-7 tracking-wide">EST. time: 1 to 3 moths  Hourly: $16 - $20</div>
-                    <div className="Group29 w-14 h-14 left-0 top-0 absolute">
-                        <div className="Rectangle3885 w-14 h-14 left-0 top-0 absolute bg-white rounded-lg shadow" />
-                        <div className="InterfaceEssentialFacebook w-[42px] h-[42px] left-[7px] top-[7px] absolute" />
-                    </div>
-                    <div className="WebDesigner left-[73px] top-[4px] absolute text-black text-[16px] font-semibold leading-none">Web Designer</div>
-                    <div className="Group6 w-[73px] h-5 left-[70px] top-[29.62px] absolute">
-                        <div className="Rectangle20 w-[69px] h-5 left-[1.68px] top-0 absolute bg-gray-300 rounded-lg" />
-                        <div className="FullTime w-[73px] h-[19.47px] left-0 top-[0.38px] absolute text-center text-emerald-600 text-[10px] font-semibold capitalize leading-7 tracking-wide">Full time</div>
-                    </div>
-                </div>
-                <div className="Ellipse962 w-9 h-9 left-[678px] top-[8px] absolute bg-teal-50 rounded-full shadow" />
-                <div className="HeroiconsOutlineBookmark w-5 h-5 left-[686px] top-[16px] absolute" />
+
             </div>
         </>
     )
