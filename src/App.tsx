@@ -11,7 +11,11 @@ import AdminAppLayout from "./components/Layout/AdminAppLayout";
 import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
 import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
 // =======
-import ReccerDashboard from "./pages/Reccer/Reccer_dashboard";
+import Reccer_JobManagement from "./pages/Reccer/Reccer_JobManagement";
+import Reccer_dashboard from "./pages/Reccer/Reccer_dashboard";
+import Reccer_calender from "./pages/Reccer/Reccer_calender";
+import Reccer_InterviewerManagement from "./pages/Reccer/Reccer_InterviewerManagement";
+import Reccer_EventManagement from "./pages/Reccer/Reccer_EventManagement";
 
 export default function App() {
   const activeMenu = false;
@@ -38,7 +42,11 @@ export default function App() {
 
         <Route path="/recruiter" element={<RecruiterAppLayout />}>
           {/* Define recruiter routes here */}
-          <Route index element={<ReccerDashboard />} />
+          <Route path="dashboard"index element={<Reccer_dashboard />} />
+          <Route path="job-management" index element={<Reccer_JobManagement/>}/>
+          <Route path="calender" element={<Reccer_calender />} />
+          <Route path="interviewer" element={<Reccer_InterviewerManagement />} />
+          <Route path="candidate" element={<Reccer_EventManagement />} />
         </Route>
 
         <Route path="/interviewer" element={<InterviewerAppLayout />}>

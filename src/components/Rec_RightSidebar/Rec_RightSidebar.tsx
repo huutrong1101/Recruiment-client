@@ -1,12 +1,12 @@
 import React from 'react'
 import image from "../../../images/avatar.png";
-export default function RightSidebar() {
+export default function Rec_RightSidebar() {
   return (
     <>
-       <aside className="w-1/4 bg-gray-200">
+       <aside className="w-full h-full bg-gray-200 ">
           {/* <!-- RSidebar content goes here --> */}
-          <div className="Rightbar w-full h-[1024px] px-5 py-[22px] bg-white border border-black border-opacity-10 flex-col justify-start items-start gap-6 inline-flex">
-            <div className="Notifications self-stretch h-[248px] flex-col justify-start items-start gap-3 flex">
+          <div className="Rightbar w-full h-full px-5 py-[22px] bg-white border border-black border-opacity-10 flex-col justify-start items-start gap-6 inline-flex">
+            <div className="Notifications self-stretch h-[248px] flex-col gap-3 flex">
               <div className="Title self-stretch h-7 pl-1 justify-start items-center inline-flex">
                 <div className="Activities text-zinc-900 text-[14px] font-semibold leading-tight">Activities</div>
               </div>
