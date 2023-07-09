@@ -24,6 +24,11 @@ import AdminProfile from "./pages/Admin/AdminProfile";
 import AdminChangePosition from "./pages/Admin/AdminChangePosition";
 import AddBlacklist from "./pages/Admin/AddBlacklist";
 import ManagetJobList from "./components/AdminManagerList/ManagetJobList";
+import Reccer_JobManagement from "./pages/Reccer/Reccer_JobManagement";
+import Reccer_dashboard from "./pages/Reccer/Reccer_dashboard";
+import Reccer_calender from "./pages/Reccer/Reccer_calender";
+import Reccer_InterviewerManagement from "./pages/Reccer/Reccer_InterviewerManagement";
+import Reccer_EventManagement from "./pages/Reccer/Reccer_EventManagement";
 
 export default function App() {
   return (
@@ -66,6 +71,11 @@ export default function App() {
           <Route path="dashboard" index element={<ReccerDashboard />} />
           <Route path="candidateinfo" index element={<CandidateProfile />} />
           <Route path="candidatelist" index element={<CandidateList />} />
+          <Route path="dashboard"index element={<Reccer_dashboard />} />
+          <Route path="job-management" index element={<Reccer_JobManagement/>}/>
+          <Route path="calender" element={<Reccer_calender />} />
+          <Route path="interviewer" element={<Reccer_InterviewerManagement />} />
+          <Route path="candidate" element={<Reccer_EventManagement />} />
         </Route>
 
         <Route path="/interviewer" element={<InterviewerAppLayout />}>

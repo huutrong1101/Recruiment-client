@@ -1,11 +1,14 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { BrowserRouter, Link, Outlet, Route, Routes } from "react-router-dom";
 import image from "../../../images/avatar.png";
-import LeftSidebar from "../LeftSidebar/LeftSidebar";
-import RightSidebar from "../RightSidebar/RightSidebar";
-import DashboardFooter from "../DashboardFooter/DashboardFooter";
+import Rec_LeftSidebar from "../Rec_LeftSidebar/Rec_LeftSidebar";
+import Rec_RightSidebar from "../Rec_RightSidebar/Rec_RightSidebar";
+import DashboardFooter from "../Rec_Footer/DashboardFooter";
+import Rec_Navbar from "../Rec_NavDashboard/Rec_Navbar"
+
 
 export default function RecruiterAppLayout() {
+  const activeMenu = true;
   return (
     <div className="flex flex-col min-h-screen">
       <div className="flex flex-1">
