@@ -227,7 +227,7 @@ export default function Home() {
 
         <div className={classnames("flex items-center justify-center")}>
           <Link
-            to="/"
+            to="/events"
             className={classnames(
               "bg-emerald-700 text-white p-3 rounded-md flex"
             )}

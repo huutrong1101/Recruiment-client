@@ -20,7 +20,7 @@ interface BlogCardProps {
 export default function BlogCard({ event }: BlogCardProps) {
   return (
     <>
-      <div className="bg-white rounded-lg shadow-lg ">
+      <div className="bg-white rounded-lg shadow-lg">
         <div className={classnames("w-full")}>
           <img
             src={blog_image}
