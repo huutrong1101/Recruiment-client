@@ -29,6 +29,7 @@ import Reccer_dashboard from "./pages/Reccer/Reccer_dashboard";
 import Reccer_calender from "./pages/Reccer/Reccer_calender";
 import Reccer_InterviewerManagement from "./pages/Reccer/Reccer_InterviewerManagement";
 import Reccer_EventManagement from "./pages/Reccer/Reccer_EventManagement";
+import Reccer_candidateManagement from "./pages/Reccer/Reccer_candidateManagement";
 
 export default function App() {
   return (
@@ -75,7 +76,8 @@ export default function App() {
           <Route path="job-management" index element={<Reccer_JobManagement/>}/>
           <Route path="calender" element={<Reccer_calender />} />
           <Route path="interviewer" element={<Reccer_InterviewerManagement />} />
-          <Route path="candidate" element={<Reccer_EventManagement />} />
+          <Route path="event" element={<Reccer_EventManagement />} />
+          <Route path="candidate" element={<Reccer_candidateManagement />} />
         </Route>
 
         <Route path="/interviewer" element={<InterviewerAppLayout />}>
