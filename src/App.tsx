@@ -4,13 +4,17 @@ import Home from "./pages/Home/Home";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import AuthenticateLogin from "./pages/Authenticate/AuthenticateLogin";
 import AuthenticateSignUp from "./pages/Authenticate/AuthenticateSignUp";
-import VerifyEmail from "./pages/VerifyEmail/VerifyEmail";
+import VerifyEmail from "./pages/EmailConfirmation/IncompleteConfirmEmail";
 import UserAppLayout from "./components/Layout/UserAppLayout";
 import AdminAppLayout from "./components/Layout/AdminAppLayout";
 import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
 import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
+
 import Jobs from "./pages/Jobs/Jobs";
 import Events from "./pages/Events/Events";
+import EmailConfirmationLayout from "./pages/EmailConfirmation/EmailConfirmationLayout";
+import IncompleteConfirmEmail from "./pages/EmailConfirmation/IncompleteConfirmEmail";
+import CompleteConfirmEmail from "./pages/EmailConfirmation/CompleteConfirmEmail";
 
 export default function App() {
   return (
@@ -24,7 +28,11 @@ export default function App() {
             <Route index path="signup" element={<AuthenticateSignUp />} />
             <Route index element={<AuthenticateLogin />} />
           </Route>
-          <Route path="/verify-email" element={<VerifyEmail />}></Route>
+
+          <Route path="/email" element={<EmailConfirmationLayout />}>
+            <Route path="incomplete" element={<IncompleteConfirmEmail />} />
+            <Route path="complete" element={<CompleteConfirmEmail />} />
+          </Route>
 
           <Route index element={<Home />} />
           <Route index path="jobs" element={<Jobs />} />
