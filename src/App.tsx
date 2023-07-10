@@ -18,6 +18,7 @@ import CompleteConfirmEmail from "./pages/EmailConfirmation/CompleteConfirmEmail
 import ReccerDashboard from "./pages/Reccer/Reccer_dashboard";
 import CandidateProfile from "./pages/Reccer/CandidateProfile";
 import CandidateList from "./pages/Reccer/CandidateList";
+import JobDetail from "./pages/JobDetail/JobDetail";
 
 export default function App() {
   const activeMenu = false;
@@ -38,6 +39,8 @@ export default function App() {
             <Route path="incomplete" element={<IncompleteConfirmEmail />} />
             <Route path="complete" element={<CompleteConfirmEmail />} />
           </Route>
+
+          <Route path="/jobs/:jobId" element={<JobDetail />} />
 
           <Route index element={<Home />} />
           <Route index path="jobs" element={<Jobs />} />
