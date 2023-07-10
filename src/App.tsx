@@ -10,6 +10,7 @@ import UserAppLayout from "./components/Layout/UserAppLayout";
 import AdminAppLayout from "./components/Layout/AdminAppLayout";
 import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
 import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
+import ManagementAppLayOut from "./components/Layout/ManagementAppLayOut/ManagementAppLayOut";
 // =======
 import Reccer_JobManagement from "./pages/Reccer/Reccer_JobManagement";
 import Reccer_dashboard from "./pages/Reccer/Reccer_dashboard";
@@ -17,12 +18,15 @@ import Reccer_calender from "./pages/Reccer/Reccer_calender";
 import Reccer_InterviewerManagement from "./pages/Reccer/Reccer_InterviewerManagement";
 import Reccer_EventManagement from "./pages/Reccer/Reccer_EventManagement";
 
+// Interviewer Pages
+import { CandidateRecent, InterviewRecent, InterviewQuestion } from "./pages/Interviewer/InterviewerPages";
+
 export default function App() {
   const activeMenu = false;
   return (
+
 // <<<<<<< src/App.tsx
     <BrowserRouter>
-      {/* Route switcher */}
 
       <Routes>
         <Route path="/" element={<UserAppLayout />}>
@@ -37,11 +41,9 @@ export default function App() {
         </Route>
 
         <Route path="/admin" element={<AdminAppLayout />}>
-          {/* Define admin routes here */}
         </Route>
 
         <Route path="/recruiter" element={<RecruiterAppLayout />}>
-          {/* Define recruiter routes here */}
           <Route path="dashboard"index element={<Reccer_dashboard />} />
           <Route path="job-management" index element={<Reccer_JobManagement/>}/>
           <Route path="calender" element={<Reccer_calender />} />
@@ -49,9 +51,12 @@ export default function App() {
           <Route path="candidate" element={<Reccer_EventManagement />} />
         </Route>
 
-        <Route path="/interviewer" element={<InterviewerAppLayout />}>
-          {/* Define interviewer routes here */}
+        <Route path="/interviewer" element={<ManagementAppLayOut />}>
+          <Route path="interview-recent" element={<InterviewRecent />} />
+          <Route path="interview-question" element={<InterviewQuestion />} />
+          <Route path="candidate-recent" element={<CandidateRecent />} />
         </Route>
+        
       </Routes>
     </BrowserRouter>
 // =======

@@ -1,9 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import HomeSlice from "../pages/Home/slices/HomeSlice";
 
+/// 
+import CandidateRecentReducer from "./reducer/CandidateRecentSlice";
+import InterviewRecentReducer from "./reducer/InterviewRecentSlice";
+
 export const ApplicationStore = configureStore({
   reducer: {
     Home: HomeSlice,
+    candidateRecent: CandidateRecentReducer,
+    interviewRecent: InterviewRecentReducer
   },
 });
 

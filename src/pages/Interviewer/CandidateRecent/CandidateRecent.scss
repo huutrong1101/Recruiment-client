@@ -1,0 +1,29 @@
+@mixin styleBadge($bgcl, $cl){
+    background-color: $bgcl;
+    color: $cl;
+    border-radius: 50px; font-weight: 500; width: 110px;
+    display: flex; justify-content: center;
+    padding: 8px 0;
+}
+@mixin styleDot($bgcl){
+    background-color: $bgcl;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+//.CandidateRecent{
+    .badge-completed{
+        @include styleBadge((#ECFDF3), #027A48);
+        .dot{
+            @include styleDot(#027A48);
+        }
+    }
+    .badge-pending{
+        @include styleBadge((#FEFFD1), #B7A612);
+        .dot{
+            @include styleDot(#B7A612);
+        }
+    }
+//}
