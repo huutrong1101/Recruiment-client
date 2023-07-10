@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 
 import Authenticate from "./pages/Authenticate/Authenticate";
@@ -9,9 +9,12 @@ import UserAppLayout from "./components/Layout/UserAppLayout";
 import AdminAppLayout from "./components/Layout/AdminAppLayout";
 import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
 import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
+
+import Jobs from "./pages/Jobs/Jobs";
 import EmailConfirmationLayout from "./pages/EmailConfirmation/EmailConfirmationLayout";
 import IncompleteConfirmEmail from "./pages/EmailConfirmation/IncompleteConfirmEmail";
 import CompleteConfirmEmail from "./pages/EmailConfirmation/CompleteConfirmEmail";
+
 
 export default function App() {
   return (
@@ -32,6 +35,7 @@ export default function App() {
           </Route>
 
           <Route index element={<Home />} />
+          <Route index path="jobs" element={<Jobs />} />
         </Route>
 
         <Route path="/admin" element={<AdminAppLayout />}>
