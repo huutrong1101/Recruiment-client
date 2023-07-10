@@ -13,7 +13,7 @@ export default function Authenticate() {
         className={classnames(
           `bg-[#176A4B] rounded-3xl px-6 py-4`,
           `shadow-md`,
-          `relative flex-1 flex flex-col gap-6`
+          `relative flex-1 flex flex-col gap-6`,
         )}
       >
         <h1
@@ -40,7 +40,7 @@ export default function Authenticate() {
           className={classnames(
             `right-0 bottom-[-120px] opacity-100`,
             `absolute`,
-            `w-[200px]`
+            `w-[200px]`,
           )}
         />
       </div>

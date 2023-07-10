@@ -26,13 +26,13 @@ export default function JobDescriptionWidget({
           `flex flex-row bg-white shadow-sm`,
           `rounded-xl p-2`,
           `gap-6 items-center`,
-          `border`
+          `border`,
         )}
       >
         {/* Logo */}
         <div
           className={classNames(
-            `w-2/12 flex flex-col items-center justify-center`
+            `w-2/12 flex flex-col items-center justify-center`,
           )}
         >
           <img

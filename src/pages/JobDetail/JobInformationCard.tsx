@@ -6,7 +6,7 @@ export default function JobInformationCard({ cardData }: any) {
     <div
       className={classNames(
         `w-full bg-white shadow-sm px-4 py-6 rounded-xl border sticky top-4`,
-        `flex flex-col gap-4`
+        `flex flex-col gap-4`,
       )}
     >
       <h1 className={classNames(`font-semibold text-xl`)}>Job Information</h1>

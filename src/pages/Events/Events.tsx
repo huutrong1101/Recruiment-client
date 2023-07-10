@@ -72,12 +72,12 @@ export default function Events() {
       {/* Most Popular  */}
       <div
         className={classNames(
-          "w-[30%] p-6 bg-white rounded-lg shadow-lg h-fit sticky top-1"
+          "w-[30%] p-6 bg-white rounded-lg shadow-lg h-fit sticky top-1",
         )}
       >
         <h3
           className={classNames(
-            "text-black text-base font-semibold leading-7 tracking-wider capitalize flex items-center justify-center"
+            "text-black text-base font-semibold leading-7 tracking-wider capitalize flex items-center justify-center",
           )}
         >
           Most popular
@@ -85,7 +85,7 @@ export default function Events() {
         <div className={classNames("flex flex-col gap-4 mt-2 pt-2 border-t-2")}>
           <div
             className={classNames(
-              "flex gap-3 w-full bg-gray-100 rounded-lg overflow-hidden cursor-pointer"
+              "flex gap-3 w-full bg-gray-100 rounded-lg overflow-hidden cursor-pointer",
             )}
           >
             <div className={classNames("w-[30%]")}>

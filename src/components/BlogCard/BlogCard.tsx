@@ -42,7 +42,7 @@ export default function BlogCard({ event }: BlogCardProps) {
           <div className={classnames("mt-2")}>
             <h3
               className={classnames(
-                "text-black text-base font-medium leading-7 tracking-wider capitalize"
+                "text-black text-base font-medium leading-7 tracking-wider capitalize",
               )}
             >
               {event.title}
@@ -52,7 +52,7 @@ export default function BlogCard({ event }: BlogCardProps) {
             <Link
               to="/jobs"
               className={classnames(
-                "bg-emerald-700 text-white p-2 rounded-md flex"
+                "bg-emerald-700 text-white p-2 rounded-md flex",
               )}
             >
               Read More

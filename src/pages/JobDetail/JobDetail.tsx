@@ -57,7 +57,7 @@ export default function JobDetail() {
             className={classNames(
               `border bg-white shadow-sm rounded-xl`,
               `px-8 py-8`,
-              `text-justify`
+              `text-justify`,
             )}
           >
             <div>
@@ -172,7 +172,7 @@ export default function JobDetail() {
       {/* Footer */}
       <div
         className={classNames(
-          `flex flex-col gap-2 items-center justify-center my-12`
+          `flex flex-col gap-2 items-center justify-center my-12`,
         )}
       >
         <h1 className={classNames(`text-3xl font-semibold`)}>

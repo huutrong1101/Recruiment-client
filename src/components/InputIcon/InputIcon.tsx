@@ -17,7 +17,7 @@ export default function InputIcon({
         `bg-white text-zinc-500`,
         `rounded-md`,
         `border w-full`,
-        wrapperClassName
+        wrapperClassName,
       )}
     >
       <div className={classnames(`w-[16px] mx-4`)}>{icon}</div>

@@ -16,7 +16,7 @@ export default function IncompleteConfirmEmail() {
       className={classNames(
         `px-10 py-8 rounded-[35px] w-full md:w-7/12 lg:w-5/12 xl:w-4/12 2xl:w-3/12`,
         `bg-[#176A4B]`,
-        `flex flex-col shadow-lg`
+        `flex flex-col shadow-lg`,
       )}
     >
       {/* Icons */}
@@ -43,7 +43,7 @@ export default function IncompleteConfirmEmail() {
       >
         <h1
           className={classNames(
-            `text-white text-3xl font-bold leading-10 my-4`
+            `text-white text-3xl font-bold leading-10 my-4`,
           )}
         >
           Everything is ready, only need one more step.

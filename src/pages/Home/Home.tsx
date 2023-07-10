@@ -39,7 +39,7 @@ export default function Home() {
         <div className={classnames("w-[45%] relative")}>
           <div
             className={classnames(
-              "absolute top-[50%] translate-y-[-50%] text-center"
+              "absolute top-[50%] translate-y-[-50%] text-center",
             )}
           >
             <h3 className={classnames("text-[54px] font-semibold")}>
@@ -63,12 +63,12 @@ export default function Home() {
       {/* SEARCH  */}
       <form
         className={classnames(
-          "flex border rounded-md shadow-md md:shadow-lg p-4 gap-4"
+          "flex border rounded-md shadow-md md:shadow-lg p-4 gap-4",
         )}
       >
         <div
           className={classnames(
-            "flex items-center flex-shrink-0 w-[49%] border-r-2"
+            "flex items-center flex-shrink-0 w-[49%] border-r-2",
           )}
         >
           <MagnifyingGlassIcon className={classnames(`w-[20px] ml-4`)} />
@@ -78,7 +78,7 @@ export default function Home() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className={classnames(
-              "w-[85%] h-full text-[17px] ml-3 focus:outline-none"
+              "w-[85%] h-full text-[17px] ml-3 focus:outline-none",
             )}
           />
         </div>
@@ -89,7 +89,7 @@ export default function Home() {
             <Menu.Button>
               <div
                 className={classnames(
-                  "ml-4 cursor-pointer flex items-center justify-between"
+                  "ml-4 cursor-pointer flex items-center justify-between",
                 )}
                 onClick={() => setShowType(!showType)}
               >
@@ -125,7 +125,7 @@ export default function Home() {
                               active
                                 ? "bg-gray-100 text-gray-900"
                                 : "text-gray-700",
-                              "block px-4 py-2 text-sm"
+                              "block px-4 py-2 text-sm",
                             )}
                             onClick={() => {
                               setType(type.name);
@@ -158,14 +158,14 @@ export default function Home() {
         <div className={classnames("text-center")}>
           <h3
             className={classnames(
-              "text-black text-2xl font-medium leading-7 tracking-wider capitalize"
+              "text-black text-2xl font-medium leading-7 tracking-wider capitalize",
             )}
           >
             Popular Jobs
           </h3>
           <p
             className={classnames(
-              "text-gray-400 text-center text-lg font-medium capitalize"
+              "text-gray-400 text-center text-lg font-medium capitalize",
             )}
           >
             Search all the open positions on the web. Get your own personalized
@@ -187,7 +187,7 @@ export default function Home() {
           <Link
             to="/jobs"
             className={classnames(
-              "bg-emerald-700 text-white p-3 rounded-md flex"
+              "bg-emerald-700 text-white p-3 rounded-md flex",
             )}
           >
             See more jobs
@@ -200,14 +200,14 @@ export default function Home() {
         <div className={classnames("text-center")}>
           <h3
             className={classnames(
-              "text-black text-2xl font-medium leading-7 tracking-wider capitalize"
+              "text-black text-2xl font-medium leading-7 tracking-wider capitalize",
             )}
           >
             Lastest Blog or News
           </h3>
           <p
             className={classnames(
-              "text-gray-400 text-center text-lg font-medium capitalize"
+              "text-gray-400 text-center text-lg font-medium capitalize",
             )}
           >
             Search all the open positions on the web. Get your own personalized
@@ -229,7 +229,7 @@ export default function Home() {
           <Link
             to="/"
             className={classnames(
-              "bg-emerald-700 text-white p-3 rounded-md flex"
+              "bg-emerald-700 text-white p-3 rounded-md flex",
             )}
           >
             See More News

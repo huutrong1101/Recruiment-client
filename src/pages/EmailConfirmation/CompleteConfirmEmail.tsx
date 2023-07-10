@@ -22,7 +22,7 @@ export default function CompleteConfirmEmail() {
       className={classNames(
         `px-10 py-8 rounded-[35px] w-full md:w-7/12 lg:w-5/12 xl:w-4/12 2xl:w-3/12`,
         `bg-[#176A4B]`,
-        `flex flex-col shadow-lg`
+        `flex flex-col shadow-lg`,
       )}
     >
       {/* Icons */}
@@ -46,11 +46,10 @@ export default function CompleteConfirmEmail() {
         enter="transform-gpu opacity-0"
         enterFrom="transform-gpu opacity-0 translate-y-12"
         enterTo="transform-gpu opacity-100 translate-y-0"
-        
       >
         <h1
           className={classNames(
-            `text-white text-3xl font-semibold leading-10 my-4`
+            `text-white text-3xl font-semibold leading-10 my-4`,
           )}
         >
           You are safety now, let's enjoy.
