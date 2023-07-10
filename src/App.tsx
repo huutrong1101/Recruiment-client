@@ -13,6 +13,7 @@ import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminProfile from "./pages/Admin/AdminProfile";
 import AdminChangePosition from "./pages/Admin/AdminChangePosition";
 import AddBlacklist from "./pages/Admin/AddBlacklist";
+import ManagetJobList from "./components/AdminManagerList/ManagetJobList";
 
 export default function App() {
   return (
@@ -30,6 +31,8 @@ export default function App() {
           <Route path="/admin" element={<AdminAppLayout />}>
             <Route path="AdminDashboard" index element={<AdminDashboard />} />
             <Route path="AdminProfile" index element={<AdminProfile />} />
+            <Route path="AdminJobManager" index element={<ManagetJobList />} />
+
             <Route
               path="ChangPosition"
               index

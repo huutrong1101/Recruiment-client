@@ -11,14 +11,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
   console.log(typeSelected);
   // Candidate.state
   let Candidate = [
-    {
-      name: "Nguyễn Văn A",
-      email: "Candidate@example.com",
-      phone: "0978123xxx",
-      day: "9/10/2002",
-      position: "Recruiter",
-      stateBlackList: 0,
-    },
+    {     name: "Nguyễn Văn A",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Recruiter",      stateBlackList: 0,   },
     {
       name: "Nguyễn Văn B",
       email: "Candidate@example.com",

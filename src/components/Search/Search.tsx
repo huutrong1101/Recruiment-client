@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { MagnifyingGlassIcon} from "@heroicons/react/24/outline";
-import SearchList_list from '../AdminManagerList/SearchList';
-import Tabbaradmin from '../Tabbaradmin/Tabbaradmin';
 
 function SearchBar() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -30,18 +28,8 @@ function SearchBar() {
           placeholder="Please enter a search"
           />
         </td>
-        <button type="submit" onClick={handleShowData1}>Search</button>
+        <button type="submit" >Search</button>
       </form>
-      { ShowSearch && (
-        <div>
-          <SearchList_list />
-        </div>
-      )}
-      {/* { ShowTabarAdmin && (
-        <div>
-          <Tabbaradmin />
-        </div>
-      )} */}
     </div>
   );
 }

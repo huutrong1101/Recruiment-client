@@ -24,30 +24,43 @@ export const links = [
       {
         name: "Calender",
         icon: <HiOutlineCalendarDays />,
-        mylink: "",
+        mylink: "recruiter/calender",
       },
       {
         name: "Interviewer",
         icon: <MdOutlineManageAccounts />,
-        mylink: "",
+        mylink: "recruiter/calender",
       },
       {
         name: "Candidate",
         icon: <HiOutlineUser />,
-        mylink: "",
+        mylink: "recruiter/candidate",
       },
       {
         name: "Job",
         icon: <HiOutlineFolder />,
-        mylink: "",
+        mylink: "recruiter/job-management",
       },
       {
         name: "Event",
         icon: <MdOutlineEventAvailable />,
-        mylink: "",
+        mylink: "recruiter/event",
       },
     ],
-  },
+  },{
+    title: "Manage",
+    links: [
+      {
+        name: "Admin Profile",
+        icon: <HiOutlineChartPie />,
+        mylink: "admin/AdminProfile",
+      },
+      {
+        name: "Job",
+        icon: <HiOutlineChartPie />,
+        mylink: "admin/AdminJobManager",
+      },],
+  }
 ];
 
 export default function AdminSidebar() {

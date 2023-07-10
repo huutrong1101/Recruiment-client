@@ -1,5 +1,4 @@
 import React from 'react'
-
 export default function NoteSuccessful() {
   return (
     <div className="w-[596px] h-[399px] relative bg-white">
