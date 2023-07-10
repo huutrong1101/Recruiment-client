@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
-import Container from "../Container/Container";
 
 export default function Navbar() {
   const [signedIn] = useState<boolean>(false);
@@ -19,14 +18,10 @@ export default function Navbar() {
       name: "Events",
       url: "/",
     },
-    {
-      name: "Dash board",
-      url: "rec",
-    },
   ]);
 
   return (
-    <Container>
+    <div className={classNames(`navbar`, `px-32`)}>
       <div
         className={classNames(
           `navbar-container`,
@@ -36,13 +31,10 @@ export default function Navbar() {
       >
         {/* Icons */}
         <div className={classNames(`flex flex-row items-center gap-12 flex-1`)}>
-          <Link
-            to="/"
-            className={classNames(`font-bold text-3xl`, `text-zinc-900`)}
-          >
+          <h1 className={classNames(`font-bold text-3xl`, `text-zinc-900`)}>
             JobPort
-          </Link>
-          <ul className="hidden md:block">
+          </h1>
+          <ul>
             <li className={classNames(`flex flex-row gap-12`, `font-semibold`)}>
               {leftMenu.map((item) => {
                 return (
@@ -93,6 +85,6 @@ export default function Navbar() {
           <div>User information</div>
         )}
       </div>
-    </Container>
+    </div>
   );
 }
