@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, Fragment } from "react";
 import home_page from "../../../images/home_page.png";
 import classnames from "classnames";
@@ -239,6 +240,29 @@ export default function Home() {
 
       {/* Explore jobs now  */}
       <Advertise />
+=======
+import React from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { setCounter } from "./slices/HomeSlice";
+
+export default function Home() {
+  const { Home } = useAppSelector((app) => app);
+  const dispatch = useAppDispatch();
+
+  const handleIncreaseButtonClick = () => {
+    dispatch(setCounter(Home.counter + 1));
+  };
+
+  return (
+    <div>
+      <div>Home redux counter {Home.counter}</div>
+      <button
+        className="bg bg-neutral-300 px-2 py-1 rounded"
+        onClick={handleIncreaseButtonClick}
+      >
+        Increase counter
+      </button>
+>>>>>>> 1379c11 (Revert "Merge branch 'feat/candidate-list-page' into 'main'")
     </div>
   );
 }

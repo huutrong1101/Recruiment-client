@@ -1,9 +1,12 @@
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
-
+import Navbar from "./components/Navbar/Navbar";
+import Login from "./pages/Authenticate/AuthenticateLogin";
+import classNames from "classnames";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import AuthenticateLogin from "./pages/Authenticate/AuthenticateLogin";
 import AuthenticateSignUp from "./pages/Authenticate/AuthenticateSignUp";
+<<<<<<< HEAD
 
 import UserAppLayout from "./components/Layout/UserAppLayout";
 import AdminAppLayout from "./components/Layout/AdminAppLayout";
@@ -42,10 +45,14 @@ import Reccer_candidateManagement from "./pages/Reccer/ReccercandidateManagement
 
 // Interviewer Pages
 import { CandidateRecent, InterviewRecent, InterviewQuestion } from "./pages/Interviewer/InterviewerPages";
+=======
+import VerifyEmail from "./pages/VerifyEmail/VerifyEmail";
+>>>>>>> 1379c11 (Revert "Merge branch 'feat/candidate-list-page' into 'main'")
 
 export default function App() {
   return (
     <BrowserRouter>
+<<<<<<< HEAD
       {/* Route switcher */}
       <Routes>
         <Route path="/" element={<UserAppLayout />}>
@@ -107,6 +114,23 @@ export default function App() {
         </Route>
         
       </Routes>
+=======
+      {/* Header navbar */}
+      <Navbar />
+
+      {/* Route switcher */}
+      <div className={classNames(`px-32`)}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/auth/" element={<Authenticate />}>
+            <Route index path="login" element={<AuthenticateLogin />} />
+            <Route index path="signup" element={<AuthenticateSignUp />} />
+            <Route index element={<Login />} />
+          </Route>
+          <Route path="/verify-email" element={<VerifyEmail />}></Route>
+        </Routes>
+      </div>
+>>>>>>> 1379c11 (Revert "Merge branch 'feat/candidate-list-page' into 'main'")
     </BrowserRouter>
   );
 }
