@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "prettier . --write"
   },
   "devDependencies": {
     "@headlessui/tailwindcss": "^0.1.3",
