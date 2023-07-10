@@ -24,7 +24,7 @@ export default function JobCard({ job }: MyComponentProps) {
     <>
       <div className="p-6 bg-white rounded-lg shadow-lg">
         <div className={classnames("flex items-start justify-between")}>
-          <img src={logo_FPT} alt="" />
+          <img src={logo_FPT} alt="" className="w-1/12" />
           <div
             className={classnames(
               "flex items-center flex-col leading-7 tracking-wider capitalize"
