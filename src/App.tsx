@@ -9,6 +9,9 @@ import UserAppLayout from "./components/Layout/UserAppLayout";
 import AdminAppLayout from "./components/Layout/AdminAppLayout";
 import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
 import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
+
+import Jobs from "./pages/Jobs/Jobs";
+import Events from "./pages/Events/Events";
 import EmailConfirmationLayout from "./pages/EmailConfirmation/EmailConfirmationLayout";
 import IncompleteConfirmEmail from "./pages/EmailConfirmation/IncompleteConfirmEmail";
 import CompleteConfirmEmail from "./pages/EmailConfirmation/CompleteConfirmEmail";

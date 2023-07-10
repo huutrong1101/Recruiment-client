@@ -19,10 +19,10 @@ export default function Navbar() {
       name: "Events",
       url: "/events",
     },
-    {
-      name: "Dash board",
-      url: "rec",
-    },
+    // {
+    //   name: "Dashboard",
+    //   url: "rec",
+    // },
   ]);
 
   return (
