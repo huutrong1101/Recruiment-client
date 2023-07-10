@@ -12,13 +12,14 @@ import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
 import EmailConfirmationLayout from "./pages/EmailConfirmation/EmailConfirmationLayout";
 import IncompleteConfirmEmail from "./pages/EmailConfirmation/IncompleteConfirmEmail";
 import CompleteConfirmEmail from "./pages/EmailConfirmation/CompleteConfirmEmail";
-import CandidateProfile from "./pages/Reccer/CandidateProfile";
 import ReccerDashboard from "./pages/Reccer/Reccer_dashboard";
+import CandidateProfile from "./pages/Reccer/CandidateProfile";
 import CandidateList from "./pages/Reccer/CandidateList";
 
 export default function App() {
   const activeMenu = false;
   return (
+    // <<<<<<< src/App.tsx
     <BrowserRouter>
       {/* Route switcher */}
 
