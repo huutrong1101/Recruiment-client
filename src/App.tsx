@@ -9,12 +9,17 @@ import UserAppLayout from "./components/Layout/UserAppLayout";
 import AdminAppLayout from "./components/Layout/AdminAppLayout";
 import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
 import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
+
+import Jobs from "./pages/Jobs/Jobs";
+import Events from "./pages/Events/Events";
 import EmailConfirmationLayout from "./pages/EmailConfirmation/EmailConfirmationLayout";
 import IncompleteConfirmEmail from "./pages/EmailConfirmation/IncompleteConfirmEmail";
 import CompleteConfirmEmail from "./pages/EmailConfirmation/CompleteConfirmEmail";
 import ReccerDashboard from "./pages/Reccer/Reccer_dashboard";
 import CandidateProfile from "./pages/Reccer/CandidateProfile";
 import CandidateList from "./pages/Reccer/CandidateList";
+import Jobs from "./pages/Jobs/Jobs";
+import Events from "./pages/Events/Events";
 
 export default function App() {
   const activeMenu = false;
@@ -37,6 +42,8 @@ export default function App() {
           </Route>
 
           <Route index element={<Home />} />
+          <Route index path="jobs" element={<Jobs />} />
+          <Route index path="events" element={<Events />} />
         </Route>
 
         <Route path="/admin" element={<AdminAppLayout />}>

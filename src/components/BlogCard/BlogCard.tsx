@@ -8,7 +8,7 @@ import {
   ClockIcon,
 } from "@heroicons/react/24/outline";
 
-interface MyComponentProps {
+interface BlogCardProps {
   event: {
     id: number;
     date: string;
@@ -17,7 +17,7 @@ interface MyComponentProps {
   };
 }
 
-export default function BlogCard({ event }: MyComponentProps) {
+export default function BlogCard({ event }: BlogCardProps) {
   return (
     <>
       <div className="bg-white rounded-lg shadow-lg ">
