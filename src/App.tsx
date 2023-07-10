@@ -1,21 +1,25 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
-import Navbar from "./components/Navbar/Navbar";
+import AdminAppLayout from "./components/Layout/AdminAppLayout";
+
+///
 import Login from "./pages/Authenticate/AuthenticateLogin";
 import classNames from "classnames";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import AuthenticateLogin from "./pages/Authenticate/AuthenticateLogin";
 import AuthenticateSignUp from "./pages/Authenticate/AuthenticateSignUp";
-import VerifyEmail from "./pages/VerifyEmail/VerifyEmail";
+
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import AdminProfile from "./pages/Admin/AdminProfile";
+import AdminChangePosition from "./pages/Admin/AdminChangePosition";
+import AddBlacklist from "./pages/Admin/AddBlacklist";
 
 export default function App() {
   return (
     <BrowserRouter>
       {/* Header navbar */}
-      <Navbar />
-
       {/* Route switcher */}
-      <div className={classNames(`px-32`)}>
+      <div className={classNames(``)}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/auth/" element={<Authenticate />}>
@@ -23,7 +27,16 @@ export default function App() {
             <Route index path="signup" element={<AuthenticateSignUp />} />
             <Route index element={<Login />} />
           </Route>
-          <Route path="/verify-email" element={<VerifyEmail />}></Route>
+          <Route path="/admin" element={<AdminAppLayout />}>
+            <Route path="AdminDashboard" index element={<AdminDashboard />} />
+            <Route path="AdminProfile" index element={<AdminProfile />} />
+            <Route
+              path="ChangPosition"
+              index
+              element={<AdminChangePosition />}
+            />
+            <Route path="AddBlacklist" index element={<AddBlacklist />} />
+          </Route>
         </Routes>
       </div>
     </BrowserRouter>

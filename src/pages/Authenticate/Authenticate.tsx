@@ -1,11 +1,12 @@
+import React from "react";
 import classnames from "classnames";
 import image from "../../../images/sprite.png";
 import { Outlet } from "react-router-dom";
 
 export default function Authenticate() {
   return (
-    <div className={classnames("flex flex-col md:flex-row  gap-12")}>
-      <div className="w-full md:w-2/3 lg:w-5/12 xl:w-4/12 2xl:w-3/12">
+    <div className={classnames("flex flex-row gap-12")}>
+      <div className="w-2/3 ">
         <Outlet />
       </div>
       {/* Browse Job Frame */}
@@ -13,7 +14,7 @@ export default function Authenticate() {
         className={classnames(
           `bg-[#176A4B] rounded-3xl px-6 py-4`,
           `shadow-md`,
-          `relative flex-1 flex flex-col gap-6`
+          `relative flex flex-col gap-6`
         )}
       >
         <h1
@@ -36,6 +37,7 @@ export default function Authenticate() {
         </div>
 
         <img
+          alt=""
           src={image}
           className={classnames(
             `right-0 bottom-[-120px] opacity-100`,
