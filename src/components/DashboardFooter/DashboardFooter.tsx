@@ -3,7 +3,7 @@ import React from "react";
 export default function DashboardFooter() {
   return (
     <>
-       <footer className="Footer w-full h-[72px] px-6 bg-white justify-between items-center inline-flex bottom-0 absolute">
+       <footer className="Footer w-full h-[72px] px-6 bg-white justify-between items-center inline-flex bottom-0 ">
         <div className="Copyright justify-start items-start inline-flex">
           <div className="2023Snow text-black text-opacity-40 text-[12px] font-normal leading-none">
             © 2023 Group2

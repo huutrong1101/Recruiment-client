@@ -21,7 +21,7 @@ export default function RecruiterAppLayout() {
           </nav>
 
           {/* Nav bar */}
-          <nav className="flex-1">
+          {/* <nav className="flex-1">
             <nav className="HeaderA w-full h-[72px] px-7 py-[22px] bg-white border border-black border-opacity-10 justify-center items-start gap-[616px] inline-flex">
               <div className="IconBreadcrumb justify-start items-center gap-2 inline-flex">
                 <div className="Button w-7 h-7 p-1 rounded-lg justify-center items-center gap-1 flex">
@@ -67,8 +67,9 @@ export default function RecruiterAppLayout() {
                 </div>
               </div>
             </nav>
-            <Outlet />
-          </nav>
+            
+          </nav> */}
+          <Outlet />
 
           {/* <!-- Footer --> */}
           <footer className=" ">
@@ -83,7 +84,7 @@ export default function RecruiterAppLayout() {
         </div>
       </div>
 
-      <DashboardFooter />
+      {/* <DashboardFooter /> */}
     </div>
   );
 }
