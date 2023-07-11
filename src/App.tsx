@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import AuthenticateLogin from "./pages/Authenticate/AuthenticateLogin";
 import AuthenticateSignUp from "./pages/Authenticate/AuthenticateSignUp";
+
 import UserAppLayout from "./components/Layout/UserAppLayout";
 import AdminAppLayout from "./components/Layout/AdminAppLayout";
 import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
@@ -15,7 +16,7 @@ import Contact from "./pages/Contact/Contact";
 import EmailConfirmationLayout from "./pages/EmailConfirmation/EmailConfirmationLayout";
 import IncompleteConfirmEmail from "./pages/EmailConfirmation/IncompleteConfirmEmail";
 import CompleteConfirmEmail from "./pages/EmailConfirmation/CompleteConfirmEmail";
-import ReccerDashboard from "./pages/Reccer/Reccer_dashboard";
+
 import CandidateProfile from "./pages/Reccer/CandidateProfile";
 import CandidateList from "./pages/Reccer/CandidateList";
 import JobDetail from "./pages/JobDetail/JobDetail";
@@ -24,18 +25,19 @@ import AdminProfile from "./pages/Admin/AdminProfile";
 import AdminChangePosition from "./pages/Admin/AdminChangePosition";
 import AddBlacklist from "./pages/Admin/AddBlacklist";
 import ManagetJobList from "./components/AdminManagerList/ManagetJobList";
-import Reccer_JobManagement from "./pages/Reccer/Reccer_JobManagement";
-import Reccer_dashboard from "./pages/Reccer/Reccer_dashboard";
-import Reccer_calender from "./pages/Reccer/Reccer_calender";
-import Reccer_InterviewerManagement from "./pages/Reccer/Reccer_InterviewerManagement";
-import Reccer_EventManagement from "./pages/Reccer/Reccer_EventManagement";
-import Reccer_candidateManagement from "./pages/Reccer/Reccer_candidateManagement";
+import Reccer_JobManagement from "./pages/Reccer/ReccerJobManagement";
+import ReccerDashboard from "./pages/Reccer/Reccerdashboard";
+import Reccer_calender from "./pages/Reccer/Reccercalender";
+
+import Reccer_InterviewerManagement from "./pages/Reccer/ReccerInterviewerManagement";
+import Reccer_EventManagement from "./pages/Reccer/ReccerEventManagement";
+import Reccer_candidateManagement from "./pages/Reccer/ReccercandidateManagement";
 
 export default function App() {
   return (
     <BrowserRouter>
       {/* Route switcher */}
-      
+
       <Routes>
         <Route path="/" element={<UserAppLayout />}>
           <Route index element={<Home />} />
@@ -72,10 +74,17 @@ export default function App() {
           <Route path="dashboard" index element={<ReccerDashboard />} />
           <Route path="candidateinfo" index element={<CandidateProfile />} />
           <Route path="candidatelist" index element={<CandidateList />} />
-          <Route path="dashboard"index element={<Reccer_dashboard />} />
-          <Route path="job-management" index element={<Reccer_JobManagement/>}/>
+          <Route path="dashboard" index element={<Reccer_dashboard />} />
+          <Route
+            path="job-management"
+            index
+            element={<Reccer_JobManagement />}
+          />
           <Route path="calender" element={<Reccer_calender />} />
-          <Route path="interviewer" element={<Reccer_InterviewerManagement />} />
+          <Route
+            path="interviewer"
+            element={<Reccer_InterviewerManagement />}
+          />
           <Route path="event" element={<Reccer_EventManagement />} />
           <Route path="candidate" element={<Reccer_candidateManagement />} />
         </Route>

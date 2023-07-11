@@ -29,7 +29,7 @@ export default function Rec_DashboardCard({ job }: MyComponentProps) {
         <div className={classnames("mt-4")}>
             <div className={classnames("flex text-2xl font-semibold")}>
               <p>{job.quantity}</p>
-              <p className="ml-[20%] text-sm my-2 gap-2 inline-flex">+{job.percentage}%</p>
+              <p className="ml-[32%] text-sm my-2 gap-2 inline-flex">+{job.percentage}%</p>
               <span className="flex justify-center items-center"><HiOutlineArrowTrendingUp/></span>
             </div>
         </div>

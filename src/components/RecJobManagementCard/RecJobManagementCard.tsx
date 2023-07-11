@@ -21,10 +21,10 @@ interface MyComponentProps {
 export default function Rec_DashboardCard({ job }: MyComponentProps) {
   return (
     <>
-      <div className="group relative overflow-hidden bg-white shadow hover:shadow-md dark:shadow-gray-700 rounded-md transition-all duration-500 h-fit">
+      <div className="group relative overflow-hidden bg-white shadow hover:shadow-md  rounded-md transition-all duration-500 h-fit">
         <div className="p-6">
           <div className="flex items-center">
-            <div className="w-14 h-14 min-w-[56px] flex items-center justify-center bg-white shadow dark:shadow-gray-700 rounded-md">
+            <div className="w-14 h-14 min-w-[56px] flex items-center justify-center bg-white shadow  rounded-md">
               <img className="my-3" src={logo_FPT} />
             </div>
 
