@@ -7,6 +7,7 @@ import Authenticate from "./pages/Authenticate/Authenticate";
 import AuthenticateLogin from "./pages/Authenticate/AuthenticateLogin";
 import AuthenticateSignUp from "./pages/Authenticate/AuthenticateSignUp";
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 import UserAppLayout from "./components/Layout/UserAppLayout";
 import AdminAppLayout from "./components/Layout/AdminAppLayout";
@@ -48,10 +49,14 @@ import { CandidateRecent, InterviewRecent, InterviewQuestion } from "./pages/Int
 =======
 import VerifyEmail from "./pages/VerifyEmail/VerifyEmail";
 >>>>>>> 1379c11 (Revert "Merge branch 'feat/candidate-list-page' into 'main'")
+=======
+import VerifyEmail from "./pages/VerifyEmail/VerifyEmail";
+>>>>>>> origin/main
 
 export default function App() {
   return (
     <BrowserRouter>
+<<<<<<< HEAD
 <<<<<<< HEAD
       {/* Route switcher */}
       <Routes>
@@ -115,6 +120,8 @@ export default function App() {
         
       </Routes>
 =======
+=======
+>>>>>>> origin/main
       {/* Header navbar */}
       <Navbar />
 
@@ -130,7 +137,10 @@ export default function App() {
           <Route path="/verify-email" element={<VerifyEmail />}></Route>
         </Routes>
       </div>
+<<<<<<< HEAD
 >>>>>>> 1379c11 (Revert "Merge branch 'feat/candidate-list-page' into 'main'")
+=======
+>>>>>>> origin/main
     </BrowserRouter>
   );
 }
