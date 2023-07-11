@@ -5,7 +5,6 @@ import Authenticate from "./pages/Authenticate/Authenticate";
 import AuthenticateLogin from "./pages/Authenticate/AuthenticateLogin";
 import AuthenticateSignUp from "./pages/Authenticate/AuthenticateSignUp";
 
-<<<<<<< HEAD
 import UserAppLayout from "./components/Layout/UserAppLayout";
 import AdminAppLayout from "./components/Layout/AdminAppLayout";
 import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
@@ -30,26 +29,12 @@ import Reccer_JobManagement from "./pages/Reccer/ReccerJobManagement";
 import ReccerDashboard from "./pages/Reccer/Reccerdashboard";
 import Reccer_calender from "./pages/Reccer/Reccercalender";
 
-=======
-import VerifyEmail from "./pages/VerifyEmail/VerifyEmail";
-import UserAppLayout from "./components/Layout/UserAppLayout";
-import AdminAppLayout from "./components/Layout/AdminAppLayout";
-import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
-
-import Reccer_JobManagement from "./pages/Reccer/ReccerJobManagement";
-import Reccer_dashboard from "./pages/Reccer/Reccerdashboard";
-import Reccer_calender from "./pages/Reccer/Reccercalender";
->>>>>>> db67dced58898f0df5667a34c64cef0bde41a4c6
 import Reccer_InterviewerManagement from "./pages/Reccer/ReccerInterviewerManagement";
 import Reccer_EventManagement from "./pages/Reccer/ReccerEventManagement";
 import Reccer_candidateManagement from "./pages/Reccer/ReccercandidateManagement";
 
 export default function App() {
   return (
-<<<<<<< HEAD
-=======
-
->>>>>>> db67dced58898f0df5667a34c64cef0bde41a4c6
     <BrowserRouter>
       {/* Route switcher */}
       <Routes>
