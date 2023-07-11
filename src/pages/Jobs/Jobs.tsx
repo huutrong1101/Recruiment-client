@@ -33,7 +33,7 @@ export default function Jobs() {
         {/* Sidebar Search  */}
         <div
           className={classNames(
-            "p-6 bg-white rounded-lg shadow-lg w-[30%] h-fit sticky top-1"
+            "p-6 bg-white rounded-lg shadow-lg w-[30%] h-fit sticky top-1",
           )}
         >
           {/* Search  */}
@@ -44,7 +44,7 @@ export default function Jobs() {
             <div
               className={classNames(
                 "flex items-center flex-shrink-0 w-full p-2 border rounded-full mt-2",
-                "focus-within:border-emerald-400"
+                "focus-within:border-emerald-400",
               )}
             >
               <MagnifyingGlassIcon className={classNames(`w-[20px]`)} />
@@ -56,7 +56,7 @@ export default function Jobs() {
                 type="text"
                 placeholder="Search your Keywords"
                 className={classNames(
-                  "w-[85%] h-full text-[12px] ml-3 focus:outline-none text-base text-gray-500"
+                  "w-[85%] h-full text-[12px] ml-3 focus:outline-none text-base text-gray-500",
                 )}
               />
             </div>
@@ -69,7 +69,7 @@ export default function Jobs() {
             <Menu as="div" className={classNames("relative mt-2")}>
               <Menu.Button
                 className={classNames(
-                  "cursor-pointer flex items-center justify-between w-full p-2 border rounded-full"
+                  "cursor-pointer flex items-center justify-between w-full p-2 border rounded-full",
                 )}
               >
                 <span className={classNames("ml-2 text-gray-500")}>
@@ -98,7 +98,7 @@ export default function Jobs() {
                               active
                                 ? "bg-gray-100 text-gray-900"
                                 : "text-gray-700",
-                              "block px-4 py-2 text-sm"
+                              "block px-4 py-2 text-sm",
                             )}
                             onClick={() =>
                               setDataSearch({
@@ -125,7 +125,7 @@ export default function Jobs() {
             <Menu as="div" className={classNames("relative mt-2")}>
               <Menu.Button
                 className={classNames(
-                  "cursor-pointer flex items-center justify-between w-full p-2 border rounded-full"
+                  "cursor-pointer flex items-center justify-between w-full p-2 border rounded-full",
                 )}
               >
                 <span className={classNames("ml-2 text-gray-500")}>
@@ -154,7 +154,7 @@ export default function Jobs() {
                               active
                                 ? "bg-gray-100 text-gray-900"
                                 : "text-gray-700",
-                              "block px-4 py-2 text-sm"
+                              "block px-4 py-2 text-sm",
                             )}
                             onClick={() =>
                               setDataSearch({
@@ -181,7 +181,7 @@ export default function Jobs() {
             <Menu as="div" className={classNames("relative mt-2")}>
               <Menu.Button
                 className={classNames(
-                  "cursor-pointer flex items-center justify-between w-full p-2 border rounded-full"
+                  "cursor-pointer flex items-center justify-between w-full p-2 border rounded-full",
                 )}
               >
                 <span className={classNames("ml-2 text-gray-500")}>
@@ -210,7 +210,7 @@ export default function Jobs() {
                               active
                                 ? "bg-gray-100 text-gray-900"
                                 : "text-gray-700",
-                              "block px-4 py-2 text-sm"
+                              "block px-4 py-2 text-sm",
                             )}
                             onClick={() =>
                               setDataSearch({
@@ -233,7 +233,7 @@ export default function Jobs() {
           <div className={classNames("mt-6")}>
             <button
               className={classNames(
-                "bg-emerald-700 text-white p-3 rounded-md flex w-full text-center items-center justify-center"
+                "bg-emerald-700 text-white p-3 rounded-md flex w-full text-center items-center justify-center",
               )}
               onClick={() => handleSearch()}
             >

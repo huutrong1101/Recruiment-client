@@ -29,7 +29,7 @@ function CandidateProfile() {
     { label: "Address", value: "Some where" },
     { label: "City", value: "Ho Chi Minh" },
     { label: "Country", value: "Viet Nam" },
-    { label: "Postal Code:", value: "111111" },
+    { label: "Postal Code", value: "111111" },
     { label: "Mobile", value: "123-456-7890" },
   ];
 
@@ -55,7 +55,7 @@ function CandidateProfile() {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 grid-rows-3 gap-4">
+        <div className="grid grid-cols-3 grid-rows-4 gap-0">
           {/* PERSONAL INFO */}
           <div className="col-start-3 row-span-3 row-start-1 px-8 py-4 mt-8 Info">
             <div className="sticky grid grid-cols-2 px-2 py-4 bg-gray-100 rounded-3xl drop-shadow-lg top-2">
