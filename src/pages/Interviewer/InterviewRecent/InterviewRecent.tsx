@@ -33,7 +33,6 @@ const InterviewRecent = () => {
     if(interviewsRecentStatus === STATUS.LOADING){
         return <Loader/>
     }else if(interviewsRecentStatus === STATUS.IDLE){
-   console.log(interviewsRecent.length);
         return (
             <div className="InterviewRecent">
                 <div className='mb-5 text-2xl'>Interview Recent</div>
