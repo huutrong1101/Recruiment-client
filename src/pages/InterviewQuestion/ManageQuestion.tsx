@@ -189,7 +189,6 @@ export default function QuestionInterview() {
                     </div>
                 </div>
             </div>
-            <DashBoardFooter/>
         </div>
     )
 }

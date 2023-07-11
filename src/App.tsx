@@ -9,8 +9,9 @@ import UserAppLayout from "./components/Layout/UserAppLayout";
 import AdminAppLayout from "./components/Layout/AdminAppLayout";
 import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
 import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
-import ManageQuestion from "./pages/InterviewQuestion/ManageQuestion"
-import ScorePage from "./pages/InterviewQuestion/ScorePage";
+import ManagementAppLayOut from "./components/Layout/ManagementAppLayOut/ManagementAppLayOut";
+// =======
+
 
 
 import Jobs from "./pages/Jobs/Jobs";
@@ -32,10 +33,15 @@ import ManagetJobList from "./components/AdminManagerList/ManagetJobList";
 import Reccer_JobManagement from "./pages/Reccer/ReccerJobManagement";
 import ReccerDashboard from "./pages/Reccer/Reccerdashboard";
 import Reccer_calender from "./pages/Reccer/Reccercalender";
+import ScorePage from "./pages/InterviewQuestion/ScorePage";
+import ManageQuestion from "./pages/InterviewQuestion/ManageQuestion";
 
 import Reccer_InterviewerManagement from "./pages/Reccer/ReccerInterviewerManagement";
 import Reccer_EventManagement from "./pages/Reccer/ReccerEventManagement";
 import Reccer_candidateManagement from "./pages/Reccer/ReccercandidateManagement";
+
+// Interviewer Pages
+import { CandidateRecent, InterviewRecent, InterviewQuestion } from "./pages/Interviewer/InterviewerPages";
 
 export default function App() {
   return (
@@ -88,6 +94,11 @@ export default function App() {
           <Route path="candidate" element={<Reccer_candidateManagement />} />
         </Route>
 
+        <Route path="/interviewer" element={<ManagementAppLayOut />}>
+          <Route path="interview-recent" element={<InterviewRecent />} />
+          <Route path="interview-question" element={<InterviewQuestion />} />
+          <Route path="candidate-recent" element={<CandidateRecent />} />
+        </Route>
         <Route path="/interviewer" element={<InterviewerAppLayout />}>
           {/* Define interviewer routes here */}
           {/* <Route index path ="/manageQuestion" element={<ManageQuestion />} /> */}
