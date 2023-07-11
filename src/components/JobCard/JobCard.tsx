@@ -8,7 +8,7 @@ import {
   ArrowRightIcon,
 } from "@heroicons/react/24/outline";
 
-interface MyComponentProps {
+interface JobCardProps {
   job: {
     jobId: number;
     createdAt: string;
@@ -19,15 +19,15 @@ interface MyComponentProps {
   };
 }
 
-export default function JobCard({ job }: MyComponentProps) {
+export default function JobCard({ job }: JobCardProps) {
   return (
     <>
       <div className="p-6 bg-white rounded-lg shadow-lg">
         <div className={classnames("flex items-start justify-between")}>
-          <img src={logo_FPT} alt="" />
+          <img src={logo_FPT} alt="" className="w-1/12" />
           <div
             className={classnames(
-              "flex items-center flex-col leading-7 tracking-wider capitalize"
+              "flex items-center flex-col leading-7 tracking-wider capitalize",
             )}
           >
             <h3 className={classnames("text-black text-lg font-medium ")}>
@@ -35,7 +35,7 @@ export default function JobCard({ job }: MyComponentProps) {
             </h3>
             <p
               className={classnames(
-                "text-gray-500 text-center text-sm font-normal "
+                "text-gray-500 text-center text-sm font-normal ",
               )}
             >
               {job.createdAt} days ago
@@ -43,7 +43,7 @@ export default function JobCard({ job }: MyComponentProps) {
           </div>
           <p
             className={classnames(
-              "text-green-500 text-center text-xs font-medium bg-slate-300 p-1 rounded-full px-2"
+              "text-green-500 text-center text-xs font-medium bg-slate-300 p-1 rounded-full px-2",
             )}
           >
             {job.jobType}
@@ -52,7 +52,7 @@ export default function JobCard({ job }: MyComponentProps) {
         <div className={classnames("mt-4")}>
           <h3
             className={classnames(
-              "text-black text-center text-lg font-medium leading-7 tracking-wider capitalize"
+              "text-black text-center text-lg font-medium leading-7 tracking-wider capitalize",
             )}
           >
             {job.name}
@@ -73,7 +73,7 @@ export default function JobCard({ job }: MyComponentProps) {
             <Link
               to="/jobs"
               className={classnames(
-                "bg-emerald-700 text-white p-2 rounded-md flex"
+                "bg-emerald-700 text-white p-2 rounded-md flex",
               )}
             >
               Read More

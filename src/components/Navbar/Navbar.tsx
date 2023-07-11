@@ -13,16 +13,16 @@ export default function Navbar() {
     },
     {
       name: "Jobs",
-      url: "/",
+      url: "/jobs",
     },
     {
       name: "Events",
-      url: "/",
+      url: "/events",
     },
-    {
-      name: "Dash board",
-      url: "rec",
-    },
+    // {
+    //   name: "Dashboard",
+    //   url: "rec",
+    // },
   ]);
 
   return (
@@ -31,7 +31,7 @@ export default function Navbar() {
         className={classNames(
           `navbar-container`,
           `py-6`,
-          `flex flex-row items-center`
+          `flex flex-row items-center`,
         )}
       >
         {/* Icons */}
@@ -52,7 +52,7 @@ export default function Navbar() {
                     className={classNames(
                       `py-4`,
                       `text-zinc-400 hover:text-zinc-600`,
-                      ` transition-colors ease-in-out `
+                      ` transition-colors ease-in-out `,
                     )}
                   >
                     {item.name}
@@ -72,7 +72,7 @@ export default function Navbar() {
                 `px-3 py-2`,
                 `bg-emerald-600 text-white hover:bg-emerald-700`,
                 `font-semibold`,
-                `rounded-xl`
+                `rounded-xl`,
               )}
             >
               Login
@@ -83,7 +83,7 @@ export default function Navbar() {
                 `px-3 py-2`,
                 `border-emerald-600 border text-emerald-600`,
                 `font-semibold`,
-                `rounded-xl`
+                `rounded-xl`,
               )}
             >
               Sign Up
