@@ -37,7 +37,7 @@ export default function AuthenticateLogin() {
         />
 
         {/* Remember Me */}
-        <div className="flex flex-row gap-4 w-full px-1 text-zinc-600">
+        <div className="flex flex-row w-full gap-4 px-1 text-zinc-600">
           <input type="checkbox" id="remember" />
           <label htmlFor="remember">Remember me</label>
         </div>

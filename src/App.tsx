@@ -1,8 +1,6 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
-import Navbar from "./components/Navbar/Navbar";
-import Login from "./pages/Authenticate/AuthenticateLogin";
-import classNames from "classnames";
+
 import Authenticate from "./pages/Authenticate/Authenticate";
 import AuthenticateLogin from "./pages/Authenticate/AuthenticateLogin";
 import AuthenticateSignUp from "./pages/Authenticate/AuthenticateSignUp";
