@@ -87,8 +87,8 @@ export const links = [
 const ManagementAppLayOut = () => {
     const [leftActive, setLeftActive] = useState<boolean>(false);
     const [rightActive, setRightActive] = useState<boolean>(false);
-    const activeLink = 'flex items-center gap-3 pl-4 py-1.5 rounded-lg text-black text-md m-2 bg-gray-200'
-    const normalLink = ' flex items-center gap-3 pl-4 py-1.5 rounded-lg text-black text-md text-gray-700 hover:bg-gray-200 m-2'
+    const activeLink = 'flex items-center gap-3 pl-4 py-1 rounded-lg text-black text-md  bg-gray-200 mt-1 mx-3'
+    const normalLink = ' flex items-center gap-3 pl-4 py-1 rounded-lg text-black text-md text-gray-700 hover:bg-gray-200 mt-1 mx-3'
 
     return (
         <div className="ManagementAppLayOut">
