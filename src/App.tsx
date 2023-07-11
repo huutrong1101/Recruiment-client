@@ -72,14 +72,10 @@ export default function App() {
         <Route path="/recruiter" element={<RecruiterAppLayout />}>
           {/* Define recruiter routes here */}
           <Route path="dashboard" index element={<ReccerDashboard />} />
-          <Route path="candidateinfo" index element={<CandidateProfile />} />
-          <Route path="candidatelist" index element={<CandidateList />} />
-          <Route path="dashboard" index element={<Reccer_dashboard />} />
-          <Route
-            path="job-management"
-            index
-            element={<Reccer_JobManagement />}
-          />
+          <Route path="candidateinfo" element={<CandidateProfile />} />
+          <Route path="candidatelist" element={<CandidateList />} />
+
+          <Route path="job-management" element={<Reccer_JobManagement />} />
           <Route path="calender" element={<Reccer_calender />} />
           <Route
             path="interviewer"
