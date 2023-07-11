@@ -27,7 +27,7 @@ export const data = {
       {
         jobId: 5,
         Type: "Jobs Posts",
-        quantity: "721K",
+        quantity: "7K",
         percentage: "11.01",
       },
       {
