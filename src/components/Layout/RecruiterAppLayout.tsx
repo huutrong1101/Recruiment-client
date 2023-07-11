@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter, Link, Outlet, Route, Routes } from "react-router-dom";
 import image from "../../../images/avatar.png";
-import Rec_LeftSidebar from "../Rec_LeftSidebar/Rec_LeftSidebar";
-import Rec_RightSidebar from "../Rec_RightSidebar/Rec_RightSidebar";
-import DashboardFooter from "../Rec_Footer/DashboardFooter";
-import Rec_Navbar from "../Rec_NavDashboard/Rec_Navbar"
+import Rec_LeftSidebar from "../RecLeftSidebar/RecLeftSidebar";
+import Rec_RightSidebar from "../RecRightSidebar/RecRightSidebar";
+import DashboardFooter from "../RecFooter/DashboardFooter";
+import Rec_Navbar from "../RecNavDashboard/RecNavbar"
 
 
 export default function RecruiterAppLayout() {

@@ -3,8 +3,8 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Link } from "react-router-dom";
-import { data } from "../../data/Rec_DashboardData";
-import RecCard from "../../components/Rec_DashboardCard/Rec_DashboardCard";
+import { data } from "../../data/RecDashboardData";
+import RecCard from "../../components/RecDashboardCard/RecDashboardCard";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -81,7 +81,7 @@ export default function Reccer_dashboard() {
                     {/* <!-- Card --> */}
                     {data.listJobs &&
                         data.listJobs.map((job) => (
-                            <div key={job.jobId} className=" px-4 mb-8 md:w-1/4 ">
+                            <div key={job.jobId} className=" px-4 mb-8 lg:w-1/4 md:w-1/2 ">
                                 <RecCard job={job} />
                             </div>
                         ))}

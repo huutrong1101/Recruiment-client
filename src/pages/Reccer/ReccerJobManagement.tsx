@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import { data } from "../../data/Rec_JobManagementData";
-import RecCard from "../../components/Rec_JobManagementCard/Rec_JobManagementCard";
+import RecCard from "../../components/RecJobManagementCard/RecJobManagementCard";
 export default function Reccer_JobManagement() {
     const [activeSearch, setActiveSearch] = useState([])
 

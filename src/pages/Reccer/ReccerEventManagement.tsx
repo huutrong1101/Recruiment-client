@@ -3,7 +3,7 @@ import React from 'react'
 const Reccer_EventManagement = () => {
   return (
     <div>
-      
+      Day la Event
     </div>
   )
 }
