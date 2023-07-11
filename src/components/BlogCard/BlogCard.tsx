@@ -8,7 +8,7 @@ import {
   ClockIcon,
 } from "@heroicons/react/24/outline";
 
-interface MyComponentProps {
+interface BlogCardProps {
   event: {
     id: number;
     date: string;
@@ -17,10 +17,10 @@ interface MyComponentProps {
   };
 }
 
-export default function BlogCard({ event }: MyComponentProps) {
+export default function BlogCard({ event }: BlogCardProps) {
   return (
     <>
-      <div className="bg-white rounded-lg shadow-lg ">
+      <div className="bg-white rounded-lg shadow-lg">
         <div className={classnames("w-full")}>
           <img
             src={blog_image}
@@ -42,7 +42,7 @@ export default function BlogCard({ event }: MyComponentProps) {
           <div className={classnames("mt-2")}>
             <h3
               className={classnames(
-                "text-black text-base font-medium leading-7 tracking-wider capitalize"
+                "text-black text-base font-medium leading-7 tracking-wider capitalize",
               )}
             >
               {event.title}
@@ -52,7 +52,7 @@ export default function BlogCard({ event }: MyComponentProps) {
             <Link
               to="/jobs"
               className={classnames(
-                "bg-emerald-700 text-white p-2 rounded-md flex"
+                "bg-emerald-700 text-white p-2 rounded-md flex",
               )}
             >
               Read More

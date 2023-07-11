@@ -4,45 +4,88 @@ import Home from "./pages/Home/Home";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import AuthenticateLogin from "./pages/Authenticate/AuthenticateLogin";
 import AuthenticateSignUp from "./pages/Authenticate/AuthenticateSignUp";
-// <<<<<<< src/App.tsx
-import VerifyEmail from "./pages/VerifyEmail/VerifyEmail";
+
 import UserAppLayout from "./components/Layout/UserAppLayout";
 import AdminAppLayout from "./components/Layout/AdminAppLayout";
 import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
 import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
-// =======
-import ReccerDashboard from "./pages/Reccer/Reccer_dashboard";
 import ManageQuestion from "./pages/InterviewQuestion/ManageQuestion"
 import ScorePage from "./pages/InterviewQuestion/ScorePage";
 
 
+import Jobs from "./pages/Jobs/Jobs";
+import Events from "./pages/Events/Events";
+import EventDetail from "./pages/EventDetail/EventDetail";
+import Contact from "./pages/Contact/Contact";
+import EmailConfirmationLayout from "./pages/EmailConfirmation/EmailConfirmationLayout";
+import IncompleteConfirmEmail from "./pages/EmailConfirmation/IncompleteConfirmEmail";
+import CompleteConfirmEmail from "./pages/EmailConfirmation/CompleteConfirmEmail";
+
+import CandidateProfile from "./pages/Reccer/CandidateProfile";
+import CandidateList from "./pages/Reccer/CandidateList";
+import JobDetail from "./pages/JobDetail/JobDetail";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import AdminProfile from "./pages/Admin/AdminProfile";
+import AdminChangePosition from "./pages/Admin/AdminChangePosition";
+import AddBlacklist from "./pages/Admin/AddBlacklist";
+import ManagetJobList from "./components/AdminManagerList/ManagetJobList";
+import Reccer_JobManagement from "./pages/Reccer/ReccerJobManagement";
+import ReccerDashboard from "./pages/Reccer/Reccerdashboard";
+import Reccer_calender from "./pages/Reccer/Reccercalender";
+
+import Reccer_InterviewerManagement from "./pages/Reccer/ReccerInterviewerManagement";
+import Reccer_EventManagement from "./pages/Reccer/ReccerEventManagement";
+import Reccer_candidateManagement from "./pages/Reccer/ReccercandidateManagement";
 
 export default function App() {
-  const activeMenu = false;
   return (
-// <<<<<<< src/App.tsx
     <BrowserRouter>
       {/* Route switcher */}
-
       <Routes>
         <Route path="/" element={<UserAppLayout />}>
-          <Route path="auth" element={<Authenticate />}>
-            <Route index path="login" element={<AuthenticateLogin />} />
-            <Route index path="signup" element={<AuthenticateSignUp />} />
-            <Route index element={<AuthenticateLogin />} />
-          </Route>
-          <Route path="/verify-email" element={<VerifyEmail />}></Route>
-
           <Route index element={<Home />} />
+          <Route path="jobs" element={<Jobs />} />
+          <Route path="/jobs/:jobId" element={<JobDetail />} />
+          <Route path="events" element={<Events />} />
+
+          <Route path="/events/:eventId" element={<EventDetail />} />
+          <Route path="contact" element={<Contact />} />
+
+          <Route path="auth" element={<Authenticate />}>
+            <Route path="login" element={<AuthenticateLogin />} />
+            <Route path="signup" element={<AuthenticateSignUp />} />
+            <Route element={<AuthenticateLogin />} />
+          </Route>
+
+          <Route path="/email" element={<EmailConfirmationLayout />}>
+            <Route path="incomplete" element={<IncompleteConfirmEmail />} />
+            <Route path="complete" element={<CompleteConfirmEmail />} />
+          </Route>
         </Route>
 
         <Route path="/admin" element={<AdminAppLayout />}>
-          {/* Define admin routes here */}
+          <Route path="AdminDashboard" index element={<AdminDashboard />} />
+          <Route path="ChangPosition" element={<AdminChangePosition />} />
+
+          <Route path="AddBlacklist" element={<AddBlacklist />} />
+          <Route path="AdminProfile" element={<AdminProfile />} />
+          <Route path="AdminJobManager" element={<ManagetJobList />} />
         </Route>
 
         <Route path="/recruiter" element={<RecruiterAppLayout />}>
           {/* Define recruiter routes here */}
-          <Route index element={<ReccerDashboard />} />
+          <Route path="dashboard" index element={<ReccerDashboard />} />
+          <Route path="candidateinfo" element={<CandidateProfile />} />
+          <Route path="candidatelist" element={<CandidateList />} />
+
+          <Route path="job-management" element={<Reccer_JobManagement />} />
+          <Route path="calender" element={<Reccer_calender />} />
+          <Route
+            path="interviewer"
+            element={<Reccer_InterviewerManagement />}
+          />
+          <Route path="event" element={<Reccer_EventManagement />} />
+          <Route path="candidate" element={<Reccer_candidateManagement />} />
         </Route>
 
         <Route path="/interviewer" element={<InterviewerAppLayout />}>
@@ -54,49 +97,5 @@ export default function App() {
         
       </Routes>
     </BrowserRouter>
-// =======
-//     <div>
-//       <BrowserRouter>
-//         <div className="">
-//           {activeMenu ? (
-//             <div className="">
-//               <Sidebar_Rec/>
-//             </div>
-//           ) : (
-//             <div className="">
-//               <Sidebar_Rec/>
-//             </div>
-//           )}
-//           <div
-//             className={
-//               activeMenu
-//                 ? 'min-h-screen md:ml-72 w-full  '
-//                 : 'w-full min-h-screen flex-2 '
-//             }
-//           >
-//             <div className="fixed md:static navbar w-full ">
-//               {/* <Nav_Rec/> */}
-//             </div>
-//           </div>
-//           <div>
-//             <Routes>
-//               <Route path="/default" element="Default"/>
-//               <Route path="/calender" element="Calender"/>
-//               <Route path="/interviewer" element="Interviewer"/>
-//               <Route path="/candidate" element="Candidate"/>
-//               <Route path="/job" element="Jobs"/>
-//               <Route path="/event" element="Event"/>
-
-//             </Routes>
-//           </div>
-//           <div className="fixed md:static w-1/3 ">
-//             {/* RightSideBar */}
-//           </div>
-
-
-//         </div>
-//       </BrowserRouter>
-//     </div>
-// >>>>>>> src/App.tsx
   );
 }
