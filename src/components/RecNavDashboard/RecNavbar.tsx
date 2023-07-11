@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom'
 
 import { PiSidebar, PiStarLight } from "react-icons/pi";
 
-const Rec_Navbar = () => {
+export default function RecNavbar() {
   return (
     <>
     <div className='ml-[0.5%]'>
@@ -27,14 +27,9 @@ const Rec_Navbar = () => {
         <span className="relative text-black ">Default</span>
       </button >
       </div>
-
-
-
-
     </>
 
   )
 }
 
-export default Rec_Navbar
 
