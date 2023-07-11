@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import HomeSlice from "../pages/Home/slices/HomeSlice";
+import NavbarSlice from "../components/Navbar/slices/NavbarSlice";
 
 export const ApplicationStore = configureStore({
   reducer: {
     Home: HomeSlice,
+    Navbar: NavbarSlice,
   },
 });
 
