@@ -24,13 +24,12 @@ import AdminProfile from "./pages/Admin/AdminProfile";
 import AdminChangePosition from "./pages/Admin/AdminChangePosition";
 import AddBlacklist from "./pages/Admin/AddBlacklist";
 import ManagetJobList from "./components/AdminManagerList/ManagetJobList";
-import AboutUs from "./pages/AboutUs/AboutUs";
 
 export default function App() {
   return (
     <BrowserRouter>
       {/* Route switcher */}
-      
+
       <Routes>
         <Route path="/" element={<UserAppLayout />}>
           <Route index element={<Home />} />
@@ -40,7 +39,6 @@ export default function App() {
 
           <Route path="/events/:eventId" element={<EventDetail />} />
           <Route path="contact" element={<Contact />} />
-          <Route path="aboutus" element={<AboutUs />} />
 
           <Route path="auth" element={<Authenticate />}>
             <Route path="login" element={<AuthenticateLogin />} />

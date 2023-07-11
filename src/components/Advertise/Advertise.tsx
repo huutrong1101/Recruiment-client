@@ -4,7 +4,7 @@ import classnames from "classnames";
 export default function Advertise() {
   return (
     <>
-      <div className="mt-[80px] bg-white shadow-lg border border-gray-100 p-6">
+      <div className="my-[40px] md:my-[80px] bg-white shadow-lg border border-gray-100 p-6">
         <h3
           className={classnames(
             "text-black text-xl md:text-2xl font-medium leading-7 tracking-wider capitalize",
@@ -12,7 +12,7 @@ export default function Advertise() {
         >
           Explore jobs Now
         </h3>
-        <div className={classnames("flex items-center justify-between gap-3")}>
+        <div className={classnames("flex items-center justify-between gap-4")}>
           <div className={classnames("w-2/3 md:w-[80%]")}>
             <p
               className={classnames(

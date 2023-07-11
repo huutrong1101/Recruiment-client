@@ -49,7 +49,7 @@ export default function Home() {
           >
             <h3
               className={classnames(
-                "text-[20px] md:text-[35px] lg:text-[48px] font-semibold",
+                "text-[18px] md:text-[25px] lg:text-[48px] font-semibold",
               )}
             >
               Join Us &{" "}
@@ -60,7 +60,7 @@ export default function Home() {
             </h3>
             <p
               className={classnames(
-                "text-[12px] md:text-[20px] font-semibold text-gray-500",
+                "text-[12px] md:text-[18px] font-semibold text-gray-500",
               )}
             >
               Find Jobs, Employment & Career Opportunities. Some of the
@@ -74,12 +74,12 @@ export default function Home() {
       {/* SEARCH  */}
       <form
         className={classnames(
-          "flex border rounded-md shadow-md md:shadow-lg p-1 gap-4",
+          "flex flex-col border rounded-md shadow-md md:shadow-lg md:flex-row p-3 gap-4 mt-[40px] md:mt-[80px]",
         )}
       >
         <div
           className={classnames(
-            "flex items-center flex-shrink-0 w-1/3 md:w-[49%] border-r-2",
+            "flex w-full items-center flex-shrink-0 md:w-[49%] border-r-2",
           )}
         >
           <MagnifyingGlassIcon
@@ -98,28 +98,26 @@ export default function Home() {
 
         <div
           className={classnames(
-            "flex items-center w-1/3 md:w-[27%] border-r-2",
+            "flex items-center w-full gap-4 md:w-[27%] border-r-2",
           )}
         >
           <CakeIcon className={classnames(`w-[20px] md:ml-4`)} />
-          <Menu as="div" className={classnames("relative")}>
-            <Menu.Button>
+          <Menu as="div" className={classnames("relative w-full")}>
+            <Menu.Button className={classnames("w-full")}>
               <div
                 className={classnames(
-                  "text-[13px] ml-4 cursor-pointer flex items-center justify-between",
+                  "text-[13px] cursor-pointer flex items-center justify-between",
                 )}
                 onClick={() => setShowType(!showType)}
               >
                 {type}
                 {showType && (
-                  <ChevronUpIcon className={classnames("w-[20px] ml-4")} />
+                  <ChevronUpIcon className={classnames("w-[20px] mr-4")} />
                 )}
                 {!showType && (
-                  <ChevronDownIcon className={classnames("w-[20px] ml-4")} />
+                  <ChevronDownIcon className={classnames("w-[20px] mr-4")} />
                 )}
               </div>
-
-              {/* Drop down  */}
             </Menu.Button>
 
             <Transition
@@ -162,11 +160,11 @@ export default function Home() {
 
         <div
           className={classnames(
-            "w-1/3 md:w-[24%] flex items-center justify-center",
+            "w-full md:w-[24%] flex items-center justify-center",
           )}
         >
           <button
-            className="w-[80%] h-[56px] border rounded-md bg-emerald-700 shadow-md text-white"
+            className="w-[50%] md:w-[80%] md:h-[56px] border rounded-md bg-emerald-700 shadow-md text-white"
             onClick={() => handleSubmit()}
           >
             Search
