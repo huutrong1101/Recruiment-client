@@ -5,6 +5,7 @@ import LeftSidebar from "../AdminSidebar/AdminSidebar";
 
 import Footer from "../../components/Footer/Footer";
 import Rec_RightSidebar from "../RecRightSidebar/RecRightSidebar";
+import DashboardFooter from "../RecFooter/DashboardFooter";
 
 export default function AdminAppLayout() {
   return (
@@ -40,7 +41,8 @@ export default function AdminAppLayout() {
 
         <Outlet />
         <div>
-          <Footer />
+          {/* <Footer /> */}
+          <DashboardFooter />
         </div>
       </div>
       <div className="w-1/6 flex-1 ">
