@@ -16,20 +16,22 @@ export default function Footer() {
       <Container className={"footer-container"}>
         <div
           className={classNames(
-            "flex items-center justify-between py-5 border-b border-white",
+            "flex flex-col md:flex-row md:items-center justify-between py-5 border-b border-white",
           )}
         >
           <div>
             <h3
               className={classNames(
-                "text-white text-xl font-semibold leading-28 tracking-wide capitalize",
+                "text-white py-2 md:px-0 text-xl font-semibold leading-28 tracking-wide capitalize",
               )}
             >
               Product by Group 2
             </h3>
           </div>
           <div className={classNames("text-zinc-300 text-base leading-6")}>
-            <ul className={classNames("flex justify-evenly gap-6")}>
+            <ul
+              className={classNames("flex flex-col md:flex-row-reverse gap-6")}
+            >
               <li>
                 <Link to="/">Home</Link>
               </li>

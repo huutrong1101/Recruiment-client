@@ -5,7 +5,12 @@ import { Outlet } from "react-router-dom";
 
 export default function Authenticate() {
   return (
-    <div className={classnames("flex flex-col md:flex-row gap-12")}>
+    <div
+      className={classnames(
+        "flex flex-col md:flex-row gap-12",
+        `min-h-[100vh] mb-36`,
+      )}
+    >
       <div className="w-full md:w-1/3 lg:w-4/12 xl:w-3/12 ">
         <Outlet />
       </div>
@@ -37,7 +42,7 @@ export default function Authenticate() {
         </div>
 
         <img
-          alt=""
+          alt="Authenticate block decoration"
           src={image}
           className={classnames(
             `right-0 bottom-[-120px] opacity-100`,
