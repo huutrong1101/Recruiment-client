@@ -30,15 +30,15 @@ import AdminProfile from "./pages/Admin/AdminProfile";
 import AdminChangePosition from "./pages/Admin/AdminChangePosition";
 import AddBlacklist from "./pages/Admin/AddBlacklist";
 import ManagetJobList from "./components/AdminManagerList/ManagetJobList";
-import Reccer_JobManagement from "./pages/Reccer/ReccerJobManagement";
+import ReccerJobManagement from "./pages/Reccer/ReccerJobManagement";
 import ReccerDashboard from "./pages/Reccer/Reccerdashboard";
-import Reccer_calender from "./pages/Reccer/Reccercalender";
+import Reccercalender from "./pages/Reccer/Reccercalender";
 import ScorePage from "./pages/InterviewQuestion/ScorePage";
 import ManageQuestion from "./pages/InterviewQuestion/ManageQuestion";
 
-import Reccer_InterviewerManagement from "./pages/Reccer/ReccerInterviewerManagement";
-import Reccer_EventManagement from "./pages/Reccer/ReccerEventManagement";
-import Reccer_candidateManagement from "./pages/Reccer/ReccercandidateManagement";
+import ReccerInterviewerManagement from "./pages/Reccer/ReccerInterviewerManagement";
+import ReccerEventManagement from "./pages/Reccer/ReccerEventManagement";
+import ReccercandidateManagement from "./pages/Reccer/ReccercandidateManagement";
 
 // Interviewer Pages
 import { CandidateRecent, InterviewRecent, InterviewQuestion } from "./pages/Interviewer/InterviewerPages";
@@ -70,7 +70,7 @@ export default function App() {
           </Route>
         </Route>
 
-        <Route path="/admin" element={<AdminAppLayout />}>
+        <Route path="/admin" element={<ManagementAppLayOut />}>
           <Route path="AdminDashboard" index element={<AdminDashboard />} />
           <Route path="ChangPosition" element={<AdminChangePosition />} />
 
@@ -79,21 +79,20 @@ export default function App() {
           <Route path="AdminJobManager" element={<ManagetJobList />} />
         </Route>
 
-        <Route path="/recruiter" element={<RecruiterAppLayout />}>
+        <Route path="/recruiter" element={<ManagementAppLayOut />}>
           {/* Define recruiter routes here */}
           <Route path="dashboard" index element={<ReccerDashboard />} />
           <Route path="candidateinfo" element={<CandidateProfile />} />
           <Route path="candidatelist" element={<CandidateList />} />
 
-          <Route path="job-management" element={<Reccer_JobManagement />} />
-          <Route path="jobdetail" element={<ReccerJobDetail/>} />
-          <Route path="calender" element={<Reccer_calender />} />
+          <Route path="job-management" element={<ReccerJobManagement />} />
+          <Route path="calender" element={<Reccercalender />} />
           <Route
             path="interviewer"
-            element={<Reccer_InterviewerManagement />}
+            element={<ReccerInterviewerManagement />}
           />
-          <Route path="event" element={<Reccer_EventManagement />} />
-          <Route path="candidate" element={<Reccer_candidateManagement />} />
+          <Route path="event" element={<ReccerEventManagement />} />
+          <Route path="candidate" element={<ReccercandidateManagement />} />
         </Route>
 
         <Route path="/interviewer" element={<ManagementAppLayOut />}>
