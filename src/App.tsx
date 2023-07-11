@@ -20,6 +20,12 @@ import CandidateProfile from "./pages/Reccer/CandidateProfile";
 import CandidateList from "./pages/Reccer/CandidateList";
 import JobDetail from "./pages/JobDetail/JobDetail";
 
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import AdminProfile from "./pages/Admin/AdminProfile";
+import AdminChangePosition from "./pages/Admin/AdminChangePosition";
+import AddBlacklist from "./pages/Admin/AddBlacklist";
+import ManagetJobList from "./components/AdminManagerList/ManagetJobList";
+
 export default function App() {
   const activeMenu = false;
   return (
@@ -34,7 +40,6 @@ export default function App() {
             <Route index path="signup" element={<AuthenticateSignUp />} />
             <Route index element={<AuthenticateLogin />} />
           </Route>
-
           <Route path="/email" element={<EmailConfirmationLayout />}>
             <Route path="incomplete" element={<IncompleteConfirmEmail />} />
             <Route path="complete" element={<CompleteConfirmEmail />} />
@@ -47,9 +52,30 @@ export default function App() {
           <Route index path="events" element={<Events />} />
         </Route>
 
-        <Route path="/admin" element={<AdminAppLayout />}>
-          {/* Define admin routes here */}
-        </Route>
+         <Route path="/admin" element={<AdminAppLayout />}>
+
+            <Route path="AdminDashboard" index element={<AdminDashboard />} />
+          <Route path="/email" element={<EmailConfirmationLayout />}>
+            <Route path="AdminProfile" index element={<AdminProfile />} />
+            <Route path="incomplete" element={<IncompleteConfirmEmail />} />
+            <Route path="AdminJobManager" index element={<ManagetJobList />} />
+            <Route path="complete" element={<CompleteConfirmEmail />} />
+
+          </Route>
+            <Route
+
+              path="ChangPosition"
+          <Route path="/jobs/:jobId" element={<JobDetail />} />
+              index
+
+              element={<AdminChangePosition />}
+          <Route index element={<Home />} />
+            />
+          <Route index path="jobs" element={<Jobs />} />
+            <Route path="AddBlacklist" index element={<AddBlacklist />} />
+          <Route index path="events" element={<Events />} />
+          </Route>
+
 
         <Route path="/recruiter" element={<RecruiterAppLayout />}>
           {/* Define recruiter routes here */}
@@ -63,6 +89,7 @@ export default function App() {
         </Route>
         <Route path="/" element={<CandidateProfile />} />
       </Routes>
+
     </BrowserRouter>
   );
 }
