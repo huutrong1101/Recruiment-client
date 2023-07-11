@@ -19,7 +19,7 @@ export default function AuthenticateSignUp() {
       )}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="mx-6 items-center flex flex-col gap-4 w-2/3">
+      <div className="mx-6 items-center flex flex-col gap-4 w-full">
         <h1 className="text-xl font-semibold">Sign up</h1>
 
         {/* Input group with icons */}
