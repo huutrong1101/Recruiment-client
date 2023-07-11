@@ -9,6 +9,10 @@ import UserAppLayout from "./components/Layout/UserAppLayout";
 import AdminAppLayout from "./components/Layout/AdminAppLayout";
 import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
 import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
+import ManageQuestion from "./pages/InterviewQuestion/ManageQuestion"
+import ScorePage from "./pages/InterviewQuestion/ScorePage";
+
+
 import Jobs from "./pages/Jobs/Jobs";
 import Events from "./pages/Events/Events";
 import EventDetail from "./pages/EventDetail/EventDetail";
@@ -86,9 +90,11 @@ export default function App() {
 
         <Route path="/interviewer" element={<InterviewerAppLayout />}>
           {/* Define interviewer routes here */}
+          {/* <Route index path ="/manageQuestion" element={<ManageQuestion />} /> */}
+          <Route index path ="manageQuestion" element={<ManageQuestion />} />
+          <Route index path ="scorePage" element={<ScorePage />} />
         </Route>
-
-        {/* <Route path="/" element={<CandidateProfile />} /> */}
+        
       </Routes>
     </BrowserRouter>
   );
