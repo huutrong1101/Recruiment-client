@@ -4,7 +4,6 @@ import home from '../../pages/Home/Home'
 export default function DashboardFooter() {
   return (
     <>
-
       <footer className="bg-white pb-1">
         <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
           <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="#" className="hover:underline ml-1" >Group 2</a>
