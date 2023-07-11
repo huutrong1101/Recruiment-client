@@ -12,8 +12,6 @@ import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
 import ManagementAppLayOut from "./components/Layout/ManagementAppLayOut/ManagementAppLayOut";
 // =======
 
-
-
 import Jobs from "./pages/Jobs/Jobs";
 import Events from "./pages/Events/Events";
 import EventDetail from "./pages/EventDetail/EventDetail";
@@ -41,7 +39,11 @@ import ReccerEventManagement from "./pages/Reccer/ReccerEventManagement";
 import ReccercandidateManagement from "./pages/Reccer/ReccercandidateManagement";
 
 // Interviewer Pages
-import { CandidateRecent, InterviewRecent, InterviewQuestion } from "./pages/Interviewer/InterviewerPages";
+import {
+  CandidateRecent,
+  InterviewRecent,
+  InterviewQuestion,
+} from "./pages/Interviewer/InterviewerPages";
 import ReccerJobDetail from "./pages/Reccer/Jobs/ReccerJobDetail";
 
 export default function App() {
@@ -87,10 +89,8 @@ export default function App() {
 
           <Route path="job-management" element={<ReccerJobManagement />} />
           <Route path="calender" element={<Reccercalender />} />
-          <Route
-            path="interviewer"
-            element={<ReccerInterviewerManagement />}
-          />
+          <Route path="jobdetail" element={<ReccerJobDetail />} />
+          <Route path="interviewer" element={<ReccerInterviewerManagement />} />
           <Route path="event" element={<ReccerEventManagement />} />
           <Route path="candidate" element={<ReccercandidateManagement />} />
         </Route>
@@ -103,10 +103,9 @@ export default function App() {
         <Route path="/interviewer" element={<InterviewerAppLayout />}>
           {/* Define interviewer routes here */}
           {/* <Route index path ="/manageQuestion" element={<ManageQuestion />} /> */}
-          <Route index path ="manageQuestion" element={<ManageQuestion />} />
-          <Route index path ="scorePage" element={<ScorePage />} />
+          <Route index path="manageQuestion" element={<ManageQuestion />} />
+          <Route index path="scorePage" element={<ScorePage />} />
         </Route>
-        
       </Routes>
     </BrowserRouter>
   );
