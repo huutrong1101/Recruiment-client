@@ -78,7 +78,7 @@ export default function App() {
           <Route path="AdminJobManager" element={<ManagetJobList />} />
         </Route>
 
-        <Route path="/recruiter" element={<RecruiterAppLayout />}>
+        <Route path="/recruiter" element={<ManagementAppLayOut />}>
           {/* Define recruiter routes here */}
           <Route path="dashboard" index element={<ReccerDashboard />} />
           <Route path="candidateinfo" element={<CandidateProfile />} />
