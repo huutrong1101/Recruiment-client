@@ -1,7 +1,7 @@
 import {
     MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import DashBoardFooter from "../../components/DashboardFooter/DashboardFooter"
+import DashBoardFooter from "../../components/RecFooter/DashboardFooter"
 export default function QuestionInterview() {
     return (
         <div>
