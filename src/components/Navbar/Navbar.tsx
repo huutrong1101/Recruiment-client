@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
+import Container from "../Container/Container";
 
 export default function Navbar() {
   const [signedIn] = useState<boolean>(false);
@@ -12,29 +13,36 @@ export default function Navbar() {
     },
     {
       name: "Jobs",
-      url: "/",
+      url: "/jobs",
     },
     {
       name: "Events",
-      url: "/",
+      url: "/events",
     },
+    // {
+    //   name: "Dashboard",
+    //   url: "rec",
+    // },
   ]);
 
   return (
-    <div className={classNames(`navbar`, `px-32`)}>
+    <Container>
       <div
         className={classNames(
           `navbar-container`,
           `py-6`,
-          `flex flex-row items-center`
+          `flex flex-row items-center`,
         )}
       >
         {/* Icons */}
         <div className={classNames(`flex flex-row items-center gap-12 flex-1`)}>
-          <h1 className={classNames(`font-bold text-3xl`, `text-zinc-900`)}>
+          <Link
+            to="/"
+            className={classNames(`font-bold text-3xl`, `text-zinc-900`)}
+          >
             JobPort
-          </h1>
-          <ul>
+          </Link>
+          <ul className="hidden md:block">
             <li className={classNames(`flex flex-row gap-12`, `font-semibold`)}>
               {leftMenu.map((item) => {
                 return (
@@ -44,7 +52,7 @@ export default function Navbar() {
                     className={classNames(
                       `py-4`,
                       `text-zinc-400 hover:text-zinc-600`,
-                      ` transition-colors ease-in-out `
+                      ` transition-colors ease-in-out `,
                     )}
                   >
                     {item.name}
@@ -64,7 +72,7 @@ export default function Navbar() {
                 `px-3 py-2`,
                 `bg-emerald-600 text-white hover:bg-emerald-700`,
                 `font-semibold`,
-                `rounded-xl`
+                `rounded-xl`,
               )}
             >
               Login
@@ -75,7 +83,7 @@ export default function Navbar() {
                 `px-3 py-2`,
                 `border-emerald-600 border text-emerald-600`,
                 `font-semibold`,
-                `rounded-xl`
+                `rounded-xl`,
               )}
             >
               Sign Up
@@ -85,6 +93,6 @@ export default function Navbar() {
           <div>User information</div>
         )}
       </div>
-    </div>
+    </Container>
   );
 }

@@ -10,7 +10,8 @@ export default function InputIcon({ icon, ...children }: InputIconProps) {
         `flex flex-row items-center gap-2 py-2`,
         `bg-white text-zinc-500`,
         `rounded-md`,
-        `border`
+        `border w-full`,
+        wrapperClassName,
       )}
     >
       <i className={classnames(`w-[16px] ml-4`)}>{icon}</i>

@@ -14,7 +14,7 @@ export default function PrimaryButton({
       className={classnames(
         `Button w-full h-12 bg-emerald-600 hover:bg-emerald-800 `,
         `transition-colors ease-in-out duration-100`,
-        `rounded-lg flex-col justify-center items-center inline-flex`
+        `rounded-lg flex-col justify-center items-center inline-flex`,
       )}
       {...children}
     >

@@ -1,27 +1,90 @@
-import React from 'react'
-import home from '../../pages/Home/Home'
+import React from "react";
+import classNames from "classnames";
+import { Link } from "react-router-dom";
+import {
+  BsFacebook,
+  BsInstagram,
+  BsYoutube,
+  BsFillCartCheckFill,
+  BsFillTelephoneFill,
+} from "react-icons/bs";
 
-export default function DashboardFooter() {
+export default function Footer() {
   return (
-    <>
-
-      <footer className="bg-white pb-1">
-        <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-          <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="#" className="hover:underline ml-1" >Group 2</a>
-          </span>
-          <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
-            <li>
-              <a href="#" className="mr-4 hover:underline md:mr-6 ">About</a>
-            </li>
-            <li>
-              <a href="#" className="mr-4 hover:underline md:mr-6">Support</a>
-            </li>
-            <li>
-              <a href="#" className="hover:underline">Contact</a>
-            </li>
-          </ul>
+    <div
+      className={classNames("mt-[80px] px-[-128px] bg-[#0F172A] text-white")}
+    >
+      <div className={classNames("px-32")}>
+        <div
+          className={classNames(
+            "flex items-center justify-between py-5 border-b border-white",
+          )}
+        >
+          <div>
+            <h3
+              className={classNames(
+                "text-white text-3xl font-semibold leading-28 tracking-wide capitalize",
+              )}
+            >
+              Group 2
+            </h3>
+          </div>
+          <div
+            className={classNames(
+              "text-white text-base font-semibold leading-6",
+            )}
+          >
+            <ul className={classNames("flex justify-evenly gap-6")}>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/">Create a Job</Link>
+              </li>
+              <li>
+                <Link to="/">About Us</Link>
+              </li>
+              <li>
+                <Link to="/">Contact Us</Link>
+              </li>
+            </ul>
+          </div>
         </div>
-      </footer>
-    </>
-  )
+        <div className={classNames("py-5 flex items-center justify-between")}>
+          <div>
+            <p
+              className={classNames(
+                "text-white text-center text-base leading-6",
+              )}
+            >
+              © 2023. Design by Group 2_REACT 06{" "}
+            </p>
+          </div>
+          <div
+            className={classNames(
+              "text-white text-base font-semibold leading-6",
+            )}
+          >
+            <ul className={classNames("flex justify-evenly gap-6")}>
+              <Link to="/">
+                <BsFacebook />
+              </Link>
+              <Link to="/">
+                <BsInstagram />
+              </Link>
+              <Link to="/">
+                <BsYoutube />
+              </Link>
+              <Link to="/">
+                <BsFillCartCheckFill />
+              </Link>
+              <Link to="/">
+                <BsFillTelephoneFill />
+              </Link>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

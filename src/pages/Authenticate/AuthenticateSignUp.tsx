@@ -15,7 +15,7 @@ export default function AuthenticateSignUp() {
       className={classnames(
         `py-8 gap-4 items-center justify-center flex flex-col h-[600px]`,
         `bg-zinc-100 shadow-md`,
-        `rounded-xl`
+        `rounded-xl px-4 md:px-5 lg:px-6`,
       )}
       onSubmit={handleSubmit(onSubmit)}
     >
