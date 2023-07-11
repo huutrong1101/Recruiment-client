@@ -52,8 +52,8 @@ export default function ManagetJobList() {
   return (
     <div className="flex items-center justify-center text-center bg-zinc-300 rounded-[30px] mt-6 mx-auto p-8 ">
     <div className="relative w-full max-w-full overflow-x-auto rounded-lg h-[500px]">
-      <table className=" text-sm text-gray-500 dark:text-gray-400 text-center">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-200 text-center">
+      <table className=" text-sm text-gray-500 dark:text-gray-400 text-center rounded-[30px]">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-200 text-center rounded-[30px]">
           <tr>
             <th scope="col" className="px-3 py-1">
               Name

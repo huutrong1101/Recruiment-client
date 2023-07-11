@@ -90,43 +90,42 @@ export default function AdminProfile() {
     //     </div>
     //   </div>
     // </div>
-    <div className = "">
-        <div className = "bg-white p-3 shadow-sm rounded-sm">
-        {/* <div className = "grid grid-cols-3">
-            <div className = "text-center my-2">
-                <img className = "h-16 w-16 rounded-full mx-auto"
-                    src="#"
-                    alt="">
-                    <a href="#" className = "text-main-color"></a>
-                </img>
-            </div>
-        </div> */}
+    AdminProfile.map((item) => (
+        <div className = "">
+            <div className = "bg-white p-3 shadow-sm rounded-sm">
+            {/* <div className = "grid grid-cols-3">
+                <div className = "text-center my-2">
+                    <img className = "h-16 w-16 rounded-full mx-auto"
+                        src="#"
+                        alt="">
+                        <a href="#" className = "text-main-color"></a>
+                    </img>
+                </div>
+            </div> */}
             <div className = "flex items-center space-x-2 font-semibold text-green-500 leading-8">
-                <span className = "tracking-wide absolute text-emerald-600 text-[32px] font-bold leading-7">Information</span>
+                <span className = "tracking-wide absolute text-emerald-600 text-[28px] font-bold leading-7">Information</span>
             </div>
             <div className = "text-gray-700">
                 <div className = "grid md:grid-cols-1 text-sm">
                     <div className = "grid grid-cols-1">
                         <div className = "px-4 py-2 font-semibold text-green-500 capitalize leading-7 tracking-wide"> FullName</div>
-                        <div className = "px-4 py-2">Jane</div>
+                        <div className = "px-4 py-2">{item.name}</div>
                     </div>
                     <div className = "grid grid-cols-1">
                         <div className = "px-4 py-2 font-semibold text-green-500 capitalize leading-7 tracking-wide">Contact No.</div>
-                        <div className = "px-4 py-2">+11 998001001</div>
+                        <div className = "px-4 py-2">{item.phone}</div>
                     </div>
                     <div className = "grid grid-cols-1">
                         <div className = "px-4 py-2 font-semibold text-green-500 capitalize leading-7 tracking-wide">Current Address</div>
-                        <div className = "px-4 py-2">Beech Creek, PA, Pennsylvania</div>
+                        <div className = "px-4 py-2">{item.adress}</div>
                     </div>
                     <div className = "grid grid-cols-1">
                         <div className = "px-4 py-2 font-semibold text-green-500 capitalize leading-7 tracking-wide">Email.</div>
-                        <div className = "px-4 py-2">
-                            <a className = "" href="mailto:jane@example.com">jane@example.com</a>
-                        </div>
+                        <div className = "px-4 py-2">      {item.email}       </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-)
+    )))
 }
