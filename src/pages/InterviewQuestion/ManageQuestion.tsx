@@ -21,10 +21,16 @@ export default function QuestionInterview() {
                             <div className="Actions justify-start items-center gap-3 flex right auto ">
                                 <div className="Actions justify-start items-center gap-3 flex ">
                                     <div className="Button01 rounded-lg justify-start items-start flex ">
-                                        <div className="ButtonBase  px-4 py-2.5 bg-emerald-600 rounded-lg shadow border border border border border-emerald-600 justify-center items-center gap-2 flex">
-                                            <div className="Plus w-5 h-5 relative" />
-                                            <div className="Text text-white text-[14px] font-medium leading-tight">Add question</div>
-                                        </div>
+                                        {/* <div className="ButtonBase  px-4 py-2.5 bg-emerald-600 hover:bg-white rounded-lg shadow-lg border border border border border-gray-500 justify-center items-center gap-2 flex"> */}
+                                            {/* <div className="Plus w-5 h-5 relative" /> */}
+                                            {/* <button className="Text text-white text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white" >Add question</button> */}
+                                        {/* </div> */}
+                                            <button className="Text text-white px-4 py-2.5 bg-emerald-600 rounded-lg shadow-lg  
+                                                               text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
+                                                               hover: border-solid hover: border-gray-600 transition-all" >
+                                                                Add question
+                                            </button>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -84,12 +90,15 @@ export default function QuestionInterview() {
                                         <th scope="col">
                                             Note
                                         </th>
+                                        <th scope="col">
+                                            ....................
+                                        </th>
                                     </tr>
                                 </thead>
-                                <tbody className="px-6 py-4">
+                                <tbody className="px-6 py-4 ">
                                     <tr className="bg-white border-b">
-                                        <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap text-black">
-                                            What is JSX, how to implement JSX
+                                        <th scope="row" className="px-6 py-4 font-medium flex-wrap text-black">
+                                            What is JSX, how to implement JSX 
                                         </th>
                                         <td >
                                             Technical
@@ -103,7 +112,7 @@ export default function QuestionInterview() {
                                     </tr>
                                     <tr className="bg-white border-b">
                                         <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap text-black">
-                                            What is REACT, REACT-DOM
+                                            What is REACT, REACT-DOM 
                                         </th>
                                         <td>
                                             Technical

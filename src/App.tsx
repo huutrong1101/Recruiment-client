@@ -13,6 +13,9 @@ import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
 // =======
 import ReccerDashboard from "./pages/Reccer/Reccer_dashboard";
 import ManageQuestion from "./pages/InterviewQuestion/ManageQuestion"
+import ScorePage from "./pages/InterviewQuestion/ScorePage";
+
+
 
 export default function App() {
   const activeMenu = false;
@@ -46,6 +49,7 @@ export default function App() {
           {/* Define interviewer routes here */}
           {/* <Route index path ="/manageQuestion" element={<ManageQuestion />} /> */}
           <Route index path ="manageQuestion" element={<ManageQuestion />} />
+          <Route index path ="scorePage" element={<ScorePage />} />
         </Route>
         
       </Routes>
