@@ -6,17 +6,12 @@ import classNames from "classnames";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import AuthenticateLogin from "./pages/Authenticate/AuthenticateLogin";
 import AuthenticateSignUp from "./pages/Authenticate/AuthenticateSignUp";
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 import UserAppLayout from "./components/Layout/UserAppLayout";
 import AdminAppLayout from "./components/Layout/AdminAppLayout";
 import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
 import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
 import ManagementAppLayOut from "./components/Layout/ManagementAppLayOut/ManagementAppLayOut";
-// =======
-
-
 
 import Jobs from "./pages/Jobs/Jobs";
 import Events from "./pages/Events/Events";
@@ -26,8 +21,6 @@ import EmailConfirmationLayout from "./pages/EmailConfirmation/EmailConfirmation
 import IncompleteConfirmEmail from "./pages/EmailConfirmation/IncompleteConfirmEmail";
 import CompleteConfirmEmail from "./pages/EmailConfirmation/CompleteConfirmEmail";
 
-import CandidateProfile from "./pages/Reccer/CandidateProfile";
-import CandidateList from "./pages/Reccer/CandidateList";
 import JobDetail from "./pages/JobDetail/JobDetail";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminProfile from "./pages/Admin/AdminProfile";
@@ -45,19 +38,15 @@ import Reccer_EventManagement from "./pages/Reccer/ReccerEventManagement";
 import Reccer_candidateManagement from "./pages/Reccer/ReccercandidateManagement";
 
 // Interviewer Pages
-import { CandidateRecent, InterviewRecent, InterviewQuestion } from "./pages/Interviewer/InterviewerPages";
-=======
-import VerifyEmail from "./pages/VerifyEmail/VerifyEmail";
->>>>>>> 1379c11 (Revert "Merge branch 'feat/candidate-list-page' into 'main'")
-=======
-import VerifyEmail from "./pages/VerifyEmail/VerifyEmail";
->>>>>>> origin/main
+import {
+  CandidateRecent,
+  InterviewRecent,
+  InterviewQuestion,
+} from "./pages/Interviewer/InterviewerPages";
 
 export default function App() {
   return (
     <BrowserRouter>
-<<<<<<< HEAD
-<<<<<<< HEAD
       {/* Route switcher */}
       <Routes>
         <Route path="/" element={<UserAppLayout />}>
@@ -93,8 +82,8 @@ export default function App() {
         <Route path="/recruiter" element={<RecruiterAppLayout />}>
           {/* Define recruiter routes here */}
           <Route path="dashboard" index element={<ReccerDashboard />} />
-          <Route path="candidateinfo" element={<CandidateProfile />} />
-          <Route path="candidatelist" element={<CandidateList />} />
+          {/* <Route path="candidateinfo" element={<CandidateProfile />} /> */}
+          {/* <Route path="candidatelist" element={<CandidateList />} /> */}
 
           <Route path="job-management" element={<Reccer_JobManagement />} />
           <Route path="calender" element={<Reccer_calender />} />
@@ -114,33 +103,10 @@ export default function App() {
         <Route path="/interviewer" element={<InterviewerAppLayout />}>
           {/* Define interviewer routes here */}
           {/* <Route index path ="/manageQuestion" element={<ManageQuestion />} /> */}
-          <Route index path ="manageQuestion" element={<ManageQuestion />} />
-          <Route index path ="scorePage" element={<ScorePage />} />
+          <Route index path="manageQuestion" element={<ManageQuestion />} />
+          <Route index path="scorePage" element={<ScorePage />} />
         </Route>
-        
       </Routes>
-=======
-=======
->>>>>>> origin/main
-      {/* Header navbar */}
-      <Navbar />
-
-      {/* Route switcher */}
-      <div className={classNames(`px-32`)}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/auth/" element={<Authenticate />}>
-            <Route index path="login" element={<AuthenticateLogin />} />
-            <Route index path="signup" element={<AuthenticateSignUp />} />
-            <Route index element={<Login />} />
-          </Route>
-          <Route path="/verify-email" element={<VerifyEmail />}></Route>
-        </Routes>
-      </div>
-<<<<<<< HEAD
->>>>>>> 1379c11 (Revert "Merge branch 'feat/candidate-list-page' into 'main'")
-=======
->>>>>>> origin/main
     </BrowserRouter>
   );
 }

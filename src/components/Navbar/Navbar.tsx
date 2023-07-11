@@ -16,20 +16,8 @@ export default function Navbar() {
     },
     {
       name: "Events",
-<<<<<<< HEAD
       url: "/events",
     },
-    // {
-    //   name: "Dashboard",
-    //   url: "rec",
-    // },
-=======
-      url: "/",
-    },
-<<<<<<< HEAD
->>>>>>> 1379c11 (Revert "Merge branch 'feat/candidate-list-page' into 'main'")
-=======
->>>>>>> origin/main
   ]);
 
   return (
