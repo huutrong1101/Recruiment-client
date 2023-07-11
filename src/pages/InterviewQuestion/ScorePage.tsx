@@ -1,7 +1,7 @@
 import {
     MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import DashBoardFooter from "../../components/RecFooter/DashboardFooter"
+import DashBoardFooter from "../../components/RecFooter/DashboardFooter";
 import ListQuestions from "./ListQuestion";
 export default function ScorePage() {
     return (
