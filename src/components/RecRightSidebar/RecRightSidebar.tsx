@@ -1,6 +1,6 @@
 import React from "react";
 import image from "../../../images/avatar.png";
-export default function Rec_RightSidebar() {
+export default function RecRightSidebar() {
   return (
     <>
       <aside className="w-full h-[100vh] bg-gray-200">

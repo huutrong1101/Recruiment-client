@@ -18,7 +18,7 @@ interface MyComponentProps {
   };
 }
 
-export default function Rec_DashboardCard({ job }: MyComponentProps) {
+export default function RecDashboardCard({ job }: MyComponentProps) {
   return (
     <>
       <div className="group relative overflow-hidden bg-white shadow hover:shadow-md  rounded-md transition-all duration-500 h-fit">
