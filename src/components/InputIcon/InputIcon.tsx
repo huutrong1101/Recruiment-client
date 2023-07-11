@@ -1,9 +1,14 @@
 import classnames from "classnames";
 export interface InputIconProps extends React.HTMLProps<HTMLInputElement> {
   icon: React.ReactElement;
+  wrapperClassName: string;
 }
 
-export default function InputIcon({ icon, ...children }: InputIconProps) {
+export default function InputIcon({
+  icon,
+  wrapperClassName,
+  ...children
+}: InputIconProps) {
   return (
     <div
       className={classnames(
@@ -22,7 +27,7 @@ export default function InputIcon({ icon, ...children }: InputIconProps) {
           `px-2 py-1`,
           `font-light`,
           `mr-4`,
-          `outline-none`
+          `outline-none`,
         )}
         {...children}
       />
