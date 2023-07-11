@@ -1,7 +1,7 @@
 import {
     MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import DashBoardFooter from "../../components/DashboardFooter/DashboardFooter"
+import DashBoardFooter from "../../components/RecFooter/DashboardFooter"
 import ListQuestions from "./ListQuestion";
 export default function ScorePage() {
     return (
@@ -21,7 +21,7 @@ export default function ScorePage() {
                         {/* list question */}
                         <div className="bg-gray-100 h-[200px] w-full rounded-lg border-black px-2 py-2 relative ">
                             {/* table */}
-                            <div className=" rounded-lg border border border border border-gray-300 border-2 w-full h-full">
+                            <div className=" rounded-lg border borde    ay-300 border-2 w-full h-full">
                                 <div className="overflow-auto px-2">
                                     <table className="w-full ">
                                         <thead className="">
@@ -66,14 +66,14 @@ export default function ScorePage() {
                                     <div className=" w-1/5 ">
                                         <button className="Text text-white px-4 py-2.5 bg-emerald-600 rounded-s-lg drop-shadow-lg mr-4  
                                                 text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
-                                                hover: border-solid hover: border-gray-600 hover:transition-all   ">
+                                                border-transparent border hover:border-emerald-600 hover:transition-all  ">
                                             Position
                                         </button>
                                     </div>
                                     <div className=" w-1/5 h-[50px] ">
                                         <button className="Text text-white px-4 py-2.5 bg-emerald-600 rounded-e-lg drop-shadow-lg mr-4  
                                                 text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
-                                                hover: border-solid hover: border-gray-600 hover:transition-all  " >
+                                                border-transparent border hover:border-emerald-600 hover:transition-all  " >
                                             Technology
                                         </button>
                                     </div>
@@ -98,7 +98,7 @@ export default function ScorePage() {
                         <div className="flex justify-center items-center ">
                             <button className="Text text-white px-4 py-2.5 bg-emerald-600 rounded-lg drop-shadow-lg mx-4 mb-2 transition-all
                                                 text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
-                                                hover: border-solid hover: border-gray-600 w-1/5 flex justify-center bottom-0  w-">
+                                                border-transparent border hover:border-emerald-600 w-1/5 flex justify-center bottom-0  w-">
                                 SEND
                             </button>
                         </div>
@@ -110,18 +110,5 @@ export default function ScorePage() {
             </div>
             <DashBoardFooter />
         </div>
-        // <div className="">
-        //     <div className="w-full h-1/2 bg-emerald-600 flex flex-row gap-3 relative">
-        //         <div className="w-full h-1/2">
-        //             <div className="Rectangle2 w-1/3 h-[713px] left-0 top-0 absolute bg-white rounded-[15px] border border-zinc-300 m-4" >
-
-        //             </div>
-        //             <div className="Rectangle2 w-2/3 h-[713px] right-0 top-0 absolute bg-white rounded-[15px] border border-zinc-300 m-4" >
-
-        //             </div>
-        //         </div>
-        //     </div>
-        //     <DashBoardFooter />
-        // </div>
     )
 }

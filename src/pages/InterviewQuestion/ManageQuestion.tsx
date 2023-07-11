@@ -1,11 +1,12 @@
 import {
-    MagnifyingGlassIcon,
+    MagnifyingGlassIcon,PencilSquareIcon,TrashIcon
 } from "@heroicons/react/24/outline";
-import DashBoardFooter from "../../components/DashboardFooter/DashboardFooter"
+import DashBoardFooter from "../../components/RecFooter/DashboardFooter"
+// import { PencilSquareIcon, TrashIcon } from "@heroicons/react/20/solid"; 
 export default function QuestionInterview() {
     return (
         <div>
-            <div className="w-full h-1/2 bg-white flex justify-center">
+            <div className="w-full h-full bg-white flex justify-center">
                 <div className="Table relative w-11/12 min-h-full  bg-white rounded-lg shadow border border border border border-gray-200 pt-4">
                     <div className="relative">
                         {/* interviewQuestion */}
@@ -21,13 +22,9 @@ export default function QuestionInterview() {
                             <div className="Actions justify-start items-center gap-3 flex right auto ">
                                 <div className="Actions justify-start items-center gap-3 flex ">
                                     <div className="Button01 rounded-lg justify-start items-start flex ">
-                                        {/* <div className="ButtonBase  px-4 py-2.5 bg-emerald-600 hover:bg-white rounded-lg shadow-lg border border border border border-gray-500 justify-center items-center gap-2 flex"> */}
-                                            {/* <div className="Plus w-5 h-5 relative" /> */}
-                                            {/* <button className="Text text-white text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white" >Add question</button> */}
-                                        {/* </div> */}
                                             <button className="Text text-white px-4 py-2.5 bg-emerald-600 rounded-lg shadow-lg  
                                                                text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
-                                                               hover: border-solid hover: border-gray-600 transition-all" >
+                                                               border-transparent border hover:border-emerald-600 " >
                                                                 Add question
                                             </button>
                                         
@@ -107,7 +104,11 @@ export default function QuestionInterview() {
                                             0.2
                                         </td>
                                         <td>
-                                            ...
+                                            abc
+                                        </td>
+                                        <td className="flex flex-row justify-start p-4">
+                                            <PencilSquareIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
+                                            <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
                                         </td>
                                     </tr>
                                     <tr className="bg-white border-b">
@@ -123,6 +124,10 @@ export default function QuestionInterview() {
                                         <td>
                                             ...
                                         </td>
+                                        <td className="flex flex-row justify-start p-4">
+                                            <PencilSquareIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
+                                            <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
+                                        </td>
                                     </tr>
                                     <tr className="bg-white">
                                         <th scope="row" className="px-6 py-4 font-medium text-black whitespace-nowrap">
@@ -136,6 +141,10 @@ export default function QuestionInterview() {
                                         </td>
                                         <td>
                                             ...
+                                        </td>
+                                        <td className="flex flex-row justify-start p-4">
+                                            <PencilSquareIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
+                                            <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
                                         </td>
                                     </tr>
                                     <tr className="bg-white border-b">
@@ -151,6 +160,10 @@ export default function QuestionInterview() {
                                         <td>
                                             ...
                                         </td>
+                                        <td className="flex flex-row justify-start p-4">
+                                            <PencilSquareIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
+                                            <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
+                                        </td>
                                     </tr>
                                     <tr className="bg-white">
                                         <th scope="row" className="px-6 py-4 font-medium text-black whitespace-nowrap">
@@ -164,6 +177,10 @@ export default function QuestionInterview() {
                                         </td>
                                         <td>
                                             ...
+                                        </td>
+                                        <td className="flex flex-row justify-start p-4">
+                                            <PencilSquareIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
+                                            <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
                                         </td>
                                     </tr>
                                     
