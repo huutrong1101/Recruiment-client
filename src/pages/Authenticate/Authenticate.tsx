@@ -11,7 +11,7 @@ export default function Authenticate() {
         `min-h-[100vh] mb-36`,
       )}
     >
-      <div className="w-full md:w-1/3 lg:w-4/12 xl:w-3/12 ">
+      <div className="w-full md:w-1/2 lg:w-5/12 xl:w-4/12 ">
         <Outlet />
       </div>
       {/* Browse Job Frame */}

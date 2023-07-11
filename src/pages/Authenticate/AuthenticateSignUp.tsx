@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import InputIcon from "../../components/InputIcon/InputIcon";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 
 export default function AuthenticateSignUp() {
   const { register, handleSubmit } = useForm();
@@ -91,20 +92,7 @@ export default function AuthenticateSignUp() {
           </label>
         </div>
 
-        <button
-          className={classnames(
-            `Button w-[240px] h-12 bg-emerald-600 `,
-            `rounded-lg flex-col justify-center items-center inline-flex`,
-          )}
-        >
-          <div className="Basebutton px-5 py-2.5 justify-center items-center inline-flex">
-            <div className="Content justify-center items-center gap-2 flex">
-              <div className="Button text-white font-semibold capitalize leading-7 tracking-wide">
-                Sign up
-              </div>
-            </div>
-          </div>
-        </button>
+        <PrimaryButton text="Sign up" />
       </div>
     </form>
   );
