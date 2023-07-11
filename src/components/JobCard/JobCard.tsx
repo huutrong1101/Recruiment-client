@@ -71,7 +71,7 @@ export default function JobCard({ job }: JobCardProps) {
         <div className={classnames("mt-4")}>
           <div className={classnames("flex items-center justify-center")}>
             <Link
-              to="/jobs"
+              to={`/jobs/${job.jobId}`}
               className={classnames(
                 "bg-emerald-700 text-white p-2 rounded-md flex",
               )}

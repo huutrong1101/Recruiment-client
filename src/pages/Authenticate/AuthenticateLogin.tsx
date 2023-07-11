@@ -17,7 +17,7 @@ export default function AuthenticateLogin() {
       )}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="mx-6 items-center flex flex-col gap-4 w-2/3">
+      <div className="flex flex-col items-center w-2/3 gap-4 mx-6">
         <h1 className="text-xl font-semibold">Login</h1>
 
         {/* Input group with icons */}
@@ -72,7 +72,7 @@ export default function AuthenticateLogin() {
         </div>
 
         {/* Forgot password */}
-        <div className="Button w-44 h-10 bg-white bg-opacity-0 rounded-lg flex-col justify-center items-center inline-flex text-sm">
+        <div className="inline-flex flex-col items-center justify-center h-10 text-sm bg-white bg-opacity-0 rounded-lg Button w-44">
           <div className="Basebutton px-3 py-1.5 justify-center items-center inline-flex">
             <div className="flex items-center justify-center gap-2 Content">
               <div className="font-semibold leading-7 tracking-wide capitalize Button text-emerald-800">
@@ -89,8 +89,8 @@ export default function AuthenticateLogin() {
           )}
         >
           <div className="Basebutton px-5 py-2.5 justify-center items-center inline-flex">
-            <div className="Content justify-center items-center gap-2 flex">
-              <div className="Button text-white font-semibold capitalize leading-7 tracking-wide">
+            <div className="flex items-center justify-center gap-2 Content">
+              <div className="font-semibold leading-7 tracking-wide text-white capitalize Button">
                 Login
               </div>
             </div>

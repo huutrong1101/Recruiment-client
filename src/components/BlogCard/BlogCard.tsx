@@ -30,11 +30,15 @@ export default function BlogCard({ event }: BlogCardProps) {
         </div>
         <div className={classnames("p-6")}>
           <div className={classnames("flex items-center justify-between")}>
-            <div className={classnames("flex items-center gap-1")}>
+            <div
+              className={classnames("flex items-center gap-1 text-gray-500")}
+            >
               <CalendarDaysIcon className={classnames(`w-[20px]`)} />
               <p>{event.date}</p>
             </div>
-            <div className={classnames("flex items-center gap-1")}>
+            <div
+              className={classnames("flex items-center gap-1 text-gray-500")}
+            >
               <ClockIcon className={classnames(`w-[20px]`)} />
               <p>{event.time} min read</p>
             </div>
@@ -50,7 +54,7 @@ export default function BlogCard({ event }: BlogCardProps) {
           </div>
           <div className={classnames("mt-6 flex items-center justify-center")}>
             <Link
-              to="/jobs"
+              to={`/events/${event.id}`}
               className={classnames(
                 "bg-emerald-700 text-white p-2 rounded-md flex",
               )}
