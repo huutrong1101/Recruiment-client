@@ -42,6 +42,7 @@ import ReccercandidateManagement from "./pages/Reccer/ReccercandidateManagement"
 
 // Interviewer Pages
 import { CandidateRecent, InterviewRecent, InterviewQuestion } from "./pages/Interviewer/InterviewerPages";
+import ReccerJobDetail from "./pages/Reccer/Jobs/ReccerJobDetail";
 
 export default function App() {
   return (
