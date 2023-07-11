@@ -1,9 +1,15 @@
 import React from "react";
 import classnames from "classnames";
 import image from "../../../images/sprite.png";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 export default function Authenticate() {
+  const navigate = useNavigate();
+
+  const handleBrowseJobClick = () => {
+    navigate(`/jobs`);
+  };
+
   return (
     <div
       className={classnames(
@@ -36,7 +42,10 @@ export default function Authenticate() {
         </p>
 
         <div className="flex flex-row">
-          <button className={classnames(`border`, `px-3 py-1 rounded-xl`)}>
+          <button
+            className={classnames(`border`, `px-3 py-1 rounded-xl`)}
+            onClick={handleBrowseJobClick}
+          >
             <div className="text-white ">Browse jobs</div>
           </button>
         </div>
