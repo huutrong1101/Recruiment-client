@@ -17,13 +17,13 @@ export default function Footer() {
       <div className={classNames("px-32")}>
         <div
           className={classNames(
-            "flex items-center justify-between py-5 border-b border-white"
+            "flex items-center justify-between py-5 border-b border-white",
           )}
         >
           <div>
             <h3
               className={classNames(
-                "text-white text-3xl font-semibold leading-28 tracking-wide capitalize"
+                "text-white text-3xl font-semibold leading-28 tracking-wide capitalize",
               )}
             >
               Group 2
@@ -31,7 +31,7 @@ export default function Footer() {
           </div>
           <div
             className={classNames(
-              "text-white text-base font-semibold leading-6"
+              "text-white text-base font-semibold leading-6",
             )}
           >
             <ul className={classNames("flex justify-evenly gap-6")}>
@@ -54,7 +54,7 @@ export default function Footer() {
           <div>
             <p
               className={classNames(
-                "text-white text-center text-base leading-6"
+                "text-white text-center text-base leading-6",
               )}
             >
               © 2023. Design by Group 2_REACT 06{" "}
@@ -62,7 +62,7 @@ export default function Footer() {
           </div>
           <div
             className={classNames(
-              "text-white text-base font-semibold leading-6"
+              "text-white text-base font-semibold leading-6",
             )}
           >
             <ul className={classNames("flex justify-evenly gap-6")}>
