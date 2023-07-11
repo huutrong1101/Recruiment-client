@@ -1,7 +1,5 @@
-import React, { Fragment } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import classNames from "classnames";
-import Container from "../Container/Container";
 import { Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/24/solid";
@@ -29,7 +27,9 @@ export default function MobileNavbar() {
         </button>
 
         {/*  */}
-        <h1 className={classNames(`text-2xl font-bold`)}>JobPort</h1>
+        <Link to={`/`}>
+          <h1 className={classNames(`text-2xl font-bold`)}>JobPort</h1>
+        </Link>
       </div>
 
       {/* Drawer */}
