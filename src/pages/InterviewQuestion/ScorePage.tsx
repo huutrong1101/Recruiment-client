@@ -1,7 +1,6 @@
 import {
     MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import DashBoardFooter from "../../components/DashboardFooter/DashboardFooter"
 import ListQuestions from "./ListQuestion";
 export default function ScorePage() {
     return (
@@ -108,7 +107,6 @@ export default function ScorePage() {
                     </div>
                 </div>
             </div>
-            <DashBoardFooter />
         </div>
         // <div className="">
         //     <div className="w-full h-1/2 bg-emerald-600 flex flex-row gap-3 relative">

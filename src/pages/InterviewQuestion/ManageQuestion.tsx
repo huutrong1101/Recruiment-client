@@ -1,7 +1,6 @@
 import {
     MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import DashBoardFooter from "../../components/DashboardFooter/DashboardFooter"
 export default function QuestionInterview() {
     return (
         <div>
@@ -189,7 +188,6 @@ export default function QuestionInterview() {
                     </div>
                 </div>
             </div>
-            <DashBoardFooter/>
         </div>
     )
 }
