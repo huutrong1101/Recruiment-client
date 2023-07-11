@@ -1,7 +1,11 @@
 import React from "react";
 import classnames from "classnames";
 import { useForm } from "react-hook-form";
-import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/outline";
+import {
+  EnvelopeIcon,
+  LockClosedIcon,
+  PhoneIcon,
+} from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import InputIcon from "../../components/InputIcon/InputIcon";
 
@@ -47,14 +51,33 @@ export default function AuthenticateSignUp() {
 
         <InputIcon
           icon={<EnvelopeIcon />}
-          {...register("credentialId")}
+          {...register("fullName")}
           placeholder="full name"
+        />
+
+        <InputIcon
+          icon={<LockClosedIcon />}
+          {...register("email")}
+          placeholder="email address"
         />
 
         <InputIcon
           icon={<LockClosedIcon />}
           {...register("password")}
           placeholder="password"
+        />
+
+        <InputIcon
+          icon={<LockClosedIcon />}
+          {...register("confirmPassword")}
+          placeholder="confirmPassword"
+        />
+
+        <InputIcon
+          icon={<PhoneIcon />}
+          {...register("phoneNumber")}
+          placeholder="phone number"
+          type=""
         />
 
         {/* Remember Me */}
@@ -71,7 +94,7 @@ export default function AuthenticateSignUp() {
         <button
           className={classnames(
             `Button w-[240px] h-12 bg-emerald-600 `,
-            `rounded-lg flex-col justify-center items-center inline-flex`
+            `rounded-lg flex-col justify-center items-center inline-flex`,
           )}
         >
           <div className="Basebutton px-5 py-2.5 justify-center items-center inline-flex">
