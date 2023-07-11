@@ -10,6 +10,7 @@ import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
 import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
 import Jobs from "./pages/Jobs/Jobs";
 import Events from "./pages/Events/Events";
+import EventDetail from "./pages/EventDetail/EventDetail";
 import EmailConfirmationLayout from "./pages/EmailConfirmation/EmailConfirmationLayout";
 import IncompleteConfirmEmail from "./pages/EmailConfirmation/IncompleteConfirmEmail";
 import CompleteConfirmEmail from "./pages/EmailConfirmation/CompleteConfirmEmail";
@@ -23,17 +24,21 @@ import AdminChangePosition from "./pages/Admin/AdminChangePosition";
 import AddBlacklist from "./pages/Admin/AddBlacklist";
 import ManagetJobList from "./components/AdminManagerList/ManagetJobList";
 
+
 export default function App() {
   return (
     <BrowserRouter>
       {/* Route switcher */}
-
+      
       <Routes>
         <Route path="/" element={<UserAppLayout />}>
           <Route index element={<Home />} />
+
           <Route path="jobs" element={<Jobs />} />
           <Route path="/jobs/:jobId" element={<JobDetail />} />
           <Route path="events" element={<Events />} />
+
+          <Route path="/events/:eventId" element={<EventDetail />} />
 
           <Route path="auth" element={<Authenticate />}>
             <Route path="login" element={<AuthenticateLogin />} />
