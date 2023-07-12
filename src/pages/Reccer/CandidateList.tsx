@@ -6,7 +6,7 @@ import SearchBar from "../../components/Layout/SearchBar";
 function CandidateList() {
   let navigate = useNavigate();
   const routeChange = () => {
-    let path = `../cndinfo`;
+    let path = `../candidateinfo`;
     navigate(path);
   };
   const candidates = [

@@ -80,9 +80,9 @@ export default function Reccer_dashboard() {
                 <div className="flex flex-wrap justify-center items-center mt-[20px] ">
                     {/* <!-- Card --> */}
                     {data.listJobs &&
-                        data.listJobs.map((job,index) => (
-                            <div key={index} className=" px-3 mb-8 lg:w-1/4 md:w-1/2 ">
-                                <RecCard job={job} index={index}/>
+                        data.listJobs.map((job, index) => (
+                            <div key={index} className=" px-3 mb-8 lg:w-1/4 md:w-1/2">
+                                <RecCard job={job} index={index} />
                             </div>
                         ))}
                 </div>
