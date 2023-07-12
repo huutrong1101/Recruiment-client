@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { fetchCandidateRecent } from '../../../redux/reducer/CandidateRecentSlice';
 import Loader from '../../../components/Loader/Loader';
 import { STATUS } from '../../../utils/Status';
+import { Link } from 'react-router-dom';
 
 const rowsPerPageOptions = [5, 10];
 
@@ -69,7 +70,11 @@ const CandidateRecent = () => {
                                     </div>
                                 </TableCell>
                                 <TableCell>{(candidateRecent.id*candidateRecent.id*4)%100}</TableCell>
-                                <TableCell><PencilIcon className='w-4 h-4' /></TableCell>
+                                <TableCell>
+                                    <Link to={`/interviewer/candidate-recent/${candidateRecent.id}`} >
+                                        <PencilIcon className='w-4 h-4' />
+                                    </Link>
+                                </TableCell>
                             </TableRow>
                         ))}
     

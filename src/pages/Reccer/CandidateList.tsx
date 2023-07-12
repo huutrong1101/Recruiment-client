@@ -1,12 +1,12 @@
 import React from "react";
-import Avatar from "../../components/Candidate/Avatar";
+import AvatarCandidate from "../../components/Candidate/Avatar";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../../components/Layout/SearchBar";
 
 function CandidateList() {
   let navigate = useNavigate();
   const routeChange = () => {
-    let path = `../cndinfo`;
+    let path = `../candidateinfo`;
     navigate(path);
   };
   const candidates = [
@@ -73,7 +73,7 @@ function CandidateList() {
       <div className="grid grid-cols-4 grid-rows-2 gap-x-10 p-12 gap-y-10">
         {candidates.map((candidates, index) => (
           <div className="bg-white flex flex-col items-center justify-center px-6 py-2 rounded-xl drop-shadow-lg border-2 border-gray-300">
-            <Avatar imageUrl={candidates.imgURL} size="sm" />
+            <AvatarCandidate imageUrl={candidates.imgURL} size="sm" />
             <div key={index} className="text-lg font-semibold">
               {candidates.name}
             </div>

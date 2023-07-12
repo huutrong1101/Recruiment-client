@@ -1,5 +1,5 @@
 import React from "react";
-import Avatar from "../../components/Candidate/Avatar";
+import AvatarCandidate from "../../components/Candidate/Avatar";
 import {
   ArrowDownTrayIcon,
   DocumentTextIcon,
@@ -45,7 +45,7 @@ function CandidateProfile() {
       <div className="relative w-full -mt-28 px-8">
         <div className="flex justify-between items-center pt-11">
           <div className="flex items-center space-x-4">
-            <Avatar imageUrl={avatarUrl} size="large" />
+            <AvatarCandidate imageUrl={avatarUrl} size="large" />
             <div className="-space-y-2">
               <h2 className="text-xl font-semibold pt-16">
                 {"Mr. " + username}

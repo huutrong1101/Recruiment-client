@@ -1,53 +1,34 @@
 import React, { useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
-import { data } from "../../data/Rec_JobManagementData";
-import RecCard from "../../components/RecJobManagementCard/RecJobManagementCard";
+import { data } from "../../data/RecJobManagementData";
+import RecJobCard from "../../components/RecJobManagementCard/RecJobManagementCard";
 export default function Reccer_JobManagement() {
-    const [activeSearch, setActiveSearch] = useState([])
-
-    const handleSearch = (e) => {
-        if (e.target.value == '') {
-            setActiveSearch([])
-            return false
-        }
-        setActiveSearch(words.filter(w => w.includes(e.target.value)).slice(0, 8))
-    }
     return (
         <>
-            <form className='flex w-3/4 items-center mx-auto p-2'>
+            <form className="flex w-3/4 items-center mx-auto p-2">
                 <div className="relative w-full">
-                    <input type=" search" placeholder='Search' className='w-full p-2 rounded-lg bg-gray-200 shadow' onChange={(e) => handleSearch(e)} />
-                    <button className='absolute right-1 top-1/2 -translate-y-1/2 p-4'>
-                        <AiOutlineSearch />
-                    </button>
-
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg className="w-4 h-4 text-gray-500 " aria-hidden="true" fill="none" viewBox="0 0 18 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2" />
+                        </svg>
+                    </div>
+                    <input type="text" id="simple-search" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:border-blue-500 block w-full pl-10 p-2.5   " placeholder="Search Name" required />
                 </div>
-                <div className="flex items-center max-w-md mx-auto p-5">
+                <div className="flex items-center p-5">
                     <Link to="#">
-                        <div className="w-[100px] h-[50px] relative" >
+                        <div className="sm:w-[100px] h-[50px] relative" >
                             <button className="w-full h-full left-5 top-0 absolute bg-[#48A280] hover:bg-emerald-700 text-white rounded-lg" type="submit">+ Add Job</button>
                         </div>
                     </Link>
                 </div>
-                {
-                    activeSearch.length > 0 && (
-                        <div className="absolute top-20 p-4 bg-slate-800 text-white w-full rounded-xl left-1/2 -translate-x-1/2 flex flex-col gap-2">
-                            {
-                                activeSearch.map(s => (
-                                    <span>{s}</span>
-                                ))
-                            }
-                        </div>
-                    )
-                }
             </form>
-            <div className="flex flex-wrap justify-center items-center mt-[10px] ">
+            <div className="flex flex-wrap justify-center items-center 2 mt-[10px] ">
                 {/* <!-- Card --> */}
                 {data.listJobs &&
                     data.listJobs.map((job) => (
-                        <div key={job.jobId} className=" px-4 mb-8 md:w-5/6 ">
-                            <RecCard job={job} />
+                        <div key={job.jobId} className=" px-4 mb-8 md:w-5/6">
+                            <RecJobCard job={job} />
                         </div>
                     ))}
             </div>
