@@ -45,6 +45,7 @@ import {
   InterviewQuestion,
 } from "./pages/Interviewer/InterviewerPages";
 import ReccerJobDetail from "./pages/Reccer/Jobs/ReccerJobDetail";
+import Addjob from "./pages/Reccer/Jobs/Addjob";
 
 export default function App() {
   return (
@@ -90,6 +91,7 @@ export default function App() {
           <Route path="job-management" element={<ReccerJobManagement />} />
           <Route path="calender" element={<Reccercalender />} />
           <Route path="jobdetail" element={<ReccerJobDetail />} />
+          <Route path="addjob" element={<Addjob />} />
           <Route path="interviewer" element={<ReccerInterviewerManagement />} />
           <Route path="event" element={<ReccerEventManagement />} />
           <Route path="candidate" element={<ReccercandidateManagement />} />
