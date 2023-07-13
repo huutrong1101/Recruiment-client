@@ -25,6 +25,7 @@ import AdminProfile from "./pages/Admin/AdminProfile";
 import AdminChangePosition from "./pages/Admin/AdminChangePosition";
 import AddBlacklist from "./pages/Admin/AddBlacklist";
 import ManagetJobList from "./components/AdminManagerList/ManagetJobList";
+import AboutUs from "./pages/AboutUs/AboutUs";
 import ReccerJobManagement from "./pages/Reccer/ReccerJobManagement";
 import ReccerDashboard from "./pages/Reccer/Reccerdashboard";
 import Reccercalender from "./pages/Reccer/Reccercalender";
@@ -44,6 +45,7 @@ import {
 
 import ReccerJobDetail from "./pages/Reccer/Jobs/ReccerJobDetail";
 import Addjob from "./pages/Reccer/Jobs/Addjob";
+>>>>>>> src/App.tsx
 
 export default function App() {
   return (
@@ -58,6 +60,7 @@ export default function App() {
 
           <Route path="/events/:eventId" element={<EventDetail />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="about-us" element={<AboutUs />} />
 
           <Route path="auth" element={<Authenticate />}>
             <Route path="login" element={<AuthenticateLogin />} />
