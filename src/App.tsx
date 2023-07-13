@@ -10,9 +10,6 @@ import AdminAppLayout from "./components/Layout/AdminAppLayout";
 import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
 import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
 import ManagementAppLayOut from "./components/Layout/ManagementAppLayOut/ManagementAppLayOut";
-// =======
-
-
 
 import Jobs from "./pages/Jobs/Jobs";
 import Events from "./pages/Events/Events";
@@ -22,14 +19,13 @@ import EmailConfirmationLayout from "./pages/EmailConfirmation/EmailConfirmation
 import IncompleteConfirmEmail from "./pages/EmailConfirmation/IncompleteConfirmEmail";
 import CompleteConfirmEmail from "./pages/EmailConfirmation/CompleteConfirmEmail";
 
-import CandidateProfile from "./pages/Reccer/CandidateProfile";
-import CandidateList from "./pages/Reccer/CandidateList";
 import JobDetail from "./pages/JobDetail/JobDetail";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminProfile from "./pages/Admin/AdminProfile";
 import AdminChangePosition from "./pages/Admin/AdminChangePosition";
 import AddBlacklist from "./pages/Admin/AddBlacklist";
 import ManagetJobList from "./components/AdminManagerList/ManagetJobList";
+import AboutUs from "./pages/AboutUs/AboutUs";
 import ReccerJobManagement from "./pages/Reccer/ReccerJobManagement";
 import ReccerDashboard from "./pages/Reccer/Reccerdashboard";
 import Reccercalender from "./pages/Reccer/Reccercalender";
@@ -40,10 +36,19 @@ import ReccerInterviewerManagement from "./pages/Reccer/ReccerInterviewerManagem
 import ReccerEventManagement from "./pages/Reccer/ReccerEventManagement";
 import ReccercandidateManagement from "./pages/Reccer/ReccercandidateManagement";
 import ReccerInterviewerDetail from "./pages/Reccer/InterviewerDetail";
+import CandidateList from "./pages/Reccer/CandidateList";
+import CandidateProfile from "./pages/Reccer/CandidateProfile";
+
 
 // Interviewer Pages
-import { CandidateRecent, InterviewRecent, InterviewQuestion } from "./pages/Interviewer/InterviewerPages";
+import {
+  CandidateRecent,
+  InterviewRecent,
+  InterviewQuestion,
+} from "./pages/Interviewer/InterviewerPages";
+
 import ReccerJobDetail from "./pages/Reccer/Jobs/ReccerJobDetail";
+import Addjob from "./pages/Reccer/Jobs/Addjob";
 
 export default function App() {
   return (
@@ -58,6 +63,7 @@ export default function App() {
 
           <Route path="/events/:eventId" element={<EventDetail />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="about-us" element={<AboutUs />} />
 
           <Route path="auth" element={<Authenticate />}>
             <Route path="login" element={<AuthenticateLogin />} />
@@ -90,6 +96,11 @@ export default function App() {
           <Route path="calender" element={<Reccercalender />} />
           <Route path="interviewer"element={<ReccerInterviewerManagement />}/>
           <Route path="interviewer-profile"element={<ReccerInterviewerDetail />}/>
+
+          <Route path="jobdetail" element={<ReccerJobDetail />} />
+          <Route path="addjob" element={<Addjob />} />
+          <Route path="interviewer" element={<ReccerInterviewerManagement />} />
+
           <Route path="event" element={<ReccerEventManagement />} />
           <Route path="candidate" element={<ReccercandidateManagement />} />
         </Route>
@@ -100,6 +111,13 @@ export default function App() {
           <Route path="candidate-recent" element={<CandidateRecent />} />
           <Route index path ="manageQuestion" element={<ManageQuestion />} />
           <Route index path ="scorePage" element={<ScorePage />} />
+
+        </Route>
+        <Route path="/interviewer" element={<InterviewerAppLayout />}>
+          {/* Define interviewer routes here */}
+          {/* <Route index path ="/manageQuestion" element={<ManageQuestion />} /> */}
+          <Route index path="manageQuestion" element={<ManageQuestion />} />
+          <Route index path="scorePage" element={<ScorePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
