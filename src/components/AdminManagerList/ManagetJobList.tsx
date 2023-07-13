@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
-import { PencilSquareIcon} from "@heroicons/react/24/outline";
+import { Link,NavLink } from "react-router-dom";
+import {EyeIcon} from "@heroicons/react/24/outline";
 
 export default function ManagetJobList() {
   let JobManagerList = [
@@ -10,48 +10,55 @@ export default function ManagetJobList() {
       day: "9/2/2022",
       member: 50,
       quantity: 100,
+      link: "admin/candidatepasslist"
     },
     {
       nameJob: "Net",
       day: "9/3/2021",
       member: 25,
       quantity: 100,
+      link: "admin/candidatepasslist"
     },
     {
       nameJob: "C#",
       day: "9/1/2019",
       member: 75,
       quantity: 100,
+      link: "admin/candidatepasslist"
     },
     {
       nameJob: "JavaScript",
       day: "9/10/2020",
       member: 65,
       quantity: 100,
+      link: "admin/candidatepasslist"
     },
     {
       nameJob: ".Net",
       day: "9/10/2023",
       member: 55,
       quantity: 100,
+      link: "admin/candidatepasslist"
     },
     {
       nameJob: "Java",
       day: "9/10/2023",
       member: 15,
       quantity: 100,
+      link: "admin/candidatepasslist"
     },
     {
       nameJob: "React",
       day: "9/10/2023",
       member: 15,
       quantity: 100,
+      link: "admin/candidatepasslist"
     },
 
   ];
   return (
-    <div className="flex items-center justify-center text-center bg-zinc-300 rounded-[30px] mt-6 mx-auto p-8 ">
-    <div className="relative w-full max-w-full overflow-x-auto rounded-lg h-[500px]">
+    <div className="flex items-center justify-center text-center bg-zinc-300 rounded-[30px] mt-6 p-8 ">
+    <div className="relative overflow-x-auto rounded-lg">
       <table className=" text-sm text-gray-500 dark:text-gray-400 text-center rounded-[30px]">
         <thead className="text-xs text-gray-700 uppercase bg-gray-200 text-center rounded-[30px]">
           <tr>
@@ -65,11 +72,8 @@ export default function ManagetJobList() {
               Process
             </th>
             <th scope="col" className="px-3 py-1">
-              Actions
+              View
             </th>
-            {
-
-            }
           </tr>
         </thead>
         <tbody>
@@ -84,7 +88,9 @@ export default function ManagetJobList() {
               <td className="px-6 py-4">{item.day}</td>
               <td className="px-6 py-4">{item.member} \ {item.quantity}</td>
               <td className="px-6 py-4">
-                <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
+                <NavLink to={`/${item.link}`} onClick={() => {}}>
+                  <EyeIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
+                </NavLink>
               </td>
               </tr>
           ))}

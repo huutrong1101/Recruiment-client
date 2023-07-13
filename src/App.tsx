@@ -9,7 +9,6 @@ import UserAppLayout from "./components/Layout/UserAppLayout";
 import AdminAppLayout from "./components/Layout/AdminAppLayout";
 import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
 import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
-import ManagementAppLayOut from "./components/Layout/ManagementAppLayOut/ManagementAppLayOut";
 
 import Jobs from "./pages/Jobs/Jobs";
 import Events from "./pages/Events/Events";
@@ -49,6 +48,15 @@ import {
 
 import ReccerJobDetail from "./pages/Reccer/Jobs/ReccerJobDetail";
 import Addjob from "./pages/Reccer/Jobs/Addjob";
+import ManagementAppLayOut from "./components/Layout/ManagementAppLayOut/ManagementAppLayOut";
+import Reccer_InterviewerManagement from "./pages/Reccer/ReccerInterviewerManagement";
+import Reccer_EventManagement from "./pages/Reccer/ReccerEventManagement";
+import Reccer_candidateManagement from "./pages/Reccer/ReccercandidateManagement";
+
+import RecEventDetail from "./pages/EventDetail/RecEventDetail";
+import AddEvent from "./components/AddEvent/AddEvent";
+import EventManager from "./components/EventManager/EventManager";
+import ListCandiPass from "./components/AdminManagerList/ListCandiPass";
 
 export default function App() {
   return (
@@ -60,7 +68,6 @@ export default function App() {
           <Route path="jobs" element={<Jobs />} />
           <Route path="/jobs/:jobId" element={<JobDetail />} />
           <Route path="events" element={<Events />} />
-
           <Route path="/events/:eventId" element={<EventDetail />} />
           <Route path="contact" element={<Contact />} />
           <Route path="about-us" element={<AboutUs />} />
@@ -78,19 +85,19 @@ export default function App() {
         </Route>
 
         <Route path="/admin" element={<ManagementAppLayOut />}>
-          <Route path="AdminDashboard" index element={<AdminDashboard />} />
-          <Route path="ChangPosition" element={<AdminChangePosition />} />
-
-          <Route path="AddBlacklist" element={<AddBlacklist />} />
-          <Route path="AdminProfile" element={<AdminProfile />} />
-          <Route path="AdminJobManager" element={<ManagetJobList />} />
+          <Route path="dashboard" index element={<AdminDashboard />} />
+          <Route path="change-position" element={<AdminChangePosition />} />
+          <Route path="add-blacklist" element={<AddBlacklist />} />
+          <Route path="profile" element={<AdminProfile />} />
+          <Route path="candidatepasslist" element={<ListCandiPass />}/>
+          <Route path="job-manager" element={<ManagetJobList />} />
         </Route>
 
         <Route path="/recruiter" element={<ManagementAppLayOut />}>
           {/* Define recruiter routes here */}
           <Route path="dashboard" index element={<ReccerDashboard />} />
-          <Route path="candidateinfo" element={<CandidateProfile />} />
-          <Route path="candidatelist" element={<CandidateList />} />
+          <Route path="candidate-info" element={<CandidateProfile />} />
+          <Route path="candidate-list" element={<CandidateList />} />
 
           <Route path="job-management" element={<ReccerJobManagement />} />
           <Route path="calender" element={<Reccercalender />} />
