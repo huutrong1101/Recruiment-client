@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import PrimaryButton from "../../../components/PrimaryButton/PrimaryButton";
 
-export default function ReccerJobInformationCard({ cardData }: any) {
+export default function JobInformationCard({ cardData }: any) {
   return (
     <div
       className={classNames(
@@ -17,6 +17,7 @@ export default function ReccerJobInformationCard({ cardData }: any) {
               <JobInformationCardItem
                 icon={item.icon}
                 name={item.name}
+                value={item.value}
               />
             );
           })}
@@ -28,17 +29,20 @@ export default function ReccerJobInformationCard({ cardData }: any) {
 interface JobInformationCardItemProps {
   icon: React.ReactElement;
   name: string;
+  value: string;
 }
 
 function JobInformationCardItem({
   icon,
   name,
+  value,
 }: JobInformationCardItemProps) {
   return (
     <div className={classNames(`flex flex-row items-center gap-4`)}>
       <div className={classNames(`w-1/12 mx-2`)}>{icon}</div>
       <div className={classNames(`flex flex-col flex-1`)}>
         <span>{name}</span>
+        <span className={classNames(`text-teal-700`)}>{value}</span>
       </div>
     </div>
   );

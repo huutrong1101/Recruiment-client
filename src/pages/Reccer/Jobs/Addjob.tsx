@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import JobDescriptionWidget from "./ReccerJobDescriptionWidget";
 import Logo from "../../../../images/logo_FPT.png";
-import JobInformationCard from "./ReccerJobInformationCard";
+import JobInformationCard from "./AddJobCard";
 import JobCard from "../../../components/JobCard/JobCard";
 import { Avatar } from "@mui/material";
 
@@ -27,21 +27,24 @@ export default function Addjob() {
   const listSkills = ["React", "Java", "HTML", "Figma", "WordPress"];
 
   const [jobInformation, setJobInformation] = useState([
-    { icon: <UserIcon />, name: "Employee Type" },
-    { icon: <MapPinIcon />, name: "Location" },
+    { icon: <UserIcon />, name: "Employee Type", value: "" },
+    { icon: <MapPinIcon />, name: "Location", value: "" },
     {
       icon: <ComputerDesktopIcon />,
       name: "Job Type",
+      value: "",
     },
-    { icon: <BriefcaseIcon />, name: "Experience" },
-    { icon: <AcademicCapIcon />, name: "Qualification" },
+    { icon: <BriefcaseIcon />, name: "Experience", value: "" },
+    { icon: <AcademicCapIcon />, name: "Qualification", value: "" },
     {
       icon: <CurrencyDollarIcon />,
       name: "Salary",
+      value: "",
     },
     {
       icon: <ClockIcon />,
       name: "Posted at",
+      value: "",
     },
   ]);
 
@@ -123,7 +126,10 @@ export default function Addjob() {
         </div>
         {/* Right side description */}
         <div className={classNames(`w-full md:w-3/12 flex-1 relative`)}>
-          <JobInformationCard cardData={jobInformation} />
+          <JobInformationCard
+            cardData={jobInformation}
+            setCardData={setJobInformation}
+          />
         </div>
       </div>
 
