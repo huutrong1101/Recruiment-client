@@ -45,7 +45,6 @@ import {
 
 import ReccerJobDetail from "./pages/Reccer/Jobs/ReccerJobDetail";
 import Addjob from "./pages/Reccer/Jobs/Addjob";
->>>>>>> src/App.tsx
 
 export default function App() {
   return (
