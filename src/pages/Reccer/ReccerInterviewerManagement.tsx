@@ -2,7 +2,9 @@ import React from 'react'
 import { data } from "../../data/RecInterviewerManagementData";
 import RecInterviewerCard from "../../components/RecInterviewerManageCard/RecInterviewerManageCard";
 import { Link } from 'react-router-dom'
+
 const ReccerInterviewerManagement = () => {
+
   return (
     <>
       <form className="flex w-3/4 items-center mx-auto p-2">
@@ -20,7 +22,7 @@ const ReccerInterviewerManagement = () => {
         {/* <!-- Card --> */}
         {data.listInterviewer.map((interviewer, index) => (
           <div key={index} className=" px-3 mb-8 lg:w-1/4 md:w-1/3 sm:w-3/4">
-            <RecInterviewerCard interviewer={interviewer} index={index} />
+            <RecInterviewerCard interviewer={interviewer} />
           </div>
         ))}
       </div>

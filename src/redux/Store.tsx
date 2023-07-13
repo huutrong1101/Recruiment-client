@@ -9,7 +9,7 @@ export const ApplicationStore = configureStore({
   reducer: {
     Home: HomeSlice,
     candidateRecent: CandidateRecentReducer,
-    interviewRecent: InterviewRecentReducer
+    interviewRecent: InterviewRecentReducer,
   },
 });
 

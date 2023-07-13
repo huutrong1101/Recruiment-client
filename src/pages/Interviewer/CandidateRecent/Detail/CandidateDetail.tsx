@@ -3,12 +3,13 @@ import { useSelector } from "react-redux";
 import { MapPinIcon, BriefcaseIcon } from "@heroicons/react/20/solid";
 
 const CandidateDetail = () => {
-    const style = {
-        'z-index': '999'
-    };
-    const { id } = useParams();
+
+    const { id } = useParams(); 
     const {candidatesRecent} = useSelector((state:any) => state.candidateRecent);
     const candidate = candidatesRecent.find((candidate:any) => candidate.id === parseInt(id || ''));
+
+
+
     return (
         <div className="CandidateDetail mb-10">
             <div className="flex">

@@ -35,6 +35,9 @@ import ReccerInterviewerManagement from "./pages/Reccer/ReccerInterviewerManagem
 import ReccerEventManagement from "./pages/Reccer/ReccerEventManagement";
 import ReccercandidateManagement from "./pages/Reccer/ReccercandidateManagement";
 import ReccerInterviewerDetail from "./pages/Reccer/InterviewerDetail";
+import CandidateList from "./pages/Reccer/CandidateList";
+import CandidateProfile from "./pages/Reccer/CandidateProfile";
+
 
 // Interviewer Pages
 import {
@@ -82,13 +85,13 @@ export default function App() {
         <Route path="/recruiter" element={<ManagementAppLayOut />}>
           {/* Define recruiter routes here */}
           <Route path="dashboard" index element={<ReccerDashboard />} />
-          {/* <Route path="candidateinfo" element={<CandidateProfile />} /> */}
-          {/* <Route path="candidatelist" element={<CandidateList />} /> */}
+          <Route path="candidateinfo" element={<CandidateProfile />} /> 
+          <Route path="candidatelist" element={<CandidateList />} /> 
 
           <Route path="job-management" element={<ReccerJobManagement />} />
           <Route path="calender" element={<Reccercalender />} />
           <Route path="interviewer"element={<ReccerInterviewerManagement />}/>
-          <Route path="interviewer-profile"element={<ReccerInterviewerDetail />}/>
+          <Route path="interviewer/:id" element={<ReccerInterviewerDetail />}/>
           <Route path="event" element={<ReccerEventManagement />} />
           <Route path="candidate" element={<ReccercandidateManagement />} />
         </Route>

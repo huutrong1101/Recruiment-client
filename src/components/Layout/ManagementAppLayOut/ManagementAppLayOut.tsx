@@ -92,20 +92,22 @@ const ManagementAppLayOut = () => {
 
     return (
         <div className="ManagementAppLayOut">
-            <div className='navbar'>
-                <div className={classnames('navbar-content flex items-center justify-between', { 'minimize-content': leftActive })}>
-                    <div className='navbar-content-left flex justify-between'>
-                        <button type="button" onClick={() => setLeftActive(!leftActive)}>
-                            <Bars3Icon className="w-5 h-5 mr-2" />
-                        </button>
-                        <div>
-                            Breadcrumbs
+            <div className='navbar '>
+                <div className='fixed w-[100vw] z-10 bg-white top-0'>
+                    <div className={classnames('navbar-content flex items-center justify-between', { 'minimize-content': leftActive })}>
+                        <div className='navbar-content-left  flex justify-between'>
+                            <button type="button" onClick={() => setLeftActive(!leftActive)}>
+                                <Bars3Icon className="w-5 h-5 mr-2" />
+                            </button>
+                            <div>
+                                Breadcrumbs
+                            </div>
                         </div>
-                    </div>
-                    <div className='navbar-content-right'>
-                        <button type="button" onClick={() => setRightActive(true)}>
-                            <Bars3Icon className="w-5 h-5" />
-                        </button>
+                        <div className='navbar-content-right'>
+                            <button type="button" onClick={() => setRightActive(true)}>
+                                <Bars3Icon className="w-5 h-5" />
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div className={classnames('navbar-left ', { 'minimize-left': leftActive })}>
@@ -146,8 +148,8 @@ const ManagementAppLayOut = () => {
                     </ul>
                 </div>
             </div>
-            <div className={`${leftActive ? 'small' : 'large'}`}>
-                <div className='min-h-[calc(100vh-72px-3rem)]'><Outlet /></div>
+            <div className={`${leftActive ? 'small' : 'large'} pt-[72px]`}>
+                <div className='mx-[2rem] min-h-[calc(100vh-72px-2rem)]'><Outlet /></div>
                 <RecFooter check={leftActive ? true : false} />
             </div>
         </div>

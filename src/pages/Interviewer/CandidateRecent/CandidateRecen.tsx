@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 const rowsPerPageOptions = [5, 10];
 
 const CandidateRecent = () => {
-
+    
     const {candidatesRecent, candidatesRecentStatus} = useAppSelector((state: any) => state.candidateRecent);
     const dispatch = useAppDispatch();
 
