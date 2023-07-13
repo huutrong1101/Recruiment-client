@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, } from "react";
 import classnames from "classnames";
 import blog_image from "../../../images/blog_image.png";
+import { Link, NavLink } from "react-router-dom";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import { data } from "../../data/homeData";
 import BlogCard from "../BlogCard/BlogCard";
 
@@ -42,9 +42,11 @@ export default function EventManager() {
           </div>
         </form>
         <div className="col-span-1 flex justify-center items-center bg-emerald-600 rounded-full py-2 shadow">
-          <button className="text-white text-sm font-medium leading-tight">
-            + Add Event
-          </button>
+          <NavLink to="/recruiter/add-events" onClick={() => {}}>
+            <button className="text-white text-sm font-medium leading-tight">
+              + Add Event
+            </button>
+          </NavLink>
         </div>
       </div>
       <div>
@@ -57,6 +59,56 @@ export default function EventManager() {
               </div>
             ))}
         </div>
+      </div>  
+      <div>
+          {/* Pagination  */}
+          <nav
+          aria-label="Page navigation example"
+          className="flex items-center justify-center"
+        >
+          <ul className="flex list-style-none">
+            <li>
+              <a className="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-500 transition-all duration-300 hover:bg-neutral-100">
+                Previous
+              </a>
+            </li>
+            <li>
+              <a
+                className="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100"
+                href="#!"
+              >
+                1
+              </a>
+            </li>
+            <li aria-current="page">
+              <a
+                className="relative block rounded-full bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 hover:bg-neutral-100"
+                href="#!"
+              >
+                2
+                <span className="absolute -m-px h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 [clip:rect(0,0,0,0)]">
+                  (current)
+                </span>
+              </a>
+            </li>
+            <li>
+              <a
+                className="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100"
+                href="#!"
+              >
+                3
+              </a>
+            </li>
+            <li>
+              <a
+                className="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100"
+                href="#!"
+              >
+                Next
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </>
   );

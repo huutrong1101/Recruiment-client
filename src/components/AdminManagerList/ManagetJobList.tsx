@@ -10,7 +10,7 @@ export default function ManagetJobList() {
       day: "9/2/2022",
       member: 50,
       quantity: 100,
-      link: "admin/candidate-pass-list"
+      link: "admin/candidate-pass-list",
     },
     {
       nameJob: "Net",

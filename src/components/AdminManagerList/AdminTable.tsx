@@ -274,9 +274,22 @@ export default function AdminTable({ typeSelected }: TypeData) {
                 <td className="px-6 py-4">{item.day}</td>
                 {/* <td className="px-6 py-4">{item.stateBlackList}</td> */}
                 <td className="px-6 py-4">
-                  <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
-                  <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
-                  <UserMinusIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
+                {(item.position === "Candidate") ?(
+                  <NavLink to={"/recruiter/candidate-info"} onClick={() => {}}>
+                    <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
+                  </NavLink>):
+                    <NavLink to={"/admin/change-position"} onClick={() => {}}>
+                      <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
+                    </NavLink>
+                  }
+                  <NavLink to={"#"} onClick={() => {}}>
+                    <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
+                  </NavLink>
+                  {(item.position === "Candidate" && item.stateBlackList === 0) ? (
+                    <NavLink to={"/admin/add-blacklist"} onClick={() => {}}>
+                      <UserMinusIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
+                    </NavLink>
+                   ) : null}
                 </td>
                 </tr>
             ))}
