@@ -35,8 +35,10 @@ import ManageQuestion from "./pages/InterviewQuestion/ManageQuestion";
 import ReccerInterviewerManagement from "./pages/Reccer/ReccerInterviewerManagement";
 import ReccerEventManagement from "./pages/Reccer/ReccerEventManagement";
 import ReccercandidateManagement from "./pages/Reccer/ReccercandidateManagement";
+import ReccerInterviewerDetail from "./pages/Reccer/InterviewerDetail";
 import CandidateList from "./pages/Reccer/CandidateList";
 import CandidateProfile from "./pages/Reccer/CandidateProfile";
+
 
 // Interviewer Pages
 import {
@@ -92,9 +94,13 @@ export default function App() {
 
           <Route path="job-management" element={<ReccerJobManagement />} />
           <Route path="calender" element={<Reccercalender />} />
+          <Route path="interviewer"element={<ReccerInterviewerManagement />}/>
+          <Route path="interviewer-profile"element={<ReccerInterviewerDetail />}/>
+
           <Route path="jobdetail" element={<ReccerJobDetail />} />
           <Route path="addjob" element={<Addjob />} />
           <Route path="interviewer" element={<ReccerInterviewerManagement />} />
+
           <Route path="event" element={<ReccerEventManagement />} />
           <Route path="candidate" element={<ReccercandidateManagement />} />
         </Route>
@@ -103,6 +109,9 @@ export default function App() {
           <Route path="interview-recent" element={<InterviewRecent />} />
           <Route path="interview-question" element={<InterviewQuestion />} />
           <Route path="candidate-recent" element={<CandidateRecent />} />
+          <Route index path ="manageQuestion" element={<ManageQuestion />} />
+          <Route index path ="scorePage" element={<ScorePage />} />
+
         </Route>
         <Route path="/interviewer" element={<InterviewerAppLayout />}>
           {/* Define interviewer routes here */}
