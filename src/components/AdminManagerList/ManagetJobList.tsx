@@ -10,49 +10,49 @@ export default function ManagetJobList() {
       day: "9/2/2022",
       member: 50,
       quantity: 100,
-      link: "admin/candidatepasslist"
+      link: "admin/candidate-pass-list"
     },
     {
       nameJob: "Net",
       day: "9/3/2021",
       member: 25,
       quantity: 100,
-      link: "admin/candidatepasslist"
+      link: "admin/candidate-pass-list"
     },
     {
       nameJob: "C#",
       day: "9/1/2019",
       member: 75,
       quantity: 100,
-      link: "admin/candidatepasslist"
+      link: "admin/candidate-pass-list"
     },
     {
       nameJob: "JavaScript",
       day: "9/10/2020",
       member: 65,
       quantity: 100,
-      link: "admin/candidatepasslist"
+      link: "admin/candidate-pass-list"
     },
     {
       nameJob: ".Net",
       day: "9/10/2023",
       member: 55,
       quantity: 100,
-      link: "admin/candidatepasslist"
+      link: "admin/candidate-pass-list"
     },
     {
       nameJob: "Java",
       day: "9/10/2023",
       member: 15,
       quantity: 100,
-      link: "admin/candidatepasslist"
+      link: "admin/candidate-pass-list"
     },
     {
       nameJob: "React",
       day: "9/10/2023",
       member: 15,
       quantity: 100,
-      link: "admin/candidatepasslist"
+      link: "admin/candidate-pass-list"
     },
 
   ];

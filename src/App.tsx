@@ -6,8 +6,6 @@ import AuthenticateLogin from "./pages/Authenticate/AuthenticateLogin";
 import AuthenticateSignUp from "./pages/Authenticate/AuthenticateSignUp";
 
 import UserAppLayout from "./components/Layout/UserAppLayout";
-import AdminAppLayout from "./components/Layout/AdminAppLayout";
-import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
 import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
 
 import Jobs from "./pages/Jobs/Jobs";
@@ -89,7 +87,7 @@ export default function App() {
           <Route path="change-position" element={<AdminChangePosition />} />
           <Route path="add-blacklist" element={<AddBlacklist />} />
           <Route path="profile" element={<AdminProfile />} />
-          <Route path="candidatepasslist" element={<ListCandiPass />}/>
+          <Route path="candidate-pass-list" element={<ListCandiPass />}/>
           <Route path="job-manager" element={<ManagetJobList />} />
         </Route>
 
@@ -120,7 +118,7 @@ export default function App() {
           <Route index path ="scorePage" element={<ScorePage />} />
 
         </Route>
-        <Route path="/interviewer" element={<InterviewerAppLayout />}>
+        <Route path="/interviewer" element={<ManagementAppLayOut />}>
           {/* Define interviewer routes here */}
           {/* <Route index path ="/manageQuestion" element={<ManageQuestion />} /> */}
           <Route index path="manageQuestion" element={<ManageQuestion />} />
