@@ -147,7 +147,7 @@ const ManagementAppLayOut = () => {
                 </div>
             </div>
             <div className={`${leftActive ? 'small' : 'large'}`}>
-                <div className='mt-5 mx-[2rem] min-h-[calc(100vh-72px-3rem)]'><Outlet /></div>
+                <div className='min-h-[calc(100vh-72px-3rem)]'><Outlet /></div>
                 <RecFooter check={leftActive ? true : false} />
             </div>
         </div>
