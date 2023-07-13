@@ -10,21 +10,18 @@ import {
 import classNames from "classnames";
 import Select from "react-select";
 import { useState } from "react";
-import JobDescriptionWidget from "./ReccerJobDescriptionWidget";
+import JobDescriptionWidget from "./AddJobWidget";
 import Logo from "../../../../images/logo_FPT.png";
 import JobInformationCard from "./AddJobCard";
 import TextareaAutosize from "react-textarea-autosize";
-import Example2 from "../../../components/Button/Adding1";
 
 export default function Addjob() {
-  const listSkills = ["React", "Java", "HTML", "Figma", "WordPress"];
   const skills = [
     { value: 1, label: "Programming" },
     { value: 2, label: "Data Analysis" },
     { value: 3, label: "Project Management" },
     { value: 4, label: "Communication" },
     { value: 5, label: "Problem Solving" },
-    // Add more skills as needed
   ];
 
   const [jobInformation, setJobInformation] = useState([
@@ -56,10 +53,10 @@ export default function Addjob() {
         <div className={classNames(`w-full md:w-8/12`, `flex flex-col gap-6`)}>
           {/* Widgets */}
           <JobDescriptionWidget
-            companyName="FPT Software"
-            jobRole="Web Designer"
-            publishDate={new Date()}
-            logo={{ src: Logo, alt: "image" }}
+          // companyName="FPT Software"
+          // jobRole="Web Designer"
+          // publishDate={new Date()}
+          // logo={{ src: Logo, alt: "image" }}
           />
           {/* Details */}
           <div
@@ -111,7 +108,6 @@ export default function Addjob() {
           >
             <div>
               <h1 className="text-2xl font-semibold">Skills Require</h1>
-              {/* <Example2 /> */}
               <Select options={skills} isMulti />
             </div>
           </div>
