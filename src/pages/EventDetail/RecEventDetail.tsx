@@ -111,9 +111,7 @@ export default function RecEventDetail() {
 
         {/* Author  */}
         <div
-          className={classnames(
-            "bg-white rounded-lg shadow-lg w-[30%] h-fit sticky top-0"
-          )}
+          className={classnames(            "bg-white rounded-lg shadow-lg w-[30%] h-fit sticky top-0"          )}
         >
           <div
             className={classnames(

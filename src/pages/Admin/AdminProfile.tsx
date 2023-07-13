@@ -22,22 +22,22 @@ export default function AdminProfile() {
     AdminProfile.map((item) => (
         <div className="flex gap-5">
             <div className="bg-white rounded-lg shadow-lg w-[50%] top-4 ">
-            <label htmlFor="avatar">
-                  {avatar && (
+                <label htmlFor="avatar">
+                {avatar && (
                         <div>
                             <div className='flex justify-center'> <img src={item.avatarUrl} className='w-[150px] h-[150px] justify-center rounded-full' alt="blog_image" /></div>
                         </div>
-                      )}
-                      <div className='flex justify-center'>
-                        <input
-                            type="file"
-                            id="avatar"
-                            accept="image/*"
-                            className={classnames("ig object-cover ig-center")}
-                            onChange={handleImageUpload}
-                        />
-                      </div>
-                  </label>
+                    )}
+                </label>
+                <div className='flex justify-center'>
+                    <input
+                        type="file"
+                        id="avatar"
+                        accept="image/*"
+                        className={classnames("")}
+                        onChange={handleImageUpload}
+                    />
+                </div>
             </div>
             <div className="bg-white rounded-lg shadow-lg w-[50%] h-fit sticky">
                 <div className = "flex items-center text-center space-x-2 font-semibold text-green-500">
