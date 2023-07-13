@@ -8,23 +8,24 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import classNames from "classnames";
-import { useParams } from "react-router-dom";
+import Select from "react-select";
 import { useState } from "react";
 import JobDescriptionWidget from "./ReccerJobDescriptionWidget";
 import Logo from "../../../../images/logo_FPT.png";
 import JobInformationCard from "./AddJobCard";
-import JobCard from "../../../components/JobCard/JobCard";
-import { Avatar } from "@mui/material";
-
-import AvatarCandidate from "../../../components/Candidate/Avatar";
-import Applied from "./AppliedCandidate";
-import Suggested from "./SuggestedCandidate";
 import TextareaAutosize from "react-textarea-autosize";
 import Example2 from "../../../components/Button/Adding1";
 
 export default function Addjob() {
-  const { jobId } = useParams();
   const listSkills = ["React", "Java", "HTML", "Figma", "WordPress"];
+  const skills = [
+    { value: 1, label: "Programming" },
+    { value: 2, label: "Data Analysis" },
+    { value: 3, label: "Project Management" },
+    { value: 4, label: "Communication" },
+    { value: 5, label: "Problem Solving" },
+    // Add more skills as needed
+  ];
 
   const [jobInformation, setJobInformation] = useState([
     { icon: <UserIcon />, name: "Employee Type", value: "" },
@@ -110,7 +111,8 @@ export default function Addjob() {
           >
             <div>
               <h1 className="text-2xl font-semibold">Skills Require</h1>
-              <Example2 />
+              {/* <Example2 /> */}
+              <Select options={skills} isMulti />
             </div>
           </div>
           {/* /Skill */}
