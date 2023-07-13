@@ -2,7 +2,8 @@
 const tailwindConfig = {
   content: ["./src/**/*.{tsx,jsx}", "./index.html"],
   theme: {
-    extend: {},
+    extend: {}
+    ,
   },
   plugins: [require("@headlessui/tailwindcss")],
 };

@@ -173,7 +173,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="flex flex-wrap -mx-4 mt-[50px]">
+        <div className="flex flex-wrap -mx-4 mt-[5px]">
           {/* <!-- Card --> */}
           {data.listJobs &&
             data.listJobs.map((job) => (

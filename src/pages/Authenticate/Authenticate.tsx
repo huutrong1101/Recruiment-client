@@ -1,12 +1,23 @@
 import React from "react";
 import classnames from "classnames";
 import image from "../../../images/sprite.png";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 export default function Authenticate() {
+  const navigate = useNavigate();
+
+  const handleBrowseJobClick = () => {
+    navigate(`/jobs`);
+  };
+
   return (
-    <div className={classnames("flex flex-row gap-12")}>
-      <div className="w-2/3 ">
+    <div
+      className={classnames(
+        "flex flex-col md:flex-row gap-12",
+        `min-h-[100vh] mb-36`,
+      )}
+    >
+      <div className="w-full md:w-1/2 lg:w-5/12 xl:w-4/12 ">
         <Outlet />
       </div>
       {/* Browse Job Frame */}
@@ -31,13 +42,16 @@ export default function Authenticate() {
         </p>
 
         <div className="flex flex-row">
-          <button className={classnames(`border`, `px-3 py-1 rounded-xl`)}>
+          <button
+            className={classnames(`border`, `px-3 py-1 rounded-xl`)}
+            onClick={handleBrowseJobClick}
+          >
             <div className="text-white ">Browse jobs</div>
           </button>
         </div>
 
         <img
-          alt=""
+          alt="Authenticate block decoration"
           src={image}
           className={classnames(
             `right-0 bottom-[-120px] opacity-100`,
