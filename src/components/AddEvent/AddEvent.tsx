@@ -1,9 +1,7 @@
 import React,{useState} from "react";
 import classnames from "classnames";
 import blog_image from "../../../images/blog_image.png";
-import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
-import { data } from "../../data/homeData";
-import BlogCard from "../../components/BlogCard/BlogCard";
+import TextareaAutosize from "react-textarea-autosize";
 
 export default function AddEvent() {
       const [avatar, setAvatar] = useState(blog_image);
@@ -19,20 +17,15 @@ export default function AddEvent() {
       };
       const handleSubmit = (event) => {
         event.preventDefault();
-        // Thực hiện xử lý lưu sự kiện mới tại đây
-        console.log('Avatar:', avatar);
-        console.log('Time:', time);
-        console.log('Organized By:', organizedBy);
-        console.log('Date:', date);
-        console.log('Event Name:', eventName);
-        console.log('Event Content:', eventContent);
+        let object = { avatar,time,organizedBy, date, eventName,eventContent};
+        console.log(object);
       }
   return (
     <>
         <form className={classnames("flex gap-10 ")} onSubmit={handleSubmit}>
           <div className={classnames("bg-white shadow rounded-lg w-[75%] ")}>
               {/* Img */}
-              <div className=" flex items-left px-10 mt-4">
+              <div className=" flex items-left px-10 mt-10">
                   <label htmlFor="avatar">
                   {avatar && (
                         <div>
@@ -51,29 +44,28 @@ export default function AddEvent() {
               </div>
 
                 {/* Title and content */}
-                <div className={classnames("flex items-left px-10 mt-4")}>
+                <div className={classnames("flex items-left px-10 mt-10")}>
                     <label className="text-zinc-900 text-2xl font-normal leading-7 ">
                         Event Title:
-                        <input
-                          type="text"
+                        <TextareaAutosize
+                          minRows={1}
                           id="eventName"
                           value={eventName}
-                          className=" bg-white shadow flex gap-5 text-justify text-black text-opacity-50 text-[16px] font-normal leading-tight" placeholder="Event title input here"
+                          className="resize-none p-2.5 text-[13px] w-full text-justify bg-white border" placeholder="Event title input here"
                           onChange={(event) => setEventName(event.target.value)}
                         />
                     </label>
                 </div>
-                <div className={classnames("flex items-left px-10 mt-4")}>
+                <div className={classnames("flex items-left px-10 mt-10")}>
                     <label className="text-zinc-900 text-2xl font-normal leading-7">
                         Description:
-                        <textarea
-                          rows="10" cols="200"
+                        <TextareaAutosize
+                          minRows={4}
                           id="contentWidth"
+                          // id="description"
+                          className="resize-none p-2.5 text-[13px] w-full text-justify bg-white border"
                           onChange={(event) => setEventContent(event.target.value)}
-                          className="w-[80%] h-[80%] bg-white shadow flex gap-9 text-justify text-black text-opacity-50 text-[13px] font-normal leading-tight" 
-                          placeholder="
-                          Please enter your content in the box below to create a perfect event. We look forward to introducing it to everyone!
-                          "
+                          placeholder="Please enter your content in the box below to create a perfect event. We look forward to introducing it to everyone!"
                         />
                     </label>
                 </div>
@@ -98,7 +90,7 @@ export default function AddEvent() {
                     </label>
                 </div>
                 <div className={classnames("flex items-center gap-1 justify-between px-10 mt-4")}>
-                    <label className="">Day :
+                    <label className="">Date poted :
                       <input
                         type="date"
                         id="date"

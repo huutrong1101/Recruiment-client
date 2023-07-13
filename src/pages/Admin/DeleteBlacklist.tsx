@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import classnames from "classnames";
 import TextareaAutosize from "react-textarea-autosize";
-export default function AddBlacklist() {
+export default function DeleteBlacklist() {
   const [Info] = useState([{
     avatar:"../../../images/blog_image.png",
     name: "Nguyen Van A",
@@ -46,7 +46,7 @@ return (
                 </div>
                 {/* Email */}
                 <div className = "grid grid-cols-1">
-                    <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Email.</div>
+                    <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Email :</div>
                     <div className = "px-4 py-2 self-stretch pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50">{item.email} </div>
                 </div>
                 {/* Reasion */}
@@ -61,8 +61,8 @@ return (
                 </div>
                 {/* AdBacklist */}
                 <div className={classnames("mt-10 text-center px-5 py-4")}>
-                    <button type="submit" className="px-6 py-3 text-white rounded-full bg-red-600     hover:bg-red-800">  Cancel   </button>
-                    <button type="submit" className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800">  Save   </button>
+                    <button type="submit" className="px-6 py-3 text-white rounded-full bg-gray-600    hover:bg-gray-800">  Cancel  </button>
+                    <button type="submit" className="px-6 py-3 text-white rounded-full bg-red-600     hover:bg-red-800">  Delete   </button>
                 </div>
               </div>
             </div>

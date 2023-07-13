@@ -55,6 +55,7 @@ import RecEventDetail from "./pages/EventDetail/RecEventDetail";
 import AddEvent from "./components/AddEvent/AddEvent";
 import EventManager from "./components/EventManager/EventManager";
 import ListCandiPass from "./components/AdminManagerList/ListCandiPass";
+import DeleteBlacklist from "./pages/Admin/DeleteBlacklist";
 
 export default function App() {
   return (
@@ -86,6 +87,8 @@ export default function App() {
           <Route path="dashboard" index element={<AdminDashboard />} />
           <Route path="change-position" element={<AdminChangePosition />} />
           <Route path="add-blacklist" element={<AddBlacklist />} />
+          <Route path="delete-blacklist" element={<DeleteBlacklist />} />
+
           <Route path="profile" element={<AdminProfile />} />
           <Route path="candidate-pass-list" element={<ListCandiPass />}/>
           <Route path="job-manager" element={<ManagetJobList />} />

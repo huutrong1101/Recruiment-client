@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { PencilSquareIcon, TrashIcon,UserMinusIcon} from "@heroicons/react/24/outline";
 
 interface TypeData {
@@ -212,7 +212,9 @@ export default function AdminTable({ typeSelected }: TypeData) {
                     <td className="px-6 py-4">{item.day}</td>
                     {/* <td className="px-6 py-4">{item.stateBlackList}</td> */}
                     <td className="px-6 py-4">
-                      <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
+                      <NavLink to={`/admin/change-position`} onClick={() => {}}>
+                          <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
+                      </NavLink>
                       <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
                       <UserMinusIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
                     </td>
