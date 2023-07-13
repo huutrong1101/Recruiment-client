@@ -34,7 +34,6 @@ export default function RecruiterAppLayout() {
         </div>
       </div>
 
-      {/* <DashboardFooter /> */}
     </div>
   );
 }

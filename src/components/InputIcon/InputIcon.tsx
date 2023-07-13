@@ -1,7 +1,7 @@
 import classnames from "classnames";
 export interface InputIconProps extends React.HTMLProps<HTMLInputElement> {
   icon: React.ReactElement;
-  wrapperClassName: string;
+  wrapperClassName?: string;
 }
 
 export default function InputIcon({
@@ -12,25 +12,29 @@ export default function InputIcon({
   return (
     <div
       className={classnames(
-        `flex flex-row items-center gap-2 py-2`,
+        `flex flex-row items-center justify-center`,
         `bg-white text-zinc-500`,
         `rounded-md`,
         `border w-full`,
         wrapperClassName,
       )}
     >
-      <i className={classnames(`w-[16px] ml-4`)}>{icon}</i>
+      <div className={classnames(`w-4 mx-2`)}>
+        <span className="">{icon}</span>
+      </div>
 
-      <input
-        placeholder="abc"
-        className={classnames(
-          `px-2 py-1`,
-          `font-light`,
-          `mr-4`,
-          `outline-none`,
-        )}
-        {...children}
-      />
+      <div className="flex-1">
+        <input
+          placeholder="abc"
+          className={classnames(
+            `p-2`,
+            `font-light`,
+            `outline-none rounded-r-md`,
+            `w-full`,
+          )}
+          {...children}
+        />
+      </div>
     </div>
   );
 }

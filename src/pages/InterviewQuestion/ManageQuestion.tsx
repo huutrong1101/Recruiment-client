@@ -2,7 +2,6 @@ import {
     MagnifyingGlassIcon,PencilSquareIcon,TrashIcon
 } from "@heroicons/react/24/outline";
 import DashBoardFooter from "../../components/RecFooter/DashboardFooter"
-// import { PencilSquareIcon, TrashIcon } from "@heroicons/react/20/solid"; 
 export default function QuestionInterview() {
     return (
         <div>
@@ -206,7 +205,6 @@ export default function QuestionInterview() {
                     </div>
                 </div>
             </div>
-            <DashBoardFooter/>
         </div>
     )
 }

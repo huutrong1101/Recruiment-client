@@ -8,33 +8,30 @@ import {
   BsFillCartCheckFill,
   BsFillTelephoneFill,
 } from "react-icons/bs";
+import Container from "../Container/Container";
 
 export default function Footer() {
   return (
-    <div
-      className={classNames("mt-[80px] px-[-128px] bg-[#0F172A] text-white")}
-    >
-      <div className={classNames("px-32")}>
+    <div className={classNames("footer-wrapper bg-[#0F172A] text-white")}>
+      <Container className={"footer-container"}>
         <div
           className={classNames(
-            "flex items-center justify-between py-5 border-b border-white",
+            "flex flex-col md:flex-row md:items-center justify-between py-5 border-b border-white",
           )}
         >
           <div>
             <h3
               className={classNames(
-                "text-white text-3xl font-semibold leading-28 tracking-wide capitalize",
+                "text-white py-2 md:px-0 text-xl font-semibold leading-28 tracking-wide capitalize",
               )}
             >
-              Group 2
+              Product by Group 2
             </h3>
           </div>
-          <div
-            className={classNames(
-              "text-white text-base font-semibold leading-6",
-            )}
-          >
-            <ul className={classNames("flex justify-evenly gap-6")}>
+          <div className={classNames("text-zinc-300 text-base leading-6")}>
+            <ul
+              className={classNames("flex flex-col md:flex-row-reverse gap-6")}
+            >
               <li>
                 <Link to="/">Home</Link>
               </li>
@@ -84,7 +81,7 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }
