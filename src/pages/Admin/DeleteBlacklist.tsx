@@ -62,7 +62,7 @@ return (
                 {/* AdBacklist */}
                 <div className={classnames("mt-10 text-center px-5 py-4")}>
                     <button type="submit" className="px-6 py-3 text-white rounded-full bg-gray-600    hover:bg-gray-800">  Cancel  </button>
-                    <button type="submit" className="px-6 py-3 text-white rounded-full bg-red-600     hover:bg-red-800">  Delete   </button>
+                    <button type="submit" className="px-6 py-3 text-white rounded-full bg-red-600     hover:bg-red-800 ml-5" >  Delete   </button>
                 </div>
               </div>
             </div>

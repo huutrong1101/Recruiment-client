@@ -4,8 +4,7 @@ import blog_image from "../../../images/blog_image.png";
 import { Link, NavLink } from "react-router-dom";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { data } from "../../data/homeData";
-import BlogCard from "../BlogCard/BlogCard";
-
+import {  ArrowRightIcon,  CalendarDaysIcon,  ClockIcon,} from "@heroicons/react/24/outline";
 export default function EventManager() {
   const [searchQuery, setSearchQuery] = useState('');
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
@@ -42,7 +41,7 @@ export default function EventManager() {
           </div>
         </form>
         <div className="col-span-1 flex justify-center items-center bg-emerald-600 rounded-full py-2 shadow">
-          <NavLink to="/recruiter/add-events" onClick={() => {}}>
+          <NavLink to="/recruiter/events-add" onClick={() => {}}>
             <button className="text-white text-sm font-medium leading-tight">
               + Add Event
             </button>
@@ -55,11 +54,52 @@ export default function EventManager() {
           {data.listEvent &&
             data.listEvent.map((event) => (
               <div key={event.id} className="w-full px-4 mb-8 md:w-1/3">
-                <BlogCard event={event} />
+                {/* <BlogCard event={event} /> */}
+                <div className="bg-white rounded-lg shadow-lg">
+                  <div className={classnames("w-full")}>
+                    <img
+                      src={blog_image}
+                      alt="blog_image"
+                      className={classnames("w-full")}
+                    />
+                  </div>
+                  <div className={classnames("p-6")}>
+                    <div className={classnames("flex items-center justify-between")}>
+                      <div className={classnames("flex items-center gap-1")}>
+                        <CalendarDaysIcon className={classnames(`w-[20px]`)} />
+                        <p>{event.date}</p>
+                      </div>
+                      <div className={classnames("flex items-center gap-1")}>
+                        <ClockIcon className={classnames(`w-[20px]`)} />
+                        <p>{event.time} min read</p>
+                      </div>
+                    </div>
+                    <div className={classnames("mt-2")}>
+                      <h3
+                        className={classnames(
+                          "text-black text-base font-medium leading-7 tracking-wider capitalize",
+                        )}
+                      >
+                        {event.title}
+                      </h3>
+                    </div>
+                    <div className={classnames("mt-6 flex items-center justify-center")}>
+                      <Link
+                        to=":eventId"
+                        className={classnames(
+                          "bg-emerald-700 text-white p-2 rounded-md flex",
+                        )}
+                      >
+                        Read More
+                        <ArrowRightIcon className={classnames(`w-[20px] ml-1`)} />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
         </div>
-      </div>  
+      </div>
       <div>
           {/* Pagination  */}
           <nav
@@ -81,11 +121,8 @@ export default function EventManager() {
               </a>
             </li>
             <li aria-current="page">
-              <a
-                className="relative block rounded-full bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 hover:bg-neutral-100"
-                href="#!"
-              >
-                2
+              <a className="relative block rounded-full bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 hover:bg-neutral-100"
+                href="#!"  >                2
                 <span className="absolute -m-px h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 [clip:rect(0,0,0,0)]">
                   (current)
                 </span>

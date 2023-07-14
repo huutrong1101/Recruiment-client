@@ -85,9 +85,9 @@ export default function App() {
 
         <Route path="/admin" element={<ManagementAppLayOut />}>
           <Route path="dashboard" index element={<AdminDashboard />} />
-          <Route path="change-position" element={<AdminChangePosition />} />
-          <Route path="add-blacklist" element={<AddBlacklist />} />
-          <Route path="delete-blacklist" element={<DeleteBlacklist />} />
+          <Route path="position-change" element={<AdminChangePosition />} />
+          <Route path="blacklist-add" element={<AddBlacklist />} />
+          <Route path="blacklist-delete" element={<DeleteBlacklist />} />
 
           <Route path="profile" element={<AdminProfile />} />
           <Route path="candidate-pass-list" element={<ListCandiPass />}/>
@@ -111,6 +111,17 @@ export default function App() {
 
           <Route path="event" element={<ReccerEventManagement />} />
           <Route path="candidate" element={<ReccercandidateManagement />} />
+          <Route path="event-manager/:eventId" element={<RecEventDetail/>} />
+          <Route path="event-manager" element={<EventManager />} />
+          <Route path="events-add" element={<AddEvent />} />
+          {/* <Route path="job-management" element={<Reccer_JobManagement />} />
+          <Route path="calender" element={<Reccer_calender />} /> */}
+          <Route
+            path="interviewer"
+            element={<Reccer_InterviewerManagement />}
+          />
+          <Route path="event" element={<Reccer_EventManagement />} />
+          <Route path="candidate" element={<Reccer_candidateManagement />} />
         </Route>
 
         <Route path="/interviewer" element={<ManagementAppLayOut />}>
