@@ -35,12 +35,12 @@ export default function EventManager() {
             />
           </div>
           <div>
-            <button type="submit" className="p-1.5  bg-emerald-600 text-white text-sm leading-tight rounded-full">
+            <button type="submit" className="ml-5 p-1.5  bg-emerald-600 text-white text-sm leading-tight rounded-full">
               Search
             </button>
           </div>
         </form>
-        <div className="col-span-1 flex justify-center items-center bg-emerald-600 rounded-full py-2 shadow">
+        <div className="ml-5 col-span-1 flex justify-center items-center bg-emerald-600 rounded-full py-2 shadow">
           <NavLink to="/recruiter/events-add" onClick={() => {}}>
             <button className="text-white text-sm font-medium leading-tight">
               + Add Event
