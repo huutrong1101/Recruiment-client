@@ -17,6 +17,7 @@ import JobCard from "../../../components/JobCard/JobCard";
 import { Avatar } from "@mui/material";
 
 import AvatarCandidate from "../../../components/Candidate/Avatar";
+import Schedule from "./Schedule";
 
 export default function InterviewSched() {
   const { jobId } = useParams();
@@ -139,6 +140,7 @@ export default function InterviewSched() {
           <RecJobInformationCard cardData={jobInformation} />
         </div>
       </div>
+      <Schedule />
     </div>
   );
 }
