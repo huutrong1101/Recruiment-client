@@ -10,9 +10,9 @@ import {
 import classNames from "classnames";
 import Select from "react-select";
 import { useState } from "react";
-import JobDescriptionWidget from "./AddJobWidget";
+import AddJobWidget from "../../../components/RecJob/AddJobWidget";
 import Logo from "../../../../images/logo_FPT.png";
-import JobInformationCard from "./AddJobCard";
+import AddJobCard from "../../../components/RecJob/AddJobCard";
 import TextareaAutosize from "react-textarea-autosize";
 
 export default function Addjob() {
@@ -52,7 +52,7 @@ export default function Addjob() {
         {/* Left side description */}
         <div className={classNames(`w-full md:w-8/12`, `flex flex-col gap-6`)}>
           {/* Widgets */}
-          <JobDescriptionWidget
+          <AddJobWidget
           // companyName="FPT Software"
           // jobRole="Web Designer"
           // publishDate={new Date()}
@@ -124,7 +124,7 @@ export default function Addjob() {
         </div>
         {/* Right side description */}
         <div className={classNames(`w-full md:w-3/12 flex-1 relative`)}>
-          <JobInformationCard
+          <AddJobCard
             cardData={jobInformation}
             setCardData={setJobInformation}
           />

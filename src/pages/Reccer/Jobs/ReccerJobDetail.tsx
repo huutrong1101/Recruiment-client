@@ -10,9 +10,9 @@ import {
 import classNames from "classnames";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import JobDescriptionWidget from "./ReccerJobDescriptionWidget";
+import ReccerJobDescriptionWidget from "../../../components/RecJob/ReccerJobDescriptionWidget";
 import Logo from "../../../../images/logo_FPT.png";
-import JobInformationCard from "./ReccerJobInformationCard";
+import RecJobInformationCard from "../../../components/RecJob/ReccerJobInformationCard";
 import JobCard from "../../../components/JobCard/JobCard";
 import { Avatar } from "@mui/material";
 
@@ -52,7 +52,7 @@ export default function ReccerJobDetail() {
         {/* Left side description */}
         <div className={classNames(`w-full md:w-8/12`, `flex flex-col gap-6`)}>
           {/* Widgets */}
-          <JobDescriptionWidget
+          <ReccerJobDescriptionWidget
             companyName="FPT Software"
             jobRole="Web Designer"
             publishDate={new Date()}
@@ -147,7 +147,7 @@ export default function ReccerJobDetail() {
         </div>
         {/* Right side description */}
         <div className={classNames(`w-full md:w-3/12 flex-1 relative`)}>
-          <JobInformationCard cardData={jobInformation} />
+          <RecJobInformationCard cardData={jobInformation} />
         </div>
       </div>
 

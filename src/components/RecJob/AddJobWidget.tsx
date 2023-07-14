@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { Transition } from "@headlessui/react";
 import classNames from "classnames";
 import { TextareaAutosize } from "@mui/material";
-import Logo from "../../../../images/logo_FPT.png";
+import Logo from "../../../images/logo_FPT.png";
 
 interface JobDescriptionWidgetProps {
   companyName: string;
@@ -15,7 +15,7 @@ interface JobDescriptionWidgetProps {
   };
 }
 
-export default function ReccerJobDescriptionWidget() {
+export default function AddJobWidget() {
   return (
     <div
       className={classNames(
