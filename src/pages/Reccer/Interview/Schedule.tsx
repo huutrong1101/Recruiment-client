@@ -146,6 +146,17 @@ export default function Schedule() {
           ></TextareaAutosize>
         </div>
       </div>
+      <div className={classNames(`flex justify-center`)}>
+        <button
+          className={classNames(
+            `text-lg font-normal text-white`,
+            `flex items-center`,
+            `bg-emerald-700 py-2 px-4 rounded-xl`,
+          )}
+        >
+          Save
+        </button>
+      </div>
     </div>
   );
 }
