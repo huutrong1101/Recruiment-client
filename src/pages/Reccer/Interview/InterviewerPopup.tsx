@@ -1,5 +1,7 @@
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { TrashIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import React, { useState } from "react";
+import classNames from "classnames";
+import { UserPlusIcon } from "@heroicons/react/24/outline";
 
 export default function InterviewerPopup() {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,10 +50,26 @@ export default function InterviewerPopup() {
 
   return (
     <div>
-      <button onClick={() => setIsOpen(true)}> ha ha ha</button>
+      <button
+        className={classNames(
+          `text-lg font-normal text-white`,
+          `flex items-center`,
+          `bg-emerald-700 py-2 px-4 rounded-xl mr-4`,
+        )}
+        onClick={() => setIsOpen(true)}
+      >
+        <UserPlusIcon className="w-6 h-6 mr-2" />
+        <p>Add Interviewer</p>
+      </button>
       {isOpen && (
-        <div className="fixed inset-0 backdrop-blur-sm flex justify-center items-center">
-          <div className="popup-content bg-white border border-gray-300 p-4">
+        <div className="fixed inset-0 backdrop-blur-md flex justify-center items-center">
+          <div className="popup-content bg-white border border-gray-300 p-4 rounded-lg flex flex-col">
+            <button
+              onClick={() => setIsOpen(false)}
+              className={classNames(`flex justify-end`)}
+            >
+              <XCircleIcon className="w-7 h-7" />
+            </button>
             <table className="w-full text-sm text-left text-gray-500">
               {/* Interviewer Info */}
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
@@ -97,7 +115,6 @@ export default function InterviewerPopup() {
               </tbody>
               {/* /////////// */}
             </table>
-            <button onClick={() => setIsOpen(false)}>Close Pop-up</button>
           </div>
         </div>
       )}

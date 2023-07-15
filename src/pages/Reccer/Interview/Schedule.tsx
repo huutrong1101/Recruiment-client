@@ -42,17 +42,8 @@ export default function Schedule() {
       <div className={classNames(`flex justify-between `)}>
         <h1 className="text-2xl font-semibold">Schedule</h1>
 
-        {/* Add Button */}
+        {/* Add Interviewer */}
         <InterviewerPopup />
-        <button
-          className={classNames(
-            `text-lg font-normal text-white`,
-            `flex items-center`,
-            `bg-emerald-700 py-2 px-4 rounded-xl mr-4`,
-          )}
-        >
-          <UserPlusIcon className="w-6 h-6 mr-2" /> <p>Add Interviewer</p>
-        </button>
         {/* /////// */}
       </div>
 
