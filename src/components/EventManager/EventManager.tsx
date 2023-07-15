@@ -24,18 +24,18 @@ export default function EventManager() {
       <div className="grid grid-cols-[15%,60%,25%] gap-1 w-3/4 mx-auto">
         <form onSubmit={handleSearch} className="col-span-2 flex items-center bg-black bg-opacity-5 rounded-full px-1.5 py-1 shadow">
           <div>
-            <MagnifyingGlassIcon className="w-4 h-4 relative gap-1" />
+            <MagnifyingGlassIcon className="ml-5 w-4 h-4 relative gap-1" />
           </div>
           <div>
             <input
               type="text"
-              className=" font-medium leading-tight text-gray-900 text-[14px] text-center rounded-full w-[350px] h-[20px]"  value={searchQuery}
+              className="ml-5 font-medium leading-tight text-gray-900 text-[14px] text-center rounded-full w-[300px] h-[30px]"  value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
               placeholder="Please enter a search"
             />
           </div>
           <div>
-            <button type="submit" className="ml-5 p-1.5  bg-emerald-600 text-white text-sm leading-tight rounded-full">
+            <button type="submit" className="ml-5 p-1.5 bg-emerald-600 text-white text-sm leading-tight rounded-full">
               Search
             </button>
           </div>

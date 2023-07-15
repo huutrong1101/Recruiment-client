@@ -1,6 +1,11 @@
 import React, {useState}from 'react'
 import classnames from "classnames";
-
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 export default function AdminChangePosition() {
     const [Info] = useState([{
         avatar:"../../../images/ava.jpg",
@@ -10,6 +15,13 @@ export default function AdminChangePosition() {
         address: "123 Main St Ba Ria Vung Tau St",
         positon: "Recruiter",
     }]);
+    const [open, setOpen] = React.useState(false);
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
     return (
         Info.map((item) => (
             <>
@@ -65,9 +77,30 @@ export default function AdminChangePosition() {
                                 </div>
                             </div>
                             <div className={classnames("mt-10 text-center px-5 py-4")}>
-                                <button type="submit" className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800">
+                                <Button variant="outlined" onClick={handleClickOpen} className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800">
                                     Save
-                                </button>
+                                </Button>
+                                <Dialog
+                                    open={open}
+                                    onClose={handleClose}
+                                    aria-labelledby="alert-dialog-title"
+                                    aria-describedby="alert-dialog-description"
+                                >
+                                    <DialogTitle id="alert-dialog-title">
+                                    {"Are you sure you want to change the location of this account?"}
+                                    </DialogTitle>
+                                    <DialogContent>
+                                    <DialogContentText id="alert-dialog-description">
+                                        Or consider carefully before deleting them all changes when pressing the agree button.
+                                    </DialogContentText>
+                                    </DialogContent>
+                                    <DialogActions>
+                                    <Button onClick={handleClose}>Disagree</Button>
+                                    <Button onClick={handleClose} type="submit"  autoFocus>
+                                        Agree
+                                    </Button>
+                                    </DialogActions>
+                                </Dialog>
                             </div>
                         </div>
                 </div>

@@ -1,15 +1,32 @@
 import React,{useState} from 'react'
 import classnames from "classnames";
 import TextareaAutosize from "react-textarea-autosize";
+import { NavLink } from "react-router-dom";
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 export default function AddBlacklist() {
-  const [Info] = useState([{
-    avatar:"../../../images/blog_image.png",
-    name: "Nguyen Van A",
-    email: "ngan@example.com",
-    phone: "012367xxx",
-    address: "123 Main St Ba Ria Vung Tau St",
-    positon: "Candidate",
-}]);
+    const [Info] = useState([{
+        avatar:"../../../images/blog_image.png",
+        name: "Nguyen Van A",
+        email: "ngan@example.com",
+        phone: "012367xxx",
+        address: "123 Main St Ba Ria Vung Tau St",
+        positon: "Candidate",
+    }]);
+    const goBack = () => {
+        window.history.back();
+    };
+    const [open, setOpen] = React.useState(false);
+    const handleClickOpen = () => {
+      setOpen(true);
+    };  
+    const handleClose = () => {
+      setOpen(false);
+    };
 return (
     Info.map((item) => (
         <>
@@ -61,8 +78,31 @@ return (
                 </div>
                 {/* AdBacklist */}
                 <div className={classnames("mt-10 text-center px-5 py-4")} >
-                    <button type="submit" className="px-6 py-3 text-white rounded-full bg-red-600     hover:bg-red-800">  Cancel   </button>
-                    <button type="submit" className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800 ml-5">  Save   </button>
+                    <NavLink to="#" onClick={goBack}>
+                        <button type="submit" className="px-6 py-3 text-white rounded-full bg-red-600     hover:bg-red-800">  Cancel   </button>
+                    </NavLink>
+                   <button type="submit" className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800 ml-5" variant="outlined" onClick={handleClickOpen}>  Save   </button>
+                    <Dialog
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">
+                        {"Are you sure you want to change the location of this account?"}
+                        </DialogTitle>
+                        <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Or consider carefully before deleting them all changes when pressing the agree button.
+                        </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                        <Button onClick={handleClose}>Disagree</Button>
+                        <Button onClick={handleClose} autoFocus type='submit'>
+                            Agree
+                        </Button>
+                        </DialogActions>
+                    </Dialog>
                 </div>
               </div>
             </div>

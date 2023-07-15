@@ -90,7 +90,7 @@ export default function App() {
           <Route path="blacklist-delete" element={<DeleteBlacklist />} />
 
           <Route path="profile" element={<AdminProfile />} />
-          <Route path="candidate-pass-list" element={<ListCandiPass />}/>
+          <Route path="candidate-pass-list/:JobID" element={<ListCandiPass />}/>
           <Route path="job-manager" element={<ManagetJobList />} />
         </Route>
 

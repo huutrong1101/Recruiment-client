@@ -15,19 +15,19 @@ export default function ManagetJobList() {
       setPage(0);
   };
   let JobManagerList = [
-    {      nameJob: "React",      day: "9/2/2022",       member: 50,      quantity: 100,      link: "admin/candidate-pass-list",    },
-    {      nameJob: "Net",        day: "9/3/2021",       member: 25,      quantity: 100,      link: "admin/candidate-pass-list"    },
-    {      nameJob: "C#",         day: "9/1/2019",       member: 75,      quantity: 100,      link: "admin/candidate-pass-list"    },
-    {      nameJob: "JavaScript", day: "9/10/2020",      member: 65,      quantity: 100,      link: "admin/candidate-pass-list"    },
-    {      nameJob: ".Net",       day: "9/10/2023",      member: 55,      quantity: 100,      link: "admin/candidate-pass-list"    },
-    {      nameJob: "Java",       day: "9/10/2023",      member: 15,      quantity: 100,      link: "admin/candidate-pass-list"    },
-    {      nameJob: "NodeJs",     day: "9/10/2023",      member: 15,      quantity: 100,      link: "admin/candidate-pass-list"    },
-    {      nameJob: "PHP",        day: "9/10/2023",      member: 15,      quantity: 100,      link: "admin/candidate-pass-list"    },
-    {      nameJob: "RUBY",       day: "6/10/2023",      member: 15,      quantity: 100,      link: "admin/candidate-pass-list"    },
-    {      nameJob: "React",      day: "9/11/2023",      member: 25,      quantity: 100,      link: "admin/candidate-pass-list"    },
-    {      nameJob: "React",      day: "9/12/2023",      member: 45,      quantity: 100,      link: "admin/candidate-pass-list"    },
-    {      nameJob: "React",      day: "12/11/2023",     member: 55,      quantity: 100,      link: "admin/candidate-pass-list"    },
-    {      nameJob: "React",      day: "19/9/2023",      member: 65,      quantity: 100,      link: "admin/candidate-pass-list"    },
+    {      nameJob: "React",      day: "9/2/2022",       member: 50,      quantity: 100,      link: "admin/candidate-pass-list/:JobId",    },
+    {      nameJob: "Net",        day: "9/3/2021",       member: 25,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "C#",         day: "9/1/2019",       member: 75,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "JavaScript", day: "9/10/2020",      member: 65,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: ".Net",       day: "9/10/2023",      member: 55,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "Java",       day: "9/10/2023",      member: 15,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "NodeJs",     day: "9/10/2023",      member: 15,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "PHP",        day: "9/10/2023",      member: 15,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "RUBY",       day: "6/10/2023",      member: 15,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "React",      day: "9/11/2023",      member: 25,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "React",      day: "9/12/2023",      member: 45,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "React",      day: "12/11/2023",     member: 55,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "React",      day: "19/9/2023",      member: 65,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
   ];
   return (
     <div className="flex items-center justify-center text-center bg-zinc-300 rounded-[30px] mt-6 p-8 ">

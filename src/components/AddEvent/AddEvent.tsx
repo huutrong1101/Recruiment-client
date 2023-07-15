@@ -2,7 +2,12 @@ import React,{useState} from "react";
 import classnames from "classnames";
 import blog_image from "../../../images/blog_image.png";
 import avataractor from "../../../images/ava.jpg";
-
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import TextareaAutosize from "react-textarea-autosize";
 import {  BiLogoFacebook,  BiLogoInstagram,  BiLogoLinkedin,  BiLogoGitlab,  BiLogoTwitter,} from "react-icons/bi";
 export default function AddEvent() {
@@ -29,6 +34,13 @@ export default function AddEvent() {
           nameActor,avaActor,linkFacebook,linkTwitter,linkGitlab,linkInstagram,linkLinkedin};
         console.log(object);
       }
+      const [open, setOpen] = React.useState(false);
+      const handleClickOpen = () => {
+        setOpen(true);
+      };
+      const handleClose = () => {
+        setOpen(false);
+      };
   return (
     <>
         <form className={classnames("flex gap-10 ")} onSubmit={handleSubmit}>
@@ -51,7 +63,6 @@ export default function AddEvent() {
                     />
                   </label>
               </div>
-
                 {/* Title and content */}
                 <div className={classnames("flex items-left px-10 mt-10")}>
                     <label className="text-zinc-900 text-2xl font-normal leading-7 ">
@@ -77,10 +88,32 @@ export default function AddEvent() {
                         />
                     </label>
                 </div>
+                {/* Creact */}
               <div className={classnames("mt-10 text-center px-5 py-4")}>
-                <button type="submit" className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800">
+                <Button  className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800" variant="outlined" onClick={handleClickOpen}>
                     Creact
-                </button>
+                </Button>
+                <Dialog
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    {"Are you sure you want to create this event?"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                            Or consider carefully before deleting them all changes when pressing the agree button.
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleClose}>Disagree</Button>
+                    <Button onClick={handleClose} autoFocus type="submit">
+                      Agree
+                    </Button>
+                  </DialogActions>
+                </Dialog>
               </div>
             </div>
             <div  className={classnames( "bg-white rounded-lg shadow-lg w-[40%] h-fit sticky top-0" )} >
@@ -92,7 +125,7 @@ export default function AddEvent() {
                     <img
                       src={avaActor}
                       alt=""
-                      className={classnames( "w-[175px] h-[175px] rounded-full bg-gray-500")}
+                      className={classnames( "rounded-full bg-gray-500")}
                     />
                     <h3>Content Writer - journalist </h3>
                     <TextareaAutosize
@@ -216,4 +249,3 @@ export default function AddEvent() {
     </>
   );
 }
-

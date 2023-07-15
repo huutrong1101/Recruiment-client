@@ -13,8 +13,28 @@ import avatar from "../../../images/ava.jpg";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { data } from "../../data/homeData";
 import BlogCard from "../../components/BlogCard/BlogCard";
-
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 export default function RecEventDetail() {
+    const [openSave, setOpenSave] = React.useState(false);
+    const [openDelete, setOpenDelete] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpenSave(true);
+        setOpenDelete(false);
+    };
+    const handleClickOpen1 = () => {
+        setOpenSave(false);
+        setOpenDelete(true);
+    };
+    const handleClose = () => {
+        setOpenSave(false);
+        setOpenDelete(false);
+    };
   return (
     <>
       <div className={classnames("flex gap-5")}>
@@ -175,14 +195,48 @@ export default function RecEventDetail() {
       </div>
 
       <div className={classnames("mt-10 text-center px-6 py-3")}>
-        
-        <button className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800">
+        <button onClick={handleClickOpen} className="ml-5 px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800">
             Save
         </button>
-        
-        <button className="px-6 py-3 text-white rounded-full bg-red-600 hover:bg-emerald-800">
+          <Dialog
+            open={openSave}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+          <DialogTitle id="alert-dialog-title">
+            {"Information saved successfully"}
+            </DialogTitle>
+            <DialogActions>
+            <Button onClick={handleClose} autoFocus >
+              Successful
+            </Button>
+            </DialogActions>
+          </Dialog>
+        <button className="ml-5 px-6 py-3 text-white rounded-full bg-red-600 hover:bg-emerald-800" onClick={handleClickOpen1}>
             Delete
         </button>
+        <Dialog
+          open={openDelete}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+          {"Are you sure you want to change the location of this account?"}
+          </DialogTitle>
+          <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+              Or consider carefully before deleting them all changes when pressing the agree button.
+          </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleClose} autoFocus type='submit'>
+              Agree
+          </Button>
+          </DialogActions>
+      </Dialog>
       </div>
     </>
   );

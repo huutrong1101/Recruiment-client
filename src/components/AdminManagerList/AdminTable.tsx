@@ -3,7 +3,12 @@ import { NavLink } from "react-router-dom";
 import { PencilSquareIcon, TrashIcon,UserMinusIcon} from "@heroicons/react/24/outline";
 import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
 import TablePagination from '@mui/material/TablePagination';
-
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 interface TypeData {
   typeSelected: string;
 }
@@ -18,6 +23,13 @@ export default function AdminTable({ typeSelected }: TypeData) {
   const handleChangeRowsPerPage = (event: any) => {
       setRowsPerPage(parseInt(event.target.value, 10));
       setPage(0);
+  };
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
   };
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, 10 - page * rowsPerPage);
   // Candidate.state
@@ -34,14 +46,14 @@ export default function AdminTable({ typeSelected }: TypeData) {
     {     name: "Nguyễn Văn K",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Recruiter",      stateBlackList: 0,    },
     {     name: "Nguyễn Văn A",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Candidate",      stateBlackList: 0,    },
     {     name: "Nguyễn Văn B",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "5/6/2002",      position: "Recruiter",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn C",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: "1",    },
+    {     name: "Nguyễn Văn C",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
     {     name: "Nguyễn Văn D",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "6/11/2002",      position: "Candidate",      stateBlackList: 0,    },
     {     name: "Nguyễn Văn E",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "2/11/2002",     position: "Candidate",      stateBlackList: 0,    },
     {     name: "Nguyễn Văn F",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
     {     name: "Nguyễn Văn G",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "11/4/2002",      position: "Interviewer",      stateBlackList: 0,    },
     {     name: "Nguyễn Văn H",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "25/6/2002",      position: "Interviewer",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn I",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "29/10/2002",      position: "Interviewer",     stateBlackList: "0",    },
-    {     name: "Nguyễn Văn K",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Interviewer",      stateBlackList: "0",    },
+    {     name: "Nguyễn Văn I",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "29/10/2002",      position: "Interviewer",     stateBlackList: 0,    },
+    {     name: "Nguyễn Văn K",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Interviewer",      stateBlackList: 0,    },
   ];
   if (typeSelected == "Blacklist") {
     {
@@ -74,11 +86,35 @@ export default function AdminTable({ typeSelected }: TypeData) {
                     <TableCell className="px-6 py-4">{item.day}</TableCell>
                     {/* <td className="px-6 py-4">{item.stateBlackList}</td> */}
                     <TableCell className="px-6 py-4">
-                      <NavLink to={`/admin/change-position`} onClick={() => {}}>
-                          <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
-                      </NavLink>
-                      <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
-                      <UserMinusIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
+                      <Button>
+                        <NavLink to={`/admin/blacklist-delete`} onClick={() => {}}>
+                            <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
+                        </NavLink>
+                      </Button>
+                      <Button>
+                      <TrashIcon  onClick={handleClickOpen} className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
+                      <Dialog
+                          open={open}
+                          onClose={handleClose}
+                          aria-labelledby="alert-dialog-title"
+                          aria-describedby="alert-dialog-description"
+                        >
+                          <DialogTitle id="alert-dialog-title">
+                            {"Use Google's location service?"}
+                          </DialogTitle>
+                          <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                              Or consider carefully before deleting them all changes when pressing the agree button.
+                            </DialogContentText>
+                          </DialogContent>
+                          <DialogActions>
+                            <Button onClick={handleClose}>Disagree</Button>
+                            <Button onClick={handleClose} autoFocus>
+                              Agree
+                            </Button>
+                          </DialogActions>
+                        </Dialog>
+                      </Button>
                     </TableCell>
                     </TableRow>
                 ))}
@@ -128,21 +164,51 @@ export default function AdminTable({ typeSelected }: TypeData) {
                 <TableCell className="px-6 py-4">{item.day}</TableCell>
                 {/* <td className="px-6 py-4">{item.stateBlackList}</td> */}
                 <TableCell className="px-6 py-4">
-                  {(item.position === "Candidate") ?(
-                  <NavLink to={"/recruiter/candidate-info"} onClick={() => {}}>
-                    <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
-                  </NavLink>):
-                    <NavLink to={"/admin/position-change"} onClick={() => {}}>
+                  <Button>
+                    {(item.position === "Candidate") ?(
+                    <NavLink to={"/recruiter/candidate-info"} onClick={() => {}}>
                       <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
-                    </NavLink>
-                  }
+                    </NavLink>):
+                      <NavLink to={"/admin/position-change"} onClick={() => {}}>
+                        <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
+                      </NavLink>
+                    }
+                  </Button>
+                  <Button>
                   <NavLink to={"#"} onClick={() => {}}>
-                    <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
-                  </NavLink>
+                  <TrashIcon onClick={handleClickOpen} className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
+                      <Dialog
+                          open={open}
+                          onClose={handleClose}
+                          aria-labelledby="alert-dialog-title"
+                          aria-describedby="alert-dialog-description"
+                        >
+                          <DialogTitle id="alert-dialog-title">
+                            {"Use Google's location service?"}
+                          </DialogTitle>
+                          <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                                                          Or consider carefully before deleting them all changes when pressing the agree button.
+
+                            </DialogContentText>
+                          </DialogContent>
+                          <DialogActions>
+                            <Button onClick={handleClose}>Disagree</Button>
+                            <Button onClick={handleClose} autoFocus>
+                              Agree
+                            </Button>
+                          </DialogActions>
+                        </Dialog>
+                    </NavLink>
+                  </Button>
+                  
                   {(item.position === "Candidate" && item.stateBlackList === 0) ? (
+                    <Button>
                     <NavLink to={"/admin/blacklist-add"} onClick={() => {}}>
                       <UserMinusIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
-                    </NavLink>     ) : null}
+                    </NavLink> 
+                    </Button>    
+                    ) : null}
                 </TableCell>
               </TableRow>
             ))}

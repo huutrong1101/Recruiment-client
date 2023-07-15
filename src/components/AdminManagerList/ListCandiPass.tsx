@@ -21,12 +21,17 @@ export default function ListCandiPass() {
     {      nameCan: "Nguyen Van E",      day: "9/10/2023",      point: "55",      email: "name@example.com",      phone: "098212xxx",    },
     {      nameCan: "Nguyen Van F",      day: "9/10/2023",      point: "15",      email: "name@example.com",      phone: "098212xxx",    },
     {      nameCan: "Nguyen Van R",      day: "9/10/2023",      point: "15",      email: "name@example.com",      phone: "098212xxx",    },
+    {      nameCan: "Nguyen Van h",      day: "9/11/2023",      point: "25",      email: "name@example.com",      phone: "098212xxx",    },
+    {      nameCan: "Nguyen Van y",      day: "9/12/2023",      point: "35",      email: "name@example.com",      phone: "098212xxx",    },
+    {      nameCan: "Nguyen Van k",      day: "1/10/2023",      point: "45",      email: "name@example.com",      phone: "098212xxx",    },
+    {      nameCan: "Nguyen Van d",      day: "5/03/2023",      point: "75",      email: "name@example.com",      phone: "098212xxx",    },
+    {      nameCan: "Nguyen Van f",      day: "9/01/2023",      point: "95",      email: "name@example.com",      phone: "098212xxx",    },
   ];
   return (
-    <div className="flex items-center justify-center text-center bg-zinc-300 rounded-[30px] mt-6 mx-auto p-8 ">
-    <div className="relative overflow-x-auto rounded-lg">
+    <div className="flex items-center justify-center text-center bg-zinc-300 rounded-[30px] mt-6 p-8 ">
+    <div className="relative rounded-lg">
     <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
-      <Table className="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
+      <Table className="text-sm text-gray-500 dark:text-gray-400 text-center sticky">
         <TableHead className="text-xs text-gray-700 uppercase bg-gray-200 text-center">
           <TableRow>
           <TableCell scope="col" className="px-3 py-1">

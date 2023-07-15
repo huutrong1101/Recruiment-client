@@ -1,6 +1,12 @@
 
 import React, {useState}from 'react'
 import classnames from "classnames";
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import blog_image from "../../../images/blog_image.png";
 export default function AdminProfile() {
   const [ChangInfoAdmin, AdminProfileState] = useState(false);
@@ -8,6 +14,13 @@ export default function AdminProfile() {
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     setAvatar(URL.createObjectURL(file));
+  };
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
   };
   const [AdminProfile] = useState([
     {
@@ -64,13 +77,34 @@ export default function AdminProfile() {
                         <div></div>
                     </div>
                 </div>
-                <div className={classnames("mt-10 text-center px-5 py-4")}>
-                  <button type="submit" className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800">
-                      Save
-                  </button>
+                <div className={classnames("text-center px-5 py-4")}>
+                <div className={classnames("text-center px-5 py-4")}>
+                    <Button variant="outlined" onClick={handleClickOpen} className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800">
+                        Save
+                    </Button>
+                    <Dialog
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">
+                        {" Are you sure you want to change the location of this account?"}
+                        </DialogTitle>
+                        <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Or consider carefully before deleting them all changes when pressing the agree button.                        </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                        <Button onClick={handleClose}>Disagree</Button>
+                        <Button onClick={handleClose} type="submit"  autoFocus>
+                            Agree
+                        </Button>
+                        </DialogActions>
+                    </Dialog>
+                </div>
                 </div>
             </div>
-              
         </div>
     )))
 }
