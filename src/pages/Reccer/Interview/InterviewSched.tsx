@@ -18,6 +18,7 @@ import { Avatar } from "@mui/material";
 
 import AvatarCandidate from "../../../components/Candidate/Avatar";
 import Schedule from "./Schedule";
+// import AddMemberForm from "./AddInterviewer";
 
 export default function InterviewSched() {
   const { jobId } = useParams();
@@ -44,6 +45,44 @@ export default function InterviewSched() {
       value: new Date().toDateString(),
     },
   ]);
+
+  const memberList = [
+    {
+      id: 1,
+      name: "John Doe",
+      phone: "1234567890",
+      email: "john@example.com",
+      date: "2023-07-01",
+    },
+    {
+      id: 2,
+      name: "Jane Smith",
+      phone: "9876543210",
+      email: "jane@example.com",
+      date: "2023-07-02",
+    },
+    {
+      id: 3,
+      name: "Bob Johnson",
+      phone: "5555555555",
+      email: "bob@example.com",
+      date: "2023-07-03",
+    },
+    {
+      id: 4,
+      name: "Alice Williams",
+      phone: "1111111111",
+      email: "alice@example.com",
+      date: "2023-07-04",
+    },
+    {
+      id: 5,
+      name: "Sam Brown",
+      phone: "9999999999",
+      email: "sam@example.com",
+      date: "2023-07-05",
+    },
+  ];
 
   return (
     <div className={classNames(`job-detail`, `flex flex-col gap-6`)}>
@@ -141,6 +180,7 @@ export default function InterviewSched() {
         </div>
       </div>
       <Schedule />
+      {/* <AddMemberForm memberList={memberList} /> */}
     </div>
   );
 }

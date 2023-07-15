@@ -1,6 +1,8 @@
 import classNames from "classnames";
 import { PlusIcon, TrashIcon, UserPlusIcon } from "@heroicons/react/24/outline";
 import { TextareaAutosize } from "@mui/material";
+import InterviewerPopup from "./InterviewerPopup";
+// import InterviewerPopup from "./test";
 
 export default function Schedule() {
   const personArray = [
@@ -39,6 +41,9 @@ export default function Schedule() {
     >
       <div className={classNames(`flex justify-between `)}>
         <h1 className="text-2xl font-semibold">Schedule</h1>
+
+        {/* Add Button */}
+        <InterviewerPopup />
         <button
           className={classNames(
             `text-lg font-normal text-white`,
@@ -48,9 +53,12 @@ export default function Schedule() {
         >
           <UserPlusIcon className="w-6 h-6 mr-2" /> <p>Add Interviewer</p>
         </button>
+        {/* /////// */}
       </div>
-      <div className="relative overflow-x-auto p-4">
+
+      <div className="overflow-x-auto p-4">
         <table className="w-full text-sm text-left text-gray-500">
+          {/* Candidate's info */}
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
               <th scope="col" className="px-6 py-4">
@@ -90,6 +98,8 @@ export default function Schedule() {
               </tr>
             ))}
           </tbody>
+          {/* ////////////// */}
+          {/* Interviewer Info */}
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
               <th scope="col" className="px-6 py-4">
@@ -129,6 +139,7 @@ export default function Schedule() {
               </tr>
             ))}
           </tbody>
+          {/* /////////// */}
         </table>
         <div
           className={classNames(
