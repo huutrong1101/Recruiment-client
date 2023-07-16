@@ -1,5 +1,5 @@
 
-import React, {useState}from 'react'
+import React, {useState, useRef }from 'react'
 import classnames from "classnames";
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -8,102 +8,145 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import blog_image from "../../../images/blog_image.png";
+import { Textarea } from '@material-tailwind/react';
 export default function AdminProfile() {
-  const [ChangInfoAdmin, AdminProfileState] = useState(false);
-  const [avatar, setAvatar] = useState(blog_image);
-  const handleImageUpload = (event) => {
+    const [avatar, setAvatar] = useState(blog_image);
+    const [name, setname] = useState('');
+    const [email, setemail] = useState('');
+    const [phone, setphone] = useState('');
+    const [adress, setadress] = useState('');
+    const fileInputRef = useRef(null);
+    const handleImageUpload = (event) => {
     const file = event.target.files[0];
-    setAvatar(URL.createObjectURL(file));
-  };
-  const [open, setOpen] = React.useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const [AdminProfile] = useState([
-    {
-      name: "Nguyen Van Admin",
-      email: "nguyenvanadmin@gmail.com",
-      phone: "123",
-      adress: "admin o mo toi khong biet",
-      avatarUrl: "../../../images/blog_image.png",
+    if (file) {
+        setAvatar(URL.createObjectURL(file));
     }
-  ]);
-  return (
+    };
+    const handleImageClick = () => {
+        fileInputRef.current.click();
+    };
+    const [open, setOpen] = React.useState(false);
+    const handleClickOpen = () => {
+    setOpen(true);
+    };
+    const handleClose = () => {
+    setOpen(false);
+    };
+    const [AdminProfile] = useState([
+    {
+        name: "Nguyen Van Admin",
+        email: "nguyenvanadmin@gmail.com",
+        phone: "123",
+        adress: "admin o mo toi khong biet",
+        avatarUrl: avatar,
+    }
+    ]);
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        let object = { avatar,name, email, phone, adress};
+        console.log(object);
+        setOpen(false);
+    }
+    return (
     AdminProfile.map((item) => (
         <div className="flex gap-5">
-            <div className="bg-white rounded-lg shadow-lg w-[50%] top-4 ">
-                <label htmlFor="avatar">
-                {avatar && (
-                        <div>
-                            <div className='flex justify-center'> <img src={item.avatarUrl} className='w-[150px] h-[150px] justify-center rounded-full' alt="blog_image" /></div>
-                        </div>
-                    )}
-                </label>
-                <div className='flex justify-center'>
-                    <input
-                        type="file"
-                        id="avatar"
-                        accept="image/*"
-                        className={classnames("")}
-                        onChange={handleImageUpload}
-                    />
+            <div className="bg-white rounded-lg shadow-lg w-[40%] flex justify-center items-center">
+            <div onClick={handleImageClick}>
+                {avatar ? (
+                <img src={avatar} className="w-[175px] h-[175px] rounded-full" alt="avatar" />
+                ) : (
+                <div className="upload-placeholder">
+                    <span>Choose Image</span>
                 </div>
+                )}
+            </div>
+            <input
+                type="file"
+                id="avatar"
+                accept="image/*"
+                className="hidden"
+                ref={fileInputRef}
+                onChange={handleImageUpload}
+            />
             </div>
             <div className="bg-white rounded-lg shadow-lg w-[50%] h-fit sticky">
-                <div className = "flex items-center text-center space-x-2 font-semibold text-green-500">
-                    <span className = "tracking-wide text-center  text-emerald-600 text-[28px] ">Information</span>
+                <div className="flex items-center justify-center text-center space-x-2 font-semibold text-green-500">
+                    <span className="tracking-wide text-bold-center flex text-emerald-600 text-[30px]">Information</span>
                 </div>
-                <div className = "text-gray-700 ">
-                    <div className = "grid md:grid-cols-1 text-sm self-stretch px-2 pt-[13px] pb-[11px]">
+                <form  className = "text-gray-700 " onSubmit={handleSubmit}>
+                    <div className = "grid md:grid-cols-1 text-sm self-stretch px-2 pt-[13px] pb-[13px]">
+                        {/* Name */}
                         <div className = "grid grid-cols-1">
                             <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide "> FullName</div>
-                            <div className = "px-4 py-2 self-stretch pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50">{item.name}</div>
+                            <Textarea
+                                rows={1}
+                                id="name"
+                                value={name}
+                                className="px-4 py-2 self-stretch pt-[13px] pb-[13px] bg-white bg-opacity-0 rounded-lg border border-zinc-900" placeholder={item.name}
+                                onChange={(event) => setname(event.target.value)}
+                            />
                         </div>
+                        {/* Phone */}
                         <div className = "grid grid-cols-1">
                             <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Contact No.</div>
-                            <div className = "px-4 py-2 self-stretch pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50">{item.phone}</div>
+                            <Textarea
+                                rows={1}
+                                id="phone"
+                                value={phone}
+                                className="px-4 py-2 self-stretch pt-[13px] pb-[13px] bg-white bg-opacity-0 rounded-lg border border-zinc-900" placeholder={item.phone}
+                                onChange={(event) => setphone(event.target.value)}
+                            />
                         </div>
+                        {/* Adress */}
                         <div className = "grid grid-cols-1">
                             <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Current Address</div>
-                            <div className = "px-4 py-2 self-stretch pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50">{item.adress}</div>
+                            <Textarea
+                                rows={1}
+                                id="adress"
+                                value={adress}
+                                className="px-4 py-2 self-stretch pt-[13px] pb-[13px] bg-white bg-opacity-0 rounded-lg border border-zinc-900" placeholder={item.adress}
+                                onChange={(event) => setadress(event.target.value)}
+                            />
                         </div>
+                        {/* Email */}
                         <div className = "grid grid-cols-1">
                             <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Email.</div>
-                            <div className = "px-4 py-2 self-stretch pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50">      {item.email}       </div>
+                            <Textarea
+                                rows={1}
+                                id="email"
+                                value={email}
+                                className="px-4 py-2 self-stretch pt-[13px] pb-[13px] bg-white bg-opacity-0 rounded-lg border border-zinc-900" placeholder= {item.email}
+                                onChange={(event) => setemail(event.target.value)}
+                            />
                         </div>
-                        <div></div>
-                    </div>
-                </div>
-                <div className={classnames("text-center px-5 py-4")}>
-                <div className={classnames("text-center px-5 py-4")}>
-                    <Button variant="outlined" onClick={handleClickOpen} className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800">
-                        Save
-                    </Button>
-                    <Dialog
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                    >
-                        <DialogTitle id="alert-dialog-title">
-                        {" Are you sure you want to change the location of this account?"}
-                        </DialogTitle>
-                        <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            Or consider carefully before deleting them all changes when pressing the agree button.                        </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                        <Button onClick={handleClose}>Disagree</Button>
-                        <Button onClick={handleClose} type="submit"  autoFocus>
-                            Agree
+                        {/* Save Buton */}
+                        <div className={classnames("text-center px-5 py-4")}>
+                        <Button onClick={handleClickOpen} className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800" >
+                            Save
                         </Button>
-                        </DialogActions>
-                    </Dialog>
-                </div>
-                </div>
+                            <Dialog
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
+                            >
+                            <DialogTitle id="alert-dialog-title">
+                            {" Are you sure you want to change the location of this account?"}
+                            </DialogTitle>
+                            <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                                Or consider carefully before deleting them all changes when pressing the agree button.                        </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                            <Button onClick={handleClose}> Disagree</Button>
+                            <Button type= "submit" onClick={handleSubmit}>
+                               Agree
+                            </Button>
+                            </DialogActions>
+                        </Dialog>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     )))

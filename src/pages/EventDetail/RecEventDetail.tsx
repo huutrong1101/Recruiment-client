@@ -12,7 +12,6 @@ import {
 import avatar from "../../../images/ava.jpg";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { data } from "../../data/homeData";
-import BlogCard from "../../components/BlogCard/BlogCard";
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -35,6 +34,16 @@ export default function RecEventDetail() {
         setOpenSave(false);
         setOpenDelete(false);
     };
+    let infodetail = 
+        [{
+          img : "../../../images/blog_image.pn" ,
+          name: "DigitalOcean launches first Canadian data centre in Toronto",
+          timeline : "",
+          dayevents : "",
+          by: "Google",
+          content: " The most well-known dummy text is the Lorem Ipsum, which is said to have originated in the 16th century. Lorem Ipsum is composed in a pseudo-Latin language which more or less corresponds to proper Latin. It contains a series of real Latin words. This ancient dummy text is also incomprehensible, but it imitates the rhythm of most European languages in Latin script. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
+          nameActor: "-Cristina Romsey-",
+        }];
   return (
     <>
       <div className={classnames("flex gap-5")}>
@@ -138,11 +147,7 @@ export default function RecEventDetail() {
               "flex items-center justify-center p-2 bg-gray-300 rounded-tl-lg rounded-tr-lg"
             )}
           >
-            <h3
-              className={classnames(
-                "text-center text-black text-lg font-medium tracking-wider leading-7 capitalize"
-              )}
-            >
+            <h3 className={classnames( "text-center text-black text-lg font-medium tracking-wider leading-7 capitalize" )}>
               Author
             </h3>
           </div>

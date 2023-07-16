@@ -99,7 +99,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
                           aria-labelledby="alert-dialog-title"
                           aria-describedby="alert-dialog-description"
                         >
-                          <DialogTitle id="alert-dialog-title">
+                          <DialogTitle id="alert-dialog-title" className='text-center'>
                             {"Use Google's location service?"}
                           </DialogTitle>
                           <DialogContent>
@@ -183,13 +183,12 @@ export default function AdminTable({ typeSelected }: TypeData) {
                           aria-labelledby="alert-dialog-title"
                           aria-describedby="alert-dialog-description"
                         >
-                          <DialogTitle id="alert-dialog-title">
+                          <DialogTitle id="alert-dialog-title" className='text-center'>
                             {"Use Google's location service?"}
                           </DialogTitle>
                           <DialogContent>
                             <DialogContentText id="alert-dialog-description">
-                                                          Or consider carefully before deleting them all changes when pressing the agree button.
-
+                            Or consider carefully before deleting them all changes when pressing the agree button.
                             </DialogContentText>
                           </DialogContent>
                           <DialogActions>
@@ -201,7 +200,6 @@ export default function AdminTable({ typeSelected }: TypeData) {
                         </Dialog>
                     </NavLink>
                   </Button>
-                  
                   {(item.position === "Candidate" && item.stateBlackList === 0) ? (
                     <Button>
                     <NavLink to={"/admin/blacklist-add"} onClick={() => {}}>
