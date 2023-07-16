@@ -87,7 +87,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
                     {/* <td className="px-6 py-4">{item.stateBlackList}</td> */}
                     <TableCell className="px-6 py-4">
                       <Button>
-                        <NavLink to={`/admin/blacklist-delete`} onClick={() => {}}>
+                        <NavLink to={`/admin/blacklist-delete/`} onClick={() => {}}>
                             <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
                         </NavLink>
                       </Button>
@@ -165,14 +165,9 @@ export default function AdminTable({ typeSelected }: TypeData) {
                 {/* <td className="px-6 py-4">{item.stateBlackList}</td> */}
                 <TableCell className="px-6 py-4">
                   <Button>
-                    {(item.position === "Candidate") ?(
-                    <NavLink to={"/recruiter/candidate-info"} onClick={() => {}}>
-                      <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
-                    </NavLink>):
                       <NavLink to={"/admin/position-change"} onClick={() => {}}>
                         <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
                       </NavLink>
-                    }
                   </Button>
                   <Button>
                   <NavLink to={"#"} onClick={() => {}}>
