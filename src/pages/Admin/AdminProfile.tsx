@@ -78,8 +78,8 @@ export default function AdminProfile() {
                         {/* Name */}
                         <div className = "grid grid-cols-1">
                             <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide "> FullName</div>
-                            <Textarea
-                                rows={1}
+                            <input
+                                type="text"
                                 id="name"
                                 value={name}
                                 className="px-4 py-2 self-stretch pt-[13px] pb-[13px] bg-white bg-opacity-0 rounded-lg border border-zinc-900" placeholder={item.name}
@@ -89,8 +89,8 @@ export default function AdminProfile() {
                         {/* Phone */}
                         <div className = "grid grid-cols-1">
                             <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Contact No.</div>
-                            <Textarea
-                                rows={1}
+                            <input
+                                type="text"
                                 id="phone"
                                 value={phone}
                                 className="px-4 py-2 self-stretch pt-[13px] pb-[13px] bg-white bg-opacity-0 rounded-lg border border-zinc-900" placeholder={item.phone}
@@ -100,8 +100,8 @@ export default function AdminProfile() {
                         {/* Adress */}
                         <div className = "grid grid-cols-1">
                             <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Current Address</div>
-                            <Textarea
-                                rows={1}
+                            <input 
+                                type="text" 
                                 id="adress"
                                 value={adress}
                                 className="px-4 py-2 self-stretch pt-[13px] pb-[13px] bg-white bg-opacity-0 rounded-lg border border-zinc-900" placeholder={item.adress}
@@ -111,8 +111,8 @@ export default function AdminProfile() {
                         {/* Email */}
                         <div className = "grid grid-cols-1">
                             <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Email.</div>
-                            <Textarea
-                                rows={1}
+                            <input 
+                                type="email" 
                                 id="email"
                                 value={email}
                                 className="px-4 py-2 self-stretch pt-[13px] pb-[13px] bg-white bg-opacity-0 rounded-lg border border-zinc-900" placeholder= {item.email}
