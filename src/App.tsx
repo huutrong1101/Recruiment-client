@@ -10,7 +10,10 @@ import AdminAppLayout from "./components/Layout/AdminAppLayout";
 import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
 import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
 import ManagementAppLayOut from "./components/Layout/ManagementAppLayOut/ManagementAppLayOut";
+<<<<<<< HEAD
 // =======
+=======
+>>>>>>> 87a25e0e832e23897699426f027966890c7ae94b
 
 import Jobs from "./pages/Jobs/Jobs";
 import Events from "./pages/Events/Events";
@@ -20,8 +23,6 @@ import EmailConfirmationLayout from "./pages/EmailConfirmation/EmailConfirmation
 import IncompleteConfirmEmail from "./pages/EmailConfirmation/IncompleteConfirmEmail";
 import CompleteConfirmEmail from "./pages/EmailConfirmation/CompleteConfirmEmail";
 
-import CandidateProfile from "./pages/Reccer/CandidateProfile";
-import CandidateList from "./pages/Reccer/CandidateList";
 import JobDetail from "./pages/JobDetail/JobDetail";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminProfile from "./pages/Admin/AdminProfile";
@@ -39,7 +40,11 @@ import Reccer_EventManagement from "./pages/Reccer/ReccerEventManagement";
 import Reccer_candidateManagement from "./pages/Reccer/ReccercandidateManagement";
 
 // Interviewer Pages
-import { CandidateRecent, InterviewRecent, InterviewQuestion } from "./pages/Interviewer/InterviewerPages";
+import {
+  CandidateRecent,
+  InterviewRecent,
+  InterviewQuestion,
+} from "./pages/Interviewer/InterviewerPages";
 
 export default function App() {
   return (
@@ -79,8 +84,8 @@ export default function App() {
         <Route path="/recruiter" element={<ManagementAppLayOut />}>
           {/* Define recruiter routes here */}
           <Route path="dashboard" index element={<ReccerDashboard />} />
-          <Route path="candidateinfo" element={<CandidateProfile />} />
-          <Route path="candidatelist" element={<CandidateList />} />
+          {/* <Route path="candidateinfo" element={<CandidateProfile />} /> */}
+          {/* <Route path="candidatelist" element={<CandidateList />} /> */}
 
           <Route path="job-management" element={<Reccer_JobManagement />} />
           <Route path="calender" element={<Reccer_calender />} />
@@ -101,10 +106,14 @@ export default function App() {
         <Route path="/interviewer" element={<ManagementAppLayOut />}>
           {/* Define interviewer routes here */}
           {/* <Route index path ="/manageQuestion" element={<ManageQuestion />} /> */}
+<<<<<<< HEAD
           <Route index path ="manage-question" element={<ManageQuestion />} />
           <Route index path ="score-page" element={<ScorePage />} />
+=======
+          {/* <Route index path="manageQuestion" element={<ManageQuestion />} />
+          <Route index path="scorePage" element={<ScorePage />} /> */}
+>>>>>>> 87a25e0e832e23897699426f027966890c7ae94b
         </Route>
-        
       </Routes>
     </BrowserRouter>
   );
