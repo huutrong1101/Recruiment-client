@@ -8,24 +8,24 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-export default function AddBlacklist() {
+export default function DeleteBlacklist() {
     const [Info] = useState([{
-        avatar:"../../../images/blog_image.png",
-        name: "Nguyen Van A",
-        email: "ngan@example.com",
-        phone: "012367xxx",
-        address: "123 Main St Ba Ria Vung Tau St",
-        positon: "Candidate",
+    avatar:"../../../images/blog_image.png",
+    name: "Nguyen Van A",
+    email: "ngan@example.com",
+    phone: "012367xxx",
+    address: "123 Main St Ba Ria Vung Tau St",
+    positon: "Candidate",
     }]);
     const goBack = () => {
         window.history.back();
     };
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
-      setOpen(true);
+    setOpen(true);
     };  
     const handleClose = () => {
-      setOpen(false);
+    setOpen(false);
     };
 return (
     Info.map((item) => (
@@ -63,7 +63,7 @@ return (
                 </div>
                 {/* Email */}
                 <div className = "grid grid-cols-1">
-                    <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Email.</div>
+                    <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Email :</div>
                     <div className = "px-4 py-2 self-stretch pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50">{item.email} </div>
                 </div>
                 {/* Reasion */}
@@ -77,11 +77,11 @@ return (
                     />
                 </div>
                 {/* AdBacklist */}
-                <div className={classnames("mt-10 text-center px-5 py-4")} >
+                <div className={classnames("mt-10 text-center px-5 py-4")}>
                     <NavLink to="#" onClick={goBack}>
                         <button type="submit" className="px-6 py-3 text-white rounded-full bg-red-600     hover:bg-red-800">  Cancel   </button>
                     </NavLink>
-                   <button type="submit" className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800 ml-5" variant="outlined" onClick={handleClickOpen}>  Save   </button>
+                <button type="submit" className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800 ml-5" variant="outlined" onClick={handleClickOpen}>  Save   </button>
                     <Dialog
                         open={open}
                         onClose={handleClose}
@@ -104,7 +104,7 @@ return (
                         </DialogActions>
                     </Dialog>
                 </div>
-              </div>
+            </div>
             </div>
           </div>
         </>

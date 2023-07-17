@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ManagementAppLayOut.scss';
-import { Link, Outlet, NavLink } from 'react-router-dom';
+import { Outlet, NavLink } from 'react-router-dom';
 import classnames from 'classnames';
 import { Bars3Icon, XMarkIcon, } from '@heroicons/react/24/outline';
 import { HiOutlineFolder, HiOutlineCalendarDays, HiOutlineUser, HiOutlineChartPie, HiOutlineDocumentDuplicate, HiOutlineClipboardDocument, HiOutlineClipboardDocumentList } from "react-icons/hi2"
@@ -13,17 +13,17 @@ export const links = [
             {
                 name: 'Default',
                 icon: <HiOutlineChartPie />,
-                mylink: '#',
+                mylink: 'admin/dashboard',
             },
             {
                 name: 'Profile',
                 icon: <HiOutlineDocumentDuplicate />,
-                mylink: '#',
+                mylink: 'admin/profile',
             },
             {
                 name: 'Manager Job',
                 icon: <HiOutlineCalendarDays />,
-                mylink: '#',
+                mylink: 'admin/job-manager',
             },
         ],
     },
@@ -58,7 +58,7 @@ export const links = [
             {
                 name: 'Event',
                 icon: <MdOutlineEventAvailable />,
-                mylink: 'recruiter/event',
+                mylink: 'recruiter/event-manager',
             },
 
         ],
@@ -92,22 +92,20 @@ const ManagementAppLayOut = () => {
 
     return (
         <div className="ManagementAppLayOut">
-            <div className='navbar '>
-                <div className='fixed w-[100vw] z-10 bg-white top-0'>
-                    <div className={classnames('navbar-content flex items-center justify-between', { 'minimize-content': leftActive })}>
-                        <div className='navbar-content-left  flex justify-between'>
-                            <button type="button" onClick={() => setLeftActive(!leftActive)}>
-                                <Bars3Icon className="w-5 h-5 mr-2" />
-                            </button>
-                            <div>
-                                Breadcrumbs
-                            </div>
+            <div className='navbar'>
+                <div className={classnames('navbar-content flex items-center justify-between', { 'minimize-content': leftActive })}>
+                    <div className='navbar-content-left flex justify-between'>
+                        <button type="button" onClick={() => setLeftActive(!leftActive)}>
+                            <Bars3Icon className="w-5 h-5 mr-2" />
+                        </button>
+                        <div>
+                            Breadcrumbs
                         </div>
-                        <div className='navbar-content-right'>
-                            <button type="button" onClick={() => setRightActive(true)}>
-                                <Bars3Icon className="w-5 h-5" />
-                            </button>
-                        </div>
+                    </div>
+                    <div className='navbar-content-right'>
+                        <button type="button" onClick={() => setRightActive(true)}>
+                            <Bars3Icon className="w-5 h-5" />
+                        </button>
                     </div>
                 </div>
                 <div className={classnames('navbar-left ', { 'minimize-left': leftActive })}>
@@ -148,8 +146,8 @@ const ManagementAppLayOut = () => {
                     </ul>
                 </div>
             </div>
-            <div className={`${leftActive ? 'small' : 'large'} mt-[72px]`}>
-                <div className='mx-[2rem] min-h-[calc(100vh-72px-2rem)]'><Outlet /></div>
+            <div className={`${leftActive ? 'small' : 'large'}`}>
+                <div className='mt-5 mx-[2rem] min-h-[calc(100vh-72px-3rem)]'><Outlet /></div>
                 <RecFooter check={leftActive ? true : false} />
             </div>
         </div>

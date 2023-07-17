@@ -31,6 +31,7 @@
     "vite": "^4.3.9"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.7.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fullcalendar/core": "^6.1.8",
@@ -43,9 +44,12 @@
     "@material-tailwind/react": "^2.0.5",
     "@mui/material": "^5.13.7",
     "@syncfusion/ej2-react-popups": "^22.1.37",
+    "@types/react-textarea-autosize": "^8.0.0",
     "classnames": "^2.3.2",
     "fullcalendar": "^6.1.8",
     "hoist-non-react-statics": "^3.3.2",
+    "node-sass": "^9.0.0",
+    "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.45.1",
     "react-icon": "^1.0.0",
     "react-icons": "^4.10.1",
