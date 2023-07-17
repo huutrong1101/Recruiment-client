@@ -58,6 +58,7 @@ import AddEvent from "./components/AddEvent/AddEvent";
 import ListCandiPass from "./components/AdminManagerList/ListCandiPass";
 import DeleteBlacklist from "./pages/Admin/DeleteBlacklist";
 import CreateCV from "./pages/CreateCV/CreateCV";
+import RequestTest from "./pages/RequestTest/RequestTest";
 
 export default function App() {
   return (
@@ -94,6 +95,7 @@ export default function App() {
               element={<UserProfileSubmittedJob />}
             />
           </Route>
+          <Route path="/test-request" element={<RequestTest />} />
         </Route>
 
         <Route path="/admin" element={<ManagementAppLayOut />}>
