@@ -58,7 +58,7 @@ export const links = [
             {
                 name: 'Event',
                 icon: <MdOutlineEventAvailable />,
-                mylink: 'recruiter/event',
+                mylink: 'recruiter/event-manager',
             },
 
         ],
