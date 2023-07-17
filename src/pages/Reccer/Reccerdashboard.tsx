@@ -86,7 +86,7 @@ export default function Reccer_dashboard() {
                             </div>
                         ))}
                 </div>
-                <div className=" justify-center items-center pb-5">
+                <div className=" justify-center item-center pb-5">
                     <div className="Block w-[892px] h-80 px-4 pt-5 pb-6 bg-slate-50 rounded-2xl justify-start items-center flex-col gap-3 inline-flex">
                         <div className="Container self-stretch justify-start items-center gap-2 inline-flex">
                             <div className="Blocktab justify-start items-center gap-4 flex">
