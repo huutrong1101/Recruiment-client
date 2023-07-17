@@ -12,8 +12,6 @@ import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
 import ManagementAppLayOut from "./components/Layout/ManagementAppLayOut/ManagementAppLayOut";
 // =======
 
-
-
 import Jobs from "./pages/Jobs/Jobs";
 import Events from "./pages/Events/Events";
 import EventDetail from "./pages/EventDetail/EventDetail";

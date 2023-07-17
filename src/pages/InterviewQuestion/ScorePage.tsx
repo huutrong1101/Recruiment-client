@@ -5,6 +5,7 @@ import DashBoardFooter from "../../components/RecFooter/DashboardFooter";
 import PopUp from "./PopUp";
 import { useState, useEffect } from "react"
 import ListQuestions from "./ListQuestion";
+import CandidateResume from "./CandidateResume"
 import { InterviewQuestion } from "../Interviewer/InterviewerPages";
 
 type Record = {
@@ -26,38 +27,40 @@ export default function ScorePage() {
     //----------------------------------------------------------------------------
     //------------Pagination------------------------------------------------------
     const [curPage, setCurPage] = useState(1)
-    const [show, setShow] = useState<Record[]>([]);
-
-    const numPage = Math.ceil(ListQuestions.length / 5)
-    const numbers = [...Array(numPage + 1).keys()].slice(1)
-
-    const nextPage = () => {
-        if (curPage !== 1) setCurPage(curPage + 1)
+    const recordsPerPage = 5
+    const lastIndex= curPage * recordsPerPage
+    const firstIndex = lastIndex - recordsPerPage
+    const records = ListQuestions.slice(firstIndex, lastIndex)
+    const numPage = Math.ceil(ListQuestions.length /recordsPerPage)
+    const numbers = [...Array( numPage+1 ).keys()].slice(1)
+    const nextPage = ()=>{
+        if(curPage !== firstIndex) setCurPage( curPage - 1)
     }
-    const prePage = () => {
-        if (curPage !== numPage) setCurPage(curPage - 1)
-    }
-    const changeCurPage = (id: any) => {
+    const changeCurPage = (id:any)=>{
         setCurPage(id)
     }
-
-
-    useEffect(() => {
-        const firstIndex = (curPage - 1) * 5
-        const lastIndex = firstIndex + 5
-        const records = ListQuestions.slice(firstIndex, lastIndex)
-        setShow(records)
-    }, [curPage])
-
-    console.log(show)
-
+    const prePage = ()=> {
+        if (curPage !== lastIndex) setCurPage( curPage +1 )
+    }
     //----------------------------------------------------------------------------- 
     return (
         <div className="flex flex-col justify-center md:flex-row md:items-start md:w-full">
             <div className="w-1/3 h-full bg-white flex flex-col mx-4 my-4 relative ">
-                <div className="Table absolute w-full  bg-white rounded-lg shadow border  border-gray-200 pt-4">
-                    <div className="relative h-full">
-                        <div className="h-[500px]"></div>
+                <div className="  w-full  bg-white rounded-lg shadow border  border-gray-200 ">
+                    <div className="w-full h-full">
+                        <div className="h-[500px] w-full flex md:flex-wrap justify-center ">
+                            <div className="rounded-full w-[150px] h-[150px] border-2 border-emerald-600 justify-start my-4
+                            md:mb-0 md:auto md:mr-4 md:rounded-full">
+
+                            </div>
+                            <div className=" lg:w-[230px] h-[150px] border border-gray-200 my-4 md:my-4 md:w-[230px]
+                            sm:my-0 ">
+
+                            </div>
+                            <div className="lg:w-full md:h-1/2 border border-gray-200 md:bottom-0 md:mx-4 ">
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -67,7 +70,7 @@ export default function ScorePage() {
                         {/* list question */}
                         <div className="bg-gray-100 h-[400px] w-full rounded-lg border-black px-2 py-2 relative ">
                             {/* table */}
-                            <div className=" rounded-lg border-gray-300 border-2 w-full h-full">
+                            <div className=" rounded-lg border-gray-300 border-2 w-full h-full relative">
                                 <div className="overflow-auto px-2">
                                     <table className="table-auto w-full">
                                         <thead className="">
@@ -80,7 +83,7 @@ export default function ScorePage() {
                                         <tbody className="">
                                             <div className="grid text-left">
                                                 {
-                                                    show.map((question) => (
+                                                    records.map((question) => (
                                                         <tr className="flex flex-row text-left text-sm cursor-pointer border-y border-gray-300" >
                                                             <td className="basis-1/5 p-y-2 " key={question.questionID} onClick={() => handleQuestionClick(question.interviewQuestions)}>
                                                                 {question.position}
@@ -88,38 +91,38 @@ export default function ScorePage() {
                                                             <td className="basis-1/5 p-y-2 " key={question.questionID} onClick={() => handleQuestionClick(question.interviewQuestions)}>
                                                                 {question.typeQuestion}
                                                             </td>
-                                                            <td className="basis-3/5 flex-nowrap p-y-2" key={question.questionID} onClick={() => handleQuestionClick(question.interviewQuestions)}>
+                                                            <td className="basis-3/5 p-y-2 " key={question.questionID} onClick={() => handleQuestionClick(question.interviewQuestions)}>
                                                                 {question.interviewQuestions}
                                                             </td>
                                                         </tr>
-                                                ))}
+                                                    ))}
                                             </div>
                                         </tbody>
                                     </table>
-                                    {/* Pagination */}
-                                    <nav className="">
-                                        <ul className="pagination inline-flex gap-x-3">
-                                            <li className="page-item ">
-                                                <a href="#" className="page-link  inline-flex justify-center" onClick={prePage}>
-                                                    <div className="w-[20px] h-[20px] relative"> <ChevronLeftIcon /> </div>
-                                                    Prev
-                                                </a>
-                                            </li>
-                                            {
-                                                numbers.map((n, i) => (
-                                                    <li className={`page-item ${curPage === n ? 'active' : ' '}`} key={i}>
-                                                        <a href="#" className="page-link" onClick={() => changeCurPage(n)}> {n}  </a>
-                                                    </li>
-                                                ))
-                                            }
-                                            <li className="page-item ">
-                                                <a href="#" className="page-link inline-flex justify-center" onClick={nextPage}> Next
-                                                    <div className="w-[20px] h-[20px]"><ChevronRightIcon /></div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
                                 </div>
+                                {/* Pagination */}
+                                <section className="flex justify-end absolute">
+                                    <ul className="inline-flex gap-x-2">
+                                        <li className=" ">
+                                            <a href="#" className=" inline-flex justify-center" onClick={prePage}>
+                                                <div className="w-[20px] h-[20px] relative"> <ChevronLeftIcon /> </div>
+                                                Prev
+                                            </a>
+                                        </li>
+                                        {
+                                            numbers.map((n, i) => (
+                                                <li className={` ${curPage === n ? 'active' : ' '}`} key={i}>
+                                                    <a href="#" className="" onClick={() => changeCurPage(n)}> {n}  </a>
+                                                </li>
+                                            ))
+                                        }
+                                        <li className=" ">
+                                            <a href="#" className=" inline-flex justify-center" onClick={nextPage}> Next
+                                                <div className="w-[20px] h-[20px]"><ChevronRightIcon /></div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </section>
                             </div>
                             {/* button */}
                             <div className="absolute  flex top-[-10px] left-[-10px]">
