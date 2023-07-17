@@ -59,6 +59,7 @@ export default function App() {
   return (
     <BrowserRouter>
       {/* Route switcher */}
+
       <Routes>
         <Route path="/" element={<UserAppLayout />}>
           <Route index element={<Home />} />
