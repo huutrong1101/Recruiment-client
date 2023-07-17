@@ -17,13 +17,11 @@ interface MyComponentProps {
     label: string,
     value: string,
   }[],
-  candidate: any
 }
 
 
 
-export default function RecInterviewerDetailCard({ userinfor, listSkills, personalDetails, candidate }: MyComponentProps) {
-  
+export default function RecInterviewerDetailCard({ userinfor, listSkills, personalDetails }: MyComponentProps) {
   return (
     <>
       <section className='relative'>
@@ -34,7 +32,7 @@ export default function RecInterviewerDetailCard({ userinfor, listSkills, person
           <div className='md:flex ms-4 -mt-12'>
             <div className='md:w-full'>
               <div className='relative flex items-end'>
-                <img src={candidate.avatar} className='h-28 w-28 rounded-full ring-4 ring-slate-50 ' />
+                <img src={userinfor[0].avatarUrl} className='h-28 w-28 rounded-full ring-4 ring-slate-50 ' />
                 <div className='ms-4'>
                   <p className='text-lg font-semibold'>{userinfor[0].name}</p>
                   <p className='text-slate-400'>{userinfor[0].title}</p>

@@ -39,7 +39,7 @@ const CandidateRecent = () => {
     }else if(candidatesRecentStatus === STATUS.IDLE){
         return (
             <div className='CandidateRecent'>
-                <div className='mb-5 text-2xl'>Candidate Recent</div>
+                <div className='mb-5 text-2xl mt-4'>Candidate Recent</div>
                 <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead className='bg-slate-300'>

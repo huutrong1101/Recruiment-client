@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ManagementAppLayOut.scss';
-import { Link, Outlet, NavLink } from 'react-router-dom';
+import { Outlet, NavLink } from 'react-router-dom';
 import classnames from 'classnames';
 import { Bars3Icon, XMarkIcon, } from '@heroicons/react/24/outline';
 import { HiOutlineFolder, HiOutlineCalendarDays, HiOutlineUser, HiOutlineChartPie, HiOutlineDocumentDuplicate, HiOutlineClipboardDocument, HiOutlineClipboardDocumentList } from "react-icons/hi2"
@@ -13,17 +13,17 @@ export const links = [
             {
                 name: 'Default',
                 icon: <HiOutlineChartPie />,
-                mylink: '#',
+                mylink: 'admin/dashboard',
             },
             {
                 name: 'Profile',
                 icon: <HiOutlineDocumentDuplicate />,
-                mylink: '#',
+                mylink: 'admin/profile',
             },
             {
                 name: 'Manager Job',
                 icon: <HiOutlineCalendarDays />,
-                mylink: '#',
+                mylink: 'admin/job-manager',
             },
         ],
     },
@@ -58,7 +58,7 @@ export const links = [
             {
                 name: 'Event',
                 icon: <MdOutlineEventAvailable />,
-                mylink: 'recruiter/event',
+                mylink: 'recruiter/event-manager',
             },
 
         ],

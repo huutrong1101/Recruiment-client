@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import PrimaryButton from "../../../components/PrimaryButton/PrimaryButton";
 
-export default function ReccerJobInformationCard({ cardData }: any) {
+export default function JobInformationCard({ cardData }: any) {
   return (
     <div
       className={classNames(

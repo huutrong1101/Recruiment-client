@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import HomeSlice from "../pages/Home/slices/HomeSlice";
+import NavbarSlice from "../components/Navbar/slices/NavbarSlice";
 
 /// 
 import CandidateRecentReducer from "./reducer/CandidateRecentSlice";
@@ -10,6 +11,7 @@ export const ApplicationStore = configureStore({
     Home: HomeSlice,
     candidateRecent: CandidateRecentReducer,
     interviewRecent: InterviewRecentReducer,
+    Navbar: NavbarSlice,
   },
 });
 

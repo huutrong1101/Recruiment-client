@@ -16,20 +16,21 @@ export default function Reccer_JobManagement() {
                     <input type="text" id="simple-search" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:border-blue-500 block w-full pl-10 p-2.5   " placeholder="Search Name" required />
                 </div>
                 <div className="flex items-center p-5">
-                    <Link to="#">
+                    <Link to="../addjob">
                         <div className="sm:w-[100px] h-[50px] relative" >
                             <button className="w-full h-full left-5 top-0 absolute bg-[#48A280] hover:bg-emerald-700 text-white rounded-lg" type="submit">+ Add Job</button>
                         </div>
                     </Link>
                 </div>
             </form>
+
             <div className="flex flex-wrap justify-center items-center 2 mt-[10px] ">
                 {/* <!-- Card --> */}
                 {data.listJobs &&
                     data.listJobs.map((job) => (
-                        <div key={job.jobId} className=" px-4 mb-8 md:w-5/6">
+                        <Link to={`../jobdetail/`} key={job.jobId} className=" px-4 mb-8 md:w-5/6">
                             <RecJobCard job={job} />
-                        </div>
+                        </Link>
                     ))}
             </div>
             <div className='grid md:grid-cols-12 grid-cols-1 mt-1'>

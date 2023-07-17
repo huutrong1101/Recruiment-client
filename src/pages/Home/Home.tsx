@@ -29,20 +29,29 @@ export default function Home() {
   return (
     <div className={classnames("h-full")}>
       <div className={classnames("flex justify-between")}>
-        <div className={classnames("w-[55%] py-8 pl-[90px]")}>
+        <div
+          className={classnames(
+            "w-[55%] py-8 pl-[30px] md:pl-[60px] lg:pl-[90px]",
+          )}
+        >
           <img
             src={home_page}
             alt="home_page"
             className={classnames("w-full")}
           />
         </div>
+
         <div className={classnames("w-[45%] relative")}>
           <div
             className={classnames(
               "absolute top-[50%] translate-y-[-50%] text-center",
             )}
           >
-            <h3 className={classnames("text-[54px] font-semibold")}>
+            <h3
+              className={classnames(
+                "text-[18px] md:text-[25px] lg:text-[48px] font-semibold",
+              )}
+            >
               Join Us &{" "}
               <span className={classnames("text-emerald-700")}>
                 Explore Thousands
@@ -50,7 +59,9 @@ export default function Home() {
               of Jobs
             </h3>
             <p
-              className={classnames("text-[20px] font-semibold text-gray-500")}
+              className={classnames(
+                "text-[12px] md:text-[18px] font-semibold text-gray-500",
+              )}
             >
               Find Jobs, Employment & Career Opportunities. Some of the
               companies we've helped recruit excellent applicants over the
@@ -63,46 +74,50 @@ export default function Home() {
       {/* SEARCH  */}
       <form
         className={classnames(
-          "flex border rounded-md shadow-md md:shadow-lg p-4 gap-4",
+          "flex flex-col border rounded-md shadow-md md:shadow-lg md:flex-row p-3 gap-4 mt-[40px] md:mt-[80px]",
         )}
       >
         <div
           className={classnames(
-            "flex items-center flex-shrink-0 w-[49%] border-r-2",
+            "flex w-full items-center flex-shrink-0 md:w-[49%] border-r-2",
           )}
         >
-          <MagnifyingGlassIcon className={classnames(`w-[20px] ml-4`)} />
+          <MagnifyingGlassIcon
+            className={classnames(`w-[20px] ml-1 md:ml-4`)}
+          />
           <input
             type="text"
             placeholder="Search your Keywords"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className={classnames(
-              "w-[85%] h-full text-[17px] ml-3 focus:outline-none",
+              "w-[85%] h-full text-[10px] md:text-[17px] ml-3 focus:outline-none",
             )}
           />
         </div>
 
-        <div className={classnames("flex items-center w-[27%] border-r-2")}>
-          <CakeIcon className={classnames(`w-[20px] ml-4`)} />
-          <Menu as="div" className={classnames("relative")}>
-            <Menu.Button>
+        <div
+          className={classnames(
+            "flex items-center w-full gap-4 md:w-[27%] border-r-2",
+          )}
+        >
+          <CakeIcon className={classnames(`w-[20px] md:ml-4`)} />
+          <Menu as="div" className={classnames("relative w-full")}>
+            <Menu.Button className={classnames("w-full")}>
               <div
                 className={classnames(
-                  "ml-4 cursor-pointer flex items-center justify-between",
+                  "text-[13px] cursor-pointer flex items-center justify-between",
                 )}
                 onClick={() => setShowType(!showType)}
               >
                 {type}
                 {showType && (
-                  <ChevronUpIcon className={classnames("w-[20px] ml-4")} />
+                  <ChevronUpIcon className={classnames("w-[20px] mr-4")} />
                 )}
                 {!showType && (
-                  <ChevronDownIcon className={classnames("w-[20px] ml-4")} />
+                  <ChevronDownIcon className={classnames("w-[20px] mr-4")} />
                 )}
               </div>
-
-              {/* Drop down  */}
             </Menu.Button>
 
             <Transition
@@ -143,9 +158,13 @@ export default function Home() {
           </Menu>
         </div>
 
-        <div className={classnames("w-[24%] flex items-center justify-center")}>
+        <div
+          className={classnames(
+            "w-full md:w-[24%] flex items-center justify-center",
+          )}
+        >
           <button
-            className="w-[222px] h-[56px] border rounded-md bg-emerald-700 shadow-md text-white"
+            className="w-[50%] md:w-[80%] md:h-[56px] border rounded-md bg-emerald-700 shadow-md text-white"
             onClick={() => handleSubmit()}
           >
             Search
@@ -154,18 +173,18 @@ export default function Home() {
       </form>
 
       {/* Popular Jobs  */}
-      <div className="mt-[80px]">
+      <div className="mt-[40px] md:mt-[80px]">
         <div className={classnames("text-center")}>
           <h3
             className={classnames(
-              "text-black text-2xl font-medium leading-7 tracking-wider capitalize",
+              "text-black text-xl md:text-2xl font-medium leading-7 tracking-wider capitalize",
             )}
           >
             Popular Jobs
           </h3>
           <p
             className={classnames(
-              "text-gray-400 text-center text-lg font-medium capitalize",
+              "text-gray-400 text-center text-sm md:text-lg font-medium capitalize",
             )}
           >
             Search all the open positions on the web. Get your own personalized
@@ -177,7 +196,10 @@ export default function Home() {
           {/* <!-- Card --> */}
           {data.listJobs &&
             data.listJobs.map((job) => (
-              <div key={job.jobId} className="w-full px-4 mb-8 md:w-1/3">
+              <div
+                key={job.jobId}
+                className="w-full px-4 mb-8 sm:w-1/2 lg:w-1/3"
+              >
                 <JobCard job={job} />
               </div>
             ))}
@@ -200,14 +222,14 @@ export default function Home() {
         <div className={classnames("text-center")}>
           <h3
             className={classnames(
-              "text-black text-2xl font-medium leading-7 tracking-wider capitalize",
+              "text-black text-xl md:text-2xl font-medium leading-7 tracking-wider capitalize",
             )}
           >
             Lastest Blog or News
           </h3>
           <p
             className={classnames(
-              "text-gray-400 text-center text-lg font-medium capitalize",
+              "text-gray-400 text-center text-sm md:text-lg font-medium capitalize",
             )}
           >
             Search all the open positions on the web. Get your own personalized
@@ -219,7 +241,10 @@ export default function Home() {
           {/* <!-- Card --> */}
           {data.listEvent &&
             data.listEvent.map((event) => (
-              <div key={event.id} className="w-full px-4 mb-8 md:w-1/3">
+              <div
+                key={event.id}
+                className="w-full px-4 mb-8 sm:w-1/2 lg:w-1/3"
+              >
                 <BlogCard event={event} />
               </div>
             ))}
