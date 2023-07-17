@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import HomeSlice from "../pages/Home/slices/HomeSlice";
+import NavbarSlice from "../components/Navbar/slices/NavbarSlice";
 
 /// 
 import CandidateRecentReducer from "./reducer/CandidateRecentSlice";
@@ -8,8 +9,12 @@ import InterviewRecentReducer from "./reducer/InterviewRecentSlice";
 export const ApplicationStore = configureStore({
   reducer: {
     Home: HomeSlice,
+<<<<<<< HEAD
     candidateRecent: CandidateRecentReducer,
     interviewRecent: InterviewRecentReducer
+=======
+    Navbar: NavbarSlice,
+>>>>>>> feat/add-navbar-for-small-width-devices
   },
 });
 
