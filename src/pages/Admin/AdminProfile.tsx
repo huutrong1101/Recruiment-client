@@ -8,7 +8,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import blog_image from "../../../images/blog_image.png";
-import { Textarea } from '@material-tailwind/react';
 export default function AdminProfile() {
     const [avatar, setAvatar] = useState(blog_image);
     const [name, setname] = useState('');
@@ -34,10 +33,10 @@ export default function AdminProfile() {
     };
     const [AdminProfile] = useState([
     {
-        name: "Nguyen Van Admin",
-        email: "nguyenvanadmin@gmail.com",
-        phone: "123",
-        adress: "admin o mo toi khong biet",
+        name:   "Nguyen Van Admin",
+        email:  "nguyenvanadmin@gmail.com",
+        phone:  "0988123xxx",
+        adress: "Day la dia chi admin",
         avatarUrl: avatar,
     }
     ]);
