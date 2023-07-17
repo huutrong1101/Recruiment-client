@@ -28,6 +28,10 @@ export default function AddEvent() {
           const file = event.target.files[0];
           setAvatar(URL.createObjectURL(file));
       };
+      const handleImageUploadActor = (event) => {
+        const file = event.target.files[0];
+        setavarActor(URL.createObjectURL(file));
+    };
       const handleSubmit = (event) => {
         event.preventDefault();
         let object = { avatar,time,organizedBy, date, eventName,eventContent,
@@ -52,14 +56,14 @@ export default function AddEvent() {
                   {avatar && (
                         <div>
                           <label className="text-zinc-900 text-2xl font-normal leading-7 ">Image here</label>
-                          <img src={avatar} alt="blog_image" />
+                          <img src={avatar} alt="blog_image" className="w-[175px] h-[175px] rounded-full " />
                         </div>
                       )}
                     <input
                         type="file"
                         id="avatar"
                         accept="image/*"
-                        className={classnames("w-[50%] ig object-cover ig-center")}
+                        className={classnames("w-[50%] ig object-cover ig-center hidden")}
                         onChange={handleImageUpload}
                     />
                   </label>
@@ -123,11 +127,20 @@ export default function AddEvent() {
                     <h3  className={classnames(  "text-center text-black text-lg font-medium tracking-wider leading-7 capitalize" )}  >  Author </h3>
                   </div>
                   <div  className={classnames( "flex flex-col gap-1 items-center justify-center my-4")}   >
-                    <img
-                      src={avaActor}
-                      alt=""
-                      className={classnames( "rounded-full bg-gray-500")}
-                    />
+                    <label htmlFor="avaActor">
+                    {avaActor && (
+                        <div>
+                          <img src={avaActor} alt="blog_image"  className="w-3/4 rounded-full flex justify-center"/>
+                        </div>
+                      )}
+                    <input
+                          type="file"
+                          id="avaActor"
+                          accept="image/*"
+                          className={classnames("w-[50%] ig object-cover ig-center hidden")}
+                          onChange={handleImageUploadActor}
+                      />
+                    </label>
                     <h3>Content Writer - journalist </h3>
                     <TextareaAutosize
                           minRows={1}
