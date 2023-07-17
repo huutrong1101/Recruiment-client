@@ -9,12 +9,9 @@ import InterviewRecentReducer from "./reducer/InterviewRecentSlice";
 export const ApplicationStore = configureStore({
   reducer: {
     Home: HomeSlice,
-<<<<<<< HEAD
     candidateRecent: CandidateRecentReducer,
-    interviewRecent: InterviewRecentReducer
-=======
+    interviewRecent: InterviewRecentReducer,
     Navbar: NavbarSlice,
->>>>>>> feat/add-navbar-for-small-width-devices
   },
 });
 
