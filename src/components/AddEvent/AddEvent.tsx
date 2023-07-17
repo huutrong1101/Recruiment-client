@@ -33,6 +33,7 @@ export default function AddEvent() {
         let object = { avatar,time,organizedBy, date, eventName,eventContent,
           nameActor,avaActor,linkFacebook,linkTwitter,linkGitlab,linkInstagram,linkLinkedin};
         console.log(object);
+        setOpen(false);
       }
       const [open, setOpen] = React.useState(false);
       const handleClickOpen = () => {
@@ -109,7 +110,7 @@ export default function AddEvent() {
                   </DialogContent>
                   <DialogActions>
                     <Button onClick={handleClose}>Disagree</Button>
-                    <Button onClick={handleClose} autoFocus type="submit">
+                    <Button onClick={handleSubmit} autoFocus type="submit">
                       Agree
                     </Button>
                   </DialogActions>
