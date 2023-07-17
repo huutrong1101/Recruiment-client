@@ -53,7 +53,6 @@ import Reccer_candidateManagement from "./pages/Reccer/ReccercandidateManagement
 
 import RecEventDetail from "./pages/EventDetail/RecEventDetail";
 import AddEvent from "./components/AddEvent/AddEvent";
-import EventManager from "./components/EventManager/EventManager";
 import ListCandiPass from "./components/AdminManagerList/ListCandiPass";
 import DeleteBlacklist from "./pages/Admin/DeleteBlacklist";
 
@@ -112,7 +111,6 @@ export default function App() {
           <Route path="event" element={<ReccerEventManagement />} />
           <Route path="candidate" element={<ReccercandidateManagement />} />
           <Route path="event-manager/:eventId" element={<RecEventDetail/>} />
-          <Route path="event-manager" element={<EventManager />} />
           <Route path="events-add" element={<AddEvent />} />
           {/* <Route path="job-management" element={<Reccer_JobManagement />} />
           <Route path="calender" element={<Reccer_calender />} /> */}
@@ -120,7 +118,7 @@ export default function App() {
             path="interviewer"
             element={<Reccer_InterviewerManagement />}
           />
-          <Route path="event" element={<Reccer_EventManagement />} />
+          <Route path="event-manager" element={<Reccer_EventManagement />} />
           <Route path="candidate" element={<Reccer_candidateManagement />} />
         </Route>
 
