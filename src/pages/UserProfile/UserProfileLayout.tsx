@@ -21,7 +21,7 @@ export default function UserProfileLayout() {
       text: "Interview",
     },
     {
-      url: "/submitted-jobs",
+      url: "/profile/submitted-jobs",
       icon: <HiQuestionMarkCircle />,
       text: "Submitted Jobs",
     },

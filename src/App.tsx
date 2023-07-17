@@ -45,6 +45,7 @@ import {
 import UserProfileLayout from "./pages/UserProfile/UserProfileLayout";
 import UserProfileMyProfile from "./pages/UserProfile/UserProfileMyProfile";
 import UserProfileInterviews from "./pages/UserProfile/UserProfileInterviews/UserProfileInterviews";
+import UserProfileSubmittedJob from "./pages/UserProfile/UserProfileSubmittedJob";
 
 import ReccerJobDetail from "./pages/Reccer/Jobs/ReccerJobDetail";
 import Addjob from "./pages/Reccer/Jobs/Addjob";
@@ -87,6 +88,10 @@ export default function App() {
           <Route path="/profile" element={<UserProfileLayout />}>
             <Route index element={<UserProfileMyProfile />} />
             <Route path="interviews" element={<UserProfileInterviews />} />
+            <Route
+              path="submitted-jobs"
+              element={<UserProfileSubmittedJob />}
+            />
           </Route>
         </Route>
 
