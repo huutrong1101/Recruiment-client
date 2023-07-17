@@ -58,6 +58,7 @@ import RecEventDetail from "./pages/EventDetail/RecEventDetail";
 import AddEvent from "./components/AddEvent/AddEvent";
 import ListCandiPass from "./components/AdminManagerList/ListCandiPass";
 import DeleteBlacklist from "./pages/Admin/DeleteBlacklist";
+import CreateCV from "./pages/CreateCV/CreateCV";
 
 export default function App() {
   return (
@@ -73,6 +74,7 @@ export default function App() {
           <Route path="/events/:eventId" element={<EventDetail />} />
           <Route path="contact" element={<Contact />} />
           <Route path="about-us" element={<AboutUs />} />
+          <Route path="create-cv" element={<CreateCV />} />
 
           <Route path="auth" element={<Authenticate />}>
             <Route path="login" element={<AuthenticateLogin />} />
@@ -153,6 +155,8 @@ export default function App() {
           <Route index path="manageQuestion" element={<ManageQuestion />} />
           <Route index path="scorePage" element={<ScorePage />} />
         </Route>
+
+        {/* <Route path="/test" element={Test} /> */}
       </Routes>
     </BrowserRouter>
   );
