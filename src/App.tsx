@@ -36,7 +36,6 @@ import ReccerInterviewerDetail from "./pages/Reccer/InterviewerDetail";
 import CandidateList from "./pages/Reccer/CandidateList";
 import CandidateProfile from "./pages/Reccer/CandidateProfile";
 
-
 // Interviewer Pages
 import {
   CandidateRecent,
@@ -87,9 +86,11 @@ export default function App() {
           <Route path="position-change" element={<AdminChangePosition />} />
           <Route path="blacklist-add" element={<AddBlacklist />} />
           <Route path="blacklist-delete" element={<DeleteBlacklist />} />
-
           <Route path="profile" element={<AdminProfile />} />
-          <Route path="candidate-pass-list/:JobID" element={<ListCandiPass />}/>
+          <Route
+            path="candidate-pass-list/:JobID"
+            element={<ListCandiPass />}
+          />
           <Route path="job-manager" element={<ManagetJobList />} />
         </Route>
 
@@ -101,8 +102,11 @@ export default function App() {
 
           <Route path="job-management" element={<ReccerJobManagement />} />
           <Route path="calender" element={<Reccercalender />} />
-          <Route path="interviewer"element={<ReccerInterviewerManagement />}/>
-          <Route path="interviewer-profile"element={<ReccerInterviewerDetail />}/>
+          <Route path="interviewer" element={<ReccerInterviewerManagement />} />
+          <Route
+            path="interviewer-profile"
+            element={<ReccerInterviewerDetail />}
+          />
 
           <Route path="jobdetail" element={<ReccerJobDetail />} />
           <Route path="addjob" element={<Addjob />} />
@@ -110,7 +114,7 @@ export default function App() {
 
           <Route path="event" element={<ReccerEventManagement />} />
           <Route path="candidate" element={<ReccercandidateManagement />} />
-          <Route path="event-manager/:eventId" element={<RecEventDetail/>} />
+          <Route path="event-manager/:eventId" element={<RecEventDetail />} />
           <Route path="events-add" element={<AddEvent />} />
           {/* <Route path="job-management" element={<Reccer_JobManagement />} />
           <Route path="calender" element={<Reccer_calender />} /> */}
@@ -126,9 +130,8 @@ export default function App() {
           <Route path="interview-recent" element={<InterviewRecent />} />
           <Route path="interview-question" element={<InterviewQuestion />} />
           <Route path="candidate-recent" element={<CandidateRecent />} />
-          <Route index path ="manageQuestion" element={<ManageQuestion />} />
-          <Route index path ="scorePage" element={<ScorePage />} />
-
+          <Route index path="manageQuestion" element={<ManageQuestion />} />
+          <Route index path="scorePage" element={<ScorePage />} />
         </Route>
         <Route path="/interviewer" element={<ManagementAppLayOut />}>
           {/* Define interviewer routes here */}

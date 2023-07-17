@@ -21,33 +21,36 @@ export default function ReccerEventManagement() {
   };
   return (
     <>
-      <div className="grid grid-cols-[15%,60%,25%] gap-1 w-3/4 mx-auto">
-        <form onSubmit={handleSearch} className="col-span-2 flex items-center bg-black bg-opacity-5 rounded-full px-1.5 py-1 shadow">
-          <div>
-            <MagnifyingGlassIcon className="ml-5 w-4 h-4 relative gap-1" />
+      {/* Search */}
+      <div className="grid grid-cols-[100%] sm:grid-cols-[15%,60%,25%] gap-1 mx-auto lg:grid-cols-[25%,60%,25%] ">
+        <form onSubmit={handleSearch} className=" w-full sm:w-3/4 col-span-2 flex items-center bg-opacity-5 rounded-full px-1.5 py-1 shadow">
+          <div className="">
+            <MagnifyingGlassIcon className="ml-5 h-4 relative gap-1 w-full sm:w-3/4" />
           </div>
-          <div>
+          <div className="">
             <input
               type="text"
-              className="ml-5 font-medium leading-tight text-gray-900 text-[14px] text-center rounded-full w-[300px] h-[30px]"  value={searchQuery}
+              className="ml-5 font-medium leading-tight text-gray-900 text-[14px] text-center rounded-full w-[300px] h-[30px]"
+              value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
               placeholder="Please enter a search"
             />
-          </div>
-          <div>
+           
+          </div> 
             <button type="submit" className="ml-5 p-1.5 bg-emerald-600 text-white text-sm leading-tight rounded-full">
               Search
-            </button>
-          </div>
+            </button>        
         </form>
-        <div className="ml-5 col-span-1 flex justify-center items-center bg-emerald-600 rounded-full py-2 shadow">
-          <NavLink to="/recruiter/events-add" onClick={() => {}}>
-            <button className="text-white text-sm font-medium leading-tight">
-              + Add Event
-            </button>
-          </NavLink>
-        </div>
       </div>
+      {/* Add Event */}
+      <div className="ml-5 mt-5 flex justify-center items-center  w-1/6">
+        <NavLink to="/recruiter/events-add" onClick={() => {}}>
+          <button className="text-white shadow text-sm font-medium leading-tight flex py-2 px-2 justify-start bg-emerald-600 rounded-full ">
+            + Add Event
+          </button>
+        </NavLink>
+      </div>
+      {/* Conten */}
       <div>
         <div className="flex flex-wrap -mx-4 mt-[50px]">
           {/* <!-- Card --> */}

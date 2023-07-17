@@ -1,14 +1,6 @@
-import React, { useState } from "react";
-import classnames       from "classnames";
 import { Outlet }       from "react-router-dom";
 import SearchBar        from "../../components/Search/Search";
 import Tabbaradmin      from "../../components/Tabbaradmin/Tabbaradmin";
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 export default function AdminDashboard() {
   // const [ShowSearch, SearchListtrue] = useState(false) ;
   return(
@@ -19,8 +11,7 @@ export default function AdminDashboard() {
         <nav className="bg-white p-6 relative overflow-x-auto">
           <Tabbaradmin />
         </nav>
-        <Outlet></Outlet>
-
+        <Outlet />
     </div>
   );
 }
