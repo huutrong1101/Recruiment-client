@@ -121,7 +121,7 @@ export default function App() {
           <Route path="calender" element={<Reccercalender />} />
           <Route path="interviewer" element={<ReccerInterviewerManagement />} />
           <Route
-            path="interviewer-profile"
+            path="interviewer/:id"
             element={<ReccerInterviewerDetail />}
           />
 
