@@ -43,8 +43,8 @@ return (
             <div className="bg-white rounded-lg shadow-lg w-[70%] top-4 ">
               <div className = "grid md:grid-cols-1 text-sm self-stretch px-2 pt-[13px] pb-[11px]">
                 {/* Title */}
-                <div className = "flex items-center text-center space-x-2 font-semibold text-green-500">
-                    <span className = "tracking-wide text-center  text-emerald-600 text-[28px] ">Information</span>
+                <div className="flex items-center justify-center text-center space-x-2 font-semibold text-green-500">
+                    <span className="tracking-wide text-bold-center flex text-emerald-600 text-[30px]">Information</span>
                 </div>
                 {/* Name */}
                 <div className = "grid grid-cols-1">
@@ -55,16 +55,16 @@ return (
                 <div className = "grid grid-cols-1">
                     <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Contact No.</div>
                     <div className = "px-4 py-2 self-stretch pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50">{item.phone}</div>
-                </div>
-                {/* Address */}
-                <div className = "grid grid-cols-1">
-                    <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Current Address</div>
-                    <div className = "px-4 py-2 self-stretch pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50">{item.address}</div>
-                </div>
+                </div>               
                 {/* Email */}
                 <div className = "grid grid-cols-1">
                     <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Email.</div>
                     <div className = "px-4 py-2 self-stretch pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50">{item.email} </div>
+                </div>
+                {/* Address */}
+                 <div className = "grid grid-cols-1">
+                    <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Current Address</div>
+                    <div className = "px-4 py-2 self-stretch pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50">{item.address}</div>
                 </div>
                 {/* Reasion */}
                 <div className = "grid grid-cols-1">
@@ -72,7 +72,7 @@ return (
                     <TextareaAutosize
                         id="description"
                         minRows={4}
-                        className="resize-none p-2.5 w-full text-justify bg-white border"
+                        className="resize-none p-2.5 w-full text-justify bg-white border rounded-lg border border-zinc-900 border-opacity-50"
                         placeholder="Job description here..."
                     />
                 </div>
@@ -97,8 +97,10 @@ return (
                         </DialogContentText>
                         </DialogContent>
                         <DialogActions>
-                        <Button onClick={handleClose}>Disagree</Button>
-                        <Button onClick={handleClose} autoFocus type='submit'>
+                        <Button onClick={handleClose} color="error" variant="contained">Disagree</Button>
+                        <Button onClick={handleClose} autoFocus type='submit' variant="contained" sx={{
+                                backgroundColor: "#059669",'&:hover': { backgroundColor: "#289972", },
+                            }}>
                             Agree
                         </Button>
                         </DialogActions>

@@ -100,8 +100,15 @@ export default function AddEvent() {
                         />
                 </div>
                 {/* Creact */}
-              <div className={classnames("mt-10 text-center px-5 py-4")}>
-                <Button  className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800" variant="outlined" onClick={handleClickOpen}>
+              <div className={classnames("mt-10 mb-10 text-center ")}>
+                <Button  
+                  sx={{
+                    backgroundColor: "#059669",
+                    '&:hover': {
+                      backgroundColor: "#289972",
+                    },
+                  }}
+                  variant="contained" onClick={handleClickOpen}>
                     Creact
                 </Button>
                 <Dialog
@@ -127,12 +134,11 @@ export default function AddEvent() {
                 </Dialog>
               </div>
             </div>
-            <div  className={classnames( "bg-white  w-[30%] sticky top-0" )} >
-                
-
-              {/* Author  */}
-                <div  className={classnames( "mp-5 flex items-center justify-center p-2 bg-gray-300 rounded-tl-lg rounded-tr-lg" )}  >
-                  <h3  className={classnames(  "text-center text-black text-lg font-medium tracking-wider leading-7 capitalize" )}  >  Author </h3>
+            <div  className={classnames( "bg-white  w-[30%] sticky top-0 " )} >
+               <div className="border mt-5 mb-5 rounded-xl">
+                  {/* Author  */}
+                  <div  className={classnames( "mp-5 flex items-center justify-center p-2 bg-emerald-600 rounded-tl-lg rounded-tr-lg" )}  >
+                  <h3  className={classnames(  "text-center text-white text-lg font-medium tracking-wider leading-7 capitalize" )}  >  Author </h3>
                   </div>
                   <div  className={classnames( "flex items-center justify-center")}   >
                     <label htmlFor="avaActor">
@@ -158,16 +164,19 @@ export default function AddEvent() {
                           onChange={(event) => setnameActor(event.target.value)}
                         />
                   </div>
-                  <div className="flex items-center justify-center p-2 bg-gray-300 rounded-xl">
+                </div>
+
+                {/* Lien he */}
+                <div className="border mt-5 mb-5 rounded-xl">
+                <div className="flex items-center justify-center p-2 bg-emerald-600 rounded-xl">
                     <h3
                       className={classnames(
-                        "text-center text-black text-lg font-medium tracking-wider leading-7 capitalize"
+                        " text-center text-white text-lg font-medium tracking-wider leading-7 capitalize"
                       )}
                     >
                       Contract
                     </h3>
-                  </div>
-                {/* Lien he */}
+                </div>
                 {/* FB */}
                 <div className={classnames("gap-10")}>
                   <div className={classnames("mt-5 flex items-center justify-center gap-3")} >
@@ -190,7 +199,7 @@ export default function AddEvent() {
                         <BiLogoInstagram size={20} />
                       </div>
                       <div>
-                        <input  
+                        <input
                           type="text"
                           value={linkInstagram}
                           className ="border rounded-xl"
@@ -239,8 +248,8 @@ export default function AddEvent() {
                         placeholder=""/>
                     </div>
                   </div>
-                </div>  
-
+                </div>
+                </div>
                 {/* Set Time  */}
                 <div className="border-[2px] rounded-xl">
                 <div className={classnames("flex  items-center gap-1 justify-between px-10 mb-4 ")}>

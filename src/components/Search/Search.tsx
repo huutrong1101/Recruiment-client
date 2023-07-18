@@ -17,7 +17,7 @@ function SearchBar() {
   };
   return (
     <div>
-      <form onSubmit={handleSearch} className="px-1.5 py-1  bg-white border-[2px] rounded-full justify-start items-center gap-1 inline-flex">
+      <form onSubmit={handleSearch} className="px-1.5 py-1 bg-black bg-opacity-5 rounded-full justify-start items-center gap-1 inline-flex">
         <td>
           <MagnifyingGlassIcon className="w-4 h-4 relative" />
         </td>
@@ -28,7 +28,13 @@ function SearchBar() {
           placeholder="Please enter a search"
           />
         </td>
-        <Button className= "px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800 ml-5" type="submit" >Search</Button>
+        <Button 
+        sx={{ backgroundColor: "#059669",  color: "while", borderRadius: '12px', '&:hover': { backgroundColor: "#289972",  },  type : "submit",
+        }}           
+        size="small"
+        variant="contained">
+            Search
+        </Button>
       </form>
     </div>
   );
