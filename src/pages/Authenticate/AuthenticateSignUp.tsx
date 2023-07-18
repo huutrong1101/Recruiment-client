@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classnames from "classnames";
 import { useForm } from "react-hook-form";
 import {
   EnvelopeIcon,
   LockClosedIcon,
   PhoneIcon,
+  UserIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import InputIcon from "../../components/InputIcon/InputIcon";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
-import { useAppDispatch } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { authRegister } from "../../redux/AuthSlice";
 
 export default function AuthenticateSignUp() {
@@ -19,10 +20,11 @@ export default function AuthenticateSignUp() {
     formState: { errors },
   } = useForm();
   const dispatch = useAppDispatch();
+  const { loading } = useAppSelector((app) => app.Auth);
 
   const onSubmit = (data: any) => {
-    alert(JSON.stringify(data));
-    // dispatch(authRegister(data));
+    dispatch(authRegister(data));
+    
   };
 
   return (
@@ -38,19 +40,27 @@ export default function AuthenticateSignUp() {
         <h1 className="text-xl font-semibold">Sign up</h1>
 
         <InputIcon
-          icon={<EnvelopeIcon />}
+          icon={<UserIcon />}
           placeholder="full name"
           register={register}
           label="fullName"
+          required
+          wrapperClassName={classnames({
+            "border-red-300": errors && errors.fullName,
+          })}
         />
 
         <InputIcon
-          icon={<LockClosedIcon />}
+          icon={<EnvelopeIcon />}
           placeholder="email address"
           register={register}
           label="email"
           type="email"
           autoComplete="username email"
+          required
+          wrapperClassName={classnames({
+            "border-red-300": errors && errors.email,
+          })}
         />
 
         <InputIcon
@@ -60,6 +70,10 @@ export default function AuthenticateSignUp() {
           register={register}
           label="password"
           autoComplete="new-password"
+          required
+          wrapperClassName={classnames({
+            "border-red-300": errors && errors.password,
+          })}
         />
 
         <InputIcon
@@ -69,6 +83,10 @@ export default function AuthenticateSignUp() {
           register={register}
           label="confirmPassword"
           autoComplete="new-password"
+          required
+          wrapperClassName={classnames({
+            "border-red-300": errors && errors.confirmPassword,
+          })}
         />
 
         <InputIcon
@@ -77,12 +95,14 @@ export default function AuthenticateSignUp() {
           label="phone"
           required
           placeholder="phone number"
+          wrapperClassName={classnames({
+            "border-red-300": errors && errors.phone,
+          })}
         />
-        {errors && errors.phone && <div>??</div>}
 
-        {/* Remember Me */}
+        {/* AgreeTerms */}
         <div className="flex flex-row gap-4 w-full text-zinc-600">
-          <input type="checkbox" id="remember" />
+          <input type="checkbox" {...register("agreeTerms")} required />
           <label htmlFor="remember">
             I'm agree with the{" "}
             <b>
@@ -91,7 +111,15 @@ export default function AuthenticateSignUp() {
           </label>
         </div>
 
-        <PrimaryButton type={"submit"} text="Sign up" />
+        <PrimaryButton
+          type={"submit"}
+          text="Sign up"
+          disabled={loading === "pending"}
+          isLoading={loading === "pending"}
+          className={classnames({
+            "bg-zinc-500 hover:bg-zinc-500": loading === "pending",
+          })}
+        />
       </div>
     </form>
   );
