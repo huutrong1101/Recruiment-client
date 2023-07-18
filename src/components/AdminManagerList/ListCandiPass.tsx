@@ -30,8 +30,8 @@ export default function ListCandiPass() {
     <div className="flex justify-center w-200%">
       <SearchBar />
     </div>
-    <div className="flex items-center justify-center text-center bg-zinc-300 rounded-[30px] mt-6 p-8 ">
     <div className="relative rounded-lg">
+    <div className="flex items-center justify-center text-center  bg-white border-[2px] rounded-[30px] mt-6 p-8 ">
     <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
       <Table className="text-sm text-gray-500 dark:text-gray-400 text-center sticky">
         <TableHead className="text-xs text-gray-700 uppercase bg-gray-200 text-center">

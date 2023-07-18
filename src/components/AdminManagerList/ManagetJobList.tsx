@@ -33,7 +33,7 @@ export default function ManagetJobList() {
       <SearchBar />
     </div>
     <div className="relative overflow-x-auto rounded-lg">
-       <div className="flex items-center bg-zinc-300 rounded-[30px] mt-6 p-8 ">
+       <div className="flex items-center bg-white border-[2px] rounded-[30px] mt-6 p-8 ">
       <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}} >
         <Table className="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
           <TableHead className="text-xs text-gray-700 uppercase bg-gray-200 text-center">

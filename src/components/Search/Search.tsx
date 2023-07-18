@@ -17,7 +17,7 @@ function SearchBar() {
   };
   return (
     <div>
-      <form onSubmit={handleSearch} className="px-1.5 py-1 bg-black bg-opacity-5 rounded-full justify-start items-center gap-1 inline-flex">
+      <form onSubmit={handleSearch} className="px-1.5 py-1  bg-white border-[2px] rounded-full justify-start items-center gap-1 inline-flex">
         <td>
           <MagnifyingGlassIcon className="w-4 h-4 relative" />
         </td>
