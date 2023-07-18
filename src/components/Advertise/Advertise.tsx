@@ -1,5 +1,6 @@
 import React from "react";
 import classnames from "classnames";
+import { Link } from "react-router-dom";
 
 export default function Advertise() {
   return (
@@ -29,20 +30,22 @@ export default function Advertise() {
               "w-1/3 md:w-[20%] flex gap-3 items-center justify-center",
             )}
           >
-            <button
+            <Link
+              to="/jobs"
               className={classnames(
-                "bg-emerald-700 text-white p-2 rounded-md flex",
+                "bg-emerald-700 text-white p-2 rounded-md flex text-center",
               )}
             >
               Apply Now
-            </button>
-            <button
+            </Link>
+            <Link
+              to="/jobs"
               className={classnames(
-                "bg-gray-300 text-emerald-700 p-2 rounded-md flex",
+                "bg-gray-300 text-emerald-700 p-2 rounded-md flex text-center",
               )}
             >
               Learn more
-            </button>
+            </Link>
           </div>
         </div>
       </div>

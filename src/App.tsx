@@ -63,8 +63,6 @@ import RequestTest from "./pages/RequestTest/RequestTest";
 export default function App() {
   return (
     <BrowserRouter>
-      {/* Route switcher */}
-
       <Routes>
         <Route path="/" element={<UserAppLayout />}>
           <Route index element={<Home />} />
@@ -127,14 +125,13 @@ export default function App() {
 
           <Route path="jobdetail" element={<ReccerJobDetail />} />
           <Route path="addjob" element={<Addjob />} />
-          <Route path="interviewer" element={<ReccerInterviewerManagement />} />
 
           <Route path="event" element={<ReccerEventManagement />} />
           <Route path="event-manager/:eventId" element={<RecEventDetail />} />
           <Route path="events-add" element={<AddEvent />} />
           {/* <Route path="job-management" element={<Reccer_JobManagement />} />
           <Route path="calender" element={<Reccer_calender />} /> */}
-          <Route path="interviewer" element={<ReccerInterviewerManagement />} />
+
           <Route path="event-manager" element={<ReccerEventManagement />} />
           <Route path="candidate" element={<ReccerCandidateManagement />} />
         </Route>
