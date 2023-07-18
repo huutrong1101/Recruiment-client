@@ -13,7 +13,7 @@ interface MyComponentProps {
         index: number
     },
 }
-const RecInterviewerManageCard = ({ interviewer, index }: MyComponentProps) => {
+const RecInterviewerManageCard = ({ interviewer }: any) => {
     return (
             <div className='grid grid-cols-1'>
                 <div className='group bg-white relative overflow-hidden rounded-md shadow dark:shadow-gray-500 text-center p-6 hover:shadow-gray-950'>
@@ -24,7 +24,7 @@ const RecInterviewerManageCard = ({ interviewer, index }: MyComponentProps) => {
                     </div>
                     <ul className='mt-2 list-none'>
                         <li className='inline'>
-                            {interviewer.skills.map((skill, index) => (
+                            {interviewer.skills.map((skill:any, index:any) => (
                                 <p
                                     key={index}
                                     className="bg-[#C6DED5] ml-2 inline-block text-[#218F6E] text-xs px-2.5 py-0.5 font-semibold rounded-full"

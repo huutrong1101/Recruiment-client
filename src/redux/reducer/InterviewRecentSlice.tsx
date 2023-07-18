@@ -27,7 +27,7 @@ export const fetchInterviewRecent = () => {
   return async function fetchInterviewRecentThunk(dispatch: Dispatch) {
     dispatch(setInterviewsRecentStatus(STATUS.LOADING));
     try {
-      const reponse = await fetch(`${BASE_URL_FAKE_DATA}products`);
+      const reponse = await fetch(`${BASE_URL_FAKE_DATA}users`);
       const data = await reponse.json();
       dispatch(setInterviewsRecent(data));
       dispatch(setInterviewsRecentStatus(STATUS.IDLE));

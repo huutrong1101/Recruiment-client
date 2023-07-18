@@ -24,17 +24,17 @@ export default function DashboardFooter(props: any) {
         <div className="">
           <ul className="flex items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
             <li>
-              <a href="#" className="mr-4 hover:underline md:mr-6 ">
+              <a href="/about-us" className="mr-4 hover:underline md:mr-6 ">
                 About
               </a>
             </li>
             <li>
-              <a href="#" className="mr-4 hover:underline md:mr-6">
+              <a href="/contact" className="mr-4 hover:underline md:mr-6">
                 Support
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <a href="/contact" className="hover:underline">
                 Contact
               </a>
             </li>

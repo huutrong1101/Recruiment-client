@@ -40,6 +40,7 @@ import {
   CandidateRecent,
   InterviewRecent,
   InterviewQuestion,
+  InterviewDetail
 } from "./pages/Interviewer/InterviewerPages";
 import UserProfileLayout from "./pages/UserProfile/UserProfileLayout";
 import UserProfileMyProfile from "./pages/UserProfile/UserProfileMyProfile";
@@ -138,6 +139,7 @@ export default function App() {
 
         <Route path="/interviewer" element={<ManagementAppLayOut />}>
           <Route path="interview-recent" element={<InterviewRecent />} />
+          <Route path="interview-recent/:id" element={<InterviewDetail />} />
           <Route path="interview-question" element={<InterviewQuestion />} />
           <Route path="candidate-recent" element={<CandidateRecent />} />
           <Route index path="manageQuestion" element={<ManageQuestion />} />
