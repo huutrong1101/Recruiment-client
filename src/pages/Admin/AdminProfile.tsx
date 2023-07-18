@@ -128,7 +128,7 @@ export default function AdminProfile() {
                                 },
                             }}
                             variant="contained" onClick={handleClickOpen}>
-                                Creact
+                                Save
                         </Button>
                             <Dialog
                             open={open}

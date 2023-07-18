@@ -48,7 +48,7 @@ export const links = [
             {
                 name: 'Candidate',
                 icon: <HiOutlineUser />,
-                mylink: 'recruiter/candidate-list',
+                mylink: 'recruiter/candidatelist',
             },
             {
                 name: 'Job',
