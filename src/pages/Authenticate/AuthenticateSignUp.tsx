@@ -9,11 +9,21 @@ import {
 import { Link } from "react-router-dom";
 import InputIcon from "../../components/InputIcon/InputIcon";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
+import { useAppDispatch } from "../../hooks/hooks";
+import { authRegister } from "../../redux/AuthSlice";
 
 export default function AuthenticateSignUp() {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const dispatch = useAppDispatch();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data: any) => {
+    alert(JSON.stringify(data));
+    // dispatch(authRegister(data));
+  };
 
   return (
     <form
@@ -27,59 +37,48 @@ export default function AuthenticateSignUp() {
       <div className="mx-6 items-center flex flex-col gap-4 w-full">
         <h1 className="text-xl font-semibold">Sign up</h1>
 
-        {/* Input group with icons */}
-        {/* <div
-          className={classnames(
-            `flex flex-row items-center gap-2 py-2`,
-            `bg-white text-zinc-500`,
-            `rounded-md`,
-            `border`
-          )}
-        >
-          <EnvelopeIcon className={classnames(`w-[16px] ml-4`)} />
-          <input
-            type="text"
-            placeholder="email address"
-            {...register("credentialId")}
-            className={classnames(
-              `px-2 py-1`,
-              `font-light`,
-              `mr-4`,
-              `outline-none`
-            )}
-          />
-        </div> */}
-
         <InputIcon
           icon={<EnvelopeIcon />}
-          {...register("fullName")}
           placeholder="full name"
+          register={register}
+          label="fullName"
         />
 
         <InputIcon
           icon={<LockClosedIcon />}
-          {...register("email")}
           placeholder="email address"
+          register={register}
+          label="email"
+          type="email"
+          autoComplete="username email"
         />
 
         <InputIcon
           icon={<LockClosedIcon />}
-          {...register("password")}
           placeholder="password"
+          type={`password`}
+          register={register}
+          label="password"
+          autoComplete="new-password"
         />
 
         <InputIcon
           icon={<LockClosedIcon />}
-          {...register("confirmPassword")}
           placeholder="confirmPassword"
+          type={`password`}
+          register={register}
+          label="confirmPassword"
+          autoComplete="new-password"
         />
 
         <InputIcon
           icon={<PhoneIcon />}
-          {...register("phoneNumber")}
+          register={register}
+          label="phone"
+          required
           placeholder="phone number"
-          type=""
         />
+        {errors && errors.phone && <div>??</div>}
 
         {/* Remember Me */}
         <div className="flex flex-row gap-4 w-full text-zinc-600">
@@ -92,7 +91,7 @@ export default function AuthenticateSignUp() {
           </label>
         </div>
 
-        <PrimaryButton text="Sign up" />
+        <PrimaryButton type={"submit"} text="Sign up" />
       </div>
     </form>
   );

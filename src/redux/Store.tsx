@@ -2,9 +2,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import HomeSlice from "../pages/Home/slices/HomeSlice";
 import NavbarSlice from "../components/Navbar/slices/NavbarSlice";
 
-/// 
+///
 import CandidateRecentReducer from "./reducer/CandidateRecentSlice";
 import InterviewRecentReducer from "./reducer/InterviewRecentSlice";
+import AuthSlice from "./AuthSlice";
 
 export const ApplicationStore = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const ApplicationStore = configureStore({
     candidateRecent: CandidateRecentReducer,
     interviewRecent: InterviewRecentReducer,
     Navbar: NavbarSlice,
+    Auth: AuthSlice,
   },
 });
 
