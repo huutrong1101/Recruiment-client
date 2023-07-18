@@ -1,4 +1,6 @@
+import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
+import { useNavigate } from "react-router-dom";
 
 export default function Applied() {
   const personArray = [
@@ -39,6 +41,12 @@ export default function Applied() {
     },
   ];
 
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = `../interview-schedule`;
+    navigate(path);
+  };
+
   return (
     <div
       className={classNames(
@@ -61,6 +69,7 @@ export default function Applied() {
               <th scope="col" className="px-6 py-4">
                 State
               </th>
+              <th className="py-4"></th>
             </tr>
           </thead>
           <tbody>
@@ -90,6 +99,14 @@ export default function Applied() {
                   >
                     {personArray.state}
                   </span>
+                </td>
+                <td>
+                  <button>
+                    <CalendarDaysIcon
+                      className="w-6 h-6"
+                      onClick={routeChange}
+                    />
+                  </button>
                 </td>
               </tr>
             ))}

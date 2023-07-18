@@ -49,9 +49,6 @@ export default function ReccerJobDescriptionWidget({
           >
             <span>{companyName}</span>
             <span>{jobRole}</span>
-            <span className={classNames(`text-sm text-zinc-400`)}>
-              21 applicants
-            </span>
           </div>
           {/* Right */}
 

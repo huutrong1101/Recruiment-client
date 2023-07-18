@@ -60,6 +60,7 @@ import ListCandiPass from "./components/AdminManagerList/ListCandiPass";
 import DeleteBlacklist from "./pages/Admin/DeleteBlacklist";
 import CreateCV from "./pages/CreateCV/CreateCV";
 import RequestTest from "./pages/RequestTest/RequestTest";
+import InterviewSched from "./pages/Reccer/Interview/InterviewSched";
 
 export default function App() {
   return (
@@ -135,9 +136,12 @@ export default function App() {
 
           <Route path="event-manager" element={<ReccerEventManagement />} />
           <Route path="candidate" element={<ReccerCandidateManagement />} />
+
+          <Route path="interview-schedule" element={<InterviewSched />} />
         </Route>
 
         <Route path="/interviewer" element={<ManagementAppLayOut />}>
+          {/* Define interviewer routes here */}
           <Route path="interview-recent" element={<InterviewRecent />} />
           <Route path="interview-recent/:id" element={<InterviewDetail />} />
           <Route path="interview-question" element={<ManageQuestion />} />
