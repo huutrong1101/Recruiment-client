@@ -1,6 +1,6 @@
 import React from "react";
 
-function Avatar({ imageUrl, size }) {
+function AvatarCandidate({ imageUrl, size }) {
   let avatarSize = "w-12 h-12";
   if (size === "large") {
     avatarSize = "w-32 h-32";
@@ -11,4 +11,4 @@ function Avatar({ imageUrl, size }) {
   );
 }
 
-export default Avatar;
+export default AvatarCandidate;

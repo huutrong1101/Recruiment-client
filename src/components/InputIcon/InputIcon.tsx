@@ -2,11 +2,13 @@ import classnames from "classnames";
 export interface InputIconProps extends React.HTMLProps<HTMLInputElement> {
   icon: React.ReactElement;
   wrapperClassName?: string;
+  className?: string;
 }
 
 export default function InputIcon({
   icon,
   wrapperClassName,
+  className,
   ...children
 }: InputIconProps) {
   return (
@@ -31,6 +33,7 @@ export default function InputIcon({
             `font-light`,
             `outline-none rounded-r-md`,
             `w-full`,
+            className,
           )}
           {...children}
         />

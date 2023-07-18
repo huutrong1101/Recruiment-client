@@ -1,6 +1,4 @@
-import {
-    ChevronLeftIcon, ChevronRightIcon
-} from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import DashBoardFooter from "../../components/RecFooter/DashboardFooter";
 import PopUp from "./PopUp";
 import { useState, useEffect } from "react"
@@ -28,37 +26,77 @@ export default function ScorePage() {
     //------------Pagination------------------------------------------------------
     const [curPage, setCurPage] = useState(1)
     const recordsPerPage = 5
-    const lastIndex= curPage * recordsPerPage
+    const lastIndex = curPage * recordsPerPage
     const firstIndex = lastIndex - recordsPerPage
     const records = ListQuestions.slice(firstIndex, lastIndex)
-    const numPage = Math.ceil(ListQuestions.length /recordsPerPage)
-    const numbers = [...Array( numPage+1 ).keys()].slice(1)
-    const nextPage = ()=>{
-        if(curPage !== firstIndex) setCurPage( curPage - 1)
+    const numPage = Math.ceil(ListQuestions.length / recordsPerPage)
+    const numbers = [...Array(numPage + 1).keys()].slice(1)
+    const nextPage = () => {
+        if (curPage !== firstIndex) setCurPage(curPage - 1)
     }
-    const changeCurPage = (id:any)=>{
+    const changeCurPage = (id: any) => {
         setCurPage(id)
     }
-    const prePage = ()=> {
-        if (curPage !== lastIndex) setCurPage( curPage +1 )
+    const prePage = () => {
+        if (curPage !== lastIndex) setCurPage(curPage + 1)
     }
     //----------------------------------------------------------------------------- 
     return (
-        <div className="flex flex-col justify-center md:flex-row md:items-start md:w-full">
+        <div className="flex flex-col justify-center md:flex-row md:items-start md:w-full h-full">
             <div className="w-5/12 h-full bg-white flex flex-col mx-4 my-4 relative ">
                 <div className="  w-full  bg-white rounded-lg shadow border  border-gray-200 ">
                     <div className="w-full h-full">
-                        <div className="h-[500px] w-full flex md:flex-wrap justify-center ">
-                            <div className="rounded-full w-[150px] h-[150px] border-2 border-emerald-600 justify-start my-4
-                            md:mb-0 md:auto md:mr-4 md:rounded-full">
+                        <div className="flex flex-col ">
+                            {/* <div className="rounded-full w-[150px] h-[150px] border-2 border-emerald-600 justify-start my-4
+                            md:mb-0 md:auto md:mr-4 md:rounded-full flex items-center relative ">
+                            </div> */}
+                            <div className="md:flex flex-row justify-center h-fit relative my-4" >
+                                <div className="flex items-center">
+                                    <img className="rounded-full w-[150px] h-[150px] border-4 border-emerald-600  p-1
+                                            md:mb-0 md:auto md:mr-4 md:rounded-full     "
+                                        src="../../../../images/cover.jpg" alt="avatar" />
+                                </div>
 
+                                <div className=" lg:w-[230px] h-full md:w-[230px]
+                                                     flex relative ">
+                                    <div className="px-4 h-full w-full flex flex-nowrap flex-col absolute">
+                                        <div>Name: Trinh Minh Huy</div>
+                                        <div>Age: 23</div>
+                                        <div >Position: Fullstack developer</div>
+                                        <div>Email: </div>
+                                        <div>Contact No: aaaaaaaaa</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div className=" lg:w-[230px] h-[150px] border border-gray-200 my-4 md:my-4 md:w-[230px]
-                            sm:my-0 ">
-
-                            </div>
-                            <div className="lg:w-full md:h-1/2 border border-gray-200 md:bottom-0 md:mx-4 ">
-
+                            <div className="lg:w-full md:h-[400px] my-4">
+                                <div className=" w-full h-fit  md:bottom-0 md:my-3">
+                                    <div className="gap-y-8 p-4 flex flex-col flex-wrap">
+                                        <div>Graduation
+                                            <div className="w-fit h-fit rounded-lg border-2 border-gray-200">
+                                                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                            </div>
+                                        </div>
+                                        <div>Acknowlegde
+                                            <div className="w-fit h-fit rounded-lg border-2 border-gray-200">
+                                                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                            </div>
+                                        </div>
+                                        <div>Certification
+                                            <div className="w-fit h-fit rounded-lg border-2 border-gray-200">
+                                                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                            </div>
+                                        </div>
+                                        <div>Work Experience
+                                            <div className="w-fit h-fit rounded-lg border-2 border-gray-200">
+                                                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                             
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
