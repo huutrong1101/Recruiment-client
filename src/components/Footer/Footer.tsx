@@ -36,7 +36,7 @@ export default function Footer() {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/jobs">Job</Link>
+                <Link to="/create-cv">Create a Job</Link>
               </li>
               <li>
                 <Link to="/about-us">About Us</Link>

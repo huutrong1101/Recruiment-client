@@ -29,7 +29,7 @@ export default function Jobs() {
 
   return (
     <>
-      <div className={classNames("flex gap-5")}>
+      <div className={classNames("flex gap-5 mb-12")}>
         {/* Sidebar Search  */}
         <div
           className={classNames(
