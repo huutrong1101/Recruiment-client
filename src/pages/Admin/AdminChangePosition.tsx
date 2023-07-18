@@ -15,6 +15,7 @@ export default function AdminChangePosition() {
         address: "123 Main St Ba Ria Vung Tau St",
         positon: "Recruiter",
     }]);
+    // const [uppositon, uppositon] = useState(positon);
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
         setOpen(true);
@@ -30,7 +31,7 @@ export default function AdminChangePosition() {
                     <div className="bg-white rounded-lg shadow-lg w-[50%] top-4 ">
                         <div className = "grid md:grid-cols-1 text-sm self-stretch px-2 pt-[13px] pb-[11px]">
                                 {/* Title */}
-                                <div className = "flex items-center text-center space-x-2 font-semibold text-green-500">
+                                <div className = "flex items-center text-center space-x-2 font-semibold text-green-500 justify-center">
                                     <span className = "tracking-wide text-center  text-emerald-600 text-[28px] ">Information</span>
                                 </div>
                                 {/* Name */}
@@ -60,10 +61,10 @@ export default function AdminChangePosition() {
                         <div className="bg-white rounded-lg shadow-lg w-[50%] h-fit sticky">
                             {/* Avatar */}
                             <div className=''>
-                                <div className='flex justify-center'> <img src={item.avatar} className='w-[150px] h-[150px] justify-center rounded-full' alt="blog_image" /></div>
+                                <div className='flex justify-center'> <img src={item.avatar} className='w-[200px] h-[200px] justify-center rounded-full' alt="blog_image" /></div>
                             </div>
                             {/* Title */}
-                            <div className = "mt-10 px-5 py-4 flex items-center text-center space-x-2 font-semibold text-green-500">
+                            <div className = "mt-10 px-5 py-4 flex items-center text-center space-x-2 font-semibold text-green-500 justify-center">
                                     <span className = "tracking-wide text-center  text-emerald-600 text-[28px] ">Position</span>
                             </div>
                             {/* Set Positon */}

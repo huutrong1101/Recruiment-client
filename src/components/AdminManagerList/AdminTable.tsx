@@ -40,6 +40,9 @@ export default function AdminTable({ typeSelected }: TypeData) {
     {     name: "Nguyễn Văn D",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "6/11/2002",      position: "Candidate",      stateBlackList: 0,    },
     {     name: "Nguyễn Văn E",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "2/11/2002",      position: "Recruiter",      stateBlackList: 0,    },
     {     name: "Nguyễn Văn F",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn G",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn K",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn ",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
     {     name: "Nguyễn Văn G",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "11/4/2002",      position: "Candidate",      stateBlackList: 0,    },
     {     name: "Nguyễn Văn H",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "25/6/2002",      position: "Recruiter",      stateBlackList: 0,    },
     {     name: "Nguyễn Văn I",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "29/10/2002",      position: "Candidate",      stateBlackList: 1,    },
@@ -47,6 +50,11 @@ export default function AdminTable({ typeSelected }: TypeData) {
     {     name: "Nguyễn Văn A",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Candidate",      stateBlackList: 0,    },
     {     name: "Nguyễn Văn B",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "5/6/2002",      position: "Recruiter",      stateBlackList: 0,    },
     {     name: "Nguyễn Văn C",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
+    {     name: "Nguyễn Văn X",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
+    {     name: "Nguyễn Văn Y",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
+    {     name: "Nguyễn Văn M",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
+    {     name: "Nguyễn Văn T",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
+    {     name: "Nguyễn Văn Z",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
     {     name: "Nguyễn Văn D",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "6/11/2002",      position: "Candidate",      stateBlackList: 0,    },
     {     name: "Nguyễn Văn E",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "2/11/2002",     position: "Candidate",      stateBlackList: 0,    },
     {     name: "Nguyễn Văn F",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
@@ -86,12 +94,12 @@ export default function AdminTable({ typeSelected }: TypeData) {
                     <TableCell className="px-6 py-4">{item.day}</TableCell>
                     {/* <td className="px-6 py-4">{item.stateBlackList}</td> */}
                     <TableCell className="px-6 py-4">
-                      <Button>
+                      <button>
                         <NavLink to={`/admin/blacklist-delete/`} onClick={() => {}}>
                             <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
                         </NavLink>
-                      </Button>
-                      <Button>
+                      </button>
+                      <button>
                       <TrashIcon  onClick={handleClickOpen} className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
                       <Dialog
                           open={open}
@@ -114,7 +122,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
                             </Button>
                           </DialogActions>
                         </Dialog>
-                      </Button>
+                      </button>
                     </TableCell>
                     </TableRow>
                 ))}
@@ -164,12 +172,12 @@ export default function AdminTable({ typeSelected }: TypeData) {
                 <TableCell className="px-6 py-4">{item.day}</TableCell>
                 {/* <td className="px-6 py-4">{item.stateBlackList}</td> */}
                 <TableCell className="px-6 py-4">
-                  <Button>
+                  <button>
                       <NavLink to={"/admin/position-change"} onClick={() => {}}>
                         <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
                       </NavLink>
-                  </Button>
-                  <Button>
+                  </button>
+                  <button>
                   <NavLink to={"#"} onClick={() => {}}>
                   <TrashIcon onClick={handleClickOpen} className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
                       <Dialog
@@ -194,13 +202,13 @@ export default function AdminTable({ typeSelected }: TypeData) {
                           </DialogActions>
                         </Dialog>
                     </NavLink>
-                  </Button>
+                  </button>
                   {(item.position === "Candidate" && item.stateBlackList === 0) ? (
-                    <Button>
-                    <NavLink to={"/admin/blacklist-add"} onClick={() => {}}>
-                      <UserMinusIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
-                    </NavLink> 
-                    </Button>    
+                    <button>
+                      <NavLink to={"/admin/blacklist-add"} onClick={() => {}}>
+                        <UserMinusIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
+                      </NavLink>
+                    </button>
                     ) : null}
                 </TableCell>
               </TableRow>
