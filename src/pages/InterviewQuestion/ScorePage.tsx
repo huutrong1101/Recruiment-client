@@ -45,7 +45,7 @@ export default function ScorePage() {
     //----------------------------------------------------------------------------- 
     return (
         <div className="flex flex-col justify-center md:flex-row md:items-start md:w-full">
-            <div className="w-1/3 h-full bg-white flex flex-col mx-4 my-4 relative ">
+            <div className="w-5/12 h-full bg-white flex flex-col mx-4 my-4 relative ">
                 <div className="  w-full  bg-white rounded-lg shadow border  border-gray-200 ">
                     <div className="w-full h-full">
                         <div className="h-[500px] w-full flex md:flex-wrap justify-center ">
@@ -64,11 +64,11 @@ export default function ScorePage() {
                     </div>
                 </div>
             </div>
-            <div className="w-2/3 h-full  bg-white flex flex-col mx-4 my-4 relative items-center">
+            <div className="w-7/12 h-full  bg-white flex flex-col mx-4 my-4 relative items-center">
                 <div className="Table absolute w-full  bg-white rounded-lg shadow border  border-gray-200 pt-4">
                     <div className="relative h-1/2 flex flex-col mx-2 gap-y-2">
                         {/* list question */}
-                        <div className="bg-gray-100 h-[400px] w-full rounded-lg border-black px-2 py-2 relative ">
+                        <div className="bg-gray-100 h-1/2 w-full rounded-lg border-black px-2 py-2 relative ">
                             {/* table */}
                             <div className=" rounded-lg border-gray-300 border-2 w-full h-full relative">
                                 <div className="overflow-auto px-2">
@@ -101,7 +101,7 @@ export default function ScorePage() {
                                     </table>
                                 </div>
                                 {/* Pagination */}
-                                <section className="flex justify-end absolute">
+                                {/* <section className="flex justify-end absolute">
                                     <ul className="inline-flex gap-x-2">
                                         <li className=" ">
                                             <a href="#" className=" inline-flex justify-center" onClick={prePage}>
@@ -122,7 +122,7 @@ export default function ScorePage() {
                                             </a>
                                         </li>
                                     </ul>
-                                </section>
+                                </section> */}
                             </div>
                             {/* button */}
                             <div className="absolute  flex top-[-10px] left-[-10px]">

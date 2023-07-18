@@ -10,10 +10,6 @@ import AdminAppLayout from "./components/Layout/AdminAppLayout";
 import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
 import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
 import ManagementAppLayOut from "./components/Layout/ManagementAppLayOut/ManagementAppLayOut";
-<<<<<<< HEAD
-// =======
-=======
->>>>>>> 87a25e0e832e23897699426f027966890c7ae94b
 
 import Jobs from "./pages/Jobs/Jobs";
 import Events from "./pages/Events/Events";
@@ -106,13 +102,9 @@ export default function App() {
         <Route path="/interviewer" element={<ManagementAppLayOut />}>
           {/* Define interviewer routes here */}
           {/* <Route index path ="/manageQuestion" element={<ManageQuestion />} /> */}
-<<<<<<< HEAD
           <Route index path ="manage-question" element={<ManageQuestion />} />
           <Route index path ="score-page" element={<ScorePage />} />
-=======
-          {/* <Route index path="manageQuestion" element={<ManageQuestion />} />
-          <Route index path="scorePage" element={<ScorePage />} /> */}
->>>>>>> 87a25e0e832e23897699426f027966890c7ae94b
+
         </Route>
       </Routes>
     </BrowserRouter>
