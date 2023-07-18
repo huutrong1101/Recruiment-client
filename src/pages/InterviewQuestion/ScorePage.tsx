@@ -43,6 +43,7 @@ export default function ScorePage() {
    //----------------------------------------------------------------------------- 
    return (
       <div className="flex flex-col justify-center md:flex-row md:items-start md:w-full h-full my-4">
+         {/* left component */}
          <div className="w-5/12 h-full bg-white flex flex-col mx-4 my-4 relative ">
             <div className="  w-full  bg-white rounded-lg shadow border  border-gray-200 ">
                <div className="w-full h-full">
@@ -96,13 +97,17 @@ export default function ScorePage() {
                </div>
             </div>
          </div>
+         {/* right component */}
          <div className="w-7/12 h-full  bg-white flex flex-col mx-4 my-4 relative items-center">
             <div className="w-full h-fit bg-white rounded-lg shadow border  border-gray-200 pt-4 ">
                {/* score */}
+               <div>
+                  
+               </div>
                {
                   ListQuestions.map((question) => (
                      <div className="flex flex-col " >
-                        <div className="flex justify-center my-4" key={question.questionID}>
+                        <div className="flex justify-center my-2 " key={question.questionID}>
                            <div className="bg-emerald-600 h-fit w-11/12 rounded-lg p-2 pb-2 relative 
                                     drop-shadow-lg hover:bg-emerald-700 hover:transition-all duration-150 ">
                               <div className="flex flex-col">
