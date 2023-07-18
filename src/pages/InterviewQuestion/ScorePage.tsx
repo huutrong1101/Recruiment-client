@@ -100,10 +100,8 @@ export default function ScorePage() {
          {/* right component */}
          <div className="w-7/12 h-full  bg-white flex flex-col mx-4 my-4 relative items-center">
             <div className="w-full h-fit bg-white rounded-lg shadow border  border-gray-200 pt-4 ">
+
                {/* score */}
-               <div>
-                  
-               </div>
                {
                   ListQuestions.map((question) => (
                      <div className="flex flex-col " >
