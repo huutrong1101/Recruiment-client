@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { MagnifyingGlassIcon} from "@heroicons/react/24/outline";
-import Button from '@mui/material/Button';
 function SearchBar() {
   const [searchQuery, setSearchQuery] = useState('');
   const handleSearch = (e) => {
@@ -16,8 +15,8 @@ function SearchBar() {
     // ShowTabaradmin1(false);
   };
   return (
-    <div>
-      <form onSubmit={handleSearch} className="px-1.5 py-1 bg-black bg-opacity-5 rounded-full justify-start items-center gap-1 inline-flex">
+    <div  className='flex justify-center'>
+      <form onSubmit={handleSearch} className="ml-20 px-1.5 py-1 bg-black bg-opacity-5 rounded-full justify-start items-center gap-1 inline-flex">
         <td>
           <MagnifyingGlassIcon className="w-4 h-4 relative" />
         </td>
@@ -27,15 +26,11 @@ function SearchBar() {
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Please enter a search"
           />
-        </td>
-        <Button 
-        sx={{ backgroundColor: "#059669",  color: "while", borderRadius: '12px', '&:hover': { backgroundColor: "#289972",  },  type : "submit",
-        }}           
-        size="small"
-        variant="contained">
-            Search
-        </Button>
+        </td>        
       </form>
+         <button className='px-6 py-1 text-white rounded-full bg-emerald-600 hover:bg-emerald-800 ml-5'>
+            Search
+        </button>
     </div>
   );
 }

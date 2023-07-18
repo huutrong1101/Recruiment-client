@@ -64,6 +64,36 @@ export default function AdminTable({ typeSelected }: TypeData) {
     {     name: "Nguyễn Văn H",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "25/6/2002",      position: "Interviewer",      stateBlackList: 0,    },
     {     name: "Nguyễn Văn I",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "29/10/2002",      position: "Interviewer",     stateBlackList: 0,    },
     {     name: "Nguyễn Văn K",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Interviewer",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn A",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Recruiter",      stateBlackList: 0,   },
+    {     name: "Nguyễn Văn B",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "5/6/2002",      position: "Candidate",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn C",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Recruiter",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn D",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "6/11/2002",      position: "Candidate",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn E",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "2/11/2002",      position: "Recruiter",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn F",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn G",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn K",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn ",       email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn G",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "11/4/2002",      position: "Candidate",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn H",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "25/6/2002",      position: "Recruiter",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn I",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "29/10/2002",      position: "Candidate",      stateBlackList: 1,    },
+    {     name: "Nguyễn Văn K",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Recruiter",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn A",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Candidate",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn B",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "5/6/2002",      position: "Recruiter",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn C",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
+    {     name: "Nguyễn Văn X",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
+    {     name: "Nguyễn Văn Y",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
+    {     name: "Nguyễn Văn M",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
+    {     name: "Nguyễn Văn T",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
+    {     name: "Nguyễn Văn Z",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
+    {     name: "Nguyễn Văn D",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "6/11/2002",      position: "Candidate",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn E",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "2/11/2002",     position: "Candidate",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn F",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn G",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "11/4/2002",      position: "Interviewer",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn H",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "11/4/2002",      position: "Interviewer",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn I",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "11/4/2002",      position: "Interviewer",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn H",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "25/6/2002",      position: "Interviewer",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn I",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "29/10/2002",      position: "Interviewer",     stateBlackList: 0,    },
+    {     name: "Nguyễn Văn K",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Interviewer",      stateBlackList: 0,    },
   ];
   if (typeSelected == "Blacklist") {
     {
@@ -84,7 +114,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {Candidate.map((item, index) => (
+                {Candidate.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, index,Candidate:any) => (
                   <TableRow className="text-black bg-white text-center justify-center" key={index}>
                     <TableCell  scope="row"   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                       {item.name}
