@@ -69,8 +69,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
     {
       Candidate = Candidate.filter((item) => item.stateBlackList == 1)
       return (
-        <div className="flex items-center justify-center text-center  bg-white border-[2px] rounded-[30px] mt-6 mx-auto p-8 ">
-          <div className="relative w-full max-w-full overflow-x-auto rounded-lg h-[500px]">
+          <div className="mt-10 w-full max-w-full overflow-x-auto rounded-lg">
           <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
             <Table className="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
               <TableHead className="text-xs text-gray-700 uppercase bg-gray-200 text-center">
@@ -102,28 +101,9 @@ export default function AdminTable({ typeSelected }: TypeData) {
                         </NavLink>
                       </button>
                       <button>
-                      <TrashIcon  onClick={handleClickOpen} className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
-                      <Dialog
-                          open={open}
-                          onClose={handleClose}
-                          aria-labelledby="alert-dialog-title"
-                          aria-describedby="alert-dialog-description"
-                        >
-                          <DialogTitle id="alert-dialog-title" className='text-center'>
-                            {"Use Google's location service?"}
-                          </DialogTitle>
-                          <DialogContent>
-                            <DialogContentText id="alert-dialog-description">
-                              Or consider carefully before deleting them all changes when pressing the agree button.
-                            </DialogContentText>
-                          </DialogContent>
-                          <DialogActions>
-                            <Button onClick={handleClose}>Disagree</Button>
-                            <Button onClick={handleClose} autoFocus>
-                              Agree
-                            </Button>
-                          </DialogActions>
-                        </Dialog>
+                        <NavLink to={"/admin/blacklist-delete"} onClick={() => {}}>
+                          <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
+                        </NavLink>
                       </button>
                     </TableCell>
                     </TableRow>
@@ -141,7 +121,6 @@ export default function AdminTable({ typeSelected }: TypeData) {
             />
             </TableContainer>
           </div>
-        </div>
       );
     }
   };
@@ -150,8 +129,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
   };
   Candidate = Candidate.filter((item) => item.stateBlackList == 0)
   return (
-    <div className="flex items-center justify-center text-center bg-white rounded-[30px] mt-6 mx-auto p-8 border-[2px]">
-      <div className="relative w-full max-w-full overflow-x-auto rounded-lg h-[500px]">
+      <div className="mt-10 w-full max-w-full overflow-x-auto rounded-lg ">
       <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
             <Table className="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
               <TableHead className="text-xs text-gray-700 uppercase bg-gray-200 text-center">
@@ -229,6 +207,5 @@ export default function AdminTable({ typeSelected }: TypeData) {
           />
         </TableContainer>
       </div>
-    </div>
   );
 }

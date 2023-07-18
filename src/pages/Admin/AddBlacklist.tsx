@@ -33,7 +33,7 @@ return (
           {/* Information */}
           <div className="flex gap-5">
             {/* Avarta */}
-            <div className="bg-white rounded-lg shadow-lg w-[30%] h-fit sticky">
+            <div className="bg-white rounded-lg shadow-lg w-[40%] flex justify-center items-center">
                 {/* Avatar */}
                 <div className=''>
                     <div className='flex justify-center'> <img src={item.avatar} className='w-[150px] h-[150px] justify-center rounded-full' alt="blog_image" /></div>

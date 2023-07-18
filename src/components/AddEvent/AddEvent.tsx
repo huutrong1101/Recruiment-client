@@ -49,7 +49,7 @@ export default function AddEvent() {
   return (
     <>
         <form className={classnames("flex flex gap-10")} onSubmit={handleSubmit}>
-          <div className={classnames("bg-white shadow rounded-lg w-full border ml-5 w-75%")}>
+          <div className={classnames("bg-white shadow rounded-lg w-full ml-5 w-75%")}>
               {/* Img */}
               <div className={classnames("flex items-left px-10 mt-10")}>
                 <label className="text-zinc-900 text-2xl font-normal leading-7 ">Image here</label>
@@ -127,7 +127,7 @@ export default function AddEvent() {
                 </Dialog>
               </div>
             </div>
-            <div  className={classnames( "bg-white shadow w-[30%] sticky top-0" )} >
+            <div  className={classnames( "bg-white  w-[30%] sticky top-0" )} >
                 
 
               {/* Author  */}
@@ -148,7 +148,7 @@ export default function AddEvent() {
                       />
                     </label>
                   </div>
-                  <div  className={classnames( "flex flex-col gap-1 items-center justify-center my-4")}   >
+                  <div  className={classnames( "flex flex-col gap-1 items-center justify-center my-4 ")}   >
                     <h3>Content Writer - journalist </h3>
                     <TextareaAutosize
                           minRows={1}
@@ -158,7 +158,7 @@ export default function AddEvent() {
                           onChange={(event) => setnameActor(event.target.value)}
                         />
                   </div>
-                  <div className="flex items-center justify-center p-2 bg-gray-300">
+                  <div className="flex items-center justify-center p-2 bg-gray-300 rounded-xl">
                     <h3
                       className={classnames(
                         "text-center text-black text-lg font-medium tracking-wider leading-7 capitalize"

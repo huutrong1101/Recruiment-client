@@ -37,7 +37,7 @@ export default function Tabbaradmin() {
         ))}
       </div>
       <div>
-        <div className="table-auto sm:table-fixed">
+        <div className="">
           <AdminTable typeSelected={typeSelected} />
         </div>
       </div>
