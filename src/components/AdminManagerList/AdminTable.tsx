@@ -69,7 +69,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
     {
       Candidate = Candidate.filter((item) => item.stateBlackList == 1)
       return (
-        <div className="flex items-center justify-center text-center bg-zinc-300 rounded-[30px] mt-6 mx-auto p-8 ">
+        <div className="flex items-center justify-center text-center  bg-white border-[2px] rounded-[30px] mt-6 mx-auto p-8 ">
           <div className="relative w-full max-w-full overflow-x-auto rounded-lg h-[500px]">
           <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
             <Table className="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
