@@ -59,8 +59,14 @@ import ListCandiPass from "./components/AdminManagerList/ListCandiPass";
 import DeleteBlacklist from "./pages/Admin/DeleteBlacklist";
 import CreateCV from "./pages/CreateCV/CreateCV";
 import RequestTest from "./pages/RequestTest/RequestTest";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "./hooks/hooks";
+import { authLogout, fetchUserFromToken } from "./redux/AuthSlice";
+import { useTokenAuthorize } from "./hooks/useTokenAuthorize";
 
 export default function App() {
+  useTokenAuthorize();
+
   return (
     <BrowserRouter>
       {/* Route switcher */}

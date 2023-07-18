@@ -20,11 +20,10 @@ export default function AuthenticateSignUp() {
     formState: { errors },
   } = useForm();
   const dispatch = useAppDispatch();
-  const { loading } = useAppSelector((app) => app.Auth);
+  // const { loading } = useAppSelector((app) => app.Auth);
 
   const onSubmit = (data: any) => {
     dispatch(authRegister(data));
-    
   };
 
   return (
@@ -114,11 +113,11 @@ export default function AuthenticateSignUp() {
         <PrimaryButton
           type={"submit"}
           text="Sign up"
-          disabled={loading === "pending"}
-          isLoading={loading === "pending"}
-          className={classnames({
-            "bg-zinc-500 hover:bg-zinc-500": loading === "pending",
-          })}
+          // disabled={loading === "pending"}
+          // isLoading={loading === "pending"}
+          // className={classnames({
+          //   "bg-zinc-500 hover:bg-zinc-500": loading === "pending",
+          // })}
         />
       </div>
     </form>

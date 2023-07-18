@@ -1,12 +1,8 @@
 import axiosInstance from "../utils/AxiosInstance";
-
-export interface UserRegisterParamsInterface {
-  fullName: string;
-  email: string;
-  phone: string;
-  password: string;
-  confirmPassword: string;
-}
+import {
+  UserLoginParamsInterface,
+  UserRegisterParamsInterface,
+} from "./services";
 
 async function register({
   fullName,
@@ -24,8 +20,11 @@ async function register({
   });
 }
 
-function login() {}
+function login({ credentialId, password }: UserLoginParamsInterface) {
+  return axiosInstance.post(`/api/auth/login`, { credentialId, password });
+}
 
 export const AuthService = {
   register,
+  login,
 };
