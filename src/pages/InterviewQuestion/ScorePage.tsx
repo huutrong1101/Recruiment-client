@@ -42,9 +42,9 @@ export default function ScorePage() {
    // }
    //----------------------------------------------------------------------------- 
    return (
-      <div className="flex flex-col justify-center md:flex-row md:items-start md:w-full h-full my-4">
+      <div className="flex flex-col justify-center md:flex-row md:items-start md:w-full h-full my-3  drop-shadow-md">
          {/* left component */}
-         <div className="w-5/12 h-full bg-white flex flex-col mx-4 my-4 relative ">
+         <div className="w-5/12 h-full bg-white flex flex-col mx-4 my-4 relative rounded-md  ">
             <div className="  w-full  bg-white rounded-lg shadow border  border-gray-200 ">
                <div className="w-full h-full">
                   <div className="flex flex-col ">
@@ -98,57 +98,109 @@ export default function ScorePage() {
             </div>
          </div>
          {/* right component */}
-         <div className="w-7/12 h-full  bg-white flex flex-col mx-4 my-4 relative items-center">
-            <div className="w-full h-fit bg-white rounded-lg shadow border  border-gray-200 pt-4 ">
-
+         <div className="w-7/12 h-full  bg-white flex flex-col mx-4 my-4 relative items-center drop-shadow-md rounded-md">
+            <div className="w-full h-fit bg-white rounded-lg shadow border  border-gray-200  ">
+               {/* table */}
+               <div className="flex justify-center my-2 ">
+                  <div className=" rounded-lg border-gray-200 border-2 w-11/12 h-fit">
+                     <div className="overflow-auto px-2">
+                        <table className="w-full ">
+                           <thead className="w-fit">
+                              <tr className="flex justify-between  mt-3 ml-4 ">
+                                 <th className="text-lg tracking-wide text-left font-semibold basis-1/5 ">Position</th>
+                                 <th className="text-lg tracking-wide text-left font-semibold basis-1/5 ">Tech</th>
+                                 <th className="text-lg tracking-wide text-left font-semibold basis-3/5 ">Question</th>
+                              </tr>
+                           </thead>
+                           <tbody className="">
+                              <div className="grid text-left">
+                                 <div>
+                                    {ListQuestions.map((question) => (
+                                       <tr className="flex flex-row  p-2 m-2 text-left text-md cursor-pointer 
+                                       border-2 border-white hover: hover:border-emerald-600 hover:rounded-md hover:text-black hover:transition-all duration-100"
+                                          key={question.questionID}>
+                                          <td className="basis-1/5" onClick={() => handleQuestionClick(question.interviewQuestions)}>{question.position}</td>
+                                          <td className="basis-1/5" onClick={() => handleQuestionClick(question.interviewQuestions)}>{question.typeQuestion}</td>
+                                          <td className="basis-3/5 flex-nowrap" onClick={() => handleQuestionClick(question.interviewQuestions)}>{question.interviewQuestions}</td>
+                                       </tr>
+                                    ))}
+                                 </div>
+                              </div>
+                           </tbody>
+                        </table>
+                     </div>
+                     {/* pagination */}
+                     <div className="flex justify-end">
+                        <ul className="inline-flex gap-x-2 p-3 ">
+                           <li className="px-2 cursor-pointer hover:bg-emerald-100 hover:rounded-md hover:text-black ">
+                              <a href="#"></a>
+                              Prev
+                           </li>
+                           <li className="px-2 cursor-pointer hover:bg-emerald-100 hover:rounded-md hover:text-black ">
+                              <a href="#"></a>
+                              1
+                           </li>
+                           <li className="px-2 cursor-pointer hover:bg-emerald-100 hover:rounded-md hover:text-black ">
+                              <a href="#"></a>
+                              2
+                           </li>
+                           <li className="px-2 cursor-pointer hover:bg-emerald-100 hover:rounded-md hover:text-black ">
+                              <a href="#"></a>
+                              3
+                           </li>
+                           <li className="px-2 cursor-pointer hover:bg-emerald-100 hover:rounded-md hover:text-black ">
+                              <a href="#"></a>
+                              Next
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
                {/* score */}
-               {
-                  ListQuestions.map((question) => (
-                     <div className="flex flex-col " >
-                        <div className="flex justify-center my-2 " key={question.questionID}>
-                           <div className="bg-emerald-600 h-fit w-11/12 rounded-lg p-2 pb-2 relative 
-                                    drop-shadow-lg hover:bg-emerald-700 hover:transition-all duration-150 ">
-                              <div className="flex flex-col">
-                                 <div className=" inline-flex gap-3 w-full h-full ">
-                                    <div className=" text-white font-semibold flex flex-col w-full justify-start">Question
-                                       <div className="w-full h-[30px] bg-white rounded-md flex items-center p-2 ">
-                                          <h2 className="text-black font-semibold">
-                                             {question.interviewQuestions}
-                                          </h2>
-                                       </div>
-                                    </div>
-                                    <div className="w-[10rem]">
-                                       <div className="text-white text-left font-semibold rounded flex flex-col w-fit items-start">Score
-                                          <div className="w-full h-[30px] bg-white rounded-md  text-black flex items-center" >
-                                             <input type="text" className="w-full text-center rounded-md" />
-                                          </div>
-                                       </div>
+               <div className="flex flex-col " >
+                  <div className="flex justify-center my-2 ">
+                     <div className="bg-emerald-600 h-fit w-11/12 rounded-lg p-2 pb-2 relative 
+                                    drop-shadow-lg hover:bg-emerald-700 hover:transition-all duration-200 ">
+                        <div className="flex flex-col">
+                           <div className=" inline-flex gap-3 w-full h-full ">
+                              <div className=" text-white font-semibold flex flex-col w-full justify-start">Question
+                                 <div className="w-full h-[30px] bg-white rounded-md flex items-center p-2 ">
+                                    <h2 className="text-black font-semibold">
+                                       {questions}
+                                    </h2>
+                                 </div>
+                              </div>
+                              <div className="w-[10rem]">
+                                 <div className="text-white text-left font-semibold rounded flex flex-col w-fit items-start">Score
+                                    <div className="w-full h-[30px] bg-white rounded-md  text-black flex items-center" >
+                                       <input type="text" className="w-full text-center rounded-md" />
                                     </div>
                                  </div>
                               </div>
-                              <div className="w-full ">
-                                 <textarea className="flex flex-col justify-start w-full h-fit bg-white rounded-md p-2 my-2 text-black break-words resize-none"
-                                    placeholder="Note..." ></textarea>
-                              </div>
                            </div>
                         </div>
+                        <div className="w-full ">
+                           <textarea className="flex flex-col justify-start w-full h-fit bg-white rounded-md p-2 my-2 text-black break-words resize-none"
+                              placeholder="Note..." ></textarea>
+                        </div>
                      </div>
-                  ))
-               }
-               {/* button */}
+                  </div>
+               </div>
+
+               {/* Position - technology */}
                <div className="absolute flex top-[-20px] left-[-20px]">
                   <div className="flex flex-row  gap-x-10 pl-2 ">
                      <div className=" w-1/5 ">
                         <button className="Text text-white px-4 py-2.5 bg-emerald-600 rounded-s-lg drop-shadow-xl mr-4  
                                                 text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
-                                                border-transparent border hover:border-emerald-600 hover:transition-all duration-150  ">
+                                                border-transparent border hover:border-emerald-600 hover:transition-all duration-200  ">
                            Position
                         </button>
                      </div>
                      <div className=" w-1/5 h-[50px] ">
                         <button className="Text text-white px-4 py-2.5 bg-emerald-600 rounded-e-lg drop-shadow-xl mr-4  
                                                 text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
-                                                border-transparent border hover:border-emerald-600 hover:transition-all duration-150  " >
+                                                border-transparent border hover:border-emerald-600 hover:transition-all duration-200  " >
                            Technology
                         </button>
                      </div>
@@ -158,42 +210,34 @@ export default function ScorePage() {
                <div className=" w-2/5 h-fit absolute flex right-[-15px] top-[-20px] justify-end">
                   <button className="Text text-white px-4 py-2.5 bg-emerald-600 rounded-lg drop-shadow-xl 
                                                 text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
-                                                border-transparent border hover:border-emerald-600 hover:transition-all duration-150  " >
+                                                border-transparent border hover:border-emerald-600 hover:transition-all duration-200  " >
                      <PlusCircleIcon className="w-5 inline-flex" /> Add Question
                   </button>
                </div>
-               <div className="relative h-fit flex flex-row justify-between mx-2 gap-y-2">
-                  <div>
-                     <ul className="inline-flex gap-x-2 p-3 ">
-                        <li className="">
-                           <a href="#"></a>
-                           Prev
-                        </li>
-                        <li>
-                           <a href="#"></a>
-                           1
-                        </li>
-                        <li>
-                           <a href="#"></a>
-                           2
-                        </li>
-                        <li>
-                           <a href="#"></a>
-                           3
-                        </li>
-                        <li>
-                           <a href="#"></a>
-                           Next
-                        </li>
-                     </ul>
+               <div className=" h-fit flex flex-row w-11/12 mx-10 justify-between mb-3">
+                  {/* Prev - Next */}
+                  <div className="inline-flex items-start relative w-fit gap-x-2 ">
+                     <div className="flex ">
+                        <button className="text-white px-10 py-2.5  bg-emerald-600 rounded-lg drop-shadow-lg mb-2 transition-all duration-200
+                                                text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
+                                                border-transparent border hover:border-emerald-600 w-fit flex justify-center bottom-0 ">
+                           PREV
+                        </button>
+                     </div>
+                     <div className="flex ">
+                        <button className="text-white px-10 py-2.5  bg-emerald-600 rounded-lg drop-shadow-lg mb-2 transition-all duration-200
+                                                text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
+                                                border-transparent border hover:border-emerald-600 w-fit flex justify-center bottom-0 ">
+                           NEXT
+                        </button>
+                     </div>
                   </div>
                   {/* send */}
-                  <div className="flex flex-row justify-end">
-                     <button className="text-white px-10 py-2.5  bg-emerald-600 rounded-lg drop-shadow-lg mx-4 mb-2 transition-all
+                  <div className="flex items-end">
+                     <button className="text-white px-10 py-2.5  bg-emerald-600 rounded-lg drop-shadow-lg  mb-2 transition-all duration-200
                                                 text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
-                                                border-transparent border hover:border-emerald-600 w-1/5 flex justify-center bottom-0 "
-                        onClick={() => setShowPopUp(true)}>
-                        SEND
+                                                border-transparent border hover:border-emerald-600 w-fit flex justify-center bottom-0 "
+                        onClick={() => setShowPopUp(true)}>    SEND
                      </button>
                   </div>
                </div>

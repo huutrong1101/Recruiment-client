@@ -17,18 +17,18 @@ const ListQuestions=[
         typeQuestion:'VueJS',
         position:'FE'
     },
-    // {
-    //     questionID:4,
-    //     interviewQuestions:'What is .NET',
-    //     typeQuestion:'.NET',
-    //     position:'BE'
-    // },
-    // {
-    //     questionID:5,
-    //     interviewQuestions:'What is it NexJS',
-    //     typeQuestion:'NextJS',
-    //     position:'FE'
-    //  },
+    {
+        questionID:4,
+        interviewQuestions:'What is .NET',
+        typeQuestion:'.NET',
+        position:'BE'
+    },
+    {
+        questionID:5,
+        interviewQuestions:'What is it NexJS',
+        typeQuestion:'NextJS',
+        position:'FE'
+     },
     // {
     //     questionID:6,
     //     interviewQuestions:'What is VueJS',
