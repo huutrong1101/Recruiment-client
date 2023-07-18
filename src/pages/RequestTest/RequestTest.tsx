@@ -2,27 +2,35 @@ import React from "react";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import classNames from "classnames";
 import axiosInstance from "../../utils/AxiosInstance";
+import { UserService } from "../../services/UserService";
+import { useAppSelector } from "../../hooks/hooks";
+import InputIcon from "../../components/InputIcon/InputIcon";
+import TokenPasteRequestTest from "./TokenPasteRequestTest";
 
 export default function RequestTest() {
-  const handleTestButton = () => {
-    console.log(import.meta.env);
-    axiosInstance
-      .post(`/api/auth/register`, {
-        phone: "01233456789" + Math.random() * 100,
-        fullName: "Admin Is Me",
-        email: "admin" + Math.round(Math.random() * 10000) + "@gmail.com",
-        password: "12345678",
-        confirmPassword: "12345678",
-      })
-      .then((response) => {
-        console.log(response);
-      });
+  const handleTestButton = async () => {
+    // console.log(import.meta.env);
+    const response = await axiosInstance.get("/");
+    alert(response.data);
   };
 
   return (
     <div>
-      <div className={classNames(`w-1/3 mx-auto my-6 border p-4`)}>
+      <div
+        className={classNames(
+          `md:w-5/12 mx-auto my-6 border p-4 flex flex-col gap-2`,
+        )}
+      >
         <PrimaryButton text="Test" onClick={handleTestButton} />
+
+        <TokenPasteRequestTest />
+
+        <PrimaryButton
+          text="Job Lists"
+          onClick={() => {
+            axiosInstance.get(`/api/jobs/`);
+          }}
+        />
       </div>
     </div>
   );
