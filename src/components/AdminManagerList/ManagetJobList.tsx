@@ -32,43 +32,43 @@ export default function ManagetJobList() {
     <div className="flex justify-center w-200%">
       <SearchBar />
     </div>
-    <div className="flex items-center justify-center text-center bg-zinc-300 rounded-[30px] mt-6 p-8 ">
     <div className="relative overflow-x-auto rounded-lg">
-    <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
-      <Table className="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
-        <TableHead className="text-xs text-gray-700 uppercase bg-gray-200 text-center">
-          <TableRow>
-            <TableCell scope="col" className="px-6 py-1">                    Name Jobs                 </TableCell>
-            <TableCell scope="col" className="px-6 py-1">                    Date created                  </TableCell>
-            <TableCell scope="col" className="px-6 py-1">                    Process                  </TableCell>
-            <TableCell scope="col" className="px-6 py-1">                    Actions                  </TableCell>
-            {                  }
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {JobManagerList.map((item, index) => (
-            <TableRow className="text-black bg-white text-center justify-center" key={index}>
-                <TableCell scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"  > {item.nameJob}  </TableCell>
-                <TableCell className="px-6 py-4">{item.day}</TableCell>
-                <TableCell className="px-6 py-4">{item.member} \ {item.quantity}</TableCell>
-                <TableCell className="px-6 py-4">
-                  <NavLink to={`/${item.link}`} onClick={() => {}}>
-                    <EyeIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
-                  </NavLink>
-                </TableCell>
-              </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <TablePagination
-            rowsPerPageOptions={rowsPerPageOptions}
-            component="div"
-            count={100}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+       <div className="flex items-center bg-zinc-300 rounded-[30px] mt-6 p-8 ">
+      <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}} >
+        <Table className="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
+          <TableHead className="text-xs text-gray-700 uppercase bg-gray-200 text-center">
+            <TableRow>
+              <TableCell scope="col" className="px-6 py-1 ">                    Name Jobs                 </TableCell>
+              <TableCell scope="col" className="px-6 py-1">                    Date created                  </TableCell>
+              <TableCell scope="col" className="px-6 py-1">                    Process                  </TableCell>
+              <TableCell scope="col" className="px-6 py-1">                    Actions                  </TableCell>
+              {                  }
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {JobManagerList.map((item, index) => (
+              <TableRow className="text-black bg-white text-center justify-center" key={index}>
+                  <TableCell scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"  > {item.nameJob}  </TableCell>
+                  <TableCell className="px-6 py-4">{item.day}</TableCell>
+                  <TableCell className="px-6 py-4">{item.member} \ {item.quantity}</TableCell>
+                  <TableCell className="px-6 py-4">
+                    <NavLink to={`/${item.link}`} onClick={() => {}}>
+                      <EyeIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
+                    </NavLink>
+                  </TableCell>
+                </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <TablePagination
+              rowsPerPageOptions={rowsPerPageOptions}
+              component="div"
+              count={100}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
       </TableContainer>
     </div>
   </div>

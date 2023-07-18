@@ -59,6 +59,8 @@ export default function AdminTable({ typeSelected }: TypeData) {
     {     name: "Nguyễn Văn E",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "2/11/2002",     position: "Candidate",      stateBlackList: 0,    },
     {     name: "Nguyễn Văn F",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
     {     name: "Nguyễn Văn G",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "11/4/2002",      position: "Interviewer",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn H",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "11/4/2002",      position: "Interviewer",      stateBlackList: 0,    },
+    {     name: "Nguyễn Văn I",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "11/4/2002",      position: "Interviewer",      stateBlackList: 0,    },
     {     name: "Nguyễn Văn H",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "25/6/2002",      position: "Interviewer",      stateBlackList: 0,    },
     {     name: "Nguyễn Văn I",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "29/10/2002",      position: "Interviewer",     stateBlackList: 0,    },
     {     name: "Nguyễn Văn K",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Interviewer",      stateBlackList: 0,    },
@@ -146,6 +148,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
   if (typeSelected !== "All") {
     Candidate = Candidate.filter((item) => item.position == typeSelected);
   };
+  Candidate = Candidate.filter((item) => item.stateBlackList == 0)
   return (
     <div className="flex items-center justify-center text-center bg-zinc-300 rounded-[30px] mt-6 mx-auto p-8 ">
       <div className="relative w-full max-w-full overflow-x-auto rounded-lg h-[500px]">
