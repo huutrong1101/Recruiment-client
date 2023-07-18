@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function Suggested() {
   let navigate = useNavigate();
   const routeChange = () => {
-    let path = `../candidateinfo`;
+    let path = `../candidate-info`;
     navigate(path);
   };
   const candidates = [
