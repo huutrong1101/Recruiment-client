@@ -4,11 +4,12 @@ import { Link } from "react-router-dom";
 import Container from "../Container/Container";
 import MobileNavbar from "./MobileNavbar";
 import { useAppSelector } from "../../hooks/hooks";
+import LoadSpinner from "../LoadSpinner/LoadSpinner";
 
 export default function Navbar() {
-  const [signedIn] = useState<boolean>(false);
-
   const { items: leftMenu } = useAppSelector((app) => app.Navbar);
+
+  const { isLoggedIn, user, loading } = useAppSelector((app) => app.Auth);
 
   return (
     <>
@@ -58,33 +59,41 @@ export default function Navbar() {
           </div>
 
           {/* Right items */}
-          {!signedIn ? (
-            <div className={classNames(`flex flex-row gap-4`)}>
-              <Link
-                to="/auth/login"
-                className={classNames(
-                  `px-3 py-2`,
-                  `bg-emerald-600 text-white hover:bg-emerald-700`,
-                  `font-semibold`,
-                  `rounded-xl`,
-                )}
-              >
-                Login
-              </Link>
-              <Link
-                to="/auth/signup"
-                className={classNames(
-                  `px-3 py-2`,
-                  `border-emerald-600 border text-emerald-600`,
-                  `font-semibold`,
-                  `rounded-xl`,
-                )}
-              >
-                Sign Up
-              </Link>
-            </div>
+          {loading === "pending" ? (
+            <LoadSpinner className="text-zinc-400" />
+          ) : loading === `success` ? (
+            !isLoggedIn ? (
+              <div className={classNames(`flex flex-row gap-4`)}>
+                <Link
+                  to="/auth/login"
+                  className={classNames(
+                    `px-3 py-2`,
+                    `bg-emerald-600 text-white hover:bg-emerald-700`,
+                    `font-semibold`,
+                    `rounded-xl`,
+                  )}
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/auth/signup"
+                  className={classNames(
+                    `px-3 py-2`,
+                    `border-emerald-600 border text-emerald-600`,
+                    `font-semibold`,
+                    `rounded-xl`,
+                  )}
+                >
+                  Sign Up
+                </Link>
+              </div>
+            ) : (
+              <div>{user?.fullName}</div>
+              // Add menu here
+            )
           ) : (
-            <div>User information</div>
+            // Failed
+            <></>
           )}
         </div>
       </Container>

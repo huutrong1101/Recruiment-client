@@ -10,13 +10,29 @@ import { UserService } from "../services/UserService";
 const _storedToken = localStorage.getItem("token");
 const token: string | null = _storedToken ? JSON.parse(_storedToken) : null;
 
-interface AuthState {
-  isLoggedIn: boolean;
-  user?: any | null;
-  token: string | null;
+interface UserResponseState {
+  userId: string;
+  phone: string;
+  email: string;
+  fullName: string;
+  avatar: string | null;
+  address: string | null;
+  dateOfBirth: Date | null;
+  about: string | null;
+  gender: "male" | "female" | null;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+  active: boolean;
 }
 
-const initialState: AuthState = { isLoggedIn: true, token };
+interface AuthState {
+  isLoggedIn: boolean;
+  user?: UserResponseState | null;
+  token: string | null;
+  loading: `idle` | `pending` | `success` | `failed`;
+}
+
+const initialState: AuthState = { isLoggedIn: true, token, loading: `idle` };
 
 export const authRegister = createAsyncThunk(
   "Auth/register",
@@ -136,11 +152,18 @@ const AuthSlice = createSlice({
     builder.addCase(fetchUserFromToken.pending, (state, _action) => {
       state.user = null;
       state.isLoggedIn = false;
+      state.loading = `pending`;
     });
 
     builder.addCase(fetchUserFromToken.fulfilled, (state, action) => {
       state.user = action.payload;
       state.isLoggedIn = true;
+      state.loading = `success`;
+    });
+    builder.addCase(fetchUserFromToken.rejected, (state, action) => {
+      state.user = null;
+      state.isLoggedIn = false;
+      state.loading = `failed`;
     });
   },
 });
