@@ -117,7 +117,7 @@ export default function ScorePage() {
                                  <div>
                                     {ListQuestions.map((question) => (
                                        <tr className="flex flex-row  p-2 m-2 text-left text-md cursor-pointer 
-                                       border-2 border-white hover: hover:border-emerald-600 hover:rounded-md hover:text-black hover:transition-all duration-100"
+                                       border-2 border-white hover: hover:border-emerald-600 hover:rounded-lg hover:text-black hover:transition-all duration-100"
                                           key={question.questionID}>
                                           <td className="basis-1/5" onClick={() => handleQuestionClick(question.interviewQuestions)}>{question.position}</td>
                                           <td className="basis-1/5" onClick={() => handleQuestionClick(question.interviewQuestions)}>{question.typeQuestion}</td>
@@ -165,7 +165,7 @@ export default function ScorePage() {
                            <div className=" inline-flex gap-3 w-full h-full ">
                               <div className=" text-white font-semibold flex flex-col w-full justify-start">Question
                                  <div className="w-full h-[30px] bg-white rounded-md flex items-center p-2 ">
-                                    <h2 className="text-black font-semibold">
+                                    <h2 className="text-black font-semibold transition-all duration-75">
                                        {questions}
                                     </h2>
                                  </div>
