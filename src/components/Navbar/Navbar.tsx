@@ -5,8 +5,11 @@ import Container from "../Container/Container";
 import MobileNavbar from "./MobileNavbar";
 import { useAppSelector } from "../../hooks/hooks";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
+import { AiOutlineUser } from "react-icons/ai";
+import { useTokenAuthorize } from "../../hooks/useTokenAuthorize";
 
 export default function Navbar() {
+  useTokenAuthorize();
   const { items: leftMenu } = useAppSelector((app) => app.Navbar);
 
   const { isLoggedIn, user, loading } = useAppSelector((app) => app.Auth);
@@ -59,7 +62,7 @@ export default function Navbar() {
           </div>
 
           {/* Right items */}
-          {loading === "pending" ? (
+          {loading === "pending" || loading === "idle" ? (
             <LoadSpinner className="text-zinc-400" />
           ) : loading === `success` ? (
             !isLoggedIn ? (
@@ -88,12 +91,50 @@ export default function Navbar() {
                 </Link>
               </div>
             ) : (
-              <div>{user?.fullName}</div>
+              <button
+                className={classNames(
+                  `border px-3 py-2 rounded-xl text-zinc-500 flex flex-row gap-4 `,
+                  `items-center cursor-pointer`,
+                  `hover:text-zinc-700 hover:border-zinc-700 transition-colors duration-75 ease-in-out`,
+                )}
+              >
+                {user?.avatar === null ? (
+                  <div className="h-4 w-4">
+                    <AiOutlineUser />
+                  </div>
+                ) : (
+                  <></>
+                )}
+                <span>{user?.fullName}</span>
+              </button>
               // Add menu here
             )
           ) : (
             // Failed
-            <></>
+            <div className={classNames(`flex flex-row gap-4`)}>
+              <Link
+                to="/auth/login"
+                className={classNames(
+                  `px-3 py-2`,
+                  `bg-emerald-600 text-white hover:bg-emerald-700`,
+                  `font-semibold`,
+                  `rounded-xl`,
+                )}
+              >
+                Login
+              </Link>
+              <Link
+                to="/auth/signup"
+                className={classNames(
+                  `px-3 py-2`,
+                  `border-emerald-600 border text-emerald-600`,
+                  `font-semibold`,
+                  `rounded-xl`,
+                )}
+              >
+                Sign Up
+              </Link>
+            </div>
           )}
         </div>
       </Container>

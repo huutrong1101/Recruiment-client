@@ -1,4 +1,4 @@
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 
 import Authenticate from "./pages/Authenticate/Authenticate";
@@ -30,12 +30,9 @@ import ManageQuestion from "./pages/InterviewQuestion/ManageQuestion";
 
 import ReccerInterviewerManagement from "./pages/Reccer/ReccerInterviewerManagement";
 import ReccerEventManagement from "./pages/Reccer/ReccerEventManagement";
-// import ReccercandidateManagement from "./pages/Reccer/ReccercandidateManagement";
 import ReccerInterviewerDetail from "./pages/Reccer/InterviewerDetail";
 import CandidateList from "./pages/Reccer/CandidateList";
 import CandidateProfile from "./pages/Reccer/CandidateProfile";
-
-// Interviewer Pages
 import {
   CandidateRecent,
   InterviewRecent,
@@ -49,8 +46,6 @@ import UserProfileSubmittedJob from "./pages/UserProfile/UserProfileSubmittedJob
 import ReccerJobDetail from "./pages/Reccer/Jobs/ReccerJobDetail";
 import Addjob from "./pages/Reccer/Jobs/Addjob";
 import ManagementAppLayOut from "./components/Layout/ManagementAppLayOut/ManagementAppLayOut";
-// import ReccerInterviewerManagement from "./pages/Reccer/ReccerInterviewerManagement";
-// import ReccerEventManagement from "./pages/Reccer/ReccerEventManagement";
 import ReccerCandidateManagement from "./pages/Reccer/ReccercandidateManagement";
 
 import RecEventDetail from "./pages/EventDetail/RecEventDetail";
@@ -59,14 +54,9 @@ import ListCandiPass from "./components/AdminManagerList/ListCandiPass";
 import DeleteBlacklist from "./pages/Admin/DeleteBlacklist";
 import CreateCV from "./pages/CreateCV/CreateCV";
 import RequestTest from "./pages/RequestTest/RequestTest";
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "./hooks/hooks";
-import { authLogout, fetchUserFromToken } from "./redux/AuthSlice";
 import { useTokenAuthorize } from "./hooks/useTokenAuthorize";
 
 export default function App() {
-  useTokenAuthorize();
-
   return (
     <BrowserRouter>
       {/* Route switcher */}
