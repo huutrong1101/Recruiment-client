@@ -1,5 +1,5 @@
 import React from "react";
-import Avatar from "../../components/Candidate/Avatar";
+import AvatarCandidate from "../../components/Candidate/Avatar";
 import {
   ArrowDownTrayIcon,
   DocumentTextIcon,
@@ -45,7 +45,7 @@ function CandidateProfile() {
       <div className="relative w-full -mt-28 px-8">
         <div className="flex justify-between items-center pt-11">
           <div className="flex items-center space-x-4">
-            <Avatar imageUrl={avatarUrl} size="large" />
+            <AvatarCandidate imageUrl={avatarUrl} size="large" />
             <div className="-space-y-2">
               <h2 className="text-xl font-semibold pt-16">
                 {"Mr. " + username}
@@ -134,11 +134,11 @@ function CandidateProfile() {
         </div>
 
         {/* INTERVIEW HISTORY */}
-        <div className="History mt-8 bg-white p-6">
+        <div className="History mt-8 bg-white p-6 border rounded-2xl">
           <h2 className="text-lg font-semibold">Interview History:</h2>
           <div className="relative overflow-x-auto">
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table className="w-full text-sm text-left text-gray-500">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50    ">
                 <tr>
                   <th scope="col" className="px-6 py-4">
                     Position Recuruitment
@@ -154,12 +154,12 @@ function CandidateProfile() {
               <tbody>
                 {interviewHistory.map((interviewHistory, index) => (
                   <tr
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                    className="bg-white border-b"
                     key={index}
                   >
                     <td
                       scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
                     >
                       {interviewHistory.name}
                     </td>

@@ -96,10 +96,10 @@ export default function Events() {
               />
             </div>
             <div className={classNames("w-[70%]")}>
-              <h3>
+              <h3 className="text-base font-medium text-black capitalize">
                 DigitalOcean launches first Canadian data centre in Toronto
               </h3>
-              <p>28th May, 2023</p>
+              <p className="text-gray-500">28th May, 2023</p>
             </div>
           </div>
         </div>

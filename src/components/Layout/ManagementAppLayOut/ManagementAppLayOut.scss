@@ -42,16 +42,8 @@ $transition: all 300ms linear;
             border-right: 1px solid rgba(176, 176, 176, 0.4);
             height: 100%; width: 220px;
             transition: $transition;
-            z-index: 999;
-            li{
-                padding: 8px 0;
-                padding-left: 15px;
-                border-radius: 12px;
-                margin: 0 5px;
-            }
-            li:hover{
-                background-color: #bebebe;
-            }
+            z-index: 10;
+
             .avt{
                 position: relative;
                 &-act{
@@ -75,18 +67,14 @@ $transition: all 300ms linear;
             height: 100%; width: 280px;
             transition: $transition;
             transform: translateX(100%);
-            z-index: 999;
+            z-index: 10;
         }
     }
     .large{
-        padding: 0 2rem;
-        margin-top: 20px;
         margin-left: 220px;
         transition: $transition;
     }
     .small{
-        padding: 0 2rem;
-        margin-top: 20px;
         margin-left: 60px;
         transition: $transition;
     }

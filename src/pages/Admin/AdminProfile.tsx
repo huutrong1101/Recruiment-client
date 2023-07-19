@@ -1,131 +1,152 @@
 
-import React, {useState}from 'react'
-
+import React, {useState, useRef }from 'react'
+import classnames from "classnames";
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import blog_image from "../../../images/blog_image.png";
 export default function AdminProfile() {
-  const [ChangInfoAdmin, AdminProfileState] = useState(false);
-  const [AdminProfile] = useState([
-    {
-      name: "Nguyen Van Admin",
-      email: "nguyenvanadmin@gmail.com",
-      phone: "123",
-      adress: "admin o mo toi hk bt",
-      avatarUrl: "#",
+    const [avatar, setAvatar] = useState(blog_image);
+    const [name, setname] = useState('');
+    const [email, setemail] = useState('');
+    const [phone, setphone] = useState('');
+    const [adress, setadress] = useState('');
+    const fileInputRef = useRef(null);
+    const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        setAvatar(URL.createObjectURL(file));
     }
-  ]);
-  return (
-    // <div className=" bg-white rounded-[30px] border border border border border-black">
-    //   <div className="absolute">
-
-    //     <div className = "absolute">
-    //     <div className = "w-[107.49px] h-[37.57px] pl-5 pr-[18px] py-2.5 left-[393.51px] top-[379.33px] absolute bg-emerald-600 rounded-lg justify-center items-center inline-flex">
-    //       <div className = "h-7 justify-center items-center gap-2 flex">
-    //         <div className = "text-white text-[18px] font-semibold capitalize leading-7 tracking-wide">Save</div>
-    //       </div>
-    //     </div>
-    //     <div className = "w-[497px] h-[26px] left-[1px] top-0 absolute text-black text-[16px] font-semibold capitalize leading-7 tracking-wide">Full name</div>
-    //     <div className = "w-[495px] h-[25px] left-[3px] top-[90px] absolute text-black text-[16px] font-semibold capitalize leading-7 tracking-wide">Email</div>
-    //     <div className = "w-[500px] h-[25px] left-[1px] top-[179px] absolute text-black text-[16px] font-semibold capitalize leading-7 tracking-wide">Address</div>
-    //     <div className = "w-[499.63px] h-[53.75px] left-[1.37px] top-[294.10px] absolute flex-col justify-start items-start inline-flex">
-    //       <div className = "self-stretch px-2 pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border border border border-zinc-900 border-opacity-50 justify-start items-center gap-2 inline-flex">
-    //         <div className = "grow shrink basis-0 py-1.5 flex-col justify-start items-start gap-2.5 inline-flex">
-    //           <div className = "self-stretch justify-start items-end gap-2 inline-flex">
-    //             <div className = "grow shrink basis-0 h-6 justify-start items-start gap-2 flex">
-    //               <div className = "grow shrink basis-0 self-stretch flex-col justify-start items-start inline-flex">
-    //                 <div className = "self-stretch text-zinc-900 text-opacity-70 text-[16px] font-normal leading-normal">0773696410</div>
-    //               </div>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //     <div className = "w-[497.62px] h-[53.15px] left-[0.54px] top-[114.47px] absolute flex-col justify-start items-start inline-flex">
-    //       <div className = "self-stretch px-2 pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border border border border-zinc-900 border-opacity-50 justify-start items-center gap-2 inline-flex">
-    //         <div className = "grow shrink basis-0 py-1.5 flex-col justify-start items-start gap-2.5 inline-flex">
-    //           <div className = "self-stretch justify-start items-end gap-2 inline-flex">
-    //             <div className = "grow shrink basis-0 h-6 justify-start items-start gap-2 flex">
-    //               <div className = "grow shrink basis-0 self-stretch flex-col justify-start items-start inline-flex">
-    //                 <div className = "self-stretch text-zinc-900 text-opacity-70 text-[16px] font-normal leading-normal">huutrong1101@gmail.com</div>
-    //               </div>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //     <div className = "w-[497.62px] h-[53.15px] left-[0.54px] top-[24.66px] absolute flex-col justify-start items-start inline-flex">
-    //       <div className = "self-stretch px-2 pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border border border border-zinc-900 border-opacity-50 justify-start items-center gap-2 inline-flex">
-    //         <div className = "grow shrink basis-0 py-1.5 flex-col justify-start items-start gap-2.5 inline-flex">
-    //           <div className = "self-stretch justify-start items-end gap-2 inline-flex">
-    //             <div className = "grow shrink basis-0 h-6 justify-start items-start gap-2 flex">
-    //               <div className = "grow shrink basis-0 self-stretch flex-col justify-start items-start inline-flex">
-    //                 <div className = "self-stretch text-zinc-900 text-opacity-70 text-[16px] font-normal leading-normal">huutrong1101@gmail.com</div>
-    //               </div>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //     <div className = "w-[500.13px] h-[54.07px] left-[0.54px] top-[204.28px] absolute flex-col justify-start items-start inline-flex">
-    //       <div className = "self-stretch px-2 pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border border border border-zinc-900 border-opacity-50 justify-start items-center gap-2 inline-flex">
-    //         <div className = "grow shrink basis-0 py-1.5 flex-col justify-start items-start gap-2.5 inline-flex">
-    //           <div className = "self-stretch justify-start items-end gap-2 inline-flex">
-    //             <div className = "grow shrink basis-0 h-6 justify-start items-start gap-2 flex">
-    //               <div className = "grow shrink basis-0 self-stretch flex-col justify-start items-start inline-flex">
-    //                 <div className = "self-stretch text-zinc-900 text-opacity-70 text-[16px] font-normal leading-normal">Bà Rịa Vũng Tàu</div>
-    //               </div>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //     <div className = "w-[501px] h-[26px] left-0 top-[270px] absolute text-black text-[16px] font-semibold capitalize leading-7 tracking-wide">Phone Number</div>
-    //     </div>
-    //     <div className = "w-[183px] h-[26px] left-0 top-0 absolute text-emerald-600 text-[32px] font-bold leading-7">Information</div>
-    //     <div className = "w-[164.04px] h-[258.02px] left-[9.16px] top-[87.49px] absolute">
-    //     <img alt ="" className = "w-[164.04px] h-[154.90px] left-0 top-0 absolute rounded-[64px]" src="https://via.placeholder.com/164x155" />
-    //     <div className = "w-[106.31px] h-[37.57px] pl-5 pr-[18px] py-2.5 left-[29.33px] top-[220.44px] absolute bg-emerald-600 rounded-lg justify-center items-center inline-flex">
-    //       <div className = "h-7 justify-center items-center gap-2 flex">
-    //         <div className = "text-white text-[18px] font-semibold capitalize leading-7 tracking-wide">Change</div>
-    //       </div>
-    //     </div>
-    //     </div>
-    //   </div>
-    // </div>
+    };
+    const handleImageClick = () => {
+        fileInputRef.current.click();
+    };
+    const [open, setOpen] = React.useState(false);
+    const handleClickOpen = () => {
+    setOpen(true);
+    };
+    const handleClose = () => {
+    setOpen(false);
+    };
+    const [AdminProfile] = useState([
+    {
+        name:   "Nguyen Van Admin",
+        email:  "nguyenvanadmin@gmail.com",
+        phone:  "0988123xxx",
+        adress: "Day la dia chi admin",
+        avatarUrl: avatar,
+    }
+    ]);
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        let object = { avatar,name, email, phone, adress};
+        console.log(object);
+        setOpen(false);
+    }
+    return (
     AdminProfile.map((item) => (
-        <div className = "">
-            <div className = "bg-white p-3 shadow-sm rounded-sm">
-            {/* <div className = "grid grid-cols-3">
-                <div className = "text-center my-2">
-                    <img className = "h-16 w-16 rounded-full mx-auto"
-                        src="#"
-                        alt="">
-                        <a href="#" className = "text-main-color"></a>
-                    </img>
+        <div className="flex gap-5">
+            <div className="bg-white rounded-lg shadow-lg w-[40%] flex justify-center items-center">
+            <div onClick={handleImageClick}>
+                {avatar ? (
+                <img src={avatar} className="w-[175px] h-[175px] rounded-full" alt="avatar" />
+                ) : (
+                <div className="upload-placeholder">
+                    <span>Choose Image</span>
                 </div>
-            </div> */}
-            <div className = "flex items-center space-x-2 font-semibold text-green-500 leading-8">
-                <span className = "tracking-wide absolute text-emerald-600 text-[28px] font-bold leading-7">Information</span>
+                )}
             </div>
-            <div className = "text-gray-700">
-                <div className = "grid md:grid-cols-1 text-sm">
-                    <div className = "grid grid-cols-1">
-                        <div className = "px-4 py-2 font-semibold text-green-500 capitalize leading-7 tracking-wide"> FullName</div>
-                        <div className = "px-4 py-2">{item.name}</div>
-                    </div>
-                    <div className = "grid grid-cols-1">
-                        <div className = "px-4 py-2 font-semibold text-green-500 capitalize leading-7 tracking-wide">Contact No.</div>
-                        <div className = "px-4 py-2">{item.phone}</div>
-                    </div>
-                    <div className = "grid grid-cols-1">
-                        <div className = "px-4 py-2 font-semibold text-green-500 capitalize leading-7 tracking-wide">Current Address</div>
-                        <div className = "px-4 py-2">{item.adress}</div>
-                    </div>
-                    <div className = "grid grid-cols-1">
-                        <div className = "px-4 py-2 font-semibold text-green-500 capitalize leading-7 tracking-wide">Email.</div>
-                        <div className = "px-4 py-2">      {item.email}       </div>
-                    </div>
+            <input
+                type="file"
+                id="avatar"
+                accept="image/*"
+                className="hidden"
+                ref={fileInputRef}
+                onChange={handleImageUpload}
+            />
+            </div>
+            <div className="bg-white rounded-lg shadow-lg w-[50%] h-fit sticky">
+                <div className="flex items-center justify-center text-center space-x-2 font-semibold text-green-500">
+                    <span className="tracking-wide text-bold-center flex text-emerald-600 text-[30px]">Information</span>
                 </div>
+                <form  className = "text-gray-700 " onSubmit={handleSubmit}>
+                    <div className = "grid md:grid-cols-1 text-sm self-stretch px-2 pt-[13px] pb-[13px]">
+                        {/* Name */}
+                        <div className = "grid grid-cols-1">
+                            <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide "> FullName</div>
+                            <input
+                                type="text"
+                                id="name"
+                                value={name}
+                                className="px-4 py-2 self-stretch pt-[13px] pb-[13px] bg-white bg-opacity-0 rounded-lg border border-zinc-900" placeholder={item.name}
+                                onChange={(event) => setname(event.target.value)}
+                            />
+                        </div>
+                        {/* Phone */}
+                        <div className = "grid grid-cols-1">
+                            <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Contact No.</div>
+                            <input
+                                type="text"
+                                id="phone"
+                                value={phone}
+                                className="px-4 py-2 self-stretch pt-[13px] pb-[13px] bg-white bg-opacity-0 rounded-lg border border-zinc-900" placeholder={item.phone}
+                                onChange={(event) => setphone(event.target.value)}
+                            />
+                        </div>
+                        {/* Adress */}
+                        <div className = "grid grid-cols-1">
+                            <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Current Address</div>
+                            <input 
+                                type="text" 
+                                id="adress"
+                                value={adress}
+                                className="px-4 py-2 self-stretch pt-[13px] pb-[13px] bg-white bg-opacity-0 rounded-lg border border-zinc-900" placeholder={item.adress}
+                                onChange={(event) => setadress(event.target.value)}
+                            />
+                        </div>
+                        {/* Email */}
+                        <div className = "grid grid-cols-1">
+                            <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Email.</div>
+                            <input 
+                                type="email" 
+                                id="email"
+                                value={email}
+                                className="px-4 py-2 self-stretch pt-[13px] pb-[13px] bg-white bg-opacity-0 rounded-lg border border-zinc-900" placeholder= {item.email}
+                                onChange={(event) => setemail(event.target.value)}
+                            />
+                        </div>
+                        {/* Save Buton */}
+                        <div className={classnames("text-center px-5 py-4")}>
+                        <Button onClick={handleClickOpen} className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800" >
+                            Save
+                        </Button>
+                            <Dialog
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
+                            >
+                            <DialogTitle id="alert-dialog-title">
+                            {" Are you sure you want to change the location of this account?"}
+                            </DialogTitle>
+                            <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                                Or consider carefully before deleting them all changes when pressing the agree button.                        </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                            <Button onClick={handleClose}> Disagree</Button>
+                            <Button type= "submit" onClick={handleSubmit}>
+                               Agree
+                            </Button>
+                            </DialogActions>
+                        </Dialog>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
     )))
 }

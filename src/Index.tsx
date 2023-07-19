@@ -4,6 +4,8 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { ApplicationStore } from "./redux/Store";
 import "./Index.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const appElement = document.getElementById("app");
 if (appElement === null) {
@@ -14,6 +16,7 @@ createRoot(appElement).render(
   <React.StrictMode>
     <Provider store={ApplicationStore}>
       <App />
+      <ToastContainer />
     </Provider>
   </React.StrictMode>,
 );

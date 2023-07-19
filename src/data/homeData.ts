@@ -88,6 +88,24 @@ export const data = {
       time: "5",
       title: "11 Tips To Help You Get New Clients Through Cold Calling",
     },
+    {
+      id: 4,
+      date: "20th February, 2023",
+      time: "5",
+      title: "11 Tips To Help You Get New Clients Through Cold Calling",
+    },
+    {
+      id: 5,
+      date: "20th February, 2023",
+      time: "5",
+      title: "11 Tips To Help You Get New Clients Through Cold Calling",
+    },
+    {
+      id: 6,
+      date: "20th February, 2023",
+      time: "5",
+      title: "11 Tips To Help You Get New Clients Through Cold Calling",
+    },
   ],
   listFieldSearch: {
     categories: [
