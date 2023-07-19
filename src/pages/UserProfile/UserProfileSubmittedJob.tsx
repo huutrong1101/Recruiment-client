@@ -7,11 +7,16 @@ import Button from "../../components/Button/Button";
 import { Fragment, useState } from "react";
 import InterviewStatusBadge from "../../components/Badge/JobStatusBadge";
 import JobStatusBadge from "../../components/Badge/JobStatusBadge";
+import { useForm } from "react-hook-form";
 
 const APPLICANT_STATUS = ["Any", "Passed", "Reviewing", "Pending", "Failed"];
 
 export default function UserProfileSubmittedJob() {
+  const { register, handleSubmit } = useForm();
   const [filterType, setFilterType] = useState<number>(0);
+
+  const onSubmit = (data: any) => {};
+
   return (
     <div
       className={`px-4 py-2 bg-zinc-100 mt-2 rounded-xl flex flex-col gap-2 flex-1`}
@@ -24,13 +29,18 @@ export default function UserProfileSubmittedJob() {
 
         {/* Filter groups */}
         <div className={classnames(`flex flex-row items-center gap-4`)}>
-          <div className={classnames(`w-10/12`)}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className={classnames(`w-10/12`)}
+          >
             <InputIcon
               icon={<HiMagnifyingGlass />}
               className={`text-base`}
               placeholder="Search for the applicant"
+              register={register}
+              label="search"
             />
-          </div>
+          </form>
           <div className="w-32">
             <Listbox value={filterType} onChange={setFilterType}>
               <div className={classnames(`relative`)}>

@@ -21,6 +21,7 @@ function UserProfileInformation() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const onDataChangeSubmit = (data: any) => {
     console.log(data);
   };
@@ -59,10 +60,12 @@ function UserProfileInformation() {
             <InputIcon
               icon={<HiUserCircle />}
               placeholder={`Full Name`}
-              {...register("fullName", {
-                required: true,
-              })}
-              name={`fullName`}
+              // {...register("fullName", {
+              //   required: true,
+              // })}
+              register={register}
+              required
+              label="fullName"
             />
 
             {errors.fullName && (
@@ -75,20 +78,23 @@ function UserProfileInformation() {
           <InputIcon
             icon={<HiEnvelope />}
             placeholder={`Email`}
-            {...register("email")}
-            name={`email`}
+            register={register}
+            required
+            label="email"
           />
           <InputIcon
             icon={<HiMapPin />}
-            placeholder={`Location`}
-            {...register(`location`)}
-            name={`location`}
+            placeholder={`Address`}
+            register={register}
+            required
+            label="address"
           />
           <InputIcon
             icon={<HiPhone />}
             placeholder={`Phone`}
-            {...register("phone")}
-            name={`phone`}
+            register={register}
+            required
+            label="phone"
           />
           {/* Submit button */}
           <div className="flex flex-row-reverse">
@@ -106,6 +112,15 @@ function UserProfileInformation() {
 }
 
 function UserProfilePassword() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onDataChangeSubmit = (data: any) => {
+    console.log(data);
+  };
   return (
     <div className="p-4 border rounded-xl border-zinc-100">
       <h1 className={classNames(`text-2xl font-semibold flex-1 md:mb-4`)}>
@@ -123,16 +138,25 @@ function UserProfilePassword() {
             icon={<HiKey />}
             placeholder={`Current password`}
             type="password"
+            register={register}
+            required
+            label="currentPassword"
           />
           <InputIcon
             icon={<HiKey />}
             placeholder={`New password`}
             type={`password`}
+            register={register}
+            required
+            label="newPassword"
           />
           <InputIcon
             icon={<HiKey />}
             placeholder={`Confirm new password`}
             type={`password`}
+            register={register}
+            required
+            label="rePassword"
           />
 
           {/* Submit button */}
