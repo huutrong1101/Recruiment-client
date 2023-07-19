@@ -17,10 +17,10 @@ import JobCard from "../../../components/JobCard/JobCard";
 import { Avatar } from "@mui/material";
 
 import AvatarCandidate from "../../../components/Candidate/Avatar";
-import Applied from "./AppliedCandidate";
-import Suggested from "./SuggestedCandidate";
+import Schedule from "./Schedule";
+// import AddMemberForm from "./AddInterviewer";
 
-export default function ReccerJobDetail() {
+export default function InterviewSched() {
   const { jobId } = useParams();
   const listSkills = ["React", "Java", "HTML", "Figma", "WordPress"];
 
@@ -45,6 +45,44 @@ export default function ReccerJobDetail() {
       value: new Date().toDateString(),
     },
   ]);
+
+  const memberList = [
+    {
+      id: 1,
+      name: "John Doe",
+      phone: "1234567890",
+      email: "john@example.com",
+      date: "2023-07-01",
+    },
+    {
+      id: 2,
+      name: "Jane Smith",
+      phone: "9876543210",
+      email: "jane@example.com",
+      date: "2023-07-02",
+    },
+    {
+      id: 3,
+      name: "Bob Johnson",
+      phone: "5555555555",
+      email: "bob@example.com",
+      date: "2023-07-03",
+    },
+    {
+      id: 4,
+      name: "Alice Williams",
+      phone: "1111111111",
+      email: "alice@example.com",
+      date: "2023-07-04",
+    },
+    {
+      id: 5,
+      name: "Sam Brown",
+      phone: "9999999999",
+      email: "sam@example.com",
+      date: "2023-07-05",
+    },
+  ];
 
   return (
     <div className={classNames(`job-detail`, `flex flex-col gap-6`)}>
@@ -135,27 +173,14 @@ export default function ReccerJobDetail() {
             </div>
           </div>
           {/* /Skill */}
-
-          <div className={classNames(`px-8 py-8`, `text-justify`)}>
-            <button
-              className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-2 my-1 text-white"
-              // onClick={routeChange}
-            >
-              Edit Job
-            </button>
-          </div>
         </div>
         {/* Right side description */}
         <div className={classNames(`w-full md:w-3/12 flex-1 relative`)}>
           <RecJobInformationCard cardData={jobInformation} />
         </div>
       </div>
-
-      {/* /Applied Candidate */}
-      <Applied />
-
-      {/* Suggested Candidate*/}
-      <Suggested />
+      <Schedule />
+      {/* <AddMemberForm memberList={memberList} /> */}
     </div>
   );
 }

@@ -2,9 +2,9 @@ import React, {useState, } from "react";
 import classnames from "classnames";
 import blog_image from "../../../images/blog_image.png";
 import { Link, NavLink } from "react-router-dom";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { data } from "../../data/homeData";
 import {  ArrowRightIcon,  CalendarDaysIcon,  ClockIcon,} from "@heroicons/react/24/outline";
+import SearchBar from "../../components/Search/Search";
 export default function ReccerEventManagement() {
   const [searchQuery, setSearchQuery] = useState('');
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
@@ -22,8 +22,8 @@ export default function ReccerEventManagement() {
   return (
     <>
       {/* Search */}
-      <div className="grid grid-cols-[100%] sm:grid-cols-[15%,60%,25%] gap-1 mx-auto lg:grid-cols-[25%,60%,25%] ">
-        <form onSubmit={handleSearch} className=" w-full sm:w-3/4 col-span-2 flex items-center bg-opacity-5 rounded-full px-1.5 py-1 shadow">
+      <div className="justify-center flex grid-cols-[100%] sm:grid-cols-[15%,60%,25%] gap-1 mx-auto lg:grid-cols-[25%,60%,25%] ">
+        {/* <form onSubmit={handleSearch} className=" w-full sm:w-3/4 col-span-2 flex items-center bg-opacity-5 rounded-full px-1.5 py-1 shadow">
           <div className="">
             <MagnifyingGlassIcon className="ml-5 h-4 relative gap-1 w-full sm:w-3/4" />
           </div>
@@ -39,8 +39,9 @@ export default function ReccerEventManagement() {
           </div> 
             <button type="submit" className="ml-5 p-1.5 bg-emerald-600 text-white text-sm leading-tight rounded-full">
               Search
-            </button>        
-        </form>
+            </button>
+        </form> */}
+          <SearchBar />
       </div>
       {/* Add Event */}
       <div className="ml-5 mt-5 flex justify-center items-center  w-1/6">

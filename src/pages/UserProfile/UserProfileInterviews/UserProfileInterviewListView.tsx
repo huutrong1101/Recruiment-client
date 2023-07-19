@@ -8,11 +8,15 @@ import UserProfileInterviewListViewTable from "../../../components/Table/Table";
 
 import PrimaryButton from "../../../components/PrimaryButton/PrimaryButton";
 import Button from "../../../components/Button/Button";
+import { useForm } from "react-hook-form";
 
 const INTERVIEW_STATUS = ["Any", "Pending", "Finished"];
 
 export default function UserProfileInterviewListView() {
+  const { register, handleSubmit } = useForm();
   const [filterType, setFilterType] = useState<number>(0);
+
+  const onSubmit = (data: any) => {};
 
   return (
     <div
@@ -26,13 +30,18 @@ export default function UserProfileInterviewListView() {
 
         {/* Filter groups */}
         <div className={classnames(`flex flex-row items-center gap-4`)}>
-          <div className={classnames(`w-10/12`)}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className={classnames(`w-10/12`)}
+          >
             <InputIcon
               icon={<HiMagnifyingGlass />}
               className={`text-base`}
               placeholder="Search for the interview"
+              register={register}
+              label={`search`}
             />
-          </div>
+          </form>
           <div className="w-32">
             {/* <span className={classnames(`text-xs text-zinc-300`)}>Filter</span> */}
             <Listbox value={filterType} onChange={setFilterType}>

@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { fetchInterviewRecent } from '../../../redux/reducer/InterviewRecentSlice';
 import Loader from '../../../components/Loader/Loader';
 import { STATUS } from '../../../utils/Status';
+import { Link } from 'react-router-dom';
 
 const rowsPerPageOptions = [5, 10];
 
@@ -35,7 +36,7 @@ const InterviewRecent = () => {
     }else if(interviewsRecentStatus === STATUS.IDLE){
         return (
             <div className="InterviewRecent">
-                <div className='mb-5 text-2xl'>Interview Recent</div>
+                <div className='mb-5 text-2xl mt-4'>Interview Recent</div>
                 <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead className='bg-slate-300'>
@@ -50,16 +51,20 @@ const InterviewRecent = () => {
                             {interviewsRecent.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((interviewRecent:any) => (
                                 <TableRow key={interviewRecent.id} className={`${interviewRecent.id % 2 === 0 ? 'bg-slate-100':''}`}>
                                     <TableCell component="th" scope="row">
-                                        {interviewRecent.title}
+                                        {interviewRecent.name}
                                     </TableCell>
                                     <TableCell>{interviewRecent.creationAt}</TableCell>
                                     <TableCell>
-                                    <div className={`${(interviewRecent.id*interviewRecent.id*4)%100?"badge-completed":"badge-pending"}`}>
-                                        <div className='dot'></div>
-                                        <div>{(interviewRecent.id*interviewRecent.id*4)%100?"Completed":"Pending"}</div>
-                                    </div>
-                                </TableCell>
-                                    <TableCell><PencilIcon className='w-4 h-4' /></TableCell>
+                                        <div className={`${(interviewRecent.id*interviewRecent.id*4)%100?"badge-completed":"badge-pending"}`}>
+                                            <div className='dot'></div>
+                                            <div>{(interviewRecent.id*interviewRecent.id*4)%100?"Completed":"Pending"}</div>
+                                        </div>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Link to={`/interviewer/interview-recent/${interviewRecent.id}`} >
+                                            <PencilIcon className='w-4 h-4' />
+                                        </Link>
+                                    </TableCell>
                                 </TableRow>
                             ))}
     

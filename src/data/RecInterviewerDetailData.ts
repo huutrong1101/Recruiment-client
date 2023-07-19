@@ -1,11 +1,11 @@
-export const data = [
+export const data = 
   {
     userinfor: [
       {
         name: "Rosaria Varagas",
         title: "Designer",
         avatarUrl: "../../images/ava.jpg",
-        coverImageUrl: "../../images/AntiWibu.png",
+        coverImageUrl: "../../images/cover.jpg",
         decriptionOne:" Obviously I'M Web Developer. Web Developer with over 3 years of experience. Experienced with all stages of the development cycle for dynamic web projects. The as opposed to using 'Content here, content here', making it look like readable English.",
         decriptionTwo:" Data Structures and Algorithms are the heart of programming. Initially most of the developers do not realize its importance but when you will start your career in software development, you will find your code is either taking too much time or taking too much space."
       }
@@ -47,4 +47,4 @@ export const data = [
       },
     ]
   }
-]
+
