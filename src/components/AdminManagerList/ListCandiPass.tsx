@@ -10,7 +10,7 @@ export default function ListCandiPass() {
       setPage(newPage);
   };
   const handleChangeRowsPerPage = (event: any) => {
-      setRowsPerPage(parseInt(event.target.value, 10));
+      setRowsPerPage(parseInt(event.target.value, 100));
       setPage(0);
   };
   let ListCandiPassList = [
@@ -53,9 +53,7 @@ export default function ListCandiPass() {
           </TableRow>
         </TableHead>
         <TableBody>
-        {ListCandiPassList
-          .sort((a, b) => b.point - a.point)
-          .map((item, index) => (
+        {ListCandiPassList.sort((a, b) => b.point - a.point).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, index,ListCandiPassList:any) => (
             <TableRow className="text-black bg-white text-center" key={index}>
               <TableCell scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">   {item.nameCan}  </TableCell>
               <TableCell className="px-6 py-4">{item.phone}</TableCell>

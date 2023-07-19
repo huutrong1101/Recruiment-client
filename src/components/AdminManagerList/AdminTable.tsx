@@ -31,7 +31,6 @@ export default function AdminTable({ typeSelected }: TypeData) {
   const handleClose = () => {
     setOpen(false);
   };
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, 10 - page * rowsPerPage);
   // Candidate.state
   let Candidate = [
     {     name: "Nguyễn Văn A",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Recruiter",      stateBlackList: 0,   },
@@ -99,9 +98,9 @@ export default function AdminTable({ typeSelected }: TypeData) {
     {
       Candidate = Candidate.filter((item) => item.stateBlackList == 1)
       return (
-          <div className="mt-10 w-full max-w-full overflow-x-auto rounded-lg">
+          <div className="mt-10 w-full max-w-full overflow-x-auto rounded-xl">
           <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
-            <Table className="w-full text-sm text-xs text-gray-500 dark:text-gray-400 text-center">
+            <Table className="w-full text-gray-500 dark:text-gray-400 text-center">
               <TableHead className=" text-gray-700 uppercase bg-gray-200 text-center">
                 <TableRow>
                   <TableCell scope="col" className="px-3 py-1">                    Name                  </TableCell>
@@ -143,7 +142,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
             <TablePagination
               rowsPerPageOptions={rowsPerPageOptions}
               component="div"
-              count={10}
+              count={100}
               rowsPerPage={rowsPerPage}
               page={page}
               onPageChange={handleChangePage}
@@ -159,7 +158,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
   };
   Candidate = Candidate.filter((item) => item.stateBlackList == 0)
   return (
-      <div className="mt-10 w-full max-w-full overflow-x-auto rounded-lg ">
+      <div className="mt-10 w-full max-w-full overflow-x-auto rounded-xl">
       <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
             <Table className="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
               <TableHead className="text-xs text-gray-700 uppercase bg-gray-200 text-center">

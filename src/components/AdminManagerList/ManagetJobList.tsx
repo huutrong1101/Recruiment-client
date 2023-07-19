@@ -16,17 +16,28 @@ export default function ManagetJobList() {
       setPage(0);
   };
   let JobManagerList = [
-    {      nameJob: "React",      day: "9/2/2022",       member: 50,      quantity: 100,      link: "admin/candidate-pass-list/:JobId",    },
-    {      nameJob: "Net",        day: "9/3/2021",       member: 25,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
-    {      nameJob: "C#",         day: "9/1/2019",       member: 75,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
-    {      nameJob: "JavaScript", day: "9/10/2020",      member: 65,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
-    {      nameJob: ".Net",       day: "9/10/2023",      member: 55,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
-    {      nameJob: "Java",       day: "9/10/2023",      member: 15,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
-    {      nameJob: "NodeJs",     day: "9/10/2023",      member: 15,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
-    {      nameJob: "PHP",        day: "9/10/2023",      member: 15,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
-    {      nameJob: "RUBY",       day: "6/10/2023",      member: 15,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
-    {      nameJob: "React",      day: "9/11/2023",      member: 25,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
-    ];
+    {      nameJob: "Web Designer/Developer",     day: "9/2/2022",       member: 50,      quantity: 100,      link: "admin/candidate-pass-list/:JobId",    },
+    {      nameJob: "Web Designer/Developer",     day: "9/3/2021",       member: 25,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "Web Designer/Developer",     day: "9/1/2019",       member: 75,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "Web Designer/Developer",     day: "9/10/2020",      member: 65,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "Web Designer/Developer",     day: "9/10/2023",      member: 55,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "Web Designer/Developer",     day: "9/10/2023",      member: 15,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "Web Designer/Developer",     day: "9/10/2023",      member: 15,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "Web Designer/Developer",     day: "9/10/2023",      member: 15,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "Web Designer/Developer",     day: "6/10/2023",      member: 15,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "Web Designer/Developer",     day: "9/11/2023",      member: 25,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "Web Designer/Developer",     day: "9/2/2022",       member: 50,      quantity: 100,      link: "admin/candidate-pass-list/:JobId",    },
+    {      nameJob: "Web Designer/Developer",     day: "9/3/2021",       member: 25,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "Web Designer/Developer",     day: "9/1/2019",       member: 75,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "Web Designer/Developer",     day: "9/10/2020",      member: 65,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "Web Designer/Developer",     day: "9/10/2023",      member: 55,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "Web Designer/Developer",     day: "9/10/2023",      member: 15,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "Web Designer/Developer",     day: "9/10/2023",      member: 15,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "Web Designer/Developer",     day: "9/10/2023",      member: 15,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "Web Designer/Developer",     day: "6/10/2023",      member: 15,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    {      nameJob: "Web Designer/Developer",     day: "9/11/2023",      member: 25,      quantity: 100,      link: "admin/candidate-pass-list/:JobId"    },
+    
+  ];
   return (
     <div className="">
     <div className="flex justify-center w-200%">
@@ -37,7 +48,7 @@ export default function ManagetJobList() {
         <Table className="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
           <TableHead className="text-xs text-gray-700 uppercase bg-gray-200 text-center">
             <TableRow>
-              <TableCell scope="col" className="px-6 py-1 ">                    Name Jobs                 </TableCell>
+              <TableCell scope="col" className="px-6 py-1 ">                   Name Jobs                 </TableCell>
               <TableCell scope="col" className="px-6 py-1">                    Date created                  </TableCell>
               <TableCell scope="col" className="px-6 py-1">                    Process                  </TableCell>
               <TableCell scope="col" className="px-6 py-1">                    Actions                  </TableCell>
@@ -45,7 +56,7 @@ export default function ManagetJobList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {JobManagerList.map((item, index) => (
+            {JobManagerList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, index,JobManagerList:any )=> (
               <TableRow className="text-black bg-white text-center justify-center" key={index}>
                   <TableCell scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"  > {item.nameJob}  </TableCell>
                   <TableCell className="px-6 py-4">{item.day}</TableCell>
