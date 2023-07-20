@@ -1,10 +1,9 @@
 import { MagnifyingGlassIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
-import DashBoardFooter from "../../components/RecFooter/DashboardFooter";
+import AddQuestion from "./AddQuestion";
 import PopUp from "./PopUp";
 import { useState, useEffect } from "react"
 import ListQuestions from "./ListQuestion";
-import CandidateResume from "./CandidateResume"
-import { InterviewQuestion } from "../Interviewer/InterviewerPages";
+
 
 type Record = {
    questionID: number;
@@ -17,8 +16,9 @@ export default function ScorePage() {
    //-----------ListQuestion----------------------------------------------------
    const [showPopUp, setShowPopUp] = useState(false)
    const [questions, setQuestions] = useState(' ')
-
-   const handleOnClose = () => setShowPopUp(false)
+   const [addQuestion, setAddQuestion] = useState(false)
+   const handleOnClick = ()=> setAddQuestion(false)
+   const handleSubmit = () => setShowPopUp(false)
    const handleQuestionClick = (question: any) => {
       setQuestions(question);
    };
@@ -42,7 +42,8 @@ export default function ScorePage() {
    // }
    //----------------------------------------------------------------------------- 
    return (
-      <div className="flex flex-col justify-center md:flex-row md:items-start md:w-full h-full my-3  drop-shadow-md">
+      <div>
+         <div className="flex flex-col justify-center md:flex-row md:items-start md:w-full h-full my-3  drop-shadow-md">
          {/* left component */}
          <div className="w-5/12 h-full bg-white flex flex-col mx-4 my-4 relative rounded-md  ">
             <div className="  w-full  bg-white rounded-lg shadow border  border-gray-200 ">
@@ -160,7 +161,7 @@ export default function ScorePage() {
                <div className="flex flex-col " >
                   <div className="flex justify-center my-2 ">
                      <div className="bg-emerald-600 h-fit w-11/12 rounded-lg p-2 pb-2 relative 
-                                    drop-shadow-lg hover:bg-emerald-700 hover:transition-all duration-200 ">
+                                    drop-shadow-lg hover:bg-emerald-700 hover:transition-all ">
                         <div className="flex flex-col">
                            <div className=" inline-flex gap-3 w-full h-full ">
                               <div className=" text-white font-semibold flex flex-col w-full justify-start">Question
@@ -173,7 +174,7 @@ export default function ScorePage() {
                               <div className="w-[10rem]">
                                  <div className="text-white text-left font-semibold rounded flex flex-col w-fit items-start">Score
                                     <div className="w-full h-[30px] bg-white rounded-md  text-black flex items-center" >
-                                       <input type="text" className="w-full text-center rounded-md" />
+                                       <input type="number" className="w-full text-center rounded-md" />
                                     </div>
                                  </div>
                               </div>
@@ -210,11 +211,11 @@ export default function ScorePage() {
                <div className=" w-2/5 h-fit absolute flex right-[-15px] top-[-20px] justify-end">
                   <button className="Text text-white px-4 py-2.5 bg-emerald-600 rounded-lg drop-shadow-xl 
                                                 text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
-                                                border-transparent border hover:border-emerald-600 hover:transition-all duration-200  " >
+                                                border-transparent border hover:border-emerald-600 hover:transition-all duration-200 " onClick={()=>setAddQuestion(true)} >
                      <PlusCircleIcon className="w-5 inline-flex" /> Add Question
                   </button>
                </div>
-               <div className=" h-fit flex flex-row w-11/12 mx-10 justify-between mb-3">
+               <div className=" h-fit flex flex-row w-11/12 mx-8 justify-between mb-3">
                   {/* Prev - Next */}
                   <div className="inline-flex items-start relative w-fit gap-x-2 ">
                      <div className="flex ">
@@ -243,7 +244,11 @@ export default function ScorePage() {
                </div>
             </div>
          </div>
-         <PopUp onClose={handleOnClose} visible={showPopUp} />
+         </div>
+         <div>
+         <PopUp onClose={handleSubmit} visible={showPopUp} />
+         <AddQuestion onClick = {handleOnClick} observation={addQuestion}/>
+         </div>
       </div>
    )
 

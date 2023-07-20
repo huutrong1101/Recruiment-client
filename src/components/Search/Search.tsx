@@ -3,7 +3,7 @@ import { MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import Button from '@mui/material/Button';
 function SearchBar() {
   const [searchQuery, setSearchQuery] = useState('');
-  const handleSearch = (e) => {
+  const handleSearch = (e:any) => {
     e.preventDefault();
     // Perform search operation with the searchQuery
     console.log('Searching for:', searchQuery);
