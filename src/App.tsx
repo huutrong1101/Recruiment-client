@@ -31,7 +31,6 @@ import ManageQuestion from "./pages/InterviewQuestion/ManageQuestion";
 import ReccerInterviewerManagement from "./pages/Reccer/ReccerInterviewerManagement";
 import ReccerEventManagement from "./pages/Reccer/ReccerEventManagement";
 import ReccerInterviewerDetail from "./pages/Reccer/InterviewerDetail";
-import CandidateList from "./pages/Reccer/CandidateList";
 import CandidateProfile from "./pages/Reccer/CandidateProfile";
 import {
   CandidateRecent,
@@ -60,7 +59,20 @@ import CandidateDetail from "./pages/Reccer/CandidateDetail";
 import Logout from "./pages/Logout/Logout";
 import OneTimePasswordVerify from "./pages/OneTimePasswordVerify/OneTimePasswordVerify";
 
+import { useEffect } from "react";
+import { useTokenAuthorize } from "./hooks/useTokenAuthorize";
+import { EventService } from "./services/EventService";
+import UserProfileMyInformation from "./pages/UserProfile/UserProfileMyInformation";
+
 export default function App() {
+  useTokenAuthorize();
+
+  useEffect(() => {
+    EventService.getEvents().then((response) => {
+      console.log(response.data._embedded.events);
+    });
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -89,6 +101,7 @@ export default function App() {
 
           <Route path="/profile" element={<UserProfileLayout />}>
             <Route index element={<UserProfileMyProfile />} />
+            <Route path="information" element={<UserProfileMyInformation />} />
             <Route path="interviews" element={<UserProfileInterviews />} />
             <Route
               path="submitted-jobs"

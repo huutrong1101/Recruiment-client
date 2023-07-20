@@ -36,7 +36,7 @@ export default function UserProfileInterviewListView() {
           >
             <InputIcon
               icon={<HiMagnifyingGlass />}
-              className={`text-base`}
+              className={`text-base px-3 py-2 w-full outline-none`}
               placeholder="Search for the interview"
               register={register}
               label={`search`}
@@ -64,7 +64,7 @@ export default function UserProfileInterviewListView() {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                  <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                     {INTERVIEW_STATUS.map((status, personIdx) => (
                       <Listbox.Option
                         key={status}
