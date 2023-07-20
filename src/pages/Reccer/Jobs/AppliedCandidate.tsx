@@ -1,4 +1,6 @@
+import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
+import { useNavigate } from "react-router-dom";
 
 export default function Applied() {
   const personArray = [
@@ -39,6 +41,12 @@ export default function Applied() {
     },
   ];
 
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = `../interview-schedule`;
+    navigate(path);
+  };
+
   return (
     <div
       className={classNames(
@@ -49,8 +57,8 @@ export default function Applied() {
     >
       <h1 className="text-2xl font-semibold">Applied Candidate</h1>
       <div className="relative overflow-x-auto p-4">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table className="w-full text-sm text-left text-gray-500 ">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
               <th scope="col" className="px-6 py-4">
                 Name
@@ -61,17 +69,18 @@ export default function Applied() {
               <th scope="col" className="px-6 py-4">
                 State
               </th>
+              <th className="py-4"></th>
             </tr>
           </thead>
           <tbody>
             {personArray.map((personArray, index) => (
               <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                className="bg-white border-b "
                 key={index}
               >
                 <td
                   scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                 >
                   {personArray.name}
                 </td>
@@ -90,6 +99,14 @@ export default function Applied() {
                   >
                     {personArray.state}
                   </span>
+                </td>
+                <td>
+                  <button>
+                    <CalendarDaysIcon
+                      className="w-6 h-6"
+                      onClick={routeChange}
+                    />
+                  </button>
                 </td>
               </tr>
             ))}

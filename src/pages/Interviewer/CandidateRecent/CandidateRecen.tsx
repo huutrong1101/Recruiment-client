@@ -8,11 +8,12 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { fetchCandidateRecent } from '../../../redux/reducer/CandidateRecentSlice';
 import Loader from '../../../components/Loader/Loader';
 import { STATUS } from '../../../utils/Status';
+import { Link } from 'react-router-dom';
 
 const rowsPerPageOptions = [5, 10];
 
 const CandidateRecent = () => {
-
+    
     const {candidatesRecent, candidatesRecentStatus} = useAppSelector((state: any) => state.candidateRecent);
     const dispatch = useAppDispatch();
 
@@ -38,7 +39,7 @@ const CandidateRecent = () => {
     }else if(candidatesRecentStatus === STATUS.IDLE){
         return (
             <div className='CandidateRecent'>
-                <div className='mb-5 text-2xl'>Candidate Recent</div>
+                <div className='mb-5 text-2xl mt-4'>Candidate Recent</div>
                 <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead className='bg-slate-300'>
@@ -69,7 +70,11 @@ const CandidateRecent = () => {
                                     </div>
                                 </TableCell>
                                 <TableCell>{(candidateRecent.id*candidateRecent.id*4)%100}</TableCell>
-                                <TableCell><PencilIcon className='w-4 h-4' /></TableCell>
+                                <TableCell>
+                                    <Link to={`/interviewer/candidate-recent/${candidateRecent.id}`} >
+                                        <PencilIcon className='w-4 h-4' />
+                                    </Link>
+                                </TableCell>
                             </TableRow>
                         ))}
     

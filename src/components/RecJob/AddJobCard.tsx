@@ -1,8 +1,8 @@
 import React, { useState, useEffect, Fragment } from "react";
 import classNames from "classnames";
-import PrimaryButton from "../../../components/PrimaryButton/PrimaryButton";
+import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import { Menu, Transition } from "@headlessui/react";
-import { JobData } from "../../../data/jobData";
+import { JobData } from "../../data/jobData";
 import {
   MagnifyingGlassIcon,
   ChevronDownIcon,
@@ -12,7 +12,7 @@ export default function AddJobCard({ cardData, setCardData }: any) {
   return (
     <div
       className={classNames(
-        `w-full bg-white shadow-sm px-4 py-6 rounded-xl border sticky top-4`,
+        `w-full bg-white shadow-sm px-4 py-6 rounded-xl border sticky top-20`,
         `flex flex-col gap-4`,
       )}
     >

@@ -1,4 +1,4 @@
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 
 import Authenticate from "./pages/Authenticate/Authenticate";
@@ -6,10 +6,6 @@ import AuthenticateLogin from "./pages/Authenticate/AuthenticateLogin";
 import AuthenticateSignUp from "./pages/Authenticate/AuthenticateSignUp";
 
 import UserAppLayout from "./components/Layout/UserAppLayout";
-import AdminAppLayout from "./components/Layout/AdminAppLayout";
-import RecruiterAppLayout from "./components/Layout/RecruiterAppLayout";
-import InterviewerAppLayout from "./components/Layout/InterviewerAppLayout";
-import ManagementAppLayOut from "./components/Layout/ManagementAppLayOut/ManagementAppLayOut";
 
 import Jobs from "./pages/Jobs/Jobs";
 import Events from "./pages/Events/Events";
@@ -34,36 +30,46 @@ import ManageQuestion from "./pages/InterviewQuestion/ManageQuestion";
 
 import ReccerInterviewerManagement from "./pages/Reccer/ReccerInterviewerManagement";
 import ReccerEventManagement from "./pages/Reccer/ReccerEventManagement";
-import ReccercandidateManagement from "./pages/Reccer/ReccercandidateManagement";
 import ReccerInterviewerDetail from "./pages/Reccer/InterviewerDetail";
 import CandidateList from "./pages/Reccer/CandidateList";
 import CandidateProfile from "./pages/Reccer/CandidateProfile";
-
-
-// Interviewer Pages
 import {
   CandidateRecent,
   InterviewRecent,
   InterviewQuestion,
+  InterviewDetail,
 } from "./pages/Interviewer/InterviewerPages";
+import UserProfileLayout from "./pages/UserProfile/UserProfileLayout";
+import UserProfileMyProfile from "./pages/UserProfile/UserProfileMyProfile";
+import UserProfileInterviews from "./pages/UserProfile/UserProfileInterviews/UserProfileInterviews";
+import UserProfileSubmittedJob from "./pages/UserProfile/UserProfileSubmittedJob";
 
 import ReccerJobDetail from "./pages/Reccer/Jobs/ReccerJobDetail";
 import Addjob from "./pages/Reccer/Jobs/Addjob";
+import ManagementAppLayOut from "./components/Layout/ManagementAppLayOut/ManagementAppLayOut";
+import ReccerCandidateManagement from "./pages/Reccer/ReccercandidateManagement";
+
+import RecEventDetail from "./pages/EventDetail/RecEventDetail";
+import AddEvent from "./components/AddEvent/AddEvent";
+import ListCandiPass from "./components/AdminManagerList/ListCandiPass";
+import DeleteBlacklist from "./pages/Admin/DeleteBlacklist";
+import CreateCV from "./pages/CreateCV/CreateCV";
+import RequestTest from "./pages/RequestTest/RequestTest";
+import InterviewSched from "./pages/Reccer/Interview/InterviewSched";
 
 export default function App() {
   return (
     <BrowserRouter>
-      {/* Route switcher */}
       <Routes>
         <Route path="/" element={<UserAppLayout />}>
           <Route index element={<Home />} />
           <Route path="jobs" element={<Jobs />} />
           <Route path="/jobs/:jobId" element={<JobDetail />} />
           <Route path="events" element={<Events />} />
-
           <Route path="/events/:eventId" element={<EventDetail />} />
           <Route path="contact" element={<Contact />} />
           <Route path="about-us" element={<AboutUs />} />
+          <Route path="create-cv" element={<CreateCV />} />
 
           <Route path="auth" element={<Authenticate />}>
             <Route path="login" element={<AuthenticateLogin />} />
@@ -75,50 +81,80 @@ export default function App() {
             <Route path="incomplete" element={<IncompleteConfirmEmail />} />
             <Route path="complete" element={<CompleteConfirmEmail />} />
           </Route>
+
+          <Route path="/profile" element={<UserProfileLayout />}>
+            <Route index element={<UserProfileMyProfile />} />
+            <Route path="interviews" element={<UserProfileInterviews />} />
+            <Route
+              path="submitted-jobs"
+              element={<UserProfileSubmittedJob />}
+            />
+          </Route>
+          <Route path="/test-request" element={<RequestTest />} />
         </Route>
 
         <Route path="/admin" element={<ManagementAppLayOut />}>
-          <Route path="AdminDashboard" index element={<AdminDashboard />} />
-          <Route path="ChangPosition" element={<AdminChangePosition />} />
-
-          <Route path="AddBlacklist" element={<AddBlacklist />} />
-          <Route path="AdminProfile" element={<AdminProfile />} />
-          <Route path="AdminJobManager" element={<ManagetJobList />} />
+          <Route path="dashboard" index element={<AdminDashboard />} />
+          <Route path="position-change" element={<AdminChangePosition />} />
+          <Route path="blacklist-add" element={<AddBlacklist />} />
+          <Route path="blacklist-delete" element={<DeleteBlacklist />} />
+          <Route path="profile" element={<AdminProfile />} />
+          <Route
+            path="candidate-pass-list/:JobID"
+            element={<ListCandiPass />}
+          />
+          <Route path="job-manager" element={<ManagetJobList />} />
         </Route>
 
         <Route path="/recruiter" element={<ManagementAppLayOut />}>
           {/* Define recruiter routes here */}
           <Route path="dashboard" index element={<ReccerDashboard />} />
-          <Route path="candidateinfo" element={<CandidateProfile />} />
-          <Route path="candidatelist" element={<CandidateList />} />
+          <Route path="candidate-info" element={<CandidateProfile />} />
+          <Route path="candidate-list" element={<CandidateList />} />
 
           <Route path="job-management" element={<ReccerJobManagement />} />
           <Route path="calender" element={<Reccercalender />} />
-          <Route path="interviewer"element={<ReccerInterviewerManagement />}/>
-          <Route path="interviewer-profile"element={<ReccerInterviewerDetail />}/>
+          <Route path="interviewer" element={<ReccerInterviewerManagement />} />
+          <Route
+            path="interviewer/:id"
+            element={<ReccerInterviewerDetail />}
+          />
 
           <Route path="jobdetail" element={<ReccerJobDetail />} />
           <Route path="addjob" element={<Addjob />} />
-          <Route path="interviewer" element={<ReccerInterviewerManagement />} />
 
           <Route path="event" element={<ReccerEventManagement />} />
-          <Route path="candidate" element={<ReccercandidateManagement />} />
+          <Route path="event-manager/:eventId" element={<RecEventDetail />} />
+          <Route path="events-add" element={<AddEvent />} />
+          {/* <Route path="job-management" element={<Reccer_JobManagement />} />
+          <Route path="calender" element={<Reccer_calender />} /> */}
+
+          <Route path="event-manager" element={<ReccerEventManagement />} />
+          <Route path="candidate" element={<ReccerCandidateManagement />} />
+
+          <Route path="interview-schedule" element={<InterviewSched />} />
         </Route>
 
         <Route path="/interviewer" element={<ManagementAppLayOut />}>
+          {/* Define interviewer routes here */}
           <Route path="interview-recent" element={<InterviewRecent />} />
-          <Route path="interview-question" element={<InterviewQuestion />} />
+          <Route path="interview-recent/:id" element={<InterviewDetail />} />
+          <Route path="interview-question" element={<ManageQuestion />} />
           <Route path="candidate-recent" element={<CandidateRecent />} />
-          <Route index path ="manageQuestion" element={<ManageQuestion />} />
-          <Route index path ="scorePage" element={<ScorePage />} />
-
+          <Route
+            path="candidate-recent/:id"
+            element={<ReccerInterviewerDetail />}
+          />
+          <Route index path="scorePage" element={<ScorePage />} />
         </Route>
-        <Route path="/interviewer" element={<InterviewerAppLayout />}>
+        <Route path="/interviewer" element={<ManagementAppLayOut />}>
           {/* Define interviewer routes here */}
           {/* <Route index path ="/manageQuestion" element={<ManageQuestion />} /> */}
           <Route index path="manageQuestion" element={<ManageQuestion />} />
           <Route index path="scorePage" element={<ScorePage />} />
         </Route>
+
+        {/* <Route path="/test" element={Test} /> */}
       </Routes>
     </BrowserRouter>
   );

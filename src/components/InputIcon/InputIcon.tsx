@@ -1,14 +1,26 @@
 import classnames from "classnames";
-export interface InputIconProps extends React.HTMLProps<HTMLInputElement> {
+import { FieldValues, UseFormRegister, Path } from "react-hook-form";
+
+// export interface InputIconValues extends React.HTMLProps<HTMLInputElement> {}
+
+interface InputIconProps<T extends FieldValues>
+  extends React.HTMLProps<HTMLInputElement> {
+  register: UseFormRegister<T>;
+  required?: boolean;
   icon: React.ReactElement;
   wrapperClassName?: string;
+  className?: string;
+  label: Path<T>;
 }
 
-export default function InputIcon({
-  icon,
+export default function InputIcon<T extends FieldValues>({
   wrapperClassName,
+  icon,
+  register,
+  label,
+  required,
   ...children
-}: InputIconProps) {
+}: InputIconProps<T>) {
   return (
     <div
       className={classnames(
@@ -25,13 +37,13 @@ export default function InputIcon({
 
       <div className="flex-1">
         <input
-          placeholder="abc"
           className={classnames(
             `p-2`,
             `font-light`,
             `outline-none rounded-r-md`,
             `w-full`,
           )}
+          {...register(label, { required })}
           {...children}
         />
       </div>

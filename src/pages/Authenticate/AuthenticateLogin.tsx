@@ -3,12 +3,19 @@ import classnames from "classnames";
 import { useForm } from "react-hook-form";
 import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/outline";
 import InputIcon from "../../components/InputIcon/InputIcon";
+
+import { useAppDispatch } from "../../hooks/hooks";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
+import { authLogin } from "../../redux/AuthSlice";
+import { UserLoginParamsInterface } from "../../services/services";
 
 export default function AuthenticateLogin() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<UserLoginParamsInterface>();
+  const dispatch = useAppDispatch();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data: UserLoginParamsInterface) => {
+    dispatch(authLogin(data));
+  };
 
   return (
     <form
@@ -26,14 +33,17 @@ export default function AuthenticateLogin() {
           icon={<EnvelopeIcon />}
           type="text"
           placeholder="email address or phone number"
-          name={"credentialId"}
+          register={register}
+          label={`credentialId`}
         />
 
         <InputIcon
           icon={<LockClosedIcon />}
           placeholder="password"
           type="password"
-          name={"password"}
+          register={register}
+          label={`password`}
+          autoComplete="current-password"
         />
 
         {/* Remember Me */}
@@ -43,7 +53,17 @@ export default function AuthenticateLogin() {
         </div>
 
         {/* Forgot password */}
-        <PrimaryButton text={"Sign in"} />
+        <div className="inline-flex flex-col items-center justify-center h-10 text-sm bg-white bg-opacity-0 rounded-lg Button w-44">
+          <div className="Basebutton px-3 py-1.5 justify-center items-center inline-flex">
+            <div className="flex items-center justify-center gap-2 Content">
+              <div className="font-semibold leading-7 tracking-wide capitalize Button text-emerald-800">
+                Forget Password?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <PrimaryButton text="Sign in" isLoading />
       </div>
     </form>
   );

@@ -1,7 +1,13 @@
 import classNames from "classnames";
 import AvatarCandidate from "../../../components/Candidate/Avatar";
+import { useNavigate } from "react-router-dom";
 
 export default function Suggested() {
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = `../candidate-info`;
+    navigate(path);
+  };
   const candidates = [
     {
       name: "John Smith",
@@ -71,7 +77,7 @@ export default function Suggested() {
               </div>
               <button
                 className="rounded-lg bg-[#48A381] hover:bg-green-900 px-4 py-2 mx-2 my-1 text-white"
-                // onClick={routeChange}
+                onClick={routeChange}
               >
                 Profile
               </button>
