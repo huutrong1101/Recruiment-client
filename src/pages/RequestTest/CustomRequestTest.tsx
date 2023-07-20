@@ -3,36 +3,57 @@ import InputIcon from "../../components/InputIcon/InputIcon";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { useForm } from "react-hook-form";
 import { CodeBracketIcon, LockClosedIcon } from "@heroicons/react/24/outline";
-import { UserService } from "../../services/UserService";
 import axiosInstance from "../../utils/AxiosInstance";
+import { JsonViewer } from "@textea/json-viewer";
+
+interface FormParams {
+  urlPath: string;
+  method: string;
+}
 
 export default function CustomRequestTest() {
   const [response, setResponse] = React.useState<string | null>(null);
-  const { register, handleSubmit } = useForm<{ token: string }>();
+  const { register, handleSubmit } = useForm<FormParams>();
 
-  const onSubmit = async ({ token }: { token: string }) => {
-    // const response = await axiosInstance.
-    // console.debug(response.data);
-    // Set response
-    // setResponse(JSON.stringify(response.data.result));
+  const onSubmit = async ({ urlPath, method }: any) => {
+    // alert(`submit`);
+
+    axiosInstance(urlPath, {
+      method,
+    }).then((response: any) => setResponse(response.data));
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
+    <form
+      onSubmit={handleSubmit(onSubmit, () => alert(`Please enter endpoint.`))}
+      className="flex flex-col gap-2"
+    >
       <h1 className="font-bold text-xl">Custom url test</h1>
-      <InputIcon
-        icon={<CodeBracketIcon />}
-        register={register}
-        label="token"
-        multiple={true}
-        placeholder="RESTful API path"
-        required
-        autoComplete="none"
-      />
 
-      {response !== null && <textarea>{response}</textarea>}
+      <div className="flex flex-row items-center gap-4">
+        <select {...register(`method`)}>
+          <option value="get">GET</option>
+          <option value="post">POST</option>
+          <option value="put">PUT</option>
+          <option value="delete">DELETE</option>
+        </select>
 
-      <PrimaryButton type="submit" text="Send" />
+        <InputIcon
+          icon={<CodeBracketIcon />}
+          register={register}
+          label="urlPath"
+          multiple={true}
+          placeholder="RESTful API path"
+          required
+          defaultValue={`/`}
+          autoComplete="none"
+        />
+        <PrimaryButton type="submit" text="Send" />
+      </div>
+
+      <span>Response</span>
+
+      {response !== null && <JsonViewer value={response} />}
     </form>
   );
 }

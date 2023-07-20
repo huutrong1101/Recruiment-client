@@ -19,7 +19,7 @@ export default function RequestTest() {
     <div>
       <div
         className={classNames(
-          `md:w-5/12 mx-auto my-6 border p-4 flex flex-col gap-2`,
+          `md:w-10/12 mx-auto my-6 border p-4 flex flex-col gap-2`,
         )}
       >
         <PrimaryButton text="Test" onClick={handleTestButton} />
