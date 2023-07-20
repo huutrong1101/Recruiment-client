@@ -5,7 +5,7 @@ const getUserFromToken = async (jwtToken: string) => {
     throw new Error(`jwtToken parameter cannot be undefined or null`);
   }
 
-  return await axiosInstance.get(`/api/user/profile`, {
+  return await axiosInstance.get(`/user/profile`, {
     headers: { Authorization: `Bearer ${jwtToken}` },
   });
 };

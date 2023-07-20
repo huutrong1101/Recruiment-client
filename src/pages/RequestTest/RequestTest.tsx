@@ -6,6 +6,7 @@ import { UserService } from "../../services/UserService";
 import { useAppSelector } from "../../hooks/hooks";
 import InputIcon from "../../components/InputIcon/InputIcon";
 import TokenPasteRequestTest from "./TokenPasteRequestTest";
+import CustomRequestTest from "./CustomRequestTest";
 
 export default function RequestTest() {
   const handleTestButton = async () => {
@@ -31,6 +32,8 @@ export default function RequestTest() {
             axiosInstance.get(`/api/jobs/`);
           }}
         />
+
+        <CustomRequestTest />
       </div>
     </div>
   );
