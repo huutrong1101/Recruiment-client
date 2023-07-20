@@ -11,7 +11,7 @@ async function register({
   password,
   confirmPassword,
 }: UserRegisterParamsInterface) {
-  return axiosInstance.post(`/api/auth/register`, {
+  return axiosInstance.post(`/auth/register`, {
     fullName,
     email,
     phone,
@@ -21,7 +21,7 @@ async function register({
 }
 
 function login({ credentialId, password }: UserLoginParamsInterface) {
-  return axiosInstance.post(`/api/auth/login`, { credentialId, password });
+  return axiosInstance.post(`/auth/login`, { credentialId, password });
 }
 
 export const AuthService = {
