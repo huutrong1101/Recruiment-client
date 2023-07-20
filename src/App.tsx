@@ -56,6 +56,7 @@ import DeleteBlacklist from "./pages/Admin/DeleteBlacklist";
 import CreateCV from "./pages/CreateCV/CreateCV";
 import RequestTest from "./pages/RequestTest/RequestTest";
 import InterviewSched from "./pages/Reccer/Interview/InterviewSched";
+import Logout from "./pages/Logout/Logout";
 
 export default function App() {
   return (
@@ -91,6 +92,7 @@ export default function App() {
             />
           </Route>
           <Route path="/test-request" element={<RequestTest />} />
+          <Route path="/logout" element={<Logout />} />
         </Route>
 
         <Route path="/admin" element={<ManagementAppLayOut />}>
@@ -115,10 +117,7 @@ export default function App() {
           <Route path="job-management" element={<ReccerJobManagement />} />
           <Route path="calender" element={<Reccercalender />} />
           <Route path="interviewer" element={<ReccerInterviewerManagement />} />
-          <Route
-            path="interviewer/:id"
-            element={<ReccerInterviewerDetail />}
-          />
+          <Route path="interviewer/:id" element={<ReccerInterviewerDetail />} />
 
           <Route path="jobdetail" element={<ReccerJobDetail />} />
           <Route path="addjob" element={<Addjob />} />
