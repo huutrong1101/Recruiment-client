@@ -21,6 +21,7 @@ function UserProfileInformation() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const onDataChangeSubmit = (data: any) => {
     console.log(data);
   };
@@ -57,12 +58,11 @@ function UserProfileInformation() {
         >
           <div>
             <InputIcon
+              type="text"
               icon={<HiUserCircle />}
               placeholder={`Full Name`}
-              {...register("fullName", {
-                required: true,
-              })}
-              name={`fullName`}
+              register={register}
+              label={`fullName`}
             />
 
             {errors.fullName && (
@@ -74,22 +74,28 @@ function UserProfileInformation() {
 
           <InputIcon
             icon={<HiEnvelope />}
+            type="text"
             placeholder={`Email`}
-            {...register("email")}
-            name={`email`}
+            register={register}
+            label={`email`}
           />
-          <InputIcon
-            icon={<HiMapPin />}
-            placeholder={`Location`}
-            {...register(`location`)}
-            name={`location`}
-          />
+
           <InputIcon
             icon={<HiPhone />}
+            type="text"
             placeholder={`Phone`}
-            {...register("phone")}
-            name={`phone`}
+            register={register}
+            label={`phone`}
           />
+
+          <InputIcon
+            icon={<HiMapPin />}
+            type="text"
+            placeholder={`Location`}
+            register={register}
+            label={`location`}
+          />
+
           {/* Submit button */}
           <div className="flex flex-row-reverse">
             <PrimaryButton
@@ -106,6 +112,16 @@ function UserProfileInformation() {
 }
 
 function UserProfilePassword() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onDataChangeSubmit = (data: any) => {
+    console.log(data);
+  };
+
   return (
     <div className="p-4 border rounded-xl border-zinc-100">
       <h1 className={classNames(`text-2xl font-semibold flex-1 md:mb-4`)}>
@@ -118,21 +134,30 @@ function UserProfilePassword() {
         ></div>
 
         {/* General information fields */}
-        <div className={classNames(`flex-1 flex flex-col gap-2`)}>
+        <form
+          onSubmit={handleSubmit(onDataChangeSubmit)}
+          className={classNames(`flex-1 flex flex-col gap-2`)}
+        >
           <InputIcon
             icon={<HiKey />}
             placeholder={`Current password`}
             type="password"
+            register={register}
+            label={`current-password`}
           />
           <InputIcon
             icon={<HiKey />}
             placeholder={`New password`}
             type={`password`}
+            register={register}
+            label={`new-password`}
           />
           <InputIcon
             icon={<HiKey />}
             placeholder={`Confirm new password`}
             type={`password`}
+            register={register}
+            label={`confirm-password`}
           />
 
           {/* Submit button */}
@@ -143,7 +168,7 @@ function UserProfilePassword() {
               className={`md:!w-5/12`}
             />
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
@@ -152,8 +177,15 @@ function UserProfilePassword() {
 export default function UserProfileMyProfile() {
   let [isOpen, setIsOpen] = useState(false);
 
+  const [file, setFile] = useState<File | null>(null);
+
   const handleDelete = () => {
     alert("Delete success");
+  };
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newFile: File | undefined = event.target.files?.[0];
+    setFile(newFile || null);
   };
 
   function closeModal() {
@@ -219,7 +251,24 @@ export default function UserProfileMyProfile() {
             />
 
             {/* Submit button */}
-            <div className="flex flex-row-reverse">
+            <div className="flex flex-row-reverse gap-2">
+              <label
+                htmlFor="file-input"
+                className={classNames(
+                  `Button bg-emerald-600 hover:bg-emerald-800 text-white`,
+                  `transition-colors ease-in-out duration-100`,
+                  `rounded-lg flex-col justify-center items-center inline-flex`,
+                  "text-base px-4 py-2 w-full md:!w-5/12",
+                )}
+              >
+                Upload resume
+              </label>
+              <input
+                type="file"
+                id="file-input"
+                className="hidden"
+                onChange={handleFileUpload}
+              />
               <Link
                 to="/create-cv"
                 className={classNames(
@@ -229,7 +278,7 @@ export default function UserProfileMyProfile() {
                   "text-base px-4 py-2 w-full md:!w-5/12",
                 )}
               >
-                Add resume
+                Create resume
               </Link>
             </div>
           </div>

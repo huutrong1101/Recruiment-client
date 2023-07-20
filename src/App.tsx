@@ -65,9 +65,17 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./hooks/hooks";
 import { authLogout, fetchUserFromToken } from "./redux/AuthSlice";
 import { useTokenAuthorize } from "./hooks/useTokenAuthorize";
+import { EventService } from "./services/EventService";
+import UserProfileMyInformation from "./pages/UserProfile/UserProfileMyInformation";
 
 export default function App() {
   useTokenAuthorize();
+
+  useEffect(() => {
+    EventService.getEvents().then((response) => {
+      console.log(response.data._embedded.events);
+    });
+  }, []);
 
   return (
     <BrowserRouter>
@@ -95,6 +103,7 @@ export default function App() {
 
           <Route path="/profile" element={<UserProfileLayout />}>
             <Route index element={<UserProfileMyProfile />} />
+            <Route path="information" element={<UserProfileMyInformation />} />
             <Route path="interviews" element={<UserProfileInterviews />} />
             <Route
               path="submitted-jobs"
@@ -126,10 +135,7 @@ export default function App() {
           <Route path="job-management" element={<ReccerJobManagement />} />
           <Route path="calender" element={<Reccercalender />} />
           <Route path="interviewer" element={<ReccerInterviewerManagement />} />
-          <Route
-            path="interviewer/:id"
-            element={<ReccerInterviewerDetail />}
-          />
+          <Route path="interviewer/:id" element={<ReccerInterviewerDetail />} />
 
           <Route path="jobdetail" element={<ReccerJobDetail />} />
           <Route path="addjob" element={<Addjob />} />

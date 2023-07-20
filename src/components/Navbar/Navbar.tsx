@@ -10,6 +10,7 @@ import {
   HiCog6Tooth,
   HiQuestionMarkCircle,
   HiArrowLeftOnRectangle,
+  HiInformationCircle,
 } from "react-icons/hi2";
 
 export default function Navbar() {
@@ -22,6 +23,11 @@ export default function Navbar() {
       url: "/profile/",
       icon: <HiUserCircle />,
       text: "My Profile",
+    },
+    {
+      url: "/profile/information",
+      icon: <HiInformationCircle />,
+      text: "My Information",
     },
     {
       url: "/profile/interviews",
