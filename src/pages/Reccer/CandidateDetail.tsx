@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../hooks/hooks";
 import RecCandidateDetailCard from "../../components/RecCandidateManageCard/RecCandidateDetailCard";
 import CandidateList from "./CandidateList";
+import InterviewHistory from "../../components/RecCandidateManageCard/InterviewHistory";
 export default function CandidateDetail() {
   const { id } = useParams();
   const { candidatesRecent } = useAppSelector(
@@ -23,6 +24,9 @@ export default function CandidateDetail() {
       {/* <div className="pb-10">
         <CandidateList />
       </div> */}
+      <div>
+        <InterviewHistory />
+      </div>
     </div>
   );
 }

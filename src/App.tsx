@@ -47,7 +47,7 @@ import UserProfileSubmittedJob from "./pages/UserProfile/UserProfileSubmittedJob
 import ReccerJobDetail from "./pages/Reccer/Jobs/ReccerJobDetail";
 import Addjob from "./pages/Reccer/Jobs/Addjob";
 import ManagementAppLayOut from "./components/Layout/ManagementAppLayOut/ManagementAppLayOut";
-import ReccerCandidateManagement from "./pages/Reccer/ReccerCandidateManagement";
+import ReccerCandidateManagement from "./pages/Reccer/ReccercandidateManagement";
 
 import RecEventDetail from "./pages/EventDetail/RecEventDetail";
 import AddEvent from "./components/AddEvent/AddEvent";
