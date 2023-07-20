@@ -16,6 +16,7 @@ export default function DeleteBlacklist() {
     phone: "012367xxx",
     address: "123 Main St Ba Ria Vung Tau St",
     positon: "Candidate",
+    resion: "Đây là lý do add blacklist nó",
     }]);
     const goBack = () => {
         window.history.back();
@@ -33,7 +34,7 @@ return (
           {/* Information */}
           <div className="flex gap-5">
             {/* Avarta */}
-            <div className="bg-white rounded-lg shadow-lg w-[30%] h-fit sticky">
+            <div className="bg-white rounded-lg shadow-lg w-[40%] flex justify-center items-center">
                 {/* Avatar */}
                 <div className=''>
                     <div className='flex justify-center'> <img src={item.avatar} className='w-[150px] h-[150px] justify-center rounded-full' alt="blog_image" /></div>
@@ -43,8 +44,8 @@ return (
             <div className="bg-white rounded-lg shadow-lg w-[70%] top-4 ">
               <div className = "grid md:grid-cols-1 text-sm self-stretch px-2 pt-[13px] pb-[11px]">
                 {/* Title */}
-                <div className = "flex items-center text-center space-x-2 font-semibold text-green-500">
-                    <span className = "tracking-wide text-center  text-emerald-600 text-[28px] ">Information</span>
+                <div className="flex items-center justify-center text-center space-x-2 font-semibold text-green-500">
+                    <span className="tracking-wide text-bold-center flex text-emerald-600 text-[30px]">Information</span>
                 </div>
                 {/* Name */}
                 <div className = "grid grid-cols-1">
@@ -69,19 +70,16 @@ return (
                 {/* Reasion */}
                 <div className = "grid grid-cols-1">
                     <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide"> Reasion </div>
-                    <TextareaAutosize
-                        id="description"
-                        minRows={4}
-                        className="resize-none p-2.5 w-full text-justify bg-white border"
-                        placeholder="Job description here..."
-                    />
+                    <div className = "">
+                        <TextareaAutosize className="resize-none p-2.5 w-full text-justify px-4 py-2 self-stretch pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50" value={item.resion} readOnly />
+                    </div>
                 </div>
                 {/* AdBacklist */}
                 <div className={classnames("mt-10 text-center px-5 py-4")}>
                     <NavLink to="#" onClick={goBack}>
                         <button type="submit" className="px-6 py-3 text-white rounded-full bg-red-600     hover:bg-red-800">  Cancel   </button>
                     </NavLink>
-                <button type="submit" className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800 ml-5" variant="outlined" onClick={handleClickOpen}>  Save   </button>
+                        <button type="submit" className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800 ml-5" variant="outlined" onClick={handleClickOpen}>  Delete   </button>
                     <Dialog
                         open={open}
                         onClose={handleClose}
@@ -97,8 +95,10 @@ return (
                         </DialogContentText>
                         </DialogContent>
                         <DialogActions>
-                        <Button onClick={handleClose}>Disagree</Button>
-                        <Button onClick={handleClose} autoFocus type='submit'>
+                        <Button onClick={handleClose} color="error" variant="contained">Disagree</Button>
+                        <Button onClick={handleClose} autoFocus type='submit' variant="contained" sx={{
+                                backgroundColor: "#059669",'&:hover': { backgroundColor: "#289972", },
+                            }}>
                             Agree
                         </Button>
                         </DialogActions>
