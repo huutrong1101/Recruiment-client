@@ -136,6 +136,7 @@ export default function UserProfileSubmittedJob() {
               status: <JobStatusBadge status="failed" />,
             },
           ]}
+          isModal={false}
         />
       </div>
 

@@ -71,12 +71,6 @@ import UserProfileMyInformation from "./pages/UserProfile/UserProfileMyInformati
 export default function App() {
   useTokenAuthorize();
 
-  useEffect(() => {
-    EventService.getEvents().then((response) => {
-      console.log(response.data._embedded.events);
-    });
-  }, []);
-
   return (
     <BrowserRouter>
       <Routes>
