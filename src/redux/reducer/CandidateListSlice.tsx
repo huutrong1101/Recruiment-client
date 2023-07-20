@@ -5,35 +5,35 @@ import { useDispatch } from "react-redux";
 const BASE_URL_FAKE_DATA = `https://api.escuelajs.co/api/v1/`;
 
 const CandidateListSlice = createSlice({
-  name: "candidateRecent",
+  name: "candidateList",
   initialState: {
-    candidatesRecent: [],
-    candidatesRecentStatus: STATUS.IDLE,
+    candidatesList: [],
+    candidatesListStatus: STATUS.IDLE,
   },
   reducers: {
-    setCandidatesRecent(state, action) {
-      state.candidatesRecent = action.payload;
+    setCandidatesList(state, action) {
+      state.candidatesList = action.payload;
     },
-    setCandidatesRecentStatus(state, action) {
-      state.candidatesRecentStatus = action.payload;
+    setCandidatesListStatus(state, action) {
+      state.candidatesListStatus = action.payload;
     },
   },
 });
 
 export default CandidateListSlice.reducer;
-export const { setCandidatesRecent, setCandidatesRecentStatus } =
+export const { setCandidatesList, setCandidatesListStatus } =
   CandidateListSlice.actions;
 
 export const fetchCandidateList = () => {
   return async function fetchCandidateListThunk(dispatch: Dispatch) {
-    dispatch(setCandidatesRecentStatus(STATUS.LOADING));
+    dispatch(setCandidatesListStatus(STATUS.LOADING));
     try {
       const reponse = await fetch(`${BASE_URL_FAKE_DATA}users`);
       const data = await reponse.json();
-      dispatch(setCandidatesRecent(data));
-      dispatch(setCandidatesRecentStatus(STATUS.IDLE));
+      dispatch(setCandidatesList(data));
+      dispatch(setCandidatesListStatus(STATUS.IDLE));
     } catch (error) {
-      dispatch(setCandidatesRecentStatus(STATUS.ERROR));
+      dispatch(setCandidatesListStatus(STATUS.ERROR));
     }
   };
 };

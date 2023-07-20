@@ -8,8 +8,8 @@ import Loader from "../../components/Loader/Loader";
 import RecCandidateCard from "../../components/RecCandidateManageCard/RecCandidateManageCard";
 
 const ReccerCandidateManagement = () => {
-  const { candidatesRecent, candidatesRecentStatus } = useAppSelector(
-    (state: any) => state.candidateRecent,
+  const { candidatesList, candidatesListStatus } = useAppSelector(
+    (state: any) => state.candidateList,
   );
   const dispatch = useAppDispatch();
 
@@ -17,9 +17,9 @@ const ReccerCandidateManagement = () => {
     dispatch(fetchCandidateList());
   }, []);
 
-  if (candidatesRecentStatus === STATUS.LOADING) {
+  if (candidatesListStatus === STATUS.LOADING) {
     return <Loader />;
-  } else if (candidatesRecentStatus === STATUS.IDLE) {
+  } else if (candidatesListStatus === STATUS.IDLE) {
     return (
       <>
         <form className="flex w-3/4 items-center mx-auto p-2">
@@ -51,7 +51,7 @@ const ReccerCandidateManagement = () => {
         </form>
         <div className="flex flex-wrap justify-center items-center mt-[20px] ">
           {/* <!-- Card --> */}
-          {candidatesRecent.map((candidate: any) => (
+          {candidatesList.map((candidate: any) => (
             <div
               key={candidate.id}
               className=" px-3 mb-8 lg:w-1/4 md:w-1/3 sm:w-3/4"
