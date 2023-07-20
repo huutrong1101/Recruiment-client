@@ -12,8 +12,22 @@ import { useForm } from "react-hook-form";
 
 const INTERVIEW_STATUS = ["Any", "Pending", "Finished"];
 
-export default function UserProfileInterviewListView() {
-  const { register, handleSubmit } = useForm();
+// export default function UserProfileInterviewListView() {
+//   const { register, handleSubmit } = useForm();
+export interface TableRow {
+  id: string;
+  value: any;
+}
+
+export interface TableProps<T> {
+  rows: TableRow[];
+  data: T[];
+}
+
+export default function UserProfileInterviewListView<T>({
+  rows,
+  data,
+}: TableProps<T>) {
   const [filterType, setFilterType] = useState<number>(0);
 
   const onSubmit = (data: any) => {};
@@ -101,37 +115,9 @@ export default function UserProfileInterviewListView() {
       {/* Body */}
       <div>
         <UserProfileInterviewListViewTable
-          rows={[
-            {
-              id: "job",
-              value: "Position recruitment",
-            },
-            {
-              id: "date",
-              value: "Date",
-            },
-            {
-              id: "interviewer",
-              value: "Interviewer",
-            },
-          ]}
-          data={[
-            {
-              job: "Interview for Jobs #1722",
-              date: new Date().toDateString(),
-              interviewer: "Trong",
-            },
-            {
-              job: "Interview for Jobs #481",
-              date: new Date().toDateString(),
-              interviewer: "Trong",
-            },
-            {
-              job: "Interview for React #012",
-              date: new Date().toDateString(),
-              interviewer: "Trong",
-            },
-          ]}
+          rows={rows}
+          data={data}
+          isModal={true}
         />
       </div>
 
