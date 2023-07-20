@@ -44,13 +44,12 @@ export default function ReccerEventManagement() {
           <SearchBar />
       </div>
       {/* Add Event */}
-      <div className="ml-5 mt-5 flex justify-center items-center  w-1/6">
-        <NavLink to="/recruiter/events-add" onClick={() => {}}>
-          <button className="text-white shadow text-sm font-medium leading-tight flex py-2 px-2 justify-start bg-emerald-600 rounded-full ">
-            + Add Event
-          </button>
-        </NavLink>
-      </div>
+      <NavLink to="/recruiter/events-add" onClick={() => {}}>
+        <button className="text-white shadow text-sm font-medium leading-tight flex py-2 px-2 justify-start bg-emerald-600 rounded-full ">
+          + Add Event
+        </button>
+      </NavLink>
+      
       {/* Conten */}
       <div>
         <div className="flex flex-wrap -mx-4 mt-[50px]">
