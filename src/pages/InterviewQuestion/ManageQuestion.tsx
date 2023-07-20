@@ -8,7 +8,7 @@ export default function QuestionInterview() {
   return (
     <div>
       <div className="w-full h-full bg-white flex justify-center">
-        <div className="Table relative w-11/12 min-h-full  bg-white rounded-lg shadow border border border border border-gray-200 pt-4">
+        <div className="Table relative w-11/12 min-h-full  bg-white rounded-lg shadow border border-gray-200 pt-4">
           <div className="relative">
             {/* interviewQuestion */}
             <div className=" w-full Content self-stretch px-6 pt-5 pb-[19px] justify-start items-start inline-flex">
@@ -41,7 +41,7 @@ export default function QuestionInterview() {
             {/* filter */}
             <div className="FiltersBar w-full h-[68px] bg-white flex-col justify-start items-start inline-flex">
               <div className="Content w-full px-4 py-3 rounded-xl justify-between items-start gap-4 inline-flex absolute ">
-                <div className="ButtonGroup rounded-lg shadow border border border border border-gray-300 justify-start items-start flex">
+                <div className="ButtonGroup rounded-lg shadow border border-gray-300 justify-start items-start flex">
                   <div className="ButtonGroupBase px-4 py-2.5 bg-gray-50 border border-gray-300 justify-center items-center gap-2 flex">
                     <div className="Text text-slate-800 text-[14px] font-medium leading-tight">
                       View all
@@ -80,7 +80,7 @@ export default function QuestionInterview() {
                     </label>
                   </div>
                   <div className="Button rounded-lg justify-start items-start flex">
-                    <div className="ButtonBase px-4 py-2.5 bg-white rounded-lg shadow border border border border border-gray-300 justify-center items-center gap-2 flex">
+                    <div className="ButtonBase px-4 py-2.5 bg-white rounded-lg shadow border  border-gray-300 justify-center items-center gap-2 flex">
                       <div className="FiltersLines w-5 h-5 relative" />
                       <div className="Text text-slate-700 text-[14px] font-medium leading-tight">
                         Filters
@@ -194,14 +194,14 @@ export default function QuestionInterview() {
             </div>
             <div className="Actions justify-center items-center gap-3 flex">
               <div className="Button rounded-lg justify-start items-start flex">
-                <div className="ButtonBase px-3.5 py-2 bg-white rounded-lg shadow border border border border border-gray-300 justify-center items-center gap-2 flex">
+                <div className="ButtonBase px-3.5 py-2 bg-white rounded-lg shadow border  border-gray-300 justify-center items-center gap-2 flex">
                   <div className="Text text-slate-700 text-[14px] font-medium leading-tight">
                     Previous
                   </div>
                 </div>
               </div>
               <div className="Button rounded-lg justify-start items-start flex">
-                <div className="ButtonBase px-3.5 py-2 bg-white rounded-lg shadow border border border border border-gray-300 justify-center items-center gap-2 flex">
+                <div className="ButtonBase px-3.5 py-2 bg-white rounded-lg shadow  border border-gray-300 justify-center items-center gap-2 flex">
                   <div className="Text text-slate-700 text-[14px] font-medium leading-tight">
                     Next
                   </div>

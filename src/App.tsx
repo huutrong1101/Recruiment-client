@@ -150,8 +150,9 @@ export default function App() {
         <Route path="/interviewer" element={<ManagementAppLayOut />}>
           {/* Define interviewer routes here */}
           {/* <Route index path ="/manageQuestion" element={<ManageQuestion />} /> */}
-          <Route index path="manageQuestion" element={<ManageQuestion />} />
-          <Route index path="scorePage" element={<ScorePage />} />
+          <Route index path ="manage-question" element={<ManageQuestion />} />
+          <Route index path ="score-page" element={<ScorePage />} />
+
         </Route>
 
         {/* <Route path="/test" element={Test} /> */}
