@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import ScorePage from './ScorePage'
 import DashboardFooter from '../../components/RecFooter/DashboardFooter'
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-
+import QuestionFilter from './QuestionFilter';
+import { Menu, Transition } from "@headlessui/react";
+import TechFilter from './TechFilter';
 export default function AddQuestion({ observation, onClick }) {
-    const handleOnClick = (event : any) => {
+    const handleOnClick = (event: any) => {
         if (event.target.id === 'container' || event.target.id === 'add') onClick()
     }
     if (!observation) return null
@@ -29,28 +31,21 @@ export default function AddQuestion({ observation, onClick }) {
                         </div>
                     </div>
                     <div className='flex flex-col w-2/5 p-2 relative'>
-                        <div className='font-normal text-md'>Position</div>
-                        <div className='w-11/12 h-1/5 bg-emerald-600 rounded-md text-white border border-transparent
-                                active:border-emerald-600  active:text-emerald-600  
-                                 active:bg-white flex items-center'>
-                            <div className='px-2 inline-flex  justify-between w-full'>
-                                Pos <ChevronDownIcon className='w-5 h-5 pt-1' />
-                            </div>
-                        </div>
+                        <div className=' font-normal text-md'>Position</div>
+                        <Menu as='div' className='w-11/12 h-[20%] relative flex flex-col z-10'>
+                            <QuestionFilter/>
+                        </Menu>
+
                         <div className=' font-normal text-md'>Type</div>
-                        <div className='w-11/12 h-1/5 bg-emerald-600 rounded-md text-white border border-transparent
-                                active:border-emerald-600  active:text-emerald-600  
-                                 active:bg-white flex items-center'>
-                            <div className='px-2 inline-flex justify-between w-full'>
-                                Technology <ChevronDownIcon className='w-5 h-5 pt-1' />
-                            </div>
-                        </div>
-                        <div className='w-full h-1/5 font-normal text-md my-6 flex justify-end px-3'>
-                            <div className='w-2/3 h-full '>
-                                <button className=' w-full h-full bg-emerald-600 rounded-md text-white border border-transparent
+                        <Menu as='div' className='w-11/12 h-[20%] relative flex flex-col'>
+                            <TechFilter/>
+                        </Menu>
+                        <div className='w-full h-1/5 font-normal text-md my-6  px-3'>
+                            <div className='w-full h-full flex justify-end items-end '>
+                                <button className=' w-fit h-fit px-6 py-2 bg-emerald-600 rounded-md text-white border border-transparent
                                 hover:border-emerald-600  hover:text-emerald-600 
-                                hover:transition-all hover:bg-white active:bg-zinc-200 active:border-emerald-600 active:drop-shadow-md' 
-                                id='add' onClick={handleOnClick}>
+                                hover:transition-all hover:bg-white active:bg-zinc-200 active:border-emerald-600 active:drop-shadow-md'
+                                    id='add' onClick={handleOnClick}>
                                     Add
                                 </button>
                             </div>

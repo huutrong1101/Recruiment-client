@@ -1,6 +1,9 @@
 import {
   PlusCircleIcon, TrashIcon, PencilIcon, ChevronDownIcon
 } from "@heroicons/react/24/outline";
+import { Menu, Transition } from "@headlessui/react";
+import QuestionFilter from "./QuestionFilter";
+import TechFilter from "./TechFilter";
 import SearchBar from "../../components/Search/Search";
 import ListQuestions from "./ListQuestion";
 import { useState } from "react";
@@ -21,7 +24,7 @@ export default function QuestionInterview() {
                 <button className="Text text-white px-4 py-2.5 bg-emerald-600 rounded-lg drop-shadow-xl
                                 text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
                                 border-transparent border hover:border-emerald-600 hover:transition-all duration-200"
-                                onClick={() => setAddQuestion(true)} >
+                  onClick={() => setAddQuestion(true)} >
                   <PlusCircleIcon className="w-5 inline-flex" /> Add Question
                 </button>
               </div>
@@ -30,14 +33,21 @@ export default function QuestionInterview() {
           <div className="flex flex-col justify-center w-full">
             <div className="w-full h-fit  ">
               <div className=" gap-x-4 flex justify-between ">
-                <div className="flex gap-x-4 ml-12 cursor-pointer">
-                  <div className="p-4 text-[14px] text-white font-medium leading-tight bg-emerald-600 rounded-lg drop-shadow-xl border-transparent border 
-                                hover:text-emerald-600 hover:border hover:border-emerald-600 hover:bg-white hover:rounded-s-lg hover:transition-all duration-75 ">
-                    Position <ChevronDownIcon className="w-5 h-5 inline-flex" />
+                <div className="flex gap-x-4 ml-12 cursor-pointer w-full">
+                  {/* Position */}
+                  <div className=" relative flex flex-col w-1/5 h-fit px-2 ">
+                    {/* p-4 text-[14px] text-white font-medium leading-tight bg-emerald-600 rounded-lg drop-shadow-xl border-transparent border w-full h-full
+                                hover:text-emerald-600 hover:border hover:border-emerald-600 hover:bg-white hover:rounded-s-lg hover:transition-all duration-75  */}
+                    <Menu as="div" className="w-full h-full">
+                      <QuestionFilter/>
+                    </Menu>
                   </div>
-                  <div className="p-4 text-[14px] text-white font-medium leading-tight bg-emerald-600 rounded-lg drop-shadow-xl border-transparent border 
-                                hover:text-emerald-600 hover:border hover:border-emerald-600 hover:bg-white hover:rounded-e-lg hover:transition-all duration-75 ">
-                    Technology <ChevronDownIcon className="w-5 h-5 inline-flex" />
+
+                  {/* Technology */}
+                  <div className=" relative flex flex-col w-1/5 h-fit px-2 ">
+                    <Menu as="div" className=" w-full h-full ">
+                      <TechFilter/>
+                    </Menu>
                   </div>
                 </div>
                 <div className="flex justify-self-end mr-12">
