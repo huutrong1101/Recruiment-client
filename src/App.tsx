@@ -61,7 +61,7 @@ import OneTimePasswordVerify from "./pages/OneTimePasswordVerify/OneTimePassword
 
 import { useEffect } from "react";
 import { useTokenAuthorize } from "./hooks/useTokenAuthorize";
-import { EventService } from "./services/EventService";
+import { EventService } from "./services/JobService";
 import UserProfileMyInformation from "./pages/UserProfile/UserProfileMyInformation";
 
 export default function App() {

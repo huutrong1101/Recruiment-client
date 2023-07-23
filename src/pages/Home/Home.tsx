@@ -15,7 +15,8 @@ import BlogCard from "../../components/BlogCard/BlogCard";
 import Advertise from "../../components/Advertise/Advertise";
 import { Menu, Transition } from "@headlessui/react";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { EventService } from "../../services/EventService";
+import { JobService } from "../../services/JobService";
+import { JobInterface } from "../../services/services";
 
 export default function Home() {
   const dispatch = useAppDispatch();
@@ -26,10 +27,10 @@ export default function Home() {
 
   const [type, setType] = useState(data.listTypeJobs[1].name);
 
-  const events = useAppSelector((state) => state.Home.events);
+  const jobs: JobInterface[] = useAppSelector((state) => state.Home.jobs);
 
   useEffect(() => {
-    EventService.getEvents(dispatch);
+    JobService.getJobs(dispatch);
   }, []);
 
   const handleSubmit = () => {
@@ -204,8 +205,8 @@ export default function Home() {
 
         <div className="flex flex-wrap -mx-4 mt-[5px]">
           {/* <!-- Card --> */}
-          {data.listJobs &&
-            data.listJobs.map((job) => (
+          {jobs &&
+            jobs.slice(0, 6).map((job) => (
               <div
                 key={job.jobId}
                 className="w-full px-4 mb-8 sm:w-1/2 lg:w-1/3"
@@ -249,8 +250,8 @@ export default function Home() {
 
         <div className="flex flex-wrap -mx-4 mt-[50px]">
           {/* <!-- Card --> */}
-          {events &&
-            events.map((event, index) => (
+          {data.listEvent &&
+            data.listEvent.map((event, index) => (
               <div key={index} className="w-full px-4 mb-8 sm:w-1/2 lg:w-1/3">
                 <BlogCard event={event} />
               </div>

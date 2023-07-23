@@ -8,6 +8,8 @@ import {
 import classNames from "classnames";
 import JobCard from "../../components/JobCard/JobCard";
 import { data } from "../../data/homeData";
+import { useAppSelector } from "../../hooks/hooks";
+import { JobInterface } from "../../services/services";
 
 export default function Jobs() {
   const [dataSearch, setDataSearch] = useState({
@@ -26,6 +28,8 @@ export default function Jobs() {
       type: "",
     });
   };
+
+  const jobs: JobInterface[] = useAppSelector((state) => state.Home.jobs);
 
   return (
     <>
@@ -246,8 +250,8 @@ export default function Jobs() {
         <div className={classNames("w-[70%]")}>
           <div className="flex flex-wrap -mx-4">
             {/* <!-- Card --> */}
-            {data.listJobs &&
-              data.listJobs.map((job) => (
+            {jobs &&
+              jobs.map((job) => (
                 <div key={job.jobId} className="w-full px-4 mb-8 md:w-1/2">
                   <JobCard job={job} />
                 </div>
