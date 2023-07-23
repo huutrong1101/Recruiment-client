@@ -11,27 +11,21 @@ import moment from "moment";
 
 interface BlogCardProps {
   event: {
-    active: boolean;
-    createdAt: string;
-    deadline: string;
-    description: string;
-    img: string;
-    linkContract: string;
-    location: string;
-    name: string;
-    time: number;
+    id: number;
+    date: string;
+    time: string;
     title: string;
   };
 }
 
 export default function BlogCard({ event }: BlogCardProps) {
-  const formattedDate = moment(event.createdAt).format("Do MMMM, YYYY");
+  // const formattedDate = moment(event.createdAt).format("Do MMMM, YYYY");
   return (
     <>
       <div className="bg-white rounded-lg shadow-lg">
         <div className={classnames("w-full")}>
           <img
-            src={event.img || blog_image}
+            src={blog_image}
             alt="blog_image"
             className={classnames("w-full h-[200px] object-cover")}
           />
@@ -42,7 +36,7 @@ export default function BlogCard({ event }: BlogCardProps) {
               className={classnames("flex items-center gap-1 text-gray-500")}
             >
               <CalendarDaysIcon className={classnames(`w-[20px]`)} />
-              <p>{formattedDate}</p>
+              <p>{event.date}</p>
             </div>
             <div
               className={classnames("flex items-center gap-1 text-gray-500")}

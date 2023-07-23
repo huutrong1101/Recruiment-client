@@ -3,22 +3,23 @@ import { STATUS } from "../../../utils/Status";
 
 const initialState = {
   events: [],
-  eventsStatus: STATUS.IDLE,
+  jobs: [],
+  jobsStatus: STATUS.IDLE,
 };
 
 const HomeSlice = createSlice({
   name: "Home",
   initialState,
   reducers: {
-    setEvents(state, action) {
-      state.events = action.payload;
+    setJobs(state, action) {
+      state.jobs = action.payload;
     },
-    setEventsStatus(state, action) {
-      state.eventsStatus = action.payload;
+    setJobsStatus(state, action) {
+      state.jobsStatus = action.payload;
     },
   },
 });
 
-export const { setEvents, setEventsStatus } = HomeSlice.actions;
+export const { setJobs, setJobsStatus } = HomeSlice.actions;
 
 export default HomeSlice.reducer;

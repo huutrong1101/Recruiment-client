@@ -10,3 +10,27 @@ export interface UserLoginParamsInterface {
   credentialId: string;
   password: string;
 }
+
+export interface JobInterface {
+  jobId: string;
+  name: string;
+  jobType: string;
+  quantity: number;
+  benefit: string;
+  salaryRange: string;
+  requirement: string;
+  location: string;
+  description: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string | null;
+  deadline: string;
+  position: {
+    positionId: string;
+    name: string;
+  };
+  skills: {
+    skillId: string;
+    name: string;
+  }[];
+}
