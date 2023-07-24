@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Bars4Icon } from "@heroicons/react/24/outline";
 import { setNavbarDrawerVisible } from "./slices/NavbarSlice";
-import { AiOutlineUser } from "react-icons/ai";
+import NavbarUserLoggedInCard from "./NavbarUserLoggedInCard";
+import NavbarUserNotLoggedInCard from "./NavbarUserNotLoggedInCard";
 
 export default function MobileNavbar() {
   const { drawerVisible, items } = useAppSelector((app) => app.Navbar);
+  const { isLoggedIn } = useAppDispatch((app) => app.Auth);
   const dispatch = useAppDispatch();
 
   const handleExpandDrawer = () => {
@@ -34,15 +36,11 @@ export default function MobileNavbar() {
 
         {/* Right items */}
         <div className={classNames(`flex flex-row-reverse flex-1`)}>
-          <button
-            onClick={() => {}}
-            className={classNames(
-              `text-2xl focus:bg-zinc-200 p-2 rounded-full`,
-              `ease-in-out transition-colors`,
-            )}
-          >
-            <AiOutlineUser />
-          </button>
+          {isLoggedIn ? (
+            <NavbarUserLoggedInCard />
+          ) : (
+            <NavbarUserNotLoggedInCard />
+          )}
         </div>
       </div>
 
