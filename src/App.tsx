@@ -65,11 +65,18 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./hooks/hooks";
 import { authLogout, fetchUserFromToken } from "./redux/AuthSlice";
 import { useTokenAuthorize } from "./hooks/useTokenAuthorize";
-import { EventService } from "./services/JobService";
+// import { EventService } from "./services/JobService";
 import UserProfileMyInformation from "./pages/UserProfile/UserProfileMyInformation";
+import { JobService } from "./services/JobService";
 
 export default function App() {
   useTokenAuthorize();
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    JobService.getJobs(dispatch);
+  }, []);
 
   return (
     <BrowserRouter>
