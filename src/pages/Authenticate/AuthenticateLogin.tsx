@@ -15,7 +15,7 @@ export default function AuthenticateLogin() {
   const { register, handleSubmit } = useForm<UserLoginParamsInterface>();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { loading } = useAppSelector((app) => app.Auth);
+  const { loading, signInLoadingState } = useAppSelector((app) => app.Auth);
 
   const onSubmit = (data: UserLoginParamsInterface) => {
     dispatch(authLogin(data))
@@ -72,7 +72,11 @@ export default function AuthenticateLogin() {
           </div>
         </div>
 
-        <PrimaryButton text="Sign in" isLoading={loading === "pending"} />
+        <PrimaryButton
+          text="Sign in"
+          isLoading={signInLoadingState === "pending"}
+          disabled={signInLoadingState === "pending"}
+        />
       </div>
     </form>
   );
