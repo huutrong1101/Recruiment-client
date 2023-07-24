@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import {
@@ -9,9 +9,59 @@ import classNames from "classnames";
 import JobCard from "../../components/JobCard/JobCard";
 import { data } from "../../data/homeData";
 import { useAppSelector } from "../../hooks/hooks";
-import { JobInterface } from "../../services/services";
+import { JobInterface, JobListConfig } from "../../services/services";
+import Pagination from "../../components/Pagination/Pagination";
+import axiosInstance from "../../utils/AxiosInstance";
+import { omitBy, isUndefined } from "lodash";
+import useQuerParams from "../../hooks/useQueryParams";
+import Loader from "../../components/Loader/Loader";
+
+export type QueryConfig = {
+  [key in keyof JobListConfig]: string;
+};
 
 export default function Jobs() {
+  const jobs: JobInterface[] = useAppSelector((state) => state.Home.jobs);
+
+  const [showJobs, setShowJobs] = useState(jobs);
+
+  const [pageSize, setPageSize] = useState(5);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const queryParams: QueryConfig = useQuerParams();
+
+  const queryConfig: QueryConfig = omitBy(
+    {
+      index: queryParams.index || "1",
+      limit: queryParams.limit || 10,
+      name: queryParams.name,
+      location: queryParams.location,
+      jobType: queryParams.jobType,
+      category: queryParams.category,
+    },
+    isUndefined,
+  );
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axiosInstance(
+          `/jobs?index=${Number(queryConfig.index) - 1}&size=${
+            queryConfig.limit
+          }`,
+        );
+        setShowJobs(response.data.result.content);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchJobs();
+  }, [queryParams.index]);
+
   const [dataSearch, setDataSearch] = useState({
     key: "",
     category: "",
@@ -19,8 +69,35 @@ export default function Jobs() {
     type: "",
   });
 
-  const handleSearch = () => {
-    alert(JSON.stringify(dataSearch));
+  const handleSearch = async () => {
+    const params = {
+      name: dataSearch.key,
+      category: dataSearch.category,
+      location: dataSearch.location,
+      jobType: dataSearch.type,
+    };
+
+    try {
+      setIsLoading(true);
+
+      // Gửi yêu cầu tới API với các tham số tìm kiếm
+      const response = await axiosInstance.get("/jobs/", {
+        params,
+      });
+
+      // Cập nhật danh sách công việc hiển thị trên giao diện
+      setShowJobs(response.data.result.content);
+      setPageSize(response.data.result.totalPages);
+
+      console.log(params);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleReset = () => {
     setDataSearch({
       key: "",
       category: "",
@@ -28,8 +105,6 @@ export default function Jobs() {
       type: "",
     });
   };
-
-  const jobs: JobInterface[] = useAppSelector((state) => state.Home.jobs);
 
   return (
     <>
@@ -77,7 +152,7 @@ export default function Jobs() {
                 )}
               >
                 <span className={classNames("ml-2 text-gray-500")}>
-                  {dataSearch.category}
+                  {dataSearch.category || "---Choose---"}
                 </span>
                 <ChevronDownIcon className={classNames("w-[20px] ml-4")} />
                 {/* Drop down  */}
@@ -133,7 +208,7 @@ export default function Jobs() {
                 )}
               >
                 <span className={classNames("ml-2 text-gray-500")}>
-                  {dataSearch.location}
+                  {dataSearch.location || "---Choose---"}
                 </span>
                 <ChevronDownIcon className={classNames("w-[20px] ml-4")} />
                 {/* Drop down  */}
@@ -189,7 +264,7 @@ export default function Jobs() {
                 )}
               >
                 <span className={classNames("ml-2 text-gray-500")}>
-                  {dataSearch.type}
+                  {dataSearch.type || "---Choose---"}
                 </span>
                 <ChevronDownIcon className={classNames("w-[20px] ml-4")} />
                 {/* Drop down  */}
@@ -234,7 +309,7 @@ export default function Jobs() {
             </Menu>
           </div>
           {/* Button Search */}
-          <div className={classNames("mt-6")}>
+          <div className={classNames("mt-6 flex gap-2 flex-col")}>
             <button
               className={classNames(
                 "bg-emerald-700 text-white p-3 rounded-md flex w-full text-center items-center justify-center",
@@ -243,69 +318,38 @@ export default function Jobs() {
             >
               Search
             </button>
+            <button
+              className={classNames(
+                "bg-red-500 text-white p-3 rounded-md flex w-full text-center items-center justify-center",
+              )}
+              onClick={() => handleReset()}
+            >
+              Reset
+            </button>
           </div>
         </div>
 
         {/* List Jobs  */}
+
         <div className={classNames("w-[70%]")}>
-          <div className="flex flex-wrap -mx-4">
-            {/* <!-- Card --> */}
-            {jobs &&
-              jobs.map((job) => (
-                <div key={job.jobId} className="w-full px-4 mb-8 md:w-1/2">
-                  <JobCard job={job} />
-                </div>
-              ))}
-          </div>
+          {isLoading ? (
+            <div className="flex justify-center">
+              <Loader />
+            </div>
+          ) : (
+            <div className="flex flex-wrap -mx-4">
+              {/* <!-- Card --> */}
+              {showJobs &&
+                showJobs.map((job) => (
+                  <div key={job.jobId} className="w-full px-4 mb-8 md:w-1/2">
+                    <JobCard job={job} />
+                  </div>
+                ))}
+            </div>
+          )}
 
           {/* Pagination  */}
-          <nav
-            aria-label="Page navigation example"
-            className="flex items-center justify-center"
-          >
-            <ul className="flex list-style-none">
-              <li>
-                <a className="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-500 transition-all duration-300 hover:bg-neutral-100">
-                  Previous
-                </a>
-              </li>
-              <li>
-                <a
-                  className="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100"
-                  href="#!"
-                >
-                  1
-                </a>
-              </li>
-              <li aria-current="page">
-                <a
-                  className="relative block rounded-full bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 hover:bg-neutral-100"
-                  href="#!"
-                >
-                  2
-                  <span className="absolute -m-px h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 [clip:rect(0,0,0,0)]">
-                    (current)
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a
-                  className="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100"
-                  href="#!"
-                >
-                  3
-                </a>
-              </li>
-              <li>
-                <a
-                  className="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100"
-                  href="#!"
-                >
-                  Next
-                </a>
-              </li>
-            </ul>
-          </nav>
+          <Pagination queryConfig={queryConfig} pageSize={pageSize} />
         </div>
       </div>
     </>

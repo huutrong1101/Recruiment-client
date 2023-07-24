@@ -19,8 +19,6 @@ import { JobService } from "../../services/JobService";
 import { JobInterface } from "../../services/services";
 
 export default function Home() {
-  const dispatch = useAppDispatch();
-
   const [showType, setShowType] = useState(false);
 
   const [search, setSearch] = useState("");
@@ -28,10 +26,6 @@ export default function Home() {
   const [type, setType] = useState(data.listTypeJobs[1].name);
 
   const jobs: JobInterface[] = useAppSelector((state) => state.Home.jobs);
-
-  useEffect(() => {
-    JobService.getJobs(dispatch);
-  }, []);
 
   const handleSubmit = () => {
     alert("Giá trị thu được với từ khóa: " + search + " và loại: " + type);

@@ -38,3 +38,12 @@ export interface JobInterface {
     name: string;
   }[];
 }
+
+export interface JobListConfig {
+  index?: number | string;
+  limit?: number | string;
+  name?: string;
+  category?: string;
+  location?: string;
+  jobType?: string;
+}
