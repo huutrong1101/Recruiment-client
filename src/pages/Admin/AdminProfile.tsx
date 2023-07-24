@@ -120,8 +120,15 @@ export default function AdminProfile() {
                         </div>
                         {/* Save Buton */}
                         <div className={classnames("text-center px-5 py-4")}>
-                        <Button onClick={handleClickOpen} className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800" >
-                            Save
+                        <Button  
+                            sx={{
+                                backgroundColor: "#059669",
+                                '&:hover': {
+                                backgroundColor: "#289972",
+                                },
+                            }}
+                            variant="contained" onClick={handleClickOpen}>
+                                Save
                         </Button>
                             <Dialog
                             open={open}
@@ -137,9 +144,11 @@ export default function AdminProfile() {
                                 Or consider carefully before deleting them all changes when pressing the agree button.                        </DialogContentText>
                             </DialogContent>
                             <DialogActions>
-                            <Button onClick={handleClose}> Disagree</Button>
-                            <Button type= "submit" onClick={handleSubmit}>
-                               Agree
+                            <Button onClick={handleClose} color="error" variant="contained">Disagree</Button>
+                            <Button onClick={handleClose} autoFocus type='submit' variant="contained" sx={{
+                                    backgroundColor: "#059669",'&:hover': { backgroundColor: "#289972", },
+                                }}>
+                                Agree
                             </Button>
                             </DialogActions>
                         </Dialog>

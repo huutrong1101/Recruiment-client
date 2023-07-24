@@ -1,22 +1,44 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AuthService } from "../services/AuthService";
-import { toast } from "react-toastify";
 import {
   UserLoginParamsInterface,
   UserRegisterParamsInterface,
 } from "../services/services";
 import { UserService } from "../services/UserService";
+import {
+  clearLocalToken,
+  getLocalToken,
+  hasLocalToken,
+  setLocalToken,
+} from "../utils/localToken";
 
-const _storedToken = localStorage.getItem("token");
-const token: string | null = _storedToken ? JSON.parse(_storedToken) : null;
+interface UserResponseState {
+  userId: string;
+  phone: string;
+  email: string;
+  fullName: string;
+  avatar: string | null;
+  address: string | null;
+  dateOfBirth: Date | null;
+  about: string | null;
+  gender: "male" | "female" | null;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+  active: boolean;
+}
 
 interface AuthState {
   isLoggedIn: boolean;
-  user?: any | null;
+  user?: UserResponseState | null;
   token: string | null;
+  loading: `idle` | `pending` | `success` | `failed`;
 }
 
-const initialState: AuthState = { isLoggedIn: true, token };
+const initialState: AuthState = {
+  isLoggedIn: true,
+  token: hasLocalToken() ? getLocalToken() : null,
+  loading: `idle`,
+};
 
 export const authRegister = createAsyncThunk(
   "Auth/register",
@@ -51,8 +73,7 @@ export const authRegister = createAsyncThunk(
       // Fetch the user from token
       thunkAPI.dispatch(fetchUserFromToken({ token }));
 
-      localStorage.setItem("token", JSON.stringify(token));
-      console.debug(`Set localStorage#token with value ${token}`);
+      setLocalToken(token);
 
       return response.data;
     } catch (err) {
@@ -76,10 +97,10 @@ export const authLogin = createAsyncThunk(
       const { result } = response.data;
       const { accessToken, refreshToken } = result;
       // Set the token onto localStorage
-      localStorage.setItem("token", JSON.stringify(accessToken));
-      thunkAPI.dispatch(setToken(token));
+      setLocalToken(accessToken);
+      thunkAPI.dispatch(setToken(accessToken));
       // Fetch the user from token
-      thunkAPI.dispatch(fetchUserFromToken({ token: result.accessToken }));
+      thunkAPI.dispatch(fetchUserFromToken(undefined));
       console.debug(`Set localStorage#token with value ${accessToken}`);
 
       return response.data;
@@ -91,13 +112,13 @@ export const authLogin = createAsyncThunk(
 
 export const fetchUserFromToken = createAsyncThunk(
   "Auth/fetch-user-from-token",
-  async ({ token }: { token: string }, thunkAPI) => {
+  async (_args: any, thunkAPI) => {
     try {
       // Get the profile
-      const profileResponse = await UserService.getUserFromToken(token);
+      const profileResponse = await UserService.getUserFromToken();
       if (profileResponse.status !== 200) {
         alert(`error`);
-        throw new Error(`Error when using authorize token ${token}`);
+        throw new Error(`Error when using authorize token ${getLocalToken()}`);
       }
 
       thunkAPI.dispatch(setUser(profileResponse.data.result));
@@ -115,7 +136,7 @@ export const authLogout = createAsyncThunk("Auth/logout", (_, thunkAPI) => {
   thunkAPI.dispatch(setToken(null));
   thunkAPI.dispatch(setUserLoggedIn(false));
 
-  localStorage.removeItem("token");
+  clearLocalToken();
 });
 
 const AuthSlice = createSlice({
@@ -136,11 +157,18 @@ const AuthSlice = createSlice({
     builder.addCase(fetchUserFromToken.pending, (state, _action) => {
       state.user = null;
       state.isLoggedIn = false;
+      state.loading = `pending`;
     });
 
     builder.addCase(fetchUserFromToken.fulfilled, (state, action) => {
       state.user = action.payload;
       state.isLoggedIn = true;
+      state.loading = `success`;
+    });
+    builder.addCase(fetchUserFromToken.rejected, (state, action) => {
+      state.user = null;
+      state.isLoggedIn = false;
+      state.loading = `failed`;
     });
   },
 });
