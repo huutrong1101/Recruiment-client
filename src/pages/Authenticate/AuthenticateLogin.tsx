@@ -22,7 +22,7 @@ export default function AuthenticateLogin() {
       .unwrap()
       .then(() => {
         toast.success(`Successfully signed in.`);
-        navigate(`/`);
+        navigate(-1);
       });
   };
 
