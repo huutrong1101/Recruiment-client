@@ -21,8 +21,10 @@ axiosInstance.interceptors.response.use(
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    toast.error(`There was an error: (${error.message})`);
-    console.log(error);
+    const responseErrorCode = error.code;
+    if (responseErrorCode === "ERR_NETWORK") {
+      toast.error(`There was a connection error with a service.`);
+    }
 
     return Promise.reject(error);
   },
