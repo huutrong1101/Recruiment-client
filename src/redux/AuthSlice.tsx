@@ -100,7 +100,7 @@ export const authLogin = createAsyncThunk(
       setLocalToken(accessToken);
       thunkAPI.dispatch(setToken(accessToken));
       // Fetch the user from token
-      thunkAPI.dispatch(fetchUserFromToken({ token: result.accessToken }));
+      thunkAPI.dispatch(fetchUserFromToken(undefined));
       console.debug(`Set localStorage#token with value ${accessToken}`);
 
       return response.data;
