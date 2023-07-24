@@ -1,14 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AuthService } from "../services/AuthService";
-import { toast } from "react-toastify";
 import {
   UserLoginParamsInterface,
   UserRegisterParamsInterface,
 } from "../services/services";
 import { UserService } from "../services/UserService";
-
-const _storedToken = localStorage.getItem("token");
-const token: string | null = _storedToken ? JSON.parse(_storedToken) : null;
+import {
+  clearLocalToken,
+  getLocalToken,
+  hasLocalToken,
+  setLocalToken,
+} from "../utils/localToken";
 
 interface UserResponseState {
   userId: string;
@@ -32,7 +34,11 @@ interface AuthState {
   loading: `idle` | `pending` | `success` | `failed`;
 }
 
-const initialState: AuthState = { isLoggedIn: true, token, loading: `idle` };
+const initialState: AuthState = {
+  isLoggedIn: true,
+  token: hasLocalToken() ? getLocalToken() : null,
+  loading: `idle`,
+};
 
 export const authRegister = createAsyncThunk(
   "Auth/register",
@@ -67,8 +73,7 @@ export const authRegister = createAsyncThunk(
       // Fetch the user from token
       thunkAPI.dispatch(fetchUserFromToken({ token }));
 
-      localStorage.setItem("token", JSON.stringify(token));
-      console.debug(`Set localStorage#token with value ${token}`);
+      setLocalToken(token);
 
       return response.data;
     } catch (err) {
@@ -92,8 +97,8 @@ export const authLogin = createAsyncThunk(
       const { result } = response.data;
       const { accessToken, refreshToken } = result;
       // Set the token onto localStorage
-      localStorage.setItem("token", JSON.stringify(accessToken));
-      thunkAPI.dispatch(setToken(token));
+      setLocalToken(accessToken);
+      thunkAPI.dispatch(setToken(accessToken));
       // Fetch the user from token
       thunkAPI.dispatch(fetchUserFromToken({ token: result.accessToken }));
       console.debug(`Set localStorage#token with value ${accessToken}`);
@@ -107,13 +112,13 @@ export const authLogin = createAsyncThunk(
 
 export const fetchUserFromToken = createAsyncThunk(
   "Auth/fetch-user-from-token",
-  async ({ token }: { token: string }, thunkAPI) => {
+  async (_args: any, thunkAPI) => {
     try {
       // Get the profile
-      const profileResponse = await UserService.getUserFromToken(token);
+      const profileResponse = await UserService.getUserFromToken();
       if (profileResponse.status !== 200) {
         alert(`error`);
-        throw new Error(`Error when using authorize token ${token}`);
+        throw new Error(`Error when using authorize token ${getLocalToken()}`);
       }
 
       thunkAPI.dispatch(setUser(profileResponse.data.result));
@@ -131,7 +136,7 @@ export const authLogout = createAsyncThunk("Auth/logout", (_, thunkAPI) => {
   thunkAPI.dispatch(setToken(null));
   thunkAPI.dispatch(setUserLoggedIn(false));
 
-  localStorage.removeItem("token");
+  clearLocalToken();
 });
 
 const AuthSlice = createSlice({
