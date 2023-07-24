@@ -57,6 +57,7 @@ import CreateCV from "./pages/CreateCV/CreateCV";
 import RequestTest from "./pages/RequestTest/RequestTest";
 import InterviewSched from "./pages/Reccer/Interview/InterviewSched";
 import CandidateDetail from "./pages/Reccer/CandidateDetail";
+import Logout from "./pages/Logout/Logout";
 
 export default function App() {
   return (
@@ -92,6 +93,7 @@ export default function App() {
             />
           </Route>
           <Route path="/test-request" element={<RequestTest />} />
+          <Route path="/logout" element={<Logout />} />
         </Route>
 
         <Route path="/admin" element={<ManagementAppLayOut />}>
