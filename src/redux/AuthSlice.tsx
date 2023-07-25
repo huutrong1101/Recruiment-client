@@ -24,6 +24,7 @@ interface UserResponseState {
   gender: "male" | "female" | null;
   createdAt: Date | null;
   updatedAt: Date | null;
+  role: string;
   active: boolean;
 }
 

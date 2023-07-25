@@ -37,9 +37,29 @@ export interface JobInterface {
 
 export interface JobListConfig {
   index?: number | string;
-  limit?: number | string;
+  size?: number | string;
   name?: string;
-  category?: string;
+  type?: string;
   location?: string;
   posName?: string;
+}
+
+export interface EventInterface {
+  id: string;
+  title: string;
+  name: string;
+  description: string;
+  img: string | null;
+  author: string;
+  linkContacts: {
+    Instagram: string;
+    LinkedIn: string;
+    Twitter: string;
+    Facebook: string;
+    Gitlab: string;
+  };
+  startAt: string;
+  deadline: string;
+  time: string;
+  location: string;
 }

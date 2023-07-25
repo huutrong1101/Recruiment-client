@@ -7,13 +7,12 @@ import CandidateRecentReducer from "./reducer/CandidateRecentSlice";
 import InterviewRecentReducer from "./reducer/InterviewRecentSlice";
 import AuthSlice from "./AuthSlice";
 import CandidateListSlice from "./reducer/CandidateListSlice";
-import RecJobListSlice from "./reducer/RecJobSlice"
+import RecJobListSlice from "./reducer/RecJobSlice";
 // Admin
-import AdminListJobRecentSlice  from "./reducer/AdminListJobRecentSlice";
-import AdminProfileRecentSlice  from "./reducer/AdminProfileRecentSlice";
-import AdminAcountListSlice     from "./reducer/AdminListAcountRecentSlice";
-import AdminListPassRecentSlice  from "./reducer/AdminListPassRecentSlice";
-
+import AdminListJobRecentSlice from "./reducer/AdminListJobRecentSlice";
+import AdminProfileRecentSlice from "./reducer/AdminProfileRecentSlice";
+import AdminAcountListSlice from "./reducer/AdminListAcountRecentSlice";
+import AdminListPassRecentSlice from "./reducer/AdminListPassRecentSlice";
 
 export const ApplicationStore = configureStore({
   reducer: {
@@ -23,14 +22,13 @@ export const ApplicationStore = configureStore({
     interviewRecent: InterviewRecentReducer,
     Navbar: NavbarSlice,
     Auth: AuthSlice,
-    recjobList:RecJobListSlice,
+    recjobList: RecJobListSlice,
 
-     // Admin
-     adminmanagerjobList : AdminListJobRecentSlice,
-     adminprofilesRecent : AdminProfileRecentSlice,
-     adminacountList     : AdminAcountListSlice,
-     adminmanagerpassList : AdminListPassRecentSlice,
- 
+    // Admin
+    adminmanagerjobList: AdminListJobRecentSlice,
+    adminprofilesRecent: AdminProfileRecentSlice,
+    adminacountList: AdminAcountListSlice,
+    adminmanagerpassList: AdminListPassRecentSlice,
   },
 });
 
