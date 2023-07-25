@@ -46,15 +46,11 @@ const Reccercalender = () => {
 
   return (
     <Box m="20px">
-      <Box
-        display="flex"
-        backgroundColor="#F8FDFB"
-        justifyContent="space-between"
-      >
-        <Box flex="1 1 20%" p="15px" borderRadius="4px">
-          <Typography variant="h5">Event</Typography>
+      <Box display="flex" backgroundColor="#F8FDFB" justifyContent="space-between">
+        <Box flex="1 1 20%"  p="15px" borderRadius="4px">
+          <Typography variant='h5'>Event</Typography>
           <List>
-            {currentEvents.map((event: any) => (
+            {currentEvents.map((event:any) => (
               <ListItem
                 key={event.id}
                 sx={{
@@ -70,11 +66,12 @@ const Reccercalender = () => {
                       {formatDate(event.start, {
                         year: "numeric",
                         month: "short",
-                        day: "numeric",
+                        day: "numeric"
                       })}
                     </Typography>
                   }
-                ></ListItemText>
+                >
+                </ListItemText>
               </ListItem>
             ))}
           </List>
