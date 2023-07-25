@@ -15,6 +15,9 @@ import axiosInstance from "../../utils/AxiosInstance";
 import { omitBy, isUndefined } from "lodash";
 import useQuerParams from "../../hooks/useQueryParams";
 import Loader from "../../components/Loader/Loader";
+import qs from "query-string";
+import { createSearchParams, useNavigate } from "react-router-dom";
+import { omit, isEqual } from "lodash";
 
 export type QueryConfig = {
   [key in keyof JobListConfig]: string;
@@ -23,73 +26,75 @@ export type QueryConfig = {
 export default function Jobs() {
   const jobs: JobInterface[] = useAppSelector((state) => state.Home.jobs);
 
-  const [showJobs, setShowJobs] = useState(jobs);
+  const totalJobs = useAppSelector((state) => state.Home.totalJobs);
 
-  const [pageSize, setPageSize] = useState(5);
-
-  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const queryParams: QueryConfig = useQuerParams();
 
   const queryConfig: QueryConfig = omitBy(
     {
-      index: queryParams.index || "1",
+      index: queryParams.index || "0",
       limit: queryParams.limit || 10,
       name: queryParams.name,
       location: queryParams.location,
-      jobType: queryParams.jobType,
+      posName: queryParams.posName,
       category: queryParams.category,
     },
     isUndefined,
   );
 
+  const [prevQueryConfig, setPrevQueryConfig] =
+    useState<QueryConfig>(queryConfig);
+
+  const [showJobs, setShowJobs] = useState(jobs);
+
+  const [pageSize, setPageSize] = useState(
+    Math.ceil(totalJobs / Number(queryParams.limit ?? 10)),
+  );
+
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
-    const fetchJobs = async () => {
-      setIsLoading(true);
-      try {
-        const response = await axiosInstance(
-          `/jobs?index=${Number(queryConfig.index) - 1}&size=${
-            queryConfig.limit
-          }`,
-        );
-        setShowJobs(response.data.result.content);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchJobs();
-  }, [queryParams.index]);
+    if (!isEqual(prevQueryConfig, queryConfig)) {
+      const fetchJobs = async () => {
+        setIsLoading(true);
+        try {
+          const query = qs.stringify(queryConfig);
+          const response = await axiosInstance(`/jobs?${query}`);
+          setShowJobs(response.data.result.content);
+          setPageSize(response.data.result.totalPages);
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetchJobs();
+      setPrevQueryConfig(queryConfig);
+    }
+  }, [queryConfig, prevQueryConfig]);
 
   const [dataSearch, setDataSearch] = useState({
     key: "",
     category: "",
     location: "",
-    type: "",
+    type: "BACKEND",
   });
 
   const handleSearch = async () => {
-    const params = {
-      name: dataSearch.key,
-      category: dataSearch.category,
-      location: dataSearch.location,
-      jobType: dataSearch.type,
-    };
-
     try {
       setIsLoading(true);
 
-      // Gửi yêu cầu tới API với các tham số tìm kiếm
-      const response = await axiosInstance.get("/jobs/", {
-        params,
+      navigate({
+        pathname: "/jobs",
+        search: createSearchParams({
+          ...queryConfig,
+          name: dataSearch.key,
+          posName: dataSearch.type,
+          index: "0",
+        }).toString(),
       });
-
-      // Cập nhật danh sách công việc hiển thị trên giao diện
-      setShowJobs(response.data.result.content);
-      setPageSize(response.data.result.totalPages);
-
-      console.log(params);
     } catch (error) {
       console.error(error);
     } finally {
@@ -103,6 +108,13 @@ export default function Jobs() {
       category: "",
       location: "",
       type: "",
+    });
+
+    navigate({
+      pathname: "/jobs",
+      search: createSearchParams(
+        omit(queryConfig, ["name", "posName"]),
+      ).toString(),
     });
   };
 
@@ -339,12 +351,17 @@ export default function Jobs() {
           ) : (
             <div className="flex flex-wrap -mx-4">
               {/* <!-- Card --> */}
-              {showJobs &&
+              {showJobs.length > 0 ? (
                 showJobs.map((job) => (
                   <div key={job.jobId} className="w-full px-4 mb-8 md:w-1/2">
                     <JobCard job={job} />
                   </div>
-                ))}
+                ))
+              ) : (
+                <div className="flex justify-center w-full mb-10">
+                  <span>Không tìm thấy kết quả</span>
+                </div>
+              )}
             </div>
           )}
 

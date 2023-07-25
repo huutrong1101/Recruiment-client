@@ -18,7 +18,7 @@ export default function Pagination({ queryConfig, pageSize }: Props) {
         const pageNumber = index + 1;
 
         return (
-          <li>
+          <li key={index}>
             <Link
               to={{
                 pathname: "/jobs",

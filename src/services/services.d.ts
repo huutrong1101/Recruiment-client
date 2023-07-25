@@ -41,5 +41,5 @@ export interface JobListConfig {
   name?: string;
   category?: string;
   location?: string;
-  jobType?: string;
+  posName?: string;
 }
