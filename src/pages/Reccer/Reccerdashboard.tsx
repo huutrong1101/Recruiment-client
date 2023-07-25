@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
@@ -6,11 +6,17 @@ import { Link } from "react-router-dom";
 import { data } from "../../data/RecDashboardData";
 import RecCard from "../../components/RecDashboardCard/RecDashboardCard";
 import LineChart from './Recchart';
+import { useAppDispatch } from "../../hooks/hooks";
+import { fetchRecJobList } from "../../redux/reducer/RecJobSlice";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
+const dispatch = useAppDispatch();
 
+useEffect(() => {
+  dispatch(fetchRecJobList())
+}, []);
 export default function Reccer_dashboard() {
     return (
         <>

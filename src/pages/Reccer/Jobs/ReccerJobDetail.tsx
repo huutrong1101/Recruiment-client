@@ -9,7 +9,7 @@ import {
 } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReccerJobDescriptionWidget from "../../../components/RecJob/ReccerJobDescriptionWidget";
 import Logo from "../../../../images/logo_FPT.png";
 import RecJobInformationCard from "../../../components/RecJob/ReccerJobInformationCard";
@@ -19,10 +19,14 @@ import { Avatar } from "@mui/material";
 import AvatarCandidate from "../../../components/Candidate/Avatar";
 import Applied from "./AppliedCandidate";
 import Suggested from "./SuggestedCandidate";
+import { JobInterface } from "../../../services/services";
+import axiosInstance from "../../../utils/AxiosInstance";
 
 export default function ReccerJobDetail() {
   const { jobId } = useParams();
   const listSkills = ["React", "Java", "HTML", "Figma", "WordPress"];
+
+  const [job, setJob] = useState<JobInterface | null>(null);
 
   const [jobInformation, setJobInformation] = useState([
     { icon: <UserIcon />, name: "Employee Type", value: "Full time" },
@@ -46,6 +50,15 @@ export default function ReccerJobDetail() {
     },
   ]);
 
+  useEffect(() => {
+    const getJobDetail = async () => {
+      const response = await axiosInstance.get(`recruiter/jobs/${jobId}`);//Viết API cho BE viết lấy 1 job trong list job của reccer
+      setJob(response.data.result);
+    };
+    getJobDetail();
+  }, [jobId]);
+  
+
   return (
     <div className={classNames(`job-detail`, `flex flex-col gap-6`)}>
       <div className={classNames(`flex flex-col md:flex-row gap-12`)}>
@@ -67,18 +80,9 @@ export default function ReccerJobDetail() {
             )}
           >
             <div>
-              <h1 className="text-2xl font-semibold">Job description</h1>
+              <h1 className="text-2xl font-semibold">{job?.name}</h1>
               <p>
-                One disadvantage of Lorum Ipsum is that in Latin certain letters
-                appear more frequently than others - which creates a distinct
-                visual impression. Moreover, in Latin only words at the
-                beginning of sentences are capitalized. This means that Lorem
-                Ipsum cannot accurately represent, for example, German, in which
-                all nouns are capitalized. Thus, Lorem Ipsum has only limited
-                suitability as a visual filler for German texts. If the fill
-                text is intended to illustrate the characteristics of different
-                typefaces. It sometimes makes sense to select texts containing
-                the various letters and symbols specific to the output language.
+               {job?.description}
               </p>
             </div>
           </div>

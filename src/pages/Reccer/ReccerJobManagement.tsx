@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { data } from "../../data/RecJobManagementData";
@@ -7,20 +7,67 @@ import { STATUS } from "../../utils/Status";
 import Loader from "../../components/Loader/Loader";
 import { fetchRecJobList } from "../../redux/reducer/RecJobSlice"
 import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
+import { JobInterface, JobListConfig } from "../../services/services";
+import { omitBy, isUndefined } from "lodash";
+import Pagination from "../../components/Pagination/Pagination";
+import useQuerParams from "../../hooks/useQueryParams";
+import { omit, isEqual } from "lodash";
+import axiosInstance from "../../utils/AxiosInstance";
+import qs from "query-string";
+
+export type QueryConfig = {
+  [key in keyof JobListConfig]: string;
+};
 
 const ReccerJobManagement = () => {
-  const { recjobsList, recjobsListStatus } = useAppSelector(
-    (state: any) => state.recjobList,
+
+  const queryParams: QueryConfig = useQuerParams();
+  const queryConfig: QueryConfig = omitBy(
+    {
+      index: queryParams.index || "1",
+      limit: queryParams.limit || 10,
+      name: queryParams.name,
+      location: queryParams.location,
+      posName: queryParams.posName,
+      category: queryParams.category,
+    },
+    isUndefined,
   );
-  const dispatch = useAppDispatch();
+  const [prevQueryConfig, setPrevQueryConfig] =
+    useState<QueryConfig>(queryConfig);
+
+
+  const jobs: JobInterface[] = useAppSelector((state) => state.recjobList.recjobsList);
+  const totalJobs = useAppSelector((state) => state.recjobList.recjobTotal);
+  const [pageSize, setPageSize] = useState(
+    Math.ceil(totalJobs / Number(queryParams.limit ?? 10)),
+  );
+  const [isLoading, setIsLoading] = useState(false);
+  const [showJobs, setShowJobs] = useState(jobs);
 
   useEffect(() => {
-    dispatch(fetchRecJobList());
-  }, []);
+    if (!isEqual(prevQueryConfig, queryConfig)) {
+      const fetchJobs = async () => {
+        setIsLoading(true);
+        try {
+          const query = qs.stringify(queryConfig);
+          const response = await axiosInstance(`recruiter/jobs${query}`);
+          setShowJobs(response.data.result.content);
+          setPageSize(response.data.result.totalPages);
+          console.log(query)
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetchJobs();
+      setPrevQueryConfig(queryConfig);
+    }
+  }, [queryConfig, prevQueryConfig]);
 
-  if (recjobsListStatus === STATUS.LOADING) {
-    return <Loader />;
-  } else if (recjobsListStatus === STATUS.IDLE) {
+  console.log(jobs)
+
     return (
       <>
         <form className="flex items-center w-3/4 p-2 mx-auto">
@@ -64,65 +111,35 @@ const ReccerJobManagement = () => {
         </form>
 
         <div className="flex flex-wrap justify-center items-center 2 mt-[10px] ">
+        {isLoading ? (
+            <div className="flex justify-center">
+              <Loader />
+            </div>
+          ) : (
+            <div className="flex flex-wrap justify-center items-center 2 mt-[10px]">
+              {/* <!-- Card --> */}
+              {showJobs.length > 0 ? (
+                showJobs.map((job: any) => (
+                  <Link
+                    to={`../jobdetail/${job.jobId}`}
+                    key={job.jobId}
+                    className="px-4 mb-8 md:w-5/6"
+                  >
+                    <RecJobCard job={job} />
+                  </Link>
+                ))
+              ) : (
+                <div className="flex justify-center w-full mb-10">
+                  <span>Không tìm thấy kết quả</span>
+                </div>
+              )}
+            </div>
+          )}
           {/* <!-- Card --> */}
-          { recjobsList.map((job:any) => (
-              <Link
-                to={`../jobdetail/`}
-                key={job.jobId}
-                className="px-4 mb-8 md:w-5/6"
-              >
-                <RecJobCard job={job} />
-              </Link>
-            ))}
+         
         </div>
-        <div className="grid grid-cols-1 mt-1 md:grid-cols-12">
-          <div className="justify-center text-center md:col-span-12">
-            <ul className="inline-flex items-center -space-x-px">
-              <li>
-                <a
-                  href="#"
-                  className="w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 bg-white rounded-s-3xl hover:text-white border border-gray-300  hover:border-emerald-600  hover:bg-emerald-600 "
-                >
-                  1
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 hover:text-white bg-white border border-gray-300  hover:border-emerald-600 hover:bg-emerald-600 "
-                >
-                  2
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 hover:text-white bg-white border border-gray-300  hover:border-emerald-600  hover:bg-emerald-600 "
-                >
-                  3
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 hover:text-white bg-white border border-gray-300  hover:border-emerald-600  hover:bg-emerald-600 "
-                >
-                  4
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 bg-white rounded-e-3xl hover:text-white border border-gray-300  hover:border-emerald-600 hover:bg-emerald-600 "
-                >
-                  5
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <Pagination queryConfig={queryConfig} pageSize={pageSize} />
       </>
     );
   }
-}
 export default ReccerJobManagement;
