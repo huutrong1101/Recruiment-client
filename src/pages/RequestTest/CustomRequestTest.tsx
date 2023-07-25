@@ -67,8 +67,9 @@ export default function CustomRequestTest() {
       </div>
 
       <span>Response</span>
-
+      
       {response !== null && <JsonViewer value={response} />}
+      
     </form>
   );
 }

@@ -5,7 +5,7 @@ import './InterviewRecent.scss'
 import { PencilIcon } from '@heroicons/react/24/outline';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
-import { fetchInterviewRecent } from '../../../redux/reducer/InterviewRecentSlice';
+import { fetchINTInterviewsData } from '../../../redux/reducer/INTInterviewsSlice';
 import Loader from '../../../components/Loader/Loader';
 import { STATUS } from '../../../utils/Status';
 import { Link } from 'react-router-dom';
@@ -14,7 +14,7 @@ const rowsPerPageOptions = [5, 10];
 
 const InterviewRecent = () => {
 
-    const {interviewsRecent, interviewsRecentStatus} = useAppSelector((state: any) => state.interviewRecent);
+    const {INTInterviews, INTInterviewsStatus} = useAppSelector((state: any) => state.INTInterviews);
     const dispatch = useAppDispatch();
 
     const [page, setPage] = useState(0);
@@ -29,11 +29,11 @@ const InterviewRecent = () => {
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, 10 - page * rowsPerPage);
 
     useEffect(() => {
-        dispatch(fetchInterviewRecent())
+        dispatch(fetchINTInterviewsData())
     }, []);
-    if(interviewsRecentStatus === STATUS.LOADING){
+    if(INTInterviewsStatus === STATUS.LOADING){
         return <Loader/>
-    }else if(interviewsRecentStatus === STATUS.IDLE){
+    }else if(INTInterviewsStatus === STATUS.IDLE){
         return (
             <div className="InterviewRecent">
                 <div className='mb-5 text-2xl mt-4'>Interview Recent</div>
@@ -48,20 +48,20 @@ const InterviewRecent = () => {
                         </TableRow>
                         </TableHead>
                         <TableBody>
-                            {interviewsRecent.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((interviewRecent:any) => (
-                                <TableRow key={interviewRecent.id} className={`${interviewRecent.id % 2 === 0 ? 'bg-slate-100':''}`}>
+                            {INTInterviews.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((interview:any) => (
+                                <TableRow key={interview.id} className={`${interview.id % 2 === 0 ? 'bg-slate-100':''}`}>
                                     <TableCell component="th" scope="row">
-                                        {interviewRecent.name}
+                                        {interview.name}
                                     </TableCell>
-                                    <TableCell>{interviewRecent.creationAt}</TableCell>
+                                    <TableCell>{interview.creationAt}</TableCell>
                                     <TableCell>
-                                        <div className={`${(interviewRecent.id*interviewRecent.id*4)%100?"badge-completed":"badge-pending"}`}>
+                                        <div className={`${(interview.id*interview.id*4)%100?"badge-completed":"badge-pending"}`}>
                                             <div className='dot'></div>
-                                            <div>{(interviewRecent.id*interviewRecent.id*4)%100?"Completed":"Pending"}</div>
+                                            <div>{(interview.id*interview.id*4)%100?"Completed":"Pending"}</div>
                                         </div>
                                     </TableCell>
                                     <TableCell>
-                                        <Link to={`/interviewer/interview-recent/${interviewRecent.id}`} >
+                                        <Link to={`/interviewer/interview-recent/${interview.id}`} >
                                             <PencilIcon className='w-4 h-4' />
                                         </Link>
                                     </TableCell>

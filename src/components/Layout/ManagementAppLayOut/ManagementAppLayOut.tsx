@@ -17,6 +17,8 @@ import {
   MdOutlineManageAccounts,
 } from "react-icons/md";
 import RecFooter from "../../RecFooter/DashboardFooter";
+import { useAppSelector, useAppDispatch } from "../../../hooks/hooks";
+import { setText } from "../../../redux/reducer/SearchSlice";
 export const links = [
   {
     title: "ADMIN",
@@ -102,6 +104,18 @@ const ManagementAppLayOut = () => {
   const normalLink =
     " flex items-center gap-3 pl-4 py-1 rounded-lg text-black text-md text-gray-700 hover:bg-gray-200 mt-1 mx-3";
 
+  const {text} = useAppSelector((state:any) => state.searchFeature);
+  const dispatch = useAppDispatch();
+
+  const handleLoadPage = () => {
+    dispatch(setText(""));
+  };
+
+  const handleChange = (event : any) => {
+    const textInput = event.target.value;
+    dispatch(setText(textInput));
+  }
+
   return (
     <div className="ManagementAppLayOut">
       <div className="navbar ">
@@ -117,6 +131,17 @@ const ManagementAppLayOut = () => {
                 <Bars3Icon className="w-5 h-5 mr-2" />
               </button>
               <div>Breadcrumbs</div>
+            </div>
+            <div>
+              <form className="w-[40vw]">
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                    icon
+                  </div>
+                  <input type="text" id="simple-search" className="bg-gray-50 border border-gray-300 text-base rounded-lg w-full pl-10 p-2.5"
+                        value={text} placeholder="Search Name" onChange={handleChange} required />
+                </div>
+              </form>
             </div>
             <div className="navbar-content-right">
               <button type="button" onClick={() => setRightActive(true)}>
@@ -158,7 +183,7 @@ const ManagementAppLayOut = () => {
                   <NavLink
                     to={`/${link.url}`}
                     key={link.name}
-                    onClick={() => {}}
+                    onClick={handleLoadPage}
                     className={({ isActive }) =>
                       isActive ? activeLink : normalLink
                     }
