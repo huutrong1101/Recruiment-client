@@ -12,7 +12,6 @@ import { useForm } from "react-hook-form";
 const APPLICANT_STATUS = ["Any", "Passed", "Reviewing", "Pending", "Failed"];
 
 export default function UserProfileSubmittedJob() {
-  const { register, handleSubmit } = useForm();
   const [filterType, setFilterType] = useState<number>(0);
 
   const {
@@ -33,10 +32,7 @@ export default function UserProfileSubmittedJob() {
 
         {/* Filter groups */}
         <div className={classnames(`flex flex-row items-center gap-4`)}>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className={classnames(`w-10/12`)}
-          >
+          <div className={classnames(`w-10/12`)}>
             <InputIcon
               icon={<HiMagnifyingGlass />}
               className={`text-base px-3 py-2 w-full outline-none`}
@@ -45,7 +41,7 @@ export default function UserProfileSubmittedJob() {
               register={register}
               label={`search`}
             />
-          </form>
+          </div>
           <div className="w-32">
             <Listbox value={filterType} onChange={setFilterType}>
               <div className={classnames(`relative`)}>
@@ -72,10 +68,9 @@ export default function UserProfileSubmittedJob() {
                       <Listbox.Option
                         key={status}
                         className={({ active }) =>
-                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? "bg-emerald-100 text-emerald-900"
-                              : "text-zinc-600"
+                          `relative cursor-default select-none py-2 pl-10 pr-4 ${active
+                            ? "bg-emerald-100 text-emerald-900"
+                            : "text-zinc-600"
                           }`
                         }
                         value={personIdx}
@@ -83,9 +78,8 @@ export default function UserProfileSubmittedJob() {
                         {({ selected }: any) => (
                           <>
                             <span
-                              className={`block truncate ${
-                                selected ? "font-medium" : "font-normal"
-                              }`}
+                              className={`block truncate ${selected ? "font-medium" : "font-normal"
+                                }`}
                             >
                               {status}
                             </span>
