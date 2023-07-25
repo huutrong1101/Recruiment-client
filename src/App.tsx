@@ -65,6 +65,7 @@ import UserProfileMyInformation from "./pages/UserProfile/UserProfileMyInformati
 import { JobService } from "./services/JobService";
 import Logout from "./pages/Logout/Logout";
 import CandidateDetail from "./pages/Reccer/CandidateDetail";
+import { fetchRecJobList } from "./redux/reducer/RecJobSlice";
 
 export default function App() {
   useTokenAuthorize();
@@ -73,6 +74,7 @@ export default function App() {
 
   useEffect(() => {
     JobService.getJobs(dispatch);
+    dispatch(fetchRecJobList())
   }, []);
 
   return (
@@ -137,7 +139,7 @@ export default function App() {
           <Route path="interviewer" element={<ReccerInterviewerManagement />} />
           <Route path="interviewer/:id" element={<ReccerInterviewerDetail />} />
 
-          <Route path="jobdetail" element={<ReccerJobDetail />} />
+          <Route path="jobdetail/:jobId" element={<ReccerJobDetail />} />
           <Route path="addjob" element={<Addjob />} />
 
           <Route path="event" element={<ReccerEventManagement />} />
