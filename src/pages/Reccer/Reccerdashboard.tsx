@@ -12,12 +12,13 @@ import { fetchRecJobList } from "../../redux/reducer/RecJobSlice";
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
-const dispatch = useAppDispatch();
 
-useEffect(() => {
-  dispatch(fetchRecJobList())
-}, []);
 export default function Reccer_dashboard() {
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(fetchRecJobList())
+    }, []);
     return (
         <>
             <div className="mx-[3%] h-full">
@@ -102,7 +103,7 @@ export default function Reccer_dashboard() {
 
                 </div>
 
-                
+
             </div>
 
         </>
