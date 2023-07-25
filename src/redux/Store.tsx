@@ -8,6 +8,7 @@ import InterviewRecentReducer from "./reducer/InterviewRecentSlice";
 import AuthSlice from "./AuthSlice";
 import OneTimePasswordSlice from "../pages/OneTimePasswordVerify/slices/OneTimePasswordSlice";
 import CandidateListSlice from "./reducer/CandidateListSlice";
+import RecJobListSlice from "./reducer/RecJobSlice";
 
 export const ApplicationStore = configureStore({
   reducer: {
@@ -18,6 +19,8 @@ export const ApplicationStore = configureStore({
     Navbar: NavbarSlice,
     Auth: AuthSlice,
     OneTimePassword: OneTimePasswordSlice,
+
+    RecJobList: RecJobListSlice,
   },
 });
 
