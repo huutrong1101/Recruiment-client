@@ -12,11 +12,27 @@ import { useForm } from "react-hook-form";
 
 const INTERVIEW_STATUS = ["Any", "Pending", "Finished"];
 
-export default function UserProfileInterviewListView() {
-  const { register, handleSubmit } = useForm();
+export interface TableRow {
+  id: string;
+  value: any;
+}
+
+export interface TableProps<T> {
+  rows: TableRow[];
+  data: T[];
+}
+
+export default function UserProfileInterviewListView<T>({
+  rows,
+  data,
+}: TableProps<T>) {
   const [filterType, setFilterType] = useState<number>(0);
 
-  const onSubmit = (data: any) => {};
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   return (
     <div
@@ -36,8 +52,9 @@ export default function UserProfileInterviewListView() {
           >
             <InputIcon
               icon={<HiMagnifyingGlass />}
-              className={`text-base`}
+              className={`text-base px-3 py-2 w-full outline-none`}
               placeholder="Search for the interview"
+              type={`text`}
               register={register}
               label={`search`}
             />
@@ -64,7 +81,7 @@ export default function UserProfileInterviewListView() {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                  <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                     {INTERVIEW_STATUS.map((status, personIdx) => (
                       <Listbox.Option
                         key={status}
@@ -101,37 +118,9 @@ export default function UserProfileInterviewListView() {
       {/* Body */}
       <div>
         <UserProfileInterviewListViewTable
-          rows={[
-            {
-              id: "job",
-              value: "Position recruitment",
-            },
-            {
-              id: "date",
-              value: "Date",
-            },
-            {
-              id: "interviewer",
-              value: "Interviewer",
-            },
-          ]}
-          data={[
-            {
-              job: "Interview for Jobs #1722",
-              date: new Date().toDateString(),
-              interviewer: "Trong",
-            },
-            {
-              job: "Interview for Jobs #481",
-              date: new Date().toDateString(),
-              interviewer: "Trong",
-            },
-            {
-              job: "Interview for React #012",
-              date: new Date().toDateString(),
-              interviewer: "Trong",
-            },
-          ]}
+          rows={rows}
+          data={data}
+          isModal={true}
         />
       </div>
 

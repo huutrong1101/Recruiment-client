@@ -35,7 +35,7 @@ export default function AuthenticateLogin() {
       )}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="mx-6 items-center flex flex-col gap-4  w-full">
+      <div className="flex flex-col items-center w-full gap-4 mx-6">
         <h1 className="text-xl font-semibold">Login</h1>
 
         <InputIcon
