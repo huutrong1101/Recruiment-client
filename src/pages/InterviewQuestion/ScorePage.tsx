@@ -6,12 +6,6 @@ import ListQuestions from "./ListQuestion";
 import QuestionFilter from "./QuestionFilter";
 import TechFilter from "./TechFilter";
 import { Menu, Transition } from "@headlessui/react";
-type Record = {
-   questionID: number;
-   interviewQuestions: string;
-   typeQuestion: string;
-   position: string;
-};
 
 export default function ScorePage() {
    //-----------ListQuestion----------------------------------------------------
@@ -23,25 +17,6 @@ export default function ScorePage() {
    const handleQuestionClick = (question: any) => {
       setQuestions(question);
    };
-   //----------------------------------------------------------------------------
-   //------------Pagination------------------------------------------------------
-   // const [curPage, setCurPage] = useState(1)
-   // const recordsPerPage = 5
-   // const lastIndex = curPage * recordsPerPage
-   // const firstIndex = lastIndex - recordsPerPage
-   // const records = ListQuestions.slice(firstIndex, lastIndex)
-   // const numPage = Math.ceil(ListQuestions.length / recordsPerPage)
-   // const numbers = [...Array(numPage + 1).keys()].slice(1)
-   // const nextPage = () => {
-   //     if (curPage !== firstIndex) setCurPage(curPage - 1)
-   // }
-   // const changeCurPage = (id: any) => {
-   //     setCurPage(id)
-   // }
-   // const prePage = () => {
-   //     if (curPage !== lastIndex) setCurPage(curPage + 1)
-   // }
-   //----------------------------------------------------------------------------- 
    return (
       <div>
          <div className="flex flex-col justify-center md:flex-row md:items-start md:w-full h-full my-3  drop-shadow-md">
@@ -192,22 +167,12 @@ export default function ScorePage() {
                   {/* Position - technology */}
                   <div className="absolute flex top-[-20px] left-[-20px] w-5/12">
                      <div className="flex flex-row  gap-x-2.5 pl-2 w-full h-fit">
-                        <div className=" w-full flex flex-col relative">
-                           {/* <button className="Text text-white px-4 py-2.5 bg-emerald-600 rounded-s-lg drop-shadow-xl mr-4  
-                                                text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
-                                                border-transparent border hover:border-emerald-600 hover:transition-all duration-200  ">
-                           Position
-                        </button> */}
+                        <div className=" w-full flex flex-col relative mt-3">
                            <Menu as="div" className="w-full h-fit">
                               <QuestionFilter />
                            </Menu>
                         </div>
-                        <div className=" w-full h-[50px] flex flex-col relative ">
-                           {/* <button className="Text text-white px-4 py-2.5 bg-emerald-600 rounded-e-lg drop-shadow-xl mr-4  
-                                                text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
-                                                border-transparent border hover:border-emerald-600 hover:transition-all duration-200  " >
-                           Technology
-                        </button> */}
+                        <div className=" w-full h-[50px] flex flex-col relative mt-3 ">
                            <Menu as="div" className="w-full h-full">
                               <TechFilter />
                            </Menu>
@@ -216,7 +181,7 @@ export default function ScorePage() {
                   </div>
                   {/* Add question */}
                   <div className=" w-2/5 h-fit absolute flex right-[-15px] top-[-20px] justify-end ">
-                     <button className="Text text-white p-3.5 bg-emerald-600 rounded-lg drop-shadow-xl 
+                     <button className="Text text-white p-2.5 mt-3 bg-emerald-600 rounded-lg shadow-md
                                                 text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
                                                 border-transparent border hover:border-emerald-600 hover:transition-all duration-200 " onClick={() => setAddQuestion(true)} >
                         <PlusCircleIcon className="w-5 inline-flex" /> Add Question
