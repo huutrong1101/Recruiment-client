@@ -65,6 +65,7 @@ import UserProfileMyInformation from "./pages/UserProfile/UserProfileMyInformati
 import { JobService } from "./services/JobService";
 import Logout from "./pages/Logout/Logout";
 import CandidateDetail from "./pages/Reccer/CandidateDetail";
+import { EventService } from "./services/EventService";
 
 export default function App() {
   useTokenAuthorize();
@@ -73,6 +74,7 @@ export default function App() {
 
   useEffect(() => {
     JobService.getJobs(dispatch);
+    EventService.getEvents(dispatch);
   }, []);
 
   return (

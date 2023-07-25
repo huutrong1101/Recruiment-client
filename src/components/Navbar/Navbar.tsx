@@ -53,6 +53,17 @@ export default function Navbar() {
 
   const { isLoggedIn, user, loading } = useAppSelector((app) => app.Auth);
 
+  const role = user?.role;
+
+  let updatedLeftMenu = leftMenu;
+
+  if (role === "RECRUITER") {
+    updatedLeftMenu = [
+      ...leftMenu,
+      { name: "Dashboard", url: "/recruiter/dashboard" },
+    ];
+  }
+
   return (
     <>
       {/* Small width devices */}
@@ -81,7 +92,7 @@ export default function Navbar() {
               <li
                 className={classNames(`flex flex-row gap-12`, `font-semibold`)}
               >
-                {leftMenu.map((item) => {
+                {updatedLeftMenu.map((item) => {
                   return (
                     <Link
                       to={item.url}
@@ -138,7 +149,7 @@ export default function Navbar() {
               //   )}
               // >
               //   {user?.avatar === null ? (
-              //     <div className="h-4 w-4">
+              //     <div className="w-4 h-4">
               //       <AiOutlineUser />
               //     </div>
               //   ) : (
@@ -165,7 +176,7 @@ export default function Navbar() {
                         {user?.fullName}
                       </span>
                       {/* {user?.avatar === null ? (
-                        <div className="h-4 w-4">
+                        <div className="w-4 h-4">
                           <AiOutlineUser />
                         </div>
                       ) : (
