@@ -7,19 +7,19 @@ import {
   UserIcon,
   ArrowRightIcon,
 } from "@heroicons/react/24/outline";
+import moment from "moment";
+import { JobInterface } from "../../services/services";
 
 interface JobCardProps {
-  job: {
-    jobId: number;
-    createdAt: string;
-    jobType: string;
-    name: string;
-    location: string;
-    quantity: number;
-  };
+  job: JobInterface;
 }
 
 export default function JobCard({ job }: JobCardProps) {
+  const now = moment();
+  const created = moment(job.createdAt);
+  const duration = moment.duration(now.diff(created));
+  const days = duration.asDays();
+
   return (
     <>
       <div className="p-6 bg-white rounded-lg shadow-lg">
@@ -38,7 +38,10 @@ export default function JobCard({ job }: JobCardProps) {
                 "text-gray-500 text-center text-sm font-normal ",
               )}
             >
-              {job.createdAt} days ago
+              {days >= 1
+                ? `${Math.floor(days)} days`
+                : `${Math.abs(duration.asHours()).toFixed(0)} hours`}{" "}
+              ago
             </p>
           </div>
           <p
@@ -60,7 +63,7 @@ export default function JobCard({ job }: JobCardProps) {
           <div className={classnames("mt-2")}>
             <div className={classnames("flex gap-2")}>
               <MapPinIcon className={classnames(`w-[20px] ml-4`)} />
-              <p>Ha Noi</p>
+              <p>{job.location}</p>
             </div>
             <div className={classnames("flex gap-2")}>
               <UserIcon className={classnames(`w-[20px] ml-4`)} />

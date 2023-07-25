@@ -56,10 +56,23 @@ import DeleteBlacklist from "./pages/Admin/DeleteBlacklist";
 import CreateCV from "./pages/CreateCV/CreateCV";
 import RequestTest from "./pages/RequestTest/RequestTest";
 import InterviewSched from "./pages/Reccer/Interview/InterviewSched";
-import CandidateDetail from "./pages/Reccer/CandidateDetail";
-import Logout from "./pages/Logout/Logout";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "./hooks/hooks";
+import { authLogout, fetchUserFromToken } from "./redux/AuthSlice";
+import { useTokenAuthorize } from "./hooks/useTokenAuthorize";
+// import { EventService } from "./services/JobService";
+import UserProfileMyInformation from "./pages/UserProfile/UserProfileMyInformation";
+import { JobService } from "./services/JobService";
 
 export default function App() {
+  useTokenAuthorize();
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    JobService.getJobs(dispatch);
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -86,6 +99,7 @@ export default function App() {
 
           <Route path="/profile" element={<UserProfileLayout />}>
             <Route index element={<UserProfileMyProfile />} />
+            <Route path="information" element={<UserProfileMyInformation />} />
             <Route path="interviews" element={<UserProfileInterviews />} />
             <Route
               path="submitted-jobs"
