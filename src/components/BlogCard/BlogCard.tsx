@@ -7,6 +7,7 @@ import {
   CalendarDaysIcon,
   ClockIcon,
 } from "@heroicons/react/24/outline";
+import moment from "moment";
 
 interface BlogCardProps {
   event: {
@@ -18,6 +19,7 @@ interface BlogCardProps {
 }
 
 export default function BlogCard({ event }: BlogCardProps) {
+  // const formattedDate = moment(event.createdAt).format("Do MMMM, YYYY");
   return (
     <>
       <div className="bg-white rounded-lg shadow-lg">
@@ -25,7 +27,7 @@ export default function BlogCard({ event }: BlogCardProps) {
           <img
             src={blog_image}
             alt="blog_image"
-            className={classnames("w-full")}
+            className={classnames("w-full h-[200px] object-cover")}
           />
         </div>
         <div className={classnames("p-6")}>
@@ -54,7 +56,8 @@ export default function BlogCard({ event }: BlogCardProps) {
           </div>
           <div className={classnames("mt-6 flex items-center justify-center")}>
             <Link
-              to={`/events/${event.id}`}
+              // to={`/events/${event.id}`}
+              to={`/events`}
               className={classnames(
                 "bg-emerald-700 text-white p-2 rounded-md flex",
               )}

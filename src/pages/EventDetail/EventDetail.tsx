@@ -23,8 +23,15 @@ import { data } from "../../data/homeData";
 import BlogCard from "../../components/BlogCard/BlogCard";
 import InputIcon from "../../components/InputIcon/InputIcon";
 import Modal from "../../components/Modal/Modal";
+import { useForm } from "react-hook-form";
 
 export default function EventDetail() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   let [isOpen, setIsOpen] = useState(false);
 
   const handleApply = () => {
@@ -230,29 +237,33 @@ export default function EventDetail() {
                 <InputIcon
                   icon={<HiUserCircle />}
                   placeholder={`Full Name`}
-                  // {...register("phone")}
-                  name={`phone`}
+                  type={`text`}
+                  register={register}
+                  label={`fullName`}
                 />
 
                 <InputIcon
                   icon={<HiEnvelope />}
+                  type={`text`}
                   placeholder={`Email`}
-                  // {...register("phone")}
-                  name={`phone`}
+                  register={register}
+                  label={`email`}
                 />
 
                 <InputIcon
                   icon={<HiMapPin />}
+                  type={`text`}
                   placeholder={`Location`}
-                  // {...register("phone")}
-                  name={`phone`}
+                  register={register}
+                  label={`location`}
                 />
 
                 <InputIcon
                   icon={<HiPhone />}
+                  type={`text`}
                   placeholder={`Phone`}
-                  // {...register("phone")}
-                  name={`phone`}
+                  register={register}
+                  label={`phone`}
                 />
               </div>
             </div>
@@ -272,9 +283,10 @@ export default function EventDetail() {
                   >
                     <input
                       type="radio"
-                      name="resume"
                       value="resume1"
                       className={classnames(`w-4 mx-2`)}
+                      {...register("resume")}
+                      defaultChecked
                     />
                     <span
                       className={classnames(
@@ -299,9 +311,9 @@ export default function EventDetail() {
                   >
                     <input
                       type="radio"
-                      name="resume"
                       value="resume2"
                       className={classnames(`w-4 mx-2`)}
+                      {...register("resume")}
                     />
                     <span
                       className={classnames(
@@ -326,9 +338,9 @@ export default function EventDetail() {
                   >
                     <input
                       type="radio"
-                      name="resume"
                       value="resume3"
                       className={classnames(`w-4 mx-2`)}
+                      {...register("resume")}
                     />
                     <span
                       className={classnames(
@@ -349,6 +361,7 @@ export default function EventDetail() {
             <textarea
               className="w-full p-3 border border-gray-500"
               placeholder="Your Note"
+              {...register("note")}
             />
           </div>
         </div>

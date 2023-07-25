@@ -2,22 +2,14 @@ import React from "react";
 import classnames from "classnames";
 import logo_FPT from "../../../images/logo_FPT.png";
 import { Link } from "react-router-dom";
+import moment from "moment"
 
-interface MyComponentProps {
-   job: {
-      jobId: number;
-      createdAt: string;
-      jobType: string;
-      name: string;
-      TimeFrom: number;
-      TimeTo: number;
-      MoneyFrom: number;
-      MoneyTo: number;
-      Decription: string;
-   };
-}
 
-export default function RecDashboardCard({ job }: MyComponentProps) {
+export default function RecDashboardCard({ job }: any) {
+   const now = moment();
+   const created = moment(job.createdAt);
+   const duration = moment.duration(now.diff(created));
+   const days = duration.asDays();
    return (
       <>
          <div className="relative overflow-hidden transition-all duration-500 bg-white border rounded-md shadow group hover:shadow-lg h-fit">
@@ -35,7 +27,7 @@ export default function RecDashboardCard({ job }: MyComponentProps) {
                      <h1 className={classnames("text-black text-lg font-semibold ")}>
                         {job.name}
                         <span className="ml-5 text-sm font-semibold text-gray-400 ">
-                           {job.createdAt} days ago
+                           {days} days ago
                         </span>
                      </h1>
                      <button
@@ -45,11 +37,8 @@ export default function RecDashboardCard({ job }: MyComponentProps) {
                      >
                         {job.jobType}
                      </button>
-                     <span className="ml-5 text-sm font-semibold text-gray-400 ">
-                        EST. Time:{job.TimeFrom} To {job.TimeTo} Months{" "}
-                     </span>
-                     <span className="ml-1 text-sm font-semibold text-gray-400 ">
-                        Hourly: ${job.MoneyFrom} - ${job.MoneyTo}{" "}
+                     <span className="ml-3 text-sm font-semibold text-gray-400 ">
+                        Hourly: {job.salaryRange}
                      </span>
                   </div>
                </div>
@@ -61,39 +50,23 @@ export default function RecDashboardCard({ job }: MyComponentProps) {
                   >
                      Decription:
                      <span className="ml-1 font-normal text-gray-400">
-                        {job.Decription}
+                        {job.description}
                      </span>
                   </h3>
                </div>
+               {
+                  job.skills.map((items: any) => (
+                     <span
+                        className={classnames(
+                           "bg-gray-300 hover:bg-gray-400  inline-block text-slate-900 text-xs px-2.5 py-0.5 font-semibold rounded-full me-1",
+                        )}
+                     >
+                        {items.name}
+                     </span>
+
+                  ))
+               }
                <div>
-                  <span
-                     className={classnames(
-                        "bg-gray-300 hover:bg-gray-400  inline-block text-slate-900 text-xs px-2.5 py-0.5 font-semibold rounded-full me-1",
-                     )}
-                  >
-                     HTML/CSS
-                  </span>
-                  <span
-                     className={classnames(
-                        "bg-gray-300 hover:bg-gray-400  inline-block text-slate-900 text-xs px-2.5 py-0.5 font-semibold rounded-full me-1",
-                     )}
-                  >
-                     RectJS
-                  </span>
-                  <span
-                     className={classnames(
-                        "bg-gray-300 hover:bg-gray-400  inline-block text-slate-900  text-xs px-2.5 py-0.5 font-semibold rounded-full me-1",
-                     )}
-                  >
-                     JavaScripts
-                  </span>
-                  <span
-                     className={classnames(
-                        "bg-gray-300 hover:bg-gray-400  inline-block text-slate-900  text-xs px-2.5 py-0.5 font-semibold rounded-full me-1",
-                     )}
-                  >
-                     JavaScripts
-                  </span>
                </div>
             </div>
             <div className="items-center justify-between px-6 py-3 bg-gray-200 lg:flex">

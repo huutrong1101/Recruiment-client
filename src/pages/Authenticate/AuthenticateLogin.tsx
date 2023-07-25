@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/outline";
 import InputIcon from "../../components/InputIcon/InputIcon";
 
-import { useAppDispatch } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { authLogin } from "../../redux/AuthSlice";
 import { UserLoginParamsInterface } from "../../services/services";
@@ -15,6 +15,7 @@ export default function AuthenticateLogin() {
   const { register, handleSubmit } = useForm<UserLoginParamsInterface>();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { loading } = useAppSelector((app) => app.Auth);
 
   const onSubmit = (data: UserLoginParamsInterface) => {
     dispatch(authLogin(data))
@@ -34,7 +35,7 @@ export default function AuthenticateLogin() {
       )}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="mx-6 items-center flex flex-col gap-4  w-full">
+      <div className="flex flex-col items-center w-full gap-4 mx-6">
         <h1 className="text-xl font-semibold">Login</h1>
 
         <InputIcon
@@ -71,7 +72,7 @@ export default function AuthenticateLogin() {
           </div>
         </div>
 
-        <PrimaryButton text="Sign in" isLoading />
+        <PrimaryButton text="Sign in" isLoading={loading === "pending"} />
       </div>
     </form>
   );

@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import home_page from "../../../images/home_page.png";
 import classnames from "classnames";
 import {
@@ -14,6 +14,9 @@ import JobCard from "../../components/JobCard/JobCard";
 import BlogCard from "../../components/BlogCard/BlogCard";
 import Advertise from "../../components/Advertise/Advertise";
 import { Menu, Transition } from "@headlessui/react";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { JobService } from "../../services/JobService";
+import { JobInterface } from "../../services/services";
 
 export default function Home() {
   const [showType, setShowType] = useState(false);
@@ -21,6 +24,8 @@ export default function Home() {
   const [search, setSearch] = useState("");
 
   const [type, setType] = useState(data.listTypeJobs[1].name);
+
+  const jobs: JobInterface[] = useAppSelector((state) => state.Home.jobs);
 
   const handleSubmit = () => {
     alert("Giá trị thu được với từ khóa: " + search + " và loại: " + type);
@@ -194,8 +199,8 @@ export default function Home() {
 
         <div className="flex flex-wrap -mx-4 mt-[5px]">
           {/* <!-- Card --> */}
-          {data.listJobs &&
-            data.listJobs.map((job) => (
+          {jobs &&
+            jobs.slice(0, 6).map((job) => (
               <div
                 key={job.jobId}
                 className="w-full px-4 mb-8 sm:w-1/2 lg:w-1/3"
@@ -240,11 +245,8 @@ export default function Home() {
         <div className="flex flex-wrap -mx-4 mt-[50px]">
           {/* <!-- Card --> */}
           {data.listEvent &&
-            data.listEvent.map((event) => (
-              <div
-                key={event.id}
-                className="w-full px-4 mb-8 sm:w-1/2 lg:w-1/3"
-              >
+            data.listEvent.map((event, index) => (
+              <div key={index} className="w-full px-4 mb-8 sm:w-1/2 lg:w-1/3">
                 <BlogCard event={event} />
               </div>
             ))}
