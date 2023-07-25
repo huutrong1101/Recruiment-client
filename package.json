@@ -51,6 +51,7 @@
     "classnames": "^2.3.2",
     "fullcalendar": "^6.1.8",
     "hoist-non-react-statics": "^3.3.2",
+    "moment": "^2.29.4",
     "node-sass": "^9.0.0",
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.45.1",

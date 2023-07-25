@@ -2,9 +2,14 @@ import React from "react";
 import classnames from "classnames";
 import logo_FPT from "../../../images/logo_FPT.png";
 import { Link } from "react-router-dom";
+import moment from "moment"
 
 
 export default function RecDashboardCard({ job }: any) {
+   const now = moment();
+   const created = moment(job.createdAt);
+   const duration = moment.duration(now.diff(created));
+   const days = duration.asDays();
    return (
       <>
          <div className="relative overflow-hidden transition-all duration-500 bg-white border rounded-md shadow group hover:shadow-lg h-fit">
@@ -22,7 +27,7 @@ export default function RecDashboardCard({ job }: any) {
                      <h1 className={classnames("text-black text-lg font-semibold ")}>
                         {job.name}
                         <span className="ml-5 text-sm font-semibold text-gray-400 ">
-                           {job.createdAt} days ago
+                           {days} days ago
                         </span>
                      </h1>
                      <button
