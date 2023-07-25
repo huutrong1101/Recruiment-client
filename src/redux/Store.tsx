@@ -7,6 +7,7 @@ import CandidateRecentReducer from "./reducer/CandidateRecentSlice";
 import InterviewRecentReducer from "./reducer/InterviewRecentSlice";
 import AuthSlice from "./AuthSlice";
 import CandidateListSlice from "./reducer/CandidateListSlice";
+import RecJobListSlice from "./reducer/RecJobSlice"
 
 export const ApplicationStore = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const ApplicationStore = configureStore({
     interviewRecent: InterviewRecentReducer,
     Navbar: NavbarSlice,
     Auth: AuthSlice,
+    recjobList:RecJobListSlice,
   },
 });
 
