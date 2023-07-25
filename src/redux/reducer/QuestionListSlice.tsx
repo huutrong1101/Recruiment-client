@@ -29,7 +29,7 @@ export const fetchQuestionList = () => {
         dispatch(setQuestionStatus(STATUS.LOADING));
         try{
             const reponse = await axiosInstance.get(`${QuestionListAPI}`);
-            const data = await reponse.data();
+            const data = await reponse.data;
             dispatch(setQuestionList(data));
             dispatch(setQuestionStatus(STATUS.IDLE));
         }catch(error){
