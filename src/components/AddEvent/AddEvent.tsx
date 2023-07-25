@@ -13,7 +13,6 @@ import {  BiLogoFacebook,  BiLogoInstagram,  BiLogoLinkedin,  BiLogoGitlab,  BiL
 export default function AddEvent() {
       const [avatar, setAvatar] = useState(blog_image);
       const [time, setTime] =     useState('');
-      const [organizedBy, setOrganizedBy] = useState('');
       const [date, setDate] = useState('');
       const [eventName, setEventName] = useState('');
       const [eventContent, setEventContent] = useState('');
@@ -34,8 +33,19 @@ export default function AddEvent() {
     };
       const handleSubmit = (event) => {
         event.preventDefault();
-        let object = { avatar,time,organizedBy, date, eventName,eventContent,
-          nameActor,avaActor,linkFacebook,linkTwitter,linkGitlab,linkInstagram,linkLinkedin};
+        let object = {
+          avatar,
+          time,
+          date,
+          eventName,
+          eventContent,
+          nameActor,
+          avaActor,
+          linkFacebook,
+          linkTwitter,
+          linkGitlab,
+          linkInstagram,
+          linkLinkedin};
         console.log(object);
         setOpen(false);
       }
@@ -252,22 +262,10 @@ export default function AddEvent() {
                 </div>
                 {/* Set Time  */}
                 <div className="border-[2px] rounded-xl">
-                <div className={classnames("flex  items-center gap-1 justify-between px-10 mb-4 ")}>
-                    <label> By :
-                        <input
-                              type="text"
-                              id="organizedBy"
-                              placeholder="Google"
-                              value={organizedBy}
-                              className="text-emerald-600 border text-sm font-medium leading-tight"
-                              onChange={(event) => setOrganizedBy(event.target.value)}
-                        />
-                    </label>
-                </div>
                 <div className={classnames("flex items-center gap-1 justify-between px-10 mt-4")}>
-                    <label className="">Date poted :
+                    <label className="">Date Start:
                       <input
-                        type="date"
+                        type="datetime-local"
                         id="date"
                         className="text-emerald-600 border text-sm font-medium leading-tight"
                         value={date}
@@ -275,14 +273,14 @@ export default function AddEvent() {
                       />
                     </label>
                 </div>
-                <div className={classnames("flex items-center gap-1  justify-between px-10 mt-4 mb-10")}>
-                    <label className="">Time :
-                    <input
-                        type="time"
-                        id="time"
+                <div className={classnames("flex items-center gap-1 justify-between px-10 mb-10 mt-5")}>
+                    <label className="">Date End:
+                      <input
+                        type="datetime-local"
+                        id="date"
                         className="text-emerald-600 border text-sm font-medium leading-tight"
-                        value={time}
-                        onChange={(event) => setTime(event.target.value)}
+                        value={date}
+                        onChange={(event) => setDate(event.target.value)}
                       />
                     </label>
                 </div>
