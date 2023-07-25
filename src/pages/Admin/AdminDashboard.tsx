@@ -5,10 +5,10 @@ export default function AdminDashboard() {
   // const [ShowSearch, SearchListtrue] = useState(false) ;
   return(
     <div className="flex flex-col">
-        <nav className="p-2 text-center">
+        <nav className="p-10 text-center">
           <SearchBar />
         </nav>
-        <nav className="bg-white p-6 relative overflow-x-auto">
+        <nav className="bg-white relative overflow-x-auto">
           <Tabbaradmin />
         </nav>
         <Outlet />
