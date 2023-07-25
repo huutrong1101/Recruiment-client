@@ -5,9 +5,12 @@ import { Link } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Bars4Icon } from "@heroicons/react/24/outline";
 import { setNavbarDrawerVisible } from "./slices/NavbarSlice";
+import NavbarUserLoggedInCard from "./NavbarUserLoggedInCard";
+import NavbarUserNotLoggedInCard from "./NavbarUserNotLoggedInCard";
 
 export default function MobileNavbar() {
   const { drawerVisible, items } = useAppSelector((app) => app.Navbar);
+  const { isLoggedIn } = useAppDispatch((app) => app.Auth);
   const dispatch = useAppDispatch();
 
   const handleExpandDrawer = () => {
@@ -19,17 +22,26 @@ export default function MobileNavbar() {
 
   return (
     <div className={classNames(`block sm:hidden mb-6 px-6 py-6`)}>
-      <div className={classNames(`flex flex-row gap-4`)}>
+      <div className={classNames(`flex flex-row gap-4 items-center`)}>
         <button className="w-[28px] text-zinc-800" onClick={handleExpandDrawer}>
           <span className={classNames(`w-[16px]`)}>
             <Bars4Icon />
           </span>
         </button>
 
-        {/*  */}
+        {/* Middle item */}
         <Link to={`/`}>
           <h1 className={classNames(`text-2xl font-bold`)}>JobPort</h1>
         </Link>
+
+        {/* Right items */}
+        <div className={classNames(`flex flex-row-reverse flex-1`)}>
+          {isLoggedIn ? (
+            <NavbarUserLoggedInCard />
+          ) : (
+            <NavbarUserNotLoggedInCard />
+          )}
+        </div>
       </div>
 
       {/* Drawer */}
@@ -73,6 +85,15 @@ export default function MobileNavbar() {
                 </Link>
               );
             })}
+
+            {/* Account options */}
+            <Link
+              to={"/profile"}
+              onClick={handleCloseDrawer}
+              className={classNames(`px-6 py-4 text-lg`)}
+            >
+              Profiles
+            </Link>
           </Transition.Child>
         </Transition>
       </div>
