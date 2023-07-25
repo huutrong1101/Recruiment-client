@@ -21,8 +21,7 @@ const CandidateRecentSlice = createSlice({
 });
 
 export default CandidateRecentSlice.reducer;
-export const { setCandidatesRecent, setCandidatesRecentStatus } =
-  CandidateRecentSlice.actions;
+export const { setCandidatesRecent, setCandidatesRecentStatus } = CandidateRecentSlice.actions;
 
 export const fetchCandidateRecent = () => {
   return async function fetchCandidateRecentThunk(dispatch: Dispatch) {
@@ -30,7 +29,7 @@ export const fetchCandidateRecent = () => {
     try {
       const reponse = await fetch(`${BASE_URL_FAKE_DATA}users`);
       const data = await reponse.json();
-      dispatch(setCandidatesRecent(data));
+      dispatch(setCandidatesRecent(data.result.content));
       dispatch(setCandidatesRecentStatus(STATUS.IDLE));
     } catch (error) {
       dispatch(setCandidatesRecentStatus(STATUS.ERROR));
