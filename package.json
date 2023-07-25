@@ -53,6 +53,7 @@
     "hoist-non-react-statics": "^3.3.2",
     "moment": "^2.29.4",
     "node-sass": "^9.0.0",
+    "query-string": "^8.1.0",
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.45.1",
     "react-icons": "^4.10.1",
