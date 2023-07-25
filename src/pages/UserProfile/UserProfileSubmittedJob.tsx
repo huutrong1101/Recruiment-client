@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 const APPLICANT_STATUS = ["Any", "Passed", "Reviewing", "Pending", "Failed"];
 
 export default function UserProfileSubmittedJob() {
+  const { register, handleSubmit } = useForm();
   const [filterType, setFilterType] = useState<number>(0);
 
   const {
@@ -32,7 +33,10 @@ export default function UserProfileSubmittedJob() {
 
         {/* Filter groups */}
         <div className={classnames(`flex flex-row items-center gap-4`)}>
-          <div className={classnames(`w-10/12`)}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className={classnames(`w-10/12`)}
+          >
             <InputIcon
               icon={<HiMagnifyingGlass />}
               className={`text-base px-3 py-2 w-full outline-none`}
@@ -41,7 +45,7 @@ export default function UserProfileSubmittedJob() {
               register={register}
               label={`search`}
             />
-          </div>
+          </form>
           <div className="w-32">
             <Listbox value={filterType} onChange={setFilterType}>
               <div className={classnames(`relative`)}>

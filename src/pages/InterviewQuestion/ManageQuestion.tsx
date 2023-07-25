@@ -1,216 +1,130 @@
 import {
-  MagnifyingGlassIcon,
-  PencilSquareIcon,
-  TrashIcon,
+  PlusCircleIcon, TrashIcon, PencilIcon, ChevronDownIcon
 } from "@heroicons/react/24/outline";
-import DashBoardFooter from "../../components/RecFooter/DashboardFooter";
+import { Menu, Transition } from "@headlessui/react";
+import QuestionFilter from "./QuestionFilter";
+import TechFilter from "./TechFilter";
+import SearchBar from "../../components/Search/Search";
+import ListQuestions from "./ListQuestion";
+import { useState } from "react";
+import AddQuestion from "./AddQuestion";
 export default function QuestionInterview() {
+  const [addQuestion, setAddQuestion] = useState(false)
+  const handleOnClick = () => setAddQuestion(false)
   return (
-    <div>
-      <div className="w-full h-full bg-white flex justify-center">
-        <div className="Table relative w-11/12 min-h-full  bg-white rounded-lg shadow border border border border border-gray-200 pt-4">
-          <div className="relative">
-            {/* interviewQuestion */}
-            <div className=" w-full Content self-stretch px-6 pt-5 pb-[19px] justify-start items-start inline-flex">
-              <div className="TextAndBadge w-4/5 [534px] self-stretch justify-start items-center gap-2 flex">
-                <div className="Text text-gray-900 text-[22px] font-medium leading-7">
-                  Interview Question
-                </div>
-                <div className="Badge justify-start items-start flex">
-                  <div className="BadgeBase px-2 py-0.5 bg-emerald-50 rounded-2xl justify-center items-center flex">
-                    <div className="Text text-center text-emerald-600 text-[12px] font-medium leading-none">
-                      22 vendors
-                    </div>
-                  </div>
-                </div>
+    <div className="my-4 ">
+      <div className="bg-white border border-gray-200 rounded-md drop-shadow-md min-h-[calc(100vh-72px-2rem)] ">
+        <div className="flex flex-col">
+          <div className="my-4 flex justify-center">
+            <div className="inline-flex w-11/12 justify-between">
+              <div className="flex items-center ">
+                <div className=" w-fit h-fit font-semibold text-2xl ">Interview Questions</div>
               </div>
-              <div className="Actions justify-start items-center gap-3 flex right auto ">
-                <div className="Actions justify-start items-center gap-3 flex ">
-                  <div className="Button01 rounded-lg justify-start items-start flex ">
-                    <button
-                      className="Text text-white px-4 py-2.5 bg-emerald-600 rounded-lg shadow-lg  
-                                                               text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
-                                                               border-transparent border hover:border-emerald-600 "
-                    >
-                      Add question
-                    </button>
-                  </div>
-                </div>
+              <div className="w-fit h-fit ">
+                <button className="Text text-white px-4 py-2.5 bg-emerald-600 rounded-lg drop-shadow-xl
+                                text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
+                                border-transparent border hover:border-emerald-600 hover:transition-all duration-200"
+                  onClick={() => setAddQuestion(true)} >
+                  <PlusCircleIcon className="w-5 inline-flex" /> Add Question
+                </button>
               </div>
-            </div>
-            {/* filter */}
-            <div className="FiltersBar w-full h-[68px] bg-white flex-col justify-start items-start inline-flex">
-              <div className="Content w-full px-4 py-3 rounded-xl justify-between items-start gap-4 inline-flex absolute ">
-                <div className="ButtonGroup rounded-lg shadow border border border border border-gray-300 justify-start items-start flex">
-                  <div className="ButtonGroupBase px-4 py-2.5 bg-gray-50 border border-gray-300 justify-center items-center gap-2 flex">
-                    <div className="Text text-slate-800 text-[14px] font-medium leading-tight">
-                      View all
-                    </div>
-                  </div>
-                  <div className="ButtonGroupBase px-4 py-2.5 bg-white border border-gray-300 justify-center items-center gap-2 flex">
-                    <div className="Text text-slate-700 text-[14px] font-medium leading-tight">
-                      Monitored
-                    </div>
-                  </div>
-                  <div className="ButtonGroupBase px-4 py-2.5 bg-white border border-gray-300 justify-center items-center gap-2 flex">
-                    <div className="Text text-slate-700 text-[14px] font-medium leading-tight">
-                      Text
-                    </div>
-                  </div>
-                </div>
-                <div className="Actions justify-start items-center gap-3 flex">
-                  <div>
-                    <label className="relative block">
-                      <span className="sr-only">Search</span>
-                      <span className="absolute inset-y-0 left-0 flex items-center pl-2">
-                        <svg
-                          className=" MagnifyingGlassIcon h-5 w-5 fill-slate-300"
-                          viewBox="0 0 20 20"
-                        ></svg>
-                      </span>
-                      <input
-                        className="placeholder:italic placeholder:text-slate-400 block bg-white w-full border 
-                                                    border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm 
-                                                      focus:outline-none focus:border-sky-500 focus:ring-sky-500 
-                                                      focus:ring-1 sm:text-sm"
-                        placeholder="Search for anything..."
-                        type="text"
-                        name="search"
-                      />
-                    </label>
-                  </div>
-                  <div className="Button rounded-lg justify-start items-start flex">
-                    <div className="ButtonBase px-4 py-2.5 bg-white rounded-lg shadow border border border border border-gray-300 justify-center items-center gap-2 flex">
-                      <div className="FiltersLines w-5 h-5 relative" />
-                      <div className="Text text-slate-700 text-[14px] font-medium leading-tight">
-                        Filters
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* table */}
-            <div className=" overflow-x-auto ">
-              <table className="w-full text-sm text-left ">
-                <thead className="text-xs uppercase px-6 py-3">
-                  <tr>
-                    <th
-                      scope="col"
-                      className="flex flex-col justify-center pl-6"
-                    >
-                      Content
-                    </th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Weight</th>
-                    <th scope="col">Note</th>
-                    <th scope="col">....................</th>
-                  </tr>
-                </thead>
-                <tbody className="px-6 py-4 ">
-                  <tr className="bg-white border-b">
-                    <th
-                      scope="row"
-                      className="px-6 py-4 font-medium flex-wrap text-black"
-                    >
-                      What is JSX, how to implement JSX
-                    </th>
-                    <td>Technical</td>
-                    <td>0.2</td>
-                    <td>abc</td>
-                    <td className="flex flex-row justify-start p-4">
-                      <PencilSquareIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
-                      <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
-                    </td>
-                  </tr>
-                  <tr className="bg-white border-b">
-                    <th
-                      scope="row"
-                      className="px-6 py-4 font-medium  whitespace-nowrap text-black"
-                    >
-                      What is REACT, REACT-DOM
-                    </th>
-                    <td>Technical</td>
-                    <td>0.2</td>
-                    <td>...</td>
-                    <td className="flex flex-row justify-start p-4">
-                      <PencilSquareIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
-                      <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
-                    </td>
-                  </tr>
-                  <tr className="bg-white">
-                    <th
-                      scope="row"
-                      className="px-6 py-4 font-medium text-black whitespace-nowrap"
-                    >
-                      Framework for CSS
-                    </th>
-                    <td>Technical</td>
-                    <td>0.2</td>
-                    <td>...</td>
-                    <td className="flex flex-row justify-start p-4">
-                      <PencilSquareIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
-                      <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
-                    </td>
-                  </tr>
-                  <tr className="bg-white border-b">
-                    <th
-                      scope="row"
-                      className="px-6 py-4 font-medium  whitespace-nowrap text-black"
-                    >
-                      API? How to get API
-                    </th>
-                    <td>Technical</td>
-                    <td>0.2</td>
-                    <td>...</td>
-                    <td className="flex flex-row justify-start p-4">
-                      <PencilSquareIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
-                      <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
-                    </td>
-                  </tr>
-                  <tr className="bg-white">
-                    <th
-                      scope="row"
-                      className="px-6 py-4 font-medium text-black whitespace-nowrap"
-                    >
-                      What is SPA and MPA? What is different between them?
-                    </th>
-                    <td>Technical</td>
-                    <td>0.2</td>
-                    <td>...</td>
-                    <td className="flex flex-row justify-start p-4">
-                      <PencilSquareIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
-                      <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
             </div>
           </div>
-          {/* Pagination */}
-          <div className="Pagination w-full h-20 px-6 pb-4  border-gray-200 justify-between  inline-flex ">
-            <div className="Details text-slate-700 text-[14px] font-medium leading-tight flex flex-col justify-center">
-              Page 1 of 10
-            </div>
-            <div className="Actions justify-center items-center gap-3 flex">
-              <div className="Button rounded-lg justify-start items-start flex">
-                <div className="ButtonBase px-3.5 py-2 bg-white rounded-lg shadow border border border border border-gray-300 justify-center items-center gap-2 flex">
-                  <div className="Text text-slate-700 text-[14px] font-medium leading-tight">
-                    Previous
+          <div className="flex flex-col justify-center w-full">
+            <div className="w-full h-fit  ">
+              <div className=" gap-x-4 flex justify-between ">
+                <div className="flex gap-x-4 ml-12 cursor-pointer w-full">
+                  {/* Position */}
+                  <div className=" relative flex flex-col w-1/5 h-fit px-2 ">
+                    {/* p-4 text-[14px] text-white font-medium leading-tight bg-emerald-600 rounded-lg drop-shadow-xl border-transparent border w-full h-full
+                                hover:text-emerald-600 hover:border hover:border-emerald-600 hover:bg-white hover:rounded-s-lg hover:transition-all duration-75  */}
+                    <Menu as="div" className="w-full h-full">
+                      <QuestionFilter/>
+                    </Menu>
+                  </div>
+
+                  {/* Technology */}
+                  <div className=" relative flex flex-col w-1/5 h-fit px-2 ">
+                    <Menu as="div" className=" w-full h-full ">
+                      <TechFilter/>
+                    </Menu>
                   </div>
                 </div>
+                <div className="flex justify-self-end mr-12">
+                  <SearchBar></SearchBar>
+                </div>
               </div>
-              <div className="Button rounded-lg justify-start items-start flex">
-                <div className="ButtonBase px-3.5 py-2 bg-white rounded-lg shadow border border border border border-gray-300 justify-center items-center gap-2 flex">
-                  <div className="Text text-slate-700 text-[14px] font-medium leading-tight">
-                    Next
-                  </div>
+            </div>
+          </div>
+          <div>
+            <div className="flex justify-center my-2 ">
+              <div className=" rounded-lg border-gray-200 border-2 w-11/12 h-fit">
+                <div className="overflow-auto px-2">
+                  <table className="w-full ">
+                    <thead className="w-fit">
+                      <tr className="flex justify-between  mt-3 px-6">
+                        <th className="text-lg tracking-wide text-left font-semibold basis-1/5 ">Position</th>
+                        <th className="text-lg tracking-wide text-left font-semibold basis-1/5 ">Tech</th>
+                        <th className="text-lg tracking-wide text-left font-semibold basis-2/5 ">Question</th>
+                        <th className="text-lg tracking-wide text-left font-semibold basis-1/5 flex justify-center ">Edit</th>
+                      </tr>
+                    </thead>
+                    <tbody className="">
+                      <div className="grid text-left">
+                        <div className="px-4">
+                          {ListQuestions.map((question) => (
+                            <tr className="flex flex-row  p-2 my-2 text-left text-md cursor-pointer items-center
+                                       border-2 border-white hover: hover:border-emerald-600 hover:rounded-lg hover:text-black hover:transition-all "
+                              key={question.questionID}>
+                              <td className="basis-1/5">{question.position}</td>
+                              <td className="basis-1/5">{question.typeQuestion}</td>
+                              <td className="basis-2/5 flex-nowrap">{question.interviewQuestions}</td>
+                              <td className="inline-flex gap-x-2 basis-1/5 justify-center">
+                                <div className="p-2 hover:bg-zinc-300 hover:rounded-md ">
+                                  <PencilIcon className="w-5 h-5" />
+                                </div>
+                                <div className="p-2 hover:bg-zinc-300 hover:rounded-md ">
+                                  <TrashIcon className="w-5 h-5" />
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </div>
+                      </div>
+                    </tbody>
+                  </table>
+                </div>
+                {/* pagination */}
+                <div className="flex justify-end">
+                  <ul className="inline-flex gap-x-2 p-3 ">
+                    <li className="px-2 cursor-pointer hover:bg-emerald-100 hover:rounded-md hover:text-black ">
+                      <a href="#"></a>
+                      Prev
+                    </li>
+                    <li className="px-2 cursor-pointer hover:bg-emerald-100 hover:rounded-md hover:text-black ">
+                      <a href="#"></a>
+                      1
+                    </li>
+                    <li className="px-2 cursor-pointer hover:bg-emerald-100 hover:rounded-md hover:text-black ">
+                      <a href="#"></a>
+                      2
+                    </li>
+                    <li className="px-2 cursor-pointer hover:bg-emerald-100 hover:rounded-md hover:text-black ">
+                      <a href="#"></a>
+                      3
+                    </li>
+                    <li className="px-2 cursor-pointer hover:bg-emerald-100 hover:rounded-md hover:text-black ">
+                      <a href="#"></a>
+                      Next
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <AddQuestion onClick={handleOnClick} observation={addQuestion} />
     </div>
   );
 }

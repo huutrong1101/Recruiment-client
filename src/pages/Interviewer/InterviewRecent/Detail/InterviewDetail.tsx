@@ -111,7 +111,7 @@ const InterviewDetail = () => {
                     </div>
                 </div>
                 <div className="flex justify-end">
-                    <Link to="/interviewer/scorePage">
+                    <Link to="/interviewer/score-page">
                         <button className="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">
                             Start Interview
                         </button>      

@@ -18,7 +18,7 @@ export default function Tabbaradmin() {
           <div
             key={type.id}
             className={`inline-flex flex-col items-start justify-start ${
-              typeSelected === type.name ? "rounded bg-emerald-200" : ""
+              typeSelected === type.name ? "rounded bg-[#DFF9EF]" : ""
             }`}
           >
             <div className="flex flex-col items-center justify-center rounded-lg">
@@ -37,7 +37,7 @@ export default function Tabbaradmin() {
         ))}
       </div>
       <div>
-        <div className="table-auto sm:table-fixed">
+        <div className="">
           <AdminTable typeSelected={typeSelected} />
         </div>
       </div>

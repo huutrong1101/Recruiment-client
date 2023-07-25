@@ -4,17 +4,26 @@ import { useForm } from "react-hook-form";
 import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/outline";
 import InputIcon from "../../components/InputIcon/InputIcon";
 
-import { useAppDispatch } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { authLogin } from "../../redux/AuthSlice";
 import { UserLoginParamsInterface } from "../../services/services";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function AuthenticateLogin() {
   const { register, handleSubmit } = useForm<UserLoginParamsInterface>();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { loading } = useAppSelector((app) => app.Auth);
 
   const onSubmit = (data: UserLoginParamsInterface) => {
-    dispatch(authLogin(data));
+    dispatch(authLogin(data))
+      .unwrap()
+      .then(() => {
+        toast.success(`Successfully signed in.`);
+        navigate(`/`);
+      });
   };
 
   return (
@@ -63,7 +72,7 @@ export default function AuthenticateLogin() {
           </div>
         </div>
 
-        <PrimaryButton text="Sign in" isLoading />
+        <PrimaryButton text="Sign in" isLoading={loading === "pending"} />
       </div>
     </form>
   );
