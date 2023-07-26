@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import { getLocalToken, hasLocalToken } from "./localToken";
+import { clearLocalToken, getLocalToken, hasLocalToken } from "./localToken";
 
 // const headers = {
 //   Authorization: hasLocalToken() ? `Bearer ${getLocalToken()}` : null,
@@ -29,6 +29,7 @@ axiosInstance.interceptors.response.use(
     const responseErrorCode = error.code;
     if (responseErrorCode === "ERR_NETWORK") {
       toast.error(`There was a connection error with a service.`);
+      clearLocalToken();
     }
 
     return Promise.reject(error);
