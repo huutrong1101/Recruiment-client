@@ -6,6 +6,7 @@ import NavbarSlice from "../components/Navbar/slices/NavbarSlice";
 import CandidateRecentReducer from "./reducer/CandidateRecentSlice";
 import InterviewRecentReducer from "./reducer/InterviewRecentSlice";
 import AuthSlice from "./AuthSlice";
+import OneTimePasswordSlice from "../pages/OneTimePasswordVerify/slices/OneTimePasswordSlice";
 
 export const ApplicationStore = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const ApplicationStore = configureStore({
     interviewRecent: InterviewRecentReducer,
     Navbar: NavbarSlice,
     Auth: AuthSlice,
+    OneTimePassword: OneTimePasswordSlice,
   },
 });
 

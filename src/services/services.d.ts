@@ -10,3 +10,8 @@ export interface UserLoginParamsInterface {
   credentialId: string;
   password: string;
 }
+
+export interface UserVerifySendParamsInterface {
+  otp: string;
+  email: string;
+}

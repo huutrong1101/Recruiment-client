@@ -1,16 +1,61 @@
 import { Transition } from "@headlessui/react";
 import classNames from "classnames";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { AiOutlineLock } from "react-icons/ai";
 import OneTimePasswordInputArray from "./OneTimePasswordInputArray";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useForm } from "react-hook-form";
+import { UserVerifySendParamsInterface } from "../../services/services";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { sendVerify } from "./slices/OneTimePasswordSlice";
 
 export default function OneTimePasswordVerify() {
   const [showing, setShowing] = useState(true);
+  const [isFilled, setFilled] = useState<boolean>(false);
+  const { register, handleSubmit, setValue, getValues } =
+    useForm<UserVerifySendParamsInterface>();
+
+  const { loadingState } = useAppSelector((app) => app.OneTimePassword);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    setValue("otp", "");
+  }, []);
+
+  useEffect(() => {
+    const searchEmailValue = searchParams.get("email");
+    if (searchEmailValue === "" || searchEmailValue === null) {
+      toast.error(`Invalid or undefined email`);
+      navigate("/");
+    } else {
+      setValue("email", searchEmailValue);
+    }
+  }, [searchParams]);
+
+  const handleVerifyOneTimePassword = (data: UserVerifySendParamsInterface) => {
+    dispatch(sendVerify(data))
+      .unwrap()
+      .then(() => {
+        toast.success(
+          `Successfully verify your account, trying to signed in again.`,
+        );
+      })
+      .catch((response) => {
+        toast.error(response.message);
+        // navigate(`/`);
+      });
+  };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center py-8 h-auto">
+    <form
+      className="w-full flex flex-col items-center justify-center py-8 h-auto"
+      onSubmit={handleSubmit(handleVerifyOneTimePassword)}
+    >
       <Transition
         show={showing}
         className={classNames(
@@ -51,9 +96,18 @@ export default function OneTimePasswordVerify() {
             Please enter the One-Time-Password that we sent to your email.
           </h3>
         </Transition>
+        <input type="hidden" {...register("email")} value={""} />
 
         {/* Pass code input */}
-        <OneTimePasswordInputArray />
+        <OneTimePasswordInputArray
+          onFilled={(value: string) => {
+            setValue("otp", value);
+            setFilled(true);
+          }}
+          onUnfilled={() => {
+            setFilled(false);
+          }}
+        />
 
         <Transition
           show={showing}
@@ -64,10 +118,15 @@ export default function OneTimePasswordVerify() {
           enterTo="opacity-100"
         >
           <div className={classNames(`mt-8 flex flex-row-reverse`)}>
-            <PrimaryButton text="Verify" />
+            <PrimaryButton
+              text="Verify"
+              type="submit"
+              isLoading={loadingState === "pending"}
+              disabled={!isFilled}
+            />
           </div>
         </Transition>
       </Transition>
-    </div>
+    </form>
   );
 }
