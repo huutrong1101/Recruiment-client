@@ -74,6 +74,10 @@ export default function App() {
 
   useEffect(() => {
     JobService.getJobs(dispatch);
+    JobService.getLocation(dispatch);
+    JobService.getPosition(dispatch);
+    JobService.getType(dispatch);
+
     EventService.getEvents(dispatch);
   }, []);
 

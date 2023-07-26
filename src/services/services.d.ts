@@ -44,6 +44,11 @@ export interface JobListConfig {
   posName?: string;
 }
 
+export interface EventListConfig {
+  index?: number | string;
+  size?: number | string;
+}
+
 export interface EventInterface {
   id: string;
   title: string;
