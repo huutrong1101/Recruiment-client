@@ -3,7 +3,7 @@ import { STATUS } from "../../utils/Status";
 import { Dispatch } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import axiosInstance from "../../utils/AxiosInstance";
-const QuestionListAPI = '/interviewer/question?page=1&size=2'
+// const QuestionListAPI = '/interviewer/question?page=1&size=2'
 
 const QuestionListSLice = createSlice({
     name: 'questionList',
@@ -28,9 +28,9 @@ export const fetchQuestionList = () => {
     return async function fetchQuestionThunk(dispatch : Dispatch){ 
         dispatch(setQuestionStatus(STATUS.LOADING));
         try{
-            const reponse = await axiosInstance.get(`${QuestionListAPI}`);
-            const data = await reponse.data();
-            dispatch(setQuestionList(data));
+            const reponse = await axiosInstance.get(`interviewer/question?page=1&size=1`);
+            const data = await reponse.data;
+            dispatch(setQuestionList(data.result));
             dispatch(setQuestionStatus(STATUS.IDLE));
         }catch(error){
             dispatch(setQuestionStatus(STATUS.ERROR));

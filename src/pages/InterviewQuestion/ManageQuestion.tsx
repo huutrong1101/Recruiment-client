@@ -23,6 +23,7 @@ export default function QuestionInterview() {
   useEffect(() => {
     dispatch(fetchQuestionList())
   }, []);
+
   if (questionListStatus === STATUS.LOADING) {
     return (
       <Loader />
@@ -74,7 +75,7 @@ export default function QuestionInterview() {
             </div>
             <div>
               <div className="flex justify-center my-2 ">
-                <div className=" rounded-lg border-gray-200 border-2 w-11/12 h-fit">
+                <div className=" rounded-lg border-gray-200 border-2 w-11/12 h-full mt-3">
                   <div className="overflow-auto px-2">
                     <table className="w-full ">
                       <thead className="w-fit">
@@ -91,10 +92,10 @@ export default function QuestionInterview() {
                             {questionList.map((question:any) => (
                               <tr className="flex flex-row  p-2 my-2 text-left text-md cursor-pointer items-center
                                          border-2 border-white hover: hover:border-emerald-600 hover:rounded-lg hover:text-black hover:transition-all "
-                                key={question.result.questionId}>
+                                key={question.questionId}>
                                 <td className="basis-1/5">{question.position}</td>
-                                <td className="basis-1/5">{question.result.typeQuestion}</td>
-                                <td className="basis-2/5 flex-nowrap">{question.result.content}</td>
+                                <td className="basis-1/5">{question.typeQuestion}</td>
+                                <td className="basis-2/5 flex-nowrap">{question.content}</td>
                                 <td className="inline-flex gap-x-2 basis-1/5 justify-center">
                                   <div className="p-2 hover:bg-zinc-300 hover:rounded-md ">
                                     <PencilIcon className="w-5 h-5" />
