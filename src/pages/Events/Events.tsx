@@ -3,16 +3,19 @@ import classNames from "classnames";
 import BlogCard from "../../components/BlogCard/BlogCard";
 import { data } from "../../data/homeData";
 import blog_image from "../../../images/blog_image.png";
+import { EventInterface } from "../../services/services";
+import { useAppSelector } from "../../hooks/hooks";
 
 export default function Events() {
+  const events: EventInterface[] = useAppSelector((state) => state.Home.events);
   return (
     <div className={classNames("flex gap-5")}>
       {/* List Blog  */}
       <div className={classNames("w-[70%]")}>
         <div className="flex flex-wrap -mx-4">
           {/* <!-- Card --> */}
-          {data.listEvent &&
-            data.listEvent.map((event) => (
+          {events &&
+            events.map((event) => (
               <div key={event.id} className="w-full px-4 mb-8 md:w-1/2">
                 <BlogCard event={event} />
               </div>

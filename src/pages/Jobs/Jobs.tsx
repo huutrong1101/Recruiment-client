@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import {
@@ -8,22 +8,137 @@ import {
 import classNames from "classnames";
 import JobCard from "../../components/JobCard/JobCard";
 import { data } from "../../data/homeData";
+import { useAppSelector } from "../../hooks/hooks";
+import { JobInterface, JobListConfig } from "../../services/services";
+import Pagination from "../../components/Pagination/Pagination";
+import axiosInstance from "../../utils/AxiosInstance";
+import { omitBy, isUndefined } from "lodash";
+import useQueryParams from "../../hooks/useQueryParams";
+import Loader from "../../components/Loader/Loader";
+import qs from "query-string";
+import { createSearchParams, useNavigate } from "react-router-dom";
+import { omit, isEqual } from "lodash";
+
+export type QueryConfig = {
+  [key in keyof JobListConfig]: string;
+};
 
 export default function Jobs() {
+  const jobs: JobInterface[] = useAppSelector((state) => state.Home.jobs);
+
+  const totalJobs = useAppSelector((state) => state.Home.totalJobs);
+
+  const navigate = useNavigate();
+
+  const queryParams: QueryConfig = useQueryParams();
+
+  const queryConfig: QueryConfig = omitBy(
+    {
+      index: queryParams.index || "1",
+      size: queryParams.size || 10,
+      name: queryParams.name,
+      location: queryParams.location,
+      posName: queryParams.posName,
+      type: queryParams.type,
+    },
+    isUndefined,
+  );
+
+  const [prevQueryConfig, setPrevQueryConfig] =
+    useState<QueryConfig>(queryConfig);
+
+  const [showJobs, setShowJobs] = useState(jobs);
+
+  const [posistion, setPosition] = useState([]);
+
+  const [pageSize, setPageSize] = useState(
+    Math.ceil(totalJobs / Number(queryParams.size || 10)),
+  );
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchPosition = async () => {
+      setIsLoading(true);
+      try {
+        if (queryConfig) {
+          const query = qs.stringify(queryConfig);
+          const response = await axiosInstance(`/jobs?${query}`);
+          setShowJobs(response.data.result.content);
+          setPageSize(response.data.result.totalPages);
+        }
+        const response = await axiosInstance(`/jobs/position`);
+        // console.log(response);
+        setPosition(response.data.result);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchPosition();
+  }, []);
+
+  useEffect(() => {
+    if (!isEqual(prevQueryConfig, queryConfig)) {
+      const fetchJobs = async () => {
+        setIsLoading(true);
+        try {
+          const query = qs.stringify(queryConfig);
+          const response = await axiosInstance(`/jobs?${query}`);
+          setShowJobs(response.data.result.content);
+          setPageSize(response.data.result.totalPages);
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetchJobs();
+      setPrevQueryConfig(queryConfig);
+    }
+  }, [queryConfig, prevQueryConfig]);
+
   const [dataSearch, setDataSearch] = useState({
     key: "",
-    category: "",
+    posName: "",
     location: "",
     type: "",
   });
 
-  const handleSearch = () => {
-    alert(JSON.stringify(dataSearch));
+  const handleSearch = async () => {
+    try {
+      setIsLoading(true);
+
+      navigate({
+        pathname: "/jobs",
+        search: createSearchParams({
+          ...queryConfig,
+          name: dataSearch.key,
+          posName: dataSearch.posName,
+          index: "1",
+        }).toString(),
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleReset = () => {
     setDataSearch({
       key: "",
-      category: "",
+      posName: "",
       location: "",
       type: "",
+    });
+
+    navigate({
+      pathname: "/jobs",
+      search: createSearchParams(
+        omit(queryConfig, ["name", "posName"]),
+      ).toString(),
     });
   };
 
@@ -64,7 +179,7 @@ export default function Jobs() {
           {/* Category  */}
           <div className={classNames("mt-4")}>
             <h3 className={classNames("text-base font-semibold  capitalize")}>
-              Cateogories
+              Position
             </h3>
             <Menu as="div" className={classNames("relative mt-2")}>
               <Menu.Button
@@ -73,7 +188,7 @@ export default function Jobs() {
                 )}
               >
                 <span className={classNames("ml-2 text-gray-500")}>
-                  {dataSearch.category}
+                  {dataSearch.posName || "---Choose---"}
                 </span>
                 <ChevronDownIcon className={classNames("w-[20px] ml-4")} />
                 {/* Drop down  */}
@@ -90,8 +205,8 @@ export default function Jobs() {
               >
                 <Menu.Items className="absolute left-0 z-10 w-full mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1">
-                    {data.listFieldSearch.categories.map((cate) => (
-                      <Menu.Item key={cate.id}>
+                    {posistion.map((pos, index) => (
+                      <Menu.Item key={index}>
                         {({ active }) => (
                           <p
                             className={classNames(
@@ -103,11 +218,11 @@ export default function Jobs() {
                             onClick={() =>
                               setDataSearch({
                                 ...dataSearch,
-                                category: cate.category,
+                                posName: pos,
                               })
                             }
                           >
-                            {cate.category}
+                            {pos}
                           </p>
                         )}
                       </Menu.Item>
@@ -129,7 +244,7 @@ export default function Jobs() {
                 )}
               >
                 <span className={classNames("ml-2 text-gray-500")}>
-                  {dataSearch.location}
+                  {dataSearch.location || "---Choose---"}
                 </span>
                 <ChevronDownIcon className={classNames("w-[20px] ml-4")} />
                 {/* Drop down  */}
@@ -185,7 +300,7 @@ export default function Jobs() {
                 )}
               >
                 <span className={classNames("ml-2 text-gray-500")}>
-                  {dataSearch.type}
+                  {dataSearch.type || "---Choose---"}
                 </span>
                 <ChevronDownIcon className={classNames("w-[20px] ml-4")} />
                 {/* Drop down  */}
@@ -202,8 +317,8 @@ export default function Jobs() {
               >
                 <Menu.Items className="absolute left-0 z-10 w-full mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1">
-                    {data.listFieldSearch.jobTypes.map((type) => (
-                      <Menu.Item key={type.id}>
+                    {posistion.map((type, index) => (
+                      <Menu.Item key={index}>
                         {({ active }) => (
                           <p
                             className={classNames(
@@ -215,11 +330,11 @@ export default function Jobs() {
                             onClick={() =>
                               setDataSearch({
                                 ...dataSearch,
-                                type: type.type,
+                                type: type,
                               })
                             }
                           >
-                            {type.type}
+                            {type}
                           </p>
                         )}
                       </Menu.Item>
@@ -230,7 +345,7 @@ export default function Jobs() {
             </Menu>
           </div>
           {/* Button Search */}
-          <div className={classNames("mt-6")}>
+          <div className={classNames("mt-6 flex gap-2 flex-col")}>
             <button
               className={classNames(
                 "bg-emerald-700 text-white p-3 rounded-md flex w-full text-center items-center justify-center",
@@ -239,69 +354,43 @@ export default function Jobs() {
             >
               Search
             </button>
+            <button
+              className={classNames(
+                "bg-red-500 text-white p-3 rounded-md flex w-full text-center items-center justify-center",
+              )}
+              onClick={() => handleReset()}
+            >
+              Reset
+            </button>
           </div>
         </div>
 
         {/* List Jobs  */}
+
         <div className={classNames("w-[70%]")}>
-          <div className="flex flex-wrap -mx-4">
-            {/* <!-- Card --> */}
-            {data.listJobs &&
-              data.listJobs.map((job) => (
-                <div key={job.jobId} className="w-full px-4 mb-8 md:w-1/2">
-                  <JobCard job={job} />
+          {isLoading ? (
+            <div className="flex justify-center">
+              <Loader />
+            </div>
+          ) : (
+            <div className="flex flex-wrap -mx-4">
+              {/* <!-- Card --> */}
+              {showJobs.length > 0 ? (
+                showJobs.map((job) => (
+                  <div key={job.jobId} className="w-full px-4 mb-8 md:w-1/2">
+                    <JobCard job={job} />
+                  </div>
+                ))
+              ) : (
+                <div className="flex justify-center w-full mb-10">
+                  <span>Không tìm thấy kết quả</span>
                 </div>
-              ))}
-          </div>
+              )}
+            </div>
+          )}
 
           {/* Pagination  */}
-          <nav
-            aria-label="Page navigation example"
-            className="flex items-center justify-center"
-          >
-            <ul className="flex list-style-none">
-              <li>
-                <a className="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-500 transition-all duration-300 hover:bg-neutral-100">
-                  Previous
-                </a>
-              </li>
-              <li>
-                <a
-                  className="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100"
-                  href="#!"
-                >
-                  1
-                </a>
-              </li>
-              <li aria-current="page">
-                <a
-                  className="relative block rounded-full bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 hover:bg-neutral-100"
-                  href="#!"
-                >
-                  2
-                  <span className="absolute -m-px h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 [clip:rect(0,0,0,0)]">
-                    (current)
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a
-                  className="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100"
-                  href="#!"
-                >
-                  3
-                </a>
-              </li>
-              <li>
-                <a
-                  className="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100"
-                  href="#!"
-                >
-                  Next
-                </a>
-              </li>
-            </ul>
-          </nav>
+          <Pagination queryConfig={queryConfig} pageSize={pageSize} />
         </div>
       </div>
     </>

@@ -36,8 +36,6 @@ export default function QuestionInterview() {
                 <div className="flex gap-x-4 ml-12 cursor-pointer w-full">
                   {/* Position */}
                   <div className=" relative flex flex-col w-1/5 h-fit px-2 ">
-                    {/* p-4 text-[14px] text-white font-medium leading-tight bg-emerald-600 rounded-lg drop-shadow-xl border-transparent border w-full h-full
-                                hover:text-emerald-600 hover:border hover:border-emerald-600 hover:bg-white hover:rounded-s-lg hover:transition-all duration-75  */}
                     <Menu as="div" className="w-full h-full">
                       <QuestionFilter/>
                     </Menu>

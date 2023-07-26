@@ -5,6 +5,7 @@ import {
   HiCog6Tooth,
   HiQuestionMarkCircle,
   HiArrowLeftOnRectangle,
+  HiInformationCircle,
 } from "react-icons/hi2";
 import { Link, Outlet, useLocation } from "react-router-dom";
 
@@ -14,6 +15,11 @@ export default function UserProfileLayout() {
       url: "/profile/",
       icon: <HiUserCircle />,
       text: "My Profile",
+    },
+    {
+      url: "/profile/information",
+      icon: <HiInformationCircle />,
+      text: "My Information",
     },
     {
       url: "/profile/interviews",
