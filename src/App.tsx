@@ -31,12 +31,10 @@ import ManageQuestion from "./pages/InterviewQuestion/ManageQuestion";
 import ReccerInterviewerManagement from "./pages/Reccer/ReccerInterviewerManagement";
 import ReccerEventManagement from "./pages/Reccer/ReccerEventManagement";
 import ReccerInterviewerDetail from "./pages/Reccer/InterviewerDetail";
-import CandidateList from "./pages/Reccer/CandidateList";
 import CandidateProfile from "./pages/Reccer/CandidateProfile";
 import {
   CandidateRecent,
   InterviewRecent,
-  InterviewQuestion,
   InterviewDetail,
 } from "./pages/Interviewer/InterviewerPages";
 import UserProfileLayout from "./pages/UserProfile/UserProfileLayout";
@@ -60,7 +58,23 @@ import CandidateDetail from "./pages/Reccer/CandidateDetail";
 import Logout from "./pages/Logout/Logout";
 import OneTimePasswordVerify from "./pages/OneTimePasswordVerify/OneTimePasswordVerify";
 
+import { useEffect } from "react";
+import { useTokenAuthorize } from "./hooks/useTokenAuthorize";
+import UserProfileMyInformation from "./pages/UserProfile/UserProfileMyInformation";
+import { JobService } from "./services/JobService";
+import { EventService } from "./services/EventService";
+import { useAppDispatch } from "./hooks/hooks";
+
 export default function App() {
+  useTokenAuthorize();
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    JobService.getJobs(dispatch);
+    EventService.getEvents(dispatch);
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -89,6 +103,7 @@ export default function App() {
 
           <Route path="/profile" element={<UserProfileLayout />}>
             <Route index element={<UserProfileMyProfile />} />
+            <Route path="information" element={<UserProfileMyInformation />} />
             <Route path="interviews" element={<UserProfileInterviews />} />
             <Route
               path="submitted-jobs"

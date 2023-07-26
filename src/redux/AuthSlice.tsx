@@ -14,6 +14,8 @@ import {
 import { toast } from "react-toastify";
 import axiosInstance from "../utils/AxiosInstance";
 
+type RoleType = "CANDIDATE" | "RECRUITER" | "ADMIN" | "INTERVIEWER";
+
 interface UserResponseState {
   userId: string;
   phone: string;
@@ -26,6 +28,7 @@ interface UserResponseState {
   gender: "male" | "female" | null;
   createdAt: Date | null;
   updatedAt: Date | null;
+  role: RoleType;
   active: boolean;
 }
 

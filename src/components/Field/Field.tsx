@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PlusIcon, XMarkIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { PlusIcon, TrashIcon } from "@heroicons/react/24/solid";
 
 type FieldProps = {
   label: string;
@@ -47,10 +47,10 @@ export default function Field({ label, values, onChange }: FieldProps) {
       </label>
       {values.map((subValues, index) => (
         <div
-          className="flex gap-4 px-4 pb-10 mt-4 border-b border-gray-900/10"
+          className="flex flex-col gap-4 px-4 pb-5 mt-4 border-b border-gray-900/10"
           key={index}
         >
-          <div className="flex flex-col w-[95%] gap-5">
+          <div className="flex flex-col w-full gap-5">
             {subValues.map((sub, idx) => (
               <div key={idx}>
                 <label
@@ -72,14 +72,14 @@ export default function Field({ label, values, onChange }: FieldProps) {
               </div>
             ))}
           </div>
-          <div
-            className="w-[5%] flex items-center justify-center cursor-pointer"
-            onClick={() => handleDelete(index)}
-          >
-            <TrashIcon
-              className={`text-red-400 hover:text-white hover:bg-red-400 border border-gray-200 rounded-full p-3`}
-            />
-          </div>
+          {values.length > 1 && (
+            <div
+              className="flex items-center justify-end mt-2 cursor-pointer"
+              onClick={() => handleDelete(index)}
+            >
+              <TrashIcon className={`text-red-400 w-8 h-8`} />
+            </div>
+          )}
         </div>
       ))}
     </div>

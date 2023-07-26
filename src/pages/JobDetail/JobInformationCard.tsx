@@ -10,12 +10,19 @@ import {
   HiKey,
 } from "react-icons/hi2";
 import Modal from "../../components/Modal/Modal";
+import { useForm } from "react-hook-form";
 
 export default function JobInformationCard({ cardData }: any) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   let [isOpen, setIsOpen] = useState(false);
 
-  const handleApply = () => {
-    alert("Apply success");
+  const handleApply = (data: any) => {
+    console.log(data);
   };
 
   function closeModal() {
@@ -58,7 +65,7 @@ export default function JobInformationCard({ cardData }: any) {
         successClass="text-red-900 bg-red-100 hover:bg-red-200 focus-visible:ring-red-500"
         successTitle="Apply"
         size="max-w-3xl"
-        handleSucces={handleApply}
+        handleSucces={handleSubmit(handleApply)}
       >
         <div>
           <div className="flex gap-5 mt-2">
@@ -70,29 +77,33 @@ export default function JobInformationCard({ cardData }: any) {
                 <InputIcon
                   icon={<HiUserCircle />}
                   placeholder={`Full Name`}
-                  // {...register("phone")}
-                  name={`phone`}
+                  type={`text`}
+                  register={register}
+                  label={`fullName`}
                 />
 
                 <InputIcon
                   icon={<HiEnvelope />}
+                  type={`text`}
                   placeholder={`Email`}
-                  // {...register("phone")}
-                  name={`phone`}
+                  register={register}
+                  label={`email`}
                 />
 
                 <InputIcon
                   icon={<HiMapPin />}
+                  type={`text`}
                   placeholder={`Location`}
-                  // {...register("phone")}
-                  name={`phone`}
+                  register={register}
+                  label={`location`}
                 />
 
                 <InputIcon
                   icon={<HiPhone />}
+                  type={`text`}
                   placeholder={`Phone`}
-                  // {...register("phone")}
-                  name={`phone`}
+                  register={register}
+                  label={`phone`}
                 />
               </div>
             </div>
@@ -112,9 +123,10 @@ export default function JobInformationCard({ cardData }: any) {
                   >
                     <input
                       type="radio"
-                      name="resume"
                       value="resume1"
                       className={classNames(`w-4 mx-2`)}
+                      {...register("resume")}
+                      defaultChecked
                     />
                     <span
                       className={classNames(
@@ -139,9 +151,9 @@ export default function JobInformationCard({ cardData }: any) {
                   >
                     <input
                       type="radio"
-                      name="resume"
                       value="resume2"
                       className={classNames(`w-4 mx-2`)}
+                      {...register("resume")}
                     />
                     <span
                       className={classNames(
@@ -166,9 +178,9 @@ export default function JobInformationCard({ cardData }: any) {
                   >
                     <input
                       type="radio"
-                      name="resume"
                       value="resume3"
                       className={classNames(`w-4 mx-2`)}
+                      {...register("resume")}
                     />
                     <span
                       className={classNames(
@@ -189,6 +201,7 @@ export default function JobInformationCard({ cardData }: any) {
             <textarea
               className="w-full p-3 border border-gray-500"
               placeholder="Your Note"
+              {...register("note")}
             />
           </div>
         </div>

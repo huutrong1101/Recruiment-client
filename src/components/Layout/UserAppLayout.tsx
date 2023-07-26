@@ -6,14 +6,16 @@ import Footer from "../Footer/Footer";
 
 export default function UserAppLayout() {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
 
-      <Container>
-        <Outlet />
-      </Container>
+      <div className="flex-grow">
+        <Container>
+          <Outlet />
+        </Container>
+      </div>
 
       <Footer />
-    </>
+    </div>
   );
 }

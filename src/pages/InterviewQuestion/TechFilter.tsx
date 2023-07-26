@@ -10,7 +10,7 @@ export default function TechFilter() {
     return (
         <div className='absolute w-full'>
             <div className='w-full h-full  '>
-                <Menu.Button className='w-full p-3  mb-1 bg-emerald-600 rounded-md text-white border border-transparent
+                <Menu.Button className='w-full p-1.5 mb-1 bg-emerald-600 rounded-md text-white border border-transparent
                                 active:border-emerald-600  active:text-emerald-600 
                                  active:bg-white flex items-center' onClick={handleActive}>
                     <div className=' inline-flex justify-between w-full '>
@@ -24,7 +24,7 @@ export default function TechFilter() {
                     leave="transition ease-in duration-75"
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95" >
-                    <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-zinc-200 aboslute bg-opacity-90  '>
+                    <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 aboslute bg-opacity-90 shadow-sm '>
                         <div className='w-full h-full  text-black rounded-md border border-zinc-200'>
                             {pos.map((posType, index) => (
                                 <Menu.Item key={index}>
