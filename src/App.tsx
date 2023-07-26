@@ -35,7 +35,6 @@ import CandidateProfile from "./pages/Reccer/CandidateProfile";
 import {
   CandidateRecent,
   InterviewRecent,
-  InterviewQuestion,
   InterviewDetail,
 } from "./pages/Interviewer/InterviewerPages";
 import UserProfileLayout from "./pages/UserProfile/UserProfileLayout";
@@ -61,12 +60,10 @@ import OneTimePasswordVerify from "./pages/OneTimePasswordVerify/OneTimePassword
 
 import { useEffect } from "react";
 import { useTokenAuthorize } from "./hooks/useTokenAuthorize";
-// import { EventService } from "./services/JobService";
 import UserProfileMyInformation from "./pages/UserProfile/UserProfileMyInformation";
 import { JobService } from "./services/JobService";
-import Logout from "./pages/Logout/Logout";
-import CandidateDetail from "./pages/Reccer/CandidateDetail";
 import { EventService } from "./services/EventService";
+import { useAppDispatch } from "./hooks/hooks";
 
 export default function App() {
   useTokenAuthorize();
