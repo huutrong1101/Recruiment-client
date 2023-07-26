@@ -83,7 +83,6 @@ const ReccerJobManagement = () => {
     }
   }, [queryConfig, prevQueryConfig]);
 
-  console.log(showJobs);
 
   return (
     <>
