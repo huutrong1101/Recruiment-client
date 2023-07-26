@@ -1,19 +1,47 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { STATUS } from "../../../utils/Status";
 
 const initialState = {
-  counter: 0,
+  events: [],
+  eventsStatus: STATUS.IDLE,
+  totalEvents: 0,
+  jobs: [],
+  totalJobs: 0,
+  jobsStatus: STATUS.IDLE,
 };
 
 const HomeSlice = createSlice({
   name: "Home",
   initialState,
   reducers: {
-    setCounter: (state, action) => {
-      state.counter = action.payload;
+    setJobs(state, action) {
+      state.jobs = action.payload;
+    },
+    setTotalJobs(state, action) {
+      state.totalJobs = action.payload;
+    },
+    setJobsStatus(state, action) {
+      state.jobsStatus = action.payload;
+    },
+    setEvents(state, action) {
+      state.events = action.payload;
+    },
+    setEventsStatus(state, action) {
+      state.eventsStatus = action.payload;
+    },
+    setTotalEvents(state, action) {
+      state.totalEvents = action.payload;
     },
   },
 });
 
-export const { setCounter } = HomeSlice.actions;
+export const {
+  setJobs,
+  setJobsStatus,
+  setTotalJobs,
+  setEventsStatus,
+  setEvents,
+  setTotalEvents,
+} = HomeSlice.actions;
 
 export default HomeSlice.reducer;

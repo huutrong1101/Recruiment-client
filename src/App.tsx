@@ -1,4 +1,4 @@
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 
 import Authenticate from "./pages/Authenticate/Authenticate";
@@ -30,16 +30,11 @@ import ManageQuestion from "./pages/InterviewQuestion/ManageQuestion";
 
 import ReccerInterviewerManagement from "./pages/Reccer/ReccerInterviewerManagement";
 import ReccerEventManagement from "./pages/Reccer/ReccerEventManagement";
-// import ReccercandidateManagement from "./pages/Reccer/ReccercandidateManagement";
 import ReccerInterviewerDetail from "./pages/Reccer/InterviewerDetail";
-import CandidateList from "./pages/Reccer/CandidateList";
 import CandidateProfile from "./pages/Reccer/CandidateProfile";
-
-// Interviewer Pages
 import {
   CandidateRecent,
   InterviewRecent,
-  InterviewQuestion,
   InterviewDetail,
 } from "./pages/Interviewer/InterviewerPages";
 import UserProfileLayout from "./pages/UserProfile/UserProfileLayout";
@@ -50,8 +45,6 @@ import UserProfileSubmittedJob from "./pages/UserProfile/UserProfileSubmittedJob
 import ReccerJobDetail from "./pages/Reccer/Jobs/ReccerJobDetail";
 import Addjob from "./pages/Reccer/Jobs/Addjob";
 import ManagementAppLayOut from "./components/Layout/ManagementAppLayOut/ManagementAppLayOut";
-// import ReccerInterviewerManagement from "./pages/Reccer/ReccerInterviewerManagement";
-// import ReccerEventManagement from "./pages/Reccer/ReccerEventManagement";
 import ReccerCandidateManagement from "./pages/Reccer/ReccercandidateManagement";
 
 import RecEventDetail from "./pages/EventDetail/RecEventDetail";
@@ -61,13 +54,26 @@ import DeleteBlacklist from "./pages/Admin/DeleteBlacklist";
 import CreateCV from "./pages/CreateCV/CreateCV";
 import RequestTest from "./pages/RequestTest/RequestTest";
 import InterviewSched from "./pages/Reccer/Interview/InterviewSched";
+import CandidateDetail from "./pages/Reccer/CandidateDetail";
+import Logout from "./pages/Logout/Logout";
+import OneTimePasswordVerify from "./pages/OneTimePasswordVerify/OneTimePasswordVerify";
+
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "./hooks/hooks";
-import { authLogout, fetchUserFromToken } from "./redux/AuthSlice";
 import { useTokenAuthorize } from "./hooks/useTokenAuthorize";
+import UserProfileMyInformation from "./pages/UserProfile/UserProfileMyInformation";
+import { JobService } from "./services/JobService";
+import { EventService } from "./services/EventService";
+import { useAppDispatch } from "./hooks/hooks";
 
 export default function App() {
   useTokenAuthorize();
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    JobService.getJobs(dispatch);
+    EventService.getEvents(dispatch);
+  }, []);
 
   return (
     <BrowserRouter>
@@ -88,6 +94,8 @@ export default function App() {
             <Route element={<AuthenticateLogin />} />
           </Route>
 
+          <Route path="otp" element={<OneTimePasswordVerify />} />
+
           <Route path="/email" element={<EmailConfirmationLayout />}>
             <Route path="incomplete" element={<IncompleteConfirmEmail />} />
             <Route path="complete" element={<CompleteConfirmEmail />} />
@@ -95,6 +103,7 @@ export default function App() {
 
           <Route path="/profile" element={<UserProfileLayout />}>
             <Route index element={<UserProfileMyProfile />} />
+            <Route path="information" element={<UserProfileMyInformation />} />
             <Route path="interviews" element={<UserProfileInterviews />} />
             <Route
               path="submitted-jobs"
@@ -102,6 +111,7 @@ export default function App() {
             />
           </Route>
           <Route path="/test-request" element={<RequestTest />} />
+          <Route path="/logout" element={<Logout />} />
         </Route>
 
         <Route path="/admin" element={<ManagementAppLayOut />}>
@@ -121,15 +131,13 @@ export default function App() {
           {/* Define recruiter routes here */}
           <Route path="dashboard" index element={<ReccerDashboard />} />
           <Route path="candidate-info" element={<CandidateProfile />} />
-          <Route path="candidate-list" element={<CandidateList />} />
+          <Route path="candidates" element={<ReccerCandidateManagement />} />
+          <Route path="candidates/:id" element={<CandidateDetail />} />
 
           <Route path="job-management" element={<ReccerJobManagement />} />
           <Route path="calender" element={<Reccercalender />} />
           <Route path="interviewer" element={<ReccerInterviewerManagement />} />
-          <Route
-            path="interviewer/:id"
-            element={<ReccerInterviewerDetail />}
-          />
+          <Route path="interviewer/:id" element={<ReccerInterviewerDetail />} />
 
           <Route path="jobdetail" element={<ReccerJobDetail />} />
           <Route path="addjob" element={<Addjob />} />
@@ -137,11 +145,8 @@ export default function App() {
           <Route path="event" element={<ReccerEventManagement />} />
           <Route path="event-manager/:eventId" element={<RecEventDetail />} />
           <Route path="events-add" element={<AddEvent />} />
-          {/* <Route path="job-management" element={<Reccer_JobManagement />} />
-          <Route path="calender" element={<Reccer_calender />} /> */}
 
           <Route path="event-manager" element={<ReccerEventManagement />} />
-          <Route path="candidate" element={<ReccerCandidateManagement />} />
 
           <Route path="interview-schedule" element={<InterviewSched />} />
         </Route>
@@ -156,13 +161,13 @@ export default function App() {
             path="candidate-recent/:id"
             element={<ReccerInterviewerDetail />}
           />
-          <Route index path="scorePage" element={<ScorePage />} />
+          <Route index path="score-page" element={<ScorePage />} />
         </Route>
         <Route path="/interviewer" element={<ManagementAppLayOut />}>
           {/* Define interviewer routes here */}
           {/* <Route index path ="/manageQuestion" element={<ManageQuestion />} /> */}
-          <Route index path="manageQuestion" element={<ManageQuestion />} />
-          <Route index path="scorePage" element={<ScorePage />} />
+          <Route index path="manage-question" element={<ManageQuestion />} />
+          <Route index path="score-page" element={<ScorePage />} />
         </Route>
 
         {/* <Route path="/test" element={Test} /> */}

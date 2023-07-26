@@ -23,34 +23,15 @@ export default function ReccerEventManagement() {
     <>
       {/* Search */}
       <div className="justify-center flex grid-cols-[100%] sm:grid-cols-[15%,60%,25%] gap-1 mx-auto lg:grid-cols-[25%,60%,25%] ">
-        {/* <form onSubmit={handleSearch} className=" w-full sm:w-3/4 col-span-2 flex items-center bg-opacity-5 rounded-full px-1.5 py-1 shadow">
-          <div className="">
-            <MagnifyingGlassIcon className="ml-5 h-4 relative gap-1 w-full sm:w-3/4" />
-          </div>
-          <div className="">
-            <input
-              type="text"
-              className="ml-5 font-medium leading-tight text-gray-900 text-[14px] text-center rounded-full w-[300px] h-[30px]"
-              value={searchQuery}
-              onChange={(event) => setSearchQuery(event.target.value)}
-              placeholder="Please enter a search"
-            />
-           
-          </div> 
-            <button type="submit" className="ml-5 p-1.5 bg-emerald-600 text-white text-sm leading-tight rounded-full">
-              Search
-            </button>
-        </form> */}
           <SearchBar />
       </div>
       {/* Add Event */}
-      <div className="ml-5 mt-5 flex justify-center items-center  w-1/6">
-        <NavLink to="/recruiter/events-add" onClick={() => {}}>
-          <button className="text-white shadow text-sm font-medium leading-tight flex py-2 px-2 justify-start bg-emerald-600 rounded-full ">
-            + Add Event
-          </button>
-        </NavLink>
-      </div>
+      <NavLink to="/recruiter/events-add" onClick={() => {}}>
+        <button className="text-white shadow text-sm font-medium leading-tight flex py-2 px-2 justify-start bg-emerald-600 rounded-xl ">
+          + Add Event
+        </button>
+      </NavLink>
+      
       {/* Conten */}
       <div>
         <div className="flex flex-wrap -mx-4 mt-[50px]">
@@ -75,7 +56,7 @@ export default function ReccerEventManagement() {
                       </div>
                       <div className={classnames("flex items-center gap-1")}>
                         <ClockIcon className={classnames(`w-[20px]`)} />
-                        <p>{event.time} min read</p>
+                        <p>{event.time} min</p>
                       </div>
                     </div>
                     <div className={classnames("mt-2")}>
@@ -89,7 +70,7 @@ export default function ReccerEventManagement() {
                     </div>
                     <div className={classnames("mt-6 flex items-center justify-center")}>
                       <Link
-                        to=":eventId"
+                        to={`${event.id}`} 
                         className={classnames(
                           "bg-emerald-700 text-white p-2 rounded-md flex",
                         )}
@@ -115,31 +96,7 @@ export default function ReccerEventManagement() {
               <a className="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-500 transition-all duration-300 hover:bg-neutral-100">
                 Previous
               </a>
-            </li>
-            <li>
-              <a
-                className="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100"
-                href="#!"
-              >
-                1
-              </a>
-            </li>
-            <li aria-current="page">
-              <a className="relative block rounded-full bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 hover:bg-neutral-100"
-                href="#!"  >                2
-                <span className="absolute -m-px h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 [clip:rect(0,0,0,0)]">
-                  (current)
-                </span>
-              </a>
-            </li>
-            <li>
-              <a
-                className="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100"
-                href="#!"
-              >
-                3
-              </a>
-            </li>
+            </li>           
             <li>
               <a
                 className="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100"

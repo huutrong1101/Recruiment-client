@@ -12,9 +12,8 @@ import { useForm } from "react-hook-form";
 const APPLICANT_STATUS = ["Any", "Passed", "Reviewing", "Pending", "Failed"];
 
 export default function UserProfileSubmittedJob() {
-  const { register, handleSubmit } = useForm();
   const [filterType, setFilterType] = useState<number>(0);
-
+  const { handleSubmit, register } = useForm();
   const onSubmit = (data: any) => {};
 
   return (
@@ -29,18 +28,15 @@ export default function UserProfileSubmittedJob() {
 
         {/* Filter groups */}
         <div className={classnames(`flex flex-row items-center gap-4`)}>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className={classnames(`w-10/12`)}
-          >
+          <div className={classnames(`w-10/12`)}>
             <InputIcon
               icon={<HiMagnifyingGlass />}
-              className={`text-base`}
+              className={`text-base px-3 py-2 w-full outline-none`}
               placeholder="Search for the applicant"
               register={register}
               label="search"
             />
-          </form>
+          </div>
           <div className="w-32">
             <Listbox value={filterType} onChange={setFilterType}>
               <div className={classnames(`relative`)}>
@@ -62,7 +58,7 @@ export default function UserProfileSubmittedJob() {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                  <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                     {APPLICANT_STATUS.map((status, personIdx) => (
                       <Listbox.Option
                         key={status}
@@ -135,6 +131,7 @@ export default function UserProfileSubmittedJob() {
               status: <JobStatusBadge status="failed" />,
             },
           ]}
+          isModal={false}
         />
       </div>
 

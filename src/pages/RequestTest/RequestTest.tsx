@@ -6,6 +6,8 @@ import { UserService } from "../../services/UserService";
 import { useAppSelector } from "../../hooks/hooks";
 import InputIcon from "../../components/InputIcon/InputIcon";
 import TokenPasteRequestTest from "./TokenPasteRequestTest";
+import CustomRequestTest from "./CustomRequestTest";
+import ToastHelperTest from "./ToastHelperTest";
 
 export default function RequestTest() {
   const handleTestButton = async () => {
@@ -18,7 +20,7 @@ export default function RequestTest() {
     <div>
       <div
         className={classNames(
-          `md:w-5/12 mx-auto my-6 border p-4 flex flex-col gap-2`,
+          `md:w-10/12 mx-auto my-6 border p-4 flex flex-col gap-2`,
         )}
       >
         <PrimaryButton text="Test" onClick={handleTestButton} />
@@ -31,6 +33,10 @@ export default function RequestTest() {
             axiosInstance.get(`/api/jobs/`);
           }}
         />
+
+        <CustomRequestTest />
+
+        <ToastHelperTest />
       </div>
     </div>
   );

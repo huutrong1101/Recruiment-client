@@ -24,17 +24,17 @@ export const links = [
       {
         name: "Default",
         icon: <HiOutlineChartPie />,
-        mylink: "admin/dashboard",
+        url: "admin/dashboard",
       },
       {
         name: "Profile",
         icon: <HiOutlineDocumentDuplicate />,
-        mylink: "admin/profile",
+        url: "admin/profile",
       },
       {
         name: "Manager Job",
         icon: <HiOutlineCalendarDays />,
-        mylink: "admin/job-manager",
+        url: "admin/job-manager",
       },
     ],
   },
@@ -44,32 +44,32 @@ export const links = [
       {
         name: "Default",
         icon: <HiOutlineChartPie />,
-        mylink: "recruiter/dashboard",
+        url: "recruiter/dashboard",
       },
       {
         name: "Calender",
         icon: <HiOutlineCalendarDays />,
-        mylink: "recruiter/calender",
+        url: "recruiter/calender",
       },
       {
         name: "Interviewer",
         icon: <MdOutlineManageAccounts />,
-        mylink: "recruiter/interviewer",
+        url: "recruiter/interviewer",
       },
       {
         name: "Candidate",
         icon: <HiOutlineUser />,
-        mylink: "recruiter/candidate-list",
+        url: "recruiter/candidates",
       },
       {
         name: "Job",
         icon: <HiOutlineFolder />,
-        mylink: "recruiter/job-management",
+        url: "recruiter/job-management",
       },
       {
         name: "Event",
         icon: <MdOutlineEventAvailable />,
-        mylink: "recruiter/event",
+        url: "recruiter/event-manager",
       },
     ],
   },
@@ -79,17 +79,17 @@ export const links = [
       {
         name: "Interview Recent",
         icon: <HiOutlineClipboardDocumentList />,
-        mylink: "interviewer/interview-recent",
+        url: "interviewer/interview-recent",
       },
       {
         name: "Candidate Recent",
         icon: <HiOutlineCalendarDays />,
-        mylink: "interviewer/candidate-recent",
+        url: "interviewer/candidate-recent",
       },
       {
         name: "Interview Question",
         icon: <HiOutlineClipboardDocument />,
-        mylink: "interviewer/interview-question",
+        url: "interviewer/interview-question",
       },
     ],
   },
@@ -156,7 +156,7 @@ const ManagementAppLayOut = () => {
                 </p>
                 {item.links.map((link) => (
                   <NavLink
-                    to={`/${link.mylink}`}
+                    to={`/${link.url}`}
                     key={link.name}
                     onClick={() => {}}
                     className={({ isActive }) =>
