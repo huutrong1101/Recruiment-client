@@ -82,9 +82,9 @@ export const authRegister = createAsyncThunk(
       setLocalToken(token);
 
       return response.data;
-    } catch (err) {
-      throw err;
-      // return thunkAPI.rejectWithValue(new Error());
+    } catch (err: any) {
+      // throw err;
+      return thunkAPI.rejectWithValue(err.response.data);
     }
   },
 );
@@ -114,7 +114,7 @@ export const authLogin = createAsyncThunk(
       return response.data;
     } catch (err: any) {
       // throw err;
-      console.log(err.response.data);
+      // console.log(err.response.data);
       return thunkAPI.rejectWithValue(err.response.data);
     }
   },
