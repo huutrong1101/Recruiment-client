@@ -46,6 +46,7 @@ export default function OneTimePasswordVerify() {
         toast.success(
           `Successfully verify your account, trying to signed in again.`,
         );
+        navigate("/email/complete");
       })
       .catch((response) => {
         toast.error(response.message);
