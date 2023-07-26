@@ -112,9 +112,10 @@ export const authLogin = createAsyncThunk(
       thunkAPI.dispatch(fetchUserFromToken(undefined));
 
       return response.data;
-    } catch (err) {
-      throw err;
-      // return thunkAPI.rejectWithValue(new Error());
+    } catch (err: any) {
+      // throw err;
+      console.log(err.response.data);
+      return thunkAPI.rejectWithValue(err.response.data);
     }
   },
 );
@@ -174,6 +175,10 @@ const AuthSlice = createSlice({
     },
   },
   extraReducers(builder) {
+    builder.addCase(authLogin.rejected, (state, _action) => {
+      state.signInLoadingState = "failed";
+      state.isLoggedIn = false;
+    });
     builder.addCase(fetchUserFromToken.pending, (state, _action) => {
       state.user = null;
       state.isLoggedIn = false;

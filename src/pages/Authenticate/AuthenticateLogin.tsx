@@ -23,6 +23,9 @@ export default function AuthenticateLogin() {
       .then(() => {
         toast.success(`Successfully signed in.`);
         navigate(-1);
+      })
+      .catch((err) => {
+        toast.error(`Failed to signed in with error: ${err.message}`);
       });
   };
 
