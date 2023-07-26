@@ -15,6 +15,7 @@ import AdminAcountListSlice     from "./reducer/AdminListAcountRecentSlice";
 import AdminListPassRecentSlice  from "./reducer/AdminListPassRecentSlice";
 //interviewer
 import QuestionListSlice from "./reducer/QuestionListSlice";
+import CandidateInfoSlice from "./reducer/CandidateInfoSlice";
 
 
 export const ApplicationStore = configureStore({
@@ -24,6 +25,7 @@ export const ApplicationStore = configureStore({
     candidateRecent: CandidateRecentReducer,
     interviewRecent: InterviewRecentReducer,
     questionList: QuestionListSlice,
+    candidateInfo: CandidateInfoSlice,
     Navbar: NavbarSlice,
     Auth: AuthSlice,
     recjobList:RecJobListSlice,

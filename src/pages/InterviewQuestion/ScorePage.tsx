@@ -10,6 +10,7 @@ import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
 import { fetchQuestionList } from "../../redux/reducer/QuestionListSlice";
 import { STATUS } from "../../utils/Status";
 import Loader from "../../components/Loader/Loader";
+import CandidateCV from "./CandidateCV";
 
 export default function ScorePage() {
    //-----------ListQuestion----------------------------------------------------
@@ -53,11 +54,7 @@ export default function ScorePage() {
                               </div>
                               <div className=" lg:w-[230px] h-full md:w-[230px] flex relative ">
                                  <div className="px-4 h-full w-full flex flex-nowrap flex-col absolute">
-                                    <div>Name: Trinh Minh Huy</div>
-                                    <div>Age: 23</div>
-                                    <div >Position: Fullstack developer</div>
-                                    <div>Email: </div>
-                                    <div>Contact No: aaaaaaaaa</div>
+                                    {/* <CandidateCV /> */}
                                  </div>
                               </div>
                            </div>
@@ -95,8 +92,8 @@ export default function ScorePage() {
                   </div>
                </div>
                {/* right component */}
-               <div className="w-7/12 h-full  bg-white flex flex-col mx-4 my-4 relative items-center drop-shadow-md rounded-md">
-                  <div className="w-full h-fit bg-white rounded-lg shadow border  border-gray-200  ">
+               <div className="w-7/12 h-full  bg-white flex flex-col  my-4 relative items-center drop-shadow-md rounded-md">
+                  <div className="w-full h-[700px] bg-white rounded-lg shadow border  border-gray-200  ">
                      {/* table */}
                      <div className="flex justify-center my-2 ">
                         <div className=" rounded-lg border-gray-200 border-2 w-11/12 h-fit">
@@ -112,13 +109,13 @@ export default function ScorePage() {
                                  <tbody className="">
                                     <div className="grid text-left">
                                        <div>
-                                          {questionList.map((question:any) => (
+                                          {questionList.map((question: any) => (
                                              <tr className="flex flex-row  p-2 m-2 text-left text-md cursor-pointer 
                                           border-2 border-white hover: hover:border-emerald-600 hover:rounded-lg hover:text-black hover:transition-all duration-100"
                                                 key={question.questionID}>
-                                                <td className="basis-1/5" onClick={() => handleQuestionClick(question.interviewQuestions)}>{question.position}</td>
-                                                <td className="basis-1/5" onClick={() => handleQuestionClick(question.interviewQuestions)}>{question.typeQuestion}</td>
-                                                <td className="basis-3/5 flex-nowrap" onClick={() => handleQuestionClick(question.interviewQuestions)}>{question.content}</td>
+                                                <td className="basis-1/5" onClick={() => handleQuestionClick(question.content)}>{question.position}</td>
+                                                <td className="basis-1/5" onClick={() => handleQuestionClick(question.content)}>{question.typeQuestion}</td>
+                                                <td className="basis-3/5 flex-nowrap" onClick={() => handleQuestionClick(question.content)}>{question.content}</td>
                                              </tr>
                                           ))}
                                        </div>
@@ -154,15 +151,15 @@ export default function ScorePage() {
                         </div>
                      </div>
                      {/* score */}
-                     <div className="flex flex-col " >
+                     <div className="flex flex-col bottom-0" >
                         <div className="flex justify-center my-2 ">
                            <div className="bg-emerald-600 h-fit w-11/12 rounded-lg p-2 pb-2 relative 
                                        drop-shadow-lg hover:bg-emerald-700 hover:transition-all ">
                               <div className="flex flex-col">
                                  <div className=" inline-flex gap-3 w-full h-full ">
                                     <div className=" text-white font-semibold flex flex-col w-full justify-start">Question
-                                       <div className="w-full h-[30px] bg-white rounded-md flex items-center p-2 ">
-                                          <h2 className="text-black font-semibold transition-all duration-75">
+                                       <div className="w-full h-full  bg-white rounded-md flex items-center p-2 ">
+                                          <h2 className="text-black font-semibold transition-all duration-75 flex-nowrap">
                                              {questions}
                                           </h2>
                                        </div>
@@ -179,6 +176,35 @@ export default function ScorePage() {
                               <div className="w-full ">
                                  <textarea className="flex flex-col justify-start w-full h-fit bg-white rounded-md p-2 my-2 text-black break-words resize-none"
                                     placeholder="Note..." ></textarea>
+                              </div>
+                           </div>
+                        </div>
+                        <div className="flex justify-center">
+                           <div className=" h-fit flex flex-row w-11/12 justify-between mb-3">
+                              {/* Prev - Next */}
+                              <div className="inline-flex items-start relative w-fit gap-x-2 ">
+                                 <div className="flex ">
+                                    <button className="text-white px-10 py-2.5  bg-emerald-600 rounded-lg drop-shadow-lg mb-2 transition-all duration-200
+                                                   text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
+                                                   border-transparent border hover:border-emerald-600 w-fit flex justify-center bottom-0 ">
+                                       PREV
+                                    </button>
+                                 </div>
+                                 <div className="flex ">
+                                    <button className="text-white px-10 py-2.5  bg-emerald-600 rounded-lg drop-shadow-lg mb-2 transition-all duration-200
+                                                   text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
+                                                   border-transparent border hover:border-emerald-600 w-fit flex justify-center bottom-0 ">
+                                       NEXT
+                                    </button>
+                                 </div>
+                              </div>
+                              {/* send */}
+                              <div className="flex items-end">
+                                 <button className="text-white px-10 py-2.5  bg-emerald-600 rounded-lg drop-shadow-lg  mb-2 transition-all duration-200
+                                                   text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
+                                                   border-transparent border hover:border-emerald-600 w-fit flex justify-center bottom-0 "
+                                    onClick={() => setShowPopUp(true)}>    SEND
+                                 </button>
                               </div>
                            </div>
                         </div>
@@ -207,33 +233,8 @@ export default function ScorePage() {
                            <PlusCircleIcon className="w-5 inline-flex" /> Add Question
                         </button>
                      </div>
-                     <div className=" h-fit flex flex-row w-11/12 mx-8 justify-between mb-3">
-                        {/* Prev - Next */}
-                        <div className="inline-flex items-start relative w-fit gap-x-2 ">
-                           <div className="flex ">
-                              <button className="text-white px-10 py-2.5  bg-emerald-600 rounded-lg drop-shadow-lg mb-2 transition-all duration-200
-                                                   text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
-                                                   border-transparent border hover:border-emerald-600 w-fit flex justify-center bottom-0 ">
-                                 PREV
-                              </button>
-                           </div>
-                           <div className="flex ">
-                              <button className="text-white px-10 py-2.5  bg-emerald-600 rounded-lg drop-shadow-lg mb-2 transition-all duration-200
-                                                   text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
-                                                   border-transparent border hover:border-emerald-600 w-fit flex justify-center bottom-0 ">
-                                 NEXT
-                              </button>
-                           </div>
-                        </div>
-                        {/* send */}
-                        <div className="flex items-end">
-                           <button className="text-white px-10 py-2.5  bg-emerald-600 rounded-lg drop-shadow-lg  mb-2 transition-all duration-200
-                                                   text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
-                                                   border-transparent border hover:border-emerald-600 w-fit flex justify-center bottom-0 "
-                              onClick={() => setShowPopUp(true)}>    SEND
-                           </button>
-                        </div>
-                     </div>
+
+
                   </div>
                </div>
             </div>

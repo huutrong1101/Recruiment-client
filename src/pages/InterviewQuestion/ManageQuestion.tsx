@@ -74,7 +74,7 @@ export default function QuestionInterview() {
               </div>
             </div>
             <div>
-              <div className="flex justify-center my-2 ">
+              <div className="flex justify-center my-2 h-[500px] ">
                 <div className=" rounded-lg border-gray-200 border-2 w-11/12 h-full mt-3">
                   <div className="overflow-auto px-2">
                     <table className="w-full ">
