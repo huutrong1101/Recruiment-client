@@ -39,7 +39,7 @@ const InterviewRecent = () => {
                 <div className='mb-5 text-2xl mt-4'>Interview Recent</div>
                 <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableHead className='bg-slate-300'>
+                        <TableHead className='bg-slate-200'>
                         <TableRow>
                             <TableCell>Position</TableCell>
                             <TableCell>Date</TableCell>
@@ -49,7 +49,7 @@ const InterviewRecent = () => {
                         </TableHead>
                         <TableBody>
                             {INTInterviews.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((interview:any) => (
-                                <TableRow key={interview.id} className={`${interview.id % 2 === 0 ? 'bg-slate-100':''}`}>
+                                <TableRow key={interview.id} className={`even:bg-slate-50`}>
                                     <TableCell component="th" scope="row">
                                         {interview.name}
                                     </TableCell>
