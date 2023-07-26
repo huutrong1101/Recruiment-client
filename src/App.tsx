@@ -49,7 +49,7 @@ import Addjob from "./pages/Reccer/Jobs/Addjob";
 import ManagementAppLayOut from "./components/Layout/ManagementAppLayOut/ManagementAppLayOut";
 import ReccerCandidateManagement from "./pages/Reccer/ReccercandidateManagement";
 
-import RecEventDetail from "./pages/Reccer/EventDetail";
+import RecEventDetail from "./pages/Reccer/RecEventDetail";
 import AddEvent from "./components/AddEvent/AddEvent";
 import ListCandiPass from "./components/AdminManagerList/ListCandiPass";
 import DeleteBlacklist from "./pages/Admin/DeleteBlacklist";
