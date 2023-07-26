@@ -40,7 +40,7 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  isLoggedIn: true,
+  isLoggedIn: false,
   token: hasLocalToken() ? getLocalToken() : null,
   loading: `idle`,
   signInLoadingState: `idle`,
@@ -83,7 +83,8 @@ export const authRegister = createAsyncThunk(
 
       return response.data;
     } catch (err) {
-      return thunkAPI.rejectWithValue(new Error());
+      throw err;
+      // return thunkAPI.rejectWithValue(new Error());
     }
   },
 );
@@ -112,7 +113,8 @@ export const authLogin = createAsyncThunk(
 
       return response.data;
     } catch (err) {
-      return thunkAPI.rejectWithValue(new Error());
+      throw err;
+      // return thunkAPI.rejectWithValue(new Error());
     }
   },
 );
@@ -137,7 +139,8 @@ export const fetchUserFromToken = createAsyncThunk(
       const { data, status } = err.response;
       toast.error(`There was an error when fetch a profile from token.`);
       clearLocalToken();
-      return thunkAPI.rejectWithValue(data);
+      throw err;
+      // return thunkAPI.rejectWithValue(data);
     }
   },
 );
