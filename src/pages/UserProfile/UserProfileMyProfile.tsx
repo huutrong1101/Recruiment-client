@@ -14,6 +14,9 @@ import UserResume from "../../components/UserResume/UserResume";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import Modal from "../../components/Modal/Modal";
+import DummyAvatar from "../../components/DummyAvatar/DummyAvatar";
+import { useAppSelector } from "../../hooks/hooks";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
 function UserProfileInformation() {
   const {
@@ -26,100 +29,122 @@ function UserProfileInformation() {
     console.log(data);
   };
 
+  const { user, loading } = useAppSelector((app) => app.Auth);
+
   return (
     <div className="p-4 border rounded-xl border-zinc-100">
       <h1 className={classNames(`text-2xl font-semibold flex-1 md:mb-4`)}>
         Information
       </h1>
-      <div className={classNames(`flex flex-col md:flex-row gap-6`)}>
-        {/* Avatar edit block */}
-        <div
-          className={classNames(
-            `flex-row w-full md:w-3/12 flex md:flex-col gap-4 px-4 items-center`,
-          )}
-        >
-          <div className={classNames(`w-3/12 md:w-auto`)}>
-            <img
+      {/* Whether is loading */}
+      {loading === "pending" ? (
+        <LoadSpinner />
+      ) : user === null || user === undefined ? (
+        // User is not found
+        <div>User not found</div>
+      ) : (
+        <div className={classNames(`flex flex-col md:flex-row gap-6`)}>
+          {/* Avatar edit block */}
+          <div
+            className={classNames(
+              `flex-row w-full md:w-3/12 flex md:flex-col gap-4 px-4 items-center`,
+            )}
+          >
+            <div className={classNames(`w-3/12 md:w-auto`)}>
+              {/* <img
               src={Avatar}
               alt={"Hi"}
               className={classNames(`rounded-full`)}
-            />
+            /> */}
+              {user.avatar === undefined || user.avatar === null ? (
+                <DummyAvatar
+                  iconClassName="text-6xl flex items-center justify-center"
+                  wrapperClassName="h-32 w-32"
+                />
+              ) : (
+                <img
+                  src={user.avatar}
+                  alt={`${user.fullName}'s avatar`}
+                  className={`rounded-full`}
+                />
+              )}
+            </div>
+            <div>
+              {/* <InputIcon icon={<HiUserCircle />} type="file" /> */}
+              <PrimaryButton text={`Change`} />
+            </div>
           </div>
-          <div>
-            {/* <InputIcon icon={<HiUserCircle />} type="file" /> */}
-            <PrimaryButton text={`Change`} />
-          </div>
-        </div>
 
-        {/* General information fields */}
-        <form
-          className={classNames(`flex-1 flex flex-col gap-2`)}
-          onSubmit={handleSubmit(onDataChangeSubmit)}
-        >
-          <div>
+          {/* General information fields */}
+          <form
+            className={classNames(`flex-1 flex flex-col gap-2`)}
+            onSubmit={handleSubmit(onDataChangeSubmit)}
+          >
+            <div>
+              <InputIcon
+                type="text"
+                icon={<HiUserCircle />}
+                placeholder={`Full Name`}
+                // {...register("fullName", {
+                //   required: true,
+                // })}
+                register={register}
+                required
+                label="fullName"
+              />
+
+              {errors.fullName && (
+                <small className={`text-xs text-red-600`}>
+                  Full name is required
+                </small>
+              )}
+            </div>
+
             <InputIcon
+              icon={<HiEnvelope />}
               type="text"
-              icon={<HiUserCircle />}
-              placeholder={`Full Name`}
-              // {...register("fullName", {
-              //   required: true,
-              // })}
+              placeholder={`Email`}
               register={register}
               required
-              label="fullName"
+              label="email"
+            />
+            <InputIcon
+              icon={<HiMapPin />}
+              placeholder={`Address`}
+              register={register}
+              required
+              label="address"
             />
 
-            {errors.fullName && (
-              <small className={`text-xs text-red-600`}>
-                Full name is required
-              </small>
-            )}
-          </div>
-
-          <InputIcon
-            icon={<HiEnvelope />}
-            type="text"
-            placeholder={`Email`}
-            register={register}
-            required
-            label="email"
-          />
-          <InputIcon
-            icon={<HiMapPin />}
-            placeholder={`Address`}
-            register={register}
-            required
-            label="address"
-          />
-
-          <InputIcon
-            icon={<HiPhone />}
-            type="text"
-            placeholder={`Phone`}
-            register={register}
-            required
-            label="phone"
-          />
-
-          <InputIcon
-            icon={<HiMapPin />}
-            type="text"
-            placeholder={`Location`}
-            register={register}
-            label={`location`}
-          />
-
-          {/* Submit button */}
-          <div className="flex flex-row-reverse">
-            <PrimaryButton
-              type="submit"
-              text={`Save`}
-              size={"sm"}
-              className={`md:!w-3/12`}
+            <InputIcon
+              icon={<HiPhone />}
+              type="text"
+              placeholder={`Phone`}
+              register={register}
+              required
+              label="phone"
             />
-          </div>
-        </form>
-      </div>
+
+            <InputIcon
+              icon={<HiMapPin />}
+              type="text"
+              placeholder={`Location`}
+              register={register}
+              label={`location`}
+            />
+
+            {/* Submit button */}
+            <div className="flex flex-row-reverse">
+              <PrimaryButton
+                type="submit"
+                text={`Save`}
+                size={"sm"}
+                className={`md:!w-3/12`}
+              />
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 }
