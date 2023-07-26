@@ -3,12 +3,12 @@ import ScorePage from './ScorePage'
 import DashboardFooter from '../../components/RecFooter/DashboardFooter'
 
 export default function PopUp({visible, onClose}) {
-    const handleOnClose = (e)=>{
+    const handleOnClose = (e : any)=>{
         if (e.target.id ==='container'|| e.target.id ==='submit') onClose()
     }
     if (!visible) return null;
     return (
-        <div className='fixed inset-0 bg-black bg-opacity-10 backdrop-blur-sm flex justify-center items-center rounded-2xl z-20'
+        <div className='fixed inset-0 bg-black bg-opacity-10 backdrop-blur-sm flex justify-center items-center z-20'
         id='container' onClick={handleOnClose}>
             <div className='w-1/3 h-2/3 rounded-3xl bg-white drop-shadow-md flex flex-col items-center'>
                 <div className='avatar rounded-full border-8 border-emerald-600 w-[150px] h-[150px] bg-white my-2'></div>

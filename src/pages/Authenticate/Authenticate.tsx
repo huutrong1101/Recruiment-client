@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classnames from "classnames";
 import image from "../../../images/sprite.png";
 import { Outlet, useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../hooks/hooks";
+import { toast } from "react-toastify";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import classNames from "classnames";
 
 export default function Authenticate() {
   const navigate = useNavigate();
@@ -9,6 +13,38 @@ export default function Authenticate() {
   const handleBrowseJobClick = () => {
     navigate(`/jobs`);
   };
+  const { isLoggedIn, token, loading } = useAppSelector((app) => app.Auth);
+
+  /**
+   * If the user is logged in
+   */
+  useEffect(() => {
+    if (isLoggedIn && token) {
+      toast.info(
+        `You are already signed in. If you want to switch to another account, please sign out first.`,
+      );
+    }
+  }, [isLoggedIn, token]);
+
+  if (loading === "pending") {
+    navigate(-1);
+    return (
+      <div
+        className={classNames(
+          `text-3xl text-zinc-300 min-h-screen flex flex-row items-center justify-center`,
+        )}
+      >
+        <div className={classNames(` `)}>
+          <LoadSpinner />
+        </div>
+      </div>
+    );
+  }
+
+  if (isLoggedIn && token) {
+    navigate(-1);
+    return <div className="min-h-screen"></div>;
+  }
 
   return (
     <div

@@ -1,14 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AuthService } from "../services/AuthService";
-import { toast } from "react-toastify";
 import {
   UserLoginParamsInterface,
   UserRegisterParamsInterface,
 } from "../services/services";
 import { UserService } from "../services/UserService";
-
-const _storedToken = localStorage.getItem("token");
-const token: string | null = _storedToken ? JSON.parse(_storedToken) : null;
+import {
+  clearLocalToken,
+  getLocalToken,
+  hasLocalToken,
+  setLocalToken,
+} from "../utils/localToken";
+import { toast } from "react-toastify";
+import axiosInstance from "../utils/AxiosInstance";
 
 interface UserResponseState {
   userId: string;
@@ -25,14 +29,22 @@ interface UserResponseState {
   active: boolean;
 }
 
+type LoadingState = `idle` | `pending` | `success` | `failed`;
+
 interface AuthState {
   isLoggedIn: boolean;
   user?: UserResponseState | null;
   token: string | null;
-  loading: `idle` | `pending` | `success` | `failed`;
+  loading: LoadingState;
+  signInLoadingState: LoadingState;
 }
 
-const initialState: AuthState = { isLoggedIn: true, token, loading: `idle` };
+const initialState: AuthState = {
+  isLoggedIn: false,
+  token: hasLocalToken() ? getLocalToken() : null,
+  loading: `idle`,
+  signInLoadingState: `idle`,
+};
 
 export const authRegister = createAsyncThunk(
   "Auth/register",
@@ -67,12 +79,12 @@ export const authRegister = createAsyncThunk(
       // Fetch the user from token
       thunkAPI.dispatch(fetchUserFromToken({ token }));
 
-      localStorage.setItem("token", JSON.stringify(token));
-      console.debug(`Set localStorage#token with value ${token}`);
+      setLocalToken(token);
 
       return response.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(new Error());
+    } catch (err: any) {
+      // throw err;
+      return thunkAPI.rejectWithValue(err.response.data);
     }
   },
 );
@@ -80,6 +92,7 @@ export const authRegister = createAsyncThunk(
 export const authLogin = createAsyncThunk(
   "Auth/login",
   async ({ credentialId, password }: UserLoginParamsInterface, thunkAPI) => {
+    thunkAPI.dispatch(setSignedInLoadingState(`pending`));
     try {
       const response = await AuthService.login({ credentialId, password });
 
@@ -91,37 +104,44 @@ export const authLogin = createAsyncThunk(
 
       const { result } = response.data;
       const { accessToken, refreshToken } = result;
+      thunkAPI.dispatch(setSignedInLoadingState(`success`));
       // Set the token onto localStorage
-      localStorage.setItem("token", JSON.stringify(accessToken));
-      thunkAPI.dispatch(setToken(token));
+      setLocalToken(accessToken);
+      thunkAPI.dispatch(setToken(accessToken));
       // Fetch the user from token
-      thunkAPI.dispatch(fetchUserFromToken({ token: result.accessToken }));
-      console.debug(`Set localStorage#token with value ${accessToken}`);
+      thunkAPI.dispatch(fetchUserFromToken(undefined));
 
       return response.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(new Error());
+    } catch (err: any) {
+      // throw err;
+      // console.log(err.response.data);
+      return thunkAPI.rejectWithValue(err.response.data);
     }
   },
 );
 
 export const fetchUserFromToken = createAsyncThunk(
   "Auth/fetch-user-from-token",
-  async ({ token }: { token: string }, thunkAPI) => {
+  async (_args: any, thunkAPI) => {
     try {
+      console.debug(`Trying to fetch user from token ${getLocalToken()}`);
+      axiosInstance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${getLocalToken()}`;
       // Get the profile
-      const profileResponse = await UserService.getUserFromToken(token);
+      const profileResponse = await UserService.getUserFromToken();
       if (profileResponse.status !== 200) {
-        alert(`error`);
-        throw new Error(`Error when using authorize token ${token}`);
+        throw new Error(`Error when using authorize token ${getLocalToken()}`);
       }
 
       thunkAPI.dispatch(setUser(profileResponse.data.result));
       return profileResponse.data.result;
     } catch (err: any) {
       const { data, status } = err.response;
-
-      return thunkAPI.rejectWithValue(data);
+      toast.error(`There was an error when fetch a profile from token.`);
+      clearLocalToken();
+      throw err;
+      // return thunkAPI.rejectWithValue(data);
     }
   },
 );
@@ -131,7 +151,7 @@ export const authLogout = createAsyncThunk("Auth/logout", (_, thunkAPI) => {
   thunkAPI.dispatch(setToken(null));
   thunkAPI.dispatch(setUserLoggedIn(false));
 
-  localStorage.removeItem("token");
+  clearLocalToken();
 });
 
 const AuthSlice = createSlice({
@@ -147,8 +167,18 @@ const AuthSlice = createSlice({
     setToken: (state, action) => {
       state.token = action.payload;
     },
+    setSignedInLoadingState: (
+      state,
+      action: { type: string; payload: LoadingState },
+    ) => {
+      state.signInLoadingState = action.payload;
+    },
   },
   extraReducers(builder) {
+    builder.addCase(authLogin.rejected, (state, _action) => {
+      state.signInLoadingState = "failed";
+      state.isLoggedIn = false;
+    });
     builder.addCase(fetchUserFromToken.pending, (state, _action) => {
       state.user = null;
       state.isLoggedIn = false;
@@ -168,6 +198,7 @@ const AuthSlice = createSlice({
   },
 });
 
-export const { setUserLoggedIn, setUser, setToken } = AuthSlice.actions;
+export const { setUserLoggedIn, setUser, setToken, setSignedInLoadingState } =
+  AuthSlice.actions;
 
 export default AuthSlice.reducer;

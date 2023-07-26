@@ -56,6 +56,7 @@ import DeleteBlacklist from "./pages/Admin/DeleteBlacklist";
 import CreateCV from "./pages/CreateCV/CreateCV";
 import RequestTest from "./pages/RequestTest/RequestTest";
 import InterviewSched from "./pages/Reccer/Interview/InterviewSched";
+import CandidateDetail from "./pages/Reccer/CandidateDetail";
 import Logout from "./pages/Logout/Logout";
 import OneTimePasswordVerify from "./pages/OneTimePasswordVerify/OneTimePasswordVerify";
 
@@ -116,7 +117,8 @@ export default function App() {
           {/* Define recruiter routes here */}
           <Route path="dashboard" index element={<ReccerDashboard />} />
           <Route path="candidate-info" element={<CandidateProfile />} />
-          <Route path="candidate-list" element={<CandidateList />} />
+          <Route path="candidates" element={<ReccerCandidateManagement />} />
+          <Route path="candidates/:id" element={<CandidateDetail />} />
 
           <Route path="job-management" element={<ReccerJobManagement />} />
           <Route path="calender" element={<Reccercalender />} />
@@ -129,11 +131,8 @@ export default function App() {
           <Route path="event" element={<ReccerEventManagement />} />
           <Route path="event-manager/:eventId" element={<RecEventDetail />} />
           <Route path="events-add" element={<AddEvent />} />
-          {/* <Route path="job-management" element={<Reccer_JobManagement />} />
-          <Route path="calender" element={<Reccer_calender />} /> */}
 
           <Route path="event-manager" element={<ReccerEventManagement />} />
-          <Route path="candidate" element={<ReccerCandidateManagement />} />
 
           <Route path="interview-schedule" element={<InterviewSched />} />
         </Route>
@@ -148,13 +147,18 @@ export default function App() {
             path="candidate-recent/:id"
             element={<ReccerInterviewerDetail />}
           />
-          <Route index path="scorePage" element={<ScorePage />} />
+          <Route index path="score-page" element={<ScorePage />} />
         </Route>
         <Route path="/interviewer" element={<ManagementAppLayOut />}>
           {/* Define interviewer routes here */}
           {/* <Route index path ="/manageQuestion" element={<ManageQuestion />} /> */}
+<<<<<<< HEAD
           <Route index path="manage-question" element={<ManageQuestion />} />
           <Route index path="score-page" element={<ScorePage />} />
+=======
+          <Route index path="manageQuestion" element={<ManageQuestion />} />
+          <Route index path="scorePage" element={<ScorePage />} />
+>>>>>>> feat/add-one-time-password-response
         </Route>
 
         {/* <Route path="/test" element={Test} /> */}

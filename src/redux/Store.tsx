@@ -6,11 +6,16 @@ import NavbarSlice from "../components/Navbar/slices/NavbarSlice";
 import CandidateRecentReducer from "./reducer/CandidateRecentSlice";
 import InterviewRecentReducer from "./reducer/InterviewRecentSlice";
 import AuthSlice from "./AuthSlice";
+<<<<<<< HEAD
 import OneTimePasswordSlice from "../pages/OneTimePasswordVerify/slices/OneTimePasswordSlice";
+=======
+import CandidateListSlice from "./reducer/CandidateListSlice";
+>>>>>>> feat/add-one-time-password-response
 
 export const ApplicationStore = configureStore({
   reducer: {
     Home: HomeSlice,
+    candidateList: CandidateListSlice,
     candidateRecent: CandidateRecentReducer,
     interviewRecent: InterviewRecentReducer,
     Navbar: NavbarSlice,
