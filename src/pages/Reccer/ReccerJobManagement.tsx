@@ -22,9 +22,9 @@ const ReccerJobManagement = () => {
       page: queryParams.page || "1",
       size: queryParams.size || 5,
       name: queryParams.name,
-      // location: queryParams.location,
-      // posName: queryParams.posName,
-      // type: queryParams.type,
+      location: queryParams.location,
+      posName: queryParams.posName,
+      type: queryParams.type,
     },
     isUndefined,
   );
@@ -83,7 +83,6 @@ const ReccerJobManagement = () => {
           const response = await axiosInstance(`recruiter/jobs${query}`);
           setShowJobs(response.data.result.content);
           setPageSize(response.data.result.totalPages);
-          console.log(query);
         } catch (error) {
           console.log(error);
         } finally {
@@ -168,7 +167,7 @@ const ReccerJobManagement = () => {
       <Pagination
         queryConfig={queryConfig}
         pageSize={pageSize}
-        url="/recruiter/jobs"
+        url=""
       />
     </>
   );
