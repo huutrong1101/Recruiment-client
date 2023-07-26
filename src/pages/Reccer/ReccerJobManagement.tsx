@@ -5,7 +5,7 @@ import Loader from "../../components/Loader/Loader";
 import { useAppSelector } from "../../hooks/hooks";
 import { JobInterface, JobReccerListConfig } from "../../services/services";
 import { omitBy, isUndefined } from "lodash";
-import Pagination from "../../components/Pagination/Pagination";
+import Pagination from "../Reccer/RecPagination";
 import useQuerParams from "../../hooks/useQueryParams";
 import { omit, isEqual } from "lodash";
 import axiosInstance from "../../utils/AxiosInstance";
@@ -20,11 +20,11 @@ const ReccerJobManagement = () => {
   const queryConfig: QueryConfig = omitBy(
     {
       page: queryParams.page || "1",
-      size: queryParams.size || 10,
+      size: queryParams.size || 5,
       name: queryParams.name,
-      location: queryParams.location,
-      posName: queryParams.posName,
-      type: queryParams.type,
+      // location: queryParams.location,
+      // posName: queryParams.posName,
+      // type: queryParams.type,
     },
     isUndefined,
   );
@@ -43,6 +43,13 @@ const ReccerJobManagement = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showJobs, setShowJobs] = useState(jobs);
 
+  const [dataSearch, setDataSearch] = useState({
+    key: "",
+    posName: "",
+    location: "",
+    type: "",
+  });
+
   useEffect(() => {
     const fetchPosition = async () => {
       setIsLoading(true);
@@ -53,6 +60,11 @@ const ReccerJobManagement = () => {
           setShowJobs(response.data.result.content);
           setPageSize(response.data.result.totalPages);
         }
+        setDataSearch({
+          ...dataSearch,
+          key: queryConfig.name || "",
+          type: queryConfig.type || "",
+        });
       } catch (error) {
         console.log(error);
       } finally {

@@ -64,7 +64,7 @@ export const links = [
       {
         name: "Job",
         icon: <HiOutlineFolder />,
-        url: "recruiter/job-management",
+        url: "recruiter/jobs",
       },
       {
         name: "Event",

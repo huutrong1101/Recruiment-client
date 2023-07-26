@@ -66,6 +66,7 @@ import { JobService } from "./services/JobService";
 import Logout from "./pages/Logout/Logout";
 import CandidateDetail from "./pages/Reccer/CandidateDetail";
 import { fetchRecJobList } from "./redux/reducer/RecJobSlice";
+import { EventService } from "./services/EventService";
 
 export default function App() {
   useTokenAuthorize();
@@ -138,7 +139,7 @@ export default function App() {
           <Route path="candidates" element={<ReccerCandidateManagement />} />
           <Route path="candidates/:id" element={<CandidateDetail />} />
 
-          <Route path="job-management" element={<ReccerJobManagement />} />
+          <Route path="jobs" element={<ReccerJobManagement />} />
           <Route path="calender" element={<Reccercalender />} />
           <Route path="interviewer" element={<ReccerInterviewerManagement />} />
           <Route path="interviewer/:id" element={<ReccerInterviewerDetail />} />
