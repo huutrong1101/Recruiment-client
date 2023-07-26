@@ -85,7 +85,6 @@ export default function App() {
           <Route path="/email" element={<EmailConfirmationLayout />}>
             <Route path="incomplete" element={<IncompleteConfirmEmail />} />
             <Route path="complete" element={<CompleteConfirmEmail />} />
-            RORoute
           </Route>
 
           <Route path="/profile" element={<UserProfileLayout />}>

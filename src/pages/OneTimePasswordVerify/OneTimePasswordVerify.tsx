@@ -35,6 +35,8 @@ export default function OneTimePasswordVerify() {
     } else {
       setValue("email", searchEmailValue);
     }
+
+    return () => {};
   }, [searchParams]);
 
   const handleVerifyOneTimePassword = (data: UserVerifySendParamsInterface) => {
