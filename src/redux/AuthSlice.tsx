@@ -37,6 +37,7 @@ interface AuthState {
   token: string | null;
   loading: LoadingState;
   signInLoadingState: LoadingState;
+  registerLoadingState: LoadingState;
 }
 
 const initialState: AuthState = {
@@ -44,6 +45,7 @@ const initialState: AuthState = {
   token: hasLocalToken() ? getLocalToken() : null,
   loading: `idle`,
   signInLoadingState: `idle`,
+  registerLoadingState: `idle`,
 };
 
 export const authRegister = createAsyncThunk(
@@ -74,17 +76,17 @@ export const authRegister = createAsyncThunk(
         );
       }
 
-      const { result: token, message } = response.data;
-      thunkAPI.dispatch(setToken(token));
+      // const { result: token, message } = response.data;
+      // thunkAPI.dispatch(setToken(token));
       // Fetch the user from token
-      thunkAPI.dispatch(fetchUserFromToken({ token }));
+      // thunkAPI.dispatch(fetchUserFromToken({ token }));
 
-      setLocalToken(token);
+      // setLocalToken(token);
 
       return response.data;
-    } catch (err) {
-      throw err;
-      // return thunkAPI.rejectWithValue(new Error());
+    } catch (err: any) {
+      console.log(err);
+      return thunkAPI.rejectWithValue(err.response.data);
     }
   },
 );
@@ -112,9 +114,10 @@ export const authLogin = createAsyncThunk(
       thunkAPI.dispatch(fetchUserFromToken(undefined));
 
       return response.data;
-    } catch (err) {
-      throw err;
-      // return thunkAPI.rejectWithValue(new Error());
+    } catch (err: any) {
+      // throw err;
+      // console.log(err.response.data);
+      return thunkAPI.rejectWithValue(err.response.data);
     }
   },
 );
@@ -174,6 +177,21 @@ const AuthSlice = createSlice({
     },
   },
   extraReducers(builder) {
+    builder.addCase(authRegister.pending, (state) => {
+      state.registerLoadingState = "pending";
+    });
+    builder.addCase(authRegister.fulfilled, (state) => {
+      state.registerLoadingState = "success";
+    });
+
+    builder.addCase(authRegister.rejected, (state) => {
+      state.registerLoadingState = "failed";
+    });
+
+    builder.addCase(authLogin.rejected, (state, _action) => {
+      state.signInLoadingState = "failed";
+      state.isLoggedIn = false;
+    });
     builder.addCase(fetchUserFromToken.pending, (state, _action) => {
       state.user = null;
       state.isLoggedIn = false;

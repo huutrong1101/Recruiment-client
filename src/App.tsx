@@ -58,6 +58,7 @@ import RequestTest from "./pages/RequestTest/RequestTest";
 import InterviewSched from "./pages/Reccer/Interview/InterviewSched";
 import CandidateDetail from "./pages/Reccer/CandidateDetail";
 import Logout from "./pages/Logout/Logout";
+import OneTimePasswordVerify from "./pages/OneTimePasswordVerify/OneTimePasswordVerify";
 
 export default function App() {
   return (
@@ -78,6 +79,8 @@ export default function App() {
             <Route path="signup" element={<AuthenticateSignUp />} />
             <Route element={<AuthenticateLogin />} />
           </Route>
+
+          <Route path="otp" element={<OneTimePasswordVerify />} />
 
           <Route path="/email" element={<EmailConfirmationLayout />}>
             <Route path="incomplete" element={<IncompleteConfirmEmail />} />
@@ -148,8 +151,8 @@ export default function App() {
         <Route path="/interviewer" element={<ManagementAppLayOut />}>
           {/* Define interviewer routes here */}
           {/* <Route index path ="/manageQuestion" element={<ManageQuestion />} /> */}
-          <Route index path="manageQuestion" element={<ManageQuestion />} />
-          <Route index path="scorePage" element={<ScorePage />} />
+          <Route index path="manage-question" element={<ManageQuestion />} />
+          <Route index path="score-page" element={<ScorePage />} />
         </Route>
 
         {/* <Route path="/test" element={Test} /> */}

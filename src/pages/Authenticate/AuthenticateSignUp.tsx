@@ -7,23 +7,35 @@ import {
   PhoneIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InputIcon from "../../components/InputIcon/InputIcon";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { authRegister } from "../../redux/AuthSlice";
+import { toast } from "react-toastify";
 
 export default function AuthenticateSignUp() {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    // reset,
   } = useForm();
   const dispatch = useAppDispatch();
-  // const { loading } = useAppSelector((app) => app.Auth);
+  const { registerLoadingState } = useAppSelector((app) => app.Auth);
+
+  const navigate = useNavigate();
 
   const onSubmit = (data: any) => {
-    dispatch(authRegister(data));
+    dispatch(authRegister(data))
+      .unwrap()
+      .then(() => {
+        // toast.success(`Successfully register the`)
+        navigate("/email/incomplete");
+      })
+      .catch((data) => {
+        toast.error(data.message);
+      });
   };
 
   return (
@@ -113,8 +125,8 @@ export default function AuthenticateSignUp() {
         <PrimaryButton
           type={"submit"}
           text="Sign up"
-          // disabled={loading === "pending"}
-          // isLoading={loading === "pending"}
+          disabled={registerLoadingState === "pending"}
+          isLoading={registerLoadingState === "pending"}
           // className={classnames({
           //   "bg-zinc-500 hover:bg-zinc-500": loading === "pending",
           // })}
