@@ -25,11 +25,11 @@ const ReccerJobManagement = () => {
   const queryConfig: QueryConfig = omitBy(
     {
       index: queryParams.index || "1",
-      limit: queryParams.limit || 10,
+      size: queryParams.size || 10,
       name: queryParams.name,
       location: queryParams.location,
       posName: queryParams.posName,
-      category: queryParams.category,
+      type: queryParams.type,
     },
     isUndefined,
   );
@@ -40,7 +40,7 @@ const ReccerJobManagement = () => {
   const jobs: JobInterface[] = useAppSelector((state) => state.recjobList.recjobsList);
   const totalJobs = useAppSelector((state) => state.recjobList.recjobTotal);
   const [pageSize, setPageSize] = useState(
-    Math.ceil(totalJobs / Number(queryParams.limit ?? 10)),
+    Math.ceil(totalJobs / Number(queryParams.size ?? 10)),
   );
   const [isLoading, setIsLoading] = useState(false);
   const [showJobs, setShowJobs] = useState(jobs);
