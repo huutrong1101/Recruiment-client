@@ -17,7 +17,6 @@ export default function InterviewerDetail() {
 
       </div>
       <div className='pb-10'><InterviewerRecent /></div>
-
     </div>
   )
 }
