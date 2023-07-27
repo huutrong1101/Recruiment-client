@@ -18,6 +18,7 @@ import Loader from "../../components/Loader/Loader";
 import qs from "query-string";
 import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import { omit, isEqual } from "lodash";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
 export type QueryConfig = {
   [key in keyof JobListConfig]: string;
@@ -378,8 +379,8 @@ export default function Jobs() {
 
         <div className={classNames("w-[70%]")}>
           {isLoading ? (
-            <div className="flex justify-center">
-              <Loader />
+            <div className="flex justify-center my-4">
+              <LoadSpinner className="text-3xl text-emerald-500" />
             </div>
           ) : (
             <div className="flex flex-wrap -mx-4">

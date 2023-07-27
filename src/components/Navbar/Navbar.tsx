@@ -29,17 +29,6 @@ export default function Navbar() {
     }
   }, [user]);
 
-  const role = user?.role;
-
-  let updatedLeftMenu = leftMenu;
-
-  if (role === "RECRUITER") {
-    updatedLeftMenu = [
-      ...leftMenu,
-      { name: "Dashboard", url: "/recruiter/dashboard" },
-    ];
-  }
-
   return (
     <>
       {/* Small width devices */}
