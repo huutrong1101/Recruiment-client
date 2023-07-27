@@ -8,28 +8,74 @@ import {
   ChevronUpIcon,
 } from "@heroicons/react/24/outline";
 
-import { Link } from "react-router-dom";
-import { data } from "../../data/homeData";
+import { Link, createSearchParams, useNavigate } from "react-router-dom";
 import JobCard from "../../components/JobCard/JobCard";
 import BlogCard from "../../components/BlogCard/BlogCard";
 import Advertise from "../../components/Advertise/Advertise";
 import { Menu, Transition } from "@headlessui/react";
 import { useAppSelector } from "../../hooks/hooks";
-import { EventInterface, JobInterface } from "../../services/services";
+import {
+  EventInterface,
+  JobInterface,
+  JobListConfig,
+} from "../../services/services";
+import axiosInstance from "../../utils/AxiosInstance";
+import useQueryParams from "../../hooks/useQueryParams";
+import { omitBy, isUndefined } from "lodash";
+
+export type QueryConfig = {
+  [key in keyof JobListConfig]: string;
+};
 
 export default function Home() {
+  const jobs: JobInterface[] = useAppSelector((state) => state.Job.jobs);
+
+  const events: EventInterface[] = useAppSelector((state) => state.Home.events);
+
+  const listType = useAppSelector((state) => state.Job.type);
+
+  const [type, setType] = useState("");
+
   const [showType, setShowType] = useState(false);
 
   const [search, setSearch] = useState("");
 
-  const [type, setType] = useState(data.listTypeJobs[1].name);
+  const navigate = useNavigate();
 
-  const jobs: JobInterface[] = useAppSelector((state) => state.Home.jobs);
+  const queryParams: QueryConfig = useQueryParams();
 
+<<<<<<< HEAD
   const events: EventInterface[] = useAppSelector((state) => state.Home.events);
 
   const handleSubmit = () => {
     alert("Giá trị thu được với từ khóa: " + search + " và loại: " + type);
+=======
+  const queryConfig: QueryConfig = omitBy(
+    {
+      index: queryParams.index || "1",
+      size: queryParams.size || 10,
+      name: queryParams.name,
+      posName: queryParams.posName,
+    },
+    isUndefined,
+  );
+
+  const handleSubmit = async (e: any) => {
+    try {
+      e.preventDefault();
+      navigate({
+        pathname: "/jobs",
+        search: createSearchParams({
+          ...queryConfig,
+          name: search, // Tên biến lưu từ khóa tìm kiếm trên trang Home
+          type: type, //
+          index: "1",
+        }).toString(),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+>>>>>>> update/chocolate
   };
 
   return (
@@ -82,6 +128,7 @@ export default function Home() {
         className={classnames(
           "flex flex-col border rounded-md shadow-md md:shadow-lg md:flex-row p-3 gap-4 mt-[40px] md:mt-[80px]",
         )}
+        onSubmit={(e) => handleSubmit(e)}
       >
         <div
           className={classnames(
@@ -116,7 +163,7 @@ export default function Home() {
                 )}
                 onClick={() => setShowType(!showType)}
               >
-                {type}
+                {type || "TYPE OF JOB"}
                 {showType && (
                   <ChevronUpIcon className={classnames("w-[20px] mr-4")} />
                 )}
@@ -135,25 +182,25 @@ export default function Home() {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute left-0 z-10 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="absolute md:left-[-18px] w-full z-10 md:w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="py-1">
-                  {data.listTypeJobs &&
-                    data.listTypeJobs.map((type) => (
-                      <Menu.Item key={type.id}>
+                  {listType &&
+                    listType.map((type, index) => (
+                      <Menu.Item key={index}>
                         {({ active }) => (
                           <p
                             className={classnames(
                               active
                                 ? "bg-gray-100 text-gray-900"
                                 : "text-gray-700",
-                              "block px-4 py-2 text-sm",
+                              "block px-4 py-2 text-sm cursor-pointer",
                             )}
                             onClick={() => {
-                              setType(type.name);
+                              setType(type);
                               setShowType(false);
                             }}
                           >
-                            {type.name}
+                            {type}
                           </p>
                         )}
                       </Menu.Item>
@@ -169,10 +216,7 @@ export default function Home() {
             "w-full md:w-[24%] flex items-center justify-center",
           )}
         >
-          <button
-            className="w-[50%] md:w-[80%] md:h-[56px] border rounded-md bg-emerald-700 shadow-md text-white"
-            onClick={() => handleSubmit()}
-          >
+          <button className="w-[50%] md:w-[80%] md:h-[56px] border rounded-md bg-emerald-700 shadow-md text-white">
             Search
           </button>
         </div>

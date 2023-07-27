@@ -36,6 +36,8 @@ export default function UserProfileInterviewListView<T>({
     formState: { errors },
   } = useForm();
 
+  const onSubmit = () => {};
+
   return (
     <div
       className={`px-4 py-2 bg-zinc-100 mt-2 rounded-xl flex flex-col gap-2`}

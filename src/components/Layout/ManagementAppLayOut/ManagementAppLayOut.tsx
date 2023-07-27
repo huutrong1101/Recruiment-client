@@ -66,12 +66,12 @@ export const links = [
       {
         name: "Job",
         icon: <HiOutlineFolder />,
-        url: "recruiter/job-management",
+        url: "recruiter/jobs",
       },
       {
         name: "Event",
         icon: <MdOutlineEventAvailable />,
-        url: "recruiter/event-manager",
+        url: "recruiter/events",
       },
     ],
   },

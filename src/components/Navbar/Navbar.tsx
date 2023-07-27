@@ -106,7 +106,7 @@ export default function Navbar() {
                 </Link>
               </div>
             ) : (
-              <NavbarUserLoggedInCard />
+             <NavbarUserLoggedInCard />
             )
           ) : (
             // Failed

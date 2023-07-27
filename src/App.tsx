@@ -47,7 +47,7 @@ import Addjob from "./pages/Reccer/Jobs/Addjob";
 import ManagementAppLayOut from "./components/Layout/ManagementAppLayOut/ManagementAppLayOut";
 import ReccerCandidateManagement from "./pages/Reccer/ReccercandidateManagement";
 
-import RecEventDetail from "./pages/EventDetail/RecEventDetail";
+import RecEventDetail from "./pages/Reccer/RecEventDetail";
 import AddEvent from "./components/AddEvent/AddEvent";
 import ListCandiPass from "./components/AdminManagerList/ListCandiPass";
 import DeleteBlacklist from "./pages/Admin/DeleteBlacklist";
@@ -73,6 +73,10 @@ export default function App() {
 
   useEffect(() => {
     JobService.getJobs(dispatch);
+    JobService.getLocation(dispatch);
+    JobService.getPosition(dispatch);
+    JobService.getType(dispatch);
+
     EventService.getEvents(dispatch);
   }, []);
 
@@ -135,16 +139,16 @@ export default function App() {
           <Route path="candidates" element={<ReccerCandidateManagement />} />
           <Route path="candidates/:id" element={<CandidateDetail />} />
 
-          <Route path="job-management" element={<ReccerJobManagement />} />
+          <Route path="jobs" element={<ReccerJobManagement />} />
           <Route path="calender" element={<Reccercalender />} />
           <Route path="interviewer" element={<ReccerInterviewerManagement />} />
           <Route path="interviewer/:id" element={<ReccerInterviewerDetail />} />
 
-          <Route path="jobdetail" element={<ReccerJobDetail />} />
+          <Route path="jobdetail/:jobId" element={<ReccerJobDetail />} />
           <Route path="addjob" element={<Addjob />} />
 
-          <Route path="event" element={<ReccerEventManagement />} />
-          <Route path="event-manager/:eventId" element={<RecEventDetail />} />
+          <Route path="events" element={<ReccerEventManagement />} />
+          <Route path="events/:eventId" element={<RecEventDetail />} />
           <Route path="events-add" element={<AddEvent />} />
 
           <Route path="event-manager" element={<ReccerEventManagement />} />

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, createSearchParams } from "react-router-dom";
 import classNames from "classnames";
-import { QueryConfig } from "../../pages/Jobs/Jobs";
+import { QueryConfig } from "../Reccer/ReccerJobManagement";
 
 interface Props {
   queryConfig: QueryConfig;
@@ -11,12 +11,8 @@ interface Props {
 
 const RANGE = 2;
 
-<<<<<<< HEAD
-export default function Pagination({ queryConfig, pageSize }: Props) {
-=======
 export default function Pagination({ queryConfig, pageSize, url }: Props) {
->>>>>>> update/chocolate
-  const page = Number(queryConfig.index);
+  const page = Number(queryConfig.page);
 
   const renderPagination = () => {
     let dotAfter = false;
@@ -87,7 +83,7 @@ export default function Pagination({ queryConfig, pageSize, url }: Props) {
                 pathname: url,
                 search: createSearchParams({
                   ...queryConfig,
-                  index: pageNumber.toString(),
+                  page: pageNumber.toString(),
                 }).toString(),
               }}
               key={index}
@@ -123,7 +119,7 @@ export default function Pagination({ queryConfig, pageSize, url }: Props) {
                   pathname: url,
                   search: createSearchParams({
                     ...queryConfig,
-                    index: (page - 1).toString(),
+                    page: (page - 1).toString(),
                   }).toString(),
                 }}
                 className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"
@@ -134,6 +130,7 @@ export default function Pagination({ queryConfig, pageSize, url }: Props) {
           </li>
 
           {renderPagination()}
+
           <li>
             {page === pageSize ? (
               <button className="px-3 py-2 mx-2 border rounded shadow-sm cursor-not-allowed bg-white/60">
@@ -145,7 +142,7 @@ export default function Pagination({ queryConfig, pageSize, url }: Props) {
                   pathname: url,
                   search: createSearchParams({
                     ...queryConfig,
-                    index: (page + 1).toString(),
+                    page: (page + 1).toString(),
                   }).toString(),
                 }}
                 className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"

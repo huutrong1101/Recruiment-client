@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classnames from "classnames";
 import TextareaAutosize from "react-textarea-autosize";
 import {
@@ -14,7 +14,41 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { useParams } from "react-router-dom";
+import { EventInterface } from "../../services/services";
+import { useAppSelector } from "../../hooks/hooks";
+import axiosInstance from "../../utils/AxiosInstance";
+import moment from "moment";
 export default function RecEventDetail() {
+  const { eventId } = useParams();
+
+  const [event, setEvent] = useState<EventInterface | null>(null);
+
+  const events: EventInterface[] = useAppSelector((state) => state.Home.events);
+
+  let [isOpen, setIsOpen] = useState(false);
+
+  const handleApply = () => {
+    alert("Apply success");
+  };
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  useEffect(() => {
+    const getEventDetail = async () => {
+      const response = await axiosInstance.get(`events/${eventId}`);
+      setEvent(response.data.result);
+    };
+    getEventDetail();
+  }, [eventId]);
+  console.log(event?.img)
+  const formattedDate = moment(event?.startAt).format("Do MMMM, YYYY");
   const [openSave, setOpenSave] = React.useState(false);
   const [openDelete, setOpenDelete] = React.useState(false);
   const handleClickOpen = () => {
@@ -29,12 +63,12 @@ export default function RecEventDetail() {
     setOpenSave(false);
     setOpenDelete(false);
   };
-  const handleImageUpload = (event) => {
+  const handleImageUpload = (event: any) => {
     const file = event.target.files[0];
     setAvatar(URL.createObjectURL(file));
   };
 
-  const handleImageUploadActor = (event) => {
+  const handleImageUploadActor = (event: any) => {
     const file = event.target.files[0];
     setavarActor(URL.createObjectURL(file));
   };
@@ -50,14 +84,14 @@ export default function RecEventDetail() {
   const [avaActor, setavarActor] = useState("../../../images/ava.jpg");
   return (
     <>
-      <div className={classnames("flex gap-5")}>
-        <div className={classnames("bg-white rounded-lg shadow-lg w-50%")}>
+      <div className={classnames("flex pt-5 justify-center gap-5")}>
+        <div className={classnames("bg-white rounded-lg shadow-lg item-center w-50%")}>
           <div className="">
             <label htmlFor="avatar">
               {avatar && (
                 <div>
                   <img
-                    src={avatar}
+                    src={event?.img}
                     alt="avatar"
                     className={classnames("w-full object-cover")}
                   />
@@ -115,7 +149,7 @@ export default function RecEventDetail() {
               <TextareaAutosize
                 minRows={1}
                 id="eventName"
-                value={eventName}
+                value={event?.title}
                 className="resize-none text-[16px] w-full text-black font-outfit text-2xl font-medium leading-31 tracking-wider capitalize"
                 placeholder={eventName}
                 onChange={(event) => setEventName(event.target.value)}
@@ -128,7 +162,7 @@ export default function RecEventDetail() {
                   id="contentWidth"
                   className="resize-none p-2.5 text-[13px] w-full text-justify bg-white"
                   onChange={(event) => setEventContent(event.target.value)}
-                  placeholder={eventContent}
+                  placeholder={event?.description}
                 />
               </ul>
             </div>
@@ -142,7 +176,7 @@ export default function RecEventDetail() {
                 "text-black font-outfit text-[17px] font-medium leading-31 tracking-wider capitalize",
               )}
             >
-              -Cristina Romsey-
+              -{event?.name}-
             </h3>
           </div>
         </div>
@@ -192,7 +226,7 @@ export default function RecEventDetail() {
               </label>
             </div>
             <h3>Content Writer - journalist </h3>
-            <h3>Cristina Romsey</h3>
+            <h3>{event?.name}</h3>
           </div>
           <div className="flex items-center justify-center p-2 bg-gray-300">
             <h3
