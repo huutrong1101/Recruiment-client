@@ -63,6 +63,8 @@ export default function Jobs() {
 
   const [showJobs, setShowJobs] = useState(jobs);
 
+  // const [posistion, setPosition] = useState([]);
+
   const [pageSize, setPageSize] = useState(
     Math.ceil(totalJobs / Number(queryParams.size || 10)),
   );

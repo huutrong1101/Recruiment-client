@@ -64,10 +64,9 @@ export default function UserProfileSubmittedJob() {
                       <Listbox.Option
                         key={status}
                         className={({ active }) =>
-                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? "bg-emerald-100 text-emerald-900"
-                              : "text-zinc-600"
+                          `relative cursor-default select-none py-2 pl-10 pr-4 ${active
+                            ? "bg-emerald-100 text-emerald-900"
+                            : "text-zinc-600"
                           }`
                         }
                         value={personIdx}
@@ -75,9 +74,8 @@ export default function UserProfileSubmittedJob() {
                         {({ selected }: any) => (
                           <>
                             <span
-                              className={`block truncate ${
-                                selected ? "font-medium" : "font-normal"
-                              }`}
+                              className={`block truncate ${selected ? "font-medium" : "font-normal"
+                                }`}
                             >
                               {status}
                             </span>
