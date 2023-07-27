@@ -32,7 +32,7 @@ export const fetchAdminManagerAcountList = () => {
     return async function fetchAdminManagerAcountListThunk(dispatch : Dispatch){
         dispatch(setAdminManagerAcountListStatus(STATUS.LOADING));
         try{
-            const reponse = await axiosInstance.get("admin/users?size=8&page=1");
+            const reponse = await axiosInstance.get("admin/users?size=10&page=0");
             const data = await reponse.data;
             const totalListAcounts = reponse.data.result.totalElements;
 

@@ -16,6 +16,7 @@ export type QueryConfig = {
 };
 import axiosInstance from "../../utils/AxiosInstance";
 import Paginationpasslist from "./Pagination/Paginationpasslist";
+import Loader from "../Loader/Loader";
 
 export default function ListCandiPass() {
 
@@ -68,8 +69,34 @@ export default function ListCandiPass() {
     fetchPosition();
   }, []);
 
-
-  return (
+  if (pageSize < 1) {
+      return (
+        <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
+        <Table className="text-sm text-gray-500 dark:text-gray-400 text-center sticky">
+          <TableHead className="text-xs text-gray-700 uppercase bg-gray-200 text-center">
+            <TableRow>
+            <TableCell scope="col" className="px-3 py-1">
+                Name
+              </TableCell>
+              <TableCell scope="col" className="px-3 py-1">
+                Phone
+              </TableCell>
+              
+              <TableCell scope="col" className="px-3 py-1">
+                Date created
+              </TableCell>
+              <TableCell scope="col" className="px-2 py-1">
+                Point
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+          </TableBody>
+          </Table>
+          </TableContainer>   
+      )
+  }
+  else  return (
       <div className="mt-5 elative rounded-lg">
     <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
       <Table className="text-sm text-gray-500 dark:text-gray-400 text-center sticky">
