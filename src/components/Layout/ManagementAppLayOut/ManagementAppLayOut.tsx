@@ -36,7 +36,7 @@ export const links = [
       {
         name: "Manager Job",
         icon: <HiOutlineCalendarDays />,
-        url: "admin/job-manager",
+        url: "admin/jobs",
       },
     ],
   },

@@ -7,33 +7,40 @@ import axiosInstance from '../../utils/AxiosInstance';
 const AdminListJobRecentSlice = createSlice({
     name: 'adminmanagerjobList',
     initialState: {
-        adminmanagerjobList: [],
+        adminmanagerJobList: [],
         adminmanagerjobListStatus: STATUS.IDLE,
+        totalListJobs: 0,
     },
     reducers: {
         setAdminManagerJobList(state, action){
-            state.adminmanagerjobList = action.payload;
+            state.adminmanagerJobList = action.payload;
         },
         setAdminManagerJobListStatus(state, action){
             state.adminmanagerjobListStatus = action.payload;
+        },
+        setTotalListJobs(state, action){
+            state.totalListJobs = action.payload;
         }
     }
 });
 export default AdminListJobRecentSlice.reducer;
 
-export const {setAdminManagerJobList, setAdminManagerJobListStatus }
+export const {setAdminManagerJobList, setAdminManagerJobListStatus, setTotalListJobs }
 = AdminListJobRecentSlice.actions;
 
 export const fetchAdminManagerJobList = () => {
     return async function fetchAdminManagerJobListThunk(dispatch : Dispatch){
         dispatch(setAdminManagerJobListStatus(STATUS.LOADING));
         try{
-            const reponse = await axiosInstance.get("admin/jobs?size=10&page=0");
+            const reponse = await axiosInstance.get("admin/jobs?size=8&page=1");
             const data = await reponse.data;
-            console.log(data.result.content);
+            const totalListJobs = reponse.data.result.totalElements;
+
+            dispatch(setTotalListJobs(totalListJobs));
             dispatch(setAdminManagerJobList(data.result.content));
             dispatch(setAdminManagerJobListStatus(STATUS.IDLE));
-        }catch(error){
+        }
+        catch(error){
             dispatch(setAdminManagerJobListStatus(STATUS.ERROR));
         }
     };
