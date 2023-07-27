@@ -80,23 +80,25 @@ export default function QuestionInterview() {
                     <table className="w-full ">
                       <thead className="w-fit">
                         <tr className="flex justify-between  mt-3 px-6">
-                          <th className="text-lg tracking-wide text-left font-semibold basis-1/5 ">Position</th>
-                          <th className="text-lg tracking-wide text-left font-semibold basis-1/5 ">Tech</th>
-                          <th className="text-lg tracking-wide text-left font-semibold basis-2/5 ">Question</th>
-                          <th className="text-lg tracking-wide text-left font-semibold basis-1/5 flex justify-center ">Edit</th>
+                          <th className="text-lg tracking-wide text-left font-semibold basis-1/6 ">Position</th>
+                          <th className="text-lg tracking-wide text-left font-semibold basis-1/6 ">Skill</th>
+                          <th className="text-lg tracking-wide text-left font-semibold basis-1/6 ">Type</th>
+                          <th className="text-lg tracking-wide text-left font-semibold basis-2/6 ">Question</th>
+                          <th className="text-lg tracking-wide text-left font-semibold basis-1/6 flex justify-center ">Edit</th>
                         </tr>
                       </thead>
                       <tbody className="">
                         <div className="grid text-left">
-                          <div className="px-4">
+                          <div className="px-4 min-h-[50vh] max-h-[50vh]">
                             {questionList.map((question:any) => (
-                              <tr className="flex flex-row  p-2 my-2 text-left text-md cursor-pointer items-center
+                              <tr className="flex flex-row  p-2 my-2 text-left text-md cursor-pointer items-center 
                                          border-2 border-white hover: hover:border-emerald-600 hover:rounded-lg hover:text-black hover:transition-all "
                                 key={question.questionId}>
-                                <td className="basis-1/5">{question.position}</td>
-                                <td className="basis-1/5">{question.typeQuestion}</td>
-                                <td className="basis-2/5 flex-nowrap">{question.content}</td>
-                                <td className="inline-flex gap-x-2 basis-1/5 justify-center">
+                                <td className="basis-1/6">{question.position}</td>
+                                <td className="basis-1/6">{question.typeQuestion}</td>
+                                <td className="basis-1/6">{question.typeQuestion}</td>
+                                <td className="basis-2/6 flex-nowrap">{question.content}</td>
+                                <td className="inline-flex gap-x-2 basis-1/6 justify-center">
                                   <div className="p-2 hover:bg-zinc-300 hover:rounded-md ">
                                     <PencilIcon className="w-5 h-5" />
                                   </div>

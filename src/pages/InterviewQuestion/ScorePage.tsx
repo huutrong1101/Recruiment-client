@@ -10,6 +10,7 @@ import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
 import { fetchQuestionList } from "../../redux/reducer/QuestionListSlice";
 import { STATUS } from "../../utils/Status";
 import Loader from "../../components/Loader/Loader";
+import Type from "./Type"
 import CandidateCV from "./CandidateCV";
 
 export default function ScorePage() {
@@ -97,13 +98,14 @@ export default function ScorePage() {
                      {/* table */}
                      <div className="flex justify-center my-2 ">
                         <div className=" rounded-lg border-gray-200 border-2 w-11/12 h-fit">
-                           <div className="overflow-auto px-2">
+                           <div className="overflow-auto px-2 min-h-[50vh]">
                               <table className="w-full ">
                                  <thead className="w-fit">
                                     <tr className="flex justify-between  mt-3 ml-4 ">
                                        <th className="text-lg tracking-wide text-left font-semibold basis-1/5 ">Position</th>
-                                       <th className="text-lg tracking-wide text-left font-semibold basis-1/5 ">Tech</th>
-                                       <th className="text-lg tracking-wide text-left font-semibold basis-3/5 ">Question</th>
+                                       <th className="text-lg tracking-wide text-left font-semibold basis-1/5 ">Skill</th>
+                                       <th className="text-lg tracking-wide text-left font-semibold basis-1/5 ">Type</th>
+                                       <th className="text-lg tracking-wide text-left font-semibold basis-2/5 ">Question</th>
                                     </tr>
                                  </thead>
                                  <tbody className="">
@@ -115,7 +117,8 @@ export default function ScorePage() {
                                                 key={question.questionID}>
                                                 <td className="basis-1/5" onClick={() => handleQuestionClick(question.content)}>{question.position}</td>
                                                 <td className="basis-1/5" onClick={() => handleQuestionClick(question.content)}>{question.typeQuestion}</td>
-                                                <td className="basis-3/5 flex-nowrap" onClick={() => handleQuestionClick(question.content)}>{question.content}</td>
+                                                <td className="basis-1/5" onClick={() => handleQuestionClick(question.content)}>{question.typeQuestion}</td>
+                                                <td className="basis-2/5 flex-nowrap" onClick={() => handleQuestionClick(question.content)}>{question.content}</td>
                                              </tr>
                                           ))}
                                        </div>
@@ -221,6 +224,11 @@ export default function ScorePage() {
                            <div className=" w-full h-[50px] flex flex-col relative mt-3 ">
                               <Menu as="div" className="w-full h-full">
                                  <TechFilter />
+                              </Menu>
+                           </div>
+                           <div className=" w-full h-[50px] flex flex-col relative mt-3 ">
+                              <Menu as="div" className="w-full h-full">
+                                 {/* <Type /> */}
                               </Menu>
                            </div>
                         </div>

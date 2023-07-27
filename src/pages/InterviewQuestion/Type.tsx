@@ -1,12 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
+import { fetchQuestionList } from '../../redux/reducer/QuestionListSlice';
 import classNames from 'classnames';
 export default function TechFilter() {
     const pos = ['NodeJs', 'ReactJS', 'Angular', 'VueJS', 'NextJS']
     const [isActive, setIsActive] = useState(false)
     const handleActive = (e: any) => setIsActive(!isActive)
+
+    const  questionList = useAppSelector((state: any) => state.questionList)
+    const dispatch = useAppDispatch()
+
+
+    useEffect(() => {
+        dispatch(fetchQuestionList())
+    }, []);
     return (
         <div className='absolute w-full'>
             <div className='w-full h-full  '>
@@ -14,7 +24,7 @@ export default function TechFilter() {
                                 active:border-emerald-600  active:text-emerald-600 
                                  active:bg-white flex items-center' onClick={handleActive}>
                     <div className=' inline-flex justify-between w-full '>
-                        Skill  <ChevronDownIcon className='w-5 h-5 pt-1' />
+                        Type  <ChevronDownIcon className='w-5 h-5 pt-1' />
                     </div>
                 </Menu.Button>
                 <Transition as={Fragment}
@@ -26,8 +36,8 @@ export default function TechFilter() {
                     leaveTo="transform opacity-0 scale-95" >
                     <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 aboslute bg-opacity-90 shadow-sm '>
                         <div className='w-full h-full  text-black rounded-md border border-zinc-200'>
-                            {pos.map((posType, index) => (
-                                <Menu.Item key={index}>
+                            {questionList.map((type:any) => (
+                                <Menu.Item key={type.questionId}>
                                     {({ active }) => (
                                         <p
                                             className={classNames(
@@ -38,7 +48,7 @@ export default function TechFilter() {
                                             )}
                                             onClick={handleActive}
                                         >
-                                            {posType}
+                                            {type.typeQuestion}
                                         </p>
                                     )}
                                 </Menu.Item>
