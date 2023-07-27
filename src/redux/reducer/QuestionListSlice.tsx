@@ -26,7 +26,7 @@ export const fetchQuestionList = () => {
     return async function fetchQuestionThunk(dispatch : Dispatch){ 
         dispatch(setQuestionStatus(STATUS.LOADING));
         try{
-            const reponse = await axiosInstance.get(`interviewer/question?page=1&size=1`);
+            const reponse = await axiosInstance.get(`interviewer/question?page=1&size=3`);
             const data = await reponse.data;
             dispatch(setQuestionList(data.result));
             dispatch(setQuestionStatus(STATUS.IDLE));
