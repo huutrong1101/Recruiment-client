@@ -168,7 +168,7 @@ const LineChart = () => {
                 }
             }}
             enableGridX={false}
-            colors={{ scheme: 'greens' }}
+            colors={{ scheme: 'set1' }}
             margin={{ top: 30, right: 110, bottom: 70, left: 110 }}
             xScale={{ type: 'point' }}
             yScale={{

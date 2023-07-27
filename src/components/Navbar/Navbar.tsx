@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 import Container from "../Container/Container";
@@ -11,12 +11,23 @@ import NavbarUserLoggedInCard from "./NavbarUserLoggedInCard";
 
 export default function Navbar() {
   useTokenAuthorize();
-  const [signedIn] = useState<boolean>(true);
-  const [showType, setShowType] = useState(false);
 
   const { items: leftMenu } = useAppSelector((app) => app.Navbar);
 
-  const { isLoggedIn, loading } = useAppSelector((app) => app.Auth);
+  const { isLoggedIn, loading, user } = useAppSelector((app) => app.Auth);
+
+  let updatedLeftMenu = leftMenu;
+
+  useEffect(() => {
+    if (user !== null && user !== undefined) {
+      if (user.role !== "CANDIDATE") {
+        updatedLeftMenu = [
+          ...leftMenu,
+          { name: "Dashboard", url: "/recruiter/dashboard" },
+        ];
+      }
+    }
+  }, [user]);
 
   return (
     <>
@@ -46,7 +57,7 @@ export default function Navbar() {
               <li
                 className={classNames(`flex flex-row gap-12`, `font-semibold`)}
               >
-                {leftMenu.map((item) => {
+                {updatedLeftMenu.map((item) => {
                   return (
                     <Link
                       to={item.url}

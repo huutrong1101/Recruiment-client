@@ -1,16 +1,23 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import { getLocalToken, hasLocalToken } from "./localToken";
+import { clearLocalToken, getLocalToken, hasLocalToken } from "./localToken";
 
-const headers = {
-  Authorization: hasLocalToken() ? `Bearer ${getLocalToken()}` : ``,
-};
+// const headers = {
+//   Authorization: hasLocalToken() ? `Bearer ${getLocalToken()}` : null,
+// };
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  headers,
 });
 
+axios.interceptors.request.use(function (config) {
+  if (hasLocalToken()) {
+    const token = getLocalToken();
+    config.headers.Authorization = token;
+  }
+
+  return config;
+});
 axiosInstance.interceptors.response.use(
   function (response) {
     //
@@ -22,6 +29,7 @@ axiosInstance.interceptors.response.use(
     const responseErrorCode = error.code;
     if (responseErrorCode === "ERR_NETWORK") {
       toast.error(`There was a connection error with a service.`);
+      clearLocalToken();
     }
 
     return Promise.reject(error);

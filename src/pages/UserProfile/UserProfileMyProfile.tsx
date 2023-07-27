@@ -58,6 +58,7 @@ function UserProfileInformation() {
         >
           <div>
             <InputIcon
+              type="text"
               icon={<HiUserCircle />}
               placeholder={`Full Name`}
               // {...register("fullName", {
@@ -77,6 +78,7 @@ function UserProfileInformation() {
 
           <InputIcon
             icon={<HiEnvelope />}
+            type="text"
             placeholder={`Email`}
             register={register}
             required
@@ -89,13 +91,24 @@ function UserProfileInformation() {
             required
             label="address"
           />
+
           <InputIcon
             icon={<HiPhone />}
+            type="text"
             placeholder={`Phone`}
             register={register}
             required
             label="phone"
           />
+
+          <InputIcon
+            icon={<HiMapPin />}
+            type="text"
+            placeholder={`Location`}
+            register={register}
+            label={`location`}
+          />
+
           {/* Submit button */}
           <div className="flex flex-row-reverse">
             <PrimaryButton
@@ -133,7 +146,10 @@ function UserProfilePassword() {
         ></div>
 
         {/* General information fields */}
-        <div className={classNames(`flex-1 flex flex-col gap-2`)}>
+        <form
+          onSubmit={handleSubmit(onDataChangeSubmit)}
+          className={classNames(`flex-1 flex flex-col gap-2`)}
+        >
           <InputIcon
             icon={<HiKey />}
             placeholder={`Current password`}
@@ -167,7 +183,7 @@ function UserProfilePassword() {
               className={`md:!w-5/12`}
             />
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
@@ -176,8 +192,15 @@ function UserProfilePassword() {
 export default function UserProfileMyProfile() {
   let [isOpen, setIsOpen] = useState(false);
 
+  const [file, setFile] = useState<File | null>(null);
+
   const handleDelete = () => {
     alert("Delete success");
+  };
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newFile: File | undefined = event.target.files?.[0];
+    setFile(newFile || null);
   };
 
   function closeModal() {
@@ -243,7 +266,24 @@ export default function UserProfileMyProfile() {
             />
 
             {/* Submit button */}
-            <div className="flex flex-row-reverse">
+            <div className="flex flex-row-reverse gap-2">
+              <label
+                htmlFor="file-input"
+                className={classNames(
+                  `Button bg-emerald-600 hover:bg-emerald-800 text-white`,
+                  `transition-colors ease-in-out duration-100`,
+                  `rounded-lg flex-col justify-center items-center inline-flex`,
+                  "text-base px-4 py-2 w-full md:!w-5/12",
+                )}
+              >
+                Upload resume
+              </label>
+              <input
+                type="file"
+                id="file-input"
+                className="hidden"
+                onChange={handleFileUpload}
+              />
               <Link
                 to="/create-cv"
                 className={classNames(
@@ -253,7 +293,7 @@ export default function UserProfileMyProfile() {
                   "text-base px-4 py-2 w-full md:!w-5/12",
                 )}
               >
-                Add resume
+                Create resume
               </Link>
             </div>
           </div>

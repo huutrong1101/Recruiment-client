@@ -10,7 +10,7 @@ import NavbarUserNotLoggedInCard from "./NavbarUserNotLoggedInCard";
 
 export default function MobileNavbar() {
   const { drawerVisible, items } = useAppSelector((app) => app.Navbar);
-  const { isLoggedIn } = useAppDispatch((app) => app.Auth);
+  const { isLoggedIn } = useAppSelector((app : any) => app.Auth);
   const dispatch = useAppDispatch();
 
   const handleExpandDrawer = () => {

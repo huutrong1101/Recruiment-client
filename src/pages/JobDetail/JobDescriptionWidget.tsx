@@ -5,7 +5,8 @@ import classNames from "classnames";
 interface JobDescriptionWidgetProps {
   companyName: string;
   jobRole: string;
-  publishDate: Date;
+  publishDate: string;
+  quantity: number;
 
   logo: {
     src: any;
@@ -17,6 +18,7 @@ export default function JobDescriptionWidget({
   companyName,
   jobRole,
   publishDate,
+  quantity,
   logo,
 }: JobDescriptionWidgetProps) {
   return (
@@ -50,15 +52,13 @@ export default function JobDescriptionWidget({
             <span>{companyName}</span>
             <span>{jobRole}</span>
             <span className={classNames(`text-sm text-zinc-400`)}>
-              21 applicants
+              {quantity} members
             </span>
           </div>
           {/* Right */}
 
           {/* TODO: change this to from date to date */}
-          <div className={`text-zinc-400 text-sm`}>
-            {publishDate.toDateString()}
-          </div>
+          <div className={`text-zinc-400 text-sm`}>{publishDate}</div>
         </div>
       </div>
     </Transition>

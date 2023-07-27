@@ -29,7 +29,8 @@ export default function NavbarUserLoggedInCard() {
                 ` transition-colors ease-in-out `,
               )}
             >
-              {user?.fullName}
+              {user?.fullName}  
+
             </span>
             {/* {user?.avatar === null ? (
                         <div className="h-4  w-4">
