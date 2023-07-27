@@ -6,12 +6,19 @@ import { QueryConfig } from "../../pages/Jobs/Jobs";
 interface Props {
   queryConfig: QueryConfig;
   pageSize: number;
+<<<<<<< HEAD
   url: string;
+=======
+>>>>>>> origin/update/chocolate
 }
 
 const RANGE = 2;
 
+<<<<<<< HEAD
 export default function Pagination({ queryConfig, pageSize, url }: Props) {
+=======
+export default function Pagination({ queryConfig, pageSize }: Props) {
+>>>>>>> origin/update/chocolate
   const page = Number(queryConfig.index);
 
   const renderPagination = () => {
@@ -80,7 +87,11 @@ export default function Pagination({ queryConfig, pageSize, url }: Props) {
           <li key={index}>
             <Link
               to={{
+<<<<<<< HEAD
                 pathname: url,
+=======
+                pathname: "/jobs",
+>>>>>>> origin/update/chocolate
                 search: createSearchParams({
                   ...queryConfig,
                   index: pageNumber.toString(),
@@ -116,7 +127,11 @@ export default function Pagination({ queryConfig, pageSize, url }: Props) {
             ) : (
               <Link
                 to={{
+<<<<<<< HEAD
                   pathname: url,
+=======
+                  pathname: "/jobs",
+>>>>>>> origin/update/chocolate
                   search: createSearchParams({
                     ...queryConfig,
                     index: (page - 1).toString(),

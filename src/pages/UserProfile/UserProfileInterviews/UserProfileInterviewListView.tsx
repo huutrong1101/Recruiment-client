@@ -12,6 +12,11 @@ import { useForm } from "react-hook-form";
 
 const INTERVIEW_STATUS = ["Any", "Pending", "Finished"];
 
+<<<<<<< HEAD
+=======
+// export default function UserProfileInterviewListView() {
+//   const { register, handleSubmit } = useForm();
+>>>>>>> origin/update/chocolate
 export interface TableRow {
   id: string;
   value: any;
@@ -26,6 +31,7 @@ export default function UserProfileInterviewListView<T>({
   rows,
   data,
 }: TableProps<T>) {
+  const { handleSubmit, register } = useForm();
   const [filterType, setFilterType] = useState<number>(0);
 
   const {

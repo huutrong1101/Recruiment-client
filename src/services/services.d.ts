@@ -11,6 +11,10 @@ export interface UserLoginParamsInterface {
   password: string;
 }
 
+export interface UserVerifySendParamsInterface {
+  otp: string;
+  email: string;
+}
 export interface JobInterface {
   jobId: string;
   name: string;

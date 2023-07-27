@@ -31,12 +31,10 @@ import ManageQuestion from "./pages/InterviewQuestion/ManageQuestion";
 import ReccerInterviewerManagement from "./pages/Reccer/ReccerInterviewerManagement";
 import ReccerEventManagement from "./pages/Reccer/ReccerEventManagement";
 import ReccerInterviewerDetail from "./pages/Reccer/InterviewerDetail";
-import CandidateList from "./pages/Reccer/CandidateList";
 import CandidateProfile from "./pages/Reccer/CandidateProfile";
 import {
   CandidateRecent,
   InterviewRecent,
-  InterviewQuestion,
   InterviewDetail,
 } from "./pages/Interviewer/InterviewerPages";
 import UserProfileLayout from "./pages/UserProfile/UserProfileLayout";
@@ -64,9 +62,9 @@ import { useTokenAuthorize } from "./hooks/useTokenAuthorize";
 import UserProfileMyInformation from "./pages/UserProfile/UserProfileMyInformation";
 import { JobService } from "./services/JobService";
 import Logout from "./pages/Logout/Logout";
-import CandidateDetail from "./pages/Reccer/CandidateDetail";
-import { fetchRecJobList } from "./redux/reducer/RecJobSlice";
+import OneTimePasswordVerify from "./pages/OneTimePasswordVerify/OneTimePasswordVerify";
 import { EventService } from "./services/EventService";
+import CandidateDetail from "./pages/Reccer/CandidateDetail";
 
 export default function App() {
   useTokenAuthorize();
@@ -100,6 +98,8 @@ export default function App() {
             <Route path="signup" element={<AuthenticateSignUp />} />
             <Route element={<AuthenticateLogin />} />
           </Route>
+
+          <Route path="otp" element={<OneTimePasswordVerify />} />
 
           <Route path="/email" element={<EmailConfirmationLayout />}>
             <Route path="incomplete" element={<IncompleteConfirmEmail />} />
@@ -171,8 +171,8 @@ export default function App() {
         <Route path="/interviewer" element={<ManagementAppLayOut />}>
           {/* Define interviewer routes here */}
           {/* <Route index path ="/manageQuestion" element={<ManageQuestion />} /> */}
-          <Route index path="manageQuestion" element={<ManageQuestion />} />
-          <Route index path="scorePage" element={<ScorePage />} />
+          <Route index path="manage-question" element={<ManageQuestion />} />
+          <Route index path="score-page" element={<ScorePage />} />
         </Route>
 
         {/* <Route path="/test" element={Test} /> */}

@@ -47,35 +47,6 @@ const Reccercalender = () => {
   return (
     <Box m="20px">
       <Box display="flex" backgroundColor="#F8FDFB" justifyContent="space-between">
-        <Box flex="1 1 20%"  p="15px" borderRadius="4px">
-          <Typography variant='h5'>Event</Typography>
-          <List>
-            {currentEvents.map((event:any) => (
-              <ListItem
-                key={event.id}
-                sx={{
-                  backgroundColor: "#48A280",
-                  margin: "10px 0",
-                  borderRadius: "2px",
-                }}
-              >
-                <ListItemText
-                  primary={event.title}
-                  secondary={
-                    <Typography>
-                      {formatDate(event.start, {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric"
-                      })}
-                    </Typography>
-                  }
-                >
-                </ListItemText>
-              </ListItem>
-            ))}
-          </List>
-        </Box>
         <Box flex="1 1 100%" ml="15px" mr="20px">
           <FullCalendar
             height="88vh"

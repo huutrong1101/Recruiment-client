@@ -3,10 +3,11 @@ import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function CompleteConfirmEmail() {
   const [showing, setShowing] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setShowing(true);
@@ -16,6 +17,10 @@ export default function CompleteConfirmEmail() {
       clearTimeout(timeoutId);
     };
   }, []);
+
+  const handleSeekingJobs = () => {
+    navigate(`/`);
+  };
   return (
     <Transition
       show={showing}
@@ -65,7 +70,7 @@ export default function CompleteConfirmEmail() {
         enterTo="opacity-100"
       >
         <div className={classNames(`mt-8 flex flex-row-reverse`)}>
-          <PrimaryButton text="Seeking jobs" />
+          <PrimaryButton text="Seeking jobs" onClick={handleSeekingJobs} />
         </div>
       </Transition>
     </Transition>

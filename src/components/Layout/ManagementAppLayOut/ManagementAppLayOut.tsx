@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./ManagementAppLayOut.scss";
 import { Link, Outlet, NavLink } from "react-router-dom";
 import classnames from "classnames";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import {
   HiOutlineFolder,
   HiOutlineCalendarDays,
@@ -17,6 +17,8 @@ import {
   MdOutlineManageAccounts,
 } from "react-icons/md";
 import RecFooter from "../../RecFooter/DashboardFooter";
+import { useAppSelector, useAppDispatch } from "../../../hooks/hooks";
+import { setText } from "../../../redux/reducer/SearchSlice";
 export const links = [
   {
     title: "ADMIN",
@@ -98,9 +100,21 @@ const ManagementAppLayOut = () => {
   const [leftActive, setLeftActive] = useState<boolean>(false);
   const [rightActive, setRightActive] = useState<boolean>(false);
   const activeLink =
-    "flex items-center gap-3 pl-4 py-1 rounded-lg text-black text-md  bg-gray-200 mt-1 mx-3";
+    "flex items-center gap-3 py-1 rounded-lg text-black text-md  bg-gray-200 mt-1 mx-3";
   const normalLink =
-    " flex items-center gap-3 pl-4 py-1 rounded-lg text-black text-md text-gray-700 hover:bg-gray-200 mt-1 mx-3";
+    " flex items-center gap-3 py-1 rounded-lg text-black text-md text-gray-700 hover:bg-gray-200 mt-1 mx-3";
+
+  const {text} = useAppSelector((state:any) => state.searchFeature);
+  const dispatch = useAppDispatch();
+
+  const handleLoadPage = () => {
+    dispatch(setText(""));
+  };
+
+  const handleChange = (event : any) => {
+    const textInput = event.target.value;
+    dispatch(setText(textInput));
+  }
 
   return (
     <div className="ManagementAppLayOut">
@@ -117,6 +131,15 @@ const ManagementAppLayOut = () => {
                 <Bars3Icon className="w-5 h-5 mr-2" />
               </button>
               <div>Breadcrumbs</div>
+            </div>
+            <div className="navbar-content-mid">
+              <form className="w-[40vw]">
+                <div className="relative">
+                  <MagnifyingGlassIcon className="absolute mt-[0.9rem] ml-[0.75rem] w-5 h-5"/>
+                  <input type="text" id="simple-search" className="bg-gray-50 border border-gray-300 text-base rounded-lg w-full pl-10 p-2.5"
+                        value={text} placeholder="Search Name" onChange={handleChange} required />
+                </div>
+              </form>
             </div>
             <div className="navbar-content-right">
               <button type="button" onClick={() => setRightActive(true)}>
@@ -158,12 +181,12 @@ const ManagementAppLayOut = () => {
                   <NavLink
                     to={`/${link.url}`}
                     key={link.name}
-                    onClick={() => {}}
+                    onClick={handleLoadPage}
                     className={({ isActive }) =>
-                      isActive ? activeLink : normalLink
+                      `${isActive ? activeLink : normalLink} ${leftActive? 'justify-center': 'pl-4'}`
                     }
                   >
-                    <span className="ml-1 text-2xl text-black">
+                    <span className="text-2xl text-black">
                       {link.icon}
                     </span>
                     <div
@@ -175,6 +198,7 @@ const ManagementAppLayOut = () => {
                     </div>
                   </NavLink>
                 ))}
+                {leftActive ? <hr className={classnames("mx-2 mt-1 border border-black")}/> : ""}
               </div>
             ))}
           </div>
@@ -194,7 +218,7 @@ const ManagementAppLayOut = () => {
           </ul>
         </div>
       </div>
-      <div className={`${leftActive ? "small" : "large"} mt-[72px]`}>
+      <div className={`${leftActive ? "small" : "large"} pt-[72px]`}>
         <div className="mx-[2rem] min-h-[calc(100vh-72px-2rem)]">
           <Outlet />
         </div>

@@ -13,12 +13,8 @@ const APPLICANT_STATUS = ["Any", "Passed", "Reviewing", "Pending", "Failed"];
 
 export default function UserProfileSubmittedJob() {
   const [filterType, setFilterType] = useState<number>(0);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { handleSubmit, register } = useForm();
+  const onSubmit = (data: any) => {};
 
   return (
     <div
