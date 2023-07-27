@@ -61,12 +61,8 @@ function UserProfileInformation() {
               type="text"
               icon={<HiUserCircle />}
               placeholder={`Full Name`}
-              // {...register("fullName", {
-              //   required: true,
-              // })}
               register={register}
-              required
-              label="fullName"
+              label={`fullName`}
             />
 
             {errors.fullName && (
@@ -81,15 +77,7 @@ function UserProfileInformation() {
             type="text"
             placeholder={`Email`}
             register={register}
-            required
-            label="email"
-          />
-          <InputIcon
-            icon={<HiMapPin />}
-            placeholder={`Address`}
-            register={register}
-            required
-            label="address"
+            label={`email`}
           />
 
           <InputIcon
@@ -97,8 +85,7 @@ function UserProfileInformation() {
             type="text"
             placeholder={`Phone`}
             register={register}
-            required
-            label="phone"
+            label={`phone`}
           />
 
           <InputIcon
@@ -134,6 +121,7 @@ function UserProfilePassword() {
   const onDataChangeSubmit = (data: any) => {
     console.log(data);
   };
+
   return (
     <div className="p-4 border rounded-xl border-zinc-100">
       <h1 className={classNames(`text-2xl font-semibold flex-1 md:mb-4`)}>
@@ -155,24 +143,21 @@ function UserProfilePassword() {
             placeholder={`Current password`}
             type="password"
             register={register}
-            required
-            label="currentPassword"
+            label={`current-password`}
           />
           <InputIcon
             icon={<HiKey />}
             placeholder={`New password`}
             type={`password`}
             register={register}
-            required
-            label="newPassword"
+            label={`new-password`}
           />
           <InputIcon
             icon={<HiKey />}
             placeholder={`Confirm new password`}
             type={`password`}
             register={register}
-            required
-            label="rePassword"
+            label={`confirm-password`}
           />
 
           {/* Submit button */}

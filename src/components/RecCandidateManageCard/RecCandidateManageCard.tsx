@@ -28,7 +28,7 @@ const RecCandidateCard = (props: any) => {
         />
         <div className="mt-2">
           <a href="#" className="hover:text-emerald-600 font-semibold text-lg">
-            {candidate.name}
+            {candidate.fullName}
           </a>
           <p className="text-sm text-slate-400">Web Dev</p>
         </div>
