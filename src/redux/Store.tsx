@@ -31,7 +31,6 @@ export const ApplicationStore = configureStore({
     Auth: AuthSlice,
     OneTimePassword: OneTimePasswordSlice,
 
-    RecJobList: RecJobListSlice,
     recjobList: RecJobListSlice,
 
     // Admin

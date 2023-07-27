@@ -10,6 +10,7 @@ import { omit, isEqual } from "lodash";
 import axiosInstance from "../../utils/AxiosInstance";
 import qs from "query-string";
 import Pagination from "../../components/Pagination/Pagination";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
 export type QueryConfig = {
   [key in keyof JobListConfig]: string;
@@ -141,8 +142,8 @@ const ReccerJobManagement = () => {
 
       <div className="flex flex-wrap justify-center items-center 2 mt-[10px] ">
         {isLoading ? (
-          <div className="flex justify-center">
-            <Loader />
+          <div className="flex justify-center mb-10">
+            <LoadSpinner className="text-3xl" />
           </div>
         ) : (
           <div className="flex flex-wrap justify-center items-center 2 mt-[10px]">
