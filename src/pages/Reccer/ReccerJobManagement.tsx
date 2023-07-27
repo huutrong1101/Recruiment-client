@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import RecJobCard from "../../components/RecJobManagementCard/RecJobManagementCard";
 import Loader from "../../components/Loader/Loader";
 import { useAppSelector } from "../../hooks/hooks";
-import { JobInterface, JobListConfig } from "../../services/services";
+import { JobInterface, JobListConfig, JobReccerListConfig } from "../../services/services";
 import { omitBy, isUndefined } from "lodash";
 import useQuerParams from "../../hooks/useQueryParams";
 import { omit, isEqual } from "lodash";
@@ -95,6 +95,7 @@ const ReccerJobManagement = () => {
       setPrevQueryConfig(queryConfig);
     }
   }, [queryConfig, prevQueryConfig]);
+
 
   return (
     <>
