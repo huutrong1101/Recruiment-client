@@ -76,3 +76,9 @@ export interface EventInterface {
   time: string;
   location: string;
 }
+export interface Pagable {
+  page?: number | string;
+  limit?: number | string;
+}
+
+export interface GetUsersInterviewsParams extends Pagable {}
