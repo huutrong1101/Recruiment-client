@@ -22,8 +22,6 @@ const HomeSlice = createSlice({
     },
     setJobsStatus(state, action) {
       state.jobsStatus = action.payload;
-<<<<<<< HEAD
-=======
     },
     setEvents(state, action) {
       state.events = action.payload;
@@ -33,7 +31,6 @@ const HomeSlice = createSlice({
     },
     setTotalEvents(state, action) {
       state.totalEvents = action.payload;
->>>>>>> 343d44cfbf7837a21922134c90a057bc9434ab74
     },
   },
 });

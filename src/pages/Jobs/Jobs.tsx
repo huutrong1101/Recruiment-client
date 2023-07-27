@@ -13,11 +13,7 @@ import { JobInterface, JobListConfig } from "../../services/services";
 import Pagination from "../../components/Pagination/Pagination";
 import axiosInstance from "../../utils/AxiosInstance";
 import { omitBy, isUndefined } from "lodash";
-<<<<<<< HEAD
-import useQuerParams from "../../hooks/useQueryParams";
-=======
 import useQueryParams from "../../hooks/useQueryParams";
->>>>>>> 343d44cfbf7837a21922134c90a057bc9434ab74
 import Loader from "../../components/Loader/Loader";
 import qs from "query-string";
 import { createSearchParams, useNavigate } from "react-router-dom";
