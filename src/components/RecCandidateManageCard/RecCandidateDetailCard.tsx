@@ -1,6 +1,5 @@
 import { avatar } from "@material-tailwind/react";
 import React from "react";
-import blog_image from "../../../images/blog_image.png";
 import { GrDocumentText } from "react-icons/gr";
 
 interface MyComponentProps {
@@ -70,7 +69,7 @@ export default function RecCandidateDetailCard(props: any) {
             <div className="md:w-full">
               <div className="relative flex items-end">
                 <img
-                  src={blog_image}
+                  src={candidate.avatar}
                   className="h-28 w-28 rounded-full ring-4 ring-slate-50 "
                 />
                 <div className="ms-4">

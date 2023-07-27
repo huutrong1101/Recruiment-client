@@ -16,12 +16,10 @@ import AdminListJobRecentSlice from "./reducer/AdminListJobRecentSlice";
 import AdminProfileRecentSlice from "./reducer/AdminProfileRecentSlice";
 import AdminAcountListSlice from "./reducer/AdminListAcountRecentSlice";
 import AdminListPassRecentSlice from "./reducer/AdminListPassRecentSlice";
-import JobSlice from "./JobSlice";
 
 export const ApplicationStore = configureStore({
   reducer: {
     Home: HomeSlice,
-    Job: JobSlice,
     candidateList: CandidateListSlice,
     INTCandidates: INTCandidatesReducer,
     INTInterviews: INTInterviewsReducer,

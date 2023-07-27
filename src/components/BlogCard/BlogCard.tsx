@@ -38,7 +38,7 @@ export default function BlogCard({ event }: BlogCardProps) {
               className={classnames("flex items-center gap-1 text-gray-500")}
             >
               <ClockIcon className={classnames(`w-[20px]`)} />
-              <p>{event.time}</p>
+              <p>{event.time} min read</p>
             </div>
           </div>
           <div className={classnames("mt-2")}>

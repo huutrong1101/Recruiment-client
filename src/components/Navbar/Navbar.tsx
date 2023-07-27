@@ -16,15 +16,15 @@ export default function Navbar() {
 
   const { isLoggedIn, loading, user } = useAppSelector((app) => app.Auth);
 
-  const [updatedLeftMenu, setUpdatedLeftMenu] = useState([...leftMenu]);
+  let updatedLeftMenu = leftMenu;
 
   useEffect(() => {
     if (user !== null && user !== undefined) {
       if (user.role !== "CANDIDATE") {
-        setUpdatedLeftMenu([
+        updatedLeftMenu = [
           ...leftMenu,
           { name: "Dashboard", url: "/recruiter/dashboard" },
-        ]);
+        ];
       }
     }
   }, [user]);
@@ -58,7 +58,6 @@ export default function Navbar() {
                 className={classNames(`flex flex-row gap-12`, `font-semibold`)}
               >
                 {updatedLeftMenu.map((item) => {
-                  console.log(item);
                   return (
                     <Link
                       to={item.url}

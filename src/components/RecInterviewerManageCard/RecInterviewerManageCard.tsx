@@ -2,7 +2,6 @@ import React from 'react'
 import AvatarInterviewer from "../../components/Candidate/Avatar"
 import { useAppSelector } from '../../hooks/hooks'
 import { Link } from 'react-router-dom'
-import blog_image from "../../../images/blog_image.png";
 
 interface MyComponentProps {
     interviewer: {
@@ -24,7 +23,7 @@ const RecInterviewerManageCard = (props : any) => {
     return (
             <div className='grid grid-cols-1'>
                 <div className='group bg-white relative overflow-hidden rounded-md shadow dark:shadow-gray-500 text-center p-6 hover:shadow-gray-950'>
-                    <img src={blog_image} className='h-20 w-20 rounded-full shadow dark:shadow-gray-700 mx-auto' />
+                    <img src={interviewer.avatar} className='h-20 w-20 rounded-full shadow dark:shadow-gray-700 mx-auto' />
                     <div className='mt-2'>
                         <a href='#' className='hover:text-emerald-600 font-semibold text-lg'>{interviewer.name}</a>
                         <p className='text-sm text-slate-400'>Web Dev</p>

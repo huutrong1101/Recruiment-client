@@ -16,31 +16,17 @@ import { omitBy, isUndefined } from "lodash";
 import useQueryParams from "../../hooks/useQueryParams";
 import Loader from "../../components/Loader/Loader";
 import qs from "query-string";
-import { createSearchParams, useNavigate, useParams } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import { omit, isEqual } from "lodash";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
 export type QueryConfig = {
   [key in keyof JobListConfig]: string;
 };
 
 export default function Jobs() {
-  const jobs: JobInterface[] = useAppSelector((state) => state.Job.jobs);
+  const jobs: JobInterface[] = useAppSelector((state) => state.Home.jobs);
 
-  const posistion = useAppSelector((state) => state.Job.postion);
-
-  const location = useAppSelector((state) => state.Job.location);
-
-  const type = useAppSelector((state) => state.Job.type);
-
-  const totalJobs = useAppSelector((state) => state.Job.totalJobs);
-
-  const [dataSearch, setDataSearch] = useState({
-    key: "",
-    posName: "",
-    location: "",
-    type: "",
-  });
+  const totalJobs = useAppSelector((state) => state.Home.totalJobs);
 
   const navigate = useNavigate();
 
@@ -63,6 +49,8 @@ export default function Jobs() {
 
   const [showJobs, setShowJobs] = useState(jobs);
 
+  const [posistion, setPosition] = useState([]);
+
   const [pageSize, setPageSize] = useState(
     Math.ceil(totalJobs / Number(queryParams.size || 10)),
   );
@@ -78,13 +66,10 @@ export default function Jobs() {
           const response = await axiosInstance(`/jobs?${query}`);
           setShowJobs(response.data.result.content);
           setPageSize(response.data.result.totalPages);
-
-          setDataSearch({
-            ...dataSearch,
-            key: queryConfig.name || "",
-            type: queryConfig.type || "",
-          });
         }
+        const response = await axiosInstance(`/jobs/position`);
+        // console.log(response);
+        setPosition(response.data.result);
       } catch (error) {
         console.log(error);
       } finally {
@@ -114,6 +99,13 @@ export default function Jobs() {
     }
   }, [queryConfig, prevQueryConfig]);
 
+  const [dataSearch, setDataSearch] = useState({
+    key: "",
+    posName: "",
+    location: "",
+    type: "",
+  });
+
   const handleSearch = async () => {
     try {
       setIsLoading(true);
@@ -124,8 +116,6 @@ export default function Jobs() {
           ...queryConfig,
           name: dataSearch.key,
           posName: dataSearch.posName,
-          location: dataSearch.location,
-          type: dataSearch.type,
           index: "1",
         }).toString(),
       });
@@ -271,8 +261,8 @@ export default function Jobs() {
               >
                 <Menu.Items className="absolute left-0 z-10 w-full mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1">
-                    {location.map((location, index) => (
-                      <Menu.Item key={index}>
+                    {data.listFieldSearch.locations.map((location) => (
+                      <Menu.Item key={location.id}>
                         {({ active }) => (
                           <p
                             className={classNames(
@@ -284,11 +274,11 @@ export default function Jobs() {
                             onClick={() =>
                               setDataSearch({
                                 ...dataSearch,
-                                location: location,
+                                location: location.location,
                               })
                             }
                           >
-                            {location}
+                            {location.location}
                           </p>
                         )}
                       </Menu.Item>
@@ -327,7 +317,7 @@ export default function Jobs() {
               >
                 <Menu.Items className="absolute left-0 z-10 w-full mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1">
-                    {type.map((type, index) => (
+                    {posistion.map((type, index) => (
                       <Menu.Item key={index}>
                         {({ active }) => (
                           <p
@@ -379,8 +369,8 @@ export default function Jobs() {
 
         <div className={classNames("w-[70%]")}>
           {isLoading ? (
-            <div className="flex justify-center my-4">
-              <LoadSpinner className="text-3xl text-emerald-500" />
+            <div className="flex justify-center">
+              <Loader />
             </div>
           ) : (
             <div className="flex flex-wrap -mx-4">
@@ -400,11 +390,7 @@ export default function Jobs() {
           )}
 
           {/* Pagination  */}
-          <Pagination
-            queryConfig={queryConfig}
-            pageSize={pageSize}
-            url="/jobs"
-          />
+          <Pagination queryConfig={queryConfig} pageSize={pageSize} />
         </div>
       </div>
     </>

@@ -28,15 +28,10 @@ export default function UserProfileInterviewListView<T>({
   rows,
   data,
 }: TableProps<T>) {
+  const { handleSubmit, register } = useForm();
   const [filterType, setFilterType] = useState<number>(0);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  const onSubmit = () => {};
+  const onSubmit = (data: any) => {};
 
   return (
     <div
@@ -58,7 +53,6 @@ export default function UserProfileInterviewListView<T>({
               icon={<HiMagnifyingGlass />}
               className={`text-base px-3 py-2 w-full outline-none`}
               placeholder="Search for the interview"
-              type={`text`}
               register={register}
               label={`search`}
             />

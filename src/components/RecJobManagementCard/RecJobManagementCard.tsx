@@ -27,10 +27,7 @@ export default function RecDashboardCard({ job }: any) {
                      <h1 className={classnames("text-black text-lg font-semibold ")}>
                         {job.name}
                         <span className="ml-5 text-sm font-semibold text-gray-400 ">
-                           {days >= 1
-                              ? `${Math.floor(days)} days`
-                           : `${Math.abs(duration.asHours()).toFixed(0)} hours`}{" "}
-                           ago
+                           {days} days ago
                         </span>
                      </h1>
                      <button

@@ -4,7 +4,6 @@ import React, { Fragment } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { Link } from "react-router-dom";
 import { setNavbarMenu } from "./slices/NavbarSlice";
-import DummyAvatar from "../DummyAvatar/DummyAvatar";
 
 export default function NavbarUserLoggedInCard() {
   const { menu } = useAppSelector((app) => app.Navbar);
@@ -33,20 +32,18 @@ export default function NavbarUserLoggedInCard() {
               {user?.fullName}  
 
             </span>
-            {user?.avatar === null ? (
-              <DummyAvatar iconClassName="text-xl" />
-            ) : (
-              <img
-                className="inline-block rounded-full w-9 h-9 ring-2 ring-white"
-                src={user?.avatar}
-                alt={`${user?.fullName}'s avatar`}
-              />
-            )}
-            {/* <img
+            {/* {user?.avatar === null ? (
+                        <div className="h-4  w-4">
+                          <AiOutlineUser />
+                        </div>
+                      ) : (
+                        <></>
+                      )} */}
+            <img
               className="inline-block rounded-full w-9 h-9 ring-2 ring-white"
               src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
               alt=""
-            /> */}
+            />
           </div>
         </Menu.Button>
 

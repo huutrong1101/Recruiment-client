@@ -211,12 +211,6 @@ const AuthSlice = createSlice({
       state.isLoggedIn = false;
       state.loading = `failed`;
     });
-
-    builder.addCase(authLogout.fulfilled, (state) => {
-      state.isLoggedIn = false;
-      state.token = null;
-      state.user = null;
-    });
   },
 });
 
