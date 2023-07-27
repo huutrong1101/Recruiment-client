@@ -228,7 +228,7 @@ export default function ScorePage() {
                            </div>
                            <div className=" w-full h-[50px] flex flex-col relative mt-3 ">
                               <Menu as="div" className="w-full h-full">
-                                 {/* <Type /> */}
+                                 <Type />
                               </Menu>
                            </div>
                         </div>

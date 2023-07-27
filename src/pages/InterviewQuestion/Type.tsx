@@ -6,14 +6,12 @@ import { Fragment } from 'react';
 import { fetchQuestionList } from '../../redux/reducer/QuestionListSlice';
 import classNames from 'classnames';
 export default function TechFilter() {
-    const pos = ['NodeJs', 'ReactJS', 'Angular', 'VueJS', 'NextJS']
+    const pos = ['TECHNICAL', 'SOFT-SKILL', 'ENG']
     const [isActive, setIsActive] = useState(false)
     const handleActive = (e: any) => setIsActive(!isActive)
 
-    const  questionList = useAppSelector((state: any) => state.questionList)
+    // const  questionList = useAppSelector((state: any) => state.questionList)
     const dispatch = useAppDispatch()
-
-
     useEffect(() => {
         dispatch(fetchQuestionList())
     }, []);
@@ -36,8 +34,8 @@ export default function TechFilter() {
                     leaveTo="transform opacity-0 scale-95" >
                     <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 aboslute bg-opacity-90 shadow-sm '>
                         <div className='w-full h-full  text-black rounded-md border border-zinc-200'>
-                            {questionList.map((type:any) => (
-                                <Menu.Item key={type.questionId}>
+                            {pos.map((type : any, index) => (
+                                <Menu.Item key={index}>
                                     {({ active }) => (
                                         <p
                                             className={classNames(
@@ -48,7 +46,7 @@ export default function TechFilter() {
                                             )}
                                             onClick={handleActive}
                                         >
-                                            {type.typeQuestion}
+                                            {type}
                                         </p>
                                     )}
                                 </Menu.Item>
