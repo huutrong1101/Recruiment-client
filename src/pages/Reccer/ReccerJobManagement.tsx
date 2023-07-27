@@ -3,23 +3,23 @@ import { Link } from "react-router-dom";
 import RecJobCard from "../../components/RecJobManagementCard/RecJobManagementCard";
 import Loader from "../../components/Loader/Loader";
 import { useAppSelector } from "../../hooks/hooks";
-import { JobInterface, JobReccerListConfig } from "../../services/services";
+import { JobInterface, JobListConfig, JobReccerListConfig } from "../../services/services";
 import { omitBy, isUndefined } from "lodash";
-import Pagination from "../Reccer/RecPagination";
 import useQuerParams from "../../hooks/useQueryParams";
 import { omit, isEqual } from "lodash";
 import axiosInstance from "../../utils/AxiosInstance";
 import qs from "query-string";
+import Pagination from "../../components/Pagination/Pagination";
 
 export type QueryConfig = {
-  [key in keyof JobReccerListConfig]: string;
+  [key in keyof JobListConfig]: string;
 };
 
 const ReccerJobManagement = () => {
   const queryParams: QueryConfig = useQuerParams();
   const queryConfig: QueryConfig = omitBy(
     {
-      page: queryParams.page || "1",
+      index: queryParams.index || "1",
       size: queryParams.size || 5,
       name: queryParams.name,
       location: queryParams.location,
@@ -80,7 +80,9 @@ const ReccerJobManagement = () => {
         setIsLoading(true);
         try {
           const query = qs.stringify(queryConfig);
-          const response = await axiosInstance(`recruiter/jobs${query}`);
+          const response = await axiosInstance(`/recruiter/jobs?${query}`);
+
+          // console.log(response.data.result.content)
           setShowJobs(response.data.result.content);
           setPageSize(response.data.result.totalPages);
         } catch (error) {
@@ -167,7 +169,7 @@ const ReccerJobManagement = () => {
       <Pagination
         queryConfig={queryConfig}
         pageSize={pageSize}
-        url=""
+        url="/recruiter/jobs"
       />
     </>
   );

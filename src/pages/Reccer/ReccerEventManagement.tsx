@@ -162,7 +162,7 @@ export default function ReccerEventManagement() {
           <Pagination
             queryConfig={queryConfig}
             pageSize={pageSize}
-            url=""
+            url="/recruiter/events"
           />
         </div>
       </div >

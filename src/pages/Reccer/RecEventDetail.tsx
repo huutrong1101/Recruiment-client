@@ -91,7 +91,7 @@ export default function RecEventDetail() {
               {avatar && (
                 <div>
                   <img
-                    src={avatar}
+                    src={event?.img}
                     alt="avatar"
                     className={classnames("w-full object-cover")}
                   />
