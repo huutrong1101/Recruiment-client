@@ -8,17 +8,12 @@ interface Props {
   pageSize: number;
 }
 
-<<<<<<< HEAD
-=======
 const RANGE = 2;
 
->>>>>>> 343d44cfbf7837a21922134c90a057bc9434ab74
 export default function Pagination({ queryConfig, pageSize }: Props) {
   const page = Number(queryConfig.index);
 
   const renderPagination = () => {
-<<<<<<< HEAD
-=======
     let dotAfter = false;
     let dotBefore = false;
 
@@ -52,14 +47,11 @@ export default function Pagination({ queryConfig, pageSize }: Props) {
       return null;
     };
 
->>>>>>> 343d44cfbf7837a21922134c90a057bc9434ab74
     return Array(pageSize)
       .fill(0)
       .map((_, index) => {
         const pageNumber = index + 1;
 
-<<<<<<< HEAD
-=======
         if (
           page <= RANGE * 2 + 1 &&
           pageNumber > page + RANGE &&
@@ -83,7 +75,6 @@ export default function Pagination({ queryConfig, pageSize }: Props) {
           return renderDotBefore(index);
         }
 
->>>>>>> 343d44cfbf7837a21922134c90a057bc9434ab74
         return (
           <li key={index}>
             <Link
@@ -115,11 +106,7 @@ export default function Pagination({ queryConfig, pageSize }: Props) {
         aria-label="Page navigation example"
         className="flex items-center justify-center"
       >
-<<<<<<< HEAD
-        <ul className="flex list-style-none">
-=======
         <ul className="flex items-center justify-center list-style-none">
->>>>>>> 343d44cfbf7837a21922134c90a057bc9434ab74
           <li>
             {page === 1 ? (
               <span className="px-3 py-2 mx-2 border rounded shadow-sm cursor-not-allowed bg-white/60">
@@ -142,10 +129,6 @@ export default function Pagination({ queryConfig, pageSize }: Props) {
           </li>
 
           {renderPagination()}
-<<<<<<< HEAD
-=======
-
->>>>>>> 343d44cfbf7837a21922134c90a057bc9434ab74
           <li>
             {page === pageSize ? (
               <button className="px-3 py-2 mx-2 border rounded shadow-sm cursor-not-allowed bg-white/60">

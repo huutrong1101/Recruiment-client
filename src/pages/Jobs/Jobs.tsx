@@ -30,18 +30,6 @@ export default function Jobs() {
 
   const navigate = useNavigate();
 
-<<<<<<< HEAD
-  const queryParams: QueryConfig = useQuerParams();
-
-  const queryConfig: QueryConfig = omitBy(
-    {
-      index: queryParams.index || "0",
-      limit: queryParams.limit || 10,
-      name: queryParams.name,
-      location: queryParams.location,
-      posName: queryParams.posName,
-      category: queryParams.category,
-=======
   const queryParams: QueryConfig = useQueryParams();
 
   const queryConfig: QueryConfig = omitBy(
@@ -52,7 +40,6 @@ export default function Jobs() {
       location: queryParams.location,
       posName: queryParams.posName,
       type: queryParams.type,
->>>>>>> 343d44cfbf7837a21922134c90a057bc9434ab74
     },
     isUndefined,
   );
@@ -62,22 +49,15 @@ export default function Jobs() {
 
   const [showJobs, setShowJobs] = useState(jobs);
 
-<<<<<<< HEAD
-  const [pageSize, setPageSize] = useState(
-    Math.ceil(totalJobs / Number(queryParams.limit ?? 10)),
-=======
   const [posistion, setPosition] = useState([]);
 
   const [pageSize, setPageSize] = useState(
     Math.ceil(totalJobs / Number(queryParams.size || 10)),
->>>>>>> 343d44cfbf7837a21922134c90a057bc9434ab74
   );
 
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-<<<<<<< HEAD
-=======
     const fetchPosition = async () => {
       setIsLoading(true);
       try {
@@ -100,7 +80,6 @@ export default function Jobs() {
   }, []);
 
   useEffect(() => {
->>>>>>> 343d44cfbf7837a21922134c90a057bc9434ab74
     if (!isEqual(prevQueryConfig, queryConfig)) {
       const fetchJobs = async () => {
         setIsLoading(true);
@@ -136,13 +115,8 @@ export default function Jobs() {
         search: createSearchParams({
           ...queryConfig,
           name: dataSearch.key,
-<<<<<<< HEAD
-          posName: dataSearch.type,
-          index: "0",
-=======
           posName: dataSearch.posName,
           index: "1",
->>>>>>> 343d44cfbf7837a21922134c90a057bc9434ab74
         }).toString(),
       });
     } catch (error) {
@@ -214,11 +188,7 @@ export default function Jobs() {
                 )}
               >
                 <span className={classNames("ml-2 text-gray-500")}>
-<<<<<<< HEAD
-                  {dataSearch.category || "---Choose---"}
-=======
                   {dataSearch.posName || "---Choose---"}
->>>>>>> 343d44cfbf7837a21922134c90a057bc9434ab74
                 </span>
                 <ChevronDownIcon className={classNames("w-[20px] ml-4")} />
                 {/* Drop down  */}

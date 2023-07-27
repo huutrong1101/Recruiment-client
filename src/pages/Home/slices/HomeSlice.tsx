@@ -35,9 +35,6 @@ const HomeSlice = createSlice({
   },
 });
 
-<<<<<<< HEAD
-export const { setJobs, setJobsStatus, setTotalJobs } = HomeSlice.actions;
-=======
 export const {
   setJobs,
   setJobsStatus,
@@ -46,6 +43,5 @@ export const {
   setEvents,
   setTotalEvents,
 } = HomeSlice.actions;
->>>>>>> 343d44cfbf7837a21922134c90a057bc9434ab74
 
 export default HomeSlice.reducer;

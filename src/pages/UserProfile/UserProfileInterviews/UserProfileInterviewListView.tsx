@@ -28,7 +28,6 @@ export default function UserProfileInterviewListView<T>({
   rows,
   data,
 }: TableProps<T>) {
-  const { handleSubmit, register } = useForm();
   const [filterType, setFilterType] = useState<number>(0);
 
   const {
