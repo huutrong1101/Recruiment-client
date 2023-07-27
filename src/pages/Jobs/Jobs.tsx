@@ -13,7 +13,11 @@ import { JobInterface, JobListConfig } from "../../services/services";
 import Pagination from "../../components/Pagination/Pagination";
 import axiosInstance from "../../utils/AxiosInstance";
 import { omitBy, isUndefined } from "lodash";
+<<<<<<< HEAD
 import useQuerParams from "../../hooks/useQueryParams";
+=======
+import useQueryParams from "../../hooks/useQueryParams";
+>>>>>>> 343d44cfbf7837a21922134c90a057bc9434ab74
 import Loader from "../../components/Loader/Loader";
 import qs from "query-string";
 import { createSearchParams, useNavigate } from "react-router-dom";
@@ -30,6 +34,7 @@ export default function Jobs() {
 
   const navigate = useNavigate();
 
+<<<<<<< HEAD
   const queryParams: QueryConfig = useQuerParams();
 
   const queryConfig: QueryConfig = omitBy(
@@ -40,6 +45,18 @@ export default function Jobs() {
       location: queryParams.location,
       posName: queryParams.posName,
       category: queryParams.category,
+=======
+  const queryParams: QueryConfig = useQueryParams();
+
+  const queryConfig: QueryConfig = omitBy(
+    {
+      index: queryParams.index || "1",
+      size: queryParams.size || 10,
+      name: queryParams.name,
+      location: queryParams.location,
+      posName: queryParams.posName,
+      type: queryParams.type,
+>>>>>>> 343d44cfbf7837a21922134c90a057bc9434ab74
     },
     isUndefined,
   );
@@ -49,13 +66,45 @@ export default function Jobs() {
 
   const [showJobs, setShowJobs] = useState(jobs);
 
+<<<<<<< HEAD
   const [pageSize, setPageSize] = useState(
     Math.ceil(totalJobs / Number(queryParams.limit ?? 10)),
+=======
+  const [posistion, setPosition] = useState([]);
+
+  const [pageSize, setPageSize] = useState(
+    Math.ceil(totalJobs / Number(queryParams.size || 10)),
+>>>>>>> 343d44cfbf7837a21922134c90a057bc9434ab74
   );
 
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+<<<<<<< HEAD
+=======
+    const fetchPosition = async () => {
+      setIsLoading(true);
+      try {
+        if (queryConfig) {
+          const query = qs.stringify(queryConfig);
+          const response = await axiosInstance(`/jobs?${query}`);
+          setShowJobs(response.data.result.content);
+          setPageSize(response.data.result.totalPages);
+        }
+        const response = await axiosInstance(`/jobs/position`);
+        // console.log(response);
+        setPosition(response.data.result);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchPosition();
+  }, []);
+
+  useEffect(() => {
+>>>>>>> 343d44cfbf7837a21922134c90a057bc9434ab74
     if (!isEqual(prevQueryConfig, queryConfig)) {
       const fetchJobs = async () => {
         setIsLoading(true);
@@ -77,7 +126,7 @@ export default function Jobs() {
 
   const [dataSearch, setDataSearch] = useState({
     key: "",
-    category: "",
+    posName: "",
     location: "",
     type: "BACKEND",
   });
@@ -91,8 +140,13 @@ export default function Jobs() {
         search: createSearchParams({
           ...queryConfig,
           name: dataSearch.key,
+<<<<<<< HEAD
           posName: dataSearch.type,
           index: "0",
+=======
+          posName: dataSearch.posName,
+          index: "1",
+>>>>>>> 343d44cfbf7837a21922134c90a057bc9434ab74
         }).toString(),
       });
     } catch (error) {
@@ -105,7 +159,7 @@ export default function Jobs() {
   const handleReset = () => {
     setDataSearch({
       key: "",
-      category: "",
+      posName: "",
       location: "",
       type: "",
     });
@@ -155,7 +209,7 @@ export default function Jobs() {
           {/* Category  */}
           <div className={classNames("mt-4")}>
             <h3 className={classNames("text-base font-semibold  capitalize")}>
-              Cateogories
+              Position
             </h3>
             <Menu as="div" className={classNames("relative mt-2")}>
               <Menu.Button
@@ -164,7 +218,11 @@ export default function Jobs() {
                 )}
               >
                 <span className={classNames("ml-2 text-gray-500")}>
+<<<<<<< HEAD
                   {dataSearch.category || "---Choose---"}
+=======
+                  {dataSearch.posName || "---Choose---"}
+>>>>>>> 343d44cfbf7837a21922134c90a057bc9434ab74
                 </span>
                 <ChevronDownIcon className={classNames("w-[20px] ml-4")} />
                 {/* Drop down  */}
@@ -181,8 +239,8 @@ export default function Jobs() {
               >
                 <Menu.Items className="absolute left-0 z-10 w-full mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1">
-                    {data.listFieldSearch.categories.map((cate) => (
-                      <Menu.Item key={cate.id}>
+                    {posistion.map((pos, index) => (
+                      <Menu.Item key={index}>
                         {({ active }) => (
                           <p
                             className={classNames(
@@ -194,11 +252,11 @@ export default function Jobs() {
                             onClick={() =>
                               setDataSearch({
                                 ...dataSearch,
-                                category: cate.category,
+                                posName: pos,
                               })
                             }
                           >
-                            {cate.category}
+                            {pos}
                           </p>
                         )}
                       </Menu.Item>
@@ -293,8 +351,8 @@ export default function Jobs() {
               >
                 <Menu.Items className="absolute left-0 z-10 w-full mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1">
-                    {data.listFieldSearch.jobTypes.map((type) => (
-                      <Menu.Item key={type.id}>
+                    {posistion.map((type, index) => (
+                      <Menu.Item key={index}>
                         {({ active }) => (
                           <p
                             className={classNames(
@@ -306,11 +364,11 @@ export default function Jobs() {
                             onClick={() =>
                               setDataSearch({
                                 ...dataSearch,
-                                type: type.type,
+                                type: type,
                               })
                             }
                           >
-                            {type.type}
+                            {type}
                           </p>
                         )}
                       </Menu.Item>

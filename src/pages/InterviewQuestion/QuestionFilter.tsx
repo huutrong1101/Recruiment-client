@@ -33,7 +33,7 @@ export default function QuestionFilter() {
                                     <p  
                                         className={classNames(
                                             active
-                                                ? "bg-gray-100 text-gray-900 bg-opacity-80"
+                                                ? "bg-gray-200 text-gray-900 bg-opacity-80"
                                                 : "text-gray-700", "p-2",
                                             "block  text-sm",
                                         )}

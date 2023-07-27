@@ -10,7 +10,7 @@ import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
 
 const ReccerJobManagement = () => {
   const { recjobsList, recjobsListStatus } = useAppSelector(
-    (state: any) => state.recjobList,
+    (state: any) => state.RecJobList,
   );
   const dispatch = useAppDispatch();
 

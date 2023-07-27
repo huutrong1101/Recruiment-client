@@ -5,7 +5,7 @@ import './CandidateRecent.scss'
 import { PencilIcon } from '@heroicons/react/24/outline';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
-import { fetchCandidateRecent } from '../../../redux/reducer/CandidateRecentSlice';
+import { fetchINTCandidatesData } from '../../../redux/reducer/INTCandidatesSlice';
 import Loader from '../../../components/Loader/Loader';
 import { STATUS } from '../../../utils/Status';
 import { Link } from 'react-router-dom';
@@ -14,7 +14,7 @@ const rowsPerPageOptions = [5, 10];
 
 const CandidateRecent = () => {
     
-    const {candidatesRecent, candidatesRecentStatus} = useAppSelector((state: any) => state.candidateRecent);
+    const {INTCandidates, INTCandidatesStatus} = useAppSelector((state: any) => state.INTCandidates);
     const dispatch = useAppDispatch();
 
     const [page, setPage] = useState(0);
@@ -26,23 +26,23 @@ const CandidateRecent = () => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, candidatesRecent.length - page * rowsPerPage);
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, INTCandidates.length - page * rowsPerPage);
 
     useEffect(() => {
-        dispatch(fetchCandidateRecent())
+        dispatch(fetchINTCandidatesData())
     }, []);
 
-    if(candidatesRecentStatus === STATUS.LOADING){
+    if(INTCandidatesStatus === STATUS.LOADING){
         return (
             <Loader/>
         );
-    }else if(candidatesRecentStatus === STATUS.IDLE){
+    }else if(INTCandidatesStatus === STATUS.IDLE){
         return (
             <div className='CandidateRecent'>
                 <div className='mb-5 text-2xl mt-4'>Candidate Recent</div>
                 <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableHead className='bg-slate-300'>
+                        <TableHead className='bg-slate-200'>
                         <TableRow>
                             <TableCell>Name</TableCell>
                             <TableCell>Position</TableCell>
@@ -53,25 +53,25 @@ const CandidateRecent = () => {
                         </TableRow>
                         </TableHead>
                         <TableBody>
-                        {candidatesRecent.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((candidateRecent:any) => (
-                            <TableRow key={candidateRecent.id} className={`${candidateRecent.id % 2 === 0 ? 'bg-slate-100':''}`}>
+                        {INTCandidates.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((candidate:any,index:any) => (
+                            <TableRow key={index} className={`even:bg-slate-50`}>
                                 <TableCell component="th" scope="row">
                                     <div className='flex items-center'>
-                                        <img src={candidateRecent.avatar} className='h-10 w-10 rounded-full mr-4' />
-                                        <div>{candidateRecent.name}</div>
+                                        <img src="#" className='h-10 w-10 rounded-full mr-4' />
+                                        <div>{candidate.name}</div>
                                     </div>
                                 </TableCell>
-                                <TableCell>{candidateRecent.role}</TableCell>
-                                <TableCell>{candidateRecent.creationAt}</TableCell>
+                                <TableCell>{candidate.position}</TableCell>
+                                <TableCell>{candidate.date}</TableCell>
                                 <TableCell>
-                                    <div className={`${(candidateRecent.id*candidateRecent.id*4)%100?"badge-completed":"badge-pending"}`}>
+                                    <div className={`${(index*123*4)%100?"badge-completed":"badge-pending"}`}>
                                         <div className='dot'></div>
-                                        <div>{(candidateRecent.id*candidateRecent.id*4)%100?"Completed":"Pending"}</div>
+                                        <div>{candidate.state}</div>
                                     </div>
                                 </TableCell>
-                                <TableCell>{(candidateRecent.id*candidateRecent.id*4)%100}</TableCell>
+                                <TableCell>{candidate.score === -1? "NULL":candidate.score}</TableCell>
                                 <TableCell>
-                                    <Link to={`/interviewer/candidate-recent/${candidateRecent.id}`} >
+                                    <Link to={`/interviewer/candidate-recent/1`} >
                                         <PencilIcon className='w-4 h-4' />
                                     </Link>
                                 </TableCell>
@@ -89,7 +89,7 @@ const CandidateRecent = () => {
                     <TablePagination
                         rowsPerPageOptions={rowsPerPageOptions}
                         component="div"
-                        count={candidatesRecent.length}
+                        count={INTCandidates.length}
                         rowsPerPage={rowsPerPage}
                         page={page}
                         onPageChange={handleChangePage}

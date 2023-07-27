@@ -3,12 +3,13 @@ import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { Transition } from "@headlessui/react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function IncompleteConfirmEmail() {
   const navigate = useNavigate();
   const handleResendEmail = () => {
-    // alert(`Resend email logic not initialize.`);
-    navigate("/email/complete");
+    toast.warning(`Resend email logic not initialize.`);
+    // navigate("/email/complete");
   };
 
   return (
