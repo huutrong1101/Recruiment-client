@@ -13,9 +13,11 @@ export function getLocalToken(): string {
 }
 
 export function setLocalToken(jwtToken: string) {
+  console.debug(`localToken: set:: ${jwtToken}`);
   localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, JSON.stringify(jwtToken));
 }
 
 export function clearLocalToken() {
+  console.debug(`localToken: empty`);
   localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY);
 }

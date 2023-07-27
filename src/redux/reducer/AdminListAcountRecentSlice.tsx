@@ -4,37 +4,43 @@ import { Dispatch } from '@reduxjs/toolkit';
 import axiosInstance from '../../utils/AxiosInstance';
 
 
-const AdminListPassRecentSlice = createSlice({
-    name: 'adminmanagerpassList',
+const AdminListAcountRecentSlice = createSlice({
+    name: 'adminacountList',
     initialState: {
-        adminmanagerpassList: [],
-        adminmanagerpassListStatus: STATUS.IDLE,
+        adminmanagerAcountList: [],
+        adminmanagerAcountListStatus: STATUS.IDLE,
+        totalListAcounts : 0,
     },
     reducers: {
-        setAdminManagerPassList(state, action){
-            state.adminmanagerpassList = action.payload;
+        setAdminManagerAcountList(state, action){
+            state.adminmanagerAcountList = action.payload;
         },
-        setAdminManagerPassListStatus(state, action){
-            state.adminmanagerpassListStatus = action.payload;
+        setAdminManagerAcountListStatus(state, action){
+            state.adminmanagerAcountListStatus = action.payload;
+        },
+        setTotalListAcounts(state, action){
+            state.totalListAcounts = action.payload;
         }
     }
 });
-export default AdminListPassRecentSlice.reducer;
+export default AdminListAcountRecentSlice.reducer;
 
-export const {setAdminManagerPassList, setAdminManagerPassListStatus }
-= AdminListPassRecentSlice.actions;
+export const {setAdminManagerAcountList, setAdminManagerAcountListStatus,setTotalListAcounts }
+= AdminListAcountRecentSlice.actions;
 
-export const fetchAdminManagerPassList = () => {
-    return async function fetchAdminManagerPassListThunk(dispatch : Dispatch){
-        dispatch(setAdminManagerPassListStatus(STATUS.LOADING));
+export const fetchAdminManagerAcountList = () => {
+    return async function fetchAdminManagerAcountListThunk(dispatch : Dispatch){
+        dispatch(setAdminManagerAcountListStatus(STATUS.LOADING));
         try{
-            const reponse = await axiosInstance.get("admin/passs?size=10&page=0");
+            const reponse = await axiosInstance.get("admin/users?size=8&page=1");
             const data = await reponse.data;
-            console.log(data.result.content);
-            dispatch(setAdminManagerPassList(data.result.content));
-            dispatch(setAdminManagerPassListStatus(STATUS.IDLE));
+            const totalListAcounts = reponse.data.result.totalElements;
+
+            dispatch(setTotalListAcounts(totalListAcounts));
+            dispatch(setAdminManagerAcountList(data.result.content));
+            dispatch(setAdminManagerAcountListStatus(STATUS.IDLE));
         }catch(error){
-            dispatch(setAdminManagerPassListStatus(STATUS.ERROR));
+            dispatch(setAdminManagerAcountListStatus(STATUS.ERROR));
         }
     };
 }

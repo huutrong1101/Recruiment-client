@@ -9,11 +9,12 @@ import Loader from '../../components/Loader/Loader';
 
 const ReccerInterviewerManagement = () => {
   const {candidatesRecent, candidatesRecentStatus} = useAppSelector((state: any) => state.candidateRecent);
-  const dispatch = useAppDispatch();
 
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchCandidateRecent())
   }, []);
+
 
   if(candidatesRecentStatus === STATUS.LOADING){
     return <Loader/>
