@@ -30,7 +30,8 @@ export default function NavbarUserLoggedInCard() {
                 ` transition-colors ease-in-out `,
               )}
             >
-              {user?.fullName}
+              {user?.fullName}  
+
             </span>
             {user?.avatar === null ? (
               <DummyAvatar iconClassName="text-xl" />
