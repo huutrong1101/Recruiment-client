@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import classNames from "classnames";
 import Avatar from "./../../../images/ava.jpg";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
@@ -9,11 +9,20 @@ import {
   HiMapPin,
   HiPhone,
   HiKey,
+  HiCalendar,
 } from "react-icons/hi2";
 import UserResume from "../../components/UserResume/UserResume";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import Modal from "../../components/Modal/Modal";
+import DummyAvatar from "../../components/DummyAvatar/DummyAvatar";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import PrimaryInputFile from "../../components/InputFile/PrimaryInputFile";
+import { toast } from "react-toastify";
+import { UserService } from "../../services/UserService";
+import { setUser } from "../../redux/AuthSlice";
+import { AiOutlineComment } from "react-icons/ai";
 
 function UserProfileInformation() {
   const {
@@ -24,6 +33,38 @@ function UserProfileInformation() {
 
   const onDataChangeSubmit = (data: any) => {
     console.log(data);
+    alert(`hi`);
+  };
+
+  const { user, loading } = useAppSelector((app) => app.Auth);
+  const dispatch = useAppDispatch();
+  const [isUploading, setUploading] = useState<boolean>(false);
+
+  const handleUploadAvatar = (e: ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files;
+    if (fileList === null) {
+      return toast.error(`File is empty or not found`);
+    }
+
+    if (fileList.length === 0) {
+      return toast.error(`File is empty`);
+    }
+
+    const formData = new FormData();
+    formData.append("imageFile", fileList[0]);
+
+    setUploading(true);
+    toast
+      .promise(UserService.changeUserAvatar(formData), {
+        pending: `Uploading your avatar`,
+        success: `Your avatar was updated`,
+        error: `Failed to upload your avatar`,
+      })
+      .then((response) => {
+        const { result } = response.data;
+        dispatch(setUser({ ...user, avatar: result }));
+        setUploading(false);
+      });
   };
 
   return (
@@ -31,82 +72,140 @@ function UserProfileInformation() {
       <h1 className={classNames(`text-2xl font-semibold flex-1 md:mb-4`)}>
         Information
       </h1>
-      <div className={classNames(`flex flex-col md:flex-row gap-6`)}>
-        {/* Avatar edit block */}
-        <div
-          className={classNames(
-            `flex-row w-full md:w-3/12 flex md:flex-col gap-4 px-4 items-center`,
-          )}
-        >
-          <div className={classNames(`w-3/12 md:w-auto`)}>
-            <img
+      {/* Whether is loading */}
+      {loading === "pending" ? (
+        <LoadSpinner />
+      ) : user === null || user === undefined ? (
+        // User is not found
+        <div>User not found</div>
+      ) : (
+        <div className={classNames(`flex flex-col md:flex-row gap-6`)}>
+          {/* Avatar edit block */}
+          <div
+            className={classNames(
+              `flex-row w-full md:w-3/12 flex md:flex-col gap-4 px-4 items-center`,
+            )}
+          >
+            <div className={classNames(`w-3/12 md:w-auto`)}>
+              {/* <img
               src={Avatar}
               alt={"Hi"}
               className={classNames(`rounded-full`)}
-            />
+            /> */}
+              {user.avatar === undefined || user.avatar === null ? (
+                <DummyAvatar
+                  iconClassName="text-6xl flex items-center justify-center"
+                  wrapperClassName="h-32 w-32"
+                />
+              ) : (
+                <img
+                  src={user.avatar}
+                  alt={`${user.fullName}'s avatar`}
+                  className={`rounded-full`}
+                />
+              )}
+            </div>
+            <div>
+              {/* <InputIcon icon={<HiUserCircle />} type="file" /> */}
+              {/* <PrimaryButton text={`Change`} /> */}
+              <PrimaryInputFile
+                text={`Change`}
+                onSelectedFile={handleUploadAvatar}
+                accept="image/png, image/jpeg"
+                isLoading={isUploading}
+                disabled={isUploading}
+              />
+            </div>
           </div>
-          <div>
-            {/* <InputIcon icon={<HiUserCircle />} type="file" /> */}
-            <PrimaryButton text={`Change`} />
-          </div>
-        </div>
 
-        {/* General information fields */}
-        <form
-          className={classNames(`flex-1 flex flex-col gap-2`)}
-          onSubmit={handleSubmit(onDataChangeSubmit)}
-        >
-          <div>
+          {/* General information fields */}
+          <form
+            className={classNames(`flex-1 flex flex-col gap-2`)}
+            onSubmit={handleSubmit(onDataChangeSubmit)}
+          >
+            <div>
+              <InputIcon
+                type="text"
+                icon={<HiUserCircle />}
+                placeholder={`Full Name`}
+                // {...register("fullName", {
+                //   required: true,
+                // })}
+                defaultValue={user.fullName}
+                register={register}
+                required
+                label="fullName"
+              />
+
+              {/* {errors.fullName && (
+                <small className={`text-xs text-red-600`}>
+                  Full name is required
+                </small>
+              )} */}
+            </div>
+
             <InputIcon
+              icon={<HiEnvelope />}
               type="text"
-              icon={<HiUserCircle />}
-              placeholder={`Full Name`}
+              placeholder={`Email`}
               register={register}
-              label={`fullName`}
+              required
+              label="email"
+              defaultValue={user.email}
+              disabled
             />
 
-            {errors.fullName && (
-              <small className={`text-xs text-red-600`}>
-                Full name is required
-              </small>
-            )}
-          </div>
-
-          <InputIcon
-            icon={<HiEnvelope />}
-            type="text"
-            placeholder={`Email`}
-            register={register}
-            label={`email`}
-          />
-
-          <InputIcon
-            icon={<HiPhone />}
-            type="text"
-            placeholder={`Phone`}
-            register={register}
-            label={`phone`}
-          />
-
-          <InputIcon
-            icon={<HiMapPin />}
-            type="text"
-            placeholder={`Location`}
-            register={register}
-            label={`location`}
-          />
-
-          {/* Submit button */}
-          <div className="flex flex-row-reverse">
-            <PrimaryButton
-              type="submit"
-              text={`Save`}
-              size={"sm"}
-              className={`md:!w-3/12`}
+            <InputIcon
+              icon={<HiMapPin />}
+              placeholder={`Address`}
+              register={register}
+              required
+              label="address"
+              defaultValue={user.address || ""}
             />
-          </div>
-        </form>
-      </div>
+
+            <InputIcon
+              icon={<HiPhone />}
+              type="text"
+              placeholder={`Phone`}
+              register={register}
+              required
+              label="phone"
+              defaultValue={user.phone}
+              disabled
+            />
+
+            <InputIcon
+              icon={<HiCalendar />}
+              type="date"
+              placeholder={`Date of birth`}
+              register={register}
+              required
+              label="dateOfBirth"
+              // defaultValue={}
+              // disabled
+            />
+
+            <InputIcon
+              icon={<AiOutlineComment />}
+              type="text"
+              placeholder={`About yourself`}
+              register={register}
+              label={`about`}
+            />
+
+            {/* Submit button */}
+            <div className="flex flex-row-reverse">
+              <PrimaryButton
+                type="submit"
+                text={`Save`}
+                size={"sm"}
+                className={`md:!w-3/12`}
+              />
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 }
