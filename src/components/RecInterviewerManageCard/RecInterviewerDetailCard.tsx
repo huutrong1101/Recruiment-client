@@ -1,6 +1,7 @@
 import { avatar } from '@material-tailwind/react';
 import React from 'react'
 import { GrDocumentText } from "react-icons/gr";
+import blog_image from "../../../images/blog_image.png";
 
 interface MyComponentProps {
   userinfor: {
@@ -65,7 +66,7 @@ export default function RecInterviewerDetailCard(props: any) {
           <div className='md:flex ms-4 -mt-12'>
             <div className='md:w-full'>
               <div className='relative flex items-end'>
-                <img src={interviewer.avatar} className='h-28 w-28 rounded-full ring-4 ring-slate-50 ' />
+                <img src={blog_image} className='h-28 w-28 rounded-full ring-4 ring-slate-50 ' />
                 <div className='ms-4'>
                   <p className='text-lg font-semibold'>{interviewer.name}</p>
                   <p className='text-slate-400'>Java Dev</p>
