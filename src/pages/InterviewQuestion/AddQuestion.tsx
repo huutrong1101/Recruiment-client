@@ -5,7 +5,7 @@ import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import QuestionFilter from './QuestionFilter';
 import { Menu, Transition } from "@headlessui/react";
 import TechFilter from './TechFilter';
-export default function AddQuestion({ observation, onClick }) {
+export default function AddQuestion({ observation, onClick }:any) {
     const handleOnClick = (event: any) => {
         if (event.target.id === 'container' || event.target.id === 'add') onClick()
     }
@@ -31,13 +31,13 @@ export default function AddQuestion({ observation, onClick }) {
                         </div>
                     </div>
                     <div className='flex flex-col w-2/5 p-2 relative'>
-                        <div className=' font-normal text-md'>Position</div>
-                        <Menu as='div' className='w-11/12 h-[20%] relative flex flex-col z-10'>
+                        <div className=' font-normal text-md'>Type</div>
+                        <Menu as='div' className='w-11/12 h-[25%] relative flex flex-col z-10'>
                             <QuestionFilter/>
                         </Menu>
 
-                        <div className=' font-normal text-md'>Type</div>
-                        <Menu as='div' className='w-11/12 h-[20%] relative flex flex-col'>
+                        <div className=' font-normal text-md'>Skill</div>
+                        <Menu as='div' className='w-11/12 h-[25%] relative flex flex-col'>
                             <TechFilter/>
                         </Menu>
                         <div className='w-full h-1/5 font-normal text-md my-6  px-3'>

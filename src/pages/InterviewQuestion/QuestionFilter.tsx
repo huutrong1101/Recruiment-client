@@ -4,9 +4,9 @@ import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
 import classNames from 'classnames';
-
+//------------------------------------------TYPE
 export default function QuestionFilter() {
-    const pos = ['FE', 'BE', 'Others']
+    const pos = ['Technical', 'Soft Skill', 'English']
     const [isActive, setIsActive] = useState(false)
     const handleActive = (e: any) => setIsActive(!isActive)
     return (
@@ -15,7 +15,7 @@ export default function QuestionFilter() {
                                 active:border-emerald-600  active:text-emerald-600 
                                  active:bg-white flex items-center' onClick={handleActive}>
                 <div className=' inline-flex justify-between w-full '>
-                    Position <ChevronDownIcon className='w-5 h-5 pt-1' />
+                    Type <ChevronDownIcon className='w-5 h-5 pt-1' />
                 </div>
             </Menu.Button>
             <Transition as={Fragment}
@@ -33,7 +33,7 @@ export default function QuestionFilter() {
                                     <p  
                                         className={classNames(
                                             active
-                                                ? "bg-gray-200 text-gray-900 bg-opacity-80"
+                                                ? "bg-gray-100 text-gray-900 bg-opacity-80"
                                                 : "text-gray-700", "p-2",
                                             "block  text-sm",
                                         )}
