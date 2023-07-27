@@ -14,7 +14,7 @@ export default function TechFilter() {
                                 active:border-emerald-600  active:text-emerald-600 
                                  active:bg-white flex items-center' onClick={handleActive}>
                     <div className=' inline-flex justify-between w-full '>
-                        Skill  <ChevronDownIcon className='w-5 h-5 pt-1' />
+                        Techonology   <ChevronDownIcon className='w-5 h-5 pt-1' />
                     </div>
                 </Menu.Button>
                 <Transition as={Fragment}

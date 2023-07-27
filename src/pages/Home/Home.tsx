@@ -44,12 +44,6 @@ export default function Home() {
 
   const queryParams: QueryConfig = useQueryParams();
 
-<<<<<<< HEAD
-  const events: EventInterface[] = useAppSelector((state) => state.Home.events);
-
-  const handleSubmit = () => {
-    alert("Giá trị thu được với từ khóa: " + search + " và loại: " + type);
-=======
   const queryConfig: QueryConfig = omitBy(
     {
       index: queryParams.index || "1",
@@ -75,7 +69,6 @@ export default function Home() {
     } catch (error) {
       console.error(error);
     }
->>>>>>> update/chocolate
   };
 
   return (
