@@ -1,13 +1,18 @@
 import { Link, useParams } from "react-router-dom";
-import { useAppSelector } from "../../../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { MapPinIcon, BriefcaseIcon } from "@heroicons/react/20/solid";
+import { fetchINTInterviewByID } from "../../../../redux/reducer/INTInterviewsSlice";
+import { useEffect } from "react";
 
 const InterviewDetail = () => {
 
     const { id } = useParams(); 
-    const {interviewsRecent} = useAppSelector((state: any) => state.interviewRecent);
-
-    const interview = interviewsRecent.find((interview:any) => interview.id === parseInt(id || ''));
+    const {INTSingleInterview, INTSingleInterviewStatus} = useAppSelector((state: any) => state.INTInterviews);
+    const dispatch = useAppDispatch();
+    
+    useEffect( () => {
+        dispatch(fetchINTInterviewByID(id))
+    }, []);
 
     return (
         <div className="InterviewDetail ">
@@ -16,7 +21,7 @@ const InterviewDetail = () => {
                     <div className='text-2xl'>Interview Information</div>
                     <div className="ml-4">
                         <div className="mt-3 text-base">Position Recruiment: <span className="text-sm ml-2">Java Developer</span></div>
-                        <div className="text-base">Date: <span className="text-sm ml-2">{interview.updatedAt}</span></div>
+                        <div className="text-base">Date: <span className="text-sm ml-2">{INTSingleInterview.updatedAt}</span></div>
                         <div className="text-base">Link Meeting: <span className="text-sm ml-2">https://meet.google.com/aie-oirf-qnm</span></div>
                     </div>
                 </div>
@@ -27,13 +32,13 @@ const InterviewDetail = () => {
                 <div className="flex">
                     <div className="w-4/12">
                         <div className="flex items-center justify-center pt-[2rem]">
-                            <img src={interview.avatar} className=" w-[180px] h-[180px] border-4 "/>
+                            <img src={INTSingleInterview.avatar} className=" w-[180px] h-[180px] border-4 "/>
                         </div>
                     </div>
                     <div className="w-8/12">
                         <div className="flex pt-[2rem]">
                             <div className="text-2xl mr-4">
-                                {interview.name} 
+                                {INTSingleInterview.name} 
                             </div>
                             <div className="flex mt-1">
                                 <div className="text-base">
@@ -51,7 +56,7 @@ const InterviewDetail = () => {
                             <div className="mt-2 text-base">Phone: <span className="text-sm ml-2">+84 367120031</span></div>
                             <div className="text-base">Address: <span className="text-sm ml-2">Đường D1, khu CNC, Quận 9</span></div>
                             <div className="text-base">Birtday: <span className="text-sm ml-2">01-01-2000</span></div>
-                            <div className="text-base">Email: <span className="text-sm ml-2">{interview.email}</span></div>
+                            <div className="text-base">Email: <span className="text-sm ml-2">{INTSingleInterview.email}</span></div>
                         </div>
                     </div>
                 </div>
