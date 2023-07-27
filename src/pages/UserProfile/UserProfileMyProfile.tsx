@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import classNames from "classnames";
 import Avatar from "./../../../images/ava.jpg";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
@@ -9,14 +9,20 @@ import {
   HiMapPin,
   HiPhone,
   HiKey,
+  HiCalendar,
 } from "react-icons/hi2";
 import UserResume from "../../components/UserResume/UserResume";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import Modal from "../../components/Modal/Modal";
 import DummyAvatar from "../../components/DummyAvatar/DummyAvatar";
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import PrimaryInputFile from "../../components/InputFile/PrimaryInputFile";
+import { toast } from "react-toastify";
+import { UserService } from "../../services/UserService";
+import { setUser } from "../../redux/AuthSlice";
+import { AiOutlineComment } from "react-icons/ai";
 
 function UserProfileInformation() {
   const {
@@ -27,9 +33,39 @@ function UserProfileInformation() {
 
   const onDataChangeSubmit = (data: any) => {
     console.log(data);
+    alert(`hi`);
   };
 
   const { user, loading } = useAppSelector((app) => app.Auth);
+  const dispatch = useAppDispatch();
+  const [isUploading, setUploading] = useState<boolean>(false);
+
+  const handleUploadAvatar = (e: ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files;
+    if (fileList === null) {
+      return toast.error(`File is empty or not found`);
+    }
+
+    if (fileList.length === 0) {
+      return toast.error(`File is empty`);
+    }
+
+    const formData = new FormData();
+    formData.append("imageFile", fileList[0]);
+
+    setUploading(true);
+    toast
+      .promise(UserService.changeUserAvatar(formData), {
+        pending: `Uploading your avatar`,
+        success: `Your avatar was updated`,
+        error: `Failed to upload your avatar`,
+      })
+      .then((response) => {
+        const { result } = response.data;
+        dispatch(setUser({ ...user, avatar: result }));
+        setUploading(false);
+      });
+  };
 
   return (
     <div className="p-4 border rounded-xl border-zinc-100">
@@ -71,7 +107,14 @@ function UserProfileInformation() {
             </div>
             <div>
               {/* <InputIcon icon={<HiUserCircle />} type="file" /> */}
-              <PrimaryButton text={`Change`} />
+              {/* <PrimaryButton text={`Change`} /> */}
+              <PrimaryInputFile
+                text={`Change`}
+                onSelectedFile={handleUploadAvatar}
+                accept="image/png, image/jpeg"
+                isLoading={isUploading}
+                disabled={isUploading}
+              />
             </div>
           </div>
 
@@ -88,16 +131,17 @@ function UserProfileInformation() {
                 // {...register("fullName", {
                 //   required: true,
                 // })}
+                defaultValue={user.fullName}
                 register={register}
                 required
                 label="fullName"
               />
 
-              {errors.fullName && (
+              {/* {errors.fullName && (
                 <small className={`text-xs text-red-600`}>
                   Full name is required
                 </small>
-              )}
+              )} */}
             </div>
 
             <InputIcon
@@ -107,13 +151,17 @@ function UserProfileInformation() {
               register={register}
               required
               label="email"
+              defaultValue={user.email}
+              disabled
             />
+
             <InputIcon
               icon={<HiMapPin />}
               placeholder={`Address`}
               register={register}
               required
               label="address"
+              defaultValue={user.address || ""}
             />
 
             <InputIcon
@@ -123,14 +171,27 @@ function UserProfileInformation() {
               register={register}
               required
               label="phone"
+              defaultValue={user.phone}
+              disabled
             />
 
             <InputIcon
-              icon={<HiMapPin />}
-              type="text"
-              placeholder={`Location`}
+              icon={<HiCalendar />}
+              type="date"
+              placeholder={`Date of birth`}
               register={register}
-              label={`location`}
+              required
+              label="dateOfBirth"
+              // defaultValue={}
+              // disabled
+            />
+
+            <InputIcon
+              icon={<AiOutlineComment />}
+              type="text"
+              placeholder={`About yourself`}
+              register={register}
+              label={`about`}
             />
 
             {/* Submit button */}
