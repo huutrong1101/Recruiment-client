@@ -33,8 +33,9 @@ export default function UserProfileSubmittedJob() {
               icon={<HiMagnifyingGlass />}
               className={`text-base px-3 py-2 w-full outline-none`}
               placeholder="Search for the applicant"
+              type={`text`}
               register={register}
-              label="search"
+              label={`search`}
             />
           </div>
           <div className="w-32">
