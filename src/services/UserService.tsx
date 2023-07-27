@@ -6,12 +6,21 @@ const getUserFromToken = async () => {
     throw new Error(`Unable to load the token`);
   }
   return await axiosInstance.get(`/user/profile`, {
+    // headers: {
+    //   Authorization: `Bearer ${getLocalToken()}`,
+    // },
+  });
+};
+
+const changeUserAvatar = async (data: FormData) => {
+  return await axiosInstance.put(`/user/avatar`, data, {
     headers: {
-      Authorization: `Bearer ${getLocalToken()}`,
+      "Content-Type": "multipart/form-data",
     },
   });
 };
 
 export const UserService = {
   getUserFromToken,
+  changeUserAvatar,
 };

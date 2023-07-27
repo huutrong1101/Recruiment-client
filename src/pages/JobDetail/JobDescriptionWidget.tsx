@@ -58,7 +58,7 @@ export default function JobDescriptionWidget({
           {/* Right */}
 
           {/* TODO: change this to from date to date */}
-          <div className={`text-zinc-400 text-sm`}>{publishDate}</div>
+          <div className={`text-zinc-400 text-sm mr-10`}>{publishDate}</div>
         </div>
       </div>
     </Transition>
