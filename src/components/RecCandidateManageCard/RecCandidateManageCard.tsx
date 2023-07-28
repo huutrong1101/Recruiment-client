@@ -1,6 +1,7 @@
 import React from "react";
 import { useAppSelector } from "../../hooks/hooks";
 import { Link } from "react-router-dom";
+import blog_image from "../../../images/blog_image.png";
 
 interface MyComponentProps {
   candidate: {
@@ -23,12 +24,12 @@ const RecCandidateCard = (props: any) => {
     <div className="grid grid-cols-1">
       <div className="group bg-white relative overflow-hidden rounded-md shadow dark:shadow-gray-500 text-center p-6 hover:shadow-gray-950">
         <img
-          src={candidate.avatar}
+          src={blog_image}
           className="h-20 w-20 rounded-full shadow dark:shadow-gray-700 mx-auto"
         />
         <div className="mt-2">
           <a href="#" className="hover:text-emerald-600 font-semibold text-lg">
-            {candidate.name}
+            {candidate.fullName}
           </a>
           <p className="text-sm text-slate-400">Web Dev</p>
         </div>

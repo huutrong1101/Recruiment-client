@@ -87,7 +87,7 @@ export default function QuestionInterview() {
                               <tr className="flex flex-row py-2 my-2 text-left text-md cursor-pointer items-center
                                          border-2 border-white hover: hover:border-emerald-600 hover:rounded-lg hover:text-black hover:transition-all "
                                 key={question.questionId}>
-                                <td className="basis-1/5">{question.position}</td>
+                                <td className="basis-1/5">{question.skill}</td>
                                 <td className="basis-1/5">{question.typeQuestion}</td>
                                 <td className="basis-2/5 flex-nowrap">{question.content}</td>
                                 <td className="inline-flex gap-x-2 basis-1/5 justify-center">
