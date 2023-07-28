@@ -55,63 +55,56 @@ export interface RecInterviewerListConfig {
 }
 
 export interface RecInterviewerInterface {
-  email: string,
-  phone?: number | string,
-  fullName?: string,
-  avatar?: string,
-  address?: string,
-  about?: string,
-  skills?:
-  {
-    skillId?: number,
-    name?: string
-  }[],
-  projects?:
-  {
-    projectId?: string,
-    projectName?: string,
-    positionInProject?: string,
-    description?: string,
-  }[],
-  awards?:
-  {
-    awardId?: string,
-    awardName?: string,
-    awardOrganization?: string,
-    awardWinningTime?: string
-  }[],
-  experiences?:
-  {
-    experienceId?: string,
-    companyName?: string,
-    position?: string,
-    time?: string
-  }[],
-  courses?:
-  {
-    courseId?: string,
-    courseNamestring?: string,
-    trainningOrganizations?: string,
-    completionTime?: string
-  }[],
-  certificates?:
-  {
-    certificateId?: string,
-    certificateName?: string,
-    certificateBody?: string,
-    certificationTime?: string
-  }[],
-
-  educations?:
-  {
-    educationId?: string,
-    schoolName?: string,
-    specialized?: string,
-    certificatestring?: string
-  }[],
-  dateOfBirth?: string,
-  interviewerId?: string
+  email: string;
+  phone: number | string;
+  fullName: string;
+  avatar: string;
+  address: string;
+  about: string;
+  skills: {
+    skillId: number;
+    name: string;
+  }[];
+  projects: {
+    projectId: string;
+    projectName: string;
+    positionInProject: string;
+    description: string;
+  }[];
+  awards: {
+    awardId: string;
+    awardName: string;
+    awardOrganization: string;
+    awardWinningTime: string;
+  }[];
+  experiences: {
+    experienceId: string;
+    companyName: string;
+    position: string;
+    time: string;
+  }[];
+  courses: {
+    courseId: string;
+    courseNamestring: string;
+    trainningOrganizations: string;
+    completionTime: string;
+  }[];
+  certificates: {
+    certificateId: string;
+    certificateName: string;
+    certificateBody: string;
+    certificationTime: string;
+  }[];
+  educations: {
+    educationId: string;
+    schoolName: string;
+    specialized: string;
+    certificatestring: string;
+  }[];
+  dateOfBirth: string;
+  interviewerId: string;
 }
+
 
 export interface JobReccerListConfig {
   page?: number | string;

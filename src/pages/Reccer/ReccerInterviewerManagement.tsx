@@ -41,7 +41,7 @@ const ReccerInterviewerManagement = () => {
     Math.ceil(totalJobs / Number(queryParams.size ?? 10)),
   );
   const [isLoading, setIsLoading] = useState(false);
-  const [showinterviewers, setShowJobs] = useState(interviewers);
+  const [showinterviewers, setinterviewers] = useState(interviewers);
 
   const [dataSearch, setDataSearch] = useState({
     key: "",
@@ -57,7 +57,7 @@ const ReccerInterviewerManagement = () => {
         if (queryConfig) {
           const query = qs.stringify(queryConfig);
           const response = await axiosInstance(`/recruiter/interviewers?${query}`);
-          setShowJobs(response.data.result.content);
+          setinterviewers(response.data.result.content);
           setPageSize(response.data.result.totalPages);
         }
         setDataSearch({
