@@ -56,7 +56,7 @@ export const links = [
       {
         name: "Interviewer",
         icon: <MdOutlineManageAccounts />,
-        url: "recruiter/interviewer",
+        url: "recruiter/interviewers",
       },
       {
         name: "Candidate",

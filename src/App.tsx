@@ -142,8 +142,8 @@ export default function App() {
 
           <Route path="jobs" element={<ReccerJobManagement />} />
           <Route path="calender" element={<Reccercalender />} />
-          <Route path="interviewer" element={<ReccerInterviewerManagement />} />
-          <Route path="interviewer/:id" element={<ReccerInterviewerDetail />} />
+          <Route path="interviewers" element={<ReccerInterviewerManagement />} />
+          <Route path="interviewers/:interviewerId" element={<ReccerInterviewerDetail />} />
 
           <Route path="jobdetail/:jobId" element={<ReccerJobDetail />} />
           <Route path="addjob" element={<Addjob />} />

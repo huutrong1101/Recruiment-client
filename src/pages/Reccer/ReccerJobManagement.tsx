@@ -34,9 +34,9 @@ const ReccerJobManagement = () => {
     useState<QueryConfig>(queryConfig);
 
   const jobs: JobInterface[] = useAppSelector(
-    (state) => state.recjobList.recjobsList,
+    (state) => state.RecJobList.recjobsList,
   );
-  const totalJobs = useAppSelector((state) => state.recjobList.recjobTotal);
+  const totalJobs = useAppSelector((state) => state.RecJobList.recjobTotal);
 
   const [pageSize, setPageSize] = useState(
     Math.ceil(totalJobs / Number(queryParams.size ?? 10)),
