@@ -85,7 +85,7 @@ export interface RecInterviewerInterface {
   }[];
   courses: {
     courseId: string;
-    courseNamestring: string;
+    courseName: string;
     trainningOrganizations: string;
     completionTime: string;
   }[];
@@ -99,7 +99,7 @@ export interface RecInterviewerInterface {
     educationId: string;
     schoolName: string;
     specialized: string;
-    certificatestring: string;
+    certificate: string;
   }[];
   dateOfBirth: string;
   interviewerId: string;
