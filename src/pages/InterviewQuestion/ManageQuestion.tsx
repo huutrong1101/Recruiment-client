@@ -46,7 +46,7 @@ export default function QuestionInterview() {
             <div className="flex flex-col justify-center w-full">
               <div className="w-full h-fit   ">
                 <div className=" gap-x-4 flex w-full h-full">
-                  <div className="flex gap-x-8 ml-24 mb-4 cursor-pointer w-full">
+                  <div className="flex gap-x-6 ml-20 mb-4 cursor-pointer w-full">
                     {/* Position */}
                     <div className=" relative flex flex-col w-40  h-fit  ">
                       <Menu as="div" className=" h-fit">
@@ -91,12 +91,12 @@ export default function QuestionInterview() {
                                 <td className="basis-1/5">{question.typeQuestion}</td>
                                 <td className="basis-2/5 flex-nowrap">{question.content}</td>
                                 <td className="inline-flex gap-x-2 basis-1/5 justify-center">
-                                  <div className="p-2 hover:bg-zinc-300 hover:rounded-md ">
+                                  <button className="p-2 hover:bg-zinc-300 hover:rounded-md ">
                                     <PencilIcon className="w-5 h-5" />
-                                  </div>
-                                  <div className="p-2 hover:bg-zinc-300 hover:rounded-md ">
+                                  </button>
+                                  <button className="p-2 hover:bg-zinc-300 hover:rounded-md ">
                                     <TrashIcon className="w-5 h-5" />
-                                  </div>
+                                  </button>
                                 </td>
                               </tr>
                             ))}

@@ -6,6 +6,10 @@ import QuestionFilter from './QuestionFilter';
 import { Menu, Transition } from "@headlessui/react";
 import TechFilter from './TechFilter';
 export default function AddQuestion({ observation, onClick }:any) {
+    const [addQuestion, setAddQuestion] = useState('')
+    const handleSubmitAdd=(e:any)=>{
+        setAddQuestion(e)
+    }
     const handleOnClick = (event: any) => {
         if (event.target.id === 'container' || event.target.id === 'add') onClick()
     }
@@ -20,7 +24,12 @@ export default function AddQuestion({ observation, onClick }:any) {
                 <div className='mx-5 font-normal text-md my-3'>Content</div>
                 <div className='flex flex-col gap-y-5 w-full items-center'>
                     <div className='w-11/12 p-2 h-fit mx-5 border-2 border-emerald-600 rounded-md'>
-                        <textarea className='resize-none w-full flex outline-none' placeholder='Question here'></textarea>
+                        <textarea className='resize-none w-full flex outline-none' 
+                                    placeholder='Question here'
+                                    
+                        >
+
+                        </textarea>
                     </div>
                 </div>
                 <div className='flex h-full'>
