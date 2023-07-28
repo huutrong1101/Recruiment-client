@@ -15,7 +15,19 @@ import BlogCard from "../../components/BlogCard/BlogCard";
 import Advertise from "../../components/Advertise/Advertise";
 import { Menu, Transition } from "@headlessui/react";
 import { useAppSelector } from "../../hooks/hooks";
-import { EventInterface, JobInterface } from "../../services/services";
+import {
+  EventInterface,
+  JobInterface,
+  JobListConfig,
+} from "../../services/services";
+import axiosInstance from "../../utils/AxiosInstance";
+import useQueryParams from "../../hooks/useQueryParams";
+import { omitBy, isUndefined } from "lodash";
+import { JOB_POSITION } from "../../utils/Localization";
+
+export type QueryConfig = {
+  [key in keyof JobListConfig]: string;
+};
 
 export default function Home() {
   const [showType, setShowType] = useState(false);
@@ -116,7 +128,7 @@ export default function Home() {
                 )}
                 onClick={() => setShowType(!showType)}
               >
-                {type}
+                {JOB_POSITION[type] || "TYPE OF JOB"}
                 {showType && (
                   <ChevronUpIcon className={classnames("w-[20px] mr-4")} />
                 )}
@@ -153,7 +165,7 @@ export default function Home() {
                               setShowType(false);
                             }}
                           >
-                            {type.name}
+                            {JOB_POSITION[type]}
                           </p>
                         )}
                       </Menu.Item>
