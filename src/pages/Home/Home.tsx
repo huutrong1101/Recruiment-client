@@ -22,6 +22,7 @@ import {
 import axiosInstance from "../../utils/AxiosInstance";
 import useQueryParams from "../../hooks/useQueryParams";
 import { omitBy, isUndefined } from "lodash";
+import { JOB_POSITION } from "../../utils/Localization";
 
 export type QueryConfig = {
   [key in keyof JobListConfig]: string;
@@ -156,7 +157,7 @@ export default function Home() {
                 )}
                 onClick={() => setShowType(!showType)}
               >
-                {type || "TYPE OF JOB"}
+                {JOB_POSITION[type] || "TYPE OF JOB"}
                 {showType && (
                   <ChevronUpIcon className={classnames("w-[20px] mr-4")} />
                 )}
@@ -193,7 +194,7 @@ export default function Home() {
                               setShowType(false);
                             }}
                           >
-                            {type}
+                            {JOB_POSITION[type]}
                           </p>
                         )}
                       </Menu.Item>
