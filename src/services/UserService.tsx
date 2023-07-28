@@ -1,7 +1,7 @@
 import axiosInstance from "../utils/AxiosInstance";
 import { getLocalToken, hasLocalToken } from "../utils/localToken";
 import { GetUsersInterviewsParams } from "./services";
-import qs from "qs";
+import qs from "query-string";
 
 const getUserFromToken = async () => {
   if (!hasLocalToken()) {
