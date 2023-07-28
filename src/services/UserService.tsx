@@ -8,9 +8,9 @@ const getUserFromToken = async () => {
     throw new Error(`Unable to load the token`);
   }
   return await axiosInstance.get(`/user/profile`, {
-    headers: {
-      Authorization: `Bearer ${getLocalToken()}`,
-    },
+    // headers: {
+    //   Authorization: `Bearer ${getLocalToken()}`,
+    // },
   });
 };
 
