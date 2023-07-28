@@ -66,7 +66,7 @@ function JobInformationCardItem({
 }: JobInformationCardItemProps) {
     return (
         <div className={classNames(`flex flex-row items-center gap-4`)}>
-            <div className={classNames(`w-1/12 mx-2`)}>{icon}</div>
+            <div className={classNames(`w-1/12 mx-2 text-3xl`)}>{icon}</div>
             <div className={classNames(`flex flex-col flex-1`)}>
                 <span>{name}</span>
                 <span className={classNames(`text-teal-700`)}>{value}</span>
