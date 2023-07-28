@@ -14,6 +14,14 @@ const getUserFromToken = async () => {
   });
 };
 
+const changeUserAvatar = async (data: FormData) => {
+  return await axiosInstance.put(`/user/avatar`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
 /**
  * Returns the interviews that owned by a candidate.
  */
