@@ -50,11 +50,11 @@ const RecCandidateCard = (props: any) => {
           <p className=" font-semibold">10 Years</p>
         </div>
         <div className="pt-4">
-          <Link to={`/recruiter/candidates/${candidate.id}`}>
+          <Link to={`/recruiter/candidates/${candidate.userId}`}>
             <button className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 border-emerald-600 dark:border-emerald-600 text-white rounded-md">
               Profile
             </button>
-          </Link> 
+          </Link>
         </div>
       </div>
     </div>

@@ -27,7 +27,7 @@ export default function RecInterviewerIn4Card({ cardData }: any) {
     return (
         <div
             className={classNames(
-                `w-full bg-gray-200 drop-shadow-md px-4 py-6 rounded-xl border `,
+                `w-full bg-gray-200 drop-shadow-md px-4 py-6 rounded-xl border sticky top-20`,
                 `flex flex-col gap-4`,
             )}
         >

@@ -138,7 +138,7 @@ export default function App() {
           <Route path="dashboard" index element={<ReccerDashboard />} />
           <Route path="candidate-info" element={<CandidateProfile />} />
           <Route path="candidates" element={<ReccerCandidateManagement />} />
-          <Route path="candidates/:id" element={<CandidateDetail />} />
+          <Route path="candidates/:userId" element={<CandidateDetail />} />
 
           <Route path="jobs" element={<ReccerJobManagement />} />
           <Route path="calender" element={<Reccercalender />} />
