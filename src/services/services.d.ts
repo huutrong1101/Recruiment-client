@@ -48,6 +48,11 @@ export interface JobListConfig {
   posName?: string;
 }
 
+export interface EventListConfig {
+  index?: number | string;
+  size?: number | string;
+}
+
 export interface JobReccerListConfig {
   page?: number | string;
   size?: number | string;
@@ -78,42 +83,42 @@ export interface EventInterface {
 }
 export interface AdminJobListConfig {
   page?: number | string;
-  size?: number | string; 
+  size?: number | string;
 }
 export interface AdminJobInterface {
-idJob: string;
-name: string;
-date : string;
-quantity: number;
-member: string;
+  idJob: string;
+  name: string;
+  date: string;
+  quantity: number;
+  member: string;
 }
 
 export interface AdminJobPassInterface {
-name: string;
-date : string;
-phone: number;
-score: string;
+  name: string;
+  date: string;
+  phone: number;
+  score: string;
 }
 
 export interface AdminJobPassListConfig {
-page?: number | string;
-size?: number | string; 
-id?: number | string; 
+  page?: number | string;
+  size?: number | string;
+  id?: number | string;
 }
 
 export interface AcountInterface {
-name: string;
-date : string;
-phone: number;
-email: string;
-id: string;  
+  name: string;
+  date: string;
+  phone: number;
+  email: string;
+  id: string;
 }
 
 export interface AcountConfig {
-page?: number | string;
-size?: number | string; 
-searchText?: string;
-searchBy?: string;  
+  page?: number | string;
+  size?: number | string;
+  searchText?: string;
+  searchBy?: string;
 }
 
 export interface Pagable {
