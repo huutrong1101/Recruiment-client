@@ -224,3 +224,9 @@ export interface AcountConfig {
   searchBy?: string;
 }
 
+export interface Pagable {
+  page?: number | string;
+  limit?: number | string;
+}
+
+export interface GetUsersInterviewsParams extends Pagable {}

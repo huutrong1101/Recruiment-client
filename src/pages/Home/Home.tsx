@@ -22,6 +22,7 @@ import {
 import axiosInstance from "../../utils/AxiosInstance";
 import useQueryParams from "../../hooks/useQueryParams";
 import { omitBy, isUndefined } from "lodash";
+import { JOB_POSITION } from "../../utils/Localization";
 
 export type QueryConfig = {
   [key in keyof JobListConfig]: string;
@@ -156,7 +157,7 @@ export default function Home() {
                 )}
                 onClick={() => setShowType(!showType)}
               >
-                {type || "TYPE OF JOB"}
+                {JOB_POSITION[type] || "TYPE OF JOB"}
                 {showType && (
                   <ChevronUpIcon className={classnames("w-[20px] mr-4")} />
                 )}
@@ -175,7 +176,7 @@ export default function Home() {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute md:left-[-18px] w-full z-10 md:w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="absolute md:left-[-18px] w-full z-10 md:w-55 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="py-1">
                   {listType &&
                     listType.map((type, index) => (
@@ -193,7 +194,7 @@ export default function Home() {
                               setShowType(false);
                             }}
                           >
-                            {type}
+                            {JOB_POSITION[type]}
                           </p>
                         )}
                       </Menu.Item>

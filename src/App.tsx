@@ -65,6 +65,7 @@ import Logout from "./pages/Logout/Logout";
 import OneTimePasswordVerify from "./pages/OneTimePasswordVerify/OneTimePasswordVerify";
 import { EventService } from "./services/EventService";
 import CandidateDetail from "./pages/Reccer/CandidateDetail";
+import UserProfileMyResume from "./pages/UserProfile/UserProfileMyResume";
 
 export default function App() {
   useTokenAuthorize();
@@ -108,6 +109,7 @@ export default function App() {
 
           <Route path="/profile" element={<UserProfileLayout />}>
             <Route index element={<UserProfileMyProfile />} />
+            <Route path="resume" element={<UserProfileMyResume />} />
             <Route path="information" element={<UserProfileMyInformation />} />
             <Route path="interviews" element={<UserProfileInterviews />} />
             <Route

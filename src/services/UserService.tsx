@@ -1,5 +1,7 @@
 import axiosInstance from "../utils/AxiosInstance";
 import { getLocalToken, hasLocalToken } from "../utils/localToken";
+import { GetUsersInterviewsParams } from "./services";
+import qs from "qs";
 
 const getUserFromToken = async () => {
   if (!hasLocalToken()) {
@@ -20,7 +22,26 @@ const changeUserAvatar = async (data: FormData) => {
   });
 };
 
+const updateProfile = async (data: FormData) => {
+  return await axiosInstance.put(`/user/update`, data);
+};
+
+const changePassword = async (data: FormData) => {
+  return await axiosInstance.put(`/user/change-password`, data);
+};
+
+/**
+ * Returns the interviews that owned by a candidate.
+ */
+const getUserInterviews = async ({ page, limit }: GetUsersInterviewsParams) => {
+  const searchQuery = qs.stringify({ page: page || "1", limit: limit || "10" });
+  return await axiosInstance.get(`/candidate/interviews?${searchQuery}`);
+};
+
 export const UserService = {
   getUserFromToken,
   changeUserAvatar,
+  getUserInterviews,
+  updateProfile,
+  changePassword,
 };
