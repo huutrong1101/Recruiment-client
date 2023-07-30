@@ -1,3 +1,413 @@
+// import React, { useState,useEffect } from "react";
+// import { NavLink } from "react-router-dom";
+// import { PencilSquareIcon, TrashIcon,UserMinusIcon} from "@heroicons/react/24/outline";
+// import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
+// import Button from '@mui/material/Button';
+// import Dialog from '@mui/material/Dialog';
+// import DialogActions from '@mui/material/DialogActions';
+// import DialogContent from '@mui/material/DialogContent';
+// import DialogContentText from '@mui/material/DialogContentText';
+// import DialogTitle from '@mui/material/DialogTitle';
+
+// import { useAppSelector } from "../../hooks/hooks";
+
+// import { AcountInterface, AcountConfig } from "../../services/services";
+// import PaginationAcountlist from "./Pagination/Paginationacountlist";
+// import axiosInstance from "../../utils/AxiosInstance";
+// import { omitBy, isUndefined } from "lodash";
+// import useQueryParams from "../../hooks/useQueryParams";
+// import qs from "query-string";
+// import { createSearchParams, useNavigate } from "react-router-dom";
+// import { omit, isEqual } from "lodash";
+
+// export type QueryConfig = {
+//   [key in keyof AcountConfig]: string;
+// };
+// interface TypeData {
+//   typeSelected: string;
+// }
+// export default function AdminTable({ typeSelected }: TypeData) {
+//   const Acounts: AcountInterface[] = useAppSelector((state) => state.adminacountList.Acounts);
+//   const totalAcounts = useAppSelector((state) => state.adminacountList.totalAcounts);
+
+//   const navigate = useNavigate();
+
+//   const queryParams: QueryConfig = useQueryParams();
+
+//   const queryConfig: QueryConfig = omitBy(
+//     {
+//       page: queryParams.page || "1",
+//       size: queryParams.size || 10,
+//       searchText: queryParams.searchText,
+//       searchBy: queryParams.searchBy,
+//     },
+//     isUndefined,
+//   );
+
+//   const [prevQueryConfig, setPrevQueryConfig] =
+//     useState<QueryConfig>(queryConfig);
+
+//   const [showAcounts, setAdminManagerAcountList] = useState(Acounts);
+
+//   const [pageSize, setPageSize] = useState(
+//     Math.ceil(totalAcounts / Number(queryParams.size || 10)),
+//   );
+
+//   const [isLoading, setIsLoading] = useState(false);
+//   if (typeSelected == "Blacklist") {
+//     {
+//       const queryConfig: QueryConfig = omitBy(
+//         {
+//           page: queryParams.page || "1",
+//           size: queryParams.size || 10,
+//           searchText: queryParams.searchText   || "BLACKLIST",
+//           searchBy: queryParams.searchBy  || "role",
+//         },
+//         isUndefined,
+//       );  
+//       useEffect(() => {
+//         if (!isEqual(prevQueryConfig, queryConfig)) {
+//           const fetchAcounts = async () => {
+//             try {
+//               const query = qs.stringify(queryConfig);
+//               const response = await axiosInstance(`/admin/users?${query}`);
+//               setAdminManagerAcountList(response.data.result.content);
+//               setPageSize(response.data.result.totalPages);
+//             } catch (error) {
+//               console.log(error);
+//             }
+//           };
+//           fetchAcounts();
+//           setPrevQueryConfig(queryConfig);
+//         }
+//       }, [queryConfig, prevQueryConfig]);
+//       return (
+//           <div className="mt-10 w-full max-w-full overflow-x-auto rounded-xl">
+//           <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
+//             <Table className="w-full text-gray-500 dark:text-gray-400 text-center">
+//               <TableHead className=" text-gray-700 uppercase bg-gray-200 text-center">
+//                 <TableRow>
+//                   <TableCell scope="col" className="px-3 py-1">                    Name                  </TableCell>
+//                   <TableCell scope="col" className="px-3 py-1">                    ROLE           </TableCell>
+//                   <TableCell scope="col" className="px-3 py-1">                    Phone number                  </TableCell>
+//                   <TableCell scope="col" className="px-3 py-1">                    Email                  </TableCell>
+//                   <TableCell scope="col" className="px-3 py-1">                    Date created                  </TableCell>
+//                   <TableCell scope="col" className="px-3 py-1">                    Actions                  </TableCell>
+//                   {                  }
+//                 </TableRow>
+//               </TableHead>
+//               <TableBody>
+//               {showJobLists.map((datalist)  => (
+//                   <TableRow className="text-black bg-white text-center justify-center" key={datalist.id}>
+//                     <TableCell  scope="row"   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+//                       {datalist.name}
+//                     </TableCell>
+//                     <TableCell className="px-6 py-4 text-center justify-center">BlackList</TableCell>
+//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.phone}</TableCell>
+//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.email}</TableCell>
+//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.date}</TableCell>
+//                     {/* <td className="px-6 py-4">{item.stateBlackList}</td> */}
+//                     <TableCell className="px-6 py-4">
+//                       <button>
+//                         <NavLink to={`/admin/blacklist-delete/`} onClick={() => {}}>
+//                             <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
+//                         </NavLink>
+//                       </button>
+//                       <button>
+//                         <NavLink to={"/admin/blacklist-delete"} onClick={() => {}}>
+//                           <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
+//                         </NavLink>
+//                       </button>
+//                     </TableCell>
+//                     </TableRow>
+//                 ))}
+//               </TableBody>
+//             </Table>           
+//           </div>
+//       )
+//     }
+//   }
+//   else if (typeSelected === "All") {
+//     const queryConfig: QueryConfig = omitBy(
+//       {
+//         page: queryParams.page || "1",
+//         size: queryParams.size || 10,
+//         searchText: queryParams.searchText   || ,
+//         searchBy: queryParams.searchBy  || ,
+//       },
+//       isUndefined,
+//     );  
+//     useEffect(() => {
+//       if (!isEqual(prevQueryConfig, queryConfig)) {
+//         const fetchAcounts = async () => {
+//           try {
+//             const query = qs.stringify(queryConfig);
+//             const response = await axiosInstance(`/admin/users?${query}`);
+//             setAdminManagerAcountList(response.data.result.content);
+//             setPageSize(response.data.result.totalPages);
+//           } catch (error) {
+//             console.log(error);
+//           }
+//         };
+//         fetchAcounts();
+//         setPrevQueryConfig(queryConfig);
+//       }
+//     }, [queryConfig, prevQueryConfig]);
+//     return (
+//       <div className="mt-10 w-full max-w-full overflow-x-auto rounded-xl">
+//           <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
+//             <Table className="w-full text-gray-500 dark:text-gray-400 text-center">
+//               <TableHead className=" text-gray-700 uppercase bg-gray-200 text-center">
+//                 <TableRow>
+//                   <TableCell scope="col" className="px-3 py-1">                    Name                  </TableCell>
+//                   <TableCell scope="col" className="px-3 py-1">                    ROLE           </TableCell>
+//                   <TableCell scope="col" className="px-3 py-1">                    Phone number                  </TableCell>
+//                   <TableCell scope="col" className="px-3 py-1">                    Email                  </TableCell>
+//                   <TableCell scope="col" className="px-3 py-1">                    Date created                  </TableCell>
+//                   <TableCell scope="col" className="px-3 py-1">                    Actions                  </TableCell>
+//                   {                  }
+//                 </TableRow>
+//               </TableHead>
+//               <TableBody>
+//               {showJobLists.map((datalist)  => (
+//                   <TableRow className="text-black bg-white text-center justify-center" key={datalist.id}>
+//                     <TableCell  scope="row"   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+//                       {datalist.name}
+//                     </TableCell>
+//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.role}</TableCell>
+//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.phone}</TableCell>
+//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.email}</TableCell>
+//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.date}</TableCell>
+//                     {/* <td className="px-6 py-4">{item.stateBlackList}</td> */}
+//                     <TableCell className="px-6 py-4">
+//                       <button>
+//                         <NavLink to={`/admin/blacklist-delete/`} onClick={() => {}}>
+//                             <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
+//                         </NavLink>
+//                       </button>
+//                       <button>
+//                         <NavLink to={"/admin/blacklist-delete"} onClick={() => {}}>
+//                           <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
+//                         </NavLink>
+//                       </button>
+//                     </TableCell>
+//                     </TableRow>
+//                 ))}
+//               </TableBody>
+//             </Table>           
+//           </div>
+//     )
+//   } else if (typeSelected === "Recruiter") {
+//     const queryConfig: QueryConfig = omitBy(
+//       {
+//         page: queryParams.page || "1",
+//         size: queryParams.size || 10,
+//         searchText: queryParams.searchText   || "RECRUITER",
+//         searchBy: queryParams.searchBy  || role,
+//       },
+//       isUndefined,
+//     );  
+//     useEffect(() => {
+//       if (!isEqual(prevQueryConfig, queryConfig)) {
+//         const fetchAcounts = async () => {
+//           try {
+//             const query = qs.stringify(queryConfig);
+//             const response = await axiosInstance(`/admin/users?${query}`);
+//             setAdminManagerAcountList(response.data.result.content);
+//             setPageSize(response.data.result.totalPages);
+//           } catch (error) {
+//             console.log(error);
+//           }
+//         };
+//         fetchAcounts();
+//         setPrevQueryConfig(queryConfig);
+//       }
+//     }, [queryConfig, prevQueryConfig]);
+//     return (
+//       <div className="mt-10 w-full max-w-full overflow-x-auto rounded-xl">
+//           <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
+//             <Table className="w-full text-gray-500 dark:text-gray-400 text-center">
+//               <TableHead className=" text-gray-700 uppercase bg-gray-200 text-center">
+//                 <TableRow>
+//                   <TableCell scope="col" className="px-3 py-1">                    Name                  </TableCell>
+//                   <TableCell scope="col" className="px-3 py-1">                    ROLE           </TableCell>
+//                   <TableCell scope="col" className="px-3 py-1">                    Phone number                  </TableCell>
+//                   <TableCell scope="col" className="px-3 py-1">                    Email                  </TableCell>
+//                   <TableCell scope="col" className="px-3 py-1">                    Date created                  </TableCell>
+//                   <TableCell scope="col" className="px-3 py-1">                    Actions                  </TableCell>
+//                   {                  }
+//                 </TableRow>
+//               </TableHead>
+//               <TableBody>
+//               {showJobLists.map((datalist)  => (
+//                   <TableRow className="text-black bg-white text-center justify-center" key={datalist.id}>
+//                     <TableCell  scope="row"   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+//                       {datalist.name}
+//                     </TableCell>
+//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.role}</TableCell>
+//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.phone}</TableCell>
+//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.email}</TableCell>
+//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.date}</TableCell>
+//                     {/* <td className="px-6 py-4">{item.stateBlackList}</td> */}
+//                     <TableCell className="px-6 py-4">
+//                       <button>
+//                         <NavLink to={`/admin/blacklist-delete/`} onClick={() => {}}>
+//                             <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
+//                         </NavLink>
+//                       </button>
+//                       <button>
+//                         <NavLink to={"/admin/blacklist-delete"} onClick={() => {}}>
+//                           <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
+//                         </NavLink>
+//                       </button>
+//                     </TableCell>
+//                     </TableRow>
+//                 ))}
+//               </TableBody>
+//             </Table>           
+//         </div>
+//       }
+// else if (typeSelected === "Interviewer") {
+//   const queryConfig: QueryConfig = omitBy(
+//     {
+//     page: queryParams.page || "1",
+//     size: queryParams.size || 10,
+//     searchText: queryParams.searchText   || "INTERVIEW",
+//     searchBy: queryParams.searchBy  || role,
+//     },
+//     isUndefined,
+//   );  
+//   useEffect(() => { 
+//     if (!isEqual(prevQueryConfig, queryConfig)) {
+//     const fetchAcounts = async () => {
+//     try {
+//           const query = qs.stringify(queryConfig);
+//           const response = await axiosInstance(`/admin/users?${query}`);
+//           setAdminManagerAcountList(response.data.result.content);
+//           setPageSize(response.data.result.totalPages);
+//         } catch (error) {
+//           console.log(error);
+//         }
+//       };
+//     fetchAcounts();
+//     setPrevQueryConfig(queryConfig);
+//     }
+//   }, [queryConfig, prevQueryConfig]);
+//   }
+//   return (
+//     <div className="mt-10 w-full max-w-full overflow-x-auto rounded-xl">
+//       <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
+//         <Table className="w-full text-gray-500 dark:text-gray-400 text-center">
+//           <TableHead className=" text-gray-700 uppercase bg-gray-200 text-center">
+//           <TableRow>
+//           <TableCell scope="col" className="px-3 py-1">                    Name                  </TableCell>
+//           <TableCell scope="col" className="px-3 py-1">                    ROLE           </TableCell>
+//           <TableCell scope="col" className="px-3 py-1">                    Phone number                  </TableCell>
+//           <TableCell scope="col" className="px-3 py-1">                    Email                  </TableCell>
+//           <TableCell scope="col" className="px-3 py-1">                    Date created                  </TableCell>
+//           <TableCell scope="col" className="px-3 py-1">                    Actions                  </TableCell>
+//           </TableRow>
+//         </TableHead>
+//         <TableBody>
+//           {showJobLists.map((datalist)  => (
+//           <TableRow className="text-black bg-white text-center justify-center" key={datalist.id}>
+//           <TableCell  scope="row"   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+//           {datalist.name}
+//           </TableCell>
+//           <TableCell className="px-6 py-4 text-center justify-center">Interviewer</TableCell>
+//           <TableCell className="px-6 py-4 text-center justify-center">{datalist.phone}</TableCell>
+//           <TableCell className="px-6 py-4 text-center justify-center">{datalist.email}</TableCell>
+//           <TableCell className="px-6 py-4 text-center justify-center">{datalist.date}</TableCell>
+//           {/* <td className="px-6 py-4">{item.stateBlackList}</td> */}
+//           <TableCell className="px-6 py-4">
+//           <button>
+//           <NavLink to={`/admin/blacklist-delete/`} onClick={() => {}}>
+//           <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
+//           </NavLink>
+//           </button>
+//           <button>
+//           <NavLink to={"/admin/blacklist-delete"} onClick={() => {}}>
+//           <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
+//           </NavLink>
+//           </button>
+//           </TableCell>
+//           </TableRow>
+//         ))}
+//     </TableBody>
+//     </Table>           
+//     </div>)
+//   }
+//   return (
+//               <div className="mt-10 w-full max-w-full overflow-x-auto rounded-xl">
+//               <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
+//                     <Table className="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
+//                       <TableHead className="text-xs text-gray-700 uppercase bg-gray-200 text-center">
+//                         <TableRow>
+//                           <TableCell scope="col" className="px-3 py-1">                    Name                  </TableCell>
+//                           <TableCell scope="col" className="px-3 py-1">                    ROLE                 </TableCell>
+//                           <TableCell scope="col" className="px-3 py-1">                    Phone number                  </TableCell>
+//                           <TableCell scope="col" className="px-3 py-1">                    Email                  </TableCell>
+//                           <TableCell scope="col" className="px-3 py-1">                    Date created                  </TableCell>
+//                           <TableCell scope="col" className="px-3 py-1">                    Actions                  </TableCell>
+//                           {                  }
+//                         </TableRow>
+//                       </TableHead>
+//                   <TableBody>
+//                   {showJobLists.map((datalist)  =>  (
+//                       <TableRow className="text-black bg-white text-center" key={datalist.id}>
+//                         <TableCell   scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"> {datalist.name}</TableCell>
+//                         <TableCell className="px-6 py-4">Candidate</TableCell>
+//                         <TableCell className="px-6 py-4">{datalist.phone}</TableCell>
+//                         <TableCell className="px-6 py-4">{datalist.email}</TableCell>
+//                         <TableCell className="px-6 py-4">{datalist.day}</TableCell>
+//                         {/* <td className="px-6 py-4">{item.stateBlackList}</td> */}
+//                         <TableCell className="px-6 py-4">
+//                           <button>
+//                               <NavLink to={"/admin/position-change"} onClick={() => {}}>
+//                                 <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
+//                               </NavLink>
+//                           </button>
+//                           <button>
+//                           <TrashIcon onClick={handleClickOpen} className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
+//                               <Dialog
+//                                   open={open}
+//                                   onClose={handleClose}
+//                                   aria-labelledby="alert-dialog-title"
+//                                   aria-describedby="alert-dialog-description"
+//                                 >
+//                                   <DialogTitle id="alert-dialog-title" className='text-center'>
+//                                     {"Use Google's location service?"}
+//                                   </DialogTitle>
+//                                   <DialogContent>
+//                                     <DialogContentText id="alert-dialog-description">
+//                                     Or consider carefully before deleting them all changes when pressing the agree button.
+//                                     </DialogContentText>
+//                                   </DialogContent>
+//                                   <DialogActions>
+//                                     <Button onClick={handleClose} color="error" variant="contained">Disagree</Button>
+//                                     <Button onClick={handleClose} autoFocus type='submit' variant="contained" sx={{
+//                                             backgroundColor: "#059669",'&:hover': { backgroundColor: "#289972", },
+//                                         }}>
+//                                         Agree
+//                                     </Button>
+//                                   </DialogActions>
+//                                 </Dialog>
+//                           </button>
+//                             <button>
+//                             <NavLink to={"/admin/blacklist-add"} onClick={() => {}}>
+//                               <UserMinusIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
+//                             </NavLink>
+//                             </button>
+//                         </TableCell>
+//                       </TableRow>
+//                     ))}
+//                     </TableBody>
+//                   </Table>        
+//                 </div>
+//               );
+// }
+
+
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { PencilSquareIcon, TrashIcon,UserMinusIcon} from "@heroicons/react/24/outline";
@@ -238,3 +648,4 @@ export default function AdminTable({ typeSelected }: TypeData) {
       </div>
   );
 }
+

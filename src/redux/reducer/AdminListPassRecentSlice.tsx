@@ -9,6 +9,8 @@ const AdminListPassRecentSlice = createSlice({
     initialState: {
         adminmanagerpassList: [],
         adminmanagerpassListStatus: STATUS.IDLE,
+        totalListPassJobs: 0,
+
     },
     reducers: {
         setAdminManagerPassList(state, action){
@@ -16,21 +18,26 @@ const AdminListPassRecentSlice = createSlice({
         },
         setAdminManagerPassListStatus(state, action){
             state.adminmanagerpassListStatus = action.payload;
+        },
+        setTotalListPassJobs(state, action){
+            state.totalListPassJobs = action.payload;
         }
     }
 });
 export default AdminListPassRecentSlice.reducer;
 
-export const {setAdminManagerPassList, setAdminManagerPassListStatus }
+export const {setAdminManagerPassList, setAdminManagerPassListStatus, setTotalListPassJobs }
 = AdminListPassRecentSlice.actions;
 
 export const fetchAdminManagerPassList = () => {
     return async function fetchAdminManagerPassListThunk(dispatch : Dispatch){
         dispatch(setAdminManagerPassListStatus(STATUS.LOADING));
         try{
-            const reponse = await axiosInstance.get("interviewer/candidate-recent?page=0");
+            const reponse = await axiosInstance.get("/admin/jobs/1?page=1&size=10");
             const data = await reponse.data;
+            const totalListPassJobs = reponse.data.result.totalElements;
             console.log(data.result.content);
+            dispatch(setTotalListPassJobs(totalListPassJobs));
             dispatch(setAdminManagerPassList(data.result.content));
             dispatch(setAdminManagerPassListStatus(STATUS.IDLE));
         }catch(error){

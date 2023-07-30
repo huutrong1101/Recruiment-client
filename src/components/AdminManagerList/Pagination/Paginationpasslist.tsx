@@ -1,29 +1,28 @@
 import React from "react";
 import { Link, createSearchParams } from "react-router-dom";
 import classNames from "classnames";
-import { QueryConfig } from "../../pages/Jobs/Jobs";
+import { QueryConfig } from "../../AdminManagerList/ListCandiPass";
 
 interface Props {
   queryConfig: QueryConfig;
   pageSize: number;
-  url: string;
 }
 
-const RANGE = 2;
+const RANGE = 0;
 
-export default function Pagination({ queryConfig, pageSize, url }: Props) {
-  const page = Number(queryConfig.index);
+export default function Paginationpasslist({ queryConfig, pageSize }: Props) {
+  const page = Number(queryConfig.page);
 
-  const renderPagination = () => {
+  const renderPaginationpasslist = () => {
     let dotAfter = false;
     let dotBefore = false;
 
-    const renderDotBefore = (index: number) => {
+    const renderDotBefore = (page: number) => {
       if (!dotBefore) {
         dotBefore = true;
         return (
           <button
-            key={index}
+            key={page}
             className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"
           >
             ...
@@ -33,12 +32,12 @@ export default function Pagination({ queryConfig, pageSize, url }: Props) {
       return null;
     };
 
-    const renderDotAfter = (index: number) => {
+    const renderDotAfter = (page: number) => {
       if (!dotAfter) {
         dotAfter = true;
         return (
           <span
-            key={index}
+            key={page}
             className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"
           >
             ...
@@ -50,43 +49,43 @@ export default function Pagination({ queryConfig, pageSize, url }: Props) {
 
     return Array(pageSize)
       .fill(0)
-      .map((_, index) => {
-        const pageNumber = index + 1;
+      .map((_, page) => {
+        const pageNumber = page + 1;
 
         if (
           page <= RANGE * 2 + 1 &&
           pageNumber > page + RANGE &&
           pageNumber < pageSize - RANGE + 1
         ) {
-          return renderDotAfter(index);
+          return renderDotAfter(page);
         } else if (page > RANGE * 2 + 1 && page < pageSize - RANGE * 2) {
           if (pageNumber < page - RANGE && pageNumber > RANGE) {
-            return renderDotBefore(index);
+            return renderDotBefore(page);
           } else if (
             pageNumber > page + RANGE &&
             pageNumber < pageSize - RANGE + 1
           ) {
-            return renderDotAfter(index);
+            return renderDotAfter(page);
           }
         } else if (
           page >= pageSize - RANGE * 2 &&
           pageNumber > RANGE &&
           pageNumber < page - RANGE
         ) {
-          return renderDotBefore(index);
+          return renderDotBefore(page);
         }
 
         return (
-          <li key={index}>
+          <li key={page}>
             <Link
               to={{
-                pathname: url,
+                pathname: "",
                 search: createSearchParams({
                   ...queryConfig,
-                  index: pageNumber.toString(),
+                page: pageNumber.toString(),
                 }).toString(),
               }}
-              key={index}
+              key={page}
               className={classNames(
                 "mx-2 cursor-pointer rounded border bg-white px-3 py-2 shadow-sm",
                 {
@@ -116,10 +115,10 @@ export default function Pagination({ queryConfig, pageSize, url }: Props) {
             ) : (
               <Link
                 to={{
-                  pathname: url,
+                  pathname: "",
                   search: createSearchParams({
                     ...queryConfig,
-                    index: (page - 1).toString(),
+                    page: (page - 1).toString(),
                   }).toString(),
                 }}
                 className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"
@@ -129,7 +128,7 @@ export default function Pagination({ queryConfig, pageSize, url }: Props) {
             )}
           </li>
 
-          {renderPagination()}
+          {renderPaginationpasslist()}
 
           <li>
             {page === pageSize ? (
@@ -139,10 +138,10 @@ export default function Pagination({ queryConfig, pageSize, url }: Props) {
             ) : (
               <Link
                 to={{
-                  pathname: url,
+                  pathname: "",
                   search: createSearchParams({
                     ...queryConfig,
-                    index: (page + 1).toString(),
+                    page: (page + 1).toString(),
                   }).toString(),
                 }}
                 className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"

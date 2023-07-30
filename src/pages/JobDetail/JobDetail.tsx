@@ -19,6 +19,7 @@ import Loader from "../../components/Loader/Loader";
 import moment from "moment";
 import { JobInterface } from "../../services/services";
 import { useAppSelector } from "../../hooks/hooks";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
 export default function JobDetail() {
   const { jobId } = useParams();
@@ -67,8 +68,6 @@ export default function JobDetail() {
           name: "Job Type",
           value: job.position.name,
         },
-        // { icon: <BriefcaseIcon />, name: "Experience", value: "2+ years" },
-        // { icon: <AcademicCapIcon />, name: "Qualification", value: "MCA" },
         {
           icon: <CurrencyDollarIcon />,
           name: "Salary",
@@ -117,11 +116,63 @@ export default function JobDetail() {
                 >
                   <div>
                     <h1 className="text-2xl font-semibold">Job description</h1>
-                    <br />
-                    <p>{job.description}</p>
-                    <p>{job.requirement}</p>
+                    <p>{job?.description}</p>
                   </div>
                 </div>
+
+                {/* Requirement */}
+                <div
+                  className={classNames(
+                    `border bg-white shadow-sm rounded-xl`,
+                    `px-8 py-8`,
+                    `text-justify`,
+                  )}
+                >
+                  <div>
+                    <h1 className="text-2xl font-semibold">Requirement</h1>
+                    <p>{job?.requirement}</p>
+                  </div>
+                </div>
+
+                {/* Benefit */}
+                <div
+                  className={classNames(
+                    `border bg-white shadow-sm rounded-xl`,
+                    `px-8 py-8`,
+                    `text-justify`,
+                  )}
+                >
+                  <div>
+                    <h1 className="text-2xl font-semibold">Benefit</h1>
+                    <p>{job?.benefit}</p>
+                  </div>
+                </div>
+
+                {/* Skill */}
+                <div
+                  className={classNames(
+                    `border bg-white shadow-sm rounded-xl`,
+                    `px-8 py-8`,
+                    `text-justify`,
+                  )}
+                >
+                  <div>
+                    <h1 className="text-2xl font-semibold">Skills Require</h1>
+                    <div className="flex flex-wrap p-4">
+                      {job?.skills.map((item, index) => (
+                        <div key={index}>
+                          <span
+                            key={index}
+                            className="rounded-lg bg-[#78AF9A] bg-opacity-40 p-2 mx-2 my-1 text-[#218F6E]"
+                          >
+                            {item.name}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                {/* /Skill */}
               </div>
 
               {/* Right side description */}
@@ -152,7 +203,9 @@ export default function JobDetail() {
             </div>
           </>
         ) : (
-          <Loader />
+          <div className="flex justify-center my-4">
+            <LoadSpinner className="text-3xl text-emerald-500" />
+          </div>
         )}
       </div>
     </>

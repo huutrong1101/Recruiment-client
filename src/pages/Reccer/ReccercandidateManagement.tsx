@@ -6,6 +6,7 @@ import { fetchCandidateList } from "../../redux/reducer/CandidateListSlice";
 import { STATUS } from "../../utils/Status";
 import Loader from "../../components/Loader/Loader";
 import RecCandidateCard from "../../components/RecCandidateManageCard/RecCandidateManageCard";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
 const ReccerCandidateManagement = () => {
   const { candidatesList, candidatesListStatus } = useAppSelector(
@@ -18,7 +19,11 @@ const ReccerCandidateManagement = () => {
   }, []);
 
   if (candidatesListStatus === STATUS.LOADING) {
-    return <Loader />;
+    return (
+      <div className="flex justify-center mb-10 py-6">
+        <LoadSpinner className="text-3xl" />
+      </div>
+    );
   } else if (candidatesListStatus === STATUS.IDLE) {
     return (
       <>

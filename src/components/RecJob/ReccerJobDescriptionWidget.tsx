@@ -3,13 +3,13 @@ import { Transition } from "@headlessui/react";
 import classNames from "classnames";
 
 interface JobDescriptionWidgetProps {
-  companyName: string;
-  jobRole: string;
-  publishDate: Date;
+  companyName: any;
+  jobRole: any;
+  publishDate: any;
 
   logo: {
     src: any;
-    alt: string;
+    alt: any;
   };
 }
 
@@ -53,8 +53,8 @@ export default function ReccerJobDescriptionWidget({
           {/* Right */}
 
           {/* TODO: change this to from date to date */}
-          <div className={`text-zinc-400 text-sm`}>
-            {publishDate.toDateString()}
+          <div className={`text-zinc-400 text-sm mr-10 `}>
+            {publishDate}
           </div>
         </div>
       </div>

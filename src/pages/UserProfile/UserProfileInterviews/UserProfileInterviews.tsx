@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Tab } from "@headlessui/react";
 import classnames from "classnames";
 import { HiListBullet, HiCalendarDays } from "react-icons/hi2";
@@ -11,6 +11,11 @@ import listPlugin from "@fullcalendar/list";
 import Modal from "../../../components/Modal/Modal";
 import classNames from "classnames";
 import moment from "moment";
+import { useAppDispatch } from "../../../hooks/hooks";
+import { getUserInterviews } from "../slices/UserInterviewSlice";
+import { useSearchParams } from "react-router-dom";
+import qs from "qs";
+import { toast } from "react-toastify";
 
 export interface TableRow {
   id: string;
@@ -214,6 +219,24 @@ const data = [
 ];
 
 export default function UserProfileInterviews() {
+  const dispatch = useAppDispatch();
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    // console.log(searchParams);
+    const page = searchParams.get("page") || "1";
+    const limit = searchParams.get("limit") || "10";
+    dispatch(getUserInterviews({ page, limit }))
+      .unwrap()
+      .catch((response) => {
+        console.log();
+        toast.error(
+          // `There was an error when fetching your interview schedule.`,
+          response.message,
+        );
+      });
+  }, []);
+
   return (
     <div className="flex-1">
       <Tab.Group>

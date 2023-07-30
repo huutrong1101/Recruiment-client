@@ -5,10 +5,11 @@ import { useDispatch } from "react-redux";
 import axiosInstance from "../../utils/AxiosInstance";
 
 const RecJobListSlice = createSlice({
-  name: "recjobList",
+  name: "RecJobList",
   initialState: {
     recjobsList: [],
     recjobsListStatus: STATUS.IDLE,
+    recjobTotal: 0,
   },
   reducers: {
     setRecjobsList(state, action) {
@@ -17,19 +18,22 @@ const RecJobListSlice = createSlice({
     setRecjobsListStatus(state, action) {
       state.recjobsListStatus = action.payload;
     },
+    setTotalJobs(state, action) {
+      state.recjobTotal = action.payload;
+    },
   },
 });
 
 export default RecJobListSlice.reducer;
-export const { setRecjobsList, setRecjobsListStatus } =
-RecJobListSlice.actions;
+export const { setRecjobsList, setRecjobsListStatus, setTotalJobs } =
+  RecJobListSlice.actions;
 
 export const fetchRecJobList = () => {
   return async function fetchRecJobListThunk(dispatch: Dispatch) {
     dispatch(setRecjobsListStatus(STATUS.LOADING));
     try {
-        const reponse = await axiosInstance.get(`recruiter/jobs`);
-        const data = await reponse.data;  
+      const response = await axiosInstance.get(`recruiter/jobs`);
+      const data = await response.data;
       dispatch(setRecjobsList(data.result.content));
       dispatch(setRecjobsListStatus(STATUS.IDLE));
     } catch (error) {

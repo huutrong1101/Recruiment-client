@@ -39,7 +39,7 @@ export const linksAll = [
       {
         name: "Manager Job",
         icon: <HiOutlineCalendarDays />,
-        url: "admin/job-manager",
+        url: "admin/jobs",
       },
     ],
   },
@@ -59,7 +59,7 @@ export const linksAll = [
       {
         name: "Interviewer",
         icon: <MdOutlineManageAccounts />,
-        url: "recruiter/interviewer",
+        url: "recruiter/interviewers",
       },
       {
         name: "Candidate",
@@ -69,12 +69,12 @@ export const linksAll = [
       {
         name: "Job",
         icon: <HiOutlineFolder />,
-        url: "recruiter/job-management",
+        url: "recruiter/jobs",
       },
       {
         name: "Event",
         icon: <MdOutlineEventAvailable />,
-        url: "recruiter/event-manager",
+        url: "recruiter/events",
       },
     ],
   },

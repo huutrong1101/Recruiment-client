@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
@@ -6,12 +6,21 @@ import { Link } from "react-router-dom";
 import { data } from "../../data/RecDashboardData";
 import RecCard from "../../components/RecDashboardCard/RecDashboardCard";
 import LineChart from './Recchart';
+import { useAppDispatch } from "../../hooks/hooks";
+import { fetchRecJobList } from "../../redux/reducer/RecJobSlice";
+import { fetchRecInterviewerList } from "../../redux/reducer/RecInterviewerSilce";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 export default function Reccer_dashboard() {
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(fetchRecJobList())
+        dispatch(fetchRecInterviewerList())
+    }, []);
     return (
         <>
             <div className="mx-[3%] h-full">
@@ -96,7 +105,7 @@ export default function Reccer_dashboard() {
 
                 </div>
 
-                
+
             </div>
 
         </>
