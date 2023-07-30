@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axiosInstance from "../../utils/AxiosInstance";
+import { useParams } from "react-router-dom";
 
 export default function InterviewHistory() {
   const interviewHistory = [
@@ -9,6 +11,24 @@ export default function InterviewHistory() {
     { name: "C++", date: "2022-03-10", state: "Pending" },
     { name: "NodeJs", date: "2022-03-10", state: "Pending" },
   ];
+
+  const { userId } = useParams();
+  const [interview, setInterview] = useState(null);
+  useEffect(() => {
+    console.log("hehe");
+    const getInterviewHistory = async () => {
+      try {
+        const response = await axiosInstance.get(
+          `recruiter/candidates/${userId}/interviews`,
+        );
+        setInterview(response.data.result);
+        console.log(interview);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getInterviewHistory();
+  }, [userId]);
 
   return (
     <div className="History mt-8 bg-white p-6 border rounded-2xl">
