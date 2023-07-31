@@ -5,7 +5,7 @@ import { Fragment } from 'react';
 import classNames from 'classnames';
 //----------------SKILL
 export default function TechFilter() {
-    const types = ['NodeJs', 'ReactJS', 'Angular', 'VueJS', 'NextJS']
+    const types = ['C#', 'java', 'Python', 'ReactJS']
     const [isActive, setIsActive] = useState(false)
     const handleActive = (e: any) => setIsActive(!isActive)
     return (

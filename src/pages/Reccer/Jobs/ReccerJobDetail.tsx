@@ -25,33 +25,34 @@ import moment from "moment";
 import Loader from "../../../components/Loader/Loader";
 
 export default function ReccerJobDetail() {
-  const { jobId } = useParams();
+
   // const listSkills = ["React", "Java", "HTML", "Figma", "WordPress"];
 
-  const [job, setJob] = useState<JobInterface | null>(null);
+
 
   const [jobInformation, setJobInformation] = useState([
-    { icon: <UserIcon />, name: "Employee Type", value: "Full time" },
-    { icon: <MapPinIcon />, name: "Location", value: "Ftown3" },
+    { icon: <UserIcon />, name: "Employee Type", value: "" },
+    { icon: <MapPinIcon />, name: "Location", value: "" },
     {
       icon: <ComputerDesktopIcon />,
       name: "Job Type",
       value: "Back-end Developer",
     },
-    { icon: <BriefcaseIcon />, name: "Experience", value: "2+ years" },
-    { icon: <AcademicCapIcon />, name: "Qualification", value: "MCA" },
+    { icon: <BriefcaseIcon />, name: "Experience", value: "" },
+    { icon: <AcademicCapIcon />, name: "Qualification", value: "" },
     {
       icon: <CurrencyDollarIcon />,
       name: "Salary",
-      value: "12 Mil (negotiable)",
+      value: "",
     },
     {
       icon: <ClockIcon />,
       name: "Posted at",
-      value: new Date().toDateString(),
+      value:"",
     },
   ]);
-
+  const { jobId } = useParams();
+  const [job, setJob] = useState<JobInterface | null>(null);
   useEffect(() => {
     const getJobDetail = async () => {
       const response = await axiosInstance.get(`recruiter/jobs/${jobId}`);//Viết API cho BE viết lấy 1 job trong list job của reccer

@@ -1,51 +1,60 @@
-import React from "react";
-import classnames from "classnames";
-import { HiPencilSquare, HiTrash } from "react-icons/hi2";
-import { Link } from "react-router-dom";
+import { HiEye, HiPencilSquare, HiStar, HiTrash } from "react-icons/hi2";
+import classNames from "classnames";
+import logo_FPT from "../../../images/logo_FPT.png";
 
 interface UserResumeProps {
+  priorityCV: string;
+  id: string;
   name: string;
+  date: string;
   onEdit: () => void;
   onDelete: () => void;
   onClick: () => void;
 }
 
 export default function UserResume({
+  id,
+  priorityCV,
   name,
+  date,
   onEdit,
   onDelete,
   onClick,
 }: UserResumeProps) {
   return (
-    <div
-      className={classnames(
-        `border rounded-xl px-4 py-2 flex flex-row items-center`,
-        `text-zinc-500 hover:text-zinc-900`,
-        `hover:border-emerald-600`,
-        `transition-colors duration-100 ease-in-out`,
-      )}
-    >
-      <button onClick={onClick} className={classnames(`flex-1 text-left`)}>
-        <span>{name}</span>
-      </button>
-      {/* Action buttons */}
-      <div className={classnames(`flex flex-row gap-2`)}>
-        <button
-          onClick={onEdit}
-          className={classnames(
-            `text-zinc-500 hover:text-yellow-600 focus:text-yellow-600`,
-          )}
-        >
-          <HiPencilSquare />
-        </button>
-        <button
-          onClick={onDelete}
-          className={classnames(
-            `text-zinc-500 hover:text-red-600 focus:text-red-600`,
-          )}
-        >
-          <HiTrash />
-        </button>
+    <div className="w-full px-4 mb-8 cursor-pointer sm:w-1/2 lg:w-1/2">
+      <div className="p-6 mb-4 bg-white rounded-lg shadow-md">
+        <div className="flex flex-wrap items-center justify-between mb-4">
+          <img src={logo_FPT} alt="" className="w-12 h-12" />
+          <p
+            className={`text-sm ${id === priorityCV ? "text-yellow-500" : ""}`}
+            onClick={onClick}
+          >
+            <HiStar size={18} />
+          </p>
+        </div>
+        <div className="pt-4 border-t border-gray-200">
+          <h3 className="text-lg font-bold">{name}</h3>
+          <p>Posted at {date}</p>
+        </div>
+        <div className="flex flex-row justify-end gap-2 mt-4">
+          <button
+            className={classNames(
+              `text-zinc-500 hover:text-yellow-600 focus:text-yellow-600`,
+            )}
+            onClick={onEdit}
+          >
+            <HiEye />
+          </button>
+          <button
+            className={classNames(
+              `text-zinc-500 hover:text-red-600 focus:text-red-600`,
+            )}
+            onClick={onDelete}
+          >
+            <HiTrash />
+          </button>
+        </div>
       </div>
     </div>
   );

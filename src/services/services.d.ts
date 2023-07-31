@@ -48,6 +48,114 @@ export interface JobListConfig {
   posName?: string;
 }
 
+export interface RecInterviewerListConfig {
+  page?: number | string;
+  size?: number | string;
+  fullName?: string;
+}
+
+export interface RecInterviewerInterface {
+  email: string;
+  phone: number | string;
+  fullName: string;
+  avatar: string;
+  address: string;
+  about: string;
+  skills: {
+    skillId: number;
+    name: string;
+  }[];
+  projects: {
+    projectId: string;
+    projectName: string;
+    positionInProject: string;
+    description: string;
+  }[];
+  awards: {
+    awardId: string;
+    awardName: string;
+    awardOrganization: string;
+    awardWinningTime: string;
+  }[];
+  experiences: {
+    experienceId: string;
+    companyName: string;
+    position: string;
+    time: string;
+  }[];
+  courses: {
+    courseId: string;
+    courseName: string;
+    trainningOrganizations: string;
+    completionTime: string;
+  }[];
+  certificates: {
+    certificateId: string;
+    certificateName: string;
+    certificateBody: string;
+    certificationTime: string;
+  }[];
+  educations: {
+    educationId: string;
+    schoolName: string;
+    specialized: string;
+    certificate: string;
+  }[];
+  dateOfBirth: string;
+  interviewerId: string;
+
+}export interface RecCandidateInterface {
+  email: string;
+  phone: number | string;
+  fullName: any;
+  avatar: string;
+  address: string;
+  about: string;
+  skills: {
+    skillId: number;
+    name: string;
+  }[];
+  projects: {
+    projectId: string;
+    projectName: string;
+    positionInProject: string;
+    description: string;
+  }[];
+  awards: {
+    awardId: string;
+    awardName: string;
+    awardOrganization: string;
+    awardWinningTime: string;
+  }[];
+  experiences: {
+    experienceId: string;
+    companyName: string;
+    position: string;
+    time: string;
+  }[];
+  courses: {
+    courseId: string;
+    courseName: string;
+    trainningOrganizations: string;
+    completionTime: string;
+  }[];
+  certificates: {
+    certificateId: string;
+    certificateName: string;
+    certificateBody: string;
+    certificationTime: string;
+  }[];
+  educations: {
+    educationId: string;
+    schoolName: string;
+    specialized: string;
+    certificate: string;
+  }[];
+  dateOfBirth: string;
+  interviewerId: string;
+}
+
+
 export interface JobReccerListConfig {
   page?: number | string;
   size?: number | string;
@@ -78,42 +186,54 @@ export interface EventInterface {
 }
 export interface AdminJobListConfig {
   page?: number | string;
-  size?: number | string; 
+  size?: number | string;
 }
 export interface AdminJobInterface {
-idJob: string;
-name: string;
-date : string;
-quantity: number;
-member: string;
+  idJob: string;
+  name: string;
+  date: string;
+  quantity: number;
+  member: string;
 }
 
 export interface AdminJobPassInterface {
-name: string;
-date : string;
-phone: number;
-score: string;
+  name: string;
+  date: string;
+  phone: number;
+  score: string;
 }
 
 export interface AdminJobPassListConfig {
-page?: number | string;
-size?: number | string; 
-id?: number | string; 
+  page?: number | string;
+  size?: number | string;
+  id?: number | string;
 }
 
 export interface AcountInterface {
-name: string;
-date : string;
-phone: number;
-email: string;
-id: string;  
+  name: string;
+  date: string;
+  phone: number;
+  email: string;
+  id: string;
 }
 
 export interface AcountConfig {
-page?: number | string;
-size?: number | string; 
-searchText?: string;
-searchBy?: string;  
+  index: number
+  page?: number | string;
+  size?: number | string;
+  searchText?: string;
+  searchBy?: string;
+}
+
+export interface QuestionListConfig{
+  index: number,
+  page?: number | string;
+  size?: number | string;
+  skill: string;
+  type: string
+  questionId?: number | string,
+  content: number | string,
+  note: number | string,
 }
 
 export interface Pagable {
@@ -121,4 +241,4 @@ export interface Pagable {
   limit?: number | string;
 }
 
-export interface GetUsersInterviewsParams extends Pagable {}
+export interface GetUsersInterviewsParams extends Pagable { }

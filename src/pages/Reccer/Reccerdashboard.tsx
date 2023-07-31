@@ -8,6 +8,7 @@ import RecCard from "../../components/RecDashboardCard/RecDashboardCard";
 import LineChart from './Recchart';
 import { useAppDispatch } from "../../hooks/hooks";
 import { fetchRecJobList } from "../../redux/reducer/RecJobSlice";
+import { fetchRecInterviewerList } from "../../redux/reducer/RecInterviewerSilce";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -18,6 +19,7 @@ export default function Reccer_dashboard() {
 
     useEffect(() => {
         dispatch(fetchRecJobList())
+        dispatch(fetchRecInterviewerList())
     }, []);
     return (
         <>

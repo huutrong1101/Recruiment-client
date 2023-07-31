@@ -19,6 +19,7 @@ import Loader from "../../components/Loader/Loader";
 import moment from "moment";
 import { JobInterface } from "../../services/services";
 import { useAppSelector } from "../../hooks/hooks";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
 export default function JobDetail() {
   const { jobId } = useParams();
@@ -115,9 +116,7 @@ export default function JobDetail() {
                 >
                   <div>
                     <h1 className="text-2xl font-semibold">Job description</h1>
-                    <p>
-                      {job?.description}
-                    </p>
+                    <p>{job?.description}</p>
                   </div>
                 </div>
 
@@ -130,12 +129,8 @@ export default function JobDetail() {
                   )}
                 >
                   <div>
-                    <h1 className="text-2xl font-semibold">
-                      Requirement
-                    </h1>
-                    <p>
-                      {job?.requirement}
-                    </p>
+                    <h1 className="text-2xl font-semibold">Requirement</h1>
+                    <p>{job?.requirement}</p>
                   </div>
                 </div>
 
@@ -148,12 +143,8 @@ export default function JobDetail() {
                   )}
                 >
                   <div>
-                    <h1 className="text-2xl font-semibold">
-                      Benefit
-                    </h1>
-                    <p>
-                      {job?.benefit}
-                    </p>
+                    <h1 className="text-2xl font-semibold">Benefit</h1>
+                    <p>{job?.benefit}</p>
                   </div>
                 </div>
 
@@ -212,7 +203,9 @@ export default function JobDetail() {
             </div>
           </>
         ) : (
-          <Loader />
+          <div className="flex justify-center my-4">
+            <LoadSpinner className="text-3xl text-emerald-500" />
+          </div>
         )}
       </div>
     </>
