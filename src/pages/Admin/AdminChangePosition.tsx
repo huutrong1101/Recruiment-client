@@ -1,120 +1,171 @@
-import React, {useState}from 'react'
-import classnames from "classnames";
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-export default function AdminChangePosition() {
-    const [Info] = useState([{
-        avatar:"../../../images/ava.jpg",
-        name: "Nguyen Van A",
-        email: "ngan@example.com",
-        phone: "012367xxx",
-        address: "123 Main St Ba Ria Vung Tau St",
-        positon: "Recruiter",
-    }]);
-    // const [uppositon, uppositon] = useState(positon);
-    const [open, setOpen] = React.useState(false);
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
-    return (
-        Info.map((item) => (
-            <>
-                {/* Information */}
-                <div className="flex gap-5">
-                    <div className="bg-white rounded-lg shadow-lg w-[50%] top-4 ">
-                        <div className = "grid md:grid-cols-1 text-sm self-stretch px-2 pt-[13px] pb-[11px]">
-                                {/* Title */}
-                                <div className = "flex items-center text-center space-x-2 font-semibold text-green-500 justify-center">
-                                    <span className = "tracking-wide text-center  text-emerald-600 text-[28px] ">Information</span>
-                                </div>
-                                {/* Name */}
-                                <div className = "grid grid-cols-1">
-                                    <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide "> FullName</div>
-                                    <div className = "px-4 py-2 self-stretch pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50">{item.name}</div>
-                                </div>
-                                {/* Phone */}
-                                <div className = "grid grid-cols-1">
-                                    <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Contact No.</div>
-                                    <div className = "px-4 py-2 self-stretch pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50">{item.phone}</div>
-                                </div>                                
-                                {/* Email */}
-                                <div className = "grid grid-cols-1">
-                                    <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Email.</div>
-                                    <div className = "px-4 py-2 self-stretch pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50">{item.email} </div>
-                                </div>
-                                {/* Address */}
-                                <div className = "grid grid-cols-1">
-                                    <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Current Address</div>
-                                    <div className = "px-4 py-2 self-stretch pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50">{item.address}</div>
-                                </div>
-                            </div>
-                        </div>
+// import React, {useState}from 'react'
+// // import className from "className";
+// import Avatar from "./../../../images/ava.jpg";
 
-                        {/* Change Positon */}
-                        <div className="bg-white rounded-lg shadow-lg w-[50%] h-fit sticky">
-                            {/* Avatar */}
-                            <div className=''>
-                                <div className='flex justify-center'> <img src={item.avatar} className='w-[200px] h-[200px] justify-center rounded-full' alt="blog_image" /></div>
-                            </div>
-                            {/* Title */}
-                            <div className = "mt-10 px-5 py-4 flex items-center text-center space-x-2 font-semibold text-green-500 justify-center">
-                                    <span className = "tracking-wide text-center  text-emerald-600 text-[28px] ">Position</span>
-                            </div>
-                            {/* Set Positon */}
-                            <div className = "grid grid-cols-1 ">
-                                <div className = "flex justify-center">
-                                    <select id="position" name="position" autocomplete="position-name" class="lp ti adp afq bbi bmg bnl chy px-5 py-5 self-stretch pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50">
-                                        <option>Recruiter       </option>
-                                        <option>Candidate       </option>
-                                        <option>Interviewer     </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div className={classnames("mt-10 text-center px-5 py-4")}>
-                            <Button  
-                            sx={{
-                                backgroundColor: "#059669",
-                                '&:hover': {
-                                backgroundColor: "#289972",
-                                },
-                            }}
-                            variant="contained" onClick={handleClickOpen}>
-                                Creact
-                            </Button>
-                                <Dialog
-                                    open={open}
-                                    onClose={handleClose}
-                                    aria-labelledby="alert-dialog-title"
-                                    aria-describedby="alert-dialog-description"
-                                >
-                                    <DialogTitle id="alert-dialog-title" className='text-center'>
-                                    {"Are you sure you want to change the location of this account?"}
-                                    </DialogTitle>
-                                    <DialogContent>
-                                    <DialogContentText id="alert-dialog-description">
-                                        Or consider carefully before deleting them all changes when pressing the agree button.
-                                    </DialogContentText>
-                                    </DialogContent>
-                                    <DialogActions>
-                                    <Button onClick={handleClose} color="error" variant="contained">Disagree</Button>
-                                    <Button onClick={handleClose} autoFocus type='submit' variant="contained" sx={{
-                                            backgroundColor: "#059669",'&:hover': { backgroundColor: "#289972", },
-                                        }}>
-                                        Agree
-                                    </Button>
-                                    </DialogActions>
-                                </Dialog>
-                            </div>
-                        </div>
-                </div>
-            </>
-        ))
-    );
+// import Button from '@mui/material/Button';
+// import Dialog from '@mui/material/Dialog';
+// import DialogActions from '@mui/material/DialogActions';
+// import DialogContent from '@mui/material/DialogContent';
+// import DialogContentText from '@mui/material/DialogContentText';
+// import DialogTitle from '@mui/material/DialogTitle';
+// import { AcountInterface } from "../../services/services";
+// import { useForm } from "react-hook-form";
+// import { Link } from "react-router-dom";
+// import Modal from "../../components/Modal/Modal";
+// import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
+// import {
+//     HiUserCircle,
+//     HiEnvelope,
+//     HiMapPin,
+//     HiPhone,
+//     HiKey,
+//   } from "react-icons/hi2";
+//   import InputIcon from "../../components/InputIcon/InputIcon";
+// import axiosInstance from "../../utils/AxiosInstance";
+
+// type JobCardProps = {
+// // Các props khác nếu có
+//     userId: 2; // Đây là prop để nhận job.userId
+// };
+// export default function AdminChangePosition({  userId }: JobCardProps) {
+//     // const [open, setOpen] = React.useState(false);
+//     const [selectedRoleId, setSelectedRoleId] = useState();  
+//     // const handleDropdownChange = (event) => {
+//     //     setSelectedRoleId(event.target.value);
+//     // };
+
+//     // const newData = {
+//     //   roleId: selectedRoleId,
+//     // };
+
+//     // // Gửi yêu cầu PUT lên API
+//     // axiosInstance
+//     //     .put(`admin/users/${userId}`, newData)
+//     //     .then((response) => {
+//     //         // Xử lý response khi thành công
+//     //         console.log("Response:", response.data);
+//     //         // Hiển thị thông báo hoặc chuyển hướng trang nếu cần
+//     //     })
+//     //     .catch((error) => {
+//     //         // Xử lý error khi có lỗi
+//     //         console.error("Error:", error);
+//     //     });
+//     //     };
+//     // const {
+//     //     register,
+//     //     handleSubmit,
+//     //     formState: { errors },
+//     //   } = useForm();
+//     // console.log(jobs);
+//     // const onDataChangeSubmit = (data: any) => {
+//     // console.log(jobs);
+//     // };
+//     const handleDropdownChange = (event) => {
+//         setSelectedRoleId(event.target.value);
+//     };
+//     const handleSubmit = (event) => {
+//         event.preventDefault();
+    
+//         // Gửi yêu cầu PUT lên API với giá trị mới của selectedRoleId
+//         axiosInstance         
+//           .put(`admin/users/${userId}`, { roleId: selectedRoleId })
+//           .then((response) => {
+//             // Xử lý response khi thành công
+//             console.log('Response:', response.data);
+//             // Hiển thị thông báo hoặc chuyển hướng trang nếu cần
+//           })
+//           .catch((error) => {
+//             // Xử lý error khi có lỗi
+//             console.error('Error:', error);
+//           });
+//         console.log(`admin/users/${userId}`); console.log( selectedRoleId);
+//       };
+//     return (
+//         <div className="p-4 border rounded-xl border-zinc-100">
+//             <h1 className="text-2xl font-semibold flex-1 md:mb-4">
+//                 Change Role Account
+//             </h1>
+//             <form className="flex-1 flex flex-col gap-2" onSubmit={handleSubmit}>
+//                 <div className="grid grid-cols-1">
+//                     <div className="flex justify-center">
+//                     <select
+//                         value={selectedRoleId}
+//                         onChange={handleDropdownChange}
+//                         className="lp ti adp afq bbi bmg bnl chy px-5 py-5 self-stretch pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50"
+//                     >
+//                         <option value="2">Recruiter</option>
+//                         <option value="3">Candidate</option>
+//                         <option value="4">Interviewer</option>
+//                     </select>
+//                     </div>
+//                 </div>
+//                 {/* Submit button */}
+//                 <div className="flex flex-row-reverse">
+//                     <input type="submit" value="Save" />
+//                 </div>
+//                 </form>
+//         </div>
+//     );
+// }
+
+import React, { useState } from 'react';
+import axiosInstance from '../../utils/AxiosInstance';
+import {  AcountInterface } from "../../services/services";
+
+type JobCardProps = {
+  userId: AcountInterface; // Make sure to set the correct type for userId
+};
+
+export default function AdminChangePosition({ userId }: JobCardProps) {
+  const [selectedRoleId, setSelectedRoleId] = useState<string>(''); // Set the correct type for selectedRoleId
+
+  const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedRoleId(event.target.value);
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    // Gửi yêu cầu PUT lên API với giá trị mới của selectedRoleId
+    axiosInstance
+      .put(`admin/users/2`, { roleId: selectedRoleId })
+      .then((response) => {
+        // Xử lý response khi thành công
+        console.log('Response:', response.data);
+        // Hiển thị thông báo hoặc chuyển hướng trang nếu cần
+      })
+      .catch((error) => {
+        // Xử lý error khi có lỗi
+        console.error('Error:', error);
+      });
+    console.log(`admin/users/2`);
+    console.log(selectedRoleId);
+  };
+
+  return (
+    <div className="p-4 border rounded-xl border-zinc-100">
+      <h1 className="text-2xl font-semibold flex-1 md:mb-4">
+        Change Role Account
+      </h1>
+      <form className="flex-1 flex flex-col gap-2" onSubmit={handleSubmit}>
+        <div className="grid grid-cols-1">
+          <div className="flex justify-center">
+            <select
+              value={selectedRoleId}
+              onChange={handleDropdownChange}
+              className="lp ti adp afq bbi bmg bnl chy px-5 py-5 self-stretch pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50"
+            >
+              <option value="2">Recruiter</option>
+              <option value="3">Candidate</option>
+              <option value="4">Interviewer</option>
+            </select>
+          </div>
+        </div>
+        {/* Submit button */}
+        <div className="flex flex-row-reverse">
+          <button type="submit">Save</button>
+        </div>
+      </form>
+    </div>
+  );
 }
