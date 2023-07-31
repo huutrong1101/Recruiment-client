@@ -58,7 +58,6 @@ export default function Navbar() {
                 className={classNames(`flex flex-row gap-12`, `font-semibold`)}
               >
                 {updatedLeftMenu.map((item) => {
-                  console.log(item);
                   return (
                     <Link
                       to={item.url}

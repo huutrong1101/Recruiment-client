@@ -1,9 +1,14 @@
 import classNames from "classnames";
-import React, { useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import UserResume from "../../components/UserResume/UserResume";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HiArrowUpTray, HiPlus } from "react-icons/hi2";
+import axiosInstance from "../../utils/AxiosInstance";
+import moment from "moment";
+import { toast } from "react-toastify";
+import { UserService } from "../../services/UserService";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
 export default function UserProfileMyResume() {
   let [isOpen, setIsOpen] = useState(false);
@@ -55,16 +60,53 @@ export default function UserProfileMyResume() {
     setPriorityCV(id);
   };
 
-  const [file, setFile] = useState<File | null>(null);
+  const [cvUpload, setCVUpload] = useState([]);
 
-  const handleDelete = () => {
-    alert("Delete success");
+  const [isLoadingUpload, setIsLoadingUpload] = useState(false);
+
+  useEffect(() => {
+    const fetchCVUpload = async () => {
+      setIsLoadingUpload(true);
+      try {
+        const response = await axiosInstance("candidate/resumesUpload");
+        setCVUpload(response.data.result);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoadingUpload(false);
+      }
+    };
+    fetchCVUpload();
+  }, []);
+
+  const handleDelete = (resumeId: string) => {
+    openModal();
+    alert("Delete success " + resumeId);
   };
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newFile: File | undefined = event.target.files?.[0];
-    setFile(newFile || null);
-    alert(newFile?.name);
+  const handleEdit = (url: string) => {
+    window.open(url, "_blank");
+  };
+
+  const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files;
+    if (!fileList) {
+      return toast.error(`File is empty or not found`);
+    }
+
+    if (fileList.length === 0) {
+      return toast.error(`File is empty`);
+    }
+
+    const formData = new FormData();
+    formData.append("imageFile", fileList[0]);
+
+    toast.promise(UserService.uploadResume(formData), {
+      pending: `Uploading your CV`,
+      success: `Your CV was uploaded`,
+      error: `Failed to upload your CV`,
+    });
+
     closeModalUpload();
   };
 
@@ -83,8 +125,6 @@ export default function UserProfileMyResume() {
   function openModalUpload() {
     setIsUpload(true);
   }
-
-  console.log(priorityCV);
 
   return (
     <div className={classNames(`flex-1 flex flex-col gap-4`)}>
@@ -142,24 +182,45 @@ export default function UserProfileMyResume() {
         >
           <h3 className="text-lg">Resume Uploaded</h3>
           <div className={classNames(`flex flex-wrap -mx-4`)}>
-            {listCV
-              .filter((item) => item.type === "upload")
-              .map((resume) => (
-                <UserResume
-                  key={resume.id}
-                  priorityCV={priorityCV}
-                  id={resume.id}
-                  name={resume.name}
-                  date={resume.date}
-                  onDelete={() => {
-                    openModal();
-                  }}
-                  onEdit={() => {
-                    alert(`Xem chi tiết ${resume.name}`);
-                  }}
-                  onClick={() => handleSetPriorityCV(resume.id)}
-                />
-              ))}
+            {isLoadingUpload ? (
+              <div className="flex items-center justify-center w-full my-4">
+                <LoadSpinner className="text-3xl text-emerald-500" />
+              </div>
+            ) : (
+              <>
+                {cvUpload.length > 0 ? (
+                  <>
+                    {cvUpload.map((resume: any) => {
+                      const date = moment(resume.createdDate).format(
+                        "Do MMM, YYYY",
+                      );
+                      return (
+                        <UserResume
+                          key={resume.resumeUploadId}
+                          priorityCV={priorityCV}
+                          id={resume.resumeUploadId}
+                          name={resume.name}
+                          date={date}
+                          onDelete={() => {
+                            handleDelete(resume.resumeUploadId);
+                          }}
+                          onEdit={() => {
+                            handleEdit(resume.linkUpload);
+                          }}
+                          onClick={() =>
+                            handleSetPriorityCV(resume.resumeUploadId)
+                          }
+                        />
+                      );
+                    })}
+                  </>
+                ) : (
+                  <div className="flex items-center justify-center w-full">
+                    You don't have a resume
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -218,7 +279,7 @@ export default function UserProfileMyResume() {
         cancelTitle="No"
         successClass="text-red-900 bg-red-100 hover:bg-red-200 focus-visible:ring-red-500"
         successTitle="Yes"
-        handleSucces={handleDelete}
+        handleSucces={() => handleDelete}
         titleClass=""
         size=""
       >
