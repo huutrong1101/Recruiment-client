@@ -21,6 +21,14 @@ const changeUserAvatar = async (data: FormData) => {
   });
 };
 
+const uploadResume = async (data: FormData) => {
+  return await axiosInstance.put(`/candidate/resumes`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
 const updateProfile = async (data: FormData) => {
   return await axiosInstance.put(`/user/update`, data);
 };
@@ -43,4 +51,5 @@ export const UserService = {
   getUserInterviews,
   updateProfile,
   changePassword,
+  uploadResume,
 };
