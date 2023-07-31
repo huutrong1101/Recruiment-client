@@ -12,7 +12,6 @@ export default function InterviewHistory() {
 
   return (
     <div className="History mt-8 bg-white p-6 border rounded-2xl">
-      <h2 className="text-lg font-semibold">Interview History:</h2>
       <div className="relative overflow-x-auto">
         <table className="w-full text-sm text-left text-gray-500">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50    ">

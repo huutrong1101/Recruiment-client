@@ -11,6 +11,9 @@ import LoadSpinner from '../../components/LoadSpinner/LoadSpinner';
 import InterviewerRecent from '../../pages/Interviewer/InterviewRecent/InterviewRecent'
 import RecInterviewerIn4Card from '../../components/RecInterviewerManageCard/RecInterviewerIn4Card';
 import moment from 'moment';
+import InterviewRecent from '../../pages/Interviewer/InterviewRecent/InterviewRecent';
+import RecInterviewrecent from './RecInterviewRecent';
+import RecInterviewRecent from './RecInterviewRecent';
 
 export default function InterviewerDetail() {
   const { interviewerId } = useParams();
@@ -45,7 +48,7 @@ export default function InterviewerDetail() {
         { icon: <MdOutlineEmail />, name: "Email", value: interviewer?.email },
         { icon: <MdOutlineCalendarMonth />, name: "D.O.B", value: moment(interviewer?.dateOfBirth).format("Do MMM, YYYY") },
         {
-          icon: <MdOutlineLocationOn />, name: "Address", value: interviewer.address,
+          icon: <MdOutlineLocationOn />, name: "Address", value: interviewer?.address,
         },
         {
           icon: <HiOutlineDeviceMobile />, name: "Phone", value: formatPhoneNumber(interviewer?.phone),
@@ -54,8 +57,9 @@ export default function InterviewerDetail() {
     }
   }, [interviewer]);
 
-  function formatPhoneNumber(phoneNumber: any) {
+  function formatPhoneNumber(phoneNumber: string) {
     // Remove any non-digit characters from the phone number using regex
+    if (phoneNumber == null){return}
     const cleanedPhoneNumber = phoneNumber.replace(/\D/g, '');
 
     // Check if the cleaned phone number has 10 digits (i.e., "0373412489")
@@ -192,7 +196,8 @@ export default function InterviewerDetail() {
             </div>
 
           </section>
-          <div className='pb-10'><InterviewerRecent /></div>
+          <div className='mt-4 text-xl font-semibold'>Interview Recent</div>
+          <div className='pb-10'><RecInterviewRecent /></div>
         </>
       ) : (
         <div className='grid items-center justify-center pt-5'>

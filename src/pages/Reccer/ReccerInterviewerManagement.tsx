@@ -205,7 +205,6 @@ const ReccerInterviewerManagement = () => {
             onChange={(e) =>
               setDataSearch({ ...dataSearch, key: e.target.value })
             }
-
             type="text"
             placeholder="Search your Keywords"
             className={classNames(
