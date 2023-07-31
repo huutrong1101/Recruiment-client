@@ -1,8 +1,7 @@
 import axiosInstance from "../utils/AxiosInstance";
 import { getLocalToken, hasLocalToken } from "../utils/localToken";
 import { GetUsersInterviewsParams } from "./services";
-import qs from "qs";
-
+import qs from "query-string";
 const getUserFromToken = async () => {
   if (!hasLocalToken()) {
     throw new Error(`Unable to load the token`);
@@ -16,6 +15,14 @@ const getUserFromToken = async () => {
 
 const changeUserAvatar = async (data: FormData) => {
   return await axiosInstance.put(`/user/avatar`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
+const uploadResume = async (data: FormData) => {
+  return await axiosInstance.put(`/candidate/resumes`, data, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -44,4 +51,5 @@ export const UserService = {
   getUserInterviews,
   updateProfile,
   changePassword,
+  uploadResume,
 };

@@ -75,48 +75,61 @@ export default function RecEventDetail() {
   const [avatar, setAvatar] = useState("../../../images/blog_image.png");
   const [dayend, setDayend] = useState("2023-04-23T08:30");
   const [daystar, setDaystar] = useState("2023-07-23T08:30");
-  const [eventName, setEventName] = useState(
-    "DigitalOcean launches first Canadian data centre in Toront",
-  );
-  const [eventContent, setEventContent] = useState(
-    "The most well-known dummy text is the Lorem Ipsum, which is said to have originated in the 16th century. Lorem Ipsum is composed in a pseudo-Latin language which more or less corresponds to proper Latin. It contains a series of real Latin words. This ancient dummy text is also incomprehensible, but it imitates the rhythm of most European languages in Latin script. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable.",
-  );
+  const [time, setTime] =     useState('');
+  const [location, setlocation] = useState('');
+  const [eventName, setEventName] = useState('' );
+  const [eventContent, setEventContent] = useState(""  );
   const [avaActor, setavarActor] = useState("../../../images/ava.jpg");
+  //Delete
+  const handleDelete = () => {
+    // Gửi yêu cầu DELETE đến API
+    axiosInstance
+      .delete(`recruiter/events/${event?.id}`)
+      .then((response) => {
+        // Xử lý phản hồi từ server nếu cần
+        console.log("Delete success");
+        // Tùy chỉnh hành động sau khi xóa thành công, ví dụ: điều hướng trang, cập nhật danh sách sự kiện, v.v.
+      })
+      .catch((error) => {
+        // Xử lý lỗi nếu có
+        console.error("Error:", error);
+        // Hiển thị thông báo lỗi hoặc thực hiện các hành động khác tùy theo trường hợp
+      });
+      setOpenSave(false);
+      setOpenDelete(true);
+    };
   return (
     <>
       <div className={classnames("flex pt-5 justify-center gap-5")}>
-        <div className={classnames("bg-white rounded-lg shadow-lg item-center w-50%")}>
-          <div className="">
-            <label htmlFor="avatar">
-              {avatar && (
-                <div>
-                  <img
-                    src={event?.img}
-                    alt="avatar"
-                    className={classnames("w-full object-cover")}
-                  />
-                </div>
-              )}
-              <input
-                type="file"
-                id="avatar"
-                accept="image/*"
-                className={classnames(
-                  "w-full object-cover ig ig-center hidden",
-                )}
-                onChange={handleImageUpload}
-              />
-            </label>
+        <div className={classnames("bg-white rounded-lg shadow-lg item-center w-70%")}>
+          <div className={classnames("flex items-left px-10 mt-10")}>
+            <label className="text-zinc-900 text-2xl font-normal leading-7 ">Image here</label>
           </div>
-
+          <div className=" flex items-left px-10 mt-10 justify-center ">
+              <label htmlFor="avatar">
+                {avatar && (
+                    <div>
+                      <img src = {event?.img} alt="blog_image" className="dai" />
+                    </div>
+                  )}
+                <input
+                    type="file"
+                    id="avatar"
+                    accept="image/*"
+                    className={classnames("w-[50%] ig object-cover ig-center hidden")}
+                    onChange={handleImageUpload}
+                />
+              </label>
+          </div>
+        
           <div
             className={classnames(
               "flex items-center justify-between px-10 mt-4",
             )}
           >
             <div className={classnames("flex items-center gap-1")}>
-              <label className="">
-                Start:
+              <h3>Start:</h3>
+              <label className="">                  
                 <input
                   type="datetime-local"
                   id="datestart"
@@ -127,8 +140,8 @@ export default function RecEventDetail() {
               </label>
             </div>
             <div className={classnames("flex items-center gap-1")}>
-              <label className="">
-                End:
+                <h3>End:</h3>
+                <label className="">                
                 <input
                   type="datetime-local"
                   id="dateend"
@@ -139,6 +152,33 @@ export default function RecEventDetail() {
               </label>
             </div>
           </div>
+          <div className={classnames("mt-4 px-10")}>
+          <div className={classnames("flex items-center gap-1")}>
+                <h3 >Time</h3>
+                <label className="">                
+                <input
+                  type="time"
+                  id="time"
+                  className="text-sm font-medium leading-tight border text-emerald-600"
+                  value={event?.time}
+                  onChange={(event) => setTime(event.target.value)}
+                />
+              </label>
+            </div>
+            <div className={classnames("flex items-center gap-1")}>
+                <h3 >Location</h3>
+                <label className="">                
+                <input
+                  type="text"
+                  id="location"
+                  className="text-sm font-medium leading-tight border text-emerald-600"
+                  value={event?.location}
+                  onChange={(event) => setlocation(event.target.value)}
+                />
+              </label>
+            </div>
+          
+          </div>
 
           <div className={classnames("mt-4 px-10")}>
             <h3
@@ -146,6 +186,7 @@ export default function RecEventDetail() {
                 "text-black font-outfit text-2xl font-medium leading-31 tracking-wider capitalize",
               )}
             >
+              Event Title
               <TextareaAutosize
                 minRows={1}
                 id="eventName"
@@ -156,15 +197,18 @@ export default function RecEventDetail() {
               />
             </h3>
             <div className={classnames("mt-2")}>
-              <ul className={classnames("flex flex-col gap-2")}>
-                <TextareaAutosize
-                  minRows={10}
-                  id="contentWidth"
-                  className="resize-none p-2.5 text-[13px] w-full text-justify bg-white"
-                  onChange={(event) => setEventContent(event.target.value)}
-                  placeholder={event?.description}
-                />
-              </ul>
+              <h3
+                className={classnames(
+                  "text-black font-outfit text-2xl font-medium leading-31 tracking-wider capitalize",
+                )}
+              >Description</h3>
+              <TextareaAutosize
+                minRows={10}
+                id="contentWidth"
+                className="resize-none p-2.5 text-[13px] w-full text-justify bg-white"
+                onChange={(event) => setEventContent(event.target.value)}
+                placeholder={event?.description}
+              />
             </div>
           </div>
 
@@ -184,7 +228,7 @@ export default function RecEventDetail() {
         {/* Author  */}
         <div
           className={classnames(
-            "bg-white rounded-lg shadow-lg w-[30%] h-fit sticky top-0",
+            "bg-white rounded-lg shadow-lg w-[50%] h-fit sticky top-0",
           )}
         >
           <div
@@ -213,50 +257,11 @@ export default function RecEventDetail() {
                     alt="avatar"
                     className="w-[175px] h-[175px] rounded-full mt-5 mb-5"
                   />
-                )}
-                <input
-                  type="file"
-                  id="avaActor"
-                  accept="image/*"
-                  className={classnames(
-                    "w-full ig object-cover ig-center hidden rounded-xl",
-                  )}
-                  onChange={handleImageUploadActor}
-                />
+                )}                
               </label>
             </div>
             <h3>Content Writer - journalist </h3>
             <h3>{event?.name}</h3>
-          </div>
-          <div className="flex items-center justify-center p-2 bg-gray-300">
-            <h3
-              className={classnames(
-                "text-center text-black text-lg font-medium tracking-wider leading-7 capitalize",
-              )}
-            >
-              Contract
-            </h3>
-          </div>
-          <div className={classnames("my-3")}>
-            <ul
-              className={classnames("flex items-center justify-center gap-3")}
-            >
-              <li className="p-1 border border-gray-500 rounded-lg cursor-pointer hover:bg-emerald-300 hover:text-white">
-                <BiLogoFacebook size={20} />
-              </li>
-              <li className="p-1 border border-gray-500 rounded-lg cursor-pointer hover:bg-emerald-300 hover:text-white">
-                <BiLogoInstagram size={20} />
-              </li>
-              <li className="p-1 border border-gray-500 rounded-lg cursor-pointer hover:bg-emerald-300 hover:text-white">
-                <BiLogoLinkedin size={20} />
-              </li>
-              <li className="p-1 border border-gray-500 rounded-lg cursor-pointer hover:bg-emerald-300 hover:text-white">
-                <BiLogoGitlab size={20} />
-              </li>
-              <li className="p-1 border border-gray-500 rounded-lg cursor-pointer hover:bg-emerald-300 hover:text-white">
-                <BiLogoTwitter size={20} />
-              </li>
-            </ul>
           </div>
         </div>
       </div>
@@ -306,7 +311,7 @@ export default function RecEventDetail() {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Disagree</Button>
-            <Button onClick={handleClose} autoFocus type="submit">
+            <Button onClick={handleDelete} autoFocus type="submit">
               Agree
             </Button>
           </DialogActions>

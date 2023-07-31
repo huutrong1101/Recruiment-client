@@ -28,7 +28,7 @@ export default function DeleteBlacklist() {
     const handleClose = () => {
     setOpen(false);
     };
-return (
+    return (
     Info.map((item) => (
         <>
           {/* Information */}

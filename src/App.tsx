@@ -36,6 +36,7 @@ import {
   CandidateRecent,
   InterviewRecent,
   InterviewDetail,
+  INTCandidateDetail
 } from "./pages/Interviewer/InterviewerPages";
 import UserProfileLayout from "./pages/UserProfile/UserProfileLayout";
 import UserProfileMyProfile from "./pages/UserProfile/UserProfileMyProfile";
@@ -122,18 +123,16 @@ export default function App() {
         </Route>
 
         <Route path="/admin" element={<ManagementAppLayOut />}>
-          <Route path="dashboard" index element={<AdminDashboard />} />
-          <Route path="position-change" element={<AdminChangePosition />} />
+          <Route path="users" index element={<AdminDashboard />} />
+          <Route path="users/:userId" element={<AdminChangePosition />} />
           <Route path="blacklist-add" element={<AddBlacklist />} />
           <Route path="blacklist-delete" element={<DeleteBlacklist />} />
           <Route path="profile" element={<AdminProfile />} />
-          {/* <Route
-            path="jobs/:id"
-            element={<ReccerInterviewerDetail />}
-          /> */}
-
-          <Route path="jobs/:idJob" element={<ManagetJobList />} />
+          <Route path="jobs/:jobId" element={<ListCandiPass />}
+          />
+          <Route path="jobs" element={<ManagetJobList />} />
         </Route>
+
 
         <Route path="/recruiter" element={<ManagementAppLayOut />}>
           {/* Define recruiter routes here */}
@@ -176,7 +175,7 @@ export default function App() {
           <Route path="candidate-recent" element={<CandidateRecent />} />
           <Route
             path="candidate-recent/:id"
-            element={<ReccerInterviewerDetail />}
+            element={<INTCandidateDetail />}
           />
           <Route index path="score-page" element={<ScorePage />} />
         </Route>

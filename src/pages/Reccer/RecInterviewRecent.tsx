@@ -2,23 +2,26 @@ import React, { useEffect, useState } from "react";
 import axiosInstance from "../../utils/AxiosInstance";
 import { useParams } from "react-router-dom";
 import moment from "moment";
+import { REC_INTERVIEW_STATUS } from "../../utils/Localization";
 
-export default function InterviewHistory() {
-  const { userId } = useParams();
+export default function RecInterviewRecent() {
+  const { interviewerId } = useParams();
   const [interview, setInterview] = useState([]);
   useEffect(() => {
     const getInterviewHistory = async () => {
       try {
         const response = await axiosInstance.get(
-          `recruiter/candidates/${userId}/interviews`,
+          `recruiter/interviewers/${interviewerId}/interviews`,
         );
         setInterview(response.data.result.contents);
+        console.log("check")
       } catch (error) {
         console.log(error);
       }
     };
     getInterviewHistory();
-  }, [userId]);
+  }, [interviewerId]);
+
 
   interview.map((interview: any, index) => {
     const data = moment(interview.time).format("Do MMM, YYYY");
@@ -61,7 +64,7 @@ export default function InterviewHistory() {
                           : "bg-yellow-100"
                       }`}
                     >
-                      {interview.state}
+                      {REC_INTERVIEW_STATUS[interview.state]}
                     </span>
                   </td>
                 </tr>

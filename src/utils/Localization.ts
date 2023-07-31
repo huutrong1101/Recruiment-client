@@ -13,3 +13,10 @@ export const JOB_POSITION: LocalizationDeclarationType = {
 export const TECHNICAL: LocalizationDeclarationType = {
   
 }
+
+export const REC_INTERVIEW_STATUS :LocalizationDeclarationType={
+  NOT_RECEIVED: "Not Received",
+  RECEIVED: "Reveived",
+  PASS: "Pass",
+  FAIL: "Fail",
+}

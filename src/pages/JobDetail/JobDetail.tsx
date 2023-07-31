@@ -15,7 +15,6 @@ import Logo from "./../../../images/logo_FPT.png";
 import JobInformationCard from "./JobInformationCard";
 import JobCard from "../../components/JobCard/JobCard";
 import axiosInstance from "../../utils/AxiosInstance";
-import Loader from "../../components/Loader/Loader";
 import moment from "moment";
 import { JobInterface } from "../../services/services";
 import { useAppSelector } from "../../hooks/hooks";
@@ -109,7 +108,7 @@ export default function JobDetail() {
                 {/* Details */}
                 <div
                   className={classNames(
-                    `border bg-white shadow-sm rounded-xl`,
+                    `border bg-white shadow-sm rounded-xl flex flex-col gap-8`,
                     `px-8 py-8`,
                     `text-justify`,
                   )}
@@ -118,47 +117,17 @@ export default function JobDetail() {
                     <h1 className="text-2xl font-semibold">Job description</h1>
                     <p>{job?.description}</p>
                   </div>
-                </div>
-
-                {/* Requirement */}
-                <div
-                  className={classNames(
-                    `border bg-white shadow-sm rounded-xl`,
-                    `px-8 py-8`,
-                    `text-justify`,
-                  )}
-                >
                   <div>
                     <h1 className="text-2xl font-semibold">Requirement</h1>
                     <p>{job?.requirement}</p>
                   </div>
-                </div>
-
-                {/* Benefit */}
-                <div
-                  className={classNames(
-                    `border bg-white shadow-sm rounded-xl`,
-                    `px-8 py-8`,
-                    `text-justify`,
-                  )}
-                >
                   <div>
                     <h1 className="text-2xl font-semibold">Benefit</h1>
                     <p>{job?.benefit}</p>
                   </div>
-                </div>
-
-                {/* Skill */}
-                <div
-                  className={classNames(
-                    `border bg-white shadow-sm rounded-xl`,
-                    `px-8 py-8`,
-                    `text-justify`,
-                  )}
-                >
                   <div>
                     <h1 className="text-2xl font-semibold">Skills Require</h1>
-                    <div className="flex flex-wrap p-4">
+                    <div className="flex flex-wrap px-2 py-4">
                       {job?.skills.map((item, index) => (
                         <div key={index}>
                           <span
@@ -172,7 +141,6 @@ export default function JobDetail() {
                     </div>
                   </div>
                 </div>
-                {/* /Skill */}
               </div>
 
               {/* Right side description */}
