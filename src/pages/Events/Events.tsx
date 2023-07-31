@@ -9,9 +9,9 @@ import { omitBy, isUndefined, isEqual } from "lodash";
 import qs from "query-string";
 import axiosInstance from "../../utils/AxiosInstance";
 import Pagination from "../../components/Pagination/Pagination";
-import Loader from "../../components/Loader/Loader";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
 export type QueryConfig = {
   [key in keyof EventListConfig]: string;
@@ -87,8 +87,8 @@ export default function Events() {
       {/* List Blog  */}
       <div className={classNames("w-[70%]")}>
         {isLoading ? (
-          <div className="flex justify-center">
-            <Loader />
+          <div className="flex justify-center my-4">
+            <LoadSpinner className="text-3xl text-emerald-500" />
           </div>
         ) : (
           <div className="flex flex-wrap -mx-4">

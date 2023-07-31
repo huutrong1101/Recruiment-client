@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import axiosInstance from "../../utils/AxiosInstance";
 
 const RecJobListSlice = createSlice({
-  name: "recjobList",
+  name: "RecJobList",
   initialState: {
     recjobsList: [],
     recjobsListStatus: STATUS.IDLE,

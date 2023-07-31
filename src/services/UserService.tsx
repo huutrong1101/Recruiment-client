@@ -21,6 +21,14 @@ const changeUserAvatar = async (data: FormData) => {
   });
 };
 
+const updateProfile = async (data: FormData) => {
+  return await axiosInstance.put(`/user/update`, data);
+};
+
+const changePassword = async (data: FormData) => {
+  return await axiosInstance.put(`/user/change-password`, data);
+};
+
 /**
  * Returns the interviews that owned by a candidate.
  */
@@ -33,4 +41,6 @@ export const UserService = {
   getUserFromToken,
   changeUserAvatar,
   getUserInterviews,
+  updateProfile,
+  changePassword,
 };

@@ -19,6 +19,7 @@ import qs from "query-string";
 import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import { omit, isEqual } from "lodash";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import { JOB_POSITION } from "../../utils/Localization";
 
 export type QueryConfig = {
   [key in keyof JobListConfig]: string;
@@ -147,7 +148,14 @@ export default function Jobs() {
     navigate({
       pathname: "/jobs",
       search: createSearchParams(
-        omit(queryConfig, ["name", "posName"]),
+        omit(queryConfig, [
+          "name",
+          "posName",
+          "index",
+          "size",
+          "location",
+          "type",
+        ]),
       ).toString(),
     });
   };
@@ -181,14 +189,14 @@ export default function Jobs() {
                 type="text"
                 placeholder="Search your Keywords"
                 className={classNames(
-                  "w-[85%] h-full text-[12px] ml-3 focus:outline-none text-base text-gray-500",
+                  "w-[85%] h-full text-[12px] ml-3 focus:outline-none text-base text-zinc-400",
                 )}
               />
             </div>
           </div>
           {/* Category  */}
           <div className={classNames("mt-4")}>
-            <h3 className={classNames("text-base font-semibold  capitalize")}>
+            <h3 className={classNames("text-base font-semibold capitalize")}>
               Position
             </h3>
             <Menu as="div" className={classNames("relative mt-2")}>
@@ -197,8 +205,8 @@ export default function Jobs() {
                   "cursor-pointer flex items-center justify-between w-full p-2 border rounded-full",
                 )}
               >
-                <span className={classNames("ml-2 text-gray-500")}>
-                  {dataSearch.posName || "---Choose---"}
+                <span className={classNames("ml-2 text-zinc-400")}>
+                  {dataSearch.posName || "Position"}
                 </span>
                 <ChevronDownIcon className={classNames("w-[20px] ml-4")} />
                 {/* Drop down  */}
@@ -253,8 +261,8 @@ export default function Jobs() {
                   "cursor-pointer flex items-center justify-between w-full p-2 border rounded-full",
                 )}
               >
-                <span className={classNames("ml-2 text-gray-500")}>
-                  {dataSearch.location || "---Choose---"}
+                <span className={classNames("ml-2 text-zinc-400")}>
+                  {dataSearch.location || "Location"}
                 </span>
                 <ChevronDownIcon className={classNames("w-[20px] ml-4")} />
                 {/* Drop down  */}
@@ -309,8 +317,8 @@ export default function Jobs() {
                   "cursor-pointer flex items-center justify-between w-full p-2 border rounded-full",
                 )}
               >
-                <span className={classNames("ml-2 text-gray-500")}>
-                  {dataSearch.type || "---Choose---"}
+                <span className={classNames("ml-2 text-zinc-400")}>
+                  {JOB_POSITION[dataSearch.type] || "Jobs Type"}
                 </span>
                 <ChevronDownIcon className={classNames("w-[20px] ml-4")} />
                 {/* Drop down  */}
@@ -344,7 +352,7 @@ export default function Jobs() {
                               })
                             }
                           >
-                            {type}
+                            {JOB_POSITION[type]}
                           </p>
                         )}
                       </Menu.Item>

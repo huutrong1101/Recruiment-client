@@ -9,6 +9,7 @@ import {
 } from "@heroicons/react/24/outline";
 import moment from "moment";
 import { JobInterface } from "../../services/services";
+import { JOB_POSITION } from "../../utils/Localization";
 
 interface JobCardProps {
   job: JobInterface;
@@ -49,7 +50,7 @@ export default function JobCard({ job }: JobCardProps) {
               "text-green-500 text-center text-xs font-medium bg-slate-300 p-1 rounded-full px-2",
             )}
           >
-            {job.jobType}
+            {JOB_POSITION[job.jobType]}
           </p>
         </div>
         <div className={classnames("mt-4")}>
