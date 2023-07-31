@@ -23,7 +23,7 @@ const ReccerInterviewerManagement = () => {
   const queryConfig: QueryConfig = omitBy(
     {
       page: queryParams.page || "1",
-      size: queryParams.size || 8,
+      size: queryParams.size || 2,
       fullName: queryParams.fullName,
     },
     isUndefined,
@@ -35,13 +35,13 @@ const ReccerInterviewerManagement = () => {
   const interviewers: RecInterviewerInterface[] = useAppSelector(
     (state) => state.RecInterviewerList.recInterviewerList,
   );
-  const totalJobs = useAppSelector((state) => state.RecInterviewerList.recInterviewerTotal);
+  const totalInterviewers = useAppSelector((state) => state.RecInterviewerList.recInterviewerTotal);
 
   const [pageSize, setPageSize] = useState(
-    Math.ceil(totalJobs / Number(queryParams.size ?? 10)),
+    Math.ceil(totalInterviewers / Number(queryParams.size ?? 10)),
   );
   const [isLoading, setIsLoading] = useState(false);
-  const [showinterviewers, setinterviewers] = useState(interviewers);
+  const [showinterviewers, setshowinterviewers] = useState(interviewers);
 
   const [dataSearch, setDataSearch] = useState({
     key: "",
@@ -57,7 +57,7 @@ const ReccerInterviewerManagement = () => {
         if (queryConfig) {
           const query = qs.stringify(queryConfig);
           const response = await axiosInstance(`/recruiter/interviewers?${query}`);
-          setinterviewers(response.data.result.content);
+          setshowinterviewers(response.data.result.content);
           setPageSize(response.data.result.totalPages);
         }
         setDataSearch({
@@ -82,7 +82,7 @@ const ReccerInterviewerManagement = () => {
           const response = await axiosInstance(`/recruiter/interviewers?${query}`);
 
           console.log(response.data.result.content)
-          setShowJobs(response.data.result.content);
+          setshowinterviewers(response.data.result.content);
           setPageSize(response.data.result.totalPages);
         } catch (error) {
           console.log(error);
@@ -132,7 +132,7 @@ const ReccerInterviewerManagement = () => {
       <Pagination
         queryConfig={queryConfig}
         pageSize={pageSize}
-        url="recruiter/interviewers"
+        url=""
       />
 
     </>
