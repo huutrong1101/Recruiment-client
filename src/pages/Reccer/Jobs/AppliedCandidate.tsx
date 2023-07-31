@@ -43,7 +43,7 @@ export default function Applied() {
 
   let navigate = useNavigate();
   const routeChange = () => {
-    let path = `../interview-schedule`;
+    let path = `interview-schedule`;
     navigate(path);
   };
 

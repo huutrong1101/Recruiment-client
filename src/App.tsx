@@ -143,8 +143,14 @@ export default function App() {
 
           <Route path="jobs" element={<ReccerJobManagement />} />
           <Route path="calender" element={<Reccercalender />} />
-          <Route path="interviewers" element={<ReccerInterviewerManagement />} />
-          <Route path="interviewers/:interviewerId" element={<ReccerInterviewerDetail />} />
+          <Route
+            path="interviewers"
+            element={<ReccerInterviewerManagement />}
+          />
+          <Route
+            path="interviewers/:interviewerId"
+            element={<ReccerInterviewerDetail />}
+          />
 
           <Route path="jobdetail/:jobId" element={<ReccerJobDetail />} />
           <Route path="addjob" element={<Addjob />} />
@@ -155,7 +161,10 @@ export default function App() {
 
           <Route path="event-manager" element={<ReccerEventManagement />} />
 
-          <Route path="interview-schedule" element={<InterviewSched />} />
+          <Route
+            path="jobdetail/:jobId/interview-schedule"
+            element={<InterviewSched />}
+          />
         </Route>
 
         <Route path="/interviewer" element={<ManagementAppLayOut />}>
