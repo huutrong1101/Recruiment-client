@@ -36,6 +36,7 @@ import {
   CandidateRecent,
   InterviewRecent,
   InterviewDetail,
+  INTCandidateDetail
 } from "./pages/Interviewer/InterviewerPages";
 import UserProfileLayout from "./pages/UserProfile/UserProfileLayout";
 import UserProfileMyProfile from "./pages/UserProfile/UserProfileMyProfile";
@@ -167,7 +168,7 @@ export default function App() {
           <Route path="candidate-recent" element={<CandidateRecent />} />
           <Route
             path="candidate-recent/:id"
-            element={<ReccerInterviewerDetail />}
+            element={<INTCandidateDetail />}
           />
           <Route index path="score-page" element={<ScorePage />} />
         </Route>
