@@ -57,7 +57,7 @@ export interface RecInterviewerListConfig {
 
 export interface RecInterviewerInterface {
   email: string;
-  phone: number | string;
+  phone:  string;
   fullName: string;
   avatar: string;
   address: string;
