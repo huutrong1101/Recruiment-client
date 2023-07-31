@@ -17,37 +17,37 @@ export default function AddQuestion({ observation, onClick }: any) {
    const handleOnClick = (event: any) => {
       if (event.target.id === 'container' || event.target.id === 'add') onClick()
    }
-   //  const handleCreateQuestion = ((e:any)=>{
-   //    postCreateQuestion(e)
-   //  })
-   const [isUploading, setUploading] = useState<boolean>(false);
+    const handleCreateQuestion = ((e:any)=>{
+      postCreateQuestion(e)
+    })
+   // const [isUploading, setUploading] = useState<boolean>(false);
 
-   const handleUploadAvatar = (e: ChangeEvent<HTMLInputElement>) => {
-      const fileList = e.target.files;
-      if (fileList === null) {
-         return toast.error(`File is empty or not found`);
-      }
+   // const handleUploadAvatar = (e: ChangeEvent<HTMLInputElement>) => {
+   //    const fileList = e.target.files;
+   //    if (fileList === null) {
+   //       return toast.error(`File is empty or not found`);
+   //    }
 
-      if (fileList.length === 0) {
-         return toast.error(`File is empty`);
-      }
+   //    if (fileList.length === 0) {
+   //       return toast.error(`File is empty`);
+   //    }
 
-      const formData = new FormData();
-      formData.append("imageFile", fileList[0]);
+   //    const formData = new FormData();
+   //    formData.append("imageFile", fileList[0]);
 
-      setUploading(true);
-      toast
-         .promise(UserService.changeUserAvatar(formData), {
-            pending: `Uploading your avatar`,
-            success: `Your avatar was updated`,
-            error: `Failed to upload your avatar`,
-         })
-         .then((response) => {
-            const { result } = response.data;
-            dispatch(setUser({ ...user, avatar: result }));
-            setUploading(false);
-         });
-   };
+   //    setUploading(true);
+   //    toast
+   //       .promise(UserService.changeUserAvatar(formData), {
+   //          pending: `Uploading your avatar`,
+   //          success: `Your avatar was updated`,
+   //          error: `Failed to upload your avatar`,
+   //       })
+   //       .then((response) => {
+   //          const { result } = response.data;
+   //          dispatch(setUser({ ...user, avatar: result }));
+   //          setUploading(false);
+   //       });
+   // };
    if (!observation) return null
    return (
       <div className='fixed inset-0 bg-black bg-opacity-10 backdrop-blur-sm flex justify-center items-center rounded-lg z-20 '
