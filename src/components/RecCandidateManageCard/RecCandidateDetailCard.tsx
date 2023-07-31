@@ -47,6 +47,7 @@ export default function RecCandidateDetailCard(props: any) {
   }, [candidate]);
 
   function formatPhoneNumber(phoneNumber: any) {
+    if(phoneNumber==null) return
     const cleanedPhoneNumber = phoneNumber.replace(/\D/g, "");
     if (cleanedPhoneNumber.length === 10) {
       return cleanedPhoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
