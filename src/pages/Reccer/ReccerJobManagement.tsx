@@ -11,6 +11,9 @@ import axiosInstance from "../../utils/AxiosInstance";
 import qs from "query-string";
 import Pagination from "../../components/Pagination/Pagination";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import classNames from "classnames";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 
 export type QueryConfig = {
   [key in keyof JobListConfig]: string;
@@ -21,7 +24,7 @@ const ReccerJobManagement = () => {
   const queryConfig: QueryConfig = omitBy(
     {
       index: queryParams.index || "1",
-      size: queryParams.size || 5,
+      size: queryParams.size || 10,
       name: queryParams.name,
       location: queryParams.location,
       posName: queryParams.posName,
@@ -51,6 +54,7 @@ const ReccerJobManagement = () => {
     type: "",
   });
 
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchPosition = async () => {
       setIsLoading(true);
@@ -96,11 +100,32 @@ const ReccerJobManagement = () => {
       setPrevQueryConfig(queryConfig);
     }
   }, [queryConfig, prevQueryConfig]);
+  const handleSearch = async () => {
+    try {
+      setIsLoading(true);
+
+      navigate({
+        pathname: "../jobs",
+        search: createSearchParams({
+          ...queryConfig,
+          name: dataSearch.key,
+          posName: dataSearch.posName,
+          location: dataSearch.location,
+          type: dataSearch.type,
+          index: "1",
+        }).toString(),
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
 
   return (
     <>
-      <form className="flex items-center w-3/4 p-2 mx-auto">
+      {/* <form className="flex items-center w-3/4 p-2 mx-auto">
         <div className="relative w-full">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg
@@ -138,22 +163,66 @@ const ReccerJobManagement = () => {
             </div>
           </Link>
         </div>
-      </form>
+      </form> */}
+      <div className="item-center flex justify-center mt-6">
+        <div
+          className={classNames(
+            "flex items-center flex-shrink-0 w-1/2 h-1/2 p-2 mt-1 border rounded-lg ",
+            "focus-within:border-emerald-700",
+          )}
+        >
+          <MagnifyingGlassIcon className={classNames(`w-[20px]`)} />
+          <input
+            value={dataSearch.key}
+            onChange={(e) =>
+              setDataSearch({ ...dataSearch, key: e.target.value })
+            }
+            type="text"
+            placeholder="Search your Keywords"
+            className={classNames(
+              "w-[85%] h-full text-[12px] ml-3 focus:outline-none text-base text-zinc-400",
+            )}
+          />
+        </div>
+        <div className={classNames("gap-2 ml-4 items-center justify-center")}>
+          <button
+            className={classNames(
+              "bg-[#05966A] hover:bg-emerald-700 text-white p-3 rounded-md flex w-full text-center items-center justify-center",
+            )}
+            onClick={() => handleSearch()}
+          >
+            Search
+          </button>
+        </div>
+        <div className="gap-2 items-center justify-center">
+          <Link to="../addjob">
+            <div className="sm:w-[100px] h-[50px] relative">
+              <button
+                className="w-full h-full left-5 top-0 absolute bg-[#05966A] hover:bg-emerald-700 text-white rounded-lg"
+                type="submit"
+              >
+                + Add Job
+              </button>
+            </div>
+          </Link>
+        </div>
+      </div>
 
-      <div className="flex flex-wrap justify-center items-center 2 mt-[10px] ">
+
+      <div className="flex justify-center items-center 2 mt-[10px] ">
         {isLoading ? (
           <div className="flex justify-center mb-10">
             <LoadSpinner className="text-3xl" />
           </div>
         ) : (
-          <div className="flex flex-wrap justify-center items-center 2 mt-[10px]">
+          <div className="flex flex-wrap w-3/4 justify-center items-center 2 mt-[10px]">
             {/* <!-- Card --> */}
             {showJobs.length > 0 ? (
               showJobs.map((job: any) => (
                 <Link
                   to={`../jobdetail/${job.jobId}`}
                   key={job.jobId}
-                  className="px-4 mb-8 md:w-5/6"
+                  className="px-4 mb-8 flex lg:w-full md:w-1/3 sm:w-3/4"
                 >
                   <RecJobCard job={job} />
                 </Link>
