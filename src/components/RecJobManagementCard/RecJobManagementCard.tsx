@@ -3,6 +3,8 @@ import classnames from "classnames";
 import logo_FPT from "../../../images/logo_FPT.png";
 import { Link } from "react-router-dom";
 import moment from "moment"
+import { JOB_POSITION } from "../../utils/Localization";
+
 
 
 export default function RecDashboardCard({ job }: any) {
@@ -38,7 +40,7 @@ export default function RecDashboardCard({ job }: any) {
                            "text-[#05966A] text-center text-xs font-semibold bg-[#C6DED5] p-1 rounded-full px-2 hover:bg-[#05966A] hover:text-white",
                         )}
                      >
-                        {job.jobType}
+                        {JOB_POSITION[job.jobType]}
                      </button>
                      <span className="ml-3 text-sm font-semibold text-gray-400 ">
                         Hourly: {job.salaryRange}
