@@ -5,8 +5,10 @@ import NavbarSlice from "../components/Navbar/slices/NavbarSlice";
 ///
 import CandidateRecentReducer from "./reducer/CandidateRecentSlice";
 import INTInterviewsReducer from "./reducer/INTInterviewsSlice";
-import INTCandidatesReducer from "./reducer/INTCandidatesSlice"
-import SearchReducer from "./reducer/SearchSlice";
+import INTCandidatesReducer from "./reducer/INTCandidatesSlice";
+import INTQuestionsReducer from "./reducer/INTQuestionsSlice";
+
+
 import AuthSlice from "./AuthSlice";
 import OneTimePasswordSlice from "../pages/OneTimePasswordVerify/slices/OneTimePasswordSlice";
 import CandidateListSlice from "./reducer/CandidateListSlice";
@@ -25,9 +27,11 @@ export const ApplicationStore = configureStore({
     Home: HomeSlice,
     Job: JobSlice,
     candidateList: CandidateListSlice,
+
     INTCandidates: INTCandidatesReducer,
     INTInterviews: INTInterviewsReducer,
-    searchFeature: SearchReducer,
+    INTQuestions: INTQuestionsReducer,
+
     candidateRecent: CandidateRecentReducer,
     Navbar: NavbarSlice,
     Auth: AuthSlice,
