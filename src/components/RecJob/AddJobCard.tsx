@@ -2,13 +2,63 @@ import React, { useState, useEffect, Fragment } from "react";
 import classNames from "classnames";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import { Menu, Transition } from "@headlessui/react";
-import { JobData } from "../../data/jobData";
+import { JobData, JobDataInterface } from "../../data/jobData";
 import {
   MagnifyingGlassIcon,
   ChevronDownIcon,
 } from "@heroicons/react/20/solid";
+import { useAppSelector } from "../../hooks/hooks";
 
 export default function AddJobCard({ cardData, setCardData }: any) {
+  const location = useAppSelector(state => state.Job.location)
+  const employeeType = useAppSelector(state => state.Job.postion)
+  const jobType = useAppSelector(state => state.Job.type)
+
+  const formattedLocation = location.map((item, index) => ({
+    id: index + 1,
+    value: item,
+  }));
+
+  const formattedEmployeeType = employeeType.map((item, index) => ({
+    id: index + 1,
+    value: item,
+  }));
+
+  const formattedJobType = jobType.map((item, index) => ({
+    id: index + 1,
+    value: item,
+  }));
+
+  const JobData: JobDataInterface = {
+    listJobInfoSearch: {
+      "Employee Type": formattedEmployeeType,
+      Location: formattedLocation,
+      "Job Type": formattedJobType,
+  
+      Experience: [
+        { id: 1, value: "Type 1" },
+        { id: 2, value: "Type 2" },
+        { id: 3, value: "Type 3" },
+      ],
+  
+      Qualification: [
+        { id: 1, value: "Type 1" },
+        { id: 2, value: "Type 2" },
+        { id: 3, value: "Type 3" },
+      ],
+  
+      Salary: [
+        { id: 1, value: "Exp 1" },
+        { id: 2, value: "Exp 2" },
+        { id: 3, value: "Exp 3" },
+      ],
+      "Posted at": [
+        { id: 1, value: "Location 1" },
+        { id: 2, value: "Location 2" },
+        { id: 3, value: "Location 3" },
+      ],
+    },
+  }
   return (
     <div
       className={classNames(
@@ -24,10 +74,10 @@ export default function AddJobCard({ cardData, setCardData }: any) {
               <div>
                 <JobInformationCardItem icon={item.icon} name={item.name} />
                 <div>
-                  <Menu as="div" className={classNames("relative")}>
+                  <Menu as="div" className={classNames("relative ml-14")}>
                     <Menu.Button
                       className={classNames(
-                        "cursor-pointer flex items-center justify-between w-2/5 px-1 border rounded-full bg-gray-100",
+                        "cursor-pointer flex items-center justify-between w-[45%] px-1 border rounded-full bg-gray-100",
                       )}
                     >
                       <span className={classNames("ml-2 text-gray-500")}>

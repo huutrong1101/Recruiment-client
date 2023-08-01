@@ -1,7 +1,7 @@
-import React, { useEffect, useState,Fragment } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import { data } from "../../data/RecInterviewerManagementData";
 import RecInterviewerCard from "../../components/RecInterviewerManageCard/RecInterviewerManageCard";
-import { Link,createSearchParams,useNavigate } from 'react-router-dom'
+import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
 import { fetchCandidateRecent } from '../../redux/reducer/CandidateRecentSlice';
 import { STATUS } from '../../utils/Status';
@@ -19,6 +19,7 @@ import classNames from 'classnames';
 import { Menu, Transition } from "@headlessui/react";
 import { JOB_POSITION } from "../../utils/Localization";
 import { ChevronDownIcon, ChevronUpIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { fetchRecInterviewerList, fetchRecInterviewerSkill } from '../../redux/reducer/RecInterviewerSilce';
 
 
 export type QueryConfig = {
@@ -26,12 +27,20 @@ export type QueryConfig = {
 };
 
 const ReccerInterviewerManagement = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchRecInterviewerList())
+    dispatch(fetchRecInterviewerSkill())
+  }, []);
+
   const queryParams: QueryConfig = useQueryParams();
   const queryConfig: QueryConfig = omitBy(
     {
       page: queryParams.page || "1",
       size: queryParams.size || 4,
-      fullName: queryParams.fullName,
+      name: queryParams.name,
+      skill: queryParams.skill,
     },
     isUndefined,
   );
@@ -43,6 +52,7 @@ const ReccerInterviewerManagement = () => {
     (state) => state.RecInterviewerList.recInterviewerList,
   );
   const totalInterviewers = useAppSelector((state) => state.RecInterviewerList.recInterviewerTotal);
+
 
   const [pageSize, setPageSize] = useState(
     Math.ceil(totalInterviewers / Number(queryParams.size ?? 10)),
@@ -67,7 +77,7 @@ const ReccerInterviewerManagement = () => {
         }
         setDataSearch({
           ...dataSearch,
-          key: queryConfig.fullName || "",
+          key: queryConfig.name || "",
           skill: queryConfig.skill || "",
         });
       } catch (error) {
@@ -81,13 +91,11 @@ const ReccerInterviewerManagement = () => {
 
   useEffect(() => {
     if (!isEqual(prevQueryConfig, queryConfig)) {
-      const fetchJobs = async () => {
+      const fetchInterviewers = async () => {
         setIsLoading(true);
         try {
           const query = qs.stringify(queryConfig);
           const response = await axiosInstance(`/recruiter/interviewers?${query}`);
-
-          console.log(response.data.result.content)
           setshowinterviewers(response.data.result.content);
           setPageSize(response.data.result.totalPages);
         } catch (error) {
@@ -96,29 +104,36 @@ const ReccerInterviewerManagement = () => {
           setIsLoading(false);
         }
       };
-      fetchJobs();
+      fetchInterviewers();
       setPrevQueryConfig(queryConfig);
     }
   }, [queryConfig, prevQueryConfig]);
 
-  const [showType, setShowType] = useState(false);
-  const [skill, setType] = useState("");
+  const [showSkill, setShowSkill] = useState(false);
+  // console.log(showSkill)
+  const [skill, setInterviewerskillList] = useState("");
+  // console.log(skill)
   const listSkills = useAppSelector((state) => state.RecInterviewerList.skill);
+  // console.log(listSkills)
+
   const navigate = useNavigate();
 
   const handleSearch = async () => {
     try {
       setIsLoading(true);
-
+      console.log("Searching with fullName:", dataSearch.key);
+      console.log("co vao day")
       navigate({
         pathname: "../interviewers",
         search: createSearchParams({
           ...queryConfig,
-          fullname: dataSearch.key,
+          //Dưới đây chính là cái parameter ở URL
+          name: dataSearch.key,
           skill: dataSearch.skill,
           index: "1",
         }).toString(),
       });
+
     } catch (error) {
       console.error(error);
     } finally {
@@ -129,7 +144,7 @@ const ReccerInterviewerManagement = () => {
   return (
     <>
       <div className="item-center flex justify-center mt-6">
-        <div 
+        <div
           className={classNames(
             "flex items-center flex-shrink-0 w-[54.5%] h-1/2 p-2 mt-1 border rounded-lg ",
             "focus-within:border-emerald-700",
@@ -147,13 +162,13 @@ const ReccerInterviewerManagement = () => {
                   className={classNames(
                     "text-[13px] cursor-pointer flex items-center justify-between",
                   )}
-                  onClick={() => setShowType(!showType)}
+                  onClick={() => setShowSkill(!showSkill)}
                 >
-                  {JOB_POSITION[skill] || "SKILL"}
-                  {showType && (
+                  {skill.name || "SKILL"}
+                  {showSkill && (
                     <ChevronUpIcon className={classNames("w-[20px] mr-4")} />
                   )}
-                  {!showType && (
+                  {!showSkill && (
                     <ChevronDownIcon className={classNames("w-[20px] mr-4")} />
                   )}
                 </div>
@@ -181,15 +196,15 @@ const ReccerInterviewerManagement = () => {
                               "block px-4 py-2 text-sm",
                             )}
                             onClick={() => {
-                              setType(skill);
-                              setShowType(false);
+                              setInterviewerskillList(skill);
+                              setShowSkill(false);
                               setDataSearch({
                                 ...dataSearch,
-                                skill: skill,
+                                skill: skill.name,
                               });
                             }}
                           >
-                            {JOB_POSITION[skill]}
+                            {skill.name}
                           </p>
                         )}
                       </Menu.Item>

@@ -29,8 +29,6 @@ const ReccerJobManagement = () => {
       index: queryParams.index || "1",
       size: queryParams.size || 10,
       name: queryParams.name,
-      location: queryParams.location,
-      posName: queryParams.posName,
       type: queryParams.type,
     },
     isUndefined,
@@ -56,8 +54,6 @@ const ReccerJobManagement = () => {
 
   const [dataSearch, setDataSearch] = useState({
     key: "",
-    posName: "",
-    location: "",
     type: "",
   });
 
@@ -110,14 +106,11 @@ const ReccerJobManagement = () => {
   const handleSearch = async () => {
     try {
       setIsLoading(true);
-
       navigate({
         pathname: "../jobs",
         search: createSearchParams({
           ...queryConfig,
           name: dataSearch.key,
-          posName: dataSearch.posName,
-          location: dataSearch.location,
           type: dataSearch.type,
           index: "1",
         }).toString(),

@@ -116,7 +116,7 @@ export default function AddEvent() {
       };
   return (
     <>
-        <form className={classnames("flex flex gap-10")} onSubmit={handleSubmit}>
+        <form className={classnames("flex gap-10")} onSubmit={handleSubmit}>
           <div className={classnames("bg-white shadow rounded-xl w-full ml-5 w-75% mt-5")}>
              {/* Img */}
           <div className={classnames("flex items-left px-10 mt-10")}>

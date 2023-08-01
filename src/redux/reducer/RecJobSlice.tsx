@@ -10,6 +10,7 @@ const RecJobListSlice = createSlice({
     recjobsList: [],
     recjobsListStatus: STATUS.IDLE,
     recjobTotal: 0,
+    recjobType: [],
   },
   reducers: {
     setRecjobsList(state, action) {
@@ -21,11 +22,14 @@ const RecJobListSlice = createSlice({
     setTotalJobs(state, action) {
       state.recjobTotal = action.payload;
     },
+    setRecjobType(state,action){
+      state.recjobType = action.payload;
+    }
   },
 });
 
 export default RecJobListSlice.reducer;
-export const { setRecjobsList, setRecjobsListStatus, setTotalJobs } =
+export const { setRecjobsList, setRecjobsListStatus, setTotalJobs,setRecjobType } =
   RecJobListSlice.actions;
 
 export const fetchRecJobList = () => {
@@ -40,4 +44,8 @@ export const fetchRecJobList = () => {
       dispatch(setRecjobsListStatus(STATUS.ERROR));
     }
   };
+};
+
+const updateJob = async (data: object) => {
+  return await axiosInstance.put(`/recruiter/job`, data);
 };
