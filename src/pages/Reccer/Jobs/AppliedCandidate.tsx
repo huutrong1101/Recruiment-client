@@ -12,7 +12,7 @@ export default function Applied() {
       const response = await axiosInstance.get(
         `recruiter/job/${jobId}/candidates`,
       );
-      setApplyCandidate(response.data.result);
+      setApplyCandidate(response.data.result.content);
       console.log(applyCandidate);
     };
     getApplyCandidate();
@@ -56,7 +56,7 @@ export default function Applied() {
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                 >
-                  {applyCandidate.fullName}
+                  {applyCandidate.candidateFullName}
                 </td>
                 <td className="px-6 py-4">{applyCandidate.email}</td>
                 <td className="px-4 py-4 rounded-lg p-2 mx-2 my-1">

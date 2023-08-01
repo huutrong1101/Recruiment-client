@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 import { UserPlusIcon } from "@heroicons/react/24/outline";
 import axiosInstance from "../../../utils/AxiosInstance";
+import { Checkbox } from "@mui/material";
 
 export interface Interviewer {
   name: string | null;
@@ -48,6 +49,12 @@ export default function InterviewerPopup({
       (interviewer: any) => interviewer.interviewerId !== interviewerId,
     );
     setInterviewerList(newList);
+  };
+
+  const [isChecked, setIsChecked] = useState(false);
+  const handleCheck = () => {
+    // Thay đổi trạng thái khi nhấp vào Checkbox
+    setIsChecked(!isChecked);
   };
 
   return (
@@ -105,12 +112,13 @@ export default function InterviewerPopup({
                     <td className="px-4 py-4">
                       <button
                         className="flex"
-                        onClick={() => (
-                          handleAdd(interviewers),
-                          handleDeleteInterviewer(interviewers.interviewerId)
-                        )}
+                        onClick={() => 
+                          handleAdd(interviewers)
+                        }
                       >
-                        <PlusIcon className="w-6 h-6 text-gray" />
+                        <Checkbox color="success" size="medium" onClick={handleCheck} checked={isChecked}/>
+                        {/* <input color="success" type="checkbox" className="w-5 h-5"/> */}
+                        {/* <PlusIcon className="w-6 h-6 text-gray" /> */}
                       </button>
                     </td>
                   </tr>
