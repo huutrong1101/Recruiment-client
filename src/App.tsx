@@ -36,7 +36,7 @@ import {
   CandidateRecent,
   InterviewRecent,
   InterviewDetail,
-  INTCandidateDetail
+  INTCandidateDetail,
 } from "./pages/Interviewer/InterviewerPages";
 import UserProfileLayout from "./pages/UserProfile/UserProfileLayout";
 import UserProfileMyProfile from "./pages/UserProfile/UserProfileMyProfile";
@@ -67,6 +67,7 @@ import OneTimePasswordVerify from "./pages/OneTimePasswordVerify/OneTimePassword
 import { EventService } from "./services/EventService";
 import CandidateDetail from "./pages/Reccer/CandidateDetail";
 import UserProfileMyResume from "./pages/UserProfile/UserProfileMyResume";
+import PrintResume from "./pages/PrintResume/PrintResume";
 
 export default function App() {
   useTokenAuthorize();
@@ -128,11 +129,9 @@ export default function App() {
           <Route path="blacklist-add" element={<AddBlacklist />} />
           <Route path="blacklist-delete" element={<DeleteBlacklist />} />
           <Route path="profile" element={<AdminProfile />} />
-          <Route path="jobs/:jobId" element={<ListCandiPass />}
-          />
+          <Route path="jobs/:jobId" element={<ListCandiPass />} />
           <Route path="jobs" element={<ManagetJobList />} />
         </Route>
-
 
         <Route path="/recruiter" element={<ManagementAppLayOut />}>
           {/* Define recruiter routes here */}
@@ -173,10 +172,7 @@ export default function App() {
           <Route path="interview-recent/:id" element={<InterviewDetail />} />
           <Route path="interview-question" element={<ManageQuestion />} />
           <Route path="candidate-recent" element={<CandidateRecent />} />
-          <Route
-            path="candidate-recent/:id"
-            element={<INTCandidateDetail />}
-          />
+          <Route path="candidate-recent/:id" element={<INTCandidateDetail />} />
           <Route index path="score-page" element={<ScorePage />} />
         </Route>
         <Route path="/interviewer" element={<ManagementAppLayOut />}>
@@ -187,6 +183,7 @@ export default function App() {
         </Route>
 
         {/* <Route path="/test" element={Test} /> */}
+        <Route path="/print-resume" element={<PrintResume />} />
       </Routes>
     </BrowserRouter>
   );
