@@ -81,7 +81,15 @@ export default function UserProfileMyResume() {
 
   const handleDelete = (resumeId: string) => {
     openModal();
-    alert("Delete success " + resumeId);
+    handleDeleteSuccess(resumeId);
+  };
+
+  const handleDeleteSuccess = (resumeId: string) => {
+    toast.promise(UserService.deleteResume(resumeId), {
+      pending: `Deleting your CV`,
+      success: `Your CV was deleted`,
+      error: `Failed to delete your CV`,
+    });
   };
 
   const handleEdit = (url: string) => {
