@@ -33,7 +33,7 @@ export default function AddEvent() {
       // Các state khác giữ nguyên
 
       //Upload event avatar
-      const handleImageUpload = (event) => {
+      const handleImageUpload = (event: any) => {
         const file = event.target.files[0]; // Lấy file từ sự kiện chọn file
         if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
           setAvatar(file);
@@ -58,19 +58,19 @@ export default function AddEvent() {
           dateObj.toISOString().slice(0, 16) + dateObj.toISOString().slice(24);
         return formattedValue;
       };
-      const handleChangeStartAt = (event) => {
+      const handleChangeStartAt = (event: any) => {
         // Lấy giá trị từ trường datetime-local
         const newValue = event.target.value;        
         // Chuyển đổi giá trị và lưu vào state
         setstartAt(newValue);
       };
-      const handleChangeDeadline = (event) => {
+      const handleChangeDeadline = (event: any) => {
         // Lấy giá trị từ trường datetime-local
         const newValue = event.target.value;        
         // Chuyển đổi giá trị và lưu vào state
         setDeadline(newValue);
       };    
-      const handleSubmit = (event) => {
+      const handleSubmit = (event: any) => {
         event.preventDefault();      
         const formData = new FormData();
         const formattedValueStart = moment(startAt).format("HH:mm:ss YYYY-MM-DD");

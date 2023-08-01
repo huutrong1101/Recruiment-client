@@ -320,10 +320,9 @@ export default function AdminTable({ typeSelected }: TypeData) {
                       )}
                       { typeSelected ==="Blacklist" && (
                         <button>
-                          <NavLink
-                            to={`/admin/blacklist-delete`}
-                            onClick={() => {}}
-                          >
+                          <NavLink 
+                          to={`/admin/users/${job.userId}`} 
+                          onClick={() => {}}>
                             <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
                           </NavLink>
                         </button>                        
