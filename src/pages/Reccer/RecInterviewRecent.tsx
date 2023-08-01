@@ -3,6 +3,7 @@ import axiosInstance from "../../utils/AxiosInstance";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import { REC_INTERVIEW_STATUS } from "../../utils/Localization";
+import classNames from "classnames";
 
 export default function RecInterviewRecent() {
   const { interviewerId } = useParams();
@@ -28,9 +29,10 @@ export default function RecInterviewRecent() {
   });
 
   return (
-    <div className="History mt-8 bg-white p-6 border rounded-2xl">
+    <div className="bg-white p-6 border rounded-2xl">
       <div className="relative overflow-x-auto">
-        <table className="w-full text-sm text-left text-gray-500">
+      <h1 className="text-2xl font-semibold">Interview Recent</h1>
+        <table className="w-full text-sm text-left text-gray-500 mt-5">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50    ">
             <tr>
               <th scope="col" className="px-6 py-4">
