@@ -124,7 +124,7 @@ export default function App() {
 
         <Route path="/admin" element={<ManagementAppLayOut />}>
           <Route path="users" index element={<AdminDashboard />} />
-          {/* <Route path="users/:userId" element={<AdminChangePosition />} /> */}
+          <Route path="users/:userId" element={<AdminChangePosition />} />
           <Route path="blacklist-add" element={<AddBlacklist />} />
           <Route path="blacklist-delete" element={<DeleteBlacklist />} />
           <Route path="profile" element={<AdminProfile />} />
