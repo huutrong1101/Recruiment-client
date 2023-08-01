@@ -15,45 +15,6 @@ export default function UserProfileMyResume() {
 
   let [isUpload, setIsUpload] = useState(false);
 
-  const listCV = [
-    {
-      id: "1",
-      name: "Resume create #1",
-      date: "26th Jul, 2023",
-      type: "create",
-    },
-    {
-      id: "2",
-      name: "Resume create #2",
-      date: "26th Jul, 2023",
-      type: "create",
-    },
-    {
-      id: "3",
-      name: "Resume create #3",
-      date: "26th Jul, 2023",
-      type: "create",
-    },
-    {
-      id: "4",
-      name: "Resume upload #1",
-      date: "26th Jul, 2023",
-      type: "upload",
-    },
-    {
-      id: "5",
-      name: "Resume upload #2",
-      date: "26th Jul, 2023",
-      type: "upload",
-    },
-    {
-      id: "6",
-      name: "Resume upload #3",
-      date: "26th Jul, 2023",
-      type: "upload",
-    },
-  ];
-
   const [priorityCV, setPriorityCV] = useState("");
 
   const handleSetPriorityCV = (id: any) => {
@@ -62,13 +23,15 @@ export default function UserProfileMyResume() {
 
   const [cvUpload, setCVUpload] = useState([]);
 
+  const [resumeDeleteID, setResumeDeleteID] = useState("");
+
   const [isLoadingUpload, setIsLoadingUpload] = useState(false);
 
   useEffect(() => {
     const fetchCVUpload = async () => {
       setIsLoadingUpload(true);
       try {
-        const response = await axiosInstance("candidate/resumesUpload");
+        const response = await axiosInstance("candidate/resumes");
         setCVUpload(response.data.result);
       } catch (error) {
         console.log(error);
@@ -80,16 +43,17 @@ export default function UserProfileMyResume() {
   }, []);
 
   const handleDelete = (resumeId: string) => {
+    setResumeDeleteID(resumeId);
     openModal();
-    handleDeleteSuccess(resumeId);
   };
 
-  const handleDeleteSuccess = (resumeId: string) => {
-    toast.promise(UserService.deleteResume(resumeId), {
+  const handleDeleteSuccess = () => {
+    toast.promise(UserService.deleteResume(resumeDeleteID), {
       pending: `Deleting your CV`,
       success: `Your CV was deleted`,
       error: `Failed to delete your CV`,
     });
+    closeModal();
   };
 
   const handleEdit = (url: string) => {
@@ -156,39 +120,12 @@ export default function UserProfileMyResume() {
             </label>
           </div>
         </div>
+
         <div
           className={classNames(
-            `flex flex-col gap-4 w-full border-t border-gray-200 pt-2`,
+            `flex flex-col gap-4 w-full border-t border-gray-200 pt-5`,
           )}
         >
-          <h3 className="text-lg">Resume Created</h3>
-          <div className={classNames(`flex flex-wrap -mx-4`)}>
-            {listCV
-              .filter((item) => item.type === "create")
-              .map((resume) => (
-                <UserResume
-                  key={resume.id}
-                  priorityCV={priorityCV}
-                  id={resume.id}
-                  name={resume.name}
-                  date={resume.date}
-                  onDelete={() => {
-                    openModal();
-                  }}
-                  onEdit={() => {
-                    alert(`Xem chi tiết ${resume.name}`);
-                  }}
-                  onClick={() => handleSetPriorityCV(resume.id)}
-                />
-              ))}
-          </div>
-        </div>
-        <div
-          className={classNames(
-            `flex flex-col gap-4 w-full border-t border-gray-200 pt-2`,
-          )}
-        >
-          <h3 className="text-lg">Resume Uploaded</h3>
           <div className={classNames(`flex flex-wrap -mx-4`)}>
             {isLoadingUpload ? (
               <div className="flex items-center justify-center w-full my-4">
@@ -204,20 +141,18 @@ export default function UserProfileMyResume() {
                       );
                       return (
                         <UserResume
-                          key={resume.resumeUploadId}
+                          key={resume.resumeId}
                           priorityCV={priorityCV}
-                          id={resume.resumeUploadId}
+                          id={resume.resumeId}
                           name={resume.name}
                           date={date}
                           onDelete={() => {
-                            handleDelete(resume.resumeUploadId);
+                            handleDelete(resume.resumeId);
                           }}
                           onEdit={() => {
-                            handleEdit(resume.linkUpload);
+                            handleEdit(resume.resumeUpload);
                           }}
-                          onClick={() =>
-                            handleSetPriorityCV(resume.resumeUploadId)
-                          }
+                          onClick={() => handleSetPriorityCV(resume.resumeId)}
                         />
                       );
                     })}
@@ -287,7 +222,7 @@ export default function UserProfileMyResume() {
         cancelTitle="No"
         successClass="text-red-900 bg-red-100 hover:bg-red-200 focus-visible:ring-red-500"
         successTitle="Yes"
-        handleSucces={() => handleDelete}
+        handleSucces={handleDeleteSuccess}
         titleClass=""
         size=""
       >
