@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import classnames from "classnames";
 import { useForm } from "react-hook-form";
 import {
@@ -13,6 +13,123 @@ import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { authRegister } from "../../redux/AuthSlice";
 import { toast } from "react-toastify";
+import { Dialog, Transition } from "@headlessui/react";
+import classNames from "classnames";
+
+function TermAndConditionsDialog({ visible, onClose, onOkay }: any) {
+  return (
+    <Transition appear show={visible} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={onClose}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-black bg-opacity-25" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Title
+                  as="h3"
+                  className="text-lg font-medium leading-6 text-gray-900"
+                >
+                  Term of services
+                </Dialog.Title>
+
+                <div className="max-h-[70vh] mt-2 overflow-y-auto">
+                  <p className="text-sm text-gray-500">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Laborum, omnis quas? Cumque deserunt, repudiandae
+                    repellendus reprehenderit quisquam dolorem excepturi
+                    voluptas consequatur impedit labore eaque necessitatibus
+                    facere ratione quo architecto molestiae.
+                  </p>
+                  <br />
+                  <p className="text-sm text-gray-500">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Laborum, omnis quas? Cumque deserunt, repudiandae
+                    repellendus reprehenderit quisquam dolorem excepturi
+                    voluptas consequatur impedit labore eaque necessitatibus
+                    facere ratione quo architecto molestiae.
+                  </p>
+                  <br />
+                  <p className="text-sm text-gray-500">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Laborum, omnis quas? Cumque deserunt, repudiandae
+                    repellendus reprehenderit quisquam dolorem excepturi
+                    voluptas consequatur impedit labore eaque necessitatibus
+                    facere ratione quo architecto molestiae.
+                  </p>
+
+                  <br />
+                  <p className="text-sm text-gray-500">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Laborum, omnis quas? Cumque deserunt, repudiandae
+                    repellendus reprehenderit quisquam dolorem excepturi
+                    voluptas consequatur impedit labore eaque necessitatibus
+                    facere ratione quo architecto molestiae.
+                  </p>
+
+                  <br />
+                  <p className="text-sm text-gray-500">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Laborum, omnis quas? Cumque deserunt, repudiandae
+                    repellendus reprehenderit quisquam dolorem excepturi
+                    voluptas consequatur impedit labore eaque necessitatibus
+                    facere ratione quo architecto molestiae.
+                  </p>
+
+                  <br />
+                  <p className="text-sm text-gray-500">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Laborum, omnis quas? Cumque deserunt, repudiandae
+                    repellendus reprehenderit quisquam dolorem excepturi
+                    voluptas consequatur impedit labore eaque necessitatibus
+                    facere ratione quo architecto molestiae.
+                  </p>
+
+                  <br />
+                  <p className="text-sm text-gray-500">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Laborum, omnis quas? Cumque deserunt, repudiandae
+                    repellendus reprehenderit quisquam dolorem excepturi
+                    voluptas consequatur impedit labore eaque necessitatibus
+                    facere ratione quo architecto molestiae.
+                  </p>
+                </div>
+
+                <div className="mt-4 flex flex-row-reverse">
+                  <button
+                    type="button"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-emerald-600 px-4 py-2 text-sm font-medium text-emerald-300 hover:bg-emerald-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    onClick={onOkay}
+                  >
+                    Ok
+                  </button>
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
+      </Dialog>
+    </Transition>
+  );
+}
 
 export default function AuthenticateSignUp() {
   const {
@@ -36,6 +153,17 @@ export default function AuthenticateSignUp() {
       .catch((data) => {
         toast.error(data.message);
       });
+  };
+
+  const [visibleTermAndCondition, setVisibleTermAndCondition] =
+    useState<boolean>(false);
+
+  const handleCloseDialog = () => {
+    setVisibleTermAndCondition(false);
+  };
+
+  const handleOpenTermOfServceDialog = () => {
+    setVisibleTermAndCondition(true);
   };
 
   return (
@@ -113,11 +241,19 @@ export default function AuthenticateSignUp() {
 
         {/* AgreeTerms */}
         <div className="flex flex-row gap-4 w-full text-zinc-600">
-          <input type="checkbox" {...register("agreeTerms")} required />
-          <label htmlFor="remember">
+          <label>
+            <input
+              type="checkbox"
+              {...register("agreeTerms")}
+              required
+              className="mr-3"
+            />
             I'm agree with the{" "}
-            <b>
-              <Link to="/">Term and conditions</Link>
+            <b
+              className={`cursor-pointer hover:underline`}
+              onClick={handleOpenTermOfServceDialog}
+            >
+              Term and conditions
             </b>
           </label>
         </div>
@@ -132,6 +268,11 @@ export default function AuthenticateSignUp() {
           // })}
         />
       </div>
+      <TermAndConditionsDialog
+        visible={visibleTermAndCondition}
+        onClose={handleCloseDialog}
+        onOkay={handleCloseDialog}
+      />
     </form>
   );
 }
