@@ -9,6 +9,7 @@ const RecInterviewerSlice = createSlice({
         recInterviewerList: [],
         recInterviewerListStatus: STATUS.IDLE,
         recInterviewerTotal: 0,
+        skill: [],
     },
     reducers :{
         setRecInterviewerList(state,action){
@@ -20,11 +21,14 @@ const RecInterviewerSlice = createSlice({
         setrecInterviewerTotal(state,action){
             state.recInterviewerTotal = action.payload
         },
+        setInterviewerskillList(state,action){
+            state.skill=action.payload
+        }
     },
 })
 
 export default RecInterviewerSlice.reducer
-export const {setRecInterviewerList, setRecInterviewerListStatus,setrecInterviewerTotal} = RecInterviewerSlice.actions
+export const {setRecInterviewerList, setRecInterviewerListStatus,setrecInterviewerTotal,setInterviewerskillList} = RecInterviewerSlice.actions
 
 export const fetchRecInterviewerList =()=>{
     return async function fetchRecInterviewerListThunk(dispatch:Dispatch){

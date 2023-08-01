@@ -27,7 +27,7 @@ export const linksAll = [
       {
         name: "Default",
         icon: <HiOutlineChartPie />,
-        url: "admin/dashboard",
+        url: "admin/users",
       },
       {
         name: "Profile",

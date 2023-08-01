@@ -52,11 +52,12 @@ export interface RecInterviewerListConfig {
   page?: number | string;
   size?: number | string;
   fullName?: string;
+  skill?:string;
 }
 
 export interface RecInterviewerInterface {
   email: string;
-  phone: number | string;
+  phone:  string;
   fullName: string;
   avatar: string;
   address: string;

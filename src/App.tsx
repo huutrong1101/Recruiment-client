@@ -123,18 +123,16 @@ export default function App() {
         </Route>
 
         <Route path="/admin" element={<ManagementAppLayOut />}>
-          <Route path="dashboard" index element={<AdminDashboard />} />
-          <Route path="position-change" element={<AdminChangePosition />} />
+          <Route path="users" index element={<AdminDashboard />} />
+          <Route path="users/:userId" element={<AdminChangePosition />} />
           <Route path="blacklist-add" element={<AddBlacklist />} />
           <Route path="blacklist-delete" element={<DeleteBlacklist />} />
           <Route path="profile" element={<AdminProfile />} />
-          {/* <Route
-            path="jobs/:id"
-            element={<ReccerInterviewerDetail />}
-          /> */}
-
-          <Route path="jobs/:idJob" element={<ManagetJobList />} />
+          <Route path="jobs/:jobId" element={<ListCandiPass />}
+          />
+          <Route path="jobs" element={<ManagetJobList />} />
         </Route>
+
 
         <Route path="/recruiter" element={<ManagementAppLayOut />}>
           {/* Define recruiter routes here */}
@@ -145,8 +143,14 @@ export default function App() {
 
           <Route path="jobs" element={<ReccerJobManagement />} />
           <Route path="calender" element={<Reccercalender />} />
-          <Route path="interviewers" element={<ReccerInterviewerManagement />} />
-          <Route path="interviewers/:interviewerId" element={<ReccerInterviewerDetail />} />
+          <Route
+            path="interviewers"
+            element={<ReccerInterviewerManagement />}
+          />
+          <Route
+            path="interviewers/:interviewerId"
+            element={<ReccerInterviewerDetail />}
+          />
 
           <Route path="jobdetail/:jobId" element={<ReccerJobDetail />} />
           <Route path="addjob" element={<Addjob />} />
@@ -157,7 +161,10 @@ export default function App() {
 
           <Route path="event-manager" element={<ReccerEventManagement />} />
 
-          <Route path="interview-schedule" element={<InterviewSched />} />
+          <Route
+            path="jobdetail/:jobId/interview-schedule"
+            element={<InterviewSched />}
+          />
         </Route>
 
         <Route path="/interviewer" element={<ManagementAppLayOut />}>
