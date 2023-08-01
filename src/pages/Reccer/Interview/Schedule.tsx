@@ -1,7 +1,8 @@
 import classNames from "classnames";
 import { PlusIcon, TrashIcon, UserPlusIcon } from "@heroicons/react/24/outline";
 import { TextareaAutosize } from "@mui/material";
-import InterviewerPopup from "./InterviewerPopup";
+import InterviewerPopup, { Interviewer } from "./InterviewerPopup";
+import { useState } from "react";
 // import InterviewerPopup from "./test";
 
 export default function Schedule() {
@@ -11,25 +12,33 @@ export default function Schedule() {
       email: "johndoe@example.com",
       phone: "111222333",
       date: new Date().toDateString(),
-      id: "1",
+      id: 1,
+      position: "Web Designer",
     },
   ];
-  const interviewerArray = [
+
+  const [interviewerArray, setInterviewers] = useState([
     {
       name: "Sarah Wilson",
       email: "johndoe@example.com",
       phone: "111222333",
       date: new Date().toDateString(),
-      id: "1",
+      id: 1,
+      position: "Web Designer",
     },
     {
       name: "Mark Thompson",
       email: "johndoe@example.com",
       phone: "111222333",
       date: new Date().toDateString(),
-      id: "2",
+      id: 2,
+      position: "Web Designer",
     },
-  ];
+  ]);
+
+  const handleOnSelectInterviewer = (interviewer: Interviewer) => {
+    setInterviewers([...interviewerArray, interviewer]);
+  };
 
   return (
     <div
@@ -43,7 +52,10 @@ export default function Schedule() {
         <h1 className="text-2xl font-semibold">Schedule</h1>
 
         {/* Add Interviewer */}
-        <InterviewerPopup />
+        <InterviewerPopup
+          interviewerArray={interviewerArray}
+          onSelectInterviewer={handleOnSelectInterviewer}
+        />
         {/* /////// */}
       </div>
 

@@ -3,7 +3,23 @@ import React, { useState } from "react";
 import classNames from "classnames";
 import { UserPlusIcon } from "@heroicons/react/24/outline";
 
-export default function InterviewerPopup() {
+export interface Interviewer {
+  name: string;
+  email: string;
+  phone: string;
+  date: string;
+  id: number;
+  position: string;
+}
+interface InterviewerPopupProps {
+  interviewerArray: Interviewer[]; // Sử dụng interface ở đây
+  onSelectInterviewer: (interviewer: Interviewer) => void;
+}
+
+export default function InterviewerPopup({
+  interviewerArray,
+  onSelectInterviewer,
+}: InterviewerPopupProps) {
   const [isOpen, setIsOpen] = useState(false);
   const memberList = [
     {
@@ -47,6 +63,16 @@ export default function InterviewerPopup() {
       position: "Web Designer",
     },
   ];
+
+  const [interviewArray, setInterviewArray] =
+    useState<Interviewer[]>(interviewerArray);
+
+  // Hàm xử lý thêm người phỏng vấn vào mảng interviewArray
+  const handleAdd = (interviewer: Interviewer) => {
+    onSelectInterviewer(interviewer);
+  };
+
+  console.log(interviewArray);
 
   return (
     <div>
@@ -106,7 +132,10 @@ export default function InterviewerPopup() {
                     <td className="px-6 py-4">{memberList.date}</td>
                     <td className="px-6 py-4">{memberList.position}</td>
                     <td className="px-4 py-4">
-                      <button className="flex">
+                      <button
+                        className="flex"
+                        onClick={() => handleAdd(memberList)}
+                      >
                         <PlusIcon className="w-6 h-6 text-gray" />
                       </button>
                     </td>
