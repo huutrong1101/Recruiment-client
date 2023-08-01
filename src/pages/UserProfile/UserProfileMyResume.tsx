@@ -9,6 +9,7 @@ import moment from "moment";
 import { toast } from "react-toastify";
 import { UserService } from "../../services/UserService";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import { getCandidateResume } from "../../services/CandidateService";
 
 function ResumeDeleteModal({ visible, onAccept, onCancel }: any) {
   return (
@@ -48,18 +49,18 @@ export default function UserProfileMyResume() {
   const [isLoadingUpload, setIsLoadingUpload] = useState(false);
 
   useEffect(() => {
-    const fetchCVUpload = async () => {
-      setIsLoadingUpload(true);
-      try {
-        const response = await axiosInstance("candidate/resumes");
-        setResumeList(response.data.result);
-      } catch (error) {
-        console.log(error);
-      } finally {
+    setIsLoadingUpload(true);
+    getCandidateResume()
+      .then((response) => {
+        const { result } = response.data;
+        setResumeList(
+          [...result].sort((a: any, b: any) => b.createdAt - a.createdAt),
+        );
+      })
+      .catch(() => toast.error(`There was an error when fetching resume`))
+      .finally(() => {
         setIsLoadingUpload(false);
-      }
-    };
-    fetchCVUpload();
+      });
   }, []);
 
   const handleDelete = (resumeId: string) => {
