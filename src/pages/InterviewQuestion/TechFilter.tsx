@@ -4,16 +4,33 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
 import classNames from 'classnames';
 //----------------SKILL
-export default function TechFilter() {
+interface IDataSearch {
+    key: string;
+    skill: string;
+    type: string;
+  }
+  
+  interface ITechFilterProps {
+    setDataSearch: React.Dispatch<React.SetStateAction<IDataSearch>>;
+    dataSearch: IDataSearch;
+  }
+export default function TechFilter({setDataSearch,dataSearch} : ITechFilterProps) {
     const types = ['C#', 'java', 'Python', 'ReactJS']
     const [isActive, setIsActive] = useState(false)
     const handleActive = (e: any) => setIsActive(!isActive)
+
+    const handleSetTech = (type: string) => {
+        setDataSearch({
+            ...dataSearch,
+            skill: type,
+        })
+    }
     return (
         <div className='absolute w-full'>
             <div className='w-full h-full  '>
                 <Menu.Button className='w-full p-1.5 mb-1 bg-emerald-600 rounded-md text-white border border-transparent
                                 active:border-emerald-600  active:text-emerald-600 
-                                 active:bg-white flex items-center' onClick={handleActive}>
+                                 active:bg-white flex items-center'>
                     <div className=' inline-flex justify-between w-full '>
                         Skill   <ChevronDownIcon className='w-5 h-5 pt-1' />
                     </div>
@@ -37,7 +54,8 @@ export default function TechFilter() {
                                                     : "text-gray-700", "p-2",
                                                 "block  text-sm",
                                             )}
-                                            onClick={handleActive}
+                                            // onClick={() => handleSetTech(type)}
+                                                onClick={handleActive}
                                         >
                                             {type}
                                         </p>

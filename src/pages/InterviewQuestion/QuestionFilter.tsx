@@ -1,14 +1,21 @@
-import React, { useState } from 'react'
+import React, { Dispatch, useEffect, useState } from 'react'
 import ListQuestions from './ListQuestion'
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
 import classNames from 'classnames';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { fetchQuestionList } from '../../redux/reducer/QuestionListSlice';
 //------------------------------------------TYPE
 export default function QuestionFilter() {
     const pos = ['Technical', 'Soft Skill', 'English']
     const [isActive, setIsActive] = useState(false)
     const handleActive = (e: any) => setIsActive(!isActive)
+    const questionList = useAppSelector ((state:any) => state.questionList)
+    const dispatch = useAppDispatch()
+    useEffect(()=>{
+        dispatch(fetchQuestionList())
+    },[])
     return (
         <div className='absolute w-full '>
             <Menu.Button className='w-full h-fit p-1.5 mb-1 bg-emerald-600 rounded-md text-white border border-transparent
@@ -27,7 +34,7 @@ export default function QuestionFilter() {
                 leaveTo="transform opacity-0 scale-95" >
                 <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 bg-opacity-80 aboslute shadow-md  '>
                     <div className='w-full h-full  text-black rounded-md border border-zinc-200'>
-                        {pos.map((posType, index) => (
+                        {pos.map((posType,index) => (
                             <Menu.Item key={index}>
                                 {({ active }) => (
                                     <p  

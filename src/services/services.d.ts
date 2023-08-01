@@ -226,14 +226,21 @@ export interface AcountConfig {
 }
 
 export interface QuestionListConfig{
-  index: number,
   page?: number | string;
   size?: number | string;
-  skill: string;
-  type: string
-  questionId?: number | string,
-  content: number | string,
-  note: number | string,
+  skill?: string
+  type?: string
+  note?: number | string,
+  content?: string
+}
+
+export interface QuestionListInterface{
+    skill: string
+    type: string
+    questionId?: number | string,
+    note: number | string,
+    content: string
+  
 }
 
 export interface Pagable {

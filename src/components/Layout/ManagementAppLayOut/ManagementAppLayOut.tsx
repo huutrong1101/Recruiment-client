@@ -94,7 +94,7 @@ export const linksAll = [
       {
         name: "Interview Question",
         icon: <HiOutlineClipboardDocument />,
-        url: "interviewer/interview-question",
+        url: "interviewer/question",
       },
     ],
   },

@@ -8,7 +8,6 @@ import ListQuestions from "./ListQuestion";
 import { useEffect, useState } from "react";
 import AddQuestion from "./AddQuestion";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { fetchQuestionList } from "../../redux/reducer/QuestionListSlice";
 import { STATUS } from '../../utils/Status';
 import Loader from '../../components/Loader/Loader';
 import DeleteQuestion from "./DeleteQuestion";
@@ -19,7 +18,9 @@ import Pagination from "../../components/Pagination/Pagination";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import axiosInstance from "../../utils/AxiosInstance";
 import { omitBy, isUndefined } from "lodash";
-import { QuestionListConfig } from "../../services/services";
+import { QuestionListConfig, QuestionListInterface } from "../../services/services";
+import { useNavigate } from "react-router-dom";
+import PaginationInterview from "./PaginationInterview";
 
 export type QueryConfig = {
   [key in keyof QuestionListConfig]: string;
@@ -27,31 +28,34 @@ export type QueryConfig = {
 
 export default function QuestionInterview() {
   const queryParams: QueryConfig = useQuerParams();
+
   const queryConfig: QueryConfig = omitBy(
     {
-      index: queryParams.index || "1",
-      size: queryParams.size || 3,
+      page: queryParams.page || "1",
+      size:  queryParams.size || 3,
       skill: queryParams.skill,
       type: queryParams.type,
-      questionsId: queryParams.questionId
+      note: queryParams.note,
+      content: queryParams.content
     },
     isUndefined,
   );
+  const navigate = useNavigate()
   const [addQuestion, setAddQuestion] = useState(false)
   const handleOnClick = () => setAddQuestion(false)
   const [prevQueryConfig, setPrevQueryConfig] = useState<QueryConfig>(queryConfig);
 
-  const questions: QuestionListConfig[] = useAppSelector(
-    (state) => state.questionList.questionList,
-  );
+  const questions: QuestionListInterface[] = useAppSelector((state) => state.questionList.questionList,);
 
   const { totalQuestions }: any = useAppSelector((state) => state.questionList.questionList);
 
   const [pageSize, setPageSize] = useState(
-    Math.ceil(totalQuestions / Number(queryParams.size ?? 10)),
+    Math.ceil(totalQuestions / Number(queryParams.size || 3)),
   );
   const [isLoading, setIsLoading] = useState(false);
+
   const [showQuestion, setShowQuestion] = useState(questions)
+
   const [dataSearch, setDataSearch] = useState({
     key: "",
     skill: "",
@@ -59,32 +63,61 @@ export default function QuestionInterview() {
   });
 
   useEffect(() => {
+    const fetchQuesList = async () => {
+      setIsLoading(true);
+      try {
+        if (queryConfig) {
+          const query = qs.stringify(queryConfig);
+          const response = await axiosInstance(`interviewer/question?${query}`);
+          setShowQuestion(response.data.result.content);
+          setPageSize(response.data.result.totalPages);
+        }
+        // setDataSearch({
+        //   ...dataSearch,
+        //   skill: queryConfig.skill || "",
+        //   type: queryConfig.type || "",
+        // });
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchQuesList();
+  }, []);
+
+  useEffect(() => {
     if (!isEqual(prevQueryConfig, queryConfig)) {
-      const fetchQuestion = async () => {
+      const fetchQuestionPagination = async () => {
         setIsLoading(true);
         try {
           const query = qs.stringify(queryConfig);
-          const response = await axiosInstance.get(`interviewer/question`);
-
-          // console.log(response.data.result.content)
-          setShowQuestion(response.data.result);
-          // setPageSize(response.data.result.totalPages);
+          const response = await axiosInstance(`interviewer/question?${query}`);
+          setShowQuestion(response.data.result.content);
+          setPageSize(response.data.result.totalPages);
         } catch (error) {
           console.log(error);
         } finally {
           setIsLoading(false);
         }
       };
-      fetchQuestion();
+      fetchQuestionPagination();
       setPrevQueryConfig(queryConfig);
     }
   }, [queryConfig, prevQueryConfig]);
 
-  // const { questionList, questionListStatus } = useAppSelector((state: any) => state.questionList)
-  // const dispatch = useAppDispatch()
-  // useEffect(() => {
-  //   dispatch(fetchQuestionList())
-  // }, [])
+  function DeleteQuestion({ id }: any) {
+    const conf = window.confirm('Do you make sure delete this question')
+    if (conf) {
+      return (
+        axiosInstance.delete('interviewer/question/' + id)
+          .then(res => {
+            alert('Question has deleted')
+            navigate('interviewer/interview-question')
+          }).catch(err => console.log(err))
+      )
+    }
+  }
 
   return (
     <div className="my-4 ">
@@ -112,7 +145,7 @@ export default function QuestionInterview() {
                   {/* Position */}
                   <div className=" relative flex flex-col w-40  h-fit  ">
                     <Menu as="div" className=" h-fit">
-                      <TechFilter />
+                      <TechFilter setDataSearch={setDataSearch} dataSearch={dataSearch} />
                     </Menu>
                   </div>
 
@@ -136,10 +169,11 @@ export default function QuestionInterview() {
                   <table className="w-full ">
                     <thead className="w-fit">
                       <tr className="flex justify-center px-4 mt-3">
-                        <th className="text-lg tracking-wide text-left font-semibold basis-1/5  ">Skill</th>
-                        <th className="text-lg tracking-wide text-left font-semibold basis-1/5  ">Type</th>
-                        <th className="text-lg tracking-wide text-left font-semibold basis-2/5  ">Question</th>
-                        <th className="text-lg tracking-wide text-left font-semibold basis-1/5 flex justify-center ">Edit</th>
+                        <th className="text-lg tracking-wide text-left font-semibold basis-1/6  ">Skill</th>
+                        <th className="text-lg tracking-wide text-left font-semibold basis-1/6  ">Type</th>
+                        <th className="text-lg tracking-wide text-left font-semibold basis-2/6  ">Question</th>
+                        <th className="text-lg tracking-wide text-left font-semibold basis-2/6  ">Note</th>
+                        <th className="text-lg tracking-wide text-left font-semibold basis-1/6 flex justify-center ">Edit</th>
                       </tr>
                     </thead>
                     <tbody className="">
@@ -155,15 +189,16 @@ export default function QuestionInterview() {
                                 <tr className="flex flex-row py-2 my-2 text-left text-md cursor-pointer items-center
                                               border-2 border-white hover: hover:border-emerald-600 hover:rounded-lg hover:text-black hover:transition-all "
                                   key={question.questionId}>
-                                  <td className="basis-1/5">{question.skill}</td>
-                                  <td className="basis-1/5">{question.typeQuestion}</td>
-                                  <td className="basis-2/5 flex-nowrap">{question.content}</td>
-                                  <td className="inline-flex gap-x-2 basis-1/5 justify-center">
+                                  <td className="basis-1/6">{question.skill}</td>
+                                  <td className="basis-1/6">{question.typeQuestion}</td>
+                                  <td className="basis-2/6 flex-nowrap">{question.content}</td>
+                                  <td className="basis-2/6 flex-nowrap">{question.note}</td>
+                                  <td className="inline-flex gap-x-2 basis-1/6 justify-center">
                                     <button className="p-2 hover:bg-zinc-300 hover:rounded-md ">
                                       <PencilIcon className="w-5 h-5" />
                                     </button>
                                     <button className="p-2 hover:bg-zinc-300 hover:rounded-md "
-                                      onClick={e => DeleteQuestion(question.questionId)}
+                                    // onClick={e => DeleteQuestion(question.questionId)}
                                     >
                                       <TrashIcon className="w-5 h-5" />
                                     </button>
@@ -182,29 +217,8 @@ export default function QuestionInterview() {
                   </table>
                 </div>
                 {/* pagination */}
-                <div className="flex justify-end">
-                  <ul className="inline-flex gap-x-2 p-3 ">
-                    <li className="px-2 cursor-pointer hover:bg-emerald-100 hover:rounded-md hover:text-black ">
-                      <a href="#"></a>
-                      Prev
-                    </li>
-                    <li className="px-2 cursor-pointer hover:bg-emerald-100 hover:rounded-md hover:text-black ">
-                      <a href="#"></a>
-                      1
-                    </li>
-                    <li className="px-2 cursor-pointer hover:bg-emerald-100 hover:rounded-md hover:text-black ">
-                      <a href="#"></a>
-                      2
-                    </li>
-                    <li className="px-2 cursor-pointer hover:bg-emerald-100 hover:rounded-md hover:text-black ">
-                      <a href="#"></a>
-                      3
-                    </li>
-                    <li className="px-2 cursor-pointer hover:bg-emerald-100 hover:rounded-md hover:text-black ">
-                      <a href="#"></a>
-                      Next
-                    </li>
-                  </ul>
+                <div className="flex justify-end m-4">
+                  <PaginationInterview queryConfig={queryConfig} pageSize={pageSize}/>
                 </div>
               </div>
             </div>
@@ -212,7 +226,8 @@ export default function QuestionInterview() {
         </div>
       </div>
       <AddQuestion onClick={handleOnClick} observation={addQuestion} />
-      {/* <DeleteQuestion id /> */}
+      {/* <DeleteQuestion id={} /> */}
+
     </div>
   );
 
