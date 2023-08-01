@@ -78,7 +78,6 @@ export default function App() {
     JobService.getLocation(dispatch);
     JobService.getPosition(dispatch);
     JobService.getType(dispatch);
-
     EventService.getEvents(dispatch);
   }, []);
 

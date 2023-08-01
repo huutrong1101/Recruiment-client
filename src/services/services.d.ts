@@ -51,7 +51,7 @@ export interface JobListConfig {
 export interface RecInterviewerListConfig {
   page?: number | string;
   size?: number | string;
-  fullName?: string;
+  name?: string;
   skill?:string;
 }
 

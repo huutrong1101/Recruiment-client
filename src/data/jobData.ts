@@ -1,6 +1,10 @@
+import { useAppSelector } from "../hooks/hooks";
+
 export interface JobDataInterface {
   listJobInfoSearch: { [index: string]: object[] };
 }
+
+
 
 export const JobData: JobDataInterface = {
   listJobInfoSearch: {
