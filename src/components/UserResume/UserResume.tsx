@@ -52,7 +52,7 @@ export default function UserResume({
             )}
             onClick={onDelete}
           >
-            <HiTrash />
+          <HiTrash />
           </button>
         </div>
       </div>
