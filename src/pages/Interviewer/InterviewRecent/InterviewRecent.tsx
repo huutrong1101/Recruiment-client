@@ -123,6 +123,8 @@ const InterviewRecent = () => {
                 </TableContainer>
             </div>
         );
+    }else if(INTInterviewsStatus === STATUS.ERROR){
+        return <div>ERROR</div>
     }
 }
 export default InterviewRecent;
