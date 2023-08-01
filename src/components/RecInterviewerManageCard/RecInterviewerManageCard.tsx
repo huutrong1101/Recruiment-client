@@ -20,12 +20,12 @@ const RecInterviewerManageCard = (props : any) => {
                     </div>
                     <ul className='mt-2 list-none'>
                         <li className='inline'>
-                            {skills.map((skill:any, index:any) => (
+                            {interviewer.skills.map((skill:any, index:any) => (
                                 <p
                                     key={index}
                                     className="bg-[#C6DED5] ml-2 inline-block text-[#218F6E] text-xs px-2.5 py-0.5 font-semibold rounded-full"
                                 >
-                                    {skill}
+                                    {skill.name}
                                 </p>
                             ))}
                         </li>
