@@ -105,7 +105,8 @@ export interface RecInterviewerInterface {
   dateOfBirth: string;
   interviewerId: string;
 
-}export interface RecCandidateInterface {
+}
+export interface RecCandidateInterface {
   email: string;
   phone: number | string;
   fullName: any;
@@ -208,6 +209,20 @@ export interface AdminJobPassListConfig {
   page?: number | string;
   size?: number | string;
   id?: number | string;
+}
+export interface AcountFrofileInterface {
+  userId  : string;
+  name: string;
+  createdAt: string;
+  phone: number;
+  address: string;
+  blackDate: string ;
+  blackReason : string ;
+  email: string; 
+  role: string;
+}
+export interface AcountFrofileInterfaceConfig {
+  
 }
 
 export interface AcountInterface {

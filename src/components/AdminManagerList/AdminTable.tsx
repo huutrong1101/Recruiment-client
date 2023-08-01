@@ -36,7 +36,8 @@ import axiosInstance from "../../utils/AxiosInstance";
 import Paginationacountlist from "./Pagination/Paginationacountlist";
 import moment from "moment";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
-import UserAccountDeletionButton from "../Delete/DeleteButon";
+// import UserAccountDeletionButton from "../Delete/DeleteButon";
+import Loader from "../Loader/Loader";
 
 export type QueryConfig = {
   [key in keyof AcountConfig]: string;
@@ -124,6 +125,22 @@ export default function AdminTable({ typeSelected }: TypeData) {
     fetchPosition();
   }, []);
 
+  //   
+  const [accountId, setaccountId] = React.useState('');
+  console.log(accountId);
+  const handleSubmit = (event) => {  // Send the PUT request to delete the account
+    console.log(`${accountId}`);
+    return axiosInstance.put(`admin/delete/${accountId}`)
+    .then((response) => {
+      console.log("Account deleted successfully!");
+      // Reload the page after the deletion
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.error("Error deleting account:", error);
+    });
+  }
+
   return (
     <div className="w-full max-w-full rounded-xl">
       <TableContainer
@@ -186,8 +203,8 @@ export default function AdminTable({ typeSelected }: TypeData) {
           </TableHead>
           <TableBody>
             {isLoading ? (
-              <div className="flex items-center justify-center w-full h-[50px] text-[13px]">
-                <LoadSpinner />
+              <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-10 mb-10">
+                <Loader />
               </div>
             ) : (
               <>
@@ -239,42 +256,57 @@ export default function AdminTable({ typeSelected }: TypeData) {
                       ) : null}
                       {job.role !== "ADMIN" && typeSelected !=="Blacklist" && (
                         <button>
-                          <TrashIcon
-                            onClick={handleClickOpen}
-                            className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg"
-                          />
-                          <Dialog
-                            open={open}
-                            onClose={handleClose}
-                            aria-labelledby="alert-dialog-title"
-                            aria-describedby="alert-dialog-description"
+                        <TrashIcon
+                          onClick={handleClickOpen}
+                          className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg"
+                        />
+                        
+                        <input
+                          type="hidden"
+                          value={String(job.userId)} // Convert to string if job.userId is a number
+                          onChange={(event) => setAccountId(event.target.value)}
+                        />
+                        <Dialog
+                          open={open}
+                          onClose={handleClose}
+                          aria-labelledby="alert-dialog-title"
+                          aria-describedby="alert-dialog-description"
+                        >
+                          <DialogTitle
+                            id="alert-dialog-title"
+                            className="text-center"
+                            style={{ fontFamily: "Outfit, sans-serif" }}
                           >
-                            <DialogTitle
-                              id="alert-dialog-title"
-                              className="text-center"
+                            {"Use Google's location service?"}
+                          </DialogTitle>
+                          <DialogContent>
+                            <DialogContentText
+                              id="alert-dialog-description"
                               style={{ fontFamily: "Outfit, sans-serif" }}
                             >
-                              {"Use Google's location service?"}
-                            </DialogTitle>
-                            <DialogContent>
-                              <DialogContentText id="alert-dialog-description"
-                                style={{ fontFamily: "Outfit, sans-serif" }}>
-                                Or consider carefully before deleting them all
-                                changes when pressing the agree button.
-                              </DialogContentText>
-                            </DialogContent>
-                            <DialogActions>
-                              <Button
-                                onClick={handleClose}
-                                color="error"
-                                variant="contained"
-                              >
-                                Disagree
-                              </Button>
-                              <UserAccountDeletionButton job ={job}/>
-                            </DialogActions>
-                          </Dialog>
-                        </button>
+                              Or consider carefully before deleting them all changes when
+                              pressing the agree button.
+                            </DialogContentText>
+                          </DialogContent>
+                          <DialogActions>
+                            <Button onClick={handleClose} color="error" variant="contained">
+                              Disagree
+                            </Button>
+                            <Button
+                              onClick={handleSubmit}
+                              autoFocus
+                              type="submit"
+                              variant="contained"
+                              sx={{
+                                backgroundColor: "#059669",
+                                "&:hover": { backgroundColor: "#259972" },
+                              }}
+                            >
+                              Agree
+                            </Button>
+                          </DialogActions>
+                        </Dialog>
+                      </button>
                       )}
                       {job.role === "CANDIDATE"  && typeSelected !=="Blacklist" && (
                         <button>
