@@ -109,6 +109,10 @@ const ManagementAppLayOut = () => {
   let links = linksAll;
   if(user?.role == "INTERVIEWER"){
     links = [linksAll[2]]
+  }else if(user?.role == "RECRUITER"){
+    links = [linksAll[1]]
+  }else if(user?.role == "ADMIN"){
+    links = [linksAll[0]]
   }
 
   return (
