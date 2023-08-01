@@ -3,6 +3,8 @@ import classnames from "classnames";
 import logo_FPT from "../../../images/logo_FPT.png";
 import { Link } from "react-router-dom";
 import moment from "moment"
+import { JOB_POSITION } from "../../utils/Localization";
+
 
 
 export default function RecDashboardCard({ job }: any) {
@@ -12,7 +14,7 @@ export default function RecDashboardCard({ job }: any) {
    const days = duration.asDays();
    return (
       <>
-         <div className="relative overflow-hidden transition-all duration-500 bg-white border rounded-md shadow group hover:shadow-lg h-fit">
+         <div className="relative w-full overflow-hidden transition-all duration-500 bg-white border rounded-md shadow group hover:shadow-lg h-fit">
             <div className="p-6">
                <div className="flex items-center">
                   <div className="w-14 h-14 min-w-[56px] flex items-center justify-center bg-white shadow  rounded-md">
@@ -38,7 +40,7 @@ export default function RecDashboardCard({ job }: any) {
                            "text-[#05966A] text-center text-xs font-semibold bg-[#C6DED5] p-1 rounded-full px-2 hover:bg-[#05966A] hover:text-white",
                         )}
                      >
-                        {job.jobType}
+                        {JOB_POSITION[job.jobType]}
                      </button>
                      <span className="ml-3 text-sm font-semibold text-gray-400 ">
                         Hourly: {job.salaryRange}
@@ -86,7 +88,7 @@ export default function RecDashboardCard({ job }: any) {
                   <li>
                      <Link
                         to="../interview-schedule/"
-                        className="w-full px-2 py-2 mt-4 text-white rounded-2xl bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 md:ms-2 lg:w-auto lg:mt-0"
+                        className="w-full px-2 py-2 mt-4 text-white rounded-2xl bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 md:ms-4 lg:w-auto lg:mt-0"
                      >
                         Create Schedule
                      </Link>

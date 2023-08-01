@@ -1,9 +1,25 @@
-import { TrashIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import { PlusIcon, TrashIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import React, { useState } from "react";
 import classNames from "classnames";
 import { UserPlusIcon } from "@heroicons/react/24/outline";
 
-export default function InterviewerPopup() {
+export interface Interviewer {
+  name: string;
+  email: string;
+  phone: string;
+  date: string;
+  id: number;
+  position: string;
+}
+interface InterviewerPopupProps {
+  interviewerArray: Interviewer[]; // Sử dụng interface ở đây
+  onSelectInterviewer: (interviewer: Interviewer) => void;
+}
+
+export default function InterviewerPopup({
+  interviewerArray,
+  onSelectInterviewer,
+}: InterviewerPopupProps) {
   const [isOpen, setIsOpen] = useState(false);
   const memberList = [
     {
@@ -48,6 +64,16 @@ export default function InterviewerPopup() {
     },
   ];
 
+  const [interviewArray, setInterviewArray] =
+    useState<Interviewer[]>(interviewerArray);
+
+  // Hàm xử lý thêm người phỏng vấn vào mảng interviewArray
+  const handleAdd = (interviewer: Interviewer) => {
+    onSelectInterviewer(interviewer);
+  };
+
+  console.log(interviewArray);
+
   return (
     <div>
       <button
@@ -72,7 +98,7 @@ export default function InterviewerPopup() {
             </button>
             <table className="w-full text-sm text-left text-gray-500">
               {/* Interviewer Info */}
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
                   <th scope="col" className="px-6 py-4">
                     Interviewer's Name
@@ -86,10 +112,10 @@ export default function InterviewerPopup() {
                   <th scope="col" className="px-6 py-4">
                     Date created
                   </th>
-                  <th scope="col" className="py-4">
+                  <th scope="col" className="px-6 py-4">
                     Position
                   </th>
-                  <th scope="col" className="py-4"></th> {/* Add button */}
+                  <th scope="col" className="py-4"></th>
                 </tr>
               </thead>
               <tbody>
@@ -106,8 +132,11 @@ export default function InterviewerPopup() {
                     <td className="px-6 py-4">{memberList.date}</td>
                     <td className="px-6 py-4">{memberList.position}</td>
                     <td className="px-4 py-4">
-                      <button className="bg-emerald-700 py-2 px-4 rounded-xl mr-4 text-white">
-                        Add
+                      <button
+                        className="flex"
+                        onClick={() => handleAdd(memberList)}
+                      >
+                        <PlusIcon className="w-6 h-6 text-gray" />
                       </button>
                     </td>
                   </tr>

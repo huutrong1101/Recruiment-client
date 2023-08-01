@@ -1,32 +1,48 @@
-import React from "react";
-import { data } from "../../data/RecInterviewerDetailData";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useAppSelector } from "../../hooks/hooks";
 import RecCandidateDetailCard from "../../components/RecCandidateManageCard/RecCandidateDetailCard";
-import CandidateList from "./CandidateList";
+  import {
+  MdOutlineEmail,
+  MdOutlineCalendarMonth,
+  MdOutlineLocationOn,
+} from "react-icons/md";
+import axiosInstance from "../../utils/AxiosInstance";
+import { RecCandidateInterface } from "../../services/services";
 import InterviewHistory from "../../components/RecCandidateManageCard/InterviewHistory";
+
 export default function CandidateDetail() {
-  const { id } = useParams();
-  const { candidatesRecent } = useAppSelector(
-    (state: any) => state.candidateRecent,
+  const { userId } = useParams();
+  const [candidate, setCandidate] = useState<RecCandidateInterface | null>(
+    null,
   );
-  const candidate = candidatesRecent.find(
-    (candidate: any) => candidate.id === parseInt(id || ""),
-  );
+
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    const getCandidateDetail = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axiosInstance.get(
+          `recruiter/applied-candidates/${userId}`,
+        );
+        setCandidate(response.data.result);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getCandidateDetail();
+  }, [userId]);
+
   return (
     <div>
       <div className="bg-white">
         {/* <!-- Card --> */}
-        {/*               <RecInterviewerDetailCard userinfor={items.userinfor} listSkills={items.listSkills} personalDetails={items.personalDetails} />
-         */}{" "}
         <RecCandidateDetailCard candidate={candidate} />
       </div>
       {/* <div className="pb-10">
         <CandidateList />
       </div> */}
-      <div>
-        <InterviewHistory />
-      </div>
     </div>
   );
 }

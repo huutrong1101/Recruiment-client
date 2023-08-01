@@ -36,9 +36,14 @@ $transition: all 300ms linear;
             height: 72px;
             padding: 0 2rem;
             .navbar-content-mid{
-                @media only screen and (max-width: 992px) {
+                @media only screen and (max-width: 1280px) {
                     form{
                         width: 30vw;
+                    }
+                }
+                @media only screen and (max-width: 992px) {
+                    form{
+                        width: 18vw;
                     }
                 }
                 @media only screen and (max-width: 768px) {

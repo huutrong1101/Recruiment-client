@@ -1,130 +1,165 @@
 import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
-import { MapPinIcon, BriefcaseIcon } from "@heroicons/react/20/solid";
+import { TrashIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { fetchINTInterviewByID } from "../../../../redux/reducer/INTInterviewsSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { INTCandidateDetail } from "../../InterviewerPages";
+import { assignQuestions, fetchINTQuestionData, removeQuestions } from "../../../../redux/reducer/INTQuestionsSlice";
+import { STATUS } from "../../../../utils/Status";
+import Loader from "../../../../components/Loader/Loader";
 
 const InterviewDetail = () => {
 
     const { id } = useParams(); 
     const {INTSingleInterview, INTSingleInterviewStatus} = useAppSelector((state: any) => state.INTInterviews);
+    const {searchQuestions, searchQuestionsStatus, questionsForInterview} = useAppSelector((state: any) => state.INTQuestions);
+
     const dispatch = useAppDispatch();
     
-    useEffect( () => {
-        dispatch(fetchINTInterviewByID(id))
+    const [view, setView] = useState(false);
+    const [text, setText] = useState("");
+    const [showDropdown, setShowDropdown] = useState(false);
+
+    const handleChange = (event : any) => {
+        const textFilter = event.target.value;
+        setText(textFilter);
+        dispatch(fetchINTQuestionData(textFilter));
+    }
+
+    const handleAdd = (question : any) => {
+        console.log(111);
+        dispatch(assignQuestions(question));
+    }
+    const handleRemove = (question : any) => {
+        dispatch(removeQuestions(question));
+    }
+
+    const handleDropdownBlur = () => {
+        setTimeout(() => {
+            setShowDropdown(false);
+        }, 200);
+      };
+
+    useEffect(() => {
+        dispatch(fetchINTInterviewByID(id));
     }, []);
 
-    return (
-        <div className="InterviewDetail ">
-            <div className="mb-8 flex mt-4">
-                <div className="">
-                    <div className='text-2xl'>Interview Information</div>
-                    <div className="ml-4">
-                        <div className="mt-3 text-base">Position Recruiment: <span className="text-sm ml-2">Java Developer</span></div>
-                        <div className="text-base">Date: <span className="text-sm ml-2">{INTSingleInterview.updatedAt}</span></div>
-                        <div className="text-base">Link Meeting: <span className="text-sm ml-2">https://meet.google.com/aie-oirf-qnm</span></div>
-                    </div>
-                </div>
-            </div>
-            <hr />
-            <div className="mb-8">
-                <div className='text-2xl mt-4'>Profile Candidate</div>
-                <div className="flex">
-                    <div className="w-4/12">
-                        <div className="flex items-center justify-center pt-[2rem]">
-                            <img src={INTSingleInterview.avatar} className=" w-[180px] h-[180px] border-4 "/>
+    if(INTSingleInterviewStatus === STATUS.IDLE || INTSingleInterviewStatus === STATUS.LOADING){
+        return (
+            <div className="InterviewDetail ">
+                <div className='text-2xl mt-4'>Interview Information</div>
+                <div className="mb-8 flex mt-4">
+                    <div className="w-3/12">
+                        <div className="">
+                            <div className="text-base">Position Recruiment: <span className="text-sm ml-2">{INTSingleInterview.position}</span></div>
+                            <div className="text-base">Date: <span className="text-sm ml-2">{INTSingleInterview.time}</span></div>
+                            <div className="text-base">Link Meeting: <span className="text-sm ml-2">{INTSingleInterview.link}</span></div>
                         </div>
                     </div>
-                    <div className="w-8/12">
-                        <div className="flex pt-[2rem]">
-                            <div className="text-2xl mr-4">
-                                {INTSingleInterview.name} 
-                            </div>
-                            <div className="flex mt-1">
-                                <div className="text-base">
-                                    <MapPinIcon className="w-[14px] h-[14px] mt-[6px] mr-1" />
+                    <div className="w-9/12">
+                        <div className="max-w-2xl mx-auto flex justify-center mb-5">
+                            <form className="w-[30vw]">
+                                <div className="relative">
+                                <MagnifyingGlassIcon className="absolute mt-[0.9rem] ml-[0.75rem] w-5 h-5"/>
+                                <input type="text" id="simple-search" className="bg-gray-50 border border-gray-300 text-base rounded-lg w-full pl-10 p-2.5"
+                                        value={text} placeholder="Search Name" 
+                                        onChange={handleChange}
+                                        onFocus={() => setShowDropdown(true)}
+                                        onBlur={handleDropdownBlur} 
+                                        required />
                                 </div>
-                                <div className="text-base">
-                                    Khánh Hòa
-                                </div>
+
+                                {showDropdown && (
+                                    <ul className="absolute bg-white border border-gray-300 mt-2 rounded-lg w-[30vw]">
+                                        {
+                                            searchQuestionsStatus === STATUS.LOADING && <Loader/>
+                                        }
+
+                                        {searchQuestionsStatus === STATUS.IDLE && searchQuestions.map((question : any) => (
+                                        <li
+                                            key={question.questionId}
+                                            className="p-2 cursor-pointer hover:bg-gray-100"
+                                            onClick={() => {
+                                                setShowDropdown(false); 
+                                                handleAdd(question);
+                                            }}
+                                        >
+                                            {question.content}
+                                        </li>
+                                        ))}
+                                        {
+                                            searchQuestionsStatus === STATUS.IDLE && searchQuestions.length === 0 && 
+                                                <li className="px-5 py-3">Không có kết quả tìm kiếm</li>                    
+                                        }
+                                    </ul>
+                                )}
+                            </form>
+                        </div>
+                        <div className="max-w-2xl mx-auto">
+                            <div>
+                                <table className="w-full table-auto border-collapse border border-gray-300 rounded">
+                                    <thead>
+                                    <tr className="bg-gray-200">
+                                        <th className="px-4 py-2">Question</th>
+                                        <th className="px-4 py-2">Type</th>
+                                        <th className="px-4 py-2">Skill</th>
+                                        <th className="px-4 py-2">Note</th>
+                                        <th className="px-4 py-2">Button</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {questionsForInterview.map((item : any) => (
+                                        <tr key={item.questionId} className="bg-white">
+                                        <td className="border px-4 py-2">{item.content}</td>
+                                        <td className="border px-4 py-2">{item.typeQuestion}</td>
+                                        <td className="border px-4 py-2">{item.skill}</td>
+                                        <td className="border px-4 py-2">{item.note}</td>
+                                        <td className="border px-4 py-2">
+                                            <TrashIcon onClick={() => handleRemove(item)} className="cursor-pointer w-5 h-5 text-gray-500"/>
+                                        </td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
                             </div>
-                        </div>
-                        <div className="text-gray-300 mt-5 text-sm">
-                            contacts___________________________
-                        </div>
-                        <div className="ml-4">
-                            <div className="mt-2 text-base">Phone: <span className="text-sm ml-2">+84 367120031</span></div>
-                            <div className="text-base">Address: <span className="text-sm ml-2">Đường D1, khu CNC, Quận 9</span></div>
-                            <div className="text-base">Birtday: <span className="text-sm ml-2">01-01-2000</span></div>
-                            <div className="text-base">Email: <span className="text-sm ml-2">{INTSingleInterview.email}</span></div>
                         </div>
                     </div>
                 </div>
-                <div className="flex mt-[2rem]">
-                    <div className="w-4/12 pl-[2rem]">
-                        <div className="text-gray-300">
-                            works___________________________
+                <hr />
+                {   view?
+                    (
+                        <INTCandidateDetail />
+                    )
+                    :
+                    (
+                        <div className="flex justify-between mt-5">
+                            <button className="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded" onClick={() => setView(true)}>
+                                Show More Candidate Information
+                            </button>
+                            <Link to="/interviewer/score-page">
+                            <button className="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">
+                                Start Interview
+                            </button>      
+                            </Link>
                         </div>
-
-                        <div className="ml-4">
-                            <div className="mt-2 text-sm">FPT Software</div>
-                            <div className="text-gray-500 text-xs flex ml-2 mt-1">
-                                <MapPinIcon className="w-[10px] h-[10px] mt-[3px] mr-1" />
-                                Đường D1, khu CNC, Quận 9
-                            </div>
-                            <div className="text-gray-500 text-xs flex ml-2">
-                                <BriefcaseIcon className="w-[10px] h-[10px] mt-[3px] mr-1" /> 10/2012 - 9/2023
-                            </div>
+                    )
+                }      
+                    {
+                        view && 
+                        <div className="flex justify-end">
+                            <Link to="/interviewer/score-page">
+                                <button className="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">
+                                    Start Interview
+                                </button>      
+                            </Link>
                         </div>
-                        <div className="ml-4">
-                            <div className="mt-2 text-sm">
-                                SpaceX Company
-                            </div>
-                            <div className="text-gray-500 text-xs flex ml-2 mt-1">
-                                <MapPinIcon className="w-[10px] h-[10px] mt-[3px] mr-1" />
-                                Đường D1, khu CNC, Quận 9
-                            </div>
-                            <div className="text-gray-500 text-xs flex ml-2">
-                                <BriefcaseIcon className="w-[10px] h-[10px] mt-[3px] mr-1" /> 10/2012 - 9/2023
-                            </div>
-                        </div>
-
-                        <div className="text-gray-300 mt-3 mb-2">
-                            skills___________________________
-                        </div>
-
-                        <div className="ml-4">
-                            <div className="text-sm">Branding</div>
-                            <div className="text-sm">UI/UX</div>
-                            <div className="text-sm">Web-Design</div>
-                        </div>
-                    </div>
-                    <div className="w-8/12">
-                        <div className="text-gray-300">_______________________________________</div>
-                        <div className="text-gray-300 text-sm mt-2">
-                            DESCRIPTION
-                        </div>
-                        <div className="ml-4 mt-2">
-                            <p>Trong bóng tối của đêm, gió mát lướt qua những cành cây run rẩy. Những ánh đèn nhỏ lung linh phát ra ánh sáng nhẹ nhàng, tạo nên một khung cảnh thật đẹp. Những tiếng chim kêu từ xa càng làm thêm phần thơ mộng cho cảnh vật này.</p>
-                        </div>
-                        <div className="text-gray-300 text-sm mt-2">
-                            EXPERIENCE
-                        </div>
-                        <div className="ml-4 mt-2">
-                            <p>Trong bóng tối của đêm, gió mát lướt qua những cành cây run rẩy. Những ánh đèn nhỏ lung linh phát ra ánh sáng nhẹ nhàng, tạo nên một khung cảnh thật đẹp. Những tiếng chim kêu từ xa càng làm thêm phần thơ mộng cho cảnh vật này.</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="flex justify-end">
-                    <Link to="/interviewer/score-page">
-                        <button className="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">
-                            Start Interview
-                        </button>      
-                    </Link>
-                </div>
+                    }
             </div>
-        </div>
-    );
+        )
+    }
+    else if(INTSingleInterviewStatus === STATUS.ERROR){
+        return <div>ERROR</div>
+    }
 }
 
 export default InterviewDetail;

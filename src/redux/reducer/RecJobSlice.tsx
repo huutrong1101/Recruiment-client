@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import axiosInstance from "../../utils/AxiosInstance";
 
 const RecJobListSlice = createSlice({
-  name: "recjobList",
+  name: "RecJobList",
   initialState: {
     recjobsList: [],
     recjobsListStatus: STATUS.IDLE,
@@ -32,8 +32,8 @@ export const fetchRecJobList = () => {
   return async function fetchRecJobListThunk(dispatch: Dispatch) {
     dispatch(setRecjobsListStatus(STATUS.LOADING));
     try {
-      const reponse = await axiosInstance.get(`recruiter/jobs`);
-      const data = await reponse.data;
+      const response = await axiosInstance.get(`recruiter/jobs`);
+      const data = await response.data;
       dispatch(setRecjobsList(data.result.content));
       dispatch(setRecjobsListStatus(STATUS.IDLE));
     } catch (error) {
