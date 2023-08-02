@@ -30,30 +30,10 @@ import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 import EditJobWidget from "../../../components/RecJob/EditJobWidget";
 import { fetchRecInterviewerSkill } from "../../../redux/reducer/RecInterviewerSilce";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import EditJobCard from "../../../components/RecJob/EditJobCard";
 
 export default function ReccerJobDetail() {
   //############## Handle Get ##############
-  const [jobInformation, setJobInformation] = useState([
-    { icon: <UserIcon />, name: "Employee Type", value: "" },
-    { icon: <MapPinIcon />, name: "Location", value: "" },
-    {
-      icon: <ComputerDesktopIcon />,
-      name: "Job Type",
-      value: "Back-end Developer",
-    },
-    { icon: <BriefcaseIcon />, name: "Experience", value: "" },
-    { icon: <AcademicCapIcon />, name: "Qualification", value: "" },
-    {
-      icon: <CurrencyDollarIcon />,
-      name: "Salary",
-      value: "",
-    },
-    {
-      icon: <ClockIcon />,
-      name: "Posted at",
-      value: "",
-    },
-  ]);
   const { jobId } = useParams();
   const [job, setJob] = useState<JobInterface | null>(null);
   useEffect(() => {
@@ -117,8 +97,17 @@ export default function ReccerJobDetail() {
     setOpen(false);
   };
 
-  const skills = job?.skills.map((item) => item.name);
+  const skillsArray = job?.skills.map((item) => item.name);
   // ############## Handle Put ##############
+  const [jobInformation, setJobInformation] = useState([
+    { icon: <UserIcon />, name: "Employee Type", value: "" },
+    { icon: <MapPinIcon />, name: "Location", value: "" },
+    {
+      icon: <ComputerDesktopIcon />,
+      name: "Job Type",
+      value: "",
+    },
+  ]);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchRecInterviewerSkill());
@@ -142,7 +131,7 @@ export default function ReccerJobDetail() {
   const [jobType, setjobType] = useState([]);
   const [salaryRange, setSalaryRange] = useState("");
   const [deadline, setDeadline] = useState("");
-  const selectedValues = skillsRequired.map((option) => option.label);
+  const selectedValues = skillsRequired.map((option: any) => option.label);
   const handleSelectChange = (selectedOptions: any) => {
     setSkillsRequired(selectedOptions);
   };
@@ -183,84 +172,78 @@ export default function ReccerJobDetail() {
   };
 
   return (
-    <>
-      <div className={classNames(`job-detail`, `flex flex-col gap-6`)}>
-        {job ? (
-          <>
-            <div className={classNames(`flex flex-col md:flex-row gap-12`)}>
-              {/* Left side description */}
-              <div
-                className={classNames(
-                  `w-full md:w-8/12`,
-                  `flex flex-col gap-6 mt-2`,
-                )}
-              >
-                {/* Widgets */}
-                <EditJobWidget
-                  nameData={job?.name}
-                  setNameData={setName}
-                  quantityData={quantity}
-                  setQuantityData={setQuantity}
-                />
-                {/* Details */}
-                <div
-                  className={classNames(
-                    `border bg-white shadow-sm rounded-xl`,
-                    `px-8 py-8`,
-                    `text-justify`,
-                  )}
-                >
-                  <div>
-                    <h1 className="text-2xl font-semibold">Job description</h1>
-                    <TextareaAutosize
-                      minRows={4}
-                      value={job?.description}
-                      className="resize-none p-2.5 w-full text-justify bg-white border"
-                      onChange={(event) => setDescription(event.target.value)}
-                    />
-                  </div>
-                </div>
+    <div className={classNames(`job-detail`, `flex flex-col gap-6`)}>
+      <div className={classNames(`flex flex-col md:flex-row gap-12`)}>
+        {/* Left side description */}
+        <div
+          className={classNames(`w-full md:w-8/12`, `flex flex-col gap-6 mt-2`)}
+        >
+          {/* Widgets */}
+          <EditJobWidget
+            nameData={job?.name}
+            setNameData={setName}
+            quantityData={quantity}
+            setQuantityData={setQuantity}
+          />
+          {/* Details */}
+          <div
+            className={classNames(
+              `border bg-white shadow-sm rounded-xl`,
+              `px-8 py-8`,
+              `text-justify`,
+            )}
+          >
+            <div>
+              <h1 className="text-2xl font-semibold">Job description</h1>
+              <TextareaAutosize
+                minRows={4}
+                value={job?.description}
+                className="resize-none p-2.5 w-full text-justify bg-white border"
+                onChange={(event) => setDescription(event.target.value)}
+              />
+            </div>
+          </div>
 
-                {/* Requirement */}
-                <div
-                  className={classNames(
-                    `border bg-white shadow-sm rounded-xl`,
-                    `px-8 py-8`,
-                    `text-justify`,
-                  )}
-                >
-                  <div>
-                    <h1 className="text-2xl font-semibold">Requirement</h1>
-                    <TextareaAutosize
-                      minRows={4}
-                      value={job?.requirement}
-                      className="resize-none p-2.5 w-full text-justify bg-white border"
-                      onChange={(event) => setRequirement(event.target.value)}
-                    />
-                  </div>
-                </div>
+          {/* Requirement */}
+          <div
+            className={classNames(
+              `border bg-white shadow-sm rounded-xl`,
+              `px-8 py-8`,
+              `text-justify`,
+            )}
+          >
+            <div>
+              <h1 className="text-2xl font-semibold">Requirement</h1>
+              <TextareaAutosize
+                minRows={4}
+                value={job?.requirement}
+                className="resize-none p-2.5 w-full text-justify bg-white border"
+                onChange={(event) => setRequirement(event.target.value)}
+              />
+            </div>
+          </div>
 
-                {/* Benefit */}
-                <div
-                  className={classNames(
-                    `border bg-white shadow-sm rounded-xl`,
-                    `px-8 py-8`,
-                    `text-justify`,
-                  )}
-                >
-                  <div>
-                    <h1 className="text-2xl font-semibold">Benefit</h1>
-                    <TextareaAutosize
-                      minRows={4}
-                      value={job?.benefit}
-                      className="resize-none p-2.5 w-full text-justify bg-white border"
-                      onChange={(event) => setBenefit(event.target.value)}
-                    />
-                  </div>
-                </div>
+          {/* Benefit */}
+          <div
+            className={classNames(
+              `border bg-white shadow-sm rounded-xl`,
+              `px-8 py-8`,
+              `text-justify`,
+            )}
+          >
+            <div>
+              <h1 className="text-2xl font-semibold">Benefit</h1>
+              <TextareaAutosize
+                minRows={4}
+                value={job?.benefit}
+                className="resize-none p-2.5 w-full text-justify bg-white border"
+                onChange={(event) => setBenefit(event.target.value)}
+              />
+            </div>
+          </div>
 
-                {/* Skill */}
-                {/* <div
+          {/* Skill */}
+          {/* <div
                   className={classNames(
                     `border bg-white shadow-sm rounded-xl`,
                     `px-8 py-8`,
@@ -283,108 +266,107 @@ export default function ReccerJobDetail() {
                     </div>
                   </div>
                 </div> */}
-                <div
-                  className={classNames(
-                    `border bg-white shadow-sm rounded-xl`,
-                    `px-8 py-8`,
-                    `text-justify`,
-                  )}
-                >
-                  <div>
-                    <h1 className="text-2xl font-semibold">Skills Require</h1>
-                    <Select
-                      // defaultValue={listSkillsData[1]}
-                      options={listSkillsData}
-                      isMulti
-                      value={skillsRequired}
-                      onChange={handleSelectChange}
-                    />
-                  </div>
-                </div>
-                {/* /Skill */}
-                <div className={classNames(`flex`)}>
-                  <div className={classNames(`px-8 py-8`, `text-justify`)}>
-                    <button
-                      onClick={handleSubmit}
-                      className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-2 my-1 text-white"
-                      // onClick={routeChange}
-                    >
-                      Save
-                    </button>
-                  </div>
-                  <div className={classNames(`py-8`, `text-justify`)}>
-                    <button
-                      className="rounded-lg bg-red-700 hover:bg-red-900 px-4 py-2 mx-2 my-1 text-white"
-                      // onClick={deleteJob}
-                      onClick={handleClickOpen}
-                    >
-                      Delete Job
-                    </button>
-                    <Dialog
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="alert-dialog-title"
-                      aria-describedby="alert-dialog-description"
-                    >
-                      <DialogTitle
-                        id="alert-dialog-title"
-                        className="text-center"
-                      >
-                        <p className="font-extrabold pt-4">Delete Job</p>
-                      </DialogTitle>
-                      <DialogContent className="text-center">
-                        <div className="text-center px-6">
-                          <DialogContent className="font-semibold text-lg mb-2">
-                            Are you sure you want to delete "{job.name}"?
-                          </DialogContent>
-                          <DialogContentText
-                            id="alert-dialog-description"
-                            className="border bg-orange-100 px-3 py-2 "
-                          >
-                            <div className="flex">
-                              <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
-                              <p className="flex text-red-800 font-semibold px-2">
-                                WARNING
-                              </p>
-                            </div>
-                            <div className="text-left font-semibold">
-                              This action cannot be undone, the deleted item
-                              cannot be restored.
-                            </div>
-                          </DialogContentText>
-                        </div>
-                      </DialogContent>
-                      <DialogActions>
-                        <button
-                          className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-1 my-1 text-white"
-                          onClick={handleClose}
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          className="rounded-lg bg-red-700 hover:bg-red-900 px-4 py-2 mx-1 my-1 text-white"
-                          onClick={deleteJob}
-                          autoFocus
-                        >
-                          Delete
-                        </button>
-                      </DialogActions>
-                    </Dialog>
-                  </div>
-                </div>
-              </div>
-              {/* Right side description */}
-              <div className={classNames(`w-full md:w-3/12 flex-1 relative`)}>
-                <RecJobInformationCard cardData={jobInformation} />
-              </div>
+          <div
+            className={classNames(
+              `border bg-white shadow-sm rounded-xl`,
+              `px-8 py-8`,
+              `text-justify`,
+            )}
+          >
+            <div>
+              <h1 className="text-2xl font-semibold">Skills Require</h1>
+              <Select
+                options={listSkillsData}
+                isMulti
+                value={skillsRequired}
+                onChange={handleSelectChange}
+              />
             </div>
-          </>
-        ) : (
-          <div className="flex justify-center mt-5">
-            <LoadSpinner className="text-3xl" />
           </div>
-        )}
+          {/* /Skill */}
+          <div className={classNames(`flex`)}>
+            <div className={classNames(`px-8 py-8`, `text-justify`)}>
+              <button
+                onClick={handleSubmit}
+                className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-2 my-1 text-white"
+                // onClick={routeChange}
+              >
+                Save
+              </button>
+            </div>
+            <div className={classNames(`py-8`, `text-justify`)}>
+              <button
+                className="rounded-lg bg-red-700 hover:bg-red-900 px-4 py-2 mx-2 my-1 text-white"
+                // onClick={deleteJob}
+                onClick={handleClickOpen}
+              >
+                Delete Job
+              </button>
+              <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title" className="text-center">
+                  <p className="font-extrabold pt-4">Delete Job</p>
+                </DialogTitle>
+                <DialogContent className="text-center">
+                  <div className="text-center px-6">
+                    <DialogContent className="font-semibold text-lg mb-2">
+                      Are you sure you want to delete "{job?.name}"?
+                    </DialogContent>
+                    <DialogContentText
+                      id="alert-dialog-description"
+                      className="border bg-orange-100 px-3 py-2 "
+                    >
+                      <div className="flex">
+                        <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
+                        <p className="flex text-red-800 font-semibold px-2">
+                          WARNING
+                        </p>
+                      </div>
+                      <div className="text-left font-semibold">
+                        This action cannot be undone, the deleted item cannot be
+                        restored.
+                      </div>
+                    </DialogContentText>
+                  </div>
+                </DialogContent>
+                <DialogActions>
+                  <button
+                    className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-1 my-1 text-white"
+                    onClick={handleClose}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="rounded-lg bg-red-700 hover:bg-red-900 px-4 py-2 mx-1 my-1 text-white"
+                    onClick={deleteJob}
+                    autoFocus
+                  >
+                    Delete
+                  </button>
+                </DialogActions>
+              </Dialog>
+            </div>
+          </div>
+        </div>
+        {/* Right side description */}
+        <div className={classNames(`w-full md:w-3/12 flex-1 relative`)}>
+          {/* <EditJobCard
+            cardData={jobInformation}
+            setCardData={setJobInformation}
+            setpositionId={setPositionName}
+            setLocation={setLocation}
+            setjobType={setjobType}
+            salary={salaryRange}
+            setSalary={setSalaryRange}
+            deadline={deadline}
+            setDeadline={setDeadline}
+          /> */}
+        </div>
       </div>
-    </>
+    </div>
   );
 }
