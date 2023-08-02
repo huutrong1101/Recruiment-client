@@ -1,4 +1,9 @@
-import { CalendarDaysIcon } from "@heroicons/react/24/outline";
+import {
+  CalendarDaysIcon,
+  CheckIcon,
+  PencilSquareIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -34,6 +39,21 @@ export default function Applied() {
     let path = `interview-schedule/${userId}`;
     navigate(path);
   };
+  const handlePass = () => {
+    console.log("PASS");
+  };
+  const handleFail = () => {
+    console.log("FAIL");
+  };
+
+  const hehe = applyCandidate.map(
+    (applyCandidate, index) => applyCandidate.state,
+  );
+  console.log(hehe);
+
+  // applyCandidate.map((applyCandidate) =>
+  //   const state = applyCandidate.state
+  //   )
 
   return (
     <div

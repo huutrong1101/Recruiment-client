@@ -124,8 +124,8 @@ export default function App() {
         <Route path="/admin" element={<ManagementAppLayOut />}>
           <Route path="users" index element={<AdminDashboard />} />
           <Route path="users/:userId" element={<AdminChangePosition />} />
-          <Route path="blacklist-add" element={<AddBlacklist />} />
-          <Route path="blacklist-delete" element={<DeleteBlacklist />} />
+          <Route path="users/blacklist/:userId" element={<AddBlacklist />} />
+          <Route path="blacklist/:userId" element={<DeleteBlacklist />} />
           <Route path="profile" element={<AdminProfile />} />
           <Route path="jobs/:jobId" element={<ListCandiPass />} />
           <Route path="jobs" element={<ManagetJobList />} />
@@ -135,8 +135,8 @@ export default function App() {
           {/* Define recruiter routes here */}
           <Route path="dashboard" index element={<ReccerDashboard />} />
           <Route path="candidate-info" element={<CandidateProfile />} />
-          <Route path="candidates" element={<ReccerCandidateManagement />} />
-          <Route path="candidates/:userId" element={<CandidateDetail />} />
+          <Route path="applied-candidates" element={<ReccerCandidateManagement />} />
+          <Route path="applied-candidates/:userId" element={<CandidateDetail />} />
 
           <Route path="jobs" element={<ReccerJobManagement />} />
           <Route path="calender" element={<Reccercalender />} />

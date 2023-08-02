@@ -21,6 +21,7 @@ import AdminListPassRecentSlice from "./reducer/AdminListPassRecentSlice";
 import JobSlice from "./JobSlice";
 import RecInterviewerSilce from "./reducer/RecInterviewerSilce";
 import AdminAcountUseProfileSlice from "./reducer/AdminAcountUseProfileSlice";
+import RecEventSlice from "./reducer/RecEventSlice";
 
 export const ApplicationStore = configureStore({
   reducer: {
@@ -46,6 +47,8 @@ export const ApplicationStore = configureStore({
     adminacountList: AdminAcountListSlice,
     adminacountuseprofileRecent: AdminAcountUseProfileSlice,
     adminmanagerpassList: AdminListPassRecentSlice,
+    //Recruiter
+    recevent: RecEventSlice,
   },
 });
 
