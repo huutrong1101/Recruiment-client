@@ -12,7 +12,7 @@ export default function Contact() {
       const [linkGitlab, setGitlab] = useState('');
       const [linkTwitter, setTwitter] = useState('');
       // SubmitButon  
-      const handleSubmit = async (event) => {
+      const handleSubmit = async (event: any) => {
         event.preventDefault();
         const data = {
           linkContacts: {
@@ -27,7 +27,6 @@ export default function Contact() {
         try {
           const response = await axiosInstance.post("recruiter/profile/link-contact/add", data);
           console.log(response.data);
-
           // Handle success, e.g., show a success message or redirect
         } catch (error) {
           console.error(error);
@@ -36,6 +35,7 @@ export default function Contact() {
       };
       return (        
       <>
+
         {/* Lien he */}
         <form className="" onSubmit={handleSubmit}>
           {/* Link */}
