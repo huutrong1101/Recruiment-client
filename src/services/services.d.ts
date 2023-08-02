@@ -243,6 +243,15 @@ export interface QuestionListInterface{
   
 }
 
+export interface TypeListInterface{
+  type: string
+}
+
+export interface SkillListInterface{
+  skillId: number
+  skill: string
+}
+
 export interface Pagable {
   page?: number | string;
   limit?: number | string;
