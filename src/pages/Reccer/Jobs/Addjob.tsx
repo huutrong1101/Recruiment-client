@@ -20,6 +20,7 @@ import axiosInstance from "../../../utils/AxiosInstance";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { fetchRecInterviewerSkill } from "../../../redux/reducer/RecInterviewerSilce";
 import { Menu, Transition } from "@headlessui/react";
+import { useNavigate } from "react-router-dom";
 
 export default function Addjob() {
   const dispatch = useAppDispatch();
@@ -65,6 +66,8 @@ export default function Addjob() {
 
   const selectedValues = skillsRequired.map((option) => option.label);
 
+  const navigate = useNavigate();
+
 
 
 
@@ -75,17 +78,6 @@ export default function Addjob() {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    // console.log(name)
-    // console.log(quantity)
-    // console.log(description)
-    // console.log(requirement)
-    // console.log(benefit)
-    // console.log(selectedValues)
-    // console.log(positionName)
-    // console.log(location)
-    // console.log(jobType)
-    // console.log(test)
-    // console.log(salaryRange)
     const data = {
       name: name,
       jobType: jobType,
@@ -99,7 +91,9 @@ export default function Addjob() {
       positionName: positionName,
       skillsRequired: selectedValues,
     };
-    console.log(data)
+    navigate({
+      pathname: "/recruiter/jobs",
+    });
     // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/job
     axiosInstance.post('recruiter/job', data)
       .then((response) => {
@@ -118,7 +112,7 @@ export default function Addjob() {
     <div className={classNames(`job-detail`, `flex flex-col gap-6`)}>
       <div className={classNames(`flex flex-col md:flex-row gap-12`)}>
         {/* Left side description */}
-        <form className={classNames(`w-full md:w-8/12`, `flex flex-col gap-6`)} onSubmit={handleSubmit}>
+        <form className={classNames(`w-full md:w-8/12`, `flex flex-col gap-6 mt-5`)}>
           {/* Widgets */}
           <AddJobWidget nameData={name} setNameData={setName} quantityData={quantity} setQuantityData={setQuantity} />
           {/* Details */}
