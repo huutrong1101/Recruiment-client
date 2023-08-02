@@ -144,7 +144,7 @@ export default function AdminChangePosition() {
                         id="alert-dialog-title"
                         className="text-center"
                       >
-                        <p className="font-extrabold pt-4">Delete Job</p>
+                        <p className="font-extrabold pt-4">Delete Blacklist</p>
                       </DialogTitle>
                       <DialogContent className="text-center">
                         <div className="text-center px-6">

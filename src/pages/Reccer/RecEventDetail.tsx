@@ -4,14 +4,6 @@ import { useParams } from "react-router-dom";
 import { EventInterface } from "../../services/services";
 import { useAppSelector } from "../../hooks/hooks";
 import TextareaAutosize from "react-textarea-autosize";
-import {
-  BiLogoFacebook,
-  BiLogoInstagram,
-  BiLogoLinkedin,
-  BiLogoGitlab,
-  BiLogoTwitter,
-} from "react-icons/bi";
-
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -22,12 +14,14 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 import axiosInstance from "../../utils/AxiosInstance";
 import moment from "moment";
-import Loader from "../../components/Loader/Loader";export default function RecEventDetail() {
+import Loader from "../../components/Loader/Loader";import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+export default function RecEventDetail() {
   const { eventId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const events:  EventInterface[] = useAppSelector((state) => state.recevent.RecEventRecent);
   // Define the initial state outside the useEffect hook
   const [avatar, setAvatar] = useState('');
+  const [avatar1, setAvatar1] = useState(null);
   const [dayend, setDayend] = useState('');
   const [daystar, setDaystar] = useState('');
   const [time, setTime] = useState('');
@@ -46,13 +40,10 @@ import Loader from "../../components/Loader/Loader";export default function RecE
     setOpenDelete(false);
   };
   //Upload event avatar
-  const handleImageUpload = (event: any) => {
-    const file = event.target.files[0]; // Lấy file từ sự kiện chọn file
-    if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
-      setAvatar(file);
-    } else {
-      alert('Please choose an image file (jpg or png)');
-    }
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    setAvatar1(file);
+    setAvatar(URL.createObjectURL(file));
   };
 
   useEffect(() => {
@@ -85,15 +76,19 @@ import Loader from "../../components/Loader/Loader";export default function RecE
     const formattedValueDeadline = moment(dayend).format("HH:mm:ss YYYY-MM-DD");
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("file", avatar);
+    formData.append("file", avatar1);
     formData.append("startAt", formattedValueStart);
     formData.append("deadline", formattedValueDeadline);
     formData.append("location", location);
     formData.append("time", time);   
-    console.log(formData);
-    
+      // console.log(formData);
+      // Store form data elements in state
+    const elements = [];
+    for (const pair of formData.entries()) {
+      elements.push(pair);
+    }    
     // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/events/create với FormData
-    axiosInstance.put( `recruiter/events/${eventId}`, formData)
+    axiosInstance.put( `/recruiter/events/${eventId}`, formData)
       .then((response) => {
         alert('Successful');
         // Xử lý phản hồi từ server (nếu cần)
@@ -155,31 +150,33 @@ import Loader from "../../components/Loader/Loader";export default function RecE
       ):(
         <>
         <div className={classnames("flex pt-5 justify-center gap-5")}>
-          <div className={classnames("bg-white rounded-lg shadow-lg item-center w-70%")}>
+          <div className={classnames("bg-white rounded-lg shadow-lg item-center")}>
             <div className={classnames("flex items-left px-10 mt-10")}>
               <label className="text-zinc-900 text-2xl font-normal leading-7 ">Image here</label>
             </div>
-            <div className="flex items-left px-10 mt-10 justify-center">
-              <label htmlFor="avatar">
-                {avatar ? (
-                  <div>
-                    <img
-                      src={URL.createObjectURL(avatar)}
-                      alt="blog_image"
-                      className="w-90% h-90% rounded-xl"
-                    />
-                    <div>{avatar.name.split('.').slice(0, -1).join('.')}</div>
-                  </div>
-                ) : (
-                  <span>Choose an image</span>
-                )}
-                <input
-                  type="file"
-                  id="avatar"
-                  className={classnames("w-[50%] ig object-cover ig-center hidden")}
-                  onChange={handleImageUpload}
-                />
-              </label>
+            <div className="flex items-left px-10 mt-10 justify-center ">
+            <label htmlFor="avatar">
+              {avatar ? (
+                <div>
+                  {avatar1 === null ? (
+                    <img src={avatar} alt="blog_image" className="w-auto h-auto min-w-[400px] min-h-[400px] rounded-xl" />
+                  ) : (
+                    <div>
+                      <img src={URL.createObjectURL(avatar1)} alt="blog_image" className="w-auto h-auto min-w-[400px] min-h-[400px] rounded-xll" />
+                      <div>{avatar1.name.split('.').slice(0, -1).join('.')}</div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <span>Choose an image</span>
+              )}
+              <input
+                type="file"
+                id="avatar"
+                className={classnames("w-[50%] ig object-cover ig-center hidden")}
+                onChange={handleImageUpload}
+              />
+            </label>
             </div>          
             <div
               className={classnames(
@@ -250,7 +247,7 @@ import Loader from "../../components/Loader/Loader";export default function RecE
                   minRows={1}
                   id="title"
                   value={title}
-                  className="resize-none text-[16px] w-full text-black font-outfit text-2xl font-medium leading-31 tracking-wider capitalize"
+                  className="resize-none font-medium leading-tight border text-emerald-6 text-[16px] w-full text-black font-outfit text-2xl font-medium leading-31 tracking-wider capitalize"
                   onChange={(event) => settitle(event.target.value)}
                 />
               </h3>
@@ -264,52 +261,12 @@ import Loader from "../../components/Loader/Loader";export default function RecE
                   minRows={10}
                   id="description"
                   value={description}
-                  className="resize-none p-2.5 text-[13px] w-full text-justify bg-white"
+                  className="resize-none p-2.5 text-[13px] w-full text-justify bg-white mb-10 font-medium leading-tight border text-emerald-6"
                   onChange={(event) => setdescription(event.target.value)}
                 />
               </div>
             </div>
           </div>
-
-          {/* Author 
-          <div
-            className={classnames(
-              "bg-white rounded-lg shadow-lg w-[50%] h-fit sticky top-0",
-            )}
-          >
-            <div
-              className={classnames(
-                "flex items-center justify-center p-2 bg-gray-300 rounded-tl-lg rounded-tr-lg",
-              )}
-            >
-              <h3
-                className={classnames(
-                  "text-center text-black text-lg font-medium tracking-wider leading-7 capitalize",
-                )}
-              >
-                Author
-              </h3>
-            </div>
-            <div
-              className={classnames(
-                "flex flex-col gap-1 items-center justify-center my-4",
-              )}
-            > */}
-              {/* <div className={classnames("flex items-center justify-center")}>
-                <label htmlFor="avaActor">
-                  {avaActor && (
-                    <img
-                      src={avaActor}
-                      alt="avatar"
-                      className="w-[175px] h-[175px] rounded-full mt-5 mb-5"
-                    />
-                  )}                
-                </label>
-              </div> */}
-              {/* <h3>Content Writer - journalist </h3>
-              <h3>{name}</h3> */}
-            {/* </div> */}
-          {/* </div> */}
         </div>
 
         <div className={classnames("mt-10 text-center px-6 py-3")}>
@@ -332,13 +289,29 @@ import Loader from "../../components/Loader/Loader";export default function RecE
             aria-describedby="alert-dialog-description"
           >
             <DialogTitle id="alert-dialog-title">
-              {"Are you sure you want to change the location of this account?"}
+            <p className="font-extrabold pt-4 text-center">Delete Event</p>
             </DialogTitle>
-            <DialogContent>
-              <DialogContentText id="alert-dialog-description">
-                Or consider carefully before deleting them all changes when
-                pressing the agree button.
-              </DialogContentText>
+            <DialogContent className="text-center">
+              <div className="text-center px-6">
+                <DialogContent className="font-semibold text-lg mb-2">
+                  Are you sure you want to delete name "{title}"?
+                </DialogContent>
+                <DialogContentText
+                  id="alert-dialog-description"
+                  className="border bg-orange-100 px-3 py-2 "
+                >
+                  <div className="flex">
+                    <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
+                    <p className="flex text-red-800 font-semibold px-2">
+                      WARNING
+                    </p>
+                  </div>
+                  <div className="text-left font-semibold">
+                    This action cannot be undone, the deleted item
+                    cannot be restored.
+                  </div>
+                </DialogContentText>
+              </div>
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Disagree</Button>
