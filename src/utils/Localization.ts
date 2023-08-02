@@ -9,14 +9,21 @@ export const JOB_POSITION: LocalizationDeclarationType = {
   FREELANCE: "Freelance",
 };
 
+export const TECHNICAL: LocalizationDeclarationType = {};
 
-export const TECHNICAL: LocalizationDeclarationType = {
-  
-}
-
-export const REC_INTERVIEW_STATUS :LocalizationDeclarationType={
+/**
+ * @deprecated using Localization.APPLICANTS_STATUS instead
+ */
+export const REC_INTERVIEW_STATUS: LocalizationDeclarationType = {
   NOT_RECEIVED: "Not Received",
   RECEIVED: "Reveived",
   PASS: "Pass",
   FAIL: "Fail",
-}
+};
+
+export const APPLICANTS_STATUS: LocalizationDeclarationType = {
+  NOT_RECEIVED: "Not Received",
+  RECEIVED: "Received",
+  PASS: "Passed",
+  FAIL: "Failed",
+};
