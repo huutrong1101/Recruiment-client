@@ -308,7 +308,7 @@ export default function Jobs() {
           </div>
           {/* Jobs Type  */}
           <div className={classNames("mt-4")}>
-            <h3 className={classNames("text-base font-semibold  capitalize")}>
+            <h3 className={classNames("text-base font-semibold capitalize")}>
               Jobs Type
             </h3>
             <Menu as="div" className={classNames("relative mt-2")}>

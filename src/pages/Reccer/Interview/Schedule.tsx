@@ -1,31 +1,101 @@
 import classNames from "classnames";
-import { PlusIcon, TrashIcon, UserPlusIcon } from "@heroicons/react/24/outline";
-import { TextareaAutosize } from "@mui/material";
+import { TrashIcon } from "@heroicons/react/24/outline";
 import InterviewerPopup, { Interviewer } from "./InterviewerPopup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axiosInstance from "../../../utils/AxiosInstance";
+import { useParams } from "react-router-dom";
+import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import DatePicker from "./DatePicker";
+import * as React from "react";
+import dayjs, { Dayjs } from "dayjs";
+import { toast } from "react-toastify";
+import { InterviewService } from "../../../services/InterviewService";
+
+interface UserProps {
+  userId: string;
+  jobApplyId: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  address: string;
+  dateOfBirth: Date;
+  skills: Skill[];
+  education: string;
+  experience: string;
+  certificate: string;
+  prize: string;
+  course: string | null;
+  project: string;
+  socialActivity: string;
+  resumeUpload: string;
+}
+
+interface Skill {
+  skillId: string;
+  name: string;
+}
 
 export default function Schedule() {
-  const personArray = [
-    {
-      name: "John Doe",
-      email: "johndoe@example.com",
-      phone: "111222333",
-      date: new Date().toDateString(),
-      id: 1,
-      position: "Web Designer",
-    },
-  ];
+  const { userId, jobId } = useParams();
 
   const [interviewerArray, setInterviewers] = useState<any[]>([]);
 
-  const handleOnSelectInterviewer = (interviewer: Interviewer) => {
-    setInterviewers([...interviewerArray, interviewer]);
+  const [candidate, setCandidate] = useState<UserProps>();
+
+  const [selectedDate, setSelectedDate] = React.useState<Dayjs | null>(dayjs());
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    try {
+      const fetchDataCandidate = async () => {
+        const res = await axiosInstance.get(
+          `recruiter/job/${jobId}/candidates/${userId}`,
+        );
+        setCandidate(res.data.result);
+      };
+      fetchDataCandidate();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const handleOnSelectInterviewer = (newListInterviewer: Interviewer[]) => {
+    setInterviewers(newListInterviewer);
   };
+
   const handleDeleteInterviewer = (interviewerId: string) => {
     const newList = interviewerArray.filter(
       (interviewer: any) => interviewer.interviewerId !== interviewerId,
     );
     setInterviewers(newList);
+  };
+
+  const handleDateChange = (date: Dayjs | null) => {
+    setSelectedDate(date);
+  };
+
+  const handleCreateInterview = () => {
+    const listInterviewersId = interviewerArray.map(
+      (interviewer) => interviewer.interviewerId,
+    );
+    const timeFormat = selectedDate?.format("YYYY-MM-DDTHH:mm:ss.SSSZ");
+
+    const data = {
+      jobApplyId: candidate?.jobApplyId || "",
+      time: timeFormat || "",
+      interviewersId: listInterviewersId,
+    };
+
+    toast
+      .promise(InterviewService.createInterview(data), {
+        pending: `Creating the interview`,
+        success: `The interview was created`,
+      })
+      .catch((error) => toast.error(error.response.data.result));
   };
 
   return (
@@ -41,13 +111,13 @@ export default function Schedule() {
 
         {/* Add Interviewer */}
         <InterviewerPopup
-          interviewerArray={interviewerArray}
+          interviewers={interviewerArray}
           onSelectInterviewer={handleOnSelectInterviewer}
         />
         {/* /////// */}
       </div>
 
-      <div className="overflow-x-auto p-4">
+      <div className="p-4 overflow-x-auto">
         <table className="w-full text-sm text-left text-gray-500">
           {/* Candidate's info */}
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
@@ -70,24 +140,34 @@ export default function Schedule() {
             </tr>
           </thead>
           <tbody>
-            {personArray.map((personArray) => (
-              <tr className="bg-white border-b " key={personArray.id}>
-                <td
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-                >
-                  {personArray.name}
-                </td>
-                <td className="px-6 py-4">{personArray.phone}</td>
-                <td className="px-6 py-4">{personArray.email}</td>
-                {/* <td className="px-6 py-4">{personArray.date}</td> */}
-                <td className="px-4 py-4">
-                  <button>
-                    <TrashIcon className="w-6 h-6" />
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {isLoading ? (
+              <div className="flex justify-center my-4">
+                <LoadSpinner className="text-3xl text-emerald-500" />
+              </div>
+            ) : (
+              <>
+                {candidate && (
+                  <>
+                    <tr className="bg-white border-b " key={candidate.userId}>
+                      <td
+                        scope="row"
+                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                      >
+                        {candidate.fullName}
+                      </td>
+                      <td className="px-6 py-4">{candidate.phone}</td>
+                      <td className="px-6 py-4">{candidate.email}</td>
+
+                      <td className="px-4 py-4">
+                        <button>
+                          <TrashIcon className="w-6 h-6" />
+                        </button>
+                      </td>
+                    </tr>
+                  </>
+                )}
+              </>
+            )}
           </tbody>
           {/* ////////////// */}
           {/* Interviewer Info */}
@@ -136,21 +216,10 @@ export default function Schedule() {
           </tbody>
           {/* /////////// */}
         </table>
-        <div
-          className={classNames(
-            `text-sm text-gray-700 uppercase bg-gray-50 font-bold`,
-            `px-6 py-4 flex flex-col`,
-          )}
-        >
-          Interview Link:
-          <TextareaAutosize
-            minRows={1}
-            className={classNames(
-              `w-full resize-none px-1 text-sm bg-white border rounded-lg`,
-            )}
-            placeholder="https://meet.google.com/sxi-erat-ejf?authuser=1"
-          ></TextareaAutosize>
-        </div>
+      </div>
+      <div className="flex items-start justify-start w-1/2 gap-3 px-4">
+        <h1>Choose Date</h1>
+        <DatePicker value={selectedDate} onChange={handleDateChange} />
       </div>
       <div className={classNames(`flex justify-center`)}>
         <button
@@ -159,6 +228,7 @@ export default function Schedule() {
             `flex items-center`,
             `bg-emerald-700 py-2 px-4 rounded-xl`,
           )}
+          onClick={handleCreateInterview}
         >
           Save
         </button>

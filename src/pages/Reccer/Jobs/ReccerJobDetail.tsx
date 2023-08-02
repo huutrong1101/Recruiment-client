@@ -36,8 +36,6 @@ import { JOB_LOCATION, JOB_POSITION, JOB_TYPE } from "../../../utils/Localizatio
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 
 export default function ReccerJobDetail() {
-  // const listSkills = ["React", "Java", "HTML", "Figma", "WordPress"];
-
   const [jobInformation, setJobInformation] = useState([
     { icon: <UserIcon />, name: "Employee Type", value: "" },
     { icon: <MapPinIcon />, name: "Location", value: "" },
