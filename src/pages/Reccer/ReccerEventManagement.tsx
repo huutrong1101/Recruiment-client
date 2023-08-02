@@ -14,6 +14,13 @@ import axiosInstance from "../../utils/AxiosInstance";
 import moment from "moment";
 import Pagination from "../../components/Pagination/Pagination";
 import Loader from "../../components/Loader/Loader";
+import { Outlet } from "react-router-dom";
+import AdminTable from "../../components/AdminManagerList/AdminTable";
+import { STATUS } from "../../utils/Status";
+import { AcountConfig, AcountInterface } from "../../services/services";
+import { createSearchParams, useNavigate } from "react-router-dom";
+import Paginationacountlist from "../../components/AdminManagerList/Pagination/Paginationacountlist";
+
 export type QueryConfig = {
   [key in keyof JobListConfig]: string;
 };
@@ -28,6 +35,7 @@ export default function ReccerEventManagement() {
     {
       index: queryParams.index || "1",
       size: queryParams.size || 6,
+      name: queryParams.name || "",
     },
     isUndefined,
   );
@@ -81,12 +89,69 @@ export default function ReccerEventManagement() {
       setPrevQueryConfig(queryConfig);
     }
   }, [queryConfig, prevQueryConfig]);
+
+  // Search
+  const navigate = useNavigate();
+  const [typeSelected, setTypeSelected] = useState("");
+  const [dataSearch, setDataSearch] = useState({
+    key: "",
+  });
+  const handleSearch = async () => {
+    try {
+      setIsLoading(true);
+      navigate({
+        pathname: "/recruiter/events",
+        search: createSearchParams({
+          ...queryConfig,
+          name: dataSearch.key,
+        }).toString(),
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const handleGetData = (type: any) => {
+    setTypeSelected(type.typename);
+    navigate({
+      pathname: "/recruiter/events",
+      search: createSearchParams({
+        ...queryConfig,
+        page: "1",
+        name: dataSearch.key,
+      }).toString(),
+    });
+  };
+
   return (
     <>
       <div>
         {/* Search */}
         <div className="justify-center flex grid-cols-[100%] sm:grid-cols-[15%,60%,25%] gap-1 pt-5 mx-auto lg:grid-cols-[25%,60%,25%] ">
-          <SearchBar />
+        <form
+          onSubmit={handleSearch}
+          className="inline-flex items-center justify-start gap-1 px-0.5 py-0.5 bg-white border rounded-xl bg-opacity-5"
+        >
+          <div className="flex items-center justify-center gap-3 relative">              
+            <input
+              type="text"
+              className="font-medium outline-none text-gray-900 text-[14px] h-[30px] text-left rounded-lg"
+              value={dataSearch.key}
+              onChange={(e) =>
+                setDataSearch({ ...dataSearch, key: e.target.value })
+              }
+                placeholder=" Please enter a search     "
+              />
+            </div>
+        </form>
+        <button
+          onClick={() => handleSearch()}
+          className="px-6 py-1.5 ml-5 text-white rounded-lg bg-emerald-600 hover:bg-emerald-800"
+        >
+          Search
+        </button>
+
         </div>
         {/* Add Event */}
         <NavLink to="/recruiter/events-add" onClick={() => { }}>

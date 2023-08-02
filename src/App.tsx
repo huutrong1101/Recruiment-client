@@ -124,14 +124,12 @@ export default function App() {
         <Route path="/admin" element={<ManagementAppLayOut />}>
           <Route path="users" index element={<AdminDashboard />} />
           <Route path="users/:userId" element={<AdminChangePosition />} />
-          <Route path="blacklist-add" element={<AddBlacklist />} />
-          <Route path="blacklist-delete" element={<DeleteBlacklist />} />
+          <Route path="users/blacklist/:userId" element={<AddBlacklist />} />
+          <Route path="blacklist/:userId" element={<DeleteBlacklist />} />
           <Route path="profile" element={<AdminProfile />} />
-          <Route path="jobs/:jobId" element={<ListCandiPass />}
-          />
+          <Route path="jobs/:jobId" element={<ListCandiPass />}   />
           <Route path="jobs" element={<ManagetJobList />} />
         </Route>
-
 
         <Route path="/recruiter" element={<ManagementAppLayOut />}>
           {/* Define recruiter routes here */}

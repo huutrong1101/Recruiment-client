@@ -6,9 +6,9 @@ import { omitBy, isUndefined } from "lodash";
 import useQueryParams from "../../hooks/useQueryParams";
 
 import qs from "query-string";
-import { createSearchParams, useNavigate, useParams } from "react-router-dom";
-import { omit, isEqual } from "lodash";
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { useParams } from "react-router-dom";
+import { isEqual } from "lodash";
+import {  useAppSelector } from '../../hooks/hooks';
 
 
 export type QueryConfig = {
@@ -18,6 +18,7 @@ import axiosInstance from "../../utils/AxiosInstance";
 import Paginationpasslist from "./Pagination/Paginationpasslist";
 import Loader from "../Loader/Loader";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
+import moment from "moment";
 
 export default function ListCandiPass() {
 
@@ -100,7 +101,7 @@ export default function ListCandiPass() {
         </TableHead>
         {isLoading ? (
               <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-10 mb-10">
-                <Loader  className ="l-20flex items-center justify-center" />
+                <Loader />
               </div>
             ) : (
             <TableBody>
@@ -108,7 +109,9 @@ export default function ListCandiPass() {
             <TableRow className="text-black bg-white text-center" >
               <TableCell scope="row" className="px-1 py-1 font-medium text-gray-900 whitespace-nowrap">   {job.name}  </TableCell>
               <TableCell className="px-1 py-1">{job.phone}</TableCell>
-              <TableCell className="px-1 py-1">{job.date}</TableCell>
+              <TableCell className="px-1 py-1">
+                {moment(job.date).format("HH:mm:ss DD-MM-YYYY")}
+              </TableCell>
               <TableCell className="px-1 py-1">{job.score}</TableCell>
             </TableRow>
             ))}
