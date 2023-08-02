@@ -36,7 +36,6 @@ export const fetchRecInterviewerList =()=>{
         try{
             const response = await axiosInstance.get(`recruiter/interviewers`);
             const data = await response.data
-
             dispatch(setRecInterviewerList(data.result.content))
             dispatch(setRecInterviewerListStatus(STATUS.IDLE))
         } catch(error){

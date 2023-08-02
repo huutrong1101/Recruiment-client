@@ -96,6 +96,8 @@ const ReccerInterviewerManagement = () => {
         try {
           const query = qs.stringify(queryConfig);
           const response = await axiosInstance(`/recruiter/interviewers?${query}`);
+          console.log("co vao k")
+          console.log(response)
           setshowinterviewers(response.data.result.content);
           setPageSize(response.data.result.totalPages);
         } catch (error) {
@@ -121,16 +123,14 @@ const ReccerInterviewerManagement = () => {
   const handleSearch = async () => {
     try {
       setIsLoading(true);
-      console.log("Searching with fullName:", dataSearch.key);
-      console.log("co vao day")
       navigate({
         pathname: "../interviewers",
         search: createSearchParams({
           ...queryConfig,
-          //Dưới đây chính là cái parameter ở URL
+          //Dưới đây là cái parameter ở URL
           name: dataSearch.key,
           skill: dataSearch.skill,
-          index: "1",
+          page: "1",
         }).toString(),
       });
 
