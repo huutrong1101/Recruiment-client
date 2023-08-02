@@ -4,7 +4,6 @@ import {
   ClockIcon,
   ComputerDesktopIcon,
   CurrencyDollarIcon,
-  ExclamationCircleIcon,
   ExclamationTriangleIcon,
   MapPinIcon,
   UserIcon,
@@ -12,10 +11,7 @@ import {
 import classNames from "classnames";
 import { useNavigate, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import ReccerJobDescriptionWidget from "../../../components/RecJob/ReccerJobDescriptionWidget";
-import Logo from "../../../../images/logo_FPT.png";
 import RecJobInformationCard from "../../../components/RecJob/ReccerJobInformationCard";
-import JobCard from "../../../components/JobCard/JobCard";
 import {
   Avatar,
   Dialog,
@@ -25,20 +21,18 @@ import {
   DialogTitle,
   TextareaAutosize,
 } from "@mui/material";
-
-import AvatarCandidate from "../../../components/Candidate/Avatar";
-import Applied from "./AppliedCandidate";
-import Suggested from "./SuggestedCandidate";
+import Select from "react-select";
 import { JobInterface } from "../../../services/services";
 import axiosInstance from "../../../utils/AxiosInstance";
 import moment from "moment";
-import Loader from "../../../components/Loader/Loader";
-import Button from "../../../components/Button/Button";
-import AddJobWidget from "../../../components/RecJob/AddJobWidget";
+import { JOB_POSITION } from "../../../utils/Localization";
+import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import EditJobWidget from "../../../components/RecJob/EditJobWidget";
+import { fetchRecInterviewerSkill } from "../../../redux/reducer/RecInterviewerSilce";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 
-export default function ReccerEditJob() {
-  // const listSkills = ["React", "Java", "HTML", "Figma", "WordPress"];
-
+export default function ReccerJobDetail() {
+  //############## Handle Get ##############
   const [jobInformation, setJobInformation] = useState([
     { icon: <UserIcon />, name: "Employee Type", value: "" },
     { icon: <MapPinIcon />, name: "Location", value: "" },
@@ -60,13 +54,6 @@ export default function ReccerEditJob() {
       value: "",
     },
   ]);
-
-  const [name, setName] = useState('');
-  const [quantity, setQuantity] = useState('');
-  const [description, setDescription] = useState('')
-  const [requirement, setRequirement] = useState('')
-  const [benefit, setBenefit] = useState('')
-  
   const { jobId } = useParams();
   const [job, setJob] = useState<JobInterface | null>(null);
   useEffect(() => {
@@ -80,12 +67,20 @@ export default function ReccerEditJob() {
   useEffect(() => {
     if (job) {
       setJobInformation([
-        { icon: <UserIcon />, name: "Employee Type", value: job.jobType },
-        { icon: <MapPinIcon />, name: "Location", value: job.location },
+        {
+          icon: <UserIcon />,
+          name: "Employee Type",
+          value: JOB_POSITION[job.jobType],
+        },
+        {
+          icon: <MapPinIcon />,
+          name: "Location",
+          value: JOB_POSITION[job.location],
+        },
         {
           icon: <ComputerDesktopIcon />,
           name: "Job Type",
-          value: job.position.name,
+          value: JOB_POSITION[job.position.name],
         },
         {
           icon: <CurrencyDollarIcon />,
@@ -94,8 +89,8 @@ export default function ReccerEditJob() {
         },
         {
           icon: <ClockIcon />,
-          name: "Posted at",
-          value: moment(job.createdAt).format("Do MMM, YYYY"),
+          name: "End At",
+          value: moment(job.deadline).format("Do MMM, YYYY"),
         },
       ]);
     }
@@ -110,12 +105,81 @@ export default function ReccerEditJob() {
       pathname: "/recruiter/jobs",
     });
   };
+  const routeChange = () => {
+    let path = `./edit`;
+    navigate(path);
+  };
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const skills = job?.skills.map((item) => item.name);
+  // ############## Handle Put ##############
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchRecInterviewerSkill());
+  }, []);
+  // console.log(showSkill)
+  const listSkills = useAppSelector((state) => state.RecInterviewerList.skill);
+
+  const listSkillsData = listSkills.map((skill: any) => ({
+    value: skill.skillId,
+    label: `${skill.name}`,
+  }));
+
+  const [name, setName] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [description, setDescription] = useState("");
+  const [requirement, setRequirement] = useState("");
+  const [benefit, setBenefit] = useState("");
+  const [skillsRequired, setSkillsRequired] = useState([]);
+  const [positionName, setPositionName] = useState([]);
+  const [location, setLocation] = useState([]);
+  const [jobType, setjobType] = useState([]);
+  const [salaryRange, setSalaryRange] = useState("");
+  const [deadline, setDeadline] = useState("");
+  const selectedValues = skillsRequired.map((option) => option.label);
+  const handleSelectChange = (selectedOptions: any) => {
+    setSkillsRequired(selectedOptions);
+  };
+  const handleSubmit = (event: any) => {
+    // navigate({
+    //   pathname: `/recruiter/jobs/`
+    // });
+    event.preventDefault();
+    const data = {
+      name: name,
+      jobType: jobType,
+      quantity: quantity,
+      benefit: benefit,
+      salaryRange: salaryRange,
+      requirement: requirement,
+      location: location,
+      description: description,
+      deadline: deadline,
+      positionName: positionName,
+      skillsRequired: selectedValues,
+    };
+    navigate({
+      pathname: "/recruiter/jobs",
+    });
+    // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/job
+    axiosInstance
+      .post("recruiter/job", data)
+      .then((response) => {
+        alert("Successful");
+        // Xử lý phản hồi từ server (nếu cần)
+        console.log(response.data); // In ra thông tin phản hồi từ máy chủ
+        // In tất cả thông tin từ FormData
+      })
+      .catch((error) => {
+        // Xử lý lỗi (nếu có)
+        console.error("Error:", error);
+      });
   };
 
   return (
@@ -132,15 +196,12 @@ export default function ReccerEditJob() {
                 )}
               >
                 {/* Widgets */}
-                {/* <ReccerJobDescriptionWidget
-                  companyName="FPT Software"
-                  jobRole={job?.name}
-                  publishDate={moment(job?.createdAt)
-                    .format("Do MMM, YYYY")
-                    .toString()}
-                  logo={{ src: Logo, alt: "image" }}
-                /> */}
-                <AddJobWidget nameData={name} setNameData={setName} quantityData={quantity} setQuantityData={setQuantity} />
+                <EditJobWidget
+                  nameData={job?.name}
+                  setNameData={setName}
+                  quantityData={quantity}
+                  setQuantityData={setQuantity}
+                />
                 {/* Details */}
                 <div
                   className={classNames(
@@ -153,9 +214,9 @@ export default function ReccerEditJob() {
                     <h1 className="text-2xl font-semibold">Job description</h1>
                     <TextareaAutosize
                       minRows={4}
-                      className="resize-none p-2.5 w-full text-justify bg-white border"
-                      placeholder="Job description here..."
                       value={job?.description}
+                      className="resize-none p-2.5 w-full text-justify bg-white border"
+                      onChange={(event) => setDescription(event.target.value)}
                     />
                   </div>
                 </div>
@@ -170,12 +231,11 @@ export default function ReccerEditJob() {
                 >
                   <div>
                     <h1 className="text-2xl font-semibold">Requirement</h1>
-                    {/* <input>{job?.requirement}</input> */}
                     <TextareaAutosize
                       minRows={4}
-                      className="resize-none p-2.5 w-full text-justify bg-white border"
-                      placeholder="Job description here..."
                       value={job?.requirement}
+                      className="resize-none p-2.5 w-full text-justify bg-white border"
+                      onChange={(event) => setRequirement(event.target.value)}
                     />
                   </div>
                 </div>
@@ -190,18 +250,17 @@ export default function ReccerEditJob() {
                 >
                   <div>
                     <h1 className="text-2xl font-semibold">Benefit</h1>
-                    {/* <input>{job?.benefit}</input> */}
                     <TextareaAutosize
                       minRows={4}
-                      className="resize-none p-2.5 w-full text-justify bg-white border"
-                      placeholder="Job description here..."
                       value={job?.benefit}
+                      className="resize-none p-2.5 w-full text-justify bg-white border"
+                      onChange={(event) => setBenefit(event.target.value)}
                     />
                   </div>
                 </div>
 
                 {/* Skill */}
-                <div
+                {/* <div
                   className={classNames(
                     `border bg-white shadow-sm rounded-xl`,
                     `px-8 py-8`,
@@ -223,15 +282,34 @@ export default function ReccerEditJob() {
                       ))}
                     </div>
                   </div>
+                </div> */}
+                <div
+                  className={classNames(
+                    `border bg-white shadow-sm rounded-xl`,
+                    `px-8 py-8`,
+                    `text-justify`,
+                  )}
+                >
+                  <div>
+                    <h1 className="text-2xl font-semibold">Skills Require</h1>
+                    <Select
+                      // defaultValue={listSkillsData[1]}
+                      options={listSkillsData}
+                      isMulti
+                      value={skillsRequired}
+                      onChange={handleSelectChange}
+                    />
+                  </div>
                 </div>
                 {/* /Skill */}
                 <div className={classNames(`flex`)}>
                   <div className={classNames(`px-8 py-8`, `text-justify`)}>
                     <button
+                      onClick={handleSubmit}
                       className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-2 my-1 text-white"
                       // onClick={routeChange}
                     >
-                      Edit Job
+                      Save
                     </button>
                   </div>
                   <div className={classNames(`py-8`, `text-justify`)}>
@@ -302,7 +380,9 @@ export default function ReccerEditJob() {
             </div>
           </>
         ) : (
-          <Loader />
+          <div className="flex justify-center mt-5">
+            <LoadSpinner className="text-3xl" />
+          </div>
         )}
       </div>
     </>
