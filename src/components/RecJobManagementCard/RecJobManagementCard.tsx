@@ -14,7 +14,7 @@ export default function RecDashboardCard({ job }: any) {
    const days = duration.asDays();
    return (
       <>
-         <div className="relative w-full overflow-hidden transition-all duration-500 bg-white border rounded-md shadow group hover:shadow-lg h-fit">
+         <div className="relative w-full overflow-hidden transition-all duration-500 bg-white border rounded-md shadow group hover:shadow-lg h-fit ">
             <div className="p-6">
                <div className="flex items-center">
                   <div className="w-14 h-14 min-w-[56px] flex items-center justify-center bg-white shadow  rounded-md">
@@ -31,7 +31,7 @@ export default function RecDashboardCard({ job }: any) {
                         <span className="ml-5 text-sm font-semibold text-gray-400 ">
                            {days >= 1
                               ? `${Math.floor(days)} days`
-                           : `${Math.abs(duration.asHours()).toFixed(0)} hours`}{" "}
+                              : `${Math.abs(duration.asHours()).toFixed(0)} hours`}{" "}
                            ago
                         </span>
                      </h1>
@@ -47,17 +47,13 @@ export default function RecDashboardCard({ job }: any) {
                      </span>
                   </div>
                </div>
-               <div className={classnames("flex items-start mt-4")}>
-                  <h3
-                     className={classnames(
-                        "text-black text-center text-sm font-semibold leading-7 tracking-wider capitalize",
-                     )}
-                  >
+               <div className={classnames("flex items-start mt-4 overflow-hidden")}>
+                  <div className="w-[70%] text-black inline-flex text-center text-sm font-semibold leading-7 tracking-wider capitalize overflow-hidden">
                      Decription:
-                     <span className="ml-1 font-normal text-gray-400">
+                     <p className="ml-1 font-normal text-gray-400 whitespace-nowrap overflow-hidden overflow-ellipsis">
                         {job.description}
-                     </span>
-                  </h3>
+                     </p>
+                  </div>
                </div>
                {
                   job.skills.map((items: any) => (
