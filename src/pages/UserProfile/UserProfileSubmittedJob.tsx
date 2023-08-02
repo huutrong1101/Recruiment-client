@@ -4,7 +4,7 @@ import { HiFunnel, HiMagnifyingGlass } from "react-icons/hi2";
 import { Listbox, Transition } from "@headlessui/react";
 import Table from "../../components/Table/Table";
 import Button from "../../components/Button/Button";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import InterviewStatusBadge from "../../components/Badge/JobStatusBadge";
 import JobStatusBadge from "../../components/Badge/JobStatusBadge";
 import { useForm } from "react-hook-form";
@@ -15,6 +15,8 @@ export default function UserProfileSubmittedJob() {
   const [filterType, setFilterType] = useState<number>(0);
   const { handleSubmit, register } = useForm();
   const onSubmit = (data: any) => {};
+
+  useEffect(() => {})
 
   return (
     <div

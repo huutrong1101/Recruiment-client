@@ -19,6 +19,7 @@ import moment from "moment";
 import { JobInterface } from "../../services/services";
 import { useAppSelector } from "../../hooks/hooks";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import { JobService } from "../../services/JobService";
 
 export default function JobDetail() {
   const { jobId } = useParams();
@@ -50,8 +51,13 @@ export default function JobDetail() {
   ]);
 
   useEffect(() => {
+    if (!jobId) {
+      throw new Error(`The parameter jobId is undefined`);
+    }
+
+    // Fetch the job detail
     const getJobDetail = async () => {
-      const response = await axiosInstance.get(`jobs/${jobId}`);
+      const response = await JobService.getJobFromId(jobId);
       setJob(response.data.result);
     };
     getJobDetail();
