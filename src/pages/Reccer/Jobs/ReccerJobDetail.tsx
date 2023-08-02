@@ -25,11 +25,6 @@ import moment from "moment";
 import Loader from "../../../components/Loader/Loader";
 
 export default function ReccerJobDetail() {
-
-  // const listSkills = ["React", "Java", "HTML", "Figma", "WordPress"];
-
-
-
   const [jobInformation, setJobInformation] = useState([
     { icon: <UserIcon />, name: "Employee Type", value: "" },
     { icon: <MapPinIcon />, name: "Location", value: "" },
@@ -48,14 +43,14 @@ export default function ReccerJobDetail() {
     {
       icon: <ClockIcon />,
       name: "Posted at",
-      value:"",
+      value: "",
     },
   ]);
   const { jobId } = useParams();
   const [job, setJob] = useState<JobInterface | null>(null);
   useEffect(() => {
     const getJobDetail = async () => {
-      const response = await axiosInstance.get(`recruiter/jobs/${jobId}`);//Viết API cho BE viết lấy 1 job trong list job của reccer
+      const response = await axiosInstance.get(`recruiter/jobs/${jobId}`); //Viết API cho BE viết lấy 1 job trong list job của reccer
       setJob(response.data.result);
     };
     getJobDetail();
@@ -85,8 +80,6 @@ export default function ReccerJobDetail() {
     }
   }, [job]);
 
-
-
   return (
     <>
       <div className={classNames(`job-detail`, `flex flex-col gap-6`)}>
@@ -94,7 +87,12 @@ export default function ReccerJobDetail() {
           <>
             <div className={classNames(`flex flex-col md:flex-row gap-12`)}>
               {/* Left side description */}
-              <div className={classNames(`w-full md:w-8/12`, `flex flex-col gap-6 mt-2`)}>
+              <div
+                className={classNames(
+                  `w-full md:w-8/12`,
+                  `flex flex-col gap-6 mt-2`,
+                )}
+              >
                 {/* Widgets */}
                 <ReccerJobDescriptionWidget
                   companyName="FPT Software"
@@ -114,9 +112,7 @@ export default function ReccerJobDetail() {
                 >
                   <div>
                     <h1 className="text-2xl font-semibold">Job description</h1>
-                    <p>
-                      {job?.description}
-                    </p>
+                    <p>{job?.description}</p>
                   </div>
                 </div>
 
@@ -129,12 +125,8 @@ export default function ReccerJobDetail() {
                   )}
                 >
                   <div>
-                    <h1 className="text-2xl font-semibold">
-                      Requirement
-                    </h1>
-                    <p>
-                      {job?.requirement}
-                    </p>
+                    <h1 className="text-2xl font-semibold">Requirement</h1>
+                    <p>{job?.requirement}</p>
                   </div>
                 </div>
 
@@ -147,12 +139,8 @@ export default function ReccerJobDetail() {
                   )}
                 >
                   <div>
-                    <h1 className="text-2xl font-semibold">
-                      Benefit
-                    </h1>
-                    <p>
-                      {job?.benefit}
-                    </p>
+                    <h1 className="text-2xl font-semibold">Benefit</h1>
+                    <p>{job?.benefit}</p>
                   </div>
                 </div>
 
@@ -185,7 +173,7 @@ export default function ReccerJobDetail() {
                 <div className={classNames(`px-8 py-8`, `text-justify`)}>
                   <button
                     className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-2 my-1 text-white"
-                  // onClick={routeChange}
+                    // onClick={routeChange}
                   >
                     Edit Job
                   </button>
@@ -197,15 +185,15 @@ export default function ReccerJobDetail() {
               </div>
             </div>
 
-
             {/* /Applied Candidate */}
             <Applied />
 
             {/* Suggested Candidate*/}
             <Suggested />
           </>
-        ) : (<Loader />)
-        }
+        ) : (
+          <Loader />
+        )}
       </div>
     </>
   );

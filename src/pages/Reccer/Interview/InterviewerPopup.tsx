@@ -14,17 +14,18 @@ export interface Interviewer {
   position: string | null;
 }
 interface InterviewerPopupProps {
-  interviewerArray: Interviewer[]; // Sử dụng interface ở đây
-  onSelectInterviewer: (interviewer: Interviewer) => void;
+  interviewers: Interviewer[];
+  onSelectInterviewer: (newListInterviewer: Interviewer[]) => void;
 }
 
 export default function InterviewerPopup({
-  interviewerArray,
+  interviewers,
   onSelectInterviewer,
 }: InterviewerPopupProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const [interviewerList, setInterviewerList] = useState<any[]>([]);
+
   useEffect(() => {
     const getInterviewers = async () => {
       try {
@@ -37,24 +38,34 @@ export default function InterviewerPopup({
     getInterviewers();
   }, []);
 
-  const [interviewArray, setInterviewArray] =
-    useState<Interviewer[]>(interviewerArray);
+  const [selectedInterviewers, setSelectedInterviewers] = useState<any[]>([]);
 
-  // Hàm xử lý thêm người phỏng vấn vào mảng interviewArray
-  const handleAdd = (interviewers: Interviewer) => {
-    onSelectInterviewer(interviewers);
-  };
-  const handleDeleteInterviewer = (interviewerId: string) => {
-    const newList = interviewerList.filter(
-      (interviewer: any) => interviewer.interviewerId !== interviewerId,
+  useEffect(() => {
+    setSelectedInterviewers(interviewers);
+  }, [interviewers]);
+
+  const handleChoose = (interviewer: any) => {
+    const index = selectedInterviewers.findIndex(
+      (selected) => selected.interviewerId === interviewer.interviewerId,
     );
-    setInterviewerList(newList);
+    if (index === -1) {
+      setSelectedInterviewers([...selectedInterviewers, interviewer]);
+    } else {
+      const updatedSelectedInterviewers = [...selectedInterviewers];
+      updatedSelectedInterviewers.splice(index, 1);
+      setSelectedInterviewers(updatedSelectedInterviewers);
+    }
   };
 
-  const [isChecked, setIsChecked] = useState(false);
-  const handleCheck = () => {
-    // Thay đổi trạng thái khi nhấp vào Checkbox
-    setIsChecked(!isChecked);
+  const isSelected = (interviewer: any) => {
+    return selectedInterviewers.some(
+      (selected) => selected.interviewerId === interviewer.interviewerId,
+    );
+  };
+
+  const handleAdd = () => {
+    onSelectInterviewer(selectedInterviewers);
+    setIsOpen(false);
   };
 
   return (
@@ -71,8 +82,8 @@ export default function InterviewerPopup({
         <p>Add Interviewer</p>
       </button>
       {isOpen && (
-        <div className="fixed inset-0 backdrop-blur-md flex justify-center items-center">
-          <div className="popup-content bg-white border border-gray-300 p-4 rounded-lg flex flex-col">
+        <div className="fixed inset-0 z-10 flex items-center justify-center backdrop-blur-md">
+          <div className="flex flex-col p-4 bg-white border border-gray-300 rounded-lg popup-content">
             <button
               onClick={() => setIsOpen(false)}
               className={classNames(`flex justify-end`)}
@@ -112,13 +123,13 @@ export default function InterviewerPopup({
                     <td className="px-4 py-4">
                       <button
                         className="flex"
-                        onClick={() => 
-                          handleAdd(interviewers)
-                        }
+                        onClick={() => handleChoose(interviewers)}
                       >
-                        <Checkbox color="success" size="medium" onClick={handleCheck} checked={isChecked}/>
-                        {/* <input color="success" type="checkbox" className="w-5 h-5"/> */}
-                        {/* <PlusIcon className="w-6 h-6 text-gray" /> */}
+                        <Checkbox
+                          color="success"
+                          size="medium"
+                          checked={isSelected(interviewers)}
+                        />
                       </button>
                     </td>
                   </tr>
@@ -126,6 +137,14 @@ export default function InterviewerPopup({
               </tbody>
               {/* /////////// */}
             </table>
+            <div className="flex items-center justify-center mt-3">
+              <div
+                className="p-2 text-white border rounded-lg cursor-pointer bg-emerald-600"
+                onClick={handleAdd}
+              >
+                <PlusIcon className="w-[25px]" />
+              </div>
+            </div>
           </div>
         </div>
       )}

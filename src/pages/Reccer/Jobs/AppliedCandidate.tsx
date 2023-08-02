@@ -13,14 +13,13 @@ export default function Applied() {
         `recruiter/job/${jobId}/candidates`,
       );
       setApplyCandidate(response.data.result.content);
-      console.log(applyCandidate);
     };
     getApplyCandidate();
   }, [jobId]);
 
   let navigate = useNavigate();
-  const routeChange = () => {
-    let path = `interview-schedule`;
+  const routeChange = (userId: string) => {
+    let path = `interview-schedule/${userId}`;
     navigate(path);
   };
 
@@ -33,7 +32,7 @@ export default function Applied() {
       )}
     >
       <h1 className="text-2xl font-semibold">Applied Candidate</h1>
-      <div className="relative overflow-x-auto p-4">
+      <div className="relative p-4 overflow-x-auto">
         <table className="w-full text-sm text-left text-gray-500 ">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
@@ -50,7 +49,7 @@ export default function Applied() {
             </tr>
           </thead>
           <tbody>
-            {applyCandidate.map((applyCandidate, index) => (
+            {applyCandidate.map((applyCandidate: any, index) => (
               <tr className="bg-white border-b " key={index}>
                 <td
                   scope="row"
@@ -58,8 +57,8 @@ export default function Applied() {
                 >
                   {applyCandidate.candidateFullName}
                 </td>
-                <td className="px-6 py-4">{applyCandidate.email}</td>
-                <td className="px-4 py-4 rounded-lg p-2 mx-2 my-1">
+                <td className="px-6 py-4">{applyCandidate.candidateEmail}</td>
+                <td className="p-2 px-4 py-4 mx-2 my-1 rounded-lg">
                   <span
                     className={`rounded-lg p-2 mx-2 my-1  ${
                       applyCandidate.state === "Pass"
@@ -78,7 +77,7 @@ export default function Applied() {
                   <button>
                     <CalendarDaysIcon
                       className="w-6 h-6"
-                      onClick={routeChange}
+                      onClick={() => routeChange(applyCandidate.candidateId)}
                     />
                   </button>
                 </td>
