@@ -9,6 +9,7 @@ const CandidateListSlice = createSlice({
     candidatesList: [],
     candidatesListStatus: STATUS.IDLE,
     candidateTotal: 0,
+    skill: [],
   },
   reducers: {
     setCandidatesList(state, action) {
@@ -20,11 +21,14 @@ const CandidateListSlice = createSlice({
     setCandidateTotal(state, action) {
       state.candidateTotal = action.payload;
     },
+    setCandidateskillList(state,action){
+      state.skill=action.payload
+  }
   },
 });
 
 export default CandidateListSlice.reducer;
-export const { setCandidatesList, setCandidatesListStatus } =
+export const { setCandidatesList, setCandidatesListStatus, setCandidateTotal, setCandidateskillList } =
   CandidateListSlice.actions;
 
 export const fetchCandidateList = () => {
@@ -40,3 +44,17 @@ export const fetchCandidateList = () => {
     }
   };
 };
+
+export const fetchCandidateSkill =()=>{
+  return async function fetchCandidatesSkillThunk(dispatch:Dispatch){
+      dispatch(setCandidatesListStatus(STATUS.LOADING))
+      try{
+          const response = await axiosInstance.get(`candidate/skills`);
+          const data = await response.data
+          dispatch(setCandidateskillList(data.result))
+          dispatch(setCandidatesListStatus(STATUS.IDLE))
+      } catch(error){
+          dispatch(setCandidatesListStatus(STATUS.ERROR))
+      }
+  }
+}

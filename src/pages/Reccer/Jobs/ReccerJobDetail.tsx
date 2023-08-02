@@ -4,17 +4,26 @@ import {
   ClockIcon,
   ComputerDesktopIcon,
   CurrencyDollarIcon,
+  ExclamationCircleIcon,
+  ExclamationTriangleIcon,
   MapPinIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
 import classNames from "classnames";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import ReccerJobDescriptionWidget from "../../../components/RecJob/ReccerJobDescriptionWidget";
 import Logo from "../../../../images/logo_FPT.png";
 import RecJobInformationCard from "../../../components/RecJob/ReccerJobInformationCard";
 import JobCard from "../../../components/JobCard/JobCard";
-import { Avatar } from "@mui/material";
+import {
+  Avatar,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 
 import AvatarCandidate from "../../../components/Candidate/Avatar";
 import Applied from "./AppliedCandidate";
@@ -27,10 +36,7 @@ import { JOB_LOCATION, JOB_POSITION, JOB_TYPE } from "../../../utils/Localizatio
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 
 export default function ReccerJobDetail() {
-
   // const listSkills = ["React", "Java", "HTML", "Figma", "WordPress"];
-
-
 
   const [jobInformation, setJobInformation] = useState([
     { icon: <UserIcon />, name: "Employee Type", value: "" },
@@ -57,7 +63,7 @@ export default function ReccerJobDetail() {
   const [job, setJob] = useState<JobInterface | null>(null);
   useEffect(() => {
     const getJobDetail = async () => {
-      const response = await axiosInstance.get(`recruiter/jobs/${jobId}`);//Viết API cho BE viết lấy 1 job trong list job của reccer
+      const response = await axiosInstance.get(`recruiter/jobs/${jobId}`); //Viết API cho BE viết lấy 1 job trong list job của reccer
       setJob(response.data.result);
     };
     getJobDetail();
@@ -87,7 +93,22 @@ export default function ReccerJobDetail() {
     }
   }, [job]);
 
-
+  const navigate = useNavigate();
+  const deleteJob = async () => {
+    const response = await axiosInstance.delete(`/recruiter/job/${jobId}`);
+    await axiosInstance.delete(`/recruiter/job/${jobId}`);
+    alert(response.data.message); // In ra thông tin phản hồi từ máy chủ
+    navigate({
+      pathname: "/recruiter/jobs",
+    });
+  };
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <>
@@ -96,7 +117,12 @@ export default function ReccerJobDetail() {
           <>
             <div className={classNames(`flex flex-col md:flex-row gap-12`)}>
               {/* Left side description */}
-              <div className={classNames(`w-full md:w-8/12`, `flex flex-col gap-6 mt-2`)}>
+              <div
+                className={classNames(
+                  `w-full md:w-8/12`,
+                  `flex flex-col gap-6 mt-2`,
+                )}
+              >
                 {/* Widgets */}
                 <ReccerJobDescriptionWidget
                   companyName="FPT Software"
@@ -116,9 +142,7 @@ export default function ReccerJobDetail() {
                 >
                   <div>
                     <h1 className="text-2xl font-semibold">Job description</h1>
-                    <p>
-                      {job?.description}
-                    </p>
+                    <p>{job?.description}</p>
                   </div>
                 </div>
 
@@ -131,12 +155,8 @@ export default function ReccerJobDetail() {
                   )}
                 >
                   <div>
-                    <h1 className="text-2xl font-semibold">
-                      Requirement
-                    </h1>
-                    <p>
-                      {job?.requirement}
-                    </p>
+                    <h1 className="text-2xl font-semibold">Requirement</h1>
+                    <p>{job?.requirement}</p>
                   </div>
                 </div>
 
@@ -149,12 +169,8 @@ export default function ReccerJobDetail() {
                   )}
                 >
                   <div>
-                    <h1 className="text-2xl font-semibold">
-                      Benefit
-                    </h1>
-                    <p>
-                      {job?.benefit}
-                    </p>
+                    <h1 className="text-2xl font-semibold">Benefit</h1>
+                    <p>{job?.benefit}</p>
                   </div>
                 </div>
 
@@ -183,14 +199,74 @@ export default function ReccerJobDetail() {
                   </div>
                 </div>
                 {/* /Skill */}
-
-                <div className={classNames(`px-8 py-8`, `text-justify`)}>
-                  <button
-                    className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-2 my-1 text-white"
-                  // onClick={routeChange}
-                  >
-                    Edit Job
-                  </button>
+                <div className={classNames(`flex`)}>
+                  <div className={classNames(`px-8 py-8`, `text-justify`)}>
+                    <button
+                      className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-2 my-1 text-white"
+                      // onClick={routeChange}
+                    >
+                      Edit Job
+                    </button>
+                  </div>
+                  <div className={classNames(`py-8`, `text-justify`)}>
+                    <button
+                      className="rounded-lg bg-red-700 hover:bg-red-900 px-4 py-2 mx-2 my-1 text-white"
+                      // onClick={deleteJob}
+                      onClick={handleClickOpen}
+                    >
+                      Delete Job
+                    </button>
+                    <Dialog
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="alert-dialog-title"
+                      aria-describedby="alert-dialog-description"
+                    >
+                      <DialogTitle
+                        id="alert-dialog-title"
+                        className="text-center"
+                      >
+                        <p className="font-extrabold pt-4">Delete Job</p>
+                      </DialogTitle>
+                      <DialogContent className="text-center">
+                        <div className="text-center px-6">
+                          <DialogContent className="font-semibold text-lg mb-2">
+                            Are you sure you want to delete "{job.name}"?
+                          </DialogContent>
+                          <DialogContentText
+                            id="alert-dialog-description"
+                            className="border bg-orange-100 px-3 py-2 "
+                          >
+                            <div className="flex">
+                              <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
+                              <p className="flex text-red-800 font-semibold px-2">
+                                WARNING
+                              </p>
+                            </div>
+                            <div className="text-left font-semibold">
+                              This action cannot be undone, the deleted item
+                              cannot be restored.
+                            </div>
+                          </DialogContentText>
+                        </div>
+                      </DialogContent>
+                      <DialogActions>
+                        <button
+                          className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-1 my-1 text-white"
+                          onClick={handleClose}
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          className="rounded-lg bg-red-700 hover:bg-red-900 px-4 py-2 mx-1 my-1 text-white"
+                          onClick={deleteJob}
+                          autoFocus
+                        >
+                          Delete
+                        </button>
+                      </DialogActions>
+                    </Dialog>
+                  </div>
                 </div>
               </div>
               {/* Right side description */}
@@ -198,7 +274,6 @@ export default function ReccerJobDetail() {
                 <RecJobInformationCard cardData={jobInformation} />
               </div>
             </div>
-
 
             {/* /Applied Candidate */}
             <Applied />
