@@ -26,8 +26,7 @@ export default function AddEvent() {
       const handleToggleContact = () => {
         setShowContact((prevShowContact) => !prevShowContact);
       };
-    
-
+  
       //Upload event avatar      
       const [avatar, setAvatar] = useState(null); // Thay đổi giá trị của useState thành null
       // Các state khác giữ nguyên
@@ -82,24 +81,15 @@ export default function AddEvent() {
         formData.append("deadline", formattedValueDeadline);
         formData.append("location", location);
         formData.append("time", time);
-        // console.log({
-        //   title,
-        //   avatar,
-        //   description,
-        //   location,
-        //   time,
-        //   formattedValueStart,
-        //   formattedValueDeadline,
-        // })
+       
         // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/events/create với FormData
         axiosInstance.post('recruiter/events/create', formData)
           .then((response) => {
             alert('Successful');
             // Xử lý phản hồi từ server (nếu cần)
-            console.log(response.data); // In ra thông tin phản hồi từ máy chủ
             // In tất cả thông tin từ FormData
-            console.log(formData);
             setOpen(false);
+            window.history.back();
           })
           .catch((error) => {
             // Xử lý lỗi (nếu có)
