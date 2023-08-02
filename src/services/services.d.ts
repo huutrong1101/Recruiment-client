@@ -106,6 +106,13 @@ export interface RecInterviewerInterface {
   interviewerId: string;
 
 }
+
+export interface RecCandidateList {
+  page?: number | string;
+  size?: number | string;
+  name?: string;
+  skill?:string;
+}
 export interface RecCandidateInterface {
   email: string;
   phone: number | string;

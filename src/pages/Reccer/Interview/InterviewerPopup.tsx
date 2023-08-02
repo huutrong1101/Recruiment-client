@@ -1,15 +1,17 @@
 import { PlusIcon, TrashIcon, XCircleIcon } from "@heroicons/react/24/outline";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 import { UserPlusIcon } from "@heroicons/react/24/outline";
+import axiosInstance from "../../../utils/AxiosInstance";
+import { Checkbox } from "@mui/material";
 
 export interface Interviewer {
-  name: string;
-  email: string;
-  phone: string;
-  date: string;
-  id: number;
-  position: string;
+  name: string | null;
+  email: string | null;
+  phone: string | null;
+  date: string | null;
+  id: string | null;
+  position: string | null;
 }
 interface InterviewerPopupProps {
   interviewerArray: Interviewer[]; // Sử dụng interface ở đây
@@ -21,58 +23,39 @@ export default function InterviewerPopup({
   onSelectInterviewer,
 }: InterviewerPopupProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const memberList = [
-    {
-      id: 1,
-      name: "John Doe",
-      phone: "1234567890",
-      email: "john@example.com",
-      date: "2023-07-01",
-      position: "Web Designer",
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      phone: "9876543210",
-      email: "jane@example.com",
-      date: "2023-07-02",
-      position: "Web Designer",
-    },
-    {
-      id: 3,
-      name: "Bob Johnson",
-      phone: "5555555555",
-      email: "bob@example.com",
-      date: "2023-07-03",
-      position: "Web Designer",
-    },
-    {
-      id: 4,
-      name: "Alice Williams",
-      phone: "1111111111",
-      email: "alice@example.com",
-      date: "2023-07-04",
-      position: "Web Designer",
-    },
-    {
-      id: 5,
-      name: "Sam Brown",
-      phone: "9999999999",
-      email: "sam@example.com",
-      date: "2023-07-05",
-      position: "Web Designer",
-    },
-  ];
+
+  const [interviewerList, setInterviewerList] = useState<any[]>([]);
+  useEffect(() => {
+    const getInterviewers = async () => {
+      try {
+        const response = await axiosInstance(`/recruiter/interviewers`);
+        setInterviewerList(response.data.result.content);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getInterviewers();
+  }, []);
 
   const [interviewArray, setInterviewArray] =
     useState<Interviewer[]>(interviewerArray);
 
   // Hàm xử lý thêm người phỏng vấn vào mảng interviewArray
-  const handleAdd = (interviewer: Interviewer) => {
-    onSelectInterviewer(interviewer);
+  const handleAdd = (interviewers: Interviewer) => {
+    onSelectInterviewer(interviewers);
+  };
+  const handleDeleteInterviewer = (interviewerId: string) => {
+    const newList = interviewerList.filter(
+      (interviewer: any) => interviewer.interviewerId !== interviewerId,
+    );
+    setInterviewerList(newList);
   };
 
-  console.log(interviewArray);
+  const [isChecked, setIsChecked] = useState(false);
+  const handleCheck = () => {
+    // Thay đổi trạng thái khi nhấp vào Checkbox
+    setIsChecked(!isChecked);
+  };
 
   return (
     <div>
@@ -109,34 +92,33 @@ export default function InterviewerPopup({
                   <th scope="col" className="px-6 py-4">
                     Email
                   </th>
-                  <th scope="col" className="px-6 py-4">
-                    Date created
-                  </th>
-                  <th scope="col" className="px-6 py-4">
-                    Position
-                  </th>
                   <th scope="col" className="py-4"></th>
                 </tr>
               </thead>
               <tbody>
-                {memberList.map((memberList) => (
-                  <tr className="bg-white border-b" key={memberList.id}>
+                {interviewerList.map((interviewers: any) => (
+                  <tr
+                    className="bg-white border-b"
+                    key={interviewers.interviewerId}
+                  >
                     <td
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
                     >
-                      {memberList.name}
+                      {interviewers.fullName}
                     </td>
-                    <td className="px-6 py-4">{memberList.phone}</td>
-                    <td className="px-6 py-4">{memberList.email}</td>
-                    <td className="px-6 py-4">{memberList.date}</td>
-                    <td className="px-6 py-4">{memberList.position}</td>
+                    <td className="px-6 py-4">{interviewers.phone}</td>
+                    <td className="px-6 py-4">{interviewers.email}</td>
                     <td className="px-4 py-4">
                       <button
                         className="flex"
-                        onClick={() => handleAdd(memberList)}
+                        onClick={() => 
+                          handleAdd(interviewers)
+                        }
                       >
-                        <PlusIcon className="w-6 h-6 text-gray" />
+                        <Checkbox color="success" size="medium" onClick={handleCheck} checked={isChecked}/>
+                        {/* <input color="success" type="checkbox" className="w-5 h-5"/> */}
+                        {/* <PlusIcon className="w-6 h-6 text-gray" /> */}
                       </button>
                     </td>
                   </tr>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, createSearchParams } from "react-router-dom";
 import classNames from "classnames";
-import { QueryConfig } from "../Reccer/ReccerJobManagement";
+import { QueryConfig } from "../Reccer/ReccercandidateManagement";
 
 interface Props {
   queryConfig: QueryConfig;
