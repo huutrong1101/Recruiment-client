@@ -7,7 +7,13 @@ export const JOB_POSITION: LocalizationDeclarationType = {
   PART_TIME: "Part Time",
   CONTRACT: "Contract",
   FREELANCE: "Freelance",
+  FTOWN1: "F-Town 1",
+  FTOWN2: "F-Town 2",
+  FTOWN3: "F-Town 3",
+  FRONTEND: "Front-End",
+  BACKEND: "Back-End",
 };
+
 
 
 export const TECHNICAL: LocalizationDeclarationType = {
@@ -20,3 +26,4 @@ export const REC_INTERVIEW_STATUS :LocalizationDeclarationType={
   PASS: "Pass",
   FAIL: "Fail",
 }
+
