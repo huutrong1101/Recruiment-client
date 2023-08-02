@@ -1,28 +1,27 @@
 import classNames from "classnames";
+import { useState } from "react";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
-import { Fragment, useState } from "react";
-import InputIcon from "../../components/InputIcon/InputIcon";
-import {
-  HiUserCircle,
-  HiEnvelope,
-  HiMapPin,
-  HiPhone,
-  HiKey,
-} from "react-icons/hi2";
-import Modal from "../../components/Modal/Modal";
-import { useForm } from "react-hook-form";
 import JobInformationApplyModal from "./JobInformationApplyModal";
 
 export default function JobInformationCard({ cardData }: any) {
   const [visibleApplyDialog, setVisibleApplyDialog] = useState<boolean>(false);
+  const [isApplied, setApplied] = useState<boolean>(false);
 
-  const handleApply = (data: any) => {
-    console.log(data);
-  };
+  // TODO: check if the user is applied by using useEffect
+
+  // const handleApply = (data: any) => {
+  //   console.log(data);
+  // };
 
   const toggleVisibleApplyModal = () => {
     setVisibleApplyDialog((isVisible) => !isVisible);
   };
+
+  const handleOnApplySucceeded = () => {
+    setApplied(true);
+    toggleVisibleApplyModal();
+  };
+
   return (
     <div
       className={classNames(
@@ -44,12 +43,23 @@ export default function JobInformationCard({ cardData }: any) {
           })}
       </div>
       <div>
-        <PrimaryButton text={`Apply now`} onClick={toggleVisibleApplyModal} />
+        {!isApplied ? (
+          <PrimaryButton text={`Apply now`} onClick={toggleVisibleApplyModal} />
+        ) : (
+          <div
+            className={classNames(
+              `px-4 bg-emerald-500 py-2 text-emerald-100 rounded-xl`,
+            )}
+          >
+            Your applicant is considering
+          </div>
+        )}
       </div>
 
       <JobInformationApplyModal
         visible={visibleApplyDialog}
         onClose={toggleVisibleApplyModal}
+        onApplySucceeded={handleOnApplySucceeded}
       />
     </div>
   );
