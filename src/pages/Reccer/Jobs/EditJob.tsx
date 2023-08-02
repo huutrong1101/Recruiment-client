@@ -23,6 +23,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  TextareaAutosize,
 } from "@mui/material";
 
 import AvatarCandidate from "../../../components/Candidate/Avatar";
@@ -33,8 +34,9 @@ import axiosInstance from "../../../utils/AxiosInstance";
 import moment from "moment";
 import Loader from "../../../components/Loader/Loader";
 import Button from "../../../components/Button/Button";
+import AddJobWidget from "../../../components/RecJob/AddJobWidget";
 
-export default function ReccerJobDetail() {
+export default function ReccerEditJob() {
   // const listSkills = ["React", "Java", "HTML", "Figma", "WordPress"];
 
   const [jobInformation, setJobInformation] = useState([
@@ -58,6 +60,13 @@ export default function ReccerJobDetail() {
       value: "",
     },
   ]);
+
+  const [name, setName] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [description, setDescription] = useState('')
+  const [requirement, setRequirement] = useState('')
+  const [benefit, setBenefit] = useState('')
+  
   const { jobId } = useParams();
   const [job, setJob] = useState<JobInterface | null>(null);
   useEffect(() => {
@@ -101,10 +110,6 @@ export default function ReccerJobDetail() {
       pathname: "/recruiter/jobs",
     });
   };
-  const routeChange = () => {
-    let path = `./edit`;
-    navigate(path);
-  };
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -127,14 +132,15 @@ export default function ReccerJobDetail() {
                 )}
               >
                 {/* Widgets */}
-                <ReccerJobDescriptionWidget
+                {/* <ReccerJobDescriptionWidget
                   companyName="FPT Software"
                   jobRole={job?.name}
                   publishDate={moment(job?.createdAt)
                     .format("Do MMM, YYYY")
                     .toString()}
                   logo={{ src: Logo, alt: "image" }}
-                />
+                /> */}
+                <AddJobWidget nameData={name} setNameData={setName} quantityData={quantity} setQuantityData={setQuantity} />
                 {/* Details */}
                 <div
                   className={classNames(
@@ -145,7 +151,12 @@ export default function ReccerJobDetail() {
                 >
                   <div>
                     <h1 className="text-2xl font-semibold">Job description</h1>
-                    <p>{job?.description}</p>
+                    <TextareaAutosize
+                      minRows={4}
+                      className="resize-none p-2.5 w-full text-justify bg-white border"
+                      placeholder="Job description here..."
+                      value={job?.description}
+                    />
                   </div>
                 </div>
 
@@ -159,7 +170,13 @@ export default function ReccerJobDetail() {
                 >
                   <div>
                     <h1 className="text-2xl font-semibold">Requirement</h1>
-                    <p>{job?.requirement}</p>
+                    {/* <input>{job?.requirement}</input> */}
+                    <TextareaAutosize
+                      minRows={4}
+                      className="resize-none p-2.5 w-full text-justify bg-white border"
+                      placeholder="Job description here..."
+                      value={job?.requirement}
+                    />
                   </div>
                 </div>
 
@@ -173,7 +190,13 @@ export default function ReccerJobDetail() {
                 >
                   <div>
                     <h1 className="text-2xl font-semibold">Benefit</h1>
-                    <p>{job?.benefit}</p>
+                    {/* <input>{job?.benefit}</input> */}
+                    <TextareaAutosize
+                      minRows={4}
+                      className="resize-none p-2.5 w-full text-justify bg-white border"
+                      placeholder="Job description here..."
+                      value={job?.benefit}
+                    />
                   </div>
                 </div>
 
@@ -206,7 +229,7 @@ export default function ReccerJobDetail() {
                   <div className={classNames(`px-8 py-8`, `text-justify`)}>
                     <button
                       className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-2 my-1 text-white"
-                      onClick={routeChange}
+                      // onClick={routeChange}
                     >
                       Edit Job
                     </button>
@@ -277,12 +300,6 @@ export default function ReccerJobDetail() {
                 <RecJobInformationCard cardData={jobInformation} />
               </div>
             </div>
-
-            {/* /Applied Candidate */}
-            <Applied />
-
-            {/* Suggested Candidate*/}
-            <Suggested />
           </>
         ) : (
           <Loader />
