@@ -17,12 +17,7 @@ const InterviewDetail = () => {
   const { INTSingleInterview, INTSingleInterviewStatus } = useAppSelector(
     (state: any) => state.INTInterviews,
   );
-  const dispatch = useAppDispatch();
 
-  const { id } = useParams();
-  const { INTSingleInterview, INTSingleInterviewStatus } = useAppSelector(
-    (state: any) => state.INTInterviews,
-  );
   const { searchQuestions, searchQuestionsStatus, questionsForInterview } =
     useAppSelector((state: any) => state.INTQuestions);
 
