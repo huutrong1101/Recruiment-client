@@ -19,7 +19,6 @@ export default function Applied() {
         `recruiter/job/${jobId}/candidates`,
       );
       setApplyCandidate(response.data.result.content);
-      console.log(applyCandidate);
     };
     getApplyCandidate();
   }, [jobId]);
@@ -39,7 +38,6 @@ export default function Applied() {
   const hehe = applyCandidate.map(
     (applyCandidate, index) => applyCandidate.state,
   );
-  console.log(hehe);
 
   // applyCandidate.map((applyCandidate) =>
   //   const state = applyCandidate.state
