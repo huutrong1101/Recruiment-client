@@ -4,16 +4,37 @@ import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import { Menu, Transition } from "@headlessui/react";
 import { JobData, JobDataInterface } from "../../data/jobData";
 import {
-  MagnifyingGlassIcon,
+  AcademicCapIcon,
+  BriefcaseIcon,
   ChevronDownIcon,
-} from "@heroicons/react/20/solid";
+  ChevronUpIcon,
+  ClockIcon,
+  ComputerDesktopIcon,
+  CurrencyDollarIcon,
+  MapPinIcon,
+  UserIcon,
+} from "@heroicons/react/24/outline";
 import { useAppSelector } from "../../hooks/hooks";
+import { TextareaAutosize } from "@mui/material";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-export default function AddJobCard({ cardData, setCardData }: any) {
+export default function AddJobCard({ cardData, setCardData, setpositionId, setLocation, setjobType, salary, setSalary, deadline, setDeadline }: any) {
   const location = useAppSelector(state => state.Job.location)
   const employeeType = useAppSelector(state => state.Job.postion)
   const jobType = useAppSelector(state => state.Job.type)
 
+  const listData = cardData.map((data: any) => (
+    data.value
+  ));
+
+  setpositionId(listData[0])
+  setLocation(listData[1])
+  setjobType(listData[2])
+  // console.log(positionId)
+  const handleDateChange = (date) => {
+    setDeadline(date);
+  };
   const formattedLocation = location.map((item, index) => ({
     id: index + 1,
     value: item,
@@ -34,29 +55,6 @@ export default function AddJobCard({ cardData, setCardData }: any) {
       "Employee Type": formattedEmployeeType,
       Location: formattedLocation,
       "Job Type": formattedJobType,
-  
-      Experience: [
-        { id: 1, value: "Type 1" },
-        { id: 2, value: "Type 2" },
-        { id: 3, value: "Type 3" },
-      ],
-  
-      Qualification: [
-        { id: 1, value: "Type 1" },
-        { id: 2, value: "Type 2" },
-        { id: 3, value: "Type 3" },
-      ],
-  
-      Salary: [
-        { id: 1, value: "Exp 1" },
-        { id: 2, value: "Exp 2" },
-        { id: 3, value: "Exp 3" },
-      ],
-      "Posted at": [
-        { id: 1, value: "Location 1" },
-        { id: 2, value: "Location 2" },
-        { id: 3, value: "Location 3" },
-      ],
     },
   }
   return (
@@ -77,7 +75,7 @@ export default function AddJobCard({ cardData, setCardData }: any) {
                   <Menu as="div" className={classNames("relative ml-14")}>
                     <Menu.Button
                       className={classNames(
-                        "cursor-pointer flex items-center justify-between w-[45%] px-1 border rounded-full bg-gray-100",
+                        "cursor-pointer flex items-center justify-between w-[60%] px-1 border rounded-full bg-gray-100",
                       )}
                     >
                       <span className={classNames("ml-2 text-gray-500")}>
@@ -138,6 +136,43 @@ export default function AddJobCard({ cardData, setCardData }: any) {
               </div>
             );
           })}
+      </div>
+      <div className={classNames(`flex flex-row items-center gap-4`)}>
+        <div className={classNames(`w-1/12 mx-2`)}><CurrencyDollarIcon /></div>
+        <div className={classNames(`flex flex-col flex-1`)}>
+          <div>Salary</div>
+          <TextareaAutosize
+            id="description"
+            minRows={4}
+            value={salary}
+            style={{
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              padding: '8px',
+              fontSize: '16px',
+              height: '25px',
+              width: '160px',
+              overflow: 'hidden',
+              resize: 'none',
+            }}
+            placeholder=""
+            onChange={(event) => setSalary(event.target.value)}
+          />
+        </div>
+      </div>
+      <div className={classNames(`flex flex-row items-center gap-4`)}>
+        <div className={classNames(`w-1/12 mx-2`)}><ClockIcon /></div>
+        <div className={classNames(`flex flex-col flex-1`)}>
+          <div>End At</div>
+          <DatePicker
+            id="day"
+            selected={deadline}
+            onChange={handleDateChange}
+            dateFormat="yyyy-MM-dd"
+            placeholderText="Select a day"
+            className="border w-[160px] p-[1px]"
+          />
+        </div>
       </div>
     </div>
   );

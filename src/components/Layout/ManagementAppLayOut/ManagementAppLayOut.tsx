@@ -142,7 +142,7 @@ const ManagementAppLayOut = () => {
         >
           <div className="flex justify-center items-center h-[72px]">
               <Link to="/">
-                {leftActive?<div className="text-4xl bold">JP</div>:<div className="text-4xl bold">JobPort</div>}
+                {leftActive?<div className="text-4xl font-semibold">JP</div>:<div className="text-4xl font-semibold">JobPort</div>}
               </Link>
           </div>
           <div className="">

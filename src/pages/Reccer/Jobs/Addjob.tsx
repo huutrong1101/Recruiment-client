@@ -1,6 +1,8 @@
 import {
   AcademicCapIcon,
   BriefcaseIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
   ClockIcon,
   ComputerDesktopIcon,
   CurrencyDollarIcon,
@@ -9,21 +11,34 @@ import {
 } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import Select from "react-select";
-import { useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import AddJobWidget from "../../../components/RecJob/AddJobWidget";
 import Logo from "../../../../images/logo_FPT.png";
 import AddJobCard from "../../../components/RecJob/AddJobCard";
 import TextareaAutosize from "react-textarea-autosize";
 import axiosInstance from "../../../utils/AxiosInstance";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import { fetchRecInterviewerSkill } from "../../../redux/reducer/RecInterviewerSilce";
+import { Menu, Transition } from "@headlessui/react";
 
 export default function Addjob() {
-  const skills = [
-    { value: 1, label: "Programming" },
-    { value: 2, label: "Data Analysis" },
-    { value: 3, label: "Project Management" },
-    { value: 4, label: "Communication" },
-    { value: 5, label: "Problem Solving" },
-  ];
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchRecInterviewerSkill())
+  }, []);
+  // console.log(showSkill)
+  const listSkills = useAppSelector((state) => state.RecInterviewerList.skill);
+
+
+  const listSkillsData = listSkills.map((skill) => ({
+    value: skill.skillId,
+    label: `${skill.name}`,
+  }));
+
+
+
+
 
   const [jobInformation, setJobInformation] = useState([
     { icon: <UserIcon />, name: "Employee Type", value: "" },
@@ -33,18 +48,7 @@ export default function Addjob() {
       name: "Job Type",
       value: "",
     },
-    { icon: <BriefcaseIcon />, name: "Experience", value: "" },
-    { icon: <AcademicCapIcon />, name: "Qualification", value: "" },
-    {
-      icon: <CurrencyDollarIcon />,
-      name: "Salary",
-      value: "",
-    },
-    {
-      icon: <ClockIcon />,
-      name: "Posted at",
-      value: "",
-    },
+
   ]);
 
   const [name, setName] = useState('');
@@ -52,16 +56,52 @@ export default function Addjob() {
   const [description, setDescription] = useState('')
   const [requirement, setRequirement] = useState('')
   const [benefit, setBenefit] = useState('')
+  const [skillsRequired, setSkillsRequired] = useState([])
+  const [positionName, setPositionName] = useState([])
+  const [location, setLocation] = useState([])
+  const [jobType, setjobType] = useState([])
+  const [salaryRange, setSalaryRange] = useState('')
+  const [deadline, setDeadline] = useState('')
+
+  const selectedValues = skillsRequired.map((option) => option.label);
+
+
+
+
+
+  const handleSelectChange = (selectedOptions: any) => {
+    setSkillsRequired(selectedOptions)
+  };
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    console.log(name)
-    console.log(quantity)
-    console.log(description)
-    console.log(requirement)
-
-    // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/events/create với FormData
-    axiosInstance.post('recruiter/job', { name, quantity })
+    // console.log(name)
+    // console.log(quantity)
+    // console.log(description)
+    // console.log(requirement)
+    // console.log(benefit)
+    // console.log(selectedValues)
+    // console.log(positionName)
+    // console.log(location)
+    // console.log(jobType)
+    // console.log(test)
+    // console.log(salaryRange)
+    const data = {
+      name: name,
+      jobType: jobType,
+      quantity: quantity,
+      benefit: benefit,
+      salaryRange: salaryRange,
+      requirement: requirement,
+      location: location,
+      description: description,
+      deadline: deadline,
+      positionName: positionName,
+      skillsRequired: selectedValues,
+    };
+    console.log(data)
+    // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/job
+    axiosInstance.post('recruiter/job', data)
       .then((response) => {
         alert('Successful');
         // Xử lý phản hồi từ server (nếu cần)
@@ -157,7 +197,12 @@ export default function Addjob() {
           >
             <div>
               <h1 className="text-2xl font-semibold">Skills Require</h1>
-              <Select options={skills} isMulti />
+              <Select
+                options={listSkillsData}
+                isMulti
+                value={skillsRequired}
+                onChange={handleSelectChange}
+              />
             </div>
           </div>
 
@@ -175,6 +220,13 @@ export default function Addjob() {
           <AddJobCard
             cardData={jobInformation}
             setCardData={setJobInformation}
+            setpositionId={setPositionName}
+            setLocation={setLocation}
+            setjobType={setjobType}
+            salary={salaryRange}
+            setSalary={setSalaryRange}
+            deadline={deadline}
+            setDeadline={setDeadline}
           />
         </div>
       </div>
