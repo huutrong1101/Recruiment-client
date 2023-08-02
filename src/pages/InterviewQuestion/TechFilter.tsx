@@ -4,9 +4,13 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
 import classNames from 'classnames';
 import axiosInstance from '../../utils/AxiosInstance';
+import useQueryParams from '../../hooks/useQueryParams';
+import { omit, isEqual } from "lodash";
+import { omitBy, isUndefined } from "lodash";
+import { DataSearchInterface } from '../../services/services';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 //----------------SKILL
 interface IDataSearch {
-  key: string;
   skill: string;
   type: string;
 }
@@ -14,34 +18,71 @@ interface IDataSearch {
 interface ITechFilterProps {
   setDataSearch: React.Dispatch<React.SetStateAction<IDataSearch>>;
   dataSearch: IDataSearch;
+  key:""
 }
-export default function TechFilter({ setDataSearch, dataSearch }: ITechFilterProps) {
-  const types = ['C#', 'java', 'Python', 'ReactJS']
+
+export type QueryConfig = {
+  [key in keyof DataSearchInterface]: string;
+};
+
+// export default function TechFilter({ setDataSearch, dataSearch }: ITechFilterProps)
+export default function TechFilter({ setDataSearch, dataSearch }:ITechFilterProps , {showSkills}:any) {
+
+  // const queryParams: QueryConfig = useQueryParams();
+  // const queryConfig: QueryConfig = omitBy(
+  //   {
+  //     skill: queryParams.skill,
+  //     type: queryParams.type,
+  //   },
+  //   isUndefined,
+  // );
   const [isActive, setIsActive] = useState(false)
   const handleActive = (e: any) => setIsActive(!isActive)
 
-  const handleSetTech = (type: string) => {
-    setDataSearch({
-      ...dataSearch,
-      skill: type,
-    })
-  }
+  const navigate = useNavigate()
+  // const handleSetTech = (type: string) => {
+  //   setDataSearch({
+  //     ...dataSearch,
+  //     skill:,
+  //   })
+  // }
+  // const [dataSearch, setDataSearch] = useState({
+  //   skill: "",
+  //   type: "",
+  // })
 
+  // const [skills, setSkills] = useState([])
 
-  const [skills, setSkills] = useState([])
+  // useEffect(() => {
+  //   const fetchSkillList = async () => {
+  //     try {
+  //       const response = await axiosInstance('interviewer/skills')
+  //       setSkills(response.data.result)
+  //       setDataSearch({
+  //         ...dataSearch,
+  //         skill: queryConfig.skill || "",
+  //         type: queryConfig.type || "",
+  //       })
+  //     }
+  //     catch (error) {
+  //       console.log(error)
+  //     }
+  //   }
+  //   fetchSkillList();
+  // }, [])
 
-  useEffect(() => {
-    const fetchSkillList = async () => {
-      try {
-        const response = await axiosInstance('interviewer/skills')
-        setSkills(response.data.result)
-      }
-      catch (error) {
-        console.log(error)
-      }
-    }
-    fetchSkillList();
-  }, [])
+  // const handleSearch = async () => {
+  //   navigate({
+  //     pathname: "/",
+  //     search: createSearchParams({
+  //       ...queryConfig,
+  //       skill: dataSearch.skill,
+  //       type: dataSearch.type,
+
+  //     }).toString(),
+  //   });
+  // };
+
   return (
     <div className='absolute w-full'>
       <div className='w-full h-full  '>
@@ -49,7 +90,8 @@ export default function TechFilter({ setDataSearch, dataSearch }: ITechFilterPro
                                 active:border-emerald-600  active:text-emerald-600 
                                  active:bg-white flex items-center'>
           <div className=' inline-flex justify-between w-full '>
-            Skill   <ChevronDownIcon className='w-5 h-5 pt-1' />
+            {dataSearch.skill || "Skill"}
+            <ChevronDownIcon className='w-5 h-5 pt-1' />
           </div>
         </Menu.Button>
         <Transition as={Fragment}
@@ -61,7 +103,7 @@ export default function TechFilter({ setDataSearch, dataSearch }: ITechFilterPro
           leaveTo="transform opacity-0 scale-95" >
           <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 aboslute bg-opacity-90 shadow-md '>
             <div className='w-full h-full  text-black rounded-md border border-zinc-200'>
-              {skills.map((skill):any => (
+              {showSkills.map((skill:any) => (
                 <Menu.Item key={skill.skillId}>
                   {({ active }) => (
                     <p
@@ -72,7 +114,14 @@ export default function TechFilter({ setDataSearch, dataSearch }: ITechFilterPro
                         "block  text-sm",
                       )}
                       // onClick={() => handleSetTech(type)}
-                      onClick={handleActive}
+                      onClick={
+                        handleActive
+                        // setDataSearch({
+                        //   ...dataSearch,
+                        //   skill: skill.name
+                        // })
+                      }
+
                     >
                       {skill.name}
                     </p>

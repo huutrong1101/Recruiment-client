@@ -11,8 +11,8 @@ const QuestionListSLice = createSlice({
         questionList: [],
         questionListStatus: STATUS.IDLE,
         totalQuestions: 0,
-        listType: [],
-        listSkill: [],
+        types: [],
+        skills: [],
     },
     reducers: {
         setQuestionList(state, action){
@@ -24,11 +24,11 @@ const QuestionListSLice = createSlice({
         setTotalQuestion(state, action){
             state.totalQuestions = action.payload
         },
-        setListType(state, action){
-            state.listType = action.payload
+        setType(state, action){
+            state.types = action.payload
         },
-        setListSkill(state, action){
-            state.listType = action.payload
+        setSkill(state, action){
+            state.skills = action.payload
         },
     }
 })
@@ -38,8 +38,8 @@ export const {
     setQuestionList, 
     setQuestionStatus, 
     setTotalQuestion, 
-    setListSkill, 
-    setListType
+    setSkill, 
+    setType
 } = QuestionListSLice.actions
 
 export const fetchQuestionList = () => {

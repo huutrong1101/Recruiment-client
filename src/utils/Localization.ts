@@ -10,6 +10,7 @@ export const JOB_POSITION: LocalizationDeclarationType = {
 };
 
 
-export const TECHNICAL: LocalizationDeclarationType = {
-  
+export const TYPE_alter: LocalizationDeclarationType = {
+  TECHNICAL: "Technical",
+  SOFT_SKILL: "Soft-skill",
 }

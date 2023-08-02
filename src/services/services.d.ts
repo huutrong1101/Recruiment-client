@@ -252,6 +252,11 @@ export interface SkillListInterface{
   skill: string
 }
 
+export interface DataSearchInterface{
+  skill?: string
+  type?: string
+}
+
 export interface Pagable {
   page?: number | string;
   limit?: number | string;

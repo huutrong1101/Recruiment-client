@@ -2,37 +2,37 @@ import {
   PlusCircleIcon, TrashIcon, PencilIcon, ChevronDownIcon
 } from "@heroicons/react/24/outline";
 import { Menu, Transition } from "@headlessui/react";
-import QuestionFilter from "./QuestionFilter";
-import TechFilter from "./TechFilter";
-import ListQuestions from "./ListQuestion";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import AddQuestion from "./AddQuestion";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { STATUS } from '../../utils/Status';
-import Loader from '../../components/Loader/Loader';
-import DeleteQuestion from "./DeleteQuestion";
 import qs from "query-string";
 import { omit, isEqual } from "lodash";
 import useQuerParams from "../../hooks/useQueryParams";
-import Pagination from "../../components/Pagination/Pagination";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import axiosInstance from "../../utils/AxiosInstance";
 import { omitBy, isUndefined } from "lodash";
-import { QuestionListConfig, QuestionListInterface } from "../../services/services";
-import { useNavigate } from "react-router-dom";
+import { QuestionListConfig, QuestionListInterface, SkillListInterface, TypeListInterface } from "../../services/services";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import PaginationInterview from "./PaginationInterview";
+import classNames from 'classnames';
+import { TYPE_alter } from "../../utils/Localization";
 
 export type QueryConfig = {
   [key in keyof QuestionListConfig]: string;
 };
 
 export default function QuestionInterview() {
+
+  const [dataSearch, setDataSearch] = useState({
+    skill: "",
+    type: "",
+  });
+
   const queryParams: QueryConfig = useQuerParams();
 
-  const queryConfig: QueryConfig = omitBy(
-    {
+  const queryConfig: QueryConfig = omitBy({
       page: queryParams.page || "1",
-      size:  queryParams.size || 3,
+      size: queryParams.size || 5,
       skill: queryParams.skill,
       type: queryParams.type,
       note: queryParams.note,
@@ -40,27 +40,48 @@ export default function QuestionInterview() {
     },
     isUndefined,
   );
+
   const navigate = useNavigate()
+
   const [addQuestion, setAddQuestion] = useState(false)
   const handleOnClick = () => setAddQuestion(false)
+
+  const [isActive, setIsActive] = useState(false)
+  const handleActive = (e: any) => setIsActive(!isActive)
+
   const [prevQueryConfig, setPrevQueryConfig] = useState<QueryConfig>(queryConfig);
-
   const questions: QuestionListInterface[] = useAppSelector((state) => state.questionList.questionList,);
-
   const { totalQuestions }: any = useAppSelector((state) => state.questionList.questionList);
-
+  const  skills : QuestionListInterface[]  = useAppSelector((state) => state.questionList.skills);
+  const  types : QuestionListInterface[] = useAppSelector((state) => state.questionList.types);
   const [pageSize, setPageSize] = useState(
-    Math.ceil(totalQuestions / Number(queryParams.size || 3)),
+    Math.ceil(totalQuestions / Number(queryParams.size || 5)),
   );
+
   const [isLoading, setIsLoading] = useState(false);
 
   const [showQuestion, setShowQuestion] = useState(questions)
+  const [showSkills, setShowSkills] = useState(skills)
+  const [showTypes, setShowTypes] = useState(types)
 
-  const [dataSearch, setDataSearch] = useState({
-    key: "",
-    skill: "",
-    type: "",
-  });
+  const handleSearch = () =>{
+    try {
+      setIsLoading(true);
+      navigate({
+        pathname: "/interviewer/question",
+        search: createSearchParams({
+          ...queryConfig,
+          type: dataSearch.type,
+          skill:dataSearch.skill,
+          page: "1",
+        }).toString(),
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   useEffect(() => {
     const fetchQuesList = async () => {
@@ -72,11 +93,6 @@ export default function QuestionInterview() {
           setShowQuestion(response.data.result.content);
           setPageSize(response.data.result.totalPages);
         }
-        // setDataSearch({
-        //   ...dataSearch,
-        //   skill: queryConfig.skill || "",
-        //   type: queryConfig.type || "",
-        // });
       } catch (error) {
         console.log(error);
       } finally {
@@ -85,6 +101,37 @@ export default function QuestionInterview() {
     };
     fetchQuesList();
   }, []);
+
+  useEffect(() => {
+    const fetchSkill = async () => {
+      setIsLoading(true)
+      const response = await axiosInstance(`interviewer/skills`);
+      const res = await axiosInstance(`interviewer/type-questions`)
+      setShowTypes(res.data.result)
+      setShowSkills(response.data.result);
+      setDataSearch({
+        ...dataSearch,
+        skill: queryConfig.skill || "",
+        type: queryConfig.type || "",
+      });
+
+    };
+    fetchSkill();
+  }, []);
+
+  // useEffect(() => {
+  //   const fetchType = async () => {
+  //     setIsLoading(true)
+  //     const res = await axiosInstance(`interviewer/type-questions`)
+  //     setShowTypes(res.data.result)
+  //     setDataSearch({
+  //       ...dataSearch,
+  //       skill: queryConfig.skill || "",
+  //       type: queryConfig.type || "",
+  //     });
+  //   };
+  //   fetchType();
+  // }, []);
 
   useEffect(() => {
     if (!isEqual(prevQueryConfig, queryConfig)) {
@@ -142,17 +189,112 @@ export default function QuestionInterview() {
             <div className="w-full h-fit   ">
               <div className=" gap-x-4 flex w-full h-full">
                 <div className="flex gap-x-6 ml-20 mb-4 cursor-pointer w-full">
-                  {/* Position */}
+                  {/* Skill */}
                   <div className=" relative flex flex-col w-40  h-fit  ">
                     <Menu as="div" className=" h-fit">
-                      <TechFilter setDataSearch={setDataSearch} dataSearch={dataSearch} />
+                      {/* <TechFilter setDataSearch={setDataSearch} dataSearch={dataSearch} skills={skills} /> */}
+                      <div className='absolute w-full'>
+                        <div className='w-full h-full  '>
+                          <Menu.Button className='w-full p-1.5 mb-1 bg-emerald-600 rounded-md text-white border border-transparent
+                                active:border-emerald-600  active:text-emerald-600 
+                                 active:bg-white flex items-center' onClick={handleActive}>
+                            <div className=' inline-flex justify-between w-full '>
+                              {dataSearch.skill || "Skill"}
+                              <ChevronDownIcon className='w-5 h-5 pt-1' />
+                            </div>
+                          </Menu.Button>
+                          <Transition as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95" >
+                            <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 aboslute bg-opacity-90 shadow-md '>
+                              <div className='w-full h-full  text-black rounded-md border border-zinc-200'>
+                                {showSkills.map((skill) => (
+                                  <Menu.Item key={skill.skillId}>
+                                    {({ active }) => (
+                                      <p
+                                        className={classNames(
+                                          active
+                                            ? "bg-gray-100 text-gray-900 bg-opacity-80"
+                                            : "text-gray-700", "p-2",
+                                          "block  text-sm",
+                                        )}
+                                        // onClick={() => handleSetTech(type)}
+                                        onClick={() =>{
+                                          // handleActive
+                                          setDataSearch({
+                                            ...dataSearch,
+                                            skill: skill.name
+                                          })
+                                          handleSearch()
+                                        }
+                                        }
+                                      >
+                                        {skill.name}
+                                      </p>
+                                    )}
+                                  </Menu.Item>
+                                ))}
+                              </div>
+                            </Menu.Items >
+                          </Transition>
+                        </div>
+                      </div>
                     </Menu>
                   </div>
 
-                  {/* Technology */}
+                  {/* Type */}
                   <div className=" relative flex flex-col w-40 h-fit  ">
                     <Menu as="div" className=" w-full h-fit ">
-                      <QuestionFilter />
+                      {/* <QuestionFilter setDataSearch={setDataSearch} dataSearch={dataSearch} types={types} /> */}
+                      <div className='absolute w-full '>
+                        <Menu.Button className='w-full h-fit p-1.5 mb-1 bg-emerald-600 rounded-md text-white border border-transparent
+                                active:border-emerald-600  active:text-emerald-600 
+                                 active:bg-white flex items-center' onClick={handleActive}>
+                          <div className=' inline-flex justify-between w-full '>
+                            {TYPE_alter[dataSearch.type] || "Type"}
+                            <ChevronDownIcon className='w-5 h-5 pt-1' />
+                          </div>
+                        </Menu.Button>
+                        <Transition as={Fragment}
+                          enter="transition ease-out duration-100"
+                          enterFrom="transform opacity-0 scale-95"
+                          enterTo="transform opacity-100 scale-100"
+                          leave="transition ease-in duration-75"
+                          leaveFrom="transform opacity-100 scale-100"
+                          leaveTo="transform opacity-0 scale-95" >
+                          <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 bg-opacity-80 aboslute shadow-md  '>
+                            <div className='w-full h-full  text-black rounded-md border border-zinc-200'>
+                              {showTypes.map((type, index: any) => (
+                                <Menu.Item key={index}>
+                                  {({ active }) => (
+                                    <p
+                                      className={classNames(
+                                        active
+                                          ? "bg-gray-100 text-gray-900 bg-opacity-80"
+                                          : "text-gray-700", "p-2",
+                                        "block  text-sm",
+                                      )}
+                                      onClick={() => {
+                                        setDataSearch({
+                                          ...dataSearch,
+                                          type: type
+                                        })
+                                        handleSearch()
+                                      }}
+                                    >
+                                      {TYPE_alter[type]}
+                                    </p>
+                                  )}
+                                </Menu.Item>
+                              ))}
+                            </div>
+                          </Menu.Items >
+                        </Transition>
+                      </div>
                     </Menu>
                   </div>
                 </div>
@@ -218,7 +360,7 @@ export default function QuestionInterview() {
                 </div>
                 {/* pagination */}
                 <div className="flex justify-end m-4">
-                  <PaginationInterview queryConfig={queryConfig} pageSize={pageSize}/>
+                  <PaginationInterview queryConfig={queryConfig} pageSize={pageSize} />
                 </div>
               </div>
             </div>
@@ -227,8 +369,6 @@ export default function QuestionInterview() {
       </div>
       <AddQuestion onClick={handleOnClick} observation={addQuestion} />
       {/* <DeleteQuestion id={} /> */}
-
     </div>
   );
-
 }

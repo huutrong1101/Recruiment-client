@@ -7,30 +7,40 @@ import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { fetchTypeList } from '../../redux/reducer/Type_Skill_Slice/TypeSlice';
 import axiosInstance from '../../utils/AxiosInstance';
-import { TypeListInterface } from '../../services/services';
+import { QuestionListConfig, QuestionListInterface, TypeListInterface } from '../../services/services';
 //------------------------------------------TYPE
+
+interface IDataSearch {
+  skill: string;
+  type: string;
+}
+
+interface ITechFilterProps {
+  setDataSearch: React.Dispatch<React.SetStateAction<IDataSearch>>;
+  dataSearch: IDataSearch;
+}
+
 export default function QuestionFilter() {
-  const pos = ['Technical', 'Soft Skill', 'English']
   const [isActive, setIsActive] = useState(false)
   const handleActive = (e: any) => setIsActive(!isActive)
 
-  const [showTypes, setShowTypes] = useState([])
+  // const [showTypes, setShowTypes] = useState([])
 
   // const questions: TypeListInterface[] = useAppSelector((state) => state.questionList.questionList,);
 
-  useEffect(() => {
-    const fetchTypeList = async () => {
-      try {
-        const response = await axiosInstance('interviewer/type-questions')
-        setShowTypes(response.data.result)
-      }
-      catch (error) {
-        console.log(error)
-      }
-    }
-    fetchTypeList();
-  }, [])
-
+  // useEffect(() => {
+  //   const fetchTypeList = async () => {
+  //     try {
+  //       const response = await axiosInstance('interviewer/type-questions')
+  //       setShowTypes(response.data.result)
+  //     }
+  //     catch (error) {
+  //       console.log(error)
+  //     }
+  //   }
+  //   fetchTypeList();
+  // }, [])
+  const types = ['a','b']
 
   return (
     <div className='absolute w-full '>
@@ -50,7 +60,7 @@ export default function QuestionFilter() {
         leaveTo="transform opacity-0 scale-95" >
         <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 bg-opacity-80 aboslute shadow-md  '>
           <div className='w-full h-full  text-black rounded-md border border-zinc-200'>
-            {showTypes.map((type,index) => (
+            {types.map((type:any, index:any) => (
               <Menu.Item key={index}>
                 {({ active }) => (
                   <p
