@@ -36,7 +36,6 @@ export default function Contact() {
       };
       return (        
       <>
-
         {/* Lien he */}
         <form className="" onSubmit={handleSubmit}>
           {/* Link */}
