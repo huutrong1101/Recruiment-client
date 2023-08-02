@@ -20,6 +20,8 @@ import axiosInstance from "../../../utils/AxiosInstance";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { fetchRecInterviewerSkill } from "../../../redux/reducer/RecInterviewerSilce";
 import { Menu, Transition } from "@headlessui/react";
+import { useNavigate } from "react-router-dom";
+import { JobInterface } from "../../../services/services";
 
 export default function Addjob() {
   const dispatch = useAppDispatch();
@@ -65,27 +67,18 @@ export default function Addjob() {
 
   const selectedValues = skillsRequired.map((option) => option.label);
 
-
-
-
-
   const handleSelectChange = (selectedOptions: any) => {
     setSkillsRequired(selectedOptions)
   };
 
+  const navigate = useNavigate();
+
+
   const handleSubmit = (event: any) => {
+    navigate({
+      pathname: `/recruiter/jobs/`
+    });
     event.preventDefault();
-    // console.log(name)
-    // console.log(quantity)
-    // console.log(description)
-    // console.log(requirement)
-    // console.log(benefit)
-    // console.log(selectedValues)
-    // console.log(positionName)
-    // console.log(location)
-    // console.log(jobType)
-    // console.log(test)
-    // console.log(salaryRange)
     const data = {
       name: name,
       jobType: jobType,
