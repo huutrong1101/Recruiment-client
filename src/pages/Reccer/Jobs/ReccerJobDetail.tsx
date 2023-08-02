@@ -32,7 +32,8 @@ import { JobInterface } from "../../../services/services";
 import axiosInstance from "../../../utils/AxiosInstance";
 import moment from "moment";
 import Loader from "../../../components/Loader/Loader";
-import Button from "../../../components/Button/Button";
+import { JOB_LOCATION, JOB_POSITION, JOB_TYPE } from "../../../utils/Localization";
+import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 
 export default function ReccerJobDetail() {
   // const listSkills = ["React", "Java", "HTML", "Figma", "WordPress"];
@@ -71,12 +72,12 @@ export default function ReccerJobDetail() {
   useEffect(() => {
     if (job) {
       setJobInformation([
-        { icon: <UserIcon />, name: "Employee Type", value: job.jobType },
-        { icon: <MapPinIcon />, name: "Location", value: job.location },
+        { icon: <UserIcon />, name: "Employee Type", value: JOB_POSITION[job.jobType] },
+        { icon: <MapPinIcon />, name: "Location", value: JOB_POSITION[job.location] },
         {
           icon: <ComputerDesktopIcon />,
           name: "Job Type",
-          value: job.position.name,
+          value: JOB_POSITION[job.position.name],
         },
         {
           icon: <CurrencyDollarIcon />,
@@ -281,8 +282,10 @@ export default function ReccerJobDetail() {
             <Suggested />
           </>
         ) : (
-          <Loader />
-        )}
+          <div className="flex justify-center mt-5">
+            <LoadSpinner className="text-3xl" />
+          </div>)
+        }
       </div>
     </>
   );

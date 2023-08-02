@@ -18,11 +18,13 @@ import { useAppSelector } from "../../hooks/hooks";
 import { TextareaAutosize } from "@mui/material";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { JOB_POSITION } from "../../utils/Localization";
 
 export default function AddJobCard({ cardData, setCardData, setpositionId, setLocation, setjobType, salary, setSalary, deadline, setDeadline }: any) {
   const location = useAppSelector(state => state.Job.location)
   const employeeType = useAppSelector(state => state.Job.postion)
   const jobType = useAppSelector(state => state.Job.type)
+
 
   const listData = cardData.map((data: any) => (
     data.value
@@ -57,11 +59,12 @@ export default function AddJobCard({ cardData, setCardData, setpositionId, setLo
       "Job Type": formattedJobType,
     },
   }
+
   return (
     <div
       className={classNames(
-        `w-full bg-white shadow-sm px-4 py-6 rounded-xl border sticky top-20`,
-        `flex flex-col gap-4`,
+        `w-full bg-white shadow-sm px-4 py-6 rounded-xl border sticky top-24`,
+        `flex flex-col gap-4 mt-5`,
       )}
     >
       <h1 className={classNames(`font-semibold text-xl`)}>Job Information</h1>
@@ -146,15 +149,18 @@ export default function AddJobCard({ cardData, setCardData, setpositionId, setLo
             minRows={4}
             value={salary}
             style={{
+              lineHeight: 'normal',
+              outline: 'none',
               border: '1px solid #ccc',
               borderRadius: '4px',
-              padding: '8px',
               fontSize: '16px',
-              height: '25px',
+              height: '26px',
               width: '160px',
               overflow: 'hidden',
               resize: 'none',
+              padding: '2px'
             }}
+            className="focus:outline-none focus:ring-black focus:ring-1"
             placeholder=""
             onChange={(event) => setSalary(event.target.value)}
           />
@@ -170,7 +176,7 @@ export default function AddJobCard({ cardData, setCardData, setpositionId, setLo
             onChange={handleDateChange}
             dateFormat="yyyy-MM-dd"
             placeholderText="Select a day"
-            className="border w-[160px] p-[1px]"
+            className="border w-[160px] p-[1px] focus:outline-none focus:ring-black focus:ring-1 rounded-md"
           />
         </div>
       </div>
