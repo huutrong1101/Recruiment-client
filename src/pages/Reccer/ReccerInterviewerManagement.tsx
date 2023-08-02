@@ -127,10 +127,10 @@ const ReccerInterviewerManagement = () => {
         pathname: "../interviewers",
         search: createSearchParams({
           ...queryConfig,
-          //Dưới đây chính là cái parameter ở URL
+          //Dưới đây là cái parameter ở URL
           name: dataSearch.key,
           skill: dataSearch.skill,
-          index: "1",
+          page: "1",
         }).toString(),
       });
 
