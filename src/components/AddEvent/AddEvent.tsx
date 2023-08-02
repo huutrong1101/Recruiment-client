@@ -87,10 +87,9 @@ export default function AddEvent() {
           .then((response) => {
             alert('Successful');
             // Xử lý phản hồi từ server (nếu cần)
-            console.log(response.data); // In ra thông tin phản hồi từ máy chủ
             // In tất cả thông tin từ FormData
-            console.log(formData);
             setOpen(false);
+            window.history.back();
           })
           .catch((error) => {
             // Xử lý lỗi (nếu có)
