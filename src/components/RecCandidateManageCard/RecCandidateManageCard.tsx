@@ -1,26 +1,11 @@
 import React from "react";
 import { useAppSelector } from "../../hooks/hooks";
 import { Link } from "react-router-dom";
-import blog_image from "../../../images/blog_image.png";
-import AvatarCandidate from "../Candidate/Avatar";
-
-interface MyComponentProps {
-  candidate: {
-    name: string;
-    experience: number;
-    skills: string[];
-    title: string;
-    imgURL: string;
-  };
-  index: {
-    index: number;
-  };
-}
-
-const skills = ["Java", "Python", "React"];
 
 const RecCandidateCard = (props: any) => {
   const candidate = props.candidate;
+  const sliceSkill = candidate.skills.slice(0,3);
+  console.log(sliceSkill)
   return (
     <div className="grid grid-cols-1">
       <div className="group bg-white relative overflow-hidden rounded-md shadow dark:shadow-gray-500 text-center p-6 hover:shadow-gray-950">
@@ -35,7 +20,7 @@ const RecCandidateCard = (props: any) => {
         </div>
         <ul className="mt-2 list-none">
           <li className="inline">
-            {candidate.skills.map((item: any) => (
+            {sliceSkill.map((item: any) => (
               <p
                 key={item.skillId}
                 className="bg-[#C6DED5] ml-2 inline-block text-[#218F6E] text-xs px-2.5 py-0.5 font-semibold rounded-full"
