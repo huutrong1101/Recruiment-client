@@ -68,10 +68,15 @@ async function getJobFromId(jobId: string) {
   return axiosInstance.get(`/jobs/${jobId}`);
 }
 
+async function getIfUserAppliedTheJob(jobId: string) {
+  return axiosInstance.get(`/candidate/applied-jobs/${jobId}`);
+}
+
 export const JobService = {
   getJobs,
   getPosition,
   getType,
   getLocation,
   getJobFromId,
+  getIfUserAppliedTheJob,
 };

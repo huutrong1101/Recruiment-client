@@ -5,7 +5,7 @@ import NavbarSlice from "../components/Navbar/slices/NavbarSlice";
 ///
 import CandidateRecentReducer from "./reducer/CandidateRecentSlice";
 import INTInterviewsReducer from "./reducer/INTInterviewsSlice";
-import INTCandidatesReducer from "./reducer/INTCandidatesSlice"
+import INTCandidatesReducer from "./reducer/INTCandidatesSlice";
 import SearchReducer from "./reducer/SearchSlice";
 import AuthSlice from "./AuthSlice";
 import OneTimePasswordSlice from "../pages/OneTimePasswordVerify/slices/OneTimePasswordSlice";
@@ -18,6 +18,7 @@ import AdminAcountListSlice from "./reducer/AdminListAcountRecentSlice";
 import AdminListPassRecentSlice from "./reducer/AdminListPassRecentSlice";
 import JobSlice from "./JobSlice";
 import RecInterviewerSilce from "./reducer/RecInterviewerSilce";
+import JobDetailSlice from "../pages/JobDetail/slice/JobDetailSlice";
 
 export const ApplicationStore = configureStore({
   reducer: {
@@ -33,13 +34,15 @@ export const ApplicationStore = configureStore({
     OneTimePassword: OneTimePasswordSlice,
 
     RecJobList: RecJobListSlice,
-    RecInterviewerList:RecInterviewerSilce,
+    RecInterviewerList: RecInterviewerSilce,
 
     // Admin
     adminmanagerjobList: AdminListJobRecentSlice,
     adminprofilesRecent: AdminProfileRecentSlice,
     adminacountList: AdminAcountListSlice,
     adminmanagerpassList: AdminListPassRecentSlice,
+
+    JobDetail: JobDetailSlice,
   },
 });
 

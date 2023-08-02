@@ -2,23 +2,22 @@ import classNames from "classnames";
 import { useState } from "react";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import JobInformationApplyModal from "./JobInformationApplyModal";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { setJobIsApplied } from "./slice/JobDetailSlice";
 
 export default function JobInformationCard({ cardData }: any) {
   const [visibleApplyDialog, setVisibleApplyDialog] = useState<boolean>(false);
-  const [isApplied, setApplied] = useState<boolean>(false);
-
-  // TODO: check if the user is applied by using useEffect
-
-  // const handleApply = (data: any) => {
-  //   console.log(data);
-  // };
+  // const [isApplied, setApplied] = useState<boolean>(false);
+  const { isApplied } = useAppSelector((state) => state.JobDetail.response);
+  const dispatch = useAppDispatch();
 
   const toggleVisibleApplyModal = () => {
     setVisibleApplyDialog((isVisible) => !isVisible);
   };
 
   const handleOnApplySucceeded = () => {
-    setApplied(true);
+    dispatch(setJobIsApplied(true));
+
     toggleVisibleApplyModal();
   };
 

@@ -240,3 +240,6 @@ export interface ResumeResponse {
   updateAt: string;
   name: string;
 }
+
+
+export type LoadingStatus = "pending" | "idle" | "failed" | "fulfill";
