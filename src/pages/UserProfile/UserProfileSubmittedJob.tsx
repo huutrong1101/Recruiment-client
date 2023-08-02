@@ -9,21 +9,26 @@ import { Fragment, useEffect, useState } from "react";
 import JobStatusBadge from "../../components/Badge/JobStatusBadge";
 import { useForm } from "react-hook-form";
 import { getCandidateSubmittedJobs } from "../../services/CandidateService";
-import { useParams, useSearchParams } from "react-router-dom";
+import {
+  createSearchParams,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 
 export default function UserProfileSubmittedJob() {
   const [filterType, setFilterType] = useState<number>(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const { handleSubmit, register } = useForm();
   const onSubmit = (data: any) => {};
-
   const [applicants, setApplicants] = useState<object[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const page = searchParams.get("page") || 1;
-    const limit = searchParams.get("limit") || 10;
+    const index = searchParams.get("index") || 1;
+    const size = searchParams.get("size") || 10;
 
-    getCandidateSubmittedJobs({ page, limit })
+    getCandidateSubmittedJobs({ index, size })
       .then((response) => {
         const { result } = response.data;
         // Normalize the result onto a fitted table data
@@ -159,8 +164,31 @@ export default function UserProfileSubmittedJob() {
       >
         <div>Page 1 of 10</div>
         <div className={classnames(`flex flex-row-reverse flex-1 gap-4`)}>
-          <Button text="Next" className={classnames(``)} size="sm" />
-          <Button text="Previous" className={classnames(``)} size="sm" />
+          <Button
+            text="Next"
+            className={classnames(``)}
+            size="sm"
+            onClick={() => {
+              setSearchParams((prev) => {
+                const index = prev.get("index") || "1";
+                const size = prev.get("size") || "10";
+
+                return {
+                  size,
+                  index: (Number.parseInt(index) + 1).toString(),
+                };
+              });
+            }}
+          />
+
+          <Button
+            text="Previous"
+            className={classnames(``)}
+            size="sm"
+            onClick={() => {
+              setSearchParams({});
+            }}
+          />
         </div>
       </div>
     </div>
