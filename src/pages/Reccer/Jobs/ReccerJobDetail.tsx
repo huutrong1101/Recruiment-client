@@ -100,6 +100,10 @@ export default function ReccerJobDetail() {
       pathname: "/recruiter/jobs",
     });
   };
+  const routeChange = () => {
+    let path = `./edit`;
+    navigate(path);
+  };
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -201,7 +205,7 @@ export default function ReccerJobDetail() {
                   <div className={classNames(`px-8 py-8`, `text-justify`)}>
                     <button
                       className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-2 my-1 text-white"
-                      // onClick={routeChange}
+                      onClick={routeChange}
                     >
                       Edit Job
                     </button>

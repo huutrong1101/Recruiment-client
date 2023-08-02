@@ -51,6 +51,7 @@
     "@nivo/line": "^0.83.0",
     "@syncfusion/ej2-react-popups": "^22.1.37",
     "@textea/json-viewer": "^3.1.1",
+    "@types/react-datepicker": "^4.15.0",
     "classnames": "^2.3.2",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.9",

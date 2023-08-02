@@ -67,6 +67,7 @@ import OneTimePasswordVerify from "./pages/OneTimePasswordVerify/OneTimePassword
 import { EventService } from "./services/EventService";
 import CandidateDetail from "./pages/Reccer/CandidateDetail";
 import UserProfileMyResume from "./pages/UserProfile/UserProfileMyResume";
+import ReccerEditJob from "./pages/Reccer/Jobs/EditJob";
 
 export default function App() {
   useTokenAuthorize();
@@ -150,6 +151,7 @@ export default function App() {
           />
 
           <Route path="jobdetail/:jobId" element={<ReccerJobDetail />} />
+          <Route path="jobdetail/:jobId/edit" element={<ReccerEditJob />} />
           <Route path="addjob" element={<Addjob />} />
 
           <Route path="events" element={<ReccerEventManagement />} />
