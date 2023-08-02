@@ -86,8 +86,8 @@ export default function ReccerJobDetail() {
         },
         {
           icon: <ClockIcon />,
-          name: "Posted at",
-          value: moment(job.createdAt).format("Do MMM, YYYY"),
+          name: "End At",
+          value: moment(job.deadline).format("Do MMM, YYYY"),
         },
       ]);
     }
