@@ -24,10 +24,11 @@ export default function Applied() {
   }, [jobId]);
 
   let navigate = useNavigate();
-  const routeChange = () => {
-    let path = `interview-schedule`;
+  const routeChange = (userId: string) => {
+    let path = `interview-schedule/${userId}`;
     navigate(path);
   };
+
   const handlePass = () => {
     console.log("PASS");
   };
@@ -95,7 +96,7 @@ export default function Applied() {
                   </span>
                 </td>
                 <td>
-                  {applyCandidate.state === "NOT_RECEIVED" ? (
+                  {applyCandidate.state === "RECEIVED" ? (
                     <div>
                       <button>
                         <CheckIcon
@@ -116,7 +117,7 @@ export default function Applied() {
                   <button>
                     <CalendarDaysIcon
                       className="w-6 h-6"
-                      onClick={routeChange}
+                      onClick={() => routeChange(applyCandidate.candidateId)}
                     />
                   </button>
                 </td>

@@ -8,8 +8,8 @@ import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 export default function Suggested() {
   const { jobId } = useParams();
   let navigate = useNavigate();
-  const routeChange = () => {
-    let path = `./interview-schedule`;
+  const routeChange = (userId: string) => {
+    let path = `interview-schedule/${userId}`;
     navigate(path);
   };
   const [suggestCandidate, setSuggestCandidate] = useState<any[]>([]);
@@ -43,7 +43,7 @@ export default function Suggested() {
           {suggestCandidate.map((candidates, index) => (
             <div className="w-[22%] bg-white rounded-xl drop-shadow-lg border-2 border-gray-300">
               <button className="text-left flex flex-col px-4 pt-4">
-                <CalendarDaysIcon className="w-6 h-6" onClick={routeChange} />
+                <CalendarDaysIcon className="w-6 h-6" onClick={() => routeChange(candidates.userId)} />
               </button>
               <div className="flex flex-col items-center justify-center px-6 pb-4 ">
                 <AvatarCandidate imageUrl={candidates.avatar} size="sm" />
