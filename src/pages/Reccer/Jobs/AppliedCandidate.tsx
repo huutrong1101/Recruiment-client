@@ -20,11 +20,7 @@ interface UserProps {
 
 export default function Applied() {
   const { jobId } = useParams();
-
   const [applyCandidate, setApplyCandidate] = useState<any[]>([]);
-
-  const [isLoading, setIsLoading] = useState(false);
-
   useEffect(() => {
     const getApplyCandidate = async () => {
       const response = await axiosInstance.get(
