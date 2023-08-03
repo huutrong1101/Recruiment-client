@@ -30,6 +30,10 @@ const uploadResume = async (data: FormData) => {
   });
 };
 
+const deleteResume = async (resumeId: any) => {
+  return await axiosInstance.delete(`/candidate/resumes/${resumeId}`);
+};
+
 const updateProfile = async (data: FormData) => {
   return await axiosInstance.put(`/user/update`, data);
 };
@@ -53,4 +57,5 @@ export const UserService = {
   updateProfile,
   changePassword,
   uploadResume,
+  deleteResume,
 };

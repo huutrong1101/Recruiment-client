@@ -8,7 +8,7 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import classNames from "classnames";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import JobDescriptionWidget from "./JobDescriptionWidget";
 import Logo from "./../../../images/logo_FPT.png";
@@ -17,16 +17,20 @@ import JobCard from "../../components/JobCard/JobCard";
 import axiosInstance from "../../utils/AxiosInstance";
 import moment from "moment";
 import { JobInterface } from "../../services/services";
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import { JobService } from "../../services/JobService";
+import { fetchJobDetail } from "./slice/JobDetailSlice";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
+import { toast } from "react-toastify";
 
 export default function JobDetail() {
   const { jobId } = useParams();
-
-  const [job, setJob] = useState<JobInterface | null>(null);
-
+  const dispatch = useAppDispatch();
+  // const [job, setJob] = useState<JobInterface | null>(null);
   const jobs = useAppSelector((state) => state.Home.jobs);
-
+  const { status } = useAppSelector((state) => state.JobDetail);
+  const { job } = useAppSelector((state) => state.JobDetail.response);
   const [jobInformation, setJobInformation] = useState([
     { icon: <UserIcon />, name: "Employee Type", value: "" },
     { icon: <MapPinIcon />, name: "Location", value: "" },
@@ -49,13 +53,28 @@ export default function JobDetail() {
     },
   ]);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    const getJobDetail = async () => {
-      const response = await axiosInstance.get(`jobs/${jobId}`);
-      setJob(response.data.result);
-    };
-    getJobDetail();
+    if (!jobId) {
+      throw new Error(`The parameter jobId is undefined`);
+    }
+
+    // Fetch the job detail
+    // const getJobDetail = async () => {
+    //   const response = await JobService.getJobFromId(jobId);
+    //   setJob(response.data.result);
+    // };
+    // getJobDetail();
+    dispatch(fetchJobDetail({ jobId }))
+      .unwrap()
+      .catch((message) => toast.error(message));
+    return () => {};
   }, [jobId]);
+
+  const handleBackToJobs = () => {
+    navigate("/jobs");
+  };
 
   useEffect(() => {
     if (job) {
@@ -84,92 +103,111 @@ export default function JobDetail() {
   return (
     <>
       <div className={classNames(`job-detail`)}>
-        {job ? (
-          <>
-            {" "}
-            <div className={classNames(`flex flex-col md:flex-row gap-12`)}>
-              {/* Left side description */}
-              <div
-                className={classNames(
-                  `w-full md:w-8/12`,
-                  `flex flex-col gap-6`,
-                )}
-              >
-                {/* Widgets */}
-                <JobDescriptionWidget
-                  companyName="FPT Software"
-                  jobRole={job.name}
-                  quantity={job.quantity}
-                  publishDate={moment(job.createdAt)
-                    .format("Do MMM, YYYY")
-                    .toString()}
-                  logo={{ src: Logo, alt: "image" }}
-                />
-                {/* Details */}
+        {status.jobStatus === "fulfill" ? (
+          job ? (
+            <>
+              {" "}
+              <div className={classNames(`flex flex-col md:flex-row gap-12`)}>
+                {/* Left side description */}
                 <div
                   className={classNames(
-                    `border bg-white shadow-sm rounded-xl flex flex-col gap-8`,
-                    `px-8 py-8`,
-                    `text-justify`,
+                    `w-full md:w-8/12`,
+                    `flex flex-col gap-6`,
                   )}
                 >
-                  <div>
-                    <h1 className="text-2xl font-semibold">Job description</h1>
-                    <p>{job?.description}</p>
-                  </div>
-                  <div>
-                    <h1 className="text-2xl font-semibold">Requirement</h1>
-                    <p>{job?.requirement}</p>
-                  </div>
-                  <div>
-                    <h1 className="text-2xl font-semibold">Benefit</h1>
-                    <p>{job?.benefit}</p>
-                  </div>
-                  <div>
-                    <h1 className="text-2xl font-semibold">Skills Require</h1>
-                    <div className="flex flex-wrap px-2 py-4">
-                      {job?.skills.map((item, index) => (
-                        <div key={index}>
-                          <span
-                            key={index}
-                            className="rounded-lg bg-[#78AF9A] bg-opacity-40 p-2 mx-2 my-1 text-[#218F6E]"
-                          >
-                            {item.name}
-                          </span>
-                        </div>
-                      ))}
+                  {/* Widgets */}
+                  <JobDescriptionWidget
+                    companyName="FPT Software"
+                    jobRole={job.name}
+                    quantity={job.quantity}
+                    publishDate={moment(job.createdAt)
+                      .format("Do MMM, YYYY")
+                      .toString()}
+                    logo={{ src: Logo, alt: "image" }}
+                  />
+                  {/* Details */}
+                  <div
+                    className={classNames(
+                      `border bg-white shadow-sm rounded-xl flex flex-col gap-8`,
+                      `px-8 py-8`,
+                      `text-justify`,
+                    )}
+                  >
+                    <div>
+                      <h1 className="text-2xl font-semibold">
+                        Job description
+                      </h1>
+                      <p>{job?.description}</p>
+                    </div>
+                    <div>
+                      <h1 className="text-2xl font-semibold">Requirement</h1>
+                      <p>{job?.requirement}</p>
+                    </div>
+                    <div>
+                      <h1 className="text-2xl font-semibold">Benefit</h1>
+                      <p>{job?.benefit}</p>
+                    </div>
+                    <div>
+                      <h1 className="text-2xl font-semibold">Skills Require</h1>
+                      <div className="flex flex-wrap px-2 py-4">
+                        {job?.skills.map((item, index) => (
+                          <div key={index}>
+                            <span
+                              key={index}
+                              className="rounded-lg bg-[#78AF9A] bg-opacity-40 p-2 mx-2 my-1 text-[#218F6E]"
+                            >
+                              {item.name}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Right side description */}
-              <div className={classNames(`w-full md:w-3/12 flex-1 relative`)}>
-                <JobInformationCard cardData={jobInformation} />
+                {/* Right side description */}
+                <div className={classNames(`w-full md:w-3/12 flex-1 relative`)}>
+                  <JobInformationCard cardData={jobInformation} />
+                </div>
               </div>
-            </div>
-            {/* Footer */}
+              {/* Footer */}
+              <div
+                className={classNames(
+                  `flex flex-col gap-2 items-center justify-center my-12`,
+                )}
+              >
+                <h1 className={classNames(`text-3xl font-semibold`)}>
+                  Related Vacancies
+                </h1>
+                <h2 className={classNames(`text-lg text-zinc-500`)}>
+                  Search all the open positions on the web. Get your own
+                  personalized salary estimate. Read reviews on over 30000+
+                  companies worldwide.
+                </h2>
+                <div className={classNames(`flex flex-col md:flex-row gap-6`)}>
+                  {/* TODO: add job fetch data */}
+                  {jobs.slice(0, 3).map((data) => {
+                    return <JobCard job={data} />;
+                  })}
+                </div>
+              </div>
+            </>
+          ) : (
             <div
               className={classNames(
-                `flex flex-col gap-2 items-center justify-center my-12`,
+                `flex flex-col justify-center items-center min-h-[60vh] gap-6`,
               )}
             >
-              <h1 className={classNames(`text-3xl font-semibold`)}>
-                Related Vacancies
+              <h1 className={classNames(`font-semibold text-3xl`)}>
+                The job that you found has not exist.
               </h1>
-              <h2 className={classNames(`text-lg text-zinc-500`)}>
-                Search all the open positions on the web. Get your own
-                personalized salary estimate. Read reviews on over 30000+
-                companies worldwide.
-              </h2>
-              <div className={classNames(`flex flex-col md:flex-row gap-6`)}>
-                {/* TODO: add job fetch data */}
-                {jobs.slice(0, 3).map((data) => {
-                  return <JobCard job={data} />;
-                })}
-              </div>
+              <PrimaryButton
+                text={`Back to jobs`}
+                className="w-[30vw]"
+                onClick={handleBackToJobs}
+              />
             </div>
-          </>
+          )
         ) : (
           <div className="flex justify-center my-4">
             <LoadSpinner className="text-3xl text-emerald-500" />
