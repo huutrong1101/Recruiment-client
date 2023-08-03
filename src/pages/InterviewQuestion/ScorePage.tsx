@@ -2,7 +2,6 @@ import { TrashIcon, BriefcaseIcon, AcademicCapIcon, CheckBadgeIcon } from "@hero
 
 import { useState, useEffect } from "react"
 import { Menu, Transition } from "@headlessui/react";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { fetchQuestionList } from "../../redux/reducer/QuestionListSlice";
 import { STATUS } from '../../utils/Status';
 import Loader from '../../components/Loader/Loader';

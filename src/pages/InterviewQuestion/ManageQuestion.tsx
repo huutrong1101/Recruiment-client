@@ -61,7 +61,6 @@ export default function QuestionInterview() {
   const [pageSize, setPageSize] = useState(
     Math.ceil(totalQuestions / Number(queryParams.size || 5)),
   );
-
   const [isLoading, setIsLoading] = useState(false);
 
   const [showQuestion, setShowQuestion] = useState(questions)
