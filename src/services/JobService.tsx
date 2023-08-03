@@ -61,9 +61,22 @@ async function getLocation(dispatch: Dispatch) {
   }
 }
 
+async function getJobFromId(jobId: string) {
+  if (!jobId) {
+    throw new Error(`The value jobId cannot be undefined`);
+  }
+  return axiosInstance.get(`/jobs/${jobId}`);
+}
+
+async function getIfUserAppliedTheJob(jobId: string) {
+  return axiosInstance.get(`/candidate/applied-jobs/${jobId}`);
+}
+
 export const JobService = {
   getJobs,
   getPosition,
   getType,
   getLocation,
+  getJobFromId,
+  getIfUserAppliedTheJob,
 };

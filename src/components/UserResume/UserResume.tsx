@@ -25,13 +25,13 @@ export default function UserResume({
     <div className="w-full px-4 mb-8 cursor-pointer sm:w-1/2 lg:w-1/2">
       <div className="p-6 mb-4 bg-white rounded-lg shadow-md">
         <div className="flex flex-wrap items-center justify-between mb-4">
-          <img src={logo_FPT} alt="" className="w-12 h-12" />
-          <p
+          <img src={logo_FPT} alt="" className="w-12" />
+          {/* <p
             className={`text-sm ${id === priorityCV ? "text-yellow-500" : ""}`}
             onClick={onClick}
           >
             <HiStar size={18} />
-          </p>
+          </p> */}
         </div>
         <div className="pt-4 border-t border-gray-200">
           <h3 className="text-lg font-bold">{name}</h3>
