@@ -43,3 +43,17 @@ export const fetchRecInterviewerList =()=>{
         }
     }
 }
+
+export const fetchRecInterviewerSkill =()=>{
+    return async function fetchRecInterviewerSkillThunk(dispatch:Dispatch){
+        dispatch(setRecInterviewerListStatus(STATUS.LOADING))
+        try{
+            const response = await axiosInstance.get(`candidate/skills`);
+            const data = await response.data
+            dispatch(setInterviewerskillList(data.result))
+            dispatch(setRecInterviewerListStatus(STATUS.IDLE))
+        } catch(error){
+            dispatch(setRecInterviewerListStatus(STATUS.ERROR))
+        }
+    }
+}

@@ -20,8 +20,6 @@ import Loader from "../../../components/Loader/Loader";
 import Schedule from "./Schedule";
 
 export default function ReccerJobDetail() {
-  // const listSkills = ["React", "Java", "HTML", "Figma", "WordPress"];
-
   const [jobInformation, setJobInformation] = useState([
     { icon: <UserIcon />, name: "Employee Type", value: "" },
     { icon: <MapPinIcon />, name: "Location", value: "" },
@@ -44,7 +42,9 @@ export default function ReccerJobDetail() {
     },
   ]);
   const { jobId } = useParams();
+
   const [job, setJob] = useState<JobInterface | null>(null);
+
   useEffect(() => {
     const getJobDetail = async () => {
       const response = await axiosInstance.get(`recruiter/jobs/${jobId}`); //Viết API cho BE viết lấy 1 job trong list job của reccer

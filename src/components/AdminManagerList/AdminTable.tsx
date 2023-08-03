@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import {
+  ExclamationTriangleIcon,
   PencilSquareIcon,
   TrashIcon,
   UserMinusIcon,
@@ -14,7 +15,6 @@ import {
   TableBody,
   Paper,
 } from "@mui/material";
-import TablePagination from "@mui/material/TablePagination";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -24,18 +24,15 @@ import DialogTitle from "@mui/material/DialogTitle";
 interface TypeData {
   typeSelected: string;
 }
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { STATUS } from "../../utils/Status";
+import { useAppSelector } from "../../hooks/hooks";
 import { AcountConfig, AcountInterface } from "../../services/services";
 import { omitBy, isUndefined } from "lodash";
 import useQueryParams from "../../hooks/useQueryParams";
 import qs from "query-string";
-import { createSearchParams, useNavigate } from "react-router-dom";
-import { omit, isEqual } from "lodash";
+import {  isEqual } from "lodash";
 import axiosInstance from "../../utils/AxiosInstance";
 import Paginationacountlist from "./Pagination/Paginationacountlist";
 import moment from "moment";
-import LoadSpinner from "../LoadSpinner/LoadSpinner";
 // import UserAccountDeletionButton from "../Delete/DeleteButon";
 import Loader from "../Loader/Loader";
 
@@ -45,17 +42,9 @@ export type QueryConfig = {
 
 export default function AdminTable({ typeSelected }: TypeData) {
   const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  
   const handleClose = () => {
     setOpen(false);
-  };
-  const [isChangePositionOpen, setIsChangePositionOpen] = useState(false);
-
-  const handleToggleChangePosition = () => {
-    setIsChangePositionOpen((prev) => !prev);
   };
   const jobs: AcountInterface[] = useAppSelector(
     (state) => state.adminacountList.adminmanagerAcountList,
@@ -67,11 +56,11 @@ export default function AdminTable({ typeSelected }: TypeData) {
   const queryConfig: QueryConfig = omitBy(
     {
       size: queryParams.size || 5,
-      page: queryParams.page || "1",
+      page: queryParams.page ,
       role: queryParams.role || (typeSelected === "Blacklist" ? "CANDIDATE" : (typeSelected === "" ? "" : typeSelected)),
-      name: queryParams.name,
-      blacklist: typeSelected == "Blacklist" ?  "true" : "false",
-      phone: queryParams.phone,
+      name: queryParams.name  ||"",
+      blacklist: queryParams.blacklist || typeSelected == "Blacklist" ?  "true" : "",
+      phone: queryParams.phone ,
       email: queryParams.email,
     },
     isUndefined,
@@ -85,6 +74,32 @@ export default function AdminTable({ typeSelected }: TypeData) {
   const [showJobLists, setAdminManagerJobList] = useState(jobs);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedUserId, setSelectedUserId] = React.useState('');
+
+  const handleClickOpen = (userId) => {
+    setSelectedUserId(userId);
+    setOpen(true);
+  };
+
+  const handleDelete = () => {
+    // Perform the DELETE request to delete the user with the selectedUserId
+    axiosInstance.put(`admin/delete/${selectedUserId}`)
+      .then((response) => {
+        // Handle the successful response, e.g., show an alert or update the UI
+        alert('User deleted successfully!');
+        // Reload the page after deletion to update the table
+        window.location.reload();
+      })
+      .catch((error) => {
+        // Handle errors, e.g., show an error message or log the error
+        console.error('Error deleting user:', error);
+      })
+      .finally(() => {
+        // Always close the dialog after handling the delete operation
+        handleClose();
+      });
+  };
+
 
   useEffect(() => {
     if (!isEqual(prevQueryConfig, queryConfig)) {
@@ -124,22 +139,6 @@ export default function AdminTable({ typeSelected }: TypeData) {
     };
     fetchPosition();
   }, []);
-
-  //   
-  const [accountId, setaccountId] = React.useState('');
-  console.log(accountId);
-  const handleSubmit = (event) => {  // Send the PUT request to delete the account
-    console.log(`${accountId}`);
-    return axiosInstance.put(`admin/delete/${accountId}`)
-    .then((response) => {
-      console.log("Account deleted successfully!");
-      // Reload the page after the deletion
-      window.location.reload();
-    })
-    .catch((error) => {
-      console.error("Error deleting account:", error);
-    });
-  }
 
   return (
     <div className="w-full max-w-full rounded-xl">
@@ -211,6 +210,10 @@ export default function AdminTable({ typeSelected }: TypeData) {
                 {showJobLists.map((job) => (
                   <TableRow
                     className="text-center text-black bg-white"
+                    style={{
+                      background: job.active === false ? "#FF0033" : "none",
+                      // Add any other inline styles you want for each row
+                    }}
                     key={job.userId}
                   >
                     <TableCell
@@ -225,7 +228,8 @@ export default function AdminTable({ typeSelected }: TypeData) {
                       className="px-1 py-1"
                       style={{ fontFamily: "Outfit, sans-serif" }}
                     >
-                      {job.role}
+                      {job.role.charAt(0).toUpperCase() + job.role.slice(1).toLowerCase()}
+                      {/* {job.blacklisted ? "tao ngu qua": "tao qua ngu"}  */}
                     </TableCell>
                     <TableCell
                       className="px-1 py-1"
@@ -244,91 +248,108 @@ export default function AdminTable({ typeSelected }: TypeData) {
                         ? new Date(job.createdAt).toISOString().split("T")[0]
                         : ""}
                     </TableCell>
+                      {/* Change Role Acount */}
                     <TableCell className="px-1 py-1">
-                      {job.role !== "ADMIN" && typeSelected !== "Blacklist" ? (
+                       {job.role !== "ADMIN" && typeSelected !== "Blacklist" && job.active !== false ? (
                         <>
-                        <button onClick={handleToggleChangePosition}>
+                        <button>
                           <NavLink to={`/admin/users/${job.userId}`} onClick={() => {}}>
-                          <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
+                            <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
                           </NavLink>
                         </button>
                         </>
                       ) : null}
-                      {job.role !== "ADMIN" && typeSelected !=="Blacklist" && (
+                      {/*  Acount BlackList */}
+                      {job.role !== "ADMIN" && typeSelected == "Blacklist" && job.active !== false ? (
+                        <>
                         <button>
+                          <NavLink to={`/admin/blacklist/${job.userId}`} onClick={() => {}}>
+                            <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
+                          </NavLink>
+                        </button>
+                        </>
+                      )   : null}
+
+                      {/* Delete  */}
+                      {job.role !== "ADMIN" && typeSelected !== "Blacklist" && job.active !== false && (
+                        <>
+                        <button>                         
                         <TrashIcon
-                          onClick={handleClickOpen}
+                          onClick={() => handleClickOpen(job.userId)}
                           className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg"
-                        />
-                        
-                        <input
-                          type="hidden"
-                          value={String(job.userId)} // Convert to string if job.userId is a number
-                          onChange={(event) => setAccountId(event.target.value)}
-                        />
+                        />                       
+                        {/* Delete Dialog */}
                         <Dialog
                           open={open}
                           onClose={handleClose}
+                          BackdropProps={{ invisible: true }}
+                          sx={{ borderRadius: 30 }}
                           aria-labelledby="alert-dialog-title"
                           aria-describedby="alert-dialog-description"
                         >
                           <DialogTitle
                             id="alert-dialog-title"
                             className="text-center"
-                            style={{ fontFamily: "Outfit, sans-serif" }}
                           >
-                            {"Use Google's location service?"}
+                            <p className="font-extrabold pt-4">Delete Job</p>
                           </DialogTitle>
-                          <DialogContent>
-                            <DialogContentText
-                              id="alert-dialog-description"
-                              style={{ fontFamily: "Outfit, sans-serif" }}
-                            >
-                              Or consider carefully before deleting them all changes when
-                              pressing the agree button.
-                            </DialogContentText>
+                          <DialogContent className="text-center">
+                            <div className="text-center px-6">
+                              <DialogContent className="font-semibold text-lg mb-2">
+                                Are you sure you want to delete "{job.fullName}"?
+                              </DialogContent>
+                              <DialogContentText
+                                id="alert-dialog-description"
+                                className="border bg-orange-100 px-3 py-2 "
+                              >
+                                <div className ="flex">
+                                  <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
+                                  <p className="flex text-red-800 font-semibold px-2">
+                                    WARNING
+                                  </p>
+                                </div>
+                                <div className="text-left font-semibold">
+                                  This action cannot be undone, the deleted item
+                                  cannot be restored.
+                                </div>
+                              </DialogContentText>
+                            </div>
                           </DialogContent>
                           <DialogActions>
-                            <Button onClick={handleClose} color="error" variant="contained">
-                              Disagree
-                            </Button>
-                            <Button
-                              onClick={handleSubmit}
-                              autoFocus
-                              type="submit"
-                              variant="contained"
-                              sx={{
-                                backgroundColor: "#059669",
-                                "&:hover": { backgroundColor: "#259972" },
-                              }}
+                            <button
+                              className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-1 my-1 text-white"
+                              onClick={handleClose}
                             >
-                              Agree
-                            </Button>
-                          </DialogActions>
-                        </Dialog>
-                      </button>
-                      )}
-                      {job.role === "CANDIDATE"  && typeSelected !=="Blacklist" && (
-                        <button>
-                          <NavLink
-                            to={"/admin/blacklist-add"}
-                            onClick={() => {}}
-                          >
-                            <UserMinusIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
-                          </NavLink>
+                              Cancel
+                            </button>
+                            <button
+                              className="rounded-lg bg-red-700 hover:bg-red-900 px-4 py-2 mx-1 my-1 text-white"
+                              onClick={handleDelete}
+                              autoFocus
+                            >
+                              Delete
+                            </button>
+                          </DialogActions>   
+                        </Dialog>                   
                         </button>
+                      </>
                       )}
-                      { typeSelected ==="Blacklist" && (
-                        <button>
-                          <NavLink
-                            to={`/admin/blacklist-delete`}
-                            onClick={() => {}}
-                          >
-                            <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
-                          </NavLink>
-                        </button>                        
-                       )
-                      }
+                      {/*  */}
+                      {job.role === "CANDIDATE"   && typeSelected !=="Blacklist" && job.active !== false ?  (
+                        <>
+                          {job.blacklist !== true ? (
+                              <button>
+                                <NavLink
+                                  to={`/admin/users/blacklist/${job.userId}`}
+                                  onClick={() => {}}
+                                >
+                                  <UserMinusIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
+                                </NavLink>
+                              </button>)
+                            : null
+                          }
+                        </>
+                        ): null}
                     </TableCell>
                   </TableRow>
                 ))}

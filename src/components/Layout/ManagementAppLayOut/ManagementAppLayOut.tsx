@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./ManagementAppLayOut.scss";
 import { Link, Outlet, NavLink } from "react-router-dom";
 import classnames from "classnames";
-import { Bars3Icon, XMarkIcon, MagnifyingGlassIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  XMarkIcon,
+  MagnifyingGlassIcon,
+  ChevronRightIcon,
+} from "@heroicons/react/24/outline";
 import {
   HiOutlineFolder,
   HiOutlineCalendarDays,
@@ -62,7 +67,7 @@ export const linksAll = [
       {
         name: "Candidate",
         icon: <HiOutlineUser />,
-        url: "recruiter/candidates",
+        url: "recruiter/applied-candidates",
       },
       {
         name: "Job",
@@ -104,15 +109,15 @@ const ManagementAppLayOut = () => {
   const normalLink =
     " flex items-center gap-3 py-1 rounded-lg text-black text-md text-gray-700 hover:bg-gray-200 mt-1 mx-3";
 
-  const {user} = useAppSelector((state:any) => state.Auth);
+  const { user } = useAppSelector((state: any) => state.Auth);
 
   let links = linksAll;
-  if(user?.role == "INTERVIEWER"){
-    links = [linksAll[2]]
-  }else if(user?.role == "RECRUITER"){
-    links = [linksAll[1]]
-  }else if(user?.role == "ADMIN"){
-    links = [linksAll[0]]
+  if (user?.role == "INTERVIEWER") {
+    links = [linksAll[2]];
+  } else if (user?.role == "RECRUITER") {
+    links = [linksAll[1]];
+  } else if (user?.role == "ADMIN") {
+    links = [linksAll[0]];
   }
 
   return (
@@ -142,13 +147,13 @@ const ManagementAppLayOut = () => {
         >
           <div className="flex justify-center items-center h-[72px]">
               <Link to="/">
-                {leftActive?<div className="text-4xl bold">JP</div>:<div className="text-4xl bold">JobPort</div>}
+                {leftActive?<div className="text-4xl font-semibold">JP</div>:<div className="text-4xl font-semibold">JobPort</div>}
               </Link>
           </div>
           <div className="">
             {links.map((item) => (
               <div key={item.title} className="mb-2">
-                <hr className={classnames("mx-2 border border-black")}/>
+                <hr className={classnames("mx-2 border border-black")} />
                 <p
                   className={classnames(
                     "text-gray-400 mx-3 mt-2 text-x font-semibold",
@@ -162,12 +167,12 @@ const ManagementAppLayOut = () => {
                     to={`/${link.url}`}
                     key={link.name}
                     className={({ isActive }) =>
-                      `${isActive ? activeLink : normalLink} ${leftActive? 'justify-center': 'pl-4'}`
+                      `${isActive ? activeLink : normalLink} ${
+                        leftActive ? "justify-center" : "pl-4"
+                      }`
                     }
                   >
-                    <span className="text-2xl text-black">
-                      {link.icon}
-                    </span>
+                    <span className="text-2xl text-black">{link.icon}</span>
                     <div
                       className={classnames({
                         "text-black flex, hidden": leftActive,

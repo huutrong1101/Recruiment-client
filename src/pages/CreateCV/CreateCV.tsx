@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
-import Field from "../../components/Field/Field";
+import Field from "../../components/Field/FieldContainer";
 import { CloudArrowUpIcon } from "@heroicons/react/24/solid";
 
 const colourOptions = [

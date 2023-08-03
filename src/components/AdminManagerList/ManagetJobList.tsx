@@ -21,6 +21,7 @@ export type QueryConfig = {
 };
 import axiosInstance from "../../utils/AxiosInstance";
 import Paginationjoblist from "./Pagination/Paginationjoblist";
+import moment from "moment";
 
 const ManagetJobList = () => {
   const dispatch = useAppDispatch();
@@ -96,7 +97,7 @@ const ManagetJobList = () => {
                   <TableCell scope="row" className="font-medium text-gray-900 whitespace-nowrap" style={{ fontFamily: "Outfit, sans-serif" }}
                   > {job.name}  </TableCell>
                   <TableCell className=""                 style={{ fontFamily: "Outfit, sans-serif" }}
-                  >{job.date}</TableCell>
+                  >                {moment(job.date).format("HH:mm:ss DD-MM-YYYY")}                  </TableCell>
                   <TableCell className=" flex justify-center">
                     <div className="w-full h-3 bg-gray-300 rounded-xl">
                       <div className="h-3 bg-emerald-400 rounded-xl"   style={{ width: `${job.member}%` }} ></div>

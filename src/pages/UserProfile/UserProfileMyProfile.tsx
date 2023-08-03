@@ -222,11 +222,13 @@ function UserProfilePassword() {
   const handleChangePassword = (data: any) => {
     toast
       .promise(UserService.changePassword(data), {
-        pending: `Updating your profile`,
-        success: `Your profile was updated`,
+        pending: `Updating your password`,
+        success: `Your password was updated`,
       })
       .catch((error) => toast.error(error.response.data.message));
   };
+
+  const { user } = useAppSelector((app) => app.Auth);
 
   return (
     <div className="p-4 border rounded-xl border-zinc-100">
@@ -244,6 +246,7 @@ function UserProfilePassword() {
           onSubmit={handleSubmit(handleChangePassword)}
           className={classNames(`flex-1 flex flex-col gap-2`)}
         >
+          <input type="hidden" name="email" value={user?.email} />
           <InputIcon
             icon={<HiKey />}
             placeholder={`Current password`}

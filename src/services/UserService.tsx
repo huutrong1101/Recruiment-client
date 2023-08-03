@@ -2,6 +2,7 @@ import axiosInstance from "../utils/AxiosInstance";
 import { getLocalToken, hasLocalToken } from "../utils/localToken";
 import { GetUsersInterviewsParams } from "./services";
 import qs from "query-string";
+
 const getUserFromToken = async () => {
   if (!hasLocalToken()) {
     throw new Error(`Unable to load the token`);
@@ -29,6 +30,10 @@ const uploadResume = async (data: FormData) => {
   });
 };
 
+const deleteResume = async (resumeId: any) => {
+  return await axiosInstance.delete(`/candidate/resumes/${resumeId}`);
+};
+
 const updateProfile = async (data: FormData) => {
   return await axiosInstance.put(`/user/update`, data);
 };
@@ -52,4 +57,5 @@ export const UserService = {
   updateProfile,
   changePassword,
   uploadResume,
+  deleteResume,
 };
