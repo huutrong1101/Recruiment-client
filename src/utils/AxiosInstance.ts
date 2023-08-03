@@ -2,6 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import {
   clearLocalToken,
+  clearRefreshToken,
   getLocalToken,
   getRefreshToken,
   hasLocalToken,
@@ -85,9 +86,23 @@ axiosInstance.interceptors.response.use(
           clearLocalToken();
           window.location.reload();
         } else {
-          requestRefreshAccessToken().then(() => {
-            window.location.reload();
-          });
+          requestRefreshAccessToken()
+            .then(() => {
+              window.location.reload();
+            })
+            .catch((err) => {
+              console.warn(
+                `Failed to refill the access token: ${err.response.data.message}`,
+              );
+              clearLocalToken();
+              clearRefreshToken();
+              window.location.reload();
+            })
+            .catch(() => {
+              toast.error(
+                `Credential is error or session is ended. Please try to login again`,
+              );
+            });
         }
       }
     }
