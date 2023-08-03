@@ -10,6 +10,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { toast } from "react-toastify";
 
 
 import axiosInstance from "../../utils/AxiosInstance";
@@ -76,7 +77,7 @@ export default function RecEventDetail() {
     const formattedValueDeadline = moment(dayend).format("HH:mm:ss YYYY-MM-DD");
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("file", avatar1);
+    formData.append("file", avatar1 !== null ? avatar1 : new File([], ''));
     formData.append("startAt", formattedValueStart);
     formData.append("deadline", formattedValueDeadline);
     formData.append("location", location);
@@ -85,7 +86,7 @@ export default function RecEventDetail() {
     // Log the form data elements
       console.log("Title:", title);
       console.log("Description:", description);
-      console.log("Avatar1:", avatar1);
+      console.log("Avatar1:",  avatar1 !== null ? avatar1 : avatar);
       console.log("Start At:", formattedValueStart);
       console.log("Deadline:", formattedValueDeadline);
       console.log("Location:", location);
@@ -93,9 +94,9 @@ export default function RecEventDetail() {
     // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/events/create với FormData
     axiosInstance.put( `/recruiter/events/${eventId}`, formData)
       .then((response) => {
-        alert('Successful');
+        // alert('Successful');
         // Xử lý phản hồi từ server (nếu cần)
-        alert(response.data); // In ra thông tin phản hồi từ máy chủ
+        toast.success(response.data.message); // Display the response message from the server
         // In tất cả thông tin từ FormData
         window.history.back();
         setOpenSave(true);
@@ -103,7 +104,8 @@ export default function RecEventDetail() {
       })
       .catch((error) => {
         // Xử lý lỗi (nếu có)
-        console.error('Error:', error);
+        // console.error('Error:', error);
+        toast.error('Error occurred', error); // Display an error message
       });
     setOpenSave(false);
   }
@@ -115,13 +117,13 @@ export default function RecEventDetail() {
       .delete(`recruiter/events/${eventId}`)
       .then((response) => {
         // Xử lý phản hồi từ server nếu cần
-        alert(response.data.message);
+        toast.success(response.data.message);
         // Tùy chỉnh hành động sau khi xóa thành công, ví dụ: điều hướng trang, cập nhật danh sách sự kiện, v.v.
         window.history.back();
       })
       .catch((error) => {
         // Xử lý lỗi nếu có
-        console.error("Error:", error);
+        toast.success('Error occurred', error);
         // Hiển thị thông báo lỗi hoặc thực hiện các hành động khác tùy theo trường hợp
       });
       setOpenSave(false);

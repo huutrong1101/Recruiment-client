@@ -56,7 +56,7 @@ export default function ReccerEventManagement() {
       try {
         if (queryConfig) {
           const query = qs.stringify(queryConfig);
-          const response = await axiosInstance(`/events?${query}`);
+          const response = await axiosInstance(`/recruiter/events?${query}`);
           setShowEvents(response.data.result.content);
           setPageSize(response.data.result.totalPages);
         }
@@ -75,7 +75,7 @@ export default function ReccerEventManagement() {
         setIsLoading(true);
         try {
           const query = qs.stringify(queryConfig);
-          const response = await axiosInstance(`/events?${query}`);
+          const response = await axiosInstance(`/recruiter/events?${query}`);
           setShowEvents(response.data.result.content);
           setPageSize(response.data.result.totalPages);
         } catch (error) {
@@ -188,13 +188,11 @@ export default function ReccerEventManagement() {
                           <div className={classnames("flex items-center gap-1")}>
                             <ClockIcon className={classnames(`w-[20px]`)} />
                             <p>{event.time}</p>
-\\\                          </div>
+                      </div>
                         </div>
                         <div className={classnames("mt-2")}>
                           <h3
-                            className={classnames(
-                              "text-black text-base font-medium leading-7 tracking-wider capitalize",
-                            )}
+                            className=""
                           >
                             {event.title}
                           </h3>
