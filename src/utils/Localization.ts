@@ -14,7 +14,7 @@ export const JOB_POSITION: LocalizationDeclarationType = {
   BACKEND: "Back-End",
 };
 
-export const TECHNICAL: LocalizationDeclarationType = {};
+export const TYPE_alter: LocalizationDeclarationType = {};
 
 export const REC_INTERVIEW_STATUS: LocalizationDeclarationType = {
   NOT_RECEIVED: "Not Received",
