@@ -20,6 +20,7 @@ import AdminProfileRecentSlice from "./reducer/AdminProfileRecentSlice";
 import AdminAcountListSlice from "./reducer/AdminListAcountRecentSlice";
 import AdminListPassRecentSlice from "./reducer/AdminListPassRecentSlice";
 import JobSlice from "./JobSlice";
+import QuestionListSlice from "./reducer/QuestionListSlice";
 import RecInterviewerSilce from "./reducer/RecInterviewerSilce";
 import AdminAcountUseProfileSlice from "./reducer/AdminAcountUseProfileSlice";
 import RecEventSlice from "./reducer/RecEventSlice";

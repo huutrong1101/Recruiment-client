@@ -32,30 +32,12 @@ import { JobInterface } from "../../../services/services";
 import axiosInstance from "../../../utils/AxiosInstance";
 import moment from "moment";
 import Loader from "../../../components/Loader/Loader";
-import { JOB_LOCATION, JOB_POSITION, JOB_TYPE } from "../../../utils/Localization";
+import {JOB_POSITION} from "../../../utils/Localization";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 
 export default function ReccerJobDetail() {
   const [jobInformation, setJobInformation] = useState([
-    { icon: <UserIcon />, name: "Employee Type", value: "" },
-    { icon: <MapPinIcon />, name: "Location", value: "" },
-    {
-      icon: <ComputerDesktopIcon />,
-      name: "Job Type",
-      value: "Back-end Developer",
-    },
-    { icon: <BriefcaseIcon />, name: "Experience", value: "" },
-    { icon: <AcademicCapIcon />, name: "Qualification", value: "" },
-    {
-      icon: <CurrencyDollarIcon />,
-      name: "Salary",
-      value: "",
-    },
-    {
-      icon: <ClockIcon />,
-      name: "Posted at",
-      value: "",
-    },
+    { icon: <UserIcon/>, name: "", value: "" },
   ]);
   const { jobId } = useParams();
   const [job, setJob] = useState<JobInterface | null>(null);
@@ -70,8 +52,16 @@ export default function ReccerJobDetail() {
   useEffect(() => {
     if (job) {
       setJobInformation([
-        { icon: <UserIcon />, name: "Employee Type", value: JOB_POSITION[job.jobType] },
-        { icon: <MapPinIcon />, name: "Location", value: JOB_POSITION[job.location] },
+        {
+          icon: <UserIcon />,
+          name: "Employee Type",
+          value: JOB_POSITION[job.jobType],
+        },
+        {
+          icon: <MapPinIcon />,
+          name: "Location",
+          value: JOB_POSITION[job.location],
+        },
         {
           icon: <ComputerDesktopIcon />,
           name: "Job Type",
@@ -212,7 +202,7 @@ export default function ReccerJobDetail() {
                   </div>
                   <div className={classNames(`py-8`, `text-justify`)}>
                     <button
-                      className="rounded-lg bg-red-700 hover:bg-red-900 px-4 py-2 mx-2 my-1 text-white"
+                      className="px-4 py-2 mx-2 my-1 text-white bg-red-700 rounded-lg hover:bg-red-900"
                       // onClick={deleteJob}
                       onClick={handleClickOpen}
                     >
@@ -228,24 +218,24 @@ export default function ReccerJobDetail() {
                         id="alert-dialog-title"
                         className="text-center"
                       >
-                        <p className="font-extrabold pt-4">Delete Job</p>
+                        <p className="pt-4 font-extrabold">Delete Job</p>
                       </DialogTitle>
                       <DialogContent className="text-center">
-                        <div className="text-center px-6">
-                          <DialogContent className="font-semibold text-lg mb-2">
+                        <div className="px-6 text-center">
+                          <DialogContent className="mb-2 text-lg font-semibold">
                             Are you sure you want to delete "{job.name}"?
                           </DialogContent>
                           <DialogContentText
                             id="alert-dialog-description"
-                            className="border bg-orange-100 px-3 py-2 "
+                            className="px-3 py-2 bg-orange-100 border "
                           >
                             <div className="flex">
                               <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
-                              <p className="flex text-red-800 font-semibold px-2">
+                              <p className="flex px-2 font-semibold text-red-800">
                                 WARNING
                               </p>
                             </div>
-                            <div className="text-left font-semibold">
+                            <div className="font-semibold text-left">
                               This action cannot be undone, the deleted item
                               cannot be restored.
                             </div>
@@ -260,7 +250,7 @@ export default function ReccerJobDetail() {
                           Cancel
                         </button>
                         <button
-                          className="rounded-lg bg-red-700 hover:bg-red-900 px-4 py-2 mx-1 my-1 text-white"
+                          className="px-4 py-2 mx-1 my-1 text-white bg-red-700 rounded-lg hover:bg-red-900"
                           onClick={deleteJob}
                           autoFocus
                         >
@@ -286,8 +276,8 @@ export default function ReccerJobDetail() {
         ) : (
           <div className="flex justify-center mt-5">
             <LoadSpinner className="text-3xl" />
-          </div>)
-        }
+          </div>
+        )}
       </div>
     </>
   );

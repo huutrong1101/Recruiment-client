@@ -9,6 +9,14 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../../utils/AxiosInstance";
 import { APPLY_STATUS } from "../../../utils/Localization";
+import { toast } from "react-toastify";
+import { StateService } from "../../../services/changeState";
+
+interface UserProps {
+  candidateId: string;
+  jobId: string;
+  state: string;
+}
 
 export default function Applied() {
   const { jobId } = useParams();
@@ -18,28 +26,50 @@ export default function Applied() {
       const response = await axiosInstance.get(
         `recruiter/job/${jobId}/candidates`,
       );
-      setApplyCandidate(response.data.result.content);
-      console.log(applyCandidate);
+      setApplyCandidate(response.data.result.content); // API get
     };
     getApplyCandidate();
-  }, [jobId]);
+  }, [jobId, applyCandidate]);
 
   let navigate = useNavigate();
-  const routeChange = () => {
-    let path = `interview-schedule`;
+  const routeChange = (userId: string) => {
+    let path = `interview-schedule/${userId}`;
     navigate(path);
   };
-  const handlePass = () => {
-    console.log("PASS");
-  };
-  const handleFail = () => {
-    console.log("FAIL");
+
+  const handlePass = (candidateId: string) => {
+    const data = {
+      candidateId: candidateId || "",
+      jobId: jobId || "",
+      state: "passed",
+    };
+    // console.log(candidateId);
+
+    toast
+      .promise(StateService.changeState(data), {
+        pending: `Changing`,
+        success: `The state was changed to pass`,
+      })
+      .catch((error) => toast.error(error.response.data.result));
   };
 
-  const hehe = applyCandidate.map(
-    (applyCandidate, index) => applyCandidate.state,
-  );
-  console.log(hehe);
+  const handleFail = (candidateId: string) => {
+    const data = {
+      candidateId: candidateId || "",
+      jobId: jobId || "",
+      state: "failed",
+    };
+    toast
+      .promise(StateService.changeState(data), {
+        pending: `Changing`,
+        success: `The state was changed to fail`,
+      })
+      .catch((error) => toast.error(error.response.data.result));
+  };
+
+  // const hehe = applyCandidate.map(
+  //   (applyCandidate, index) => applyCandidate.state,
+  // );
 
   // applyCandidate.map((applyCandidate) =>
   //   const state = applyCandidate.state
@@ -65,6 +95,9 @@ export default function Applied() {
                 Email
               </th>
               <th scope="col" className="px-6 py-4">
+                Score
+              </th>
+              <th scope="col" className="px-6 py-4">
                 State
               </th>
               <th scope="col" className="px-0 py-4"></th>
@@ -72,7 +105,7 @@ export default function Applied() {
             </tr>
           </thead>
           <tbody>
-            {applyCandidate.map((applyCandidate, index) => (
+            {applyCandidate?.map((applyCandidate, index) => (
               <tr className="bg-white border-b " key={index}>
                 <td
                   scope="row"
@@ -81,12 +114,17 @@ export default function Applied() {
                   {applyCandidate.candidateFullName}
                 </td>
                 <td className="px-6 py-4">{applyCandidate.candidateEmail}</td>
+                <td className="px-6 py-4">
+                  {applyCandidate.score
+                    ? applyCandidate.score + " / 100"
+                    : "Pending"}
+                </td>
                 <td className="px-4 py-4 rounded-lg p-2 mx-2 my-1">
                   <span
                     className={`rounded-lg p-2 mx-2 my-1  ${
-                      applyCandidate.state === "PASS"
+                      applyCandidate.state === "PASSED"
                         ? "bg-green-400 text-green-800"
-                        : applyCandidate.state === "FAIL"
+                        : applyCandidate.state === "FAILED"
                         ? "bg-red-300"
                         : applyCandidate.state === "NOT_RECEIVED"
                         ? "bg-yellow-100"
@@ -97,18 +135,18 @@ export default function Applied() {
                   </span>
                 </td>
                 <td>
-                  {applyCandidate.state === "NOT_RECEIVED" ? (
+                  {applyCandidate.state !== "NOT_RECEIVED" ? (
                     <div>
                       <button>
                         <CheckIcon
                           className="w-6 h-6 text-green-800"
-                          onClick={handlePass}
+                          onClick={() => handlePass(applyCandidate.candidateId)}
                         />
                       </button>
                       <button>
                         <XMarkIcon
                           className="w-6 h-6 text-red-800"
-                          onClick={handleFail}
+                          onClick={() => handleFail(applyCandidate.candidateId)}
                         />
                       </button>
                     </div>
@@ -118,7 +156,7 @@ export default function Applied() {
                   <button>
                     <CalendarDaysIcon
                       className="w-6 h-6"
-                      onClick={routeChange}
+                      onClick={() => routeChange(applyCandidate.candidateId)}
                     />
                   </button>
                 </td>

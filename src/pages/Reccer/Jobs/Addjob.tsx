@@ -39,9 +39,6 @@ export default function Addjob() {
   }));
 
 
-
-
-
   const [jobInformation, setJobInformation] = useState([
     { icon: <UserIcon />, name: "Employee Type", value: "" },
     { icon: <MapPinIcon />, name: "Location", value: "" },

@@ -107,7 +107,7 @@ export interface RecInterviewerInterface {
 }
 
 export interface RecCandidateList {
-  page?: number | string;
+  index?: number | string;
   size?: number | string;
   name?: string;
   skill?: string;
@@ -237,10 +237,43 @@ export interface AcountInterface {
 }
 
 export interface AcountConfig {
+  index: number
   page?: number | string;
   size?: number | string;
   searchText?: string;
   searchBy?: string;
+}
+
+export interface QuestionListConfig{
+  page?: number | string;
+  size?: number | string;
+  skill?: string
+  type?: string
+  note?: number | string,
+  content?: string
+}
+
+export interface QuestionListInterface{
+    skill: string
+    type: string
+    questionId?: number | string,
+    note: number | string,
+    content: string
+  
+}
+
+export interface TypeListInterface{
+  type: string
+}
+
+export interface SkillListInterface{
+  skillId: number
+  skill: string
+}
+
+export interface DataSearchInterface{
+  skill?: string
+  type?: string
 }
 
 export interface Pagable {
