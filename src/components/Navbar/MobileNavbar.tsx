@@ -10,7 +10,7 @@ import NavbarUserNotLoggedInCard from "./NavbarUserNotLoggedInCard";
 
 export default function MobileNavbar() {
   const { drawerVisible, items } = useAppSelector((app) => app.Navbar);
-  const { isLoggedIn } = useAppSelector((app : any) => app.Auth);
+  const { isLoggedIn } = useAppSelector((app: any) => app.Auth);
   const dispatch = useAppDispatch();
 
   const handleExpandDrawer = () => {
@@ -74,9 +74,10 @@ export default function MobileNavbar() {
             </button>
 
             {/* Items */}
-            {items.map((item) => {
+            {items.map((item, _idx) => {
               return (
                 <Link
+                  key={`mobile-navbar-item-${_idx}`}
                   to={item.url}
                   onClick={handleCloseDrawer}
                   className={classNames(`px-6 py-4 text-lg`)}

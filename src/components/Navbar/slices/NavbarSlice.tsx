@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+<<<<<<< HEAD
 import {
   HiArrowLeftOnRectangle,
   HiCog6Tooth,
@@ -7,6 +8,8 @@ import {
   HiQuestionMarkCircle,
   HiUserCircle,
 } from "react-icons/hi2";
+=======
+>>>>>>> fix/refine-navbar-error
 
 const initialState = {
   drawerVisible: false,
@@ -26,6 +29,7 @@ const initialState = {
   ],
   menu: {
     visible: false,
+<<<<<<< HEAD
     items: [
       {
         url: "/profile/",
@@ -59,6 +63,8 @@ const initialState = {
         text: "Log out",
       },
     ],
+=======
+>>>>>>> fix/refine-navbar-error
   },
 };
 

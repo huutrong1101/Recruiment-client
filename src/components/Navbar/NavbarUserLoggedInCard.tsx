@@ -1,10 +1,39 @@
 import { Menu, Transition } from "@headlessui/react";
 import classNames from "classnames";
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { Link } from "react-router-dom";
 import { setNavbarMenu } from "./slices/NavbarSlice";
 import DummyAvatar from "../DummyAvatar/DummyAvatar";
+import {
+  HiArrowLeftOnRectangle,
+  HiCog6Tooth,
+  HiQuestionMarkCircle,
+  HiUserCircle,
+} from "react-icons/hi2";
+
+const SIGNED_IN_DROPDOWN_ITEMS = [
+  {
+    url: "/profile/",
+    icon: <HiUserCircle />,
+    text: "My Profile",
+  },
+  {
+    url: "/profile/interviews",
+    icon: <HiCog6Tooth />,
+    text: "Interview",
+  },
+  {
+    url: "/profile/submitted-jobs",
+    icon: <HiQuestionMarkCircle />,
+    text: "Submitted Jobs",
+  },
+  {
+    url: "/logout",
+    icon: <HiArrowLeftOnRectangle />,
+    text: "Log out",
+  },
+];
 
 export default function NavbarUserLoggedInCard() {
   const { menu } = useAppSelector((app) => app.Navbar);
@@ -30,8 +59,7 @@ export default function NavbarUserLoggedInCard() {
                 ` transition-colors ease-in-out `,
               )}
             >
-              {user?.fullName}  
-
+              {user?.fullName}
             </span>
             {user?.avatar === null ? (
               <DummyAvatar iconClassName="text-xl" />
@@ -61,8 +89,8 @@ export default function NavbarUserLoggedInCard() {
         >
           <Menu.Items className="absolute left-0 z-10 mt-1 origin-top-right bg-white rounded-md shadow-lg w-52 ring-1 ring-black ring-opacity-5 focus:outline-none ">
             <div className="py-1">
-              {menu.items.map((item) => (
-                <Menu.Item>
+              {SIGNED_IN_DROPDOWN_ITEMS.map((item, _idx) => (
+                <Menu.Item key={`navigate-menu-item-navbar-${item.url}`}>
                   <Link
                     to={item.url}
                     key={item.url}
