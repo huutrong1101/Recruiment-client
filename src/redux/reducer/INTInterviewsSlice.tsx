@@ -43,7 +43,7 @@ const INTInterviewsSlice = createSlice({
         state.INTSingleInterviewStatus = STATUS.IDLE;
       })
       .addCase(fetchINTInterviewByID.rejected, (state, action) => {
-        toast.error(`${action.error.message}`)
+        toast.error(`${action.error.message}`);
         state.INTSingleInterviewStatus = STATUS.ERROR;
       })
   }
@@ -55,11 +55,7 @@ export default INTInterviewsSlice.reducer;
 export const fetchINTInterviewsData = createAsyncThunk(
   'INTInterviews/fetchINTInterviewsData', 
   async (query : string) => {
-    const response = await axiosInstance.get(`/interviewer/interviews${query}`,{
-      headers: {
-        Authorization: `Bearer ${getLocalToken()}`,
-      },
-    });
+    const response = await axiosInstance.get(`/interviewer/interviews${query}`);
     return response.data.result;
   }
 );
@@ -67,11 +63,7 @@ export const fetchINTInterviewsData = createAsyncThunk(
 export const fetchINTInterviewByID = createAsyncThunk<any, string | undefined>(
   'INTInterviews/fetchINTInterviewByID', 
   async (interviewID : string | undefined) => {
-    const response = await axiosInstance.get(`/interviewer/interviews/${interviewID}`,{
-      headers: {
-        Authorization: `Bearer ${getLocalToken()}`,
-      },
-    });
+    const response = await axiosInstance.get(`/interviewer/interviews/${interviewID}`);
     return response.data.result;
   }
 ); 

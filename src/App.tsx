@@ -177,7 +177,7 @@ export default function App() {
             path="candidate-recent/:id"
             element={<INTCandidateDetail />}
           />
-          <Route index path="score-page" element={<ScorePage />} />
+          <Route index path="candidate-recent/:id/score-page" element={<ScorePage />} />
         </Route>
         <Route path="/interviewer" element={<ManagementAppLayOut />}>
           {/* Define interviewer routes here */}
