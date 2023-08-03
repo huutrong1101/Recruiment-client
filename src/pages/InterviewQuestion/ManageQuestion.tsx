@@ -12,10 +12,11 @@ import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import axiosInstance from "../../utils/AxiosInstance";
 import { omitBy, isUndefined } from "lodash";
 import { QuestionListConfig, QuestionListInterface, SkillListInterface, TypeListInterface } from "../../services/services";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { Link, createSearchParams, useNavigate } from "react-router-dom";
 import PaginationInterview from "./PaginationInterview";
 import classNames from 'classnames';
 import { TYPE_alter } from "../../utils/Localization";
+import UpdateQuestion from "./UpdateQuestion";
 
 export type QueryConfig = {
   [key in keyof QuestionListConfig]: string;
@@ -31,13 +32,13 @@ export default function QuestionInterview() {
   const queryParams: QueryConfig = useQuerParams();
 
   const queryConfig: QueryConfig = omitBy({
-      page: queryParams.page || "1",
-      size: queryParams.size || 5,
-      skill: queryParams.skill,
-      type: queryParams.type,
-      note: queryParams.note,
-      content: queryParams.content
-    },
+    page: queryParams.page || "1",
+    size: queryParams.size || 5,
+    skill: queryParams.skill,
+    type: queryParams.type,
+    note: queryParams.note,
+    content: queryParams.content
+  },
     isUndefined,
   );
 
@@ -46,14 +47,17 @@ export default function QuestionInterview() {
   const [addQuestion, setAddQuestion] = useState(false)
   const handleOnClick = () => setAddQuestion(false)
 
+  const [updateQuestion, setUpdateQuestion] = useState(false)
+  const handleUpdateClick = () => setUpdateQuestion(false)
+
   const [isActive, setIsActive] = useState(false)
   const handleActive = (e: any) => setIsActive(!isActive)
 
   const [prevQueryConfig, setPrevQueryConfig] = useState<QueryConfig>(queryConfig);
-  const questions: QuestionListInterface[] = useAppSelector((state) => state.questionList.questionList,);
   const { totalQuestions }: any = useAppSelector((state) => state.questionList.questionList);
-  const  skills : QuestionListInterface[]  = useAppSelector((state) => state.questionList.skills);
-  const  types : QuestionListInterface[] = useAppSelector((state) => state.questionList.types);
+  const questions: QuestionListInterface[] = useAppSelector((state) => state.questionList.questionList,);
+  const skills: QuestionListInterface[] = useAppSelector((state) => state.questionList.skills);
+  const types: QuestionListInterface[] = useAppSelector((state) => state.questionList.types);
   const [pageSize, setPageSize] = useState(
     Math.ceil(totalQuestions / Number(queryParams.size || 5)),
   );
@@ -64,24 +68,25 @@ export default function QuestionInterview() {
   const [showSkills, setShowSkills] = useState(skills)
   const [showTypes, setShowTypes] = useState(types)
 
-  const handleSearch = () =>{
-    try {
-      setIsLoading(true);
-      navigate({
-        pathname: "/interviewer/question",
-        search: createSearchParams({
-          ...queryConfig,
-          type: dataSearch.type,
-          skill:dataSearch.skill,
-          page: "1",
-        }).toString(),
-      });
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }
+  const [questionID, setQuestionID] = useState([])
+  // const handleSearch = () => {
+  //   try {
+  //     setIsLoading(true);
+  //     navigate({
+  //       pathname: "/interviewer/question",
+  //       search: createSearchParams({
+  //         ...queryConfig,
+  //         type: dataSearch.type,
+  //         skill: dataSearch.skill,
+  //         page: "1",
+  //       }).toString(),
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // }
 
   useEffect(() => {
     const fetchQuesList = async () => {
@@ -103,35 +108,21 @@ export default function QuestionInterview() {
   }, []);
 
   useEffect(() => {
-    const fetchSkill = async () => {
+    const fetchSkillType = async () => {
       setIsLoading(true)
-      const response = await axiosInstance(`interviewer/skills`);
-      const res = await axiosInstance(`interviewer/type-questions`)
-      setShowTypes(res.data.result)
-      setShowSkills(response.data.result);
-      setDataSearch({
-        ...dataSearch,
-        skill: queryConfig.skill || "",
-        type: queryConfig.type || "",
-      });
-
+      const resSkill = await axiosInstance(`interviewer/skills`);
+      const resType = await axiosInstance(`interviewer/type-questions`)
+      setShowTypes(resType.data.result)
+      setShowSkills(resSkill.data.result);
+      // setDataSearch({
+      //   ...dataSearch,
+      //   skill: queryConfig.skill || "",
+      //   type: queryConfig.type || "",
+      // });
     };
-    fetchSkill();
+    fetchSkillType();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchType = async () => {
-  //     setIsLoading(true)
-  //     const res = await axiosInstance(`interviewer/type-questions`)
-  //     setShowTypes(res.data.result)
-  //     setDataSearch({
-  //       ...dataSearch,
-  //       skill: queryConfig.skill || "",
-  //       type: queryConfig.type || "",
-  //     });
-  //   };
-  //   fetchType();
-  // }, []);
 
   useEffect(() => {
     if (!isEqual(prevQueryConfig, queryConfig)) {
@@ -153,18 +144,24 @@ export default function QuestionInterview() {
     }
   }, [queryConfig, prevQueryConfig]);
 
-  function DeleteQuestion({ id }: any) {
+  function DeleteQuestion(id) {
     const conf = window.confirm('Do you make sure delete this question')
     if (conf) {
+      console.log(id)
       return (
-        axiosInstance.delete('interviewer/question/' + id)
+        axiosInstance.delete(`interviewer/question/${id}`)
           .then(res => {
             alert('Question has deleted')
             navigate('interviewer/interview-question')
+            // setShowQuestion(res.data.result.content)
+            window.history.back()
           }).catch(err => console.log(err))
       )
     }
   }
+
+  console.log(showTypes)
+
 
   return (
     <div className="my-4 ">
@@ -212,29 +209,35 @@ export default function QuestionInterview() {
                             leaveTo="transform opacity-0 scale-95" >
                             <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 aboslute bg-opacity-90 shadow-md '>
                               <div className='w-full h-full  text-black rounded-md border border-zinc-200'>
-                                {showSkills.map((skill) => (
+                                {showSkills.map((skill: any) => (
                                   <Menu.Item key={skill.skillId}>
                                     {({ active }) => (
-                                      <p
+                                      <Link
+                                        to={{
+                                          pathname: "/interviewer/question",
+                                          search: createSearchParams({
+                                            ...queryConfig,
+                                            skill: skill.name,
+                                          }).toString(),
+                                        }}
                                         className={classNames(
                                           active
                                             ? "bg-gray-100 text-gray-900 bg-opacity-80"
                                             : "text-gray-700", "p-2",
                                           "block  text-sm",
                                         )}
-                                        // onClick={() => handleSetTech(type)}
-                                        onClick={() =>{
+                                        // // onClick={() => handleSetTech(type)}
+                                        onClick={() => {
                                           // handleActive
                                           setDataSearch({
                                             ...dataSearch,
                                             skill: skill.name
                                           })
-                                          handleSearch()
                                         }
                                         }
                                       >
                                         {skill.name}
-                                      </p>
+                                      </Link>
                                     )}
                                   </Menu.Item>
                                 ))}
@@ -268,10 +271,17 @@ export default function QuestionInterview() {
                           leaveTo="transform opacity-0 scale-95" >
                           <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 bg-opacity-80 aboslute shadow-md  '>
                             <div className='w-full h-full  text-black rounded-md border border-zinc-200'>
-                              {showTypes.map((type, index: any) => (
+                              {showTypes.map((type: any, index: any) => (
                                 <Menu.Item key={index}>
                                   {({ active }) => (
-                                    <p
+                                    <Link
+                                      to={{
+                                        pathname: "/interviewer/question",
+                                        search: createSearchParams({
+                                          ...queryConfig,
+                                          type: type,
+                                        }).toString(),
+                                      }}
                                       className={classNames(
                                         active
                                           ? "bg-gray-100 text-gray-900 bg-opacity-80"
@@ -283,11 +293,11 @@ export default function QuestionInterview() {
                                           ...dataSearch,
                                           type: type
                                         })
-                                        handleSearch()
+
                                       }}
                                     >
                                       {TYPE_alter[type]}
-                                    </p>
+                                    </Link>
                                   )}
                                 </Menu.Item>
                               ))}
@@ -311,10 +321,10 @@ export default function QuestionInterview() {
                   <table className="w-full ">
                     <thead className="w-fit">
                       <tr className="flex justify-center px-4 mt-3">
-                        <th className="text-lg tracking-wide text-left font-semibold basis-1/6  ">Skill</th>
-                        <th className="text-lg tracking-wide text-left font-semibold basis-1/6  ">Type</th>
-                        <th className="text-lg tracking-wide text-left font-semibold basis-2/6  ">Question</th>
-                        <th className="text-lg tracking-wide text-left font-semibold basis-2/6  ">Note</th>
+                        <th className="text-lg tracking-wide text-left font-semibold basis-1/6 mx-3 ">Skill</th>
+                        <th className="text-lg tracking-wide text-left font-semibold basis-1/6 mx-3 ">Type</th>
+                        <th className="text-lg tracking-wide text-left font-semibold basis-2/6 mx-3 ">Question</th>
+                        <th className="text-lg tracking-wide text-left font-semibold basis-2/6 mx-3 ">Note</th>
                         <th className="text-lg tracking-wide text-left font-semibold basis-1/6 flex justify-center ">Edit</th>
                       </tr>
                     </thead>
@@ -331,16 +341,21 @@ export default function QuestionInterview() {
                                 <tr className="flex flex-row py-2 my-2 text-left text-md cursor-pointer items-center
                                               border-2 border-white hover: hover:border-emerald-600 hover:rounded-lg hover:text-black hover:transition-all "
                                   key={question.questionId}>
-                                  <td className="basis-1/6">{question.skill}</td>
-                                  <td className="basis-1/6">{question.typeQuestion}</td>
-                                  <td className="basis-2/6 flex-nowrap">{question.content}</td>
-                                  <td className="basis-2/6 flex-nowrap">{question.note}</td>
+                                  <td className="basis-1/6 mx-3">{question.skill}</td>
+                                  <td className="basis-1/6 mx-3">{question.typeQuestion}</td>
+                                  <td className="basis-2/6 mx-3 flex-nowrap">{question.content}</td>
+                                  <td className="basis-2/6 mx-3 flex-nowrap">{question.note}</td>
                                   <td className="inline-flex gap-x-2 basis-1/6 justify-center">
-                                    <button className="p-2 hover:bg-zinc-300 hover:rounded-md ">
+                                    <button className="p-2 hover:bg-zinc-300 hover:rounded-md "
+                                      onClick={() => {
+                                        setUpdateQuestion(true)
+                                        setQuestionID(question.questionId)
+                                      }}>
+                                      
                                       <PencilIcon className="w-5 h-5" />
                                     </button>
                                     <button className="p-2 hover:bg-zinc-300 hover:rounded-md "
-                                    // onClick={e => DeleteQuestion(question.questionId)}
+                                      onClick={() => DeleteQuestion(question.questionId)}
                                     >
                                       <TrashIcon className="w-5 h-5" />
                                     </button>
@@ -368,7 +383,8 @@ export default function QuestionInterview() {
         </div>
       </div>
       <AddQuestion onClick={handleOnClick} observation={addQuestion} />
-      {/* <DeleteQuestion id={} /> */}
+      <UpdateQuestion onClick={handleUpdateClick} observation={updateQuestion} questionID={questionID} />{/* questionID={question.questionId*/}
+      
     </div>
   );
 }
