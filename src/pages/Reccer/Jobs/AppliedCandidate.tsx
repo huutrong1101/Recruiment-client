@@ -121,7 +121,7 @@ export default function Applied() {
                     className={`rounded-lg p-2 mx-2 my-1  ${
                       applyCandidate.state === "PASSED"
                         ? "bg-green-400 text-green-800"
-                        : applyCandidate.state === "FAIL"
+                        : applyCandidate.state === "FAILED"
                         ? "bg-red-300"
                         : applyCandidate.state === "NOT_RECEIVED"
                         ? "bg-yellow-100"

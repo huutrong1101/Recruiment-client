@@ -98,6 +98,7 @@ export default function ReccerJobDetail() {
   };
 
   const skillsArray = job?.skills.map((item) => item.name);
+  
   // ############## Handle Put ##############
   const [jobInformation, setJobInformation] = useState([
     { icon: <UserIcon />, name: "Employee Type", value: "" },
@@ -354,7 +355,7 @@ export default function ReccerJobDetail() {
         </div>
         {/* Right side description */}
         <div className={classNames(`w-full md:w-3/12 flex-1 relative`)}>
-          {/* <EditJobCard
+          <EditJobCard
             cardData={jobInformation}
             setCardData={setJobInformation}
             setpositionId={setPositionName}
@@ -364,7 +365,7 @@ export default function ReccerJobDetail() {
             setSalary={setSalaryRange}
             deadline={deadline}
             setDeadline={setDeadline}
-          /> */}
+          />
         </div>
       </div>
     </div>
