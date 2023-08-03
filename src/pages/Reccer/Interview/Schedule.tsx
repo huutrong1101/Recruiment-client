@@ -10,6 +10,7 @@ import * as React from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { toast } from "react-toastify";
 import { InterviewService } from "../../../services/InterviewService";
+import { StateService } from "../../../services/changeState";
 
 interface UserProps {
   userId: string;
@@ -98,6 +99,27 @@ export default function Schedule() {
       .catch((error) => toast.error(error.response.data.result));
   };
 
+  const handleChangeState = () => {
+    const data = {
+      candidateId: userId || "",
+      jobId: jobId || "",
+      state: "received",
+    };
+    // console.log(candidateId);
+
+    toast
+      .promise(StateService.changeState(data), {
+        // pending: `Changing`,
+        // success: `The state was changed to recieved`,
+      })
+      .catch((error) => toast.error(error.response.data.result));
+  };
+
+  const handleOnClick = () => {
+    handleCreateInterview();
+    handleChangeState();
+  };
+
   return (
     <div
       className={classNames(
@@ -158,11 +180,11 @@ export default function Schedule() {
                       <td className="px-6 py-4">{candidate.phone}</td>
                       <td className="px-6 py-4">{candidate.email}</td>
 
-                      <td className="px-4 py-4">
+                      {/* <td className="px-4 py-4">
                         <button>
                           <TrashIcon className="w-6 h-6" />
                         </button>
-                      </td>
+                      </td> */}
                     </tr>
                   </>
                 )}
@@ -228,7 +250,7 @@ export default function Schedule() {
             `flex items-center`,
             `bg-emerald-700 py-2 px-4 rounded-xl`,
           )}
-          onClick={handleCreateInterview}
+          onClick={handleOnClick}
         >
           Save
         </button>
