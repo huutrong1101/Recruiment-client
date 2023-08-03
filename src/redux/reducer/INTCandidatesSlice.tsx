@@ -69,11 +69,7 @@ export default INTCandidatesSlice.reducer;
 export const fetchINTCandidatesData = createAsyncThunk(
     'INTcandidates/fetchINTCandidatesData', 
     async (query : string, thunkAPI) => {
-        const response = await axiosInstance.get(`/interviewer/candidates${query}`,{
-          headers: {
-            Authorization: `Bearer ${getLocalToken()}`,
-          },
-        });
+        const response = await axiosInstance.get(`/interviewer/candidates${query}`);
         return response.data.result;
     }
 );
@@ -81,11 +77,9 @@ export const fetchINTCandidatesData = createAsyncThunk(
 export const fetchINTCandidatesByID = createAsyncThunk(
   'INTcandidates/fetchINTCandidatesByID', 
   async (interviewID : any, thunkAPI) => {
-      const response = await axiosInstance.get(`/interviewer/candidates/${interviewID}`,{
-        headers: {
-          Authorization: `Bearer ${getLocalToken()}`,
-        },
-      });
+      const response = await axiosInstance.get(`/interviewer/candidates/${interviewID}`);
       return response.data.result;
   }
 );
+
+
