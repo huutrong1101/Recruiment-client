@@ -14,22 +14,18 @@ export const JOB_POSITION: LocalizationDeclarationType = {
   BACKEND: "Back-End",
 };
 
+export const TECHNICAL: LocalizationDeclarationType = {};
 
-
-export const TECHNICAL: LocalizationDeclarationType = {
-  
-}
-
-export const REC_INTERVIEW_STATUS :LocalizationDeclarationType={
+export const REC_INTERVIEW_STATUS: LocalizationDeclarationType = {
   NOT_RECEIVED: "Not Received",
   RECEIVED: "Reveived",
   PASS: "Pass",
   FAIL: "Fail",
-}
+};
 
-export const APPLY_STATUS: LocalizationDeclarationType={
+export const APPLY_STATUS: LocalizationDeclarationType = {
   NOT_RECEIVED: "Not Received",
   RECEIVED: "Reveived",
-  PASS: "Pass",
-  FAIL: "Fail",
-}
+  PASSED: "Pass",
+  FAILED: "Fail",
+};

@@ -107,7 +107,7 @@ export interface RecInterviewerInterface {
 }
 
 export interface RecCandidateList {
-  page?: number | string;
+  index?: number | string;
   size?: number | string;
   name?: string;
   skill?: string;

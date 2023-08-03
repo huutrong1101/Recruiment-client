@@ -33,6 +33,10 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import EditJobCard from "../../../components/RecJob/EditJobCard";
 
 export default function ReccerJobDetail() {
+
+  const [jobInformation, setJobInformation] = useState([
+    { icon: <UserIcon />, name: "", value: "" },
+  ]);
   //############## Handle Get ##############
   const { jobId } = useParams();
   const [job, setJob] = useState<JobInterface | null>(null);
@@ -50,7 +54,7 @@ export default function ReccerJobDetail() {
         {
           icon: <UserIcon />,
           name: "Employee Type",
-          value: JOB_POSITION[job.jobType],
+          value: JOB_POSITION[job.position.name],
         },
         {
           icon: <MapPinIcon />,
@@ -60,21 +64,27 @@ export default function ReccerJobDetail() {
         {
           icon: <ComputerDesktopIcon />,
           name: "Job Type",
-          value: JOB_POSITION[job.position.name],
-        },
-        {
-          icon: <CurrencyDollarIcon />,
-          name: "Salary",
-          value: job.salaryRange,
-        },
-        {
-          icon: <ClockIcon />,
-          name: "End At",
-          value: moment(job.deadline).format("Do MMM, YYYY"),
+          value: JOB_POSITION[job.jobType],
         },
       ]);
+      setName(job?.name || '')
+      setDescription(job?.description || '')
+      setQuantity(job?.quantity )
+      setRequirement(job?.requirement || '')
+      setBenefit(job?.benefit || '')
+      setSkillsRequired(job?.skills.name || [])
+      setSalaryRange(job?.salaryRange || '')
+      setDeadline(job.deadline || '')
+      setjobactive(job.isActive)
     }
   }, [job]);
+
+  // const [data,setData] = useState({
+  //   name: "",
+  //   description: "",
+  // })
+
+  // setData({...data,name: ""})
 
   const navigate = useNavigate();
   const deleteJob = async () => {
@@ -85,10 +95,6 @@ export default function ReccerJobDetail() {
       pathname: "/recruiter/jobs",
     });
   };
-  const routeChange = () => {
-    let path = `./edit`;
-    navigate(path);
-  };
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -98,16 +104,9 @@ export default function ReccerJobDetail() {
   };
 
   const skillsArray = job?.skills.map((item) => item.name);
+
   // ############## Handle Put ##############
-  const [jobInformation, setJobInformation] = useState([
-    { icon: <UserIcon />, name: "Employee Type", value: "" },
-    { icon: <MapPinIcon />, name: "Location", value: "" },
-    {
-      icon: <ComputerDesktopIcon />,
-      name: "Job Type",
-      value: "",
-    },
-  ]);
+
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchRecInterviewerSkill());
@@ -121,8 +120,8 @@ export default function ReccerJobDetail() {
   }));
 
   const [name, setName] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [description, setDescription] = useState("");
+  const [quantity, setQuantity] = useState(job?.quantity || Number);
+  const [description, setDescription] = useState( "");
   const [requirement, setRequirement] = useState("");
   const [benefit, setBenefit] = useState("");
   const [skillsRequired, setSkillsRequired] = useState([]);
@@ -131,34 +130,51 @@ export default function ReccerJobDetail() {
   const [jobType, setjobType] = useState([]);
   const [salaryRange, setSalaryRange] = useState("");
   const [deadline, setDeadline] = useState("");
+  const [isActive, setjobactive] = useState("");
   const selectedValues = skillsRequired.map((option: any) => option.label);
+  
   const handleSelectChange = (selectedOptions: any) => {
     setSkillsRequired(selectedOptions);
   };
+
   const handleSubmit = (event: any) => {
     // navigate({
     //   pathname: `/recruiter/jobs/`
     // });
     event.preventDefault();
     const data = {
-      name: name,
-      jobType: jobType,
-      quantity: quantity,
-      benefit: benefit,
-      salaryRange: salaryRange,
-      requirement: requirement,
-      location: location,
-      description: description,
-      deadline: deadline,
-      positionName: positionName,
-      skillsRequired: selectedValues,
+      name,
+      jobType,
+      positionName,
+      quantity,
+      benefit,
+      salaryRange,
+      requirement,
+      location,
+      description,
+      isActive,
+      deadline:job?.deadline,
+      skillRequired:selectedValues,
     };
+    // console.log("name", name)
+    // console.log("jobType", jobType)
+    // console.log('positionName', positionName)
+    // console.log('quantity', quantity)
+    // console.log('benefit', benefit)
+    // console.log('salaryRange', salaryRange)
+    // console.log('requirement', requirement)
+    // console.log('location', location)
+    // console.log('description', description)
+    // console.log('isActive',isActive)
+    // console.log('deadline', deadline)
+    // console.log('skillsRequired', selectedValues)
+    console.log(data)
     navigate({
       pathname: "/recruiter/jobs",
     });
     // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/job
     axiosInstance
-      .post("recruiter/job", data)
+      .put(`recruiter/jobs/${job?.jobId}`, data)
       .then((response) => {
         alert("Successful");
         // Xử lý phản hồi từ server (nếu cần)
@@ -180,7 +196,7 @@ export default function ReccerJobDetail() {
         >
           {/* Widgets */}
           <EditJobWidget
-            nameData={job?.name}
+            nameData={name}
             setNameData={setName}
             quantityData={quantity}
             setQuantityData={setQuantity}
@@ -197,7 +213,7 @@ export default function ReccerJobDetail() {
               <h1 className="text-2xl font-semibold">Job description</h1>
               <TextareaAutosize
                 minRows={4}
-                value={job?.description}
+                value={description}
                 className="resize-none p-2.5 w-full text-justify bg-white border"
                 onChange={(event) => setDescription(event.target.value)}
               />
@@ -216,7 +232,7 @@ export default function ReccerJobDetail() {
               <h1 className="text-2xl font-semibold">Requirement</h1>
               <TextareaAutosize
                 minRows={4}
-                value={job?.requirement}
+                value={requirement}
                 className="resize-none p-2.5 w-full text-justify bg-white border"
                 onChange={(event) => setRequirement(event.target.value)}
               />
@@ -235,7 +251,7 @@ export default function ReccerJobDetail() {
               <h1 className="text-2xl font-semibold">Benefit</h1>
               <TextareaAutosize
                 minRows={4}
-                value={job?.benefit}
+                value={benefit}
                 className="resize-none p-2.5 w-full text-justify bg-white border"
                 onChange={(event) => setBenefit(event.target.value)}
               />
@@ -289,7 +305,7 @@ export default function ReccerJobDetail() {
               <button
                 onClick={handleSubmit}
                 className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-2 my-1 text-white"
-                // onClick={routeChange}
+              // onClick={routeChange}
               >
                 Save
               </button>
@@ -354,7 +370,7 @@ export default function ReccerJobDetail() {
         </div>
         {/* Right side description */}
         <div className={classNames(`w-full md:w-3/12 flex-1 relative`)}>
-          {/* <EditJobCard
+          <EditJobCard
             cardData={jobInformation}
             setCardData={setJobInformation}
             setpositionId={setPositionName}
@@ -362,9 +378,7 @@ export default function ReccerJobDetail() {
             setjobType={setjobType}
             salary={salaryRange}
             setSalary={setSalaryRange}
-            deadline={deadline}
-            setDeadline={setDeadline}
-          /> */}
+          />
         </div>
       </div>
     </div>

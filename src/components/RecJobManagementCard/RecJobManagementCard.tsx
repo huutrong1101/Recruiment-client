@@ -75,7 +75,7 @@ export default function RecDashboardCard({ job }: any) {
                <ul className="flex flex-wrap items-center mt-3 text-sm font-semibold text-gray-500 sm:mt-0">
                   <li>
                      <Link
-                        to="../addjob/"
+                        to={`../jobdetail/${job.jobId}/edit`}
                         className="w-full px-5 py-2 mt-4 text-white btn btn-sm rounded-2xl bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 md:ms-2 lg:w-auto lg:mt-0 "
                      >
                         Edit

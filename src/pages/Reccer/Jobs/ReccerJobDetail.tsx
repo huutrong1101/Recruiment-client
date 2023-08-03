@@ -32,34 +32,12 @@ import { JobInterface } from "../../../services/services";
 import axiosInstance from "../../../utils/AxiosInstance";
 import moment from "moment";
 import Loader from "../../../components/Loader/Loader";
-import {
-  JOB_LOCATION,
-  JOB_POSITION,
-  JOB_TYPE,
-} from "../../../utils/Localization";
+import {JOB_POSITION} from "../../../utils/Localization";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 
 export default function ReccerJobDetail() {
   const [jobInformation, setJobInformation] = useState([
-    { icon: <UserIcon />, name: "Employee Type", value: "" },
-    { icon: <MapPinIcon />, name: "Location", value: "" },
-    {
-      icon: <ComputerDesktopIcon />,
-      name: "Job Type",
-      value: "Back-end Developer",
-    },
-    { icon: <BriefcaseIcon />, name: "Experience", value: "" },
-    { icon: <AcademicCapIcon />, name: "Qualification", value: "" },
-    {
-      icon: <CurrencyDollarIcon />,
-      name: "Salary",
-      value: "",
-    },
-    {
-      icon: <ClockIcon />,
-      name: "Posted at",
-      value: "",
-    },
+    { icon: <UserIcon/>, name: "", value: "" },
   ]);
   const { jobId } = useParams();
   const [job, setJob] = useState<JobInterface | null>(null);

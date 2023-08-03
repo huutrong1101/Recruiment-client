@@ -8,48 +8,68 @@ import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../../utils/AxiosInstance";
-import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import { APPLY_STATUS } from "../../../utils/Localization";
+import { toast } from "react-toastify";
+import { StateService } from "../../../services/changeState";
+
+interface UserProps {
+  candidateId: string;
+  jobId: string;
+  state: string;
+}
 
 export default function Applied() {
   const { jobId } = useParams();
-
   const [applyCandidate, setApplyCandidate] = useState<any[]>([]);
-
-  const [isLoading, setIsLoading] = useState(false);
-
   useEffect(() => {
     const getApplyCandidate = async () => {
-      setIsLoading(true);
-      try {
-        const response = await axiosInstance.get(
-          `recruiter/job/${jobId}/candidates`,
-        );
-        setApplyCandidate(response.data.result.content);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
+      const response = await axiosInstance.get(
+        `recruiter/job/${jobId}/candidates`,
+      );
+      setApplyCandidate(response.data.result.content); // API get
     };
     getApplyCandidate();
-  }, [jobId]);
+  }, [jobId, applyCandidate]);
 
   let navigate = useNavigate();
   const routeChange = (userId: string) => {
     let path = `interview-schedule/${userId}`;
     navigate(path);
   };
-  const handlePass = () => {
-    console.log("PASS");
-  };
-  const handleFail = () => {
-    console.log("FAIL");
+
+  const handlePass = (candidateId: string) => {
+    const data = {
+      candidateId: candidateId || "",
+      jobId: jobId || "",
+      state: "passed",
+    };
+    // console.log(candidateId);
+
+    toast
+      .promise(StateService.changeState(data), {
+        pending: `Changing`,
+        success: `The state was changed to pass`,
+      })
+      .catch((error) => toast.error(error.response.data.result));
   };
 
-  const hehe = applyCandidate.map(
-    (applyCandidate, index) => applyCandidate.state,
-  );
-  console.log(hehe);
+  const handleFail = (candidateId: string) => {
+    const data = {
+      candidateId: candidateId || "",
+      jobId: jobId || "",
+      state: "failed",
+    };
+    toast
+      .promise(StateService.changeState(data), {
+        pending: `Changing`,
+        success: `The state was changed to fail`,
+      })
+      .catch((error) => toast.error(error.response.data.result));
+  };
+
+  // const hehe = applyCandidate.map(
+  //   (applyCandidate, index) => applyCandidate.state,
+  // );
 
   // applyCandidate.map((applyCandidate) =>
   //   const state = applyCandidate.state
@@ -64,77 +84,86 @@ export default function Applied() {
       )}
     >
       <h1 className="text-2xl font-semibold">Applied Candidate</h1>
-      <div className="relative p-4 overflow-x-auto">
-        {!isLoading ? (
-          <>
-            {applyCandidate && applyCandidate.length > 0 ? (
-              <table className="w-full text-sm text-left text-gray-500 ">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
-                  <tr>
-                    <th scope="col" className="px-6 py-4">
-                      Name
-                    </th>
-                    <th scope="col" className="px-6 py-4">
-                      Email
-                    </th>
-                    <th scope="col" className="px-6 py-4">
-                      State
-                    </th>
-                    <th className="py-4"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {applyCandidate.map((applyCandidate: any, index) => (
-                    <tr className="bg-white border-b " key={index}>
-                      <td
-                        scope="row"
-                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                      >
-                        {applyCandidate.candidateFullName}
-                      </td>
-                      <td className="px-6 py-4">
-                        {applyCandidate.candidateEmail}
-                      </td>
-                      <td className="p-2 px-4 py-4 mx-2 my-1 rounded-lg">
-                        <span
-                          className={`rounded-lg p-2 mx-2 my-1  ${
-                            applyCandidate.state === "Pass"
-                              ? "bg-green-400 text-green-800"
-                              : applyCandidate.state === "Fail"
-                              ? "bg-red-300"
-                              : applyCandidate.state === "Not Received"
-                              ? "bg-yellow-100"
-                              : "bg-green-200"
-                          }`}
-                        >
-                          {applyCandidate.state}
-                        </span>
-                      </td>
-                      <td>
-                        <button>
-                          <CalendarDaysIcon
-                            className="w-6 h-6"
-                            onClick={() =>
-                              routeChange(applyCandidate.candidateId)
-                            }
-                          />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <div className="flex items-center justify-center">
-                <h1>There are no applicants</h1>
-              </div>
-            )}
-          </>
-        ) : (
-          <div className="flex justify-center my-4">
-            <LoadSpinner className="text-3xl text-emerald-500" />
-          </div>
-        )}
+      <div className="relative overflow-x-auto p-4">
+        <table className="w-full text-sm text-left text-gray-500 ">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
+            <tr>
+              <th scope="col" className="px-6 py-4">
+                Name
+              </th>
+              <th scope="col" className="px-6 py-4">
+                Email
+              </th>
+              <th scope="col" className="px-6 py-4">
+                Score
+              </th>
+              <th scope="col" className="px-6 py-4">
+                State
+              </th>
+              <th scope="col" className="px-0 py-4"></th>
+              <th className="py-4"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {applyCandidate?.map((applyCandidate, index) => (
+              <tr className="bg-white border-b " key={index}>
+                <td
+                  scope="row"
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                >
+                  {applyCandidate.candidateFullName}
+                </td>
+                <td className="px-6 py-4">{applyCandidate.candidateEmail}</td>
+                <td className="px-6 py-4">
+                  {applyCandidate.score
+                    ? applyCandidate.score + " / 100"
+                    : "Pending"}
+                </td>
+                <td className="px-4 py-4 rounded-lg p-2 mx-2 my-1">
+                  <span
+                    className={`rounded-lg p-2 mx-2 my-1  ${
+                      applyCandidate.state === "PASSED"
+                        ? "bg-green-400 text-green-800"
+                        : applyCandidate.state === "FAILED"
+                        ? "bg-red-300"
+                        : applyCandidate.state === "NOT_RECEIVED"
+                        ? "bg-yellow-100"
+                        : "bg-green-200"
+                    }`}
+                  >
+                    {APPLY_STATUS[applyCandidate.state]}
+                  </span>
+                </td>
+                <td>
+                  {applyCandidate.state !== "NOT_RECEIVED" ? (
+                    <div>
+                      <button>
+                        <CheckIcon
+                          className="w-6 h-6 text-green-800"
+                          onClick={() => handlePass(applyCandidate.candidateId)}
+                        />
+                      </button>
+                      <button>
+                        <XMarkIcon
+                          className="w-6 h-6 text-red-800"
+                          onClick={() => handleFail(applyCandidate.candidateId)}
+                        />
+                      </button>
+                    </div>
+                  ) : null}
+                </td>
+                <td>
+                  <button>
+                    <CalendarDaysIcon
+                      className="w-6 h-6"
+                      onClick={() => routeChange(applyCandidate.candidateId)}
+                    />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

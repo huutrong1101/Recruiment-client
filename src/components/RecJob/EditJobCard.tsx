@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import classNames from "classnames";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import { Menu, Transition } from "@headlessui/react";
-import { JobData, JobDataInterface } from "../../data/jobData";
+import { JobDataInterface } from "../../data/jobData";
 import {
   AcademicCapIcon,
   BriefcaseIcon,
@@ -19,6 +19,10 @@ import { TextareaAutosize } from "@mui/material";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { JOB_POSITION } from "../../utils/Localization";
+import { useParams } from "react-router-dom";
+import { JobInterface } from "../../services/services";
+import axiosInstance from "../../utils/AxiosInstance";
+import moment from "moment";
 
 export default function EditJobCard({
   cardData,
@@ -31,17 +35,28 @@ export default function EditJobCard({
   deadline,
   setDeadline,
 }: any) {
-  const location = useAppSelector((state) => state.Job.location);
-  const employeeType = useAppSelector((state) => state.Job.postion);
-  const jobType = useAppSelector((state) => state.Job.type);
+  const location = useAppSelector((state) => state.Job?.location);
+  const employeeType = useAppSelector((state) => state.Job?.postion);
+  const jobType = useAppSelector((state) => state.Job?.type);
 
   const listData = cardData.map((data: any) => data.value);
+
+  const { jobId } = useParams();
+  const [job, setJob] = useState<JobInterface | null>(null);
+  useEffect(() => {
+    const getJobDetail = async () => {
+      const response = await axiosInstance.get(`recruiter/jobs/${jobId}`); //Viết API cho BE viết lấy 1 job trong list job của reccer
+      setJob(response.data.result);
+    };
+    getJobDetail();
+  }, [jobId]);
+
+
 
   setpositionId(listData[0]);
   setLocation(listData[1]);
   setjobType(listData[2]);
-  // console.log(positionId)
-  const handleDateChange = (date) => {
+  const handleDateChange = (date: any) => {
     setDeadline(date);
   };
   const formattedLocation = location.map((item, index) => ({
@@ -49,16 +64,19 @@ export default function EditJobCard({
     value: item,
   }));
 
+
   const formattedEmployeeType = employeeType.map((item, index) => ({
     id: index + 1,
     value: item,
   }));
+
 
   const formattedJobType = jobType.map((item, index) => ({
     id: index + 1,
     value: item,
   }));
 
+  const currentDate = new Date()
   const JobData: JobDataInterface = {
     listJobInfoSearch: {
       "Employee Type": formattedEmployeeType,
@@ -109,6 +127,7 @@ export default function EditJobCard({
                         <div className="py-1">
                           {JobData &&
                             JobData.listJobInfoSearch &&
+                            JobData.listJobInfoSearch[item.name] &&
                             JobData.listJobInfoSearch[item.name].map(
                               (e, _idx) => (
                                 <Menu.Item key={_idx}>
@@ -184,8 +203,10 @@ export default function EditJobCard({
           <DatePicker
             id="day"
             selected={deadline}
+            value={moment(job?.deadline).format("Do MMMM, YYYY")}
+            minDate={currentDate}
             onChange={handleDateChange}
-            dateFormat="yyyy-MM-dd"
+            readOnly
             placeholderText="Select a day"
             className="border w-[160px] p-[1px] focus:outline-none focus:ring-black focus:ring-1 rounded-md"
           />

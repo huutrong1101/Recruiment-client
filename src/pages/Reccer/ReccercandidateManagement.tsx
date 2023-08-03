@@ -25,7 +25,7 @@ import {
   fetchCandidateSkill,
 } from "../../redux/reducer/CandidateListSlice";
 import RecCandidateCard from "../../components/RecCandidateManageCard/RecCandidateManageCard";
-import Pagination from "./RecPagination";
+import Pagination from "../../components/Pagination/Pagination";
 
 export type QueryConfig = {
   [key in keyof RecCandidateList]: string;
@@ -42,8 +42,8 @@ const ReccerCandidateManagement = () => {
   const queryParams: QueryConfig = useQueryParams();
   const queryConfig: QueryConfig = omitBy(
     {
-      page: queryParams.page || "1",
-      size: queryParams.size || 2,
+      index: queryParams.index || "1",
+      size: queryParams.size || 1,
       name: queryParams.name,
       skill: queryParams.skill,
     },
@@ -61,8 +61,11 @@ const ReccerCandidateManagement = () => {
   );
 
   const [pageSize, setPageSize] = useState(
-    Math.ceil(totalCandidates / Number(queryParams.size ?? 10)),
+    Math.ceil(totalCandidates / Number(queryParams.size ?? 2)),
   );
+
+  console.log(pageSize);
+
   const [isLoading, setIsLoading] = useState(false);
   const [showCandidates, setshowCandidates] = useState(candidates);
 
