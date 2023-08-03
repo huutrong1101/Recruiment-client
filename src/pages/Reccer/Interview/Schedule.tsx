@@ -106,13 +106,7 @@ export default function Schedule() {
       state: "received",
     };
     // console.log(candidateId);
-
-    toast
-      .promise(StateService.changeState(data), {
-        // pending: `Changing`,
-        // success: `The state was changed to recieved`,
-      })
-      .catch((error) => toast.error(error.response.data.result));
+  StateService.changeState(data)
   };
 
   const handleOnClick = () => {
