@@ -17,16 +17,16 @@ export default function AuthenticateLogin() {
   const navigate = useNavigate();
   const { loading, signInLoadingState } = useAppSelector((app) => app.Auth);
 
-  const onSubmit = (data: UserLoginParamsInterface) => {
-    dispatch(authLogin(data))
-      .unwrap()
-      .then(() => {
-        toast.success(`Successfully signed in.`);
-        navigate(-1);
-      })
-      .catch((err) => {
-        toast.error(`Failed to signed in with error: ${err.message}`);
-      });
+  const onSubmit = async (data: UserLoginParamsInterface) => {
+    try {
+      await dispatch(authLogin(data)).unwrap();
+
+      toast.success(`Successfully signed in.`);
+      navigate(-1);
+    } catch (err) {
+      toast.error(`Failed to signed in with error: ${err.message}`);
+      throw err;
+    }
   };
 
   return (

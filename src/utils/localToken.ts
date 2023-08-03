@@ -5,11 +5,18 @@ export function hasLocalToken(): boolean {
 }
 
 export function getLocalToken(): string {
-  const localStorageToken = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
-  if (localStorageToken === null) {
-    throw new Error(`The token is not found`);
+  try {
+    const localStorageToken = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
+    if (localStorageToken === null) {
+      throw new Error(`The token is not found`);
+    }
+    const parsedToken = JSON.parse(localStorageToken) as string;
+
+    return parsedToken;
+  } catch (err) {
+    clearLocalToken();
+    throw err;
   }
-  return JSON.parse(localStorageToken) as string;
 }
 
 export function setLocalToken(jwtToken: string) {

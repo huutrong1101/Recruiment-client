@@ -28,9 +28,22 @@ axiosInstance.interceptors.response.use(
     // Do something with response error
     const responseErrorCode = error.code;
     if (responseErrorCode === "ERR_NETWORK") {
-      toast.error(`There was a connection error with a service.`);
-      clearLocalToken();
+      if (error.status === undefined) {
+        console.error(
+          `Connection error was occurred. Please ensure that the server is open and connected to server.`,
+          error,
+        );
+      }
+
+      // toast.error(`There was a connection error with a service.`);
+      // clearLocalToken();
+      return Promise.reject(error);
     }
+
+    // if (responseErrorCode === "ERR_NETWORK" && error.status === 401) {
+    //   console.warn(`Sending a unknown token`);
+    //   return Promise.reject(error);
+    // }
 
     return Promise.reject(error);
   },

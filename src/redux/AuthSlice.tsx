@@ -101,6 +101,7 @@ export const authLogin = createAsyncThunk(
     try {
       const response = await AuthService.login({ credentialId, password });
 
+      console.log(response);
       if (response.status !== 200) {
         throw new Error(
           `There are some error when register: ${response.statusText}`,
