@@ -1737,10 +1737,10 @@
   resolved "https://registry.yarnpkg.com/@syncfusion/ej2-icons/-/ej2-icons-22.2.5.tgz#c223ab5ac65d6e8e59c9b8df0571b7e092a2b1ef"
   integrity sha512-gNfUKBZ3kQNCX9fPDYai0xDVXbMPpmTSA9/tcuAv2rJhilCtkL7WSof5dPV/z9IOX8tjWYW/KCOdaTpxMPDQlg==
 
-"@syncfusion/ej2-popups@22.2.7":
-  version "22.2.7"
-  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-popups/-/ej2-popups-22.2.7.tgz#32e4cc3239053ed70686f6a2831e47cda3bd8519"
-  integrity sha512-M4m+Hla9Fg8j2pV0sgMtWJkqERdL517ETGzn7zY9frYf+kLGUxNsv5/tP6VdqD0+hoSTUWDSjlbCe2vmyjyHdQ==
+"@syncfusion/ej2-popups@22.2.5":
+  version "22.2.5"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-popups/-/ej2-popups-22.2.5.tgz#605936265dee7d47308c7571f8acf89403087f59"
+  integrity sha512-7UGkiKOkrELyDYmkjPvcDBHHes2IKEuly1gc8JGlfz1fQHzthxU3LkVJKInGAqIig1iaqQzuTajrCJIdXpPNaA==
   dependencies:
     "@syncfusion/ej2-base" "~22.2.5"
     "@syncfusion/ej2-buttons" "~22.2.5"
@@ -1758,7 +1758,7 @@
   integrity sha512-QTqxcVbMVAc8GYUiQJTSgXh8yfwHXwZ25s8Tx+R4wFjDJ3rPg70b79NbAvCL+yhb3GiQVuIgyOzOaYlCw/MHpw==
   dependencies:
     "@syncfusion/ej2-base" "~22.2.5"
-    "@syncfusion/ej2-popups" "22.2.5"
+    "@syncfusion/ej2-popups" "22.2.7"
     "@syncfusion/ej2-react-base" "~22.2.5"
 
 "@textea/json-viewer@^3.1.1":
@@ -2519,7 +2519,7 @@ d3-time@^1.0.11:
   resolved "https://registry.npmjs.org/d3-time/-/d3-time-1.1.0.tgz"
   integrity sha512-Xh0isrZ5rPYYdqhAVk8VLnMEidhz5aP7htAADH6MfzgmmicPkTo8LhkLxci61/lCB7n7UmE3bN0leRt+qvkLxA==
 
-date-fns@^2.30.0:
+date-fns@^2.0.1, date-fns@^2.30.0:
   version "2.30.0"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.30.0.tgz#f367e644839ff57894ec6ac480de40cae4b0f4d0"
   integrity sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==
@@ -3353,7 +3353,7 @@ min-indent@^1.0.0:
   resolved "https://registry.npmjs.org/min-indent/-/min-indent-1.0.1.tgz"
   integrity sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==
 
-minimatch@^3.0.4:
+minimatch@^3.0.4, minimatch@^3.1.1:
   version "3.1.2"
   resolved "https://registry.npmjs.org/minimatch/-/minimatch-3.1.2.tgz"
   integrity sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==
@@ -3749,7 +3749,7 @@ postcss-value-parser@^4.0.0, postcss-value-parser@^4.2.0:
   resolved "https://registry.npmjs.org/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz"
   integrity sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==
 
-postcss@^8.4.23, postcss@^8.4.24, postcss@^8.4.25:
+postcss@^8.4.23, postcss@^8.4.24, postcss@^8.4.26:
   version "8.4.27"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.27.tgz#234d7e4b72e34ba5a92c29636734349e0d9c3057"
   integrity sha512-gY/ACJtJPSmUFPDCHtX78+01fHa64FaU4zaaWfuh1MhGJISufJAH4cun6k/8fwsHYeK4UQmENQK+tRLCFJE8JQ==
