@@ -8,7 +8,6 @@ import INTInterviewsReducer from "./reducer/INTInterviewsSlice";
 import INTCandidatesReducer from "./reducer/INTCandidatesSlice";
 import INTQuestionsReducer from "./reducer/INTQuestionsSlice";
 
-
 import AuthSlice from "./AuthSlice";
 import OneTimePasswordSlice from "../pages/OneTimePasswordVerify/slices/OneTimePasswordSlice";
 import CandidateListSlice from "./reducer/CandidateListSlice";
@@ -39,7 +38,7 @@ export const ApplicationStore = configureStore({
     OneTimePassword: OneTimePasswordSlice,
 
     RecJobList: RecJobListSlice,
-    RecInterviewerList:RecInterviewerSilce,
+    RecInterviewerList: RecInterviewerSilce,
 
     // Admin
     adminmanagerjobList: AdminListJobRecentSlice,

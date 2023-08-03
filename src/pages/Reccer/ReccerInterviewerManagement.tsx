@@ -1,26 +1,34 @@
-import React, { useEffect, useState, Fragment } from 'react'
+import React, { useEffect, useState, Fragment } from "react";
 import { data } from "../../data/RecInterviewerManagementData";
 import RecInterviewerCard from "../../components/RecInterviewerManageCard/RecInterviewerManageCard";
-import { Link, createSearchParams, useNavigate } from 'react-router-dom'
-import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
-import { fetchCandidateRecent } from '../../redux/reducer/CandidateRecentSlice';
-import { STATUS } from '../../utils/Status';
-import { RecInterviewerInterface, RecInterviewerListConfig } from '../../services/services';
-import useQueryParams from '../../hooks/useQueryParams';
+import { Link, createSearchParams, useNavigate } from "react-router-dom";
+import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
+import { fetchCandidateRecent } from "../../redux/reducer/CandidateRecentSlice";
+import { STATUS } from "../../utils/Status";
+import {
+  RecInterviewerInterface,
+  RecInterviewerListConfig,
+} from "../../services/services";
+import useQueryParams from "../../hooks/useQueryParams";
 import { omitBy, isUndefined, isEqual } from "lodash";
 import qs from "query-string";
-import axiosInstance from '../../utils/AxiosInstance';
-import LoadSpinner from '../../components/LoadSpinner/LoadSpinner';
-import Pagination from './RecPagination';
-import { BsFilterLeft } from 'react-icons/bs';
-import classNames from 'classnames';
-
+import axiosInstance from "../../utils/AxiosInstance";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import Pagination from "./RecPagination";
+import { BsFilterLeft } from "react-icons/bs";
+import classNames from "classnames";
 
 import { Menu, Transition } from "@headlessui/react";
 import { JOB_POSITION } from "../../utils/Localization";
-import { ChevronDownIcon, ChevronUpIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { fetchRecInterviewerList, fetchRecInterviewerSkill } from '../../redux/reducer/RecInterviewerSilce';
-
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/outline";
+import {
+  fetchRecInterviewerList,
+  fetchRecInterviewerSkill,
+} from "../../redux/reducer/RecInterviewerSilce";
 
 export type QueryConfig = {
   [key in keyof RecInterviewerListConfig]: string;
@@ -30,8 +38,8 @@ const ReccerInterviewerManagement = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchRecInterviewerList())
-    dispatch(fetchRecInterviewerSkill())
+    dispatch(fetchRecInterviewerList());
+    dispatch(fetchRecInterviewerSkill());
   }, []);
 
   const queryParams: QueryConfig = useQueryParams();
@@ -51,12 +59,14 @@ const ReccerInterviewerManagement = () => {
   const interviewers: RecInterviewerInterface[] = useAppSelector(
     (state) => state.RecInterviewerList.recInterviewerList,
   );
-  const totalInterviewers = useAppSelector((state) => state.RecInterviewerList.recInterviewerTotal);
-
+  const totalInterviewers = useAppSelector(
+    (state) => state.RecInterviewerList.recInterviewerTotal,
+  );
 
   const [pageSize, setPageSize] = useState(
     Math.ceil(totalInterviewers / Number(queryParams.size ?? 10)),
   );
+
   const [isLoading, setIsLoading] = useState(false);
   const [showinterviewers, setshowinterviewers] = useState(interviewers);
 
@@ -71,7 +81,9 @@ const ReccerInterviewerManagement = () => {
       try {
         if (queryConfig) {
           const query = qs.stringify(queryConfig);
-          const response = await axiosInstance(`/recruiter/interviewers?${query}`);
+          const response = await axiosInstance(
+            `/recruiter/interviewers?${query}`,
+          );
           setshowinterviewers(response.data.result.content);
           setPageSize(response.data.result.totalPages);
         }
@@ -95,9 +107,11 @@ const ReccerInterviewerManagement = () => {
         setIsLoading(true);
         try {
           const query = qs.stringify(queryConfig);
-          const response = await axiosInstance(`/recruiter/interviewers?${query}`);
-          console.log("co vao k")
-          console.log(response)
+          const response = await axiosInstance(
+            `/recruiter/interviewers?${query}`,
+          );
+          console.log("co vao k");
+          console.log(response);
           setshowinterviewers(response.data.result.content);
           setPageSize(response.data.result.totalPages);
         } catch (error) {
@@ -133,7 +147,6 @@ const ReccerInterviewerManagement = () => {
           page: "1",
         }).toString(),
       });
-
     } catch (error) {
       console.error(error);
     } finally {
@@ -226,7 +239,6 @@ const ReccerInterviewerManagement = () => {
               "w-[85%] h-full text-[12px] ml-3 focus:outline-none text-base text-zinc-400",
             )}
           />
-
         </div>
         <div className={classNames("gap-2 ml-10 items-center justify-center")}>
           <button
@@ -249,10 +261,14 @@ const ReccerInterviewerManagement = () => {
             {/* <!-- Card --> */}
             {showinterviewers.length > 0 ? (
               showinterviewers.map((interviewer: any) => (
-                <div key={interviewer.id} className=" px-3 mb-8 lg:w-1/4 md:w-1/3 sm:w-3/4">
+                <div
+                  key={interviewer.id}
+                  className=" px-3 mb-8 lg:w-1/4 md:w-1/3 sm:w-3/4"
+                >
                   <RecInterviewerCard interviewer={interviewer} />
                 </div>
-              ))) : (
+              ))
+            ) : (
               <div className="flex justify-center w-full mb-10">
                 <span>Không tìm thấy kết quả</span>
               </div>
@@ -260,14 +276,9 @@ const ReccerInterviewerManagement = () => {
           </div>
         )}
       </>
-      <Pagination
-        queryConfig={queryConfig}
-        pageSize={pageSize}
-        url=""
-      />
-
+      <Pagination queryConfig={queryConfig} pageSize={pageSize} url="" />
     </>
-  )
-}
+  );
+};
 
-export default ReccerInterviewerManagement
+export default ReccerInterviewerManagement;

@@ -42,34 +42,36 @@ export default function Applied() {
   const [state, setState] = useState("");
 
   const handlePass = (candidateId: string) => {
-    // const data = {
-    //   candidateId: candidateId || "",
-    //   jobId: candidate?.jobId || "",
-    //   state: "passed",
-    // };
+    const data = {
+      candidateId: candidateId || "",
+      jobId: jobId || "",
+      state: "passed",
+    };
     // console.log(candidateId);
 
-    // toast
-    //   .promise(StateService.changeState(data), {
-    //     pending: `Changing`,
-    //     success: `The state was changed to pass`,
-    //   })
-    //   .catch((error) => toast.error(error.response.data.result));
+    toast
+      .promise(StateService.changeState(data), {
+        pending: `Changing`,
+        success: `The state was changed to pass`,
+      })
+      .catch((error) => toast.error(error.response.data.result));
     console.log("pass");
+    console.log(data);
   };
 
-  const handleFail = () => {
-    // const data = {
-    //   candidateId: candidate?.candidateId || "",
-    //   jobId: candidate?.jobId || "",
-    //   state: "failed",
-    // };
-    // toast
-    //   .promise(StateService.changeState(data), {
-    //     pending: `Changing`,
-    //     success: `The state was changed to fail`,
-    //   })
-    //   .catch((error) => toast.error(error.response.data.result));
+  const handleFail = (candidateId: string) => {
+    const data = {
+      candidateId: candidateId || "",
+      jobId: jobId || "",
+      state: "failed",
+    };
+    toast
+      .promise(StateService.changeState(data), {
+        pending: `Changing`,
+        success: `The state was changed to fail`,
+      })
+      .catch((error) => toast.error(error.response.data.result));
+    console.log("fail");
   };
 
   // const hehe = applyCandidate.map(
@@ -132,18 +134,18 @@ export default function Applied() {
                   </span>
                 </td>
                 <td>
-                  {applyCandidate.state !== "RECEIVED" ? (
+                  {applyCandidate.state !== "NOT_RECEIVED" ? (
                     <div>
                       <button>
                         <CheckIcon
                           className="w-6 h-6 text-green-800"
-                          onClick={handlePass}
+                          onClick={() => handlePass(applyCandidate.candidateId)}
                         />
                       </button>
                       <button>
                         <XMarkIcon
                           className="w-6 h-6 text-red-800"
-                          onClick={handleFail}
+                          onClick={() => handleFail(applyCandidate.candidateId)}
                         />
                       </button>
                     </div>
