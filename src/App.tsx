@@ -170,7 +170,7 @@ export default function App() {
           {/* Define interviewer routes here */}
           <Route path="interview-recent" element={<InterviewRecent />} />
           <Route path="interview-recent/:id" element={<InterviewDetail />} />
-          <Route path="interview-question" element={<ManageQuestion />} />
+          <Route path="question" element={<ManageQuestion />} />
           <Route path="candidate-recent" element={<CandidateRecent />} />
           <Route
             path="candidate-recent/:id"
@@ -181,7 +181,7 @@ export default function App() {
         <Route path="/interviewer" element={<ManagementAppLayOut />}>
           {/* Define interviewer routes here */}
           {/* <Route index path ="/manageQuestion" element={<ManageQuestion />} /> */}
-          <Route index path="manage-question" element={<ManageQuestion />} />
+          <Route index path="question" element={<ManageQuestion />} />
           <Route index path="score-page" element={<ScorePage />} />
         </Route>
 

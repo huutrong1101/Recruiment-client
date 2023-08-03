@@ -2,6 +2,22 @@ import { TrashIcon, BriefcaseIcon, AcademicCapIcon, CheckBadgeIcon } from "@hero
 
 import { useState, useEffect } from "react"
 import { Menu, Transition } from "@headlessui/react";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { fetchQuestionList } from "../../redux/reducer/QuestionListSlice";
+import { STATUS } from '../../utils/Status';
+import Loader from '../../components/Loader/Loader';
+import qs from "query-string";
+import { omit, isEqual } from "lodash";
+import useQuerParams from "../../hooks/useQueryParams";
+import Pagination from "../../components/Pagination/Pagination";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import { omitBy, isUndefined } from "lodash";
+import { QuestionListConfig, QuestionListInterface } from "../../services/services";
+import axiosInstance from "../../utils/AxiosInstance";
+
+export type QueryConfig = {
+   [key in keyof QuestionListConfig]: string;
+};
 
 import { fetchINTCandidatesByID } from "../../redux/reducer/INTCandidatesSlice";
 import { fetchINTAssignedQuestions,deleteQuestionOfInterview, setScore, setNote, markScore} from "../../redux/reducer/INTQuestionsSlice";
