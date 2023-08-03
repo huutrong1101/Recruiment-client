@@ -169,9 +169,9 @@ export default function ReccerJobDetail() {
     // console.log('deadline', deadline)
     // console.log('skillsRequired', selectedValues)
     console.log(data)
-    // navigate({
-    //   pathname: "/recruiter/jobs",
-    // });
+    navigate({
+      pathname: "/recruiter/jobs",
+    });
     // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/job
     axiosInstance
       .put(`recruiter/jobs/${job?.jobId}`, data)
