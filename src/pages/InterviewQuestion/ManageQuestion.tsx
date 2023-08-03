@@ -15,7 +15,7 @@ import { QuestionListConfig, QuestionListInterface, SkillListInterface, TypeList
 import { Link, createSearchParams, useNavigate } from "react-router-dom";
 import PaginationInterview from "./PaginationInterview";
 import classNames from 'classnames';
-import { TYPE_alter } from "../../utils/Localization";
+import  {TYPE_alter}  from "../../utils/Localization";
 import UpdateQuestion from "./UpdateQuestion";
 
 export type QueryConfig = {
