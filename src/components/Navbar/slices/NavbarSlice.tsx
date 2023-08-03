@@ -1,15 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-<<<<<<< HEAD
-import {
-  HiArrowLeftOnRectangle,
-  HiCog6Tooth,
-  HiEnvelope,
-  HiInformationCircle,
-  HiQuestionMarkCircle,
-  HiUserCircle,
-} from "react-icons/hi2";
-=======
->>>>>>> fix/refine-navbar-error
 
 const initialState = {
   drawerVisible: false,
@@ -29,42 +18,6 @@ const initialState = {
   ],
   menu: {
     visible: false,
-<<<<<<< HEAD
-    items: [
-      {
-        url: "/profile/",
-        icon: <HiUserCircle />,
-        text: "My Profile",
-      },
-      {
-        url: "/profile/information",
-        icon: <HiInformationCircle />,
-        text: "My Information",
-      },
-      {
-        url: "/profile/resume",
-        icon: <HiEnvelope />,
-        text: "My Resume",
-      },
-
-      {
-        url: "/profile/interviews",
-        icon: <HiCog6Tooth />,
-        text: "Interview",
-      },
-      {
-        url: "/profile/submitted-jobs",
-        icon: <HiQuestionMarkCircle />,
-        text: "Submitted Jobs",
-      },
-      {
-        url: "/logout",
-        icon: <HiArrowLeftOnRectangle />,
-        text: "Log out",
-      },
-    ],
-=======
->>>>>>> fix/refine-navbar-error
   },
 };
 
