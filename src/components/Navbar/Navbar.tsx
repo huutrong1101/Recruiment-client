@@ -12,17 +12,17 @@ import NavbarUserLoggedInCard from "./NavbarUserLoggedInCard";
 export default function Navbar() {
   useTokenAuthorize();
 
-  const { items: leftMenu } = useAppSelector((app) => app.Navbar);
+  const { items } = useAppSelector((app) => app.Navbar);
 
   const { isLoggedIn, loading, user } = useAppSelector((app) => app.Auth);
 
-  const [updatedLeftMenu, setUpdatedLeftMenu] = useState([...leftMenu]);
+  const [updatedLeftMenu, setUpdatedLeftMenu] = useState([...items]);
 
   useEffect(() => {
     if (user !== null && user !== undefined) {
       if (user.role !== "CANDIDATE") {
         setUpdatedLeftMenu([
-          ...leftMenu,
+          ...updatedLeftMenu,
           { name: "Dashboard", url: "/recruiter/dashboard" },
         ]);
       }
@@ -58,7 +58,6 @@ export default function Navbar() {
                 className={classNames(`flex flex-row gap-12`, `font-semibold`)}
               >
                 {updatedLeftMenu.map((item) => {
-                  console.log(item);
                   return (
                     <Link
                       to={item.url}

@@ -5,7 +5,10 @@ import NavbarSlice from "../components/Navbar/slices/NavbarSlice";
 ///
 import CandidateRecentReducer from "./reducer/CandidateRecentSlice";
 import INTInterviewsReducer from "./reducer/INTInterviewsSlice";
-import INTCandidatesReducer from "./reducer/INTCandidatesSlice"
+import INTCandidatesReducer from "./reducer/INTCandidatesSlice";
+import INTQuestionsReducer from "./reducer/INTQuestionsSlice";
+
+
 import SearchReducer from "./reducer/SearchSlice";
 import AuthSlice from "./AuthSlice";
 import OneTimePasswordSlice from "../pages/OneTimePasswordVerify/slices/OneTimePasswordSlice";
@@ -19,29 +22,38 @@ import AdminListPassRecentSlice from "./reducer/AdminListPassRecentSlice";
 import JobSlice from "./JobSlice";
 import QuestionListSlice from "./reducer/QuestionListSlice";
 import RecInterviewerSilce from "./reducer/RecInterviewerSilce";
+import AdminAcountUseProfileSlice from "./reducer/AdminAcountUseProfileSlice";
+import RecEventSlice from "./reducer/RecEventSlice";
+import JobDetailSlice from "../pages/JobDetail/slice/JobDetailSlice";
+
 export const ApplicationStore = configureStore({
   reducer: {
     Home: HomeSlice,
     Job: JobSlice,
     candidateList: CandidateListSlice,
+
     INTCandidates: INTCandidatesReducer,
     INTInterviews: INTInterviewsReducer,
-    searchFeature: SearchReducer,
+    INTQuestions: INTQuestionsReducer,
+
     candidateRecent: CandidateRecentReducer,
     Navbar: NavbarSlice,
     Auth: AuthSlice,
     OneTimePassword: OneTimePasswordSlice,
 
     RecJobList: RecJobListSlice,
-    RecInterviewerList:RecInterviewerSilce,
+    RecInterviewerList: RecInterviewerSilce,
 
     // Admin
     adminmanagerjobList: AdminListJobRecentSlice,
     adminprofilesRecent: AdminProfileRecentSlice,
     adminacountList: AdminAcountListSlice,
+    adminacountuseprofileRecent: AdminAcountUseProfileSlice,
     adminmanagerpassList: AdminListPassRecentSlice,
-    //interviewer
-    questionList:QuestionListSlice
+    //Recruiter
+    recevent: RecEventSlice,
+
+    JobDetail: JobDetailSlice,
   },
 });
 

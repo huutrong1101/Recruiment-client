@@ -11,6 +11,10 @@ import LoadSpinner from '../../components/LoadSpinner/LoadSpinner';
 import InterviewerRecent from '../../pages/Interviewer/InterviewRecent/InterviewRecent'
 import RecInterviewerIn4Card from '../../components/RecInterviewerManageCard/RecInterviewerIn4Card';
 import moment from 'moment';
+import InterviewRecent from '../../pages/Interviewer/InterviewRecent/InterviewRecent';
+import RecInterviewrecent from './RecInterviewRecent';
+import RecInterviewRecent from './RecInterviewRecent';
+import classNames from 'classnames';
 
 export default function InterviewerDetail() {
   const { interviewerId } = useParams();
@@ -45,7 +49,7 @@ export default function InterviewerDetail() {
         { icon: <MdOutlineEmail />, name: "Email", value: interviewer?.email },
         { icon: <MdOutlineCalendarMonth />, name: "D.O.B", value: moment(interviewer?.dateOfBirth).format("Do MMM, YYYY") },
         {
-          icon: <MdOutlineLocationOn />, name: "Address", value: interviewer.address,
+          icon: <MdOutlineLocationOn />, name: "Address", value: interviewer?.address,
         },
         {
           icon: <HiOutlineDeviceMobile />, name: "Phone", value: formatPhoneNumber(interviewer?.phone),
@@ -54,8 +58,9 @@ export default function InterviewerDetail() {
     }
   }, [interviewer]);
 
-  function formatPhoneNumber(phoneNumber: any) {
+  function formatPhoneNumber(phoneNumber: string) {
     // Remove any non-digit characters from the phone number using regex
+    if (phoneNumber == null) { return }
     const cleanedPhoneNumber = phoneNumber.replace(/\D/g, '');
 
     // Check if the cleaned phone number has 10 digits (i.e., "0373412489")
@@ -86,104 +91,218 @@ export default function InterviewerDetail() {
               </div>
             </div>
           </section>
-          <section className='relative mt-12 md:pb-24 pb-16'>
+          <section className='relative mt-12 md:pb-15 pb-10'>
             <div className='grid md:grid-cols-12 grid-cols-1 gap-[30px]'>
               <div className='lg:col-span-8 md:col-span-7'>
-                <p className='text-xl font-semibold'>Description:</p>
-                <p className='text-zinc-600 mt-3 text-lg'>{interviewer?.about}</p>
-                <p className='mt-4 text-xl font-semibold'>Skill</p>
-                <div className='grid lg:grid-cols-1 grid-cols-1 mt-4 gap-6'>
+                <div
+                  className={classNames(
+                    `border bg-white shadow-sm rounded-xl`,
+                    `px-8 py-8`,
+                    `text-justify`,
+                  )}
+                >
                   <div>
-                    {
-                      interviewer?.skills?.map((skill, index) => (
-                        <p
-                          key={index}
-                          className="px-4 py-2 gap-2 ml-2 inline-flex bg-emerald-600 hover:bg-emerald-700 border-emerald-600  text-white rounded-md"
-                        >
-                          {skill.name}
-                        </p>
-                      ))}
+                    <h1 className="text-2xl font-semibold">
+                      Description
+                    </h1>
+                    <p>
+                      {interviewer?.about}
+                    </p>
                   </div>
                 </div>
-                <div className='mt-4 text-xl font-semibold'>Education</div>
-                {
-                  interviewer?.educations?.map((education, index) => (
-                    <>
-                      <p
-                        key={index}
-                        className="text-zinc-600 mt-3 text-lg "
-                      >
-                        {education.educationId}. {education.schoolName} - {education.specialized} - {education?.certificate}
-                      </p>
-                    </>
-                  ))}
-                <div className='mt-4 text-xl font-semibold'>Course</div>
-                {
-                  interviewer?.courses?.map((course, index) => (
-                    <>
-                      <p
-                        key={index}
-                        className="text-zinc-600 mt-3 text-lg "
-                      >
-                        {course.courseId}. {course.courseName} - {course.trainningOrganizations} - {moment(course?.completionTime).format("Do MMM, YYYY")}
-                      </p>
-                    </>
-                  ))}
+                <div
+                  className={classNames(
+                    `border bg-white shadow-sm rounded-xl`,
+                    `px-8 py-8`,
+                    `text-justify`, `mt-5`
+                  )}
+                >
+                  <div>
+                    <h1 className="text-2xl font-semibold">
+                      Skill
+                    </h1>
+                    <p>
+                      <div>
+                        {
+                          interviewer?.skills?.map((skill, index) => (
+                            <p
+                              key={index}
+                              className="px-4 py-2 gap-2 mt-2 ml-2 inline-flex bg-emerald-600 hover:bg-emerald-700 border-emerald-600  text-white rounded-md"
+                            >
+                              {skill.name}
+                            </p>
+                          ))}
+                      </div>
+                    </p>
+                  </div>
+                </div>
+                <div
+                  className={classNames(
+                    `border bg-white shadow-sm rounded-xl`,
+                    `px-8 py-8`,
+                    `text-justify`, `mt-5`
+                  )}
+                >
+                  <div>
+                    <h1 className="text-2xl font-semibold">
+                      Education
+                    </h1>
+                    <p>
+                      {
+                        interviewer?.educations?.map((education, index) => (
+                          <>
+                            <p
+                              key={index}
+                              className="text-zinc-600 mt-3 text-lg "
+                            >
+                              {education.educationId}. {education.schoolName} - {education.specialized} - {education?.certificate}
+                            </p>
+                          </>
+                        ))}
+                    </p>
+                  </div>
+                </div>
 
-                <div className='mt-4 text-xl font-semibold'>Project</div>
-                {
-                  interviewer?.projects?.map((project, index) => (
-                    <>
-                      <p
-                        key={index}
-                        className="text-zinc-600 mt-3 text-lg "
-                      >
-                        {project.projectId}. {project.projectName} - {project.positionInProject}
-                      </p>
-                      <p
-                        key={index}
-                        className="text-zinc-600 mt-3 text-lg ml-4"
-                      >
-                        {project.description}
-                      </p>
-                    </>
-                  ))}
-                <div className='mt-4 text-xl font-semibold'>Experience</div>
-                {
-                  interviewer?.experiences?.map((experience, index) => (
-                    <>
-                      <p
-                        key={index}
-                        className="text-zinc-600 mt-3 text-lg "
-                      >
-                        {experience.experienceId}. {experience.companyName} - {experience.position} - {experience.time}
-                      </p>
-                    </>
-                  ))}
-                <div className='mt-4 text-xl font-semibold'>Award</div>
-                {
-                  interviewer?.awards?.map((award, index) => (
-                    <>
-                      <p
-                        key={index}
-                        className="text-zinc-600 mt-3 text-lg "
-                      >
-                        {award.awardId}. {award.awardName} - {award.awardOrganization} - {moment(award?.awardWinningTime).format("Do MMM, YYYY")}
-                      </p>
-                    </>
-                  ))}
-                <div className='mt-4 text-xl font-semibold'>Certificate</div>
-                {
-                  interviewer?.certificates?.map((certificate, index) => (
-                    <>
-                      <p
-                        key={index}
-                        className="text-zinc-600 mt-3 text-lg "
-                      >
-                        {certificate.certificateId}. {certificate.certificateName} - {certificate.certificateBody} - {moment(certificate?.certificationTime).format("Do MMM, YYYY")}
-                      </p>
-                    </>
-                  ))}
+                <div
+                  className={classNames(
+                    `border bg-white shadow-sm rounded-xl`,
+                    `px-8 py-8`,
+                    `text-justify`, `mt-5`
+                  )}
+                >
+                  <div>
+                    <h1 className="text-2xl font-semibold">
+                      Course
+                    </h1>
+                    <p>
+                      {
+                        interviewer?.courses?.map((course, index) => (
+                          <>
+                            <p
+                              key={index}
+                              className="text-zinc-600 mt-3 text-lg "
+                            >
+                              {course.courseId}. {course.courseName} - {course.trainningOrganizations} - {moment(course?.completionTime).format("Do MMM, YYYY")}
+                            </p>
+                          </>
+                        ))}
+                    </p>
+                  </div>
+                </div>
+                <div
+                  className={classNames(
+                    `border bg-white shadow-sm rounded-xl`,
+                    `px-8 py-8`,
+                    `text-justify`, `mt-5`
+                  )}
+                >
+                  <div>
+                    <h1 className="text-2xl font-semibold">
+                      Project
+                    </h1>
+                    <p>
+                      {
+                        interviewer?.projects?.map((project, index) => (
+                          <>
+                            <p
+                              key={index}
+                              className="text-zinc-600 mt-3 text-lg "
+                            >
+                              {project.projectId}. {project.projectName} - {project.positionInProject}
+                            </p>
+                            <p
+                              key={index}
+                              className="text-zinc-600 mt-3 text-lg ml-4"
+                            >
+                              {project.description}
+                            </p>
+                          </>
+                        ))}
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  className={classNames(
+                    `border bg-white shadow-sm rounded-xl`,
+                    `px-8 py-8`,
+                    `text-justify`, `mt-5`
+                  )}
+                >
+                  <div>
+                    <h1 className="text-2xl font-semibold">
+                      Experience
+                    </h1>
+                    <p>
+                      {
+                        interviewer?.experiences?.map((experience, index) => (
+                          <>
+                            <p
+                              key={index}
+                              className="text-zinc-600 mt-3 text-lg "
+                            >
+                              {experience.experienceId}. {experience.companyName} - {experience.position} - {experience.time}
+                            </p>
+                          </>
+                        ))}
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  className={classNames(
+                    `border bg-white shadow-sm rounded-xl`,
+                    `px-8 py-8`,
+                    `text-justify`, `mt-5`
+                  )}
+                >
+                  <div>
+                    <h1 className="text-2xl font-semibold">
+                      Award
+                    </h1>
+                    <p>
+                      {
+                        interviewer?.awards?.map((award, index) => (
+                          <>
+                            <p
+                              key={index}
+                              className="text-zinc-600 mt-3 text-lg "
+                            >
+                              {award.awardId}. {award.awardName} - {award.awardOrganization} - {moment(award?.awardWinningTime).format("Do MMM, YYYY")}
+                            </p>
+                          </>
+                        ))}
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  className={classNames(
+                    `border bg-white shadow-sm rounded-xl`,
+                    `px-8 py-8`,
+                    `text-justify`, `mt-5`
+                  )}
+                >
+                  <div>
+                    <h1 className="text-2xl font-semibold">
+                      Certificate
+                    </h1>
+                    <p>
+                      {
+                        interviewer?.certificates?.map((certificate, index) => (
+                          <>
+                            <p
+                              key={index}
+                              className="text-zinc-600 mt-3 text-lg "
+                            >
+                              {certificate.certificateId}. {certificate.certificateName} - {certificate.certificateBody} - {moment(certificate?.certificationTime).format("Do MMM, YYYY")}
+                            </p>
+                          </>
+                        ))}
+                    </p>
+                  </div>
+                </div>
+
               </div>
 
               <div className='lg:col-span-4 md:col-span-5 sticky top-20 '>
@@ -192,7 +311,7 @@ export default function InterviewerDetail() {
             </div>
 
           </section>
-          <div className='pb-10'><InterviewerRecent /></div>
+          <div><RecInterviewRecent /></div>
         </>
       ) : (
         <div className='grid items-center justify-center pt-5'>

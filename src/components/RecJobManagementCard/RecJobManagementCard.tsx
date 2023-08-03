@@ -3,6 +3,8 @@ import classnames from "classnames";
 import logo_FPT from "../../../images/logo_FPT.png";
 import { Link } from "react-router-dom";
 import moment from "moment"
+import { JOB_POSITION } from "../../utils/Localization";
+
 
 
 export default function RecDashboardCard({ job }: any) {
@@ -12,7 +14,7 @@ export default function RecDashboardCard({ job }: any) {
    const days = duration.asDays();
    return (
       <>
-         <div className="relative overflow-hidden transition-all duration-500 bg-white border rounded-md shadow group hover:shadow-lg h-fit">
+         <div className="relative w-full overflow-hidden transition-all duration-500 bg-white border rounded-md shadow group hover:shadow-lg h-fit ">
             <div className="p-6">
                <div className="flex items-center">
                   <div className="w-14 h-14 min-w-[56px] flex items-center justify-center bg-white shadow  rounded-md">
@@ -29,7 +31,7 @@ export default function RecDashboardCard({ job }: any) {
                         <span className="ml-5 text-sm font-semibold text-gray-400 ">
                            {days >= 1
                               ? `${Math.floor(days)} days`
-                           : `${Math.abs(duration.asHours()).toFixed(0)} hours`}{" "}
+                              : `${Math.abs(duration.asHours()).toFixed(0)} hours`}{" "}
                            ago
                         </span>
                      </h1>
@@ -38,24 +40,20 @@ export default function RecDashboardCard({ job }: any) {
                            "text-[#05966A] text-center text-xs font-semibold bg-[#C6DED5] p-1 rounded-full px-2 hover:bg-[#05966A] hover:text-white",
                         )}
                      >
-                        {job.jobType}
+                        {JOB_POSITION[job.jobType]}
                      </button>
                      <span className="ml-3 text-sm font-semibold text-gray-400 ">
                         Hourly: {job.salaryRange}
                      </span>
                   </div>
                </div>
-               <div className={classnames("flex items-start mt-4")}>
-                  <h3
-                     className={classnames(
-                        "text-black text-center text-sm font-semibold leading-7 tracking-wider capitalize",
-                     )}
-                  >
+               <div className={classnames("flex items-start mt-4 overflow-hidden")}>
+                  <div className="w-[70%] text-black inline-flex text-center text-sm font-semibold leading-7 tracking-wider capitalize overflow-hidden">
                      Decription:
-                     <span className="ml-1 font-normal text-gray-400">
+                     <p className="ml-1 font-normal text-gray-400 whitespace-nowrap overflow-hidden overflow-ellipsis">
                         {job.description}
-                     </span>
-                  </h3>
+                     </p>
+                  </div>
                </div>
                {
                   job.skills.map((items: any) => (
@@ -77,7 +75,7 @@ export default function RecDashboardCard({ job }: any) {
                <ul className="flex flex-wrap items-center mt-3 text-sm font-semibold text-gray-500 sm:mt-0">
                   <li>
                      <Link
-                        to="../addjob/"
+                        to={`../jobdetail/${job.jobId}/edit`}
                         className="w-full px-5 py-2 mt-4 text-white btn btn-sm rounded-2xl bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 md:ms-2 lg:w-auto lg:mt-0 "
                      >
                         Edit
@@ -86,7 +84,7 @@ export default function RecDashboardCard({ job }: any) {
                   <li>
                      <Link
                         to="../interview-schedule/"
-                        className="w-full px-2 py-2 mt-4 text-white rounded-2xl bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 md:ms-2 lg:w-auto lg:mt-0"
+                        className="w-full px-2 py-2 mt-4 text-white rounded-2xl bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 md:ms-4 lg:w-auto lg:mt-0"
                      >
                         Create Schedule
                      </Link>

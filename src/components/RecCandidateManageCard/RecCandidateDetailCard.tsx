@@ -12,6 +12,7 @@ import {
 import { HiOutlineDeviceMobile } from "react-icons/hi";
 import moment from "moment";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
+import InterviewHistory from "./InterviewHistory";
 
 export default function RecCandidateDetailCard(props: any) {
   const candidate = props.candidate;
@@ -47,6 +48,9 @@ export default function RecCandidateDetailCard(props: any) {
   }, [candidate]);
 
   function formatPhoneNumber(phoneNumber: any) {
+    if (phoneNumber == null) {
+      return;
+    }
     const cleanedPhoneNumber = phoneNumber.replace(/\D/g, "");
     if (cleanedPhoneNumber.length === 10) {
       return cleanedPhoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
@@ -83,123 +87,181 @@ export default function RecCandidateDetailCard(props: any) {
               </div>
             </div>
           </section>
-          <section className="relative mt-12 md:pb-24 pb-16">
+          <section className="relative mt-12 md:pb-15 pb-10">
             <div className="">
               <div className="">
                 <div className="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
                   <div className="lg:col-span-8 md:col-span-7">
-                    <p className="text-xl font-semibold">Description:</p>
-                    {/* <p className='text-zinc-600 mt-3 text-lg'>{candidate?.about}</p> */}
-                    <p className="text-zinc-600 mt-3 text-lg">
-                      {candidate?.about}
-                    </p>
-                    <p className="mt-6 text-xl font-semibold">Skill:</p>
+                    <div
+                      className={classNames(
+                        `border bg-white shadow-sm rounded-xl`,
+                        `px-8 py-8`,
+                        `text-justify`,
+                      )}
+                    >
+                      <h1 className="text-2xl font-semibold">Description:</h1>
+                      {/* <p className='text-zinc-600 mt-3 text-lg'>{candidate?.about}</p> */}
+                      <p className="">{candidate?.about}</p>
+                    </div>
                     <div className="grid lg:grid-cols-1 grid-cols-1 mt-4 gap-6">
-                      <div>
-                        {candidate?.skills?.map((skill, index) => (
-                          <p
-                            key={index}
-                            className="px-4 py-2 gap-2 ml-2 inline-flex bg-emerald-600 hover:bg-emerald-700 border-emerald-600  text-white rounded-md"
-                          >
-                            {skill.name}
-                          </p>
+                      <div
+                        className={classNames(
+                          `border bg-white shadow-sm rounded-xl`,
+                          `px-8 py-8`,
+                          `text-justify`,
+                        )}
+                      >
+                        <p className="text-2xl font-semibold">Skill:</p>
+                        <div>
+                          {candidate?.skills?.map((skill, index) => (
+                            <p
+                              key={index}
+                              className="px-4 py-2 gap-2 ml-2 inline-flex bg-emerald-600 hover:bg-emerald-700 border-emerald-600  text-white rounded-md"
+                            >
+                              {skill.name}
+                            </p>
+                          ))}
+                        </div>
+                      </div>
+                      <div
+                        className={classNames(
+                          `border bg-white shadow-sm rounded-xl`,
+                          `px-8 py-8`,
+                          `text-justify`,
+                        )}
+                      >
+                        <div className="text-2xl font-semibold">Education</div>
+                        {candidate?.educations?.map((education, index) => (
+                          <>
+                            <p
+                              key={index}
+                              className="text-zinc-600 mt-3 text-lg "
+                            >
+                              {education.educationId}. {education.schoolName} -{" "}
+                              {education.specialized} - {education?.certificate}
+                            </p>
+                          </>
                         ))}
                       </div>
-                      <div className="mt-4 text-xl font-semibold">
-                        Education
+                      <div
+                        className={classNames(
+                          `border bg-white shadow-sm rounded-xl`,
+                          `px-8 py-8`,
+                          `text-justify`,
+                        )}
+                      >
+                        <div className="text-2xl font-semibold">Course</div>
+                        {candidate?.courses?.map((course, index) => (
+                          <>
+                            <p
+                              key={index}
+                              className="text-zinc-600 mt-3 text-lg "
+                            >
+                              {course.courseId}. {course.courseName} -{" "}
+                              {course.trainningOrganizations} -{" "}
+                              {moment(course?.completionTime).format(
+                                "Do MMM, YYYY",
+                              )}
+                            </p>
+                          </>
+                        ))}
                       </div>
-                      {candidate?.educations?.map((education, index) => (
-                        <>
-                          <p
-                            key={index}
-                            className="text-zinc-600 mt-3 text-lg "
-                          >
-                            {education.educationId}. {education.schoolName} -{" "}
-                            {education.specialized} - {education?.certificate}
-                          </p>
-                        </>
-                      ))}
-                      <div className="mt-4 text-xl font-semibold">Course</div>
-                      {candidate?.courses?.map((course, index) => (
-                        <>
-                          <p
-                            key={index}
-                            className="text-zinc-600 mt-3 text-lg "
-                          >
-                            {course.courseId}. {course.courseName} -{" "}
-                            {course.trainningOrganizations} -{" "}
-                            {moment(course?.completionTime).format(
-                              "Do MMM, YYYY",
-                            )}
-                          </p>
-                        </>
-                      ))}
-
-                      <div className="mt-4 text-xl font-semibold">Project</div>
-                      {candidate?.projects?.map((project, index) => (
-                        <>
-                          <p
-                            key={index}
-                            className="text-zinc-600 mt-3 text-lg "
-                          >
-                            {project.projectId}. {project.projectName} -{" "}
-                            {project.positionInProject}
-                          </p>
-                          <p
-                            key={index}
-                            className="text-zinc-600 mt-3 text-lg ml-4"
-                          >
-                            {project.description}
-                          </p>
-                        </>
-                      ))}
-                      <div className="mt-4 text-xl font-semibold">
-                        Experience
+                      <div
+                        className={classNames(
+                          `border bg-white shadow-sm rounded-xl`,
+                          `px-8 py-8`,
+                          `text-justify`,
+                        )}
+                      >
+                        <div className="text-2xl font-semibold">Project</div>
+                        {candidate?.projects?.map((project, index) => (
+                          <>
+                            <p
+                              key={index}
+                              className="text-zinc-600 mt-3 text-lg "
+                            >
+                              {project.projectId}. {project.projectName} -{" "}
+                              {project.positionInProject}
+                            </p>
+                            <p
+                              key={index}
+                              className="text-zinc-600 mt-3 text-lg ml-4"
+                            >
+                              {project.description}
+                            </p>
+                          </>
+                        ))}
                       </div>
-                      {candidate?.experiences?.map((experience, index) => (
-                        <>
-                          <p
-                            key={index}
-                            className="text-zinc-600 mt-3 text-lg "
-                          >
-                            {experience.experienceId}. {experience.companyName}{" "}
-                            - {experience.position} - {experience.time}
-                          </p>
-                        </>
-                      ))}
-                      <div className="mt-4 text-xl font-semibold">Award</div>
-                      {candidate?.awards?.map((award, index) => (
-                        <>
-                          <p
-                            key={index}
-                            className="text-zinc-600 mt-3 text-lg "
-                          >
-                            {award.awardId}. {award.awardName} -{" "}
-                            {award.awardOrganization} -{" "}
-                            {moment(award?.awardWinningTime).format(
-                              "Do MMM, YYYY",
-                            )}
-                          </p>
-                        </>
-                      ))}
-                      <div className="mt-4 text-xl font-semibold">
-                        Certificate
+                      <div
+                        className={classNames(
+                          `border bg-white shadow-sm rounded-xl`,
+                          `px-8 py-8`,
+                          `text-justify`,
+                        )}
+                      >
+                        <div className="text-2xl font-semibold">Experience</div>
+                        {candidate?.experiences?.map((experience, index) => (
+                          <>
+                            <p
+                              key={index}
+                              className="text-zinc-600 mt-3 text-lg "
+                            >
+                              {experience.experienceId}.{" "}
+                              {experience.companyName} - {experience.position} -{" "}
+                              {experience.time}
+                            </p>
+                          </>
+                        ))}
                       </div>
-                      {candidate?.certificates?.map((certificate, index) => (
-                        <>
-                          <p
-                            key={index}
-                            className="text-zinc-600 mt-3 text-lg "
-                          >
-                            {certificate.certificateId}.{" "}
-                            {certificate.certificateName} -{" "}
-                            {certificate.certificateBody} -{" "}
-                            {moment(certificate?.certificationTime).format(
-                              "Do MMM, YYYY",
-                            )}
-                          </p>
-                        </>
-                      ))}
+                      <div
+                        className={classNames(
+                          `border bg-white shadow-sm rounded-xl`,
+                          `px-8 py-8`,
+                          `text-justify`,
+                        )}
+                      >
+                        <div className="text-2xl font-semibold">Award</div>
+                        {candidate?.awards?.map((award, index) => (
+                          <>
+                            <p
+                              key={index}
+                              className="text-zinc-600 mt-3 text-lg "
+                            >
+                              {award.awardId}. {award.awardName} -{" "}
+                              {award.awardOrganization} -{" "}
+                              {moment(award?.awardWinningTime).format(
+                                "Do MMM, YYYY",
+                              )}
+                            </p>
+                          </>
+                        ))}
+                      </div>
+                      <div
+                        className={classNames(
+                          `border bg-white shadow-sm rounded-xl`,
+                          `px-8 py-8`,
+                          `text-justify`,
+                        )}
+                      >
+                        <div className="text-2xl font-semibold">
+                          Certificate
+                        </div>
+                        {candidate?.certificates?.map((certificate, index) => (
+                          <>
+                            <p
+                              key={index}
+                              className="text-zinc-600 mt-3 text-lg "
+                            >
+                              {certificate.certificateId}.{" "}
+                              {certificate.certificateName} -{" "}
+                              {certificate.certificateBody} -{" "}
+                              {moment(certificate?.certificationTime).format(
+                                "Do MMM, YYYY",
+                              )}
+                            </p>
+                          </>
+                        ))}
+                      </div>
                     </div>
                   </div>
                   <div className="lg:col-span-4 md:col-span-5">
@@ -228,6 +290,9 @@ export default function RecCandidateDetailCard(props: any) {
               </div>
             </div>
           </section>
+          <div className="">
+            <InterviewHistory />
+          </div>
         </>
       ) : (
         <div className="grid items-center justify-center pt-5">

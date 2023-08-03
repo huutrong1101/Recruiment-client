@@ -1,15 +1,9 @@
 import axiosInstance from "../utils/AxiosInstance";
 
-const createQuestion = async (data: any) => {
-    return await axiosInstance.post(`/interviewer/question`, data);
-  };
+const createInterview = async (data: any) => {
+  return await axiosInstance.post(`/recruiter/interviews`, data);
+};
 
-  const updateQuestion = async (data:any, questionId: string) => {
-    return await axiosInstance.put(`/interviewer/question/${questionId}`, data);
-  };
-
-  export const InterviewService = {
-    createQuestion,
-    updateQuestion
-  };
-  
+export const InterviewService = {
+  createInterview,
+};

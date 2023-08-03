@@ -1,53 +1,40 @@
 import classNames from "classnames";
-import React, { useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import UserResume from "../../components/UserResume/UserResume";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HiArrowUpTray, HiPlus } from "react-icons/hi2";
+import axiosInstance from "../../utils/AxiosInstance";
+import moment from "moment";
+import { toast } from "react-toastify";
+import { UserService } from "../../services/UserService";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import { getCandidateResume } from "../../services/CandidateService";
+
+function ResumeDeleteModal({ visible, onAccept, onCancel }: any) {
+  return (
+    <Modal
+      isOpen={visible}
+      onClose={onCancel}
+      title=" Do you want to delete this resume ?"
+      cancelTitle="No"
+      successClass="text-red-900 bg-red-100 hover:bg-red-200 focus-visible:ring-red-500"
+      successTitle="Yes"
+      handleSucces={onAccept}
+      titleClass=""
+      size=""
+    >
+      <p className="text-sm text-gray-500">
+        If you agree, the resume will be removed from your resume list
+      </p>
+    </Modal>
+  );
+}
 
 export default function UserProfileMyResume() {
-  let [isOpen, setIsOpen] = useState(false);
+  let [visibleDeleteModal, setVisibleDeleteModal] = useState(false);
 
   let [isUpload, setIsUpload] = useState(false);
-
-  const listCV = [
-    {
-      id: "1",
-      name: "Resume create #1",
-      date: "26th Jul, 2023",
-      type: "create",
-    },
-    {
-      id: "2",
-      name: "Resume create #2",
-      date: "26th Jul, 2023",
-      type: "create",
-    },
-    {
-      id: "3",
-      name: "Resume create #3",
-      date: "26th Jul, 2023",
-      type: "create",
-    },
-    {
-      id: "4",
-      name: "Resume upload #1",
-      date: "26th Jul, 2023",
-      type: "upload",
-    },
-    {
-      id: "5",
-      name: "Resume upload #2",
-      date: "26th Jul, 2023",
-      type: "upload",
-    },
-    {
-      id: "6",
-      name: "Resume upload #3",
-      date: "26th Jul, 2023",
-      type: "upload",
-    },
-  ];
 
   const [priorityCV, setPriorityCV] = useState("");
 
@@ -55,25 +42,87 @@ export default function UserProfileMyResume() {
     setPriorityCV(id);
   };
 
-  const [file, setFile] = useState<File | null>(null);
+  const [resumeList, setResumeList] = useState<object[]>([]);
 
-  const handleDelete = () => {
-    alert("Delete success");
+  const [resumeDeleteID, setResumeDeleteID] = useState<string | null>(null);
+
+  const [isLoadingUpload, setIsLoadingUpload] = useState(false);
+
+  useEffect(() => {
+    setIsLoadingUpload(true);
+    getCandidateResume()
+      .then((response) => {
+        const { result } = response.data;
+        setResumeList(
+          [...result].sort((a: any, b: any) => b.createdAt - a.createdAt),
+        );
+      })
+      .catch(() => toast.error(`There was an error when fetching resume`))
+      .finally(() => {
+        setIsLoadingUpload(false);
+      });
+  }, []);
+
+  const handleDelete = (resumeId: string) => {
+    setResumeDeleteID(resumeId);
+    openModal();
   };
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newFile: File | undefined = event.target.files?.[0];
-    setFile(newFile || null);
-    alert(newFile?.name);
+  const handleDeleteSuccess = () => {
+    toast
+      .promise(UserService.deleteResume(resumeDeleteID), {
+        pending: `Deleting your resume`,
+        success: `Your resume was deleted`,
+        error: `Failed to delete your resume`,
+      })
+      .then(() => {
+        // Clean up
+        setResumeList(
+          [...resumeList].filter(
+            (resume) => (resume as any).resumeId !== resumeDeleteID,
+          ),
+        );
+        setResumeDeleteID(null);
+        closeModal();
+      });
+  };
+
+  const handleEdit = (url: string) => {
+    window.open(url, "_blank");
+  };
+
+  const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files;
+    if (!fileList) {
+      return toast.error(`File is empty or not found`);
+    }
+
+    if (fileList.length === 0) {
+      return toast.error(`File is empty`);
+    }
+
+    const formData = new FormData();
+    formData.append("imageFile", fileList[0]);
+
+    toast
+      .promise(UserService.uploadResume(formData), {
+        pending: `Uploading your resume`,
+        success: `Your resume was uploaded`,
+        error: `Failed to upload your resume`,
+      })
+      .then((response) => {
+        setResumeList([...resumeList, response.data.result]);
+      });
+
     closeModalUpload();
   };
 
   function closeModal() {
-    setIsOpen(false);
+    setVisibleDeleteModal(false);
   }
 
   function openModal() {
-    setIsOpen(true);
+    setVisibleDeleteModal(true);
   }
 
   function closeModalUpload() {
@@ -83,8 +132,6 @@ export default function UserProfileMyResume() {
   function openModalUpload() {
     setIsUpload(true);
   }
-
-  console.log(priorityCV);
 
   return (
     <div className={classNames(`flex-1 flex flex-col gap-4`)}>
@@ -108,58 +155,51 @@ export default function UserProfileMyResume() {
             </label>
           </div>
         </div>
+
         <div
           className={classNames(
-            `flex flex-col gap-4 w-full border-t border-gray-200 pt-2`,
+            `flex flex-col gap-4 w-full border-t border-gray-200 pt-5`,
           )}
         >
-          <h3 className="text-lg">Resume Created</h3>
           <div className={classNames(`flex flex-wrap -mx-4`)}>
-            {listCV
-              .filter((item) => item.type === "create")
-              .map((resume) => (
-                <UserResume
-                  key={resume.id}
-                  priorityCV={priorityCV}
-                  id={resume.id}
-                  name={resume.name}
-                  date={resume.date}
-                  onDelete={() => {
-                    openModal();
-                  }}
-                  onEdit={() => {
-                    alert(`Xem chi tiết ${resume.name}`);
-                  }}
-                  onClick={() => handleSetPriorityCV(resume.id)}
-                />
-              ))}
-          </div>
-        </div>
-        <div
-          className={classNames(
-            `flex flex-col gap-4 w-full border-t border-gray-200 pt-2`,
-          )}
-        >
-          <h3 className="text-lg">Resume Uploaded</h3>
-          <div className={classNames(`flex flex-wrap -mx-4`)}>
-            {listCV
-              .filter((item) => item.type === "upload")
-              .map((resume) => (
-                <UserResume
-                  key={resume.id}
-                  priorityCV={priorityCV}
-                  id={resume.id}
-                  name={resume.name}
-                  date={resume.date}
-                  onDelete={() => {
-                    openModal();
-                  }}
-                  onEdit={() => {
-                    alert(`Xem chi tiết ${resume.name}`);
-                  }}
-                  onClick={() => handleSetPriorityCV(resume.id)}
-                />
-              ))}
+            {isLoadingUpload ? (
+              <div className="flex items-center justify-center w-full my-4">
+                <LoadSpinner className="text-3xl text-emerald-500" />
+              </div>
+            ) : (
+              <>
+                {resumeList.length > 0 ? (
+                  <>
+                    {resumeList.map((resume: any) => {
+                      const date = moment(resume.createdDate).format(
+                        "Do MMM, YYYY",
+                      );
+                      console.log(resume);
+                      return (
+                        <UserResume
+                          key={resume.resumeId}
+                          id={resume.resumeId}
+                          priorityCV={priorityCV}
+                          name={resume.name}
+                          date={date}
+                          onDelete={() => {
+                            handleDelete(resume.resumeId);
+                          }}
+                          onEdit={() => {
+                            handleEdit(resume.resumeUpload);
+                          }}
+                          onClick={() => handleSetPriorityCV(resume.resumeId)}
+                        />
+                      );
+                    })}
+                  </>
+                ) : (
+                  <div className="flex items-center justify-center w-full">
+                    You don't have a resume
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -186,7 +226,7 @@ export default function UserProfileMyResume() {
             )}
           >
             <HiPlus size={25} />
-            <span>Create your CV</span>
+            <span>Create your resume</span>
           </Link>
           <label
             htmlFor="file-input"
@@ -199,33 +239,24 @@ export default function UserProfileMyResume() {
           >
             <HiArrowUpTray size={25} />
 
-            <span> Upload your CV</span>
+            <span> Upload your resume</span>
           </label>
 
           <input
             type="file"
             id="file-input"
             className="hidden"
+            accept="application/pdf"
             onChange={handleFileUpload}
           />
         </div>
       </Modal>
 
-      <Modal
-        isOpen={isOpen}
-        onClose={closeModal}
-        title=" Do you want to delete this resume ?"
-        cancelTitle="No"
-        successClass="text-red-900 bg-red-100 hover:bg-red-200 focus-visible:ring-red-500"
-        successTitle="Yes"
-        handleSucces={handleDelete}
-        titleClass=""
-        size=""
-      >
-        <p className="text-sm text-gray-500">
-          If you agree, the resume will be removed from your resume list
-        </p>
-      </Modal>
+      <ResumeDeleteModal
+        visible={visibleDeleteModal}
+        onAccept={handleDeleteSuccess}
+        onCancel={closeModal}
+      />
     </div>
   );
 }

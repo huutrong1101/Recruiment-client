@@ -1,92 +1,91 @@
 import React from "react";
 import { Link, createSearchParams } from "react-router-dom";
 import classNames from "classnames";
-import { QueryConfig } from "../../AdminManagerList/ManagetJobList";
+import { QueryConfig } from "../../AdminManagerList/AdminTable";
 
 interface Props {
   queryConfig: QueryConfig;
   pageSize: number;
 }
 
-const RANGE = 0;
+const RANGE = 2;
 
 export default function Paginationjoblist({ queryConfig, pageSize }: Props) {
   const page = Number(queryConfig.page);
 
   const renderPaginationjoblist = () => {
-    // let dotAfter = false;
-    // let dotBefore = false;
+    let dotAfter = false;
+    let dotBefore = false;
 
-    // const renderDotBefore = (page: number) => {
-    //   if (!dotBefore) {
-    //     dotBefore = true;
-    //     return (
-    //       <button
-    //         key={page}
-    //         className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"
-    //       >
-    //         ...
-    //       </button>
-    //     );
-    //   }
-    //   return null;
-    // };
+    const renderDotBefore = (index: number) => {
+      if (!dotBefore) {
+        dotBefore = true;
+        return (
+          <button
+            key={index}
+            className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"
+          >
+            ...
+          </button>
+        );
+      }
+      return null;
+    };
 
-    // const renderDotAfter = (page: number) => {
-    //   if (!dotAfter) {
-    //     dotAfter = true;
-    //     return (
-    //       <span
-    //         key={page}
-    //         className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"
-    //       >
-    //         ...
-    //       </span>
-    //     );
-    //   }
-    //   return null;
-    // };
+    const renderDotAfter = (index: number) => {
+      if (!dotAfter) {
+        dotAfter = true;
+        return (
+          <span
+            key={index}
+            className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"
+          >
+            ...
+          </span>
+        );
+      }
+      return null;
+    };
 
     return Array(pageSize)
       .fill(0)
-      .map((_, page) => {
-        const pageNumber = page + 1;
+      .map((_, index) => {
+        const pageNumber = index + 1;
 
-        // if (
-        //   page <= RANGE * 2 + 1 &&
-        //   pageNumber > page + RANGE &&
-        //   pageNumber < pageSize - RANGE + 1
-        // ) {
-        //   return renderDotAfter(page);
-        // } else if (page > RANGE * 2 + 1 && page < pageSize - RANGE * 2) {
-        //   if (pageNumber < page - RANGE && pageNumber > RANGE) {
-        //     return renderDotBefore(page);
-        //   } else if (
-        //     pageNumber > page + RANGE &&
-        //     pageNumber < pageSize - RANGE + 1
-        //   ) {
-        //     return renderDotAfter(page);
-        //   }
-        // } else if (
-        //   page >= pageSize - RANGE * 2 &&
-        //   pageNumber > RANGE &&
-        //   pageNumber < page - RANGE
-        // ) {
-        //   return renderDotBefore(page);
-        // }
+        if (
+          page <= RANGE * 2 + 1 &&
+          pageNumber > page + RANGE &&
+          pageNumber < pageSize - RANGE + 1
+        ) {
+          return renderDotAfter(index);
+        } else if (page > RANGE * 2 + 1 && page < pageSize - RANGE * 2) {
+          if (pageNumber < page - RANGE && pageNumber > RANGE) {
+            return renderDotBefore(index);
+          } else if (
+            pageNumber > page + RANGE &&
+            pageNumber < pageSize - RANGE + 1
+          ) {
+            return renderDotAfter(index);
+          }
+        } else if (
+          page >= pageSize - RANGE * 2 &&
+          pageNumber > RANGE &&
+          pageNumber < page - RANGE
+        ) {
+          return renderDotBefore(index);
+        }
 
-        
         return (
-          <li key={page}>
+          <li key={index}>
             <Link
               to={{
-                pathname: "/admin/jobs",
+                pathname: "",
                 search: createSearchParams({
                   ...queryConfig,
-                page: pageNumber.toString(),
+                  page: pageNumber.toString(),
                 }).toString(),
               }}
-              key={page}
+              key={index}
               className={classNames(
                 "mx-2 cursor-pointer rounded border bg-white px-3 py-2 shadow-sm",
                 {
@@ -101,8 +100,6 @@ export default function Paginationjoblist({ queryConfig, pageSize }: Props) {
         );
       });
   };
-
-
   return (
     <>
       <nav
@@ -118,7 +115,7 @@ export default function Paginationjoblist({ queryConfig, pageSize }: Props) {
             ) : (
               <Link
                 to={{
-                  pathname: "/admin/jobs",
+                  pathname: "",
                   search: createSearchParams({
                     ...queryConfig,
                     page: (page - 1).toString(),
@@ -141,15 +138,15 @@ export default function Paginationjoblist({ queryConfig, pageSize }: Props) {
             ) : (
               <Link
                 to={{
-                  pathname: "/admin/jobs",
+                  pathname: "",
                   search: createSearchParams({
                     ...queryConfig,
-                    page: (page + 1).toString(),
+                    page: (page - 1).toString(),
                   }).toString(),
                 }}
                 className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"
               >
-                Next
+                Prev
               </Link>
             )}
           </li>
