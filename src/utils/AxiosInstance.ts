@@ -17,7 +17,7 @@ const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 });
 
-async function requestRefreshAccessToken() {
+export async function requestRefreshAccessToken() {
   if (!hasRefreshToken()) {
     console.warn(
       `Refresh token has not been found. Clean the accessToken and return sign in page`,
@@ -30,7 +30,7 @@ async function requestRefreshAccessToken() {
     "/auth/refresh-access-token",
     {
       refreshToken: getRefreshToken(),
-      accessToken: getLocalToken(),
+      accessToken: null,
     },
     {
       headers: {
@@ -43,6 +43,8 @@ async function requestRefreshAccessToken() {
   // console.log(response.data);
   setLocalToken(accessToken);
   console.debug(`The access token was just replaced by ${accessToken}`);
+
+  return { refreshToken, accessToken };
 }
 
 axios.interceptors.request.use(function (config) {

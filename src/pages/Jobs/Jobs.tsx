@@ -76,7 +76,7 @@ export default function Jobs() {
       try {
         if (queryConfig) {
           const query = qs.stringify(queryConfig);
-          const response = await axiosInstance(`/jobs?${query}`);
+          const response = await fetchJobWithQuery(query);
           setShowJobs(response.data.result.content);
           setPageSize(response.data.result.totalPages);
 
@@ -101,7 +101,7 @@ export default function Jobs() {
         setIsLoading(true);
         try {
           const query = qs.stringify(queryConfig);
-          const response = await axiosInstance(`/jobs?${query}`);
+          const response = await fetchJobWithQuery(query);
           setShowJobs(response.data.result.content);
           setPageSize(response.data.result.totalPages);
         } catch (error) {
@@ -114,6 +114,12 @@ export default function Jobs() {
       setPrevQueryConfig(queryConfig);
     }
   }, [queryConfig, prevQueryConfig]);
+
+  const fetchJobWithQuery = async (query: string) => {
+    return await axiosInstance(`/jobs?${query}`, {
+      headers: { Authorization: null },
+    });
+  };
 
   const handleSearch = async (e: any) => {
     e.preventDefault();

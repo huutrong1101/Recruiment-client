@@ -17,7 +17,12 @@ export default function Logout() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(authLogout());
+    dispatch(authLogout())
+      .unwrap()
+      .then(() => {
+        history.replaceState({}, "", "/");
+      });
+
     const timeoutId = setTimeout(() => {
       setShowing(true);
     }, 1);
