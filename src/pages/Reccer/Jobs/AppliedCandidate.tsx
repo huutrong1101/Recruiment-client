@@ -33,17 +33,13 @@ export default function Applied() {
       setApplyCandidate(response.data.result.content); // API get
     };
     getApplyCandidate();
-  }, [jobId]);
-
-  const [candidate, setCandidate] = useState<UserProps>();
+  }, [jobId, applyCandidate]);
 
   let navigate = useNavigate();
   const routeChange = (userId: string) => {
     let path = `interview-schedule/${userId}`;
     navigate(path);
   };
-
-  const [state, setState] = useState("");
 
   const handlePass = (candidateId: string) => {
     const data = {
@@ -59,8 +55,6 @@ export default function Applied() {
         success: `The state was changed to pass`,
       })
       .catch((error) => toast.error(error.response.data.result));
-    console.log("pass");
-    console.log(data);
   };
 
   const handleFail = (candidateId: string) => {
@@ -75,7 +69,6 @@ export default function Applied() {
         success: `The state was changed to fail`,
       })
       .catch((error) => toast.error(error.response.data.result));
-    console.log("fail");
   };
 
   // const hehe = applyCandidate.map(
@@ -106,6 +99,9 @@ export default function Applied() {
                 Email
               </th>
               <th scope="col" className="px-6 py-4">
+                Score
+              </th>
+              <th scope="col" className="px-6 py-4">
                 State
               </th>
               <th scope="col" className="px-0 py-4"></th>
@@ -122,6 +118,11 @@ export default function Applied() {
                   {applyCandidate.candidateFullName}
                 </td>
                 <td className="px-6 py-4">{applyCandidate.candidateEmail}</td>
+                <td className="px-6 py-4">
+                  {applyCandidate.score
+                    ? applyCandidate.score + " / 100"
+                    : "Pending"}
+                </td>
                 <td className="px-4 py-4 rounded-lg p-2 mx-2 my-1">
                   <span
                     className={`rounded-lg p-2 mx-2 my-1  ${
