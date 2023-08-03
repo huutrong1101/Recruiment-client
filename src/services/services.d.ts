@@ -47,6 +47,10 @@ export interface JobListConfig {
   location?: string;
   posName?: string;
 }
+export interface AppliedCandidateListConfig {
+  name?: string;
+  state?: string;
+}
 
 export interface RecInterviewerListConfig {
   page?: number | string;

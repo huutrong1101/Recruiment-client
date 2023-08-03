@@ -1,16 +1,28 @@
 import {
+  AdjustmentsHorizontalIcon,
   CalendarDaysIcon,
   CheckIcon,
   PencilSquareIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import classNames from "classnames";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Fragment, useEffect, useState } from "react";
+import {
+  Link,
+  createSearchParams,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import axiosInstance from "../../../utils/AxiosInstance";
 import { APPLY_STATUS } from "../../../utils/Localization";
 import { toast } from "react-toastify";
 import { StateService } from "../../../services/changeState";
+import { Menu, Transition } from "@headlessui/react";
+import { omitBy, isUndefined } from "lodash";
+import { AppliedCandidateListConfig } from "../../../services/services";
+import useQueryParams from "../../../hooks/useQueryParams";
+import { isEqual } from "lodash";
+import qs from "query-string";
 
 interface UserProps {
   candidateId: string;
@@ -18,9 +30,32 @@ interface UserProps {
   state: string;
 }
 
+export type QueryConfig = {
+  [key in keyof AppliedCandidateListConfig]: string;
+};
+
 export default function Applied() {
   const { jobId } = useParams();
+
   const [applyCandidate, setApplyCandidate] = useState<any[]>([]);
+
+  const StateType = ["NOT_RECEIVED", "RECEIVED", "PASSED", "FAILED"];
+
+  const [state, setState] = useState("");
+
+  const queryParams: QueryConfig = useQueryParams();
+
+  const queryConfig: QueryConfig = omitBy(
+    {
+      name: queryParams.name,
+      state: queryParams.state,
+    },
+    isUndefined,
+  );
+
+  const [prevQueryConfig, setPrevQueryConfig] =
+    useState<QueryConfig>(queryConfig);
+
   useEffect(() => {
     const getApplyCandidate = async () => {
       const response = await axiosInstance.get(
@@ -29,7 +64,36 @@ export default function Applied() {
       setApplyCandidate(response.data.result.content); // API get
     };
     getApplyCandidate();
-  }, [jobId, applyCandidate]);
+  }, []);
+
+  // useEffect(() => {
+  //   const getApplyCandidate = async () => {
+  //     const response = await axiosInstance.get(
+  //       `recruiter/job/${jobId}/candidates`,
+  //     );
+  //     setApplyCandidate(response.data.result.content); // API get
+  //   };
+  //   getApplyCandidate();
+  // }, [jobId, applyCandidate]);
+
+  useEffect(() => {
+    if (!isEqual(prevQueryConfig, queryConfig)) {
+      const fetchApplyCandidate = async () => {
+        try {
+          const query = qs.stringify(queryConfig);
+          const response = await axiosInstance(
+            `/recruiter/job/${jobId}/candidates?${query}`,
+          );
+          setApplyCandidate(response.data.result.content);
+        } catch (error) {
+          console.log(error);
+        } finally {
+        }
+      };
+      fetchApplyCandidate();
+      setPrevQueryConfig(queryConfig);
+    }
+  }, [queryConfig, prevQueryConfig]);
 
   let navigate = useNavigate();
   const routeChange = (userId: string) => {
@@ -43,7 +107,6 @@ export default function Applied() {
       jobId: jobId || "",
       state: "passed",
     };
-    // console.log(candidateId);
 
     toast
       .promise(StateService.changeState(data), {
@@ -67,14 +130,6 @@ export default function Applied() {
       .catch((error) => toast.error(error.response.data.result));
   };
 
-  // const hehe = applyCandidate.map(
-  //   (applyCandidate, index) => applyCandidate.state,
-  // );
-
-  // applyCandidate.map((applyCandidate) =>
-  //   const state = applyCandidate.state
-  //   )
-
   return (
     <div
       className={classNames(
@@ -84,8 +139,8 @@ export default function Applied() {
       )}
     >
       <h1 className="text-2xl font-semibold">Applied Candidate</h1>
-      <div className="relative overflow-x-auto p-4">
-        <table className="w-full text-sm text-left text-gray-500 ">
+      <div className="relative p-4 overflow-x-auto">
+        <table className="w-full text-sm text-left text-gray-500">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
               <th scope="col" className="px-6 py-4">
@@ -98,7 +153,55 @@ export default function Applied() {
                 Score
               </th>
               <th scope="col" className="px-6 py-4">
-                State
+                <Menu as="div" className={classNames("relative")}>
+                  <Menu.Button
+                    className={classNames(
+                      "cursor-pointer flex items-center gap-3 w-full text-xs text-gray-700 uppercase bg-gray-50 ",
+                    )}
+                  >
+                    State
+                    <AdjustmentsHorizontalIcon className="w-4 h-4" />
+                  </Menu.Button>
+
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="absolute left-0 z-10 w-3/4 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <div className="py-1">
+                        {StateType.map((state, index) => (
+                          <Menu.Item key={index}>
+                            {({ active }) => (
+                              <Link
+                                to={{
+                                  pathname: "",
+                                  search: createSearchParams({
+                                    ...queryConfig,
+                                    state: state,
+                                  }).toString(),
+                                }}
+                                className={classNames(
+                                  active
+                                    ? "bg-gray-100 text-gray-900"
+                                    : "text-gray-700",
+                                  "block px-4 py-2 text-[12px]",
+                                )}
+                                // onClick={() => handleFilter(state)}
+                              >
+                                {state}
+                              </Link>
+                            )}
+                          </Menu.Item>
+                        ))}
+                      </div>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
               </th>
               <th scope="col" className="px-0 py-4"></th>
               <th className="py-4"></th>
@@ -119,7 +222,7 @@ export default function Applied() {
                     ? applyCandidate.score + " / 100"
                     : "Pending"}
                 </td>
-                <td className="px-4 py-4 rounded-lg p-2 mx-2 my-1">
+                <td className="p-2 px-4 py-4 mx-2 my-1 rounded-lg">
                   <span
                     className={`rounded-lg p-2 mx-2 my-1  ${
                       applyCandidate.state === "PASSED"
