@@ -82,19 +82,19 @@ const CandidateRecent = () => {
                                 <TableRow key={index} className={`even:bg-slate-50`}>
                                     <TableCell component="th" scope="row">
                                         <div className='flex items-center'>
-                                            <img src={candidate.avatar} className='h-10 w-10 rounded-full mr-4' />
-                                            <div>{candidate.name}</div>
+                                            <img src={candidate?.avatar} className='h-10 w-10 rounded-full mr-4' />
+                                            <div>{candidate?.name}</div>
                                         </div>
                                     </TableCell>
-                                    <TableCell>{candidate.position}</TableCell>
-                                    <TableCell>{candidate.date}</TableCell>
+                                    <TableCell>{candidate?.position}</TableCell>
+                                    <TableCell>{candidate?.date}</TableCell>
                                     <TableCell>
                                         <div className={`${(index*123*4)%100?"badge-completed":"badge-pending"}`}>
                                             <div className='dot'></div>
-                                            <div>{candidate.state}</div>
+                                            <div>{candidate?.state}</div>
                                         </div>
                                     </TableCell>
-                                    <TableCell>{candidate.score === -1? "NULL":candidate.score}</TableCell>
+                                    <TableCell>{candidate?.score === -1? "NULL":candidate.score}</TableCell>
                                     <TableCell>
                                         <Link to={`/interviewer/candidate-recent/${candidate.interviewId}`} >
                                             <PencilIcon className='w-4 h-4' />
