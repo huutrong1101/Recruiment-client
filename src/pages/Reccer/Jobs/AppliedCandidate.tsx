@@ -2,6 +2,7 @@ import {
   AdjustmentsHorizontalIcon,
   CalendarDaysIcon,
   CheckIcon,
+  MagnifyingGlassIcon,
   PencilSquareIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
@@ -23,6 +24,7 @@ import { AppliedCandidateListConfig } from "../../../services/services";
 import useQueryParams from "../../../hooks/useQueryParams";
 import { isEqual } from "lodash";
 import qs from "query-string";
+import { BsFilterLeft } from "react-icons/bs";
 
 interface UserProps {
   candidateId: string;
@@ -64,7 +66,7 @@ export default function Applied() {
       setApplyCandidate(response.data.result.content); // API get
     };
     getApplyCandidate();
-  }, []);
+  }, [state]);
 
   // useEffect(() => {
   //   const getApplyCandidate = async () => {
@@ -139,6 +141,7 @@ export default function Applied() {
       )}
     >
       <h1 className="text-2xl font-semibold">Applied Candidate</h1>
+
       <div className="relative p-4 overflow-x-auto">
         <table className="w-full text-sm text-left text-gray-500">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
