@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import classNames from "classnames";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import { Menu, Transition } from "@headlessui/react";
-import { JobData, JobDataInterface } from "../../data/jobData";
+import { JobDataInterface } from "../../data/jobData";
 import {
   AcademicCapIcon,
   BriefcaseIcon,
@@ -31,17 +31,18 @@ export default function EditJobCard({
   deadline,
   setDeadline,
 }: any) {
-  const location = useAppSelector((state) => state.Job.location);
-  const employeeType = useAppSelector((state) => state.Job.postion);
-  const jobType = useAppSelector((state) => state.Job.type);
+  const location = useAppSelector((state) => state.Job?.location);
+  const employeeType = useAppSelector((state) => state.Job?.postion);
+  const jobType = useAppSelector((state) => state.Job?.type);
 
   const listData = cardData.map((data: any) => data.value);
+
+
 
   setpositionId(listData[0]);
   setLocation(listData[1]);
   setjobType(listData[2]);
-  // console.log(positionId)
-  const handleDateChange = (date) => {
+  const handleDateChange = (date: any) => {
     setDeadline(date);
   };
   const formattedLocation = location.map((item, index) => ({
@@ -49,15 +50,18 @@ export default function EditJobCard({
     value: item,
   }));
 
+
   const formattedEmployeeType = employeeType.map((item, index) => ({
     id: index + 1,
     value: item,
   }));
 
+
   const formattedJobType = jobType.map((item, index) => ({
     id: index + 1,
     value: item,
   }));
+
 
   const JobData: JobDataInterface = {
     listJobInfoSearch: {
@@ -109,6 +113,7 @@ export default function EditJobCard({
                         <div className="py-1">
                           {JobData &&
                             JobData.listJobInfoSearch &&
+                            JobData.listJobInfoSearch[item.name] &&
                             JobData.listJobInfoSearch[item.name].map(
                               (e, _idx) => (
                                 <Menu.Item key={_idx}>

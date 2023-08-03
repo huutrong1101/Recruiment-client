@@ -33,6 +33,10 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import EditJobCard from "../../../components/RecJob/EditJobCard";
 
 export default function ReccerJobDetail() {
+
+  const [jobInformation, setJobInformation] = useState([
+    { icon: <UserIcon />, name: "", value: "" },
+  ]);
   //############## Handle Get ##############
   const { jobId } = useParams();
   const [job, setJob] = useState<JobInterface | null>(null);
@@ -98,17 +102,9 @@ export default function ReccerJobDetail() {
   };
 
   const skillsArray = job?.skills.map((item) => item.name);
-  
+
   // ############## Handle Put ##############
-  const [jobInformation, setJobInformation] = useState([
-    { icon: <UserIcon />, name: "Employee Type", value: "" },
-    { icon: <MapPinIcon />, name: "Location", value: "" },
-    {
-      icon: <ComputerDesktopIcon />,
-      name: "Job Type",
-      value: "",
-    },
-  ]);
+
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchRecInterviewerSkill());
@@ -290,7 +286,7 @@ export default function ReccerJobDetail() {
               <button
                 onClick={handleSubmit}
                 className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-2 my-1 text-white"
-                // onClick={routeChange}
+              // onClick={routeChange}
               >
                 Save
               </button>
