@@ -49,8 +49,7 @@ export default function ReccerEventManagement() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [prevQueryConfig, setPrevQueryConfig] =
-    useState<QueryConfig>(queryConfig);
-
+  useState<QueryConfig>(queryConfig);
   useEffect(() => {
     const fetchPosition = async () => {
       setIsLoading(true);
@@ -129,36 +128,36 @@ export default function ReccerEventManagement() {
       <div>
         {/* Search */}
         <div className="justify-center flex grid-cols-[100%] sm:grid-cols-[15%,60%,25%] gap-1 pt-5 mx-auto lg:grid-cols-[25%,60%,25%] ">
-        <form
-          onSubmit={handleSearch}
-          className="inline-flex items-center justify-start gap-1 px-0.5 py-0.5 bg-white border rounded-xl bg-opacity-5"
-        >
-          <div className="flex items-center justify-center gap-3 relative">              
-            <input
-              type="text"
-              className="font-medium outline-none text-gray-900 text-[14px] h-[30px] text-left rounded-lg"
-              value={dataSearch.key}
-              onChange={(e) =>
-                setDataSearch({ ...dataSearch, key: e.target.value })
-              }
+          <form
+            onSubmit={handleSearch}
+            className="inline-flex items-center justify-start gap-1 px-0.5 py-0.5 bg-white border rounded-xl bg-opacity-5"
+          >
+            <div className="flex items-center justify-center gap-3 relative">
+              <input
+                type="text"
+                className="font-medium outline-none text-gray-900 text-[14px] h-[30px] text-left rounded-lg"
+                value={dataSearch.key}
+                onChange={(e) =>
+                  setDataSearch({ ...dataSearch, key: e.target.value })
+                }
                 placeholder=" Please enter a search     "
               />
             </div>
-        </form>
-        <button
-          onClick={() => handleSearch()}
-          className="px-6 py-1.5 ml-5 text-white rounded-lg bg-emerald-600 hover:bg-emerald-800"
-        >
-          Search
-        </button>
+          </form>
+          <button
+            onClick={() => handleSearch()}
+            className="px-6 py-1.5 ml-5 text-white rounded-lg bg-emerald-600 hover:bg-emerald-800"
+          >
+            Search
+          </button>
 
         </div>
         {/* Add Event */}
-        <NavLink to="/recruiter/events-add" onClick={() => { }}>
           <button className="text-white shadow text-sm font-medium leading-tight flex py-2 px-2 justify-start bg-emerald-600 rounded-xl ">
-            + Add Event
+            <NavLink to="/recruiter/events-add" onClick={() => { }}>
+              + Add Event
+            </NavLink>
           </button>
-        </NavLink>
 
         {/* Conten */}
         <div>
@@ -169,9 +168,8 @@ export default function ReccerEventManagement() {
           ) : (
             <div className="flex flex-wrap -mx-4 mt-[50px]">
               {/* <!-- Card --> */}
-
-              <>
-                {showEvents.map((event) => (
+              {showEvents && showEvents.length > 0 ?
+                (showEvents.map((event) => (
                   <div key={event.id} className="w-full px-4 mb-8 md:w-1/3">
                     {/* <BlogCard event={event} /> */}
                     <div className="bg-white rounded-lg shadow-lg">
@@ -190,7 +188,7 @@ export default function ReccerEventManagement() {
                           <div className={classnames("flex items-center gap-1")}>
                             <ClockIcon className={classnames(`w-[20px]`)} />
                             <p>{event.time}</p>
-                          </div>
+\\\                          </div>
                         </div>
                         <div className={classnames("mt-2")}>
                           <h3
@@ -215,8 +213,12 @@ export default function ReccerEventManagement() {
                       </div>
                     </div>
                   </div>
-                ))}
-              </>
+                ))
+                ) : (
+                  <div className="flex justify-center w-full mb-10">
+                    <span>Không tìm thấy kết quả</span>
+                  </div>
+                  )}
 
             </div>
           )}
