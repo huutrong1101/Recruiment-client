@@ -53,7 +53,7 @@ export default function Suggested() {
         <h1 className="text-2xl font-semibold">Suggested Candidate</h1>
         <div
           className={classNames(
-            `flex flex-col md:flex-row gap-12 justify-center`,
+            `flex md:flex-row gap-12 justify-center flex-wrap`,
             `py-4`,
           )}
         >
@@ -88,9 +88,7 @@ export default function Suggested() {
                     </div>
                   </div>
                   <div className="pt-4">
-                    <Link
-                      to={`/recruiter/candidates/${candidates.userId}`}
-                    >
+                    <Link to={`/recruiter/candidates/${candidates.userId}`}>
                       <button className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 border-emerald-600 dark:border-emerald-600 text-white rounded-md">
                         Profile
                       </button>

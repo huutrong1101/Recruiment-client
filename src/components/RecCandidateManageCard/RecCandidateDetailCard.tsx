@@ -130,17 +130,22 @@ export default function RecCandidateDetailCard(props: any) {
                         )}
                       >
                         <div className="text-2xl font-semibold">Education</div>
-                        {candidate?.educations?.map((education, index) => (
-                          <>
-                            <p
-                              key={index}
-                              className="text-zinc-600 mt-3 text-lg "
-                            >
-                              {education.educationId}. {education.schoolName}
-                              {education.specialized} - {education?.certificate}
-                            </p>
-                          </>
-                        ))}
+                        <div className="flex gap-4 flex-wrap">
+                          {JSON.parse(candidate.information).education.map(
+                            (edu: any, index:any) => (
+                              <>
+                                <div
+                                  key={index}
+                                  className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                                >
+                                    <p>School: {edu.school}</p>
+                                    <p>Major: {edu.major}</p>
+                                    <p>Graduated Year: {edu.graduatedYear}</p>
+                                </div>
+                              </>
+                            ),
+                          )}
+                        </div>
                       </div>
                       <div
                         className={classNames(
