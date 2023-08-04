@@ -343,8 +343,8 @@ export default function QuestionInterview() {
                                   key={question.questionId}>
                                   <td className="basis-1/6 mx-3">{question.skill}</td>
                                   <td className="basis-1/6 mx-3">{question.typeQuestion}</td>
-                                  <td className="basis-2/6 mx-3 flex-nowrap">{question.content}</td>
-                                  <td className="basis-2/6 mx-3 flex-nowrap">{question.note}</td>
+                                  <td className="basis-2/6 mx-3 flex-nowrap truncate">{question.content}</td>
+                                  <td className="basis-2/6 mx-3 flex-nowrap truncate">{question.note}</td>
                                   <td className="inline-flex gap-x-2 basis-1/6 justify-center">
                                     <button className="p-2 hover:bg-zinc-300 hover:rounded-md "
                                       onClick={() => {
