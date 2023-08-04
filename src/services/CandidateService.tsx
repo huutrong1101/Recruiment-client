@@ -1,5 +1,5 @@
 import axiosInstance from "../utils/AxiosInstance";
-import { ResumeResponse } from "./services";
+import qs from "qs";
 
 export function getCandidateResume() {
   return axiosInstance.get(`/candidate/resumes`);
@@ -16,4 +16,10 @@ export async function sendApplyRequestToJob({
     throw new Error(`Parameter is not found`);
   }
   return axiosInstance.post(`/candidate/jobs/${jobId}`, { resumeId });
+}
+
+export async function getCandidateSubmittedJobs({ index, size }: any) {
+  const query = qs.stringify({ index, size });
+
+  return axiosInstance.get(`/candidate/jobs/applicants?${query}`);
 }

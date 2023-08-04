@@ -2,6 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { STATUS } from "../../utils/Status";
 import { getLocalToken } from "../../utils/localToken";
 import axiosInstance from "../../utils/AxiosInstance";
+import { toast } from "react-toastify";
+
 
 const INTInterviewsSlice = createSlice({
   name: "INTInterviews",
@@ -27,7 +29,8 @@ const INTInterviewsSlice = createSlice({
         state.INTTotalInterviews = action.payload.totalElements;
         state.INTInterviewsStatus = STATUS.IDLE;
       })
-      .addCase(fetchINTInterviewsData.rejected, (state) => {
+      .addCase(fetchINTInterviewsData.rejected, (state, action) => {
+        toast.error(`${action.error.message}`)
         state.INTInterviewsStatus = STATUS.ERROR;
       })
 
@@ -39,7 +42,8 @@ const INTInterviewsSlice = createSlice({
         state.INTSingleInterview = action.payload;
         state.INTSingleInterviewStatus = STATUS.IDLE;
       })
-      .addCase(fetchINTInterviewByID.rejected, (state) => {
+      .addCase(fetchINTInterviewByID.rejected, (state, action) => {
+        toast.error(`${action.error.message}`)
         state.INTSingleInterviewStatus = STATUS.ERROR;
       })
   }

@@ -51,12 +51,13 @@ export interface JobListConfig {
 export interface RecInterviewerListConfig {
   page?: number | string;
   size?: number | string;
-  fullName?: string;
+  name?: string;
+  skill?:string;
 }
 
 export interface RecInterviewerInterface {
   email: string;
-  phone: number | string;
+  phone:  string;
   fullName: string;
   avatar: string;
   address: string;
@@ -103,6 +104,7 @@ export interface RecInterviewerInterface {
   }[];
   dateOfBirth: string;
   interviewerId: string;
+
 }
 export interface RecCandidateInterface {
   email: string;
@@ -206,6 +208,20 @@ export interface AdminJobPassListConfig {
   page?: number | string;
   size?: number | string;
   id?: number | string;
+}
+export interface AcountFrofileInterface {
+  userId  : string;
+  name: string;
+  createdAt: string;
+  phone: number;
+  address: string;
+  blackDate: string ;
+  blackReason : string ;
+  email: string; 
+  role: string;
+}
+export interface AcountFrofileInterfaceConfig {
+  
 }
 
 export interface AcountInterface {

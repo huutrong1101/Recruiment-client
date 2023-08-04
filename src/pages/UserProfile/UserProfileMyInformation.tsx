@@ -1,59 +1,32 @@
 import React, { useState } from "react";
-import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
 import makeAnimated from "react-select/animated";
-import Field from "../../components/Field/Field";
+import FieldContainer from "../../components/Field/FieldContainer";
+import {
+  CertificateSchema,
+  EducationSchema,
+  ExperienceSchema,
+  ProjectSchema,
+} from "./UserProfileMyInformationSchema";
+import { toast } from "react-toastify";
 
 const colourOptions = [
   { value: "reactjs", label: "ReactJS" },
-  { value: "html-css", label: "HTML-CSS" },
+  { value: "c and csharp", label: "C/C++" },
+  { value: "html", label: "HTML" },
   { value: "java", label: "Java" },
 ];
 
 const animatedComponents = makeAnimated();
 
 export default function UserProfileMyInformation() {
-  const [education, setEducation] = useState([
-    [
-      { title: "School Name", value: "" },
-      { title: "Specialized", value: "" },
-      { title: "Certificate", value: "" },
-    ],
-  ]);
-  const [experience, setExperience] = useState([
-    [
-      { title: "Company Name", value: "" },
-      { title: "Position", value: "" },
-      { title: "Time", value: "" },
-    ],
-  ]);
-  const [certificate, setCertificate] = useState([
-    [
-      { title: "Certificate Name", value: "" },
-      { title: "Certification body", value: "" },
-      { title: "Certification time", value: "" },
-    ],
-  ]);
-  const [aware, setAware] = useState([
-    [
-      { title: "Award Name", value: "" },
-      { title: "Award organization", value: "" },
-      { title: "Award winning time", value: "" },
-    ],
-  ]);
-  const [course, setCourse] = useState([
-    [
-      { title: "Course name", value: "" },
-      { title: "Training organizations", value: "" },
-      { title: "Completion time", value: "" },
-    ],
-  ]);
-  const [project, setProject] = useState([
-    [
-      { title: "Name of project", value: "" },
-      { title: "Position in the project", value: "" },
-      { title: "Decription", value: "" },
-    ],
-  ]);
+  const [containerItem, setContainerItem] = useState({
+    education: [],
+    experience: [],
+    certificate: [],
+    project: [],
+  });
+
   const [selectedOptions, setSelectedOptions] = useState([]);
 
   const handleSelectChange = (selectedOptions: any) => {
@@ -62,17 +35,23 @@ export default function UserProfileMyInformation() {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    alert(
-      JSON.stringify({
-        education,
-        experience,
-        certificate,
-        aware,
-        course,
-        project,
-        selectedOptions,
-      }),
-    );
+    console.log(containerItem);
+  };
+
+  const handleValuesUpdate = (ofId: string, values: any[]) => {
+    const clonedObject = structuredClone(containerItem);
+    clonedObject[ofId] = values;
+    setContainerItem({ ...clonedObject });
+
+    // Maybe save the information
+    // toast.promise(
+    //   {},
+    //   {
+    //     pending: `Saving changes`,
+    //     error: `Failed to save change`,
+    //     success: `Successfully changed`,
+    //   },
+    // );
   };
 
   return (
@@ -80,16 +59,38 @@ export default function UserProfileMyInformation() {
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="pb-12">
           <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-2 sm:grid-cols-6">
-            <Field
+            <FieldContainer
               label="Education"
-              values={education}
-              onChange={setEducation}
+              // values={educationItems}
+              // onChange={setEducation}
+              initialValues={containerItem.education}
+              primaryLabel={`school`}
+              fieldListSchema={EducationSchema}
+              onFieldUpdate={(data) => handleValuesUpdate("education", data)}
             />
 
-            <Field
+            <FieldContainer
               label="Experience"
-              values={experience}
-              onChange={setExperience}
+              initialValues={containerItem.experience}
+              fieldListSchema={ExperienceSchema}
+              primaryLabel={`companyName`}
+              onFieldUpdate={(data) => handleValuesUpdate("experience", data)}
+            />
+
+            <FieldContainer
+              label="Certificate"
+              initialValues={containerItem.certificate}
+              fieldListSchema={CertificateSchema}
+              primaryLabel={`name`}
+              onFieldUpdate={(data) => handleValuesUpdate("certificate", data)}
+            />
+
+            <FieldContainer
+              label="Project"
+              initialValues={containerItem.project}
+              fieldListSchema={ProjectSchema}
+              primaryLabel={`name`}
+              onFieldUpdate={(data) => handleValuesUpdate("project", data)}
             />
 
             <div className="pb-8 mb-3 border-b col-span-full border-gray-900/10">
@@ -100,7 +101,7 @@ export default function UserProfileMyInformation() {
                 Skill
               </label>
               <div className="flex flex-wrap items-center justify-start mt-3 ">
-                <Select
+                <CreatableSelect
                   defaultValue={[colourOptions[0]]}
                   isMulti
                   name="colors"
@@ -120,18 +121,6 @@ export default function UserProfileMyInformation() {
                 />
               </div>
             </div>
-
-            <Field
-              label="Certificate"
-              values={certificate}
-              onChange={setCertificate}
-            />
-
-            <Field label="Aware" values={aware} onChange={setAware} />
-
-            <Field label="Course" values={course} onChange={setCourse} />
-
-            <Field label="Project" values={project} onChange={setProject} />
           </div>
         </div>
         <div className="flex items-center justify-end gap-x-6">

@@ -19,8 +19,6 @@ import {
 import RecFooter from "../../RecFooter/DashboardFooter";
 import NavbarUserLoggedInCard from "../../Navbar/NavbarUserLoggedInCard";
 import { useAppSelector, useAppDispatch } from "../../../hooks/hooks";
-import { setText } from "../../../redux/reducer/SearchSlice";
-import { Breadcrumbs } from "@mui/material";
 
 export const linksAll = [
   {
@@ -111,20 +109,11 @@ const ManagementAppLayOut = () => {
   let links = linksAll;
   if(user?.role == "INTERVIEWER"){
     links = [linksAll[2]]
+  }else if(user?.role == "RECRUITER"){
+    links = [linksAll[1]]
+  }else if(user?.role == "ADMIN"){
+    links = [linksAll[0]]
   }
-
-  const {text} = useAppSelector((state:any) => state.searchFeature);
-  const dispatch = useAppDispatch();
-
-  const handleLoadPage = () => {
-    dispatch(setText(""));
-  };
-
-  const handleChange = (event : any) => {
-    const textInput = event.target.value;
-    dispatch(setText(textInput));
-  }
-
 
   return (
     <div className="ManagementAppLayOut">
@@ -140,15 +129,6 @@ const ManagementAppLayOut = () => {
               <button type="button" onClick={() => setLeftActive(!leftActive)}>
                 <Bars3Icon className="w-5 h-5 mr-2" />
               </button>
-            </div>
-            <div className="navbar-content-mid">
-              <form className="w-[40vw]">
-                <div className="relative">
-                  <MagnifyingGlassIcon className="absolute mt-[0.9rem] ml-[0.75rem] w-5 h-5"/>
-                  <input type="text" id="simple-search" className="bg-gray-50 border border-gray-300 text-base rounded-lg w-full pl-10 p-2.5"
-                        value={text} placeholder="Search Name" onChange={handleChange} required />
-                </div>
-              </form>
             </div>
             <div className="navbar-content-right">
               <NavbarUserLoggedInCard />
@@ -181,7 +161,6 @@ const ManagementAppLayOut = () => {
                   <NavLink
                     to={`/${link.url}`}
                     key={link.name}
-                    onClick={handleLoadPage}
                     className={({ isActive }) =>
                       `${isActive ? activeLink : normalLink} ${leftActive? 'justify-center': 'pl-4'}`
                     }

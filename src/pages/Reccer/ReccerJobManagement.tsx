@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { Link } from "react-router-dom";
 import RecJobCard from "../../components/RecJobManagementCard/RecJobManagementCard";
 import Loader from "../../components/Loader/Loader";
@@ -12,8 +12,11 @@ import qs from "query-string";
 import Pagination from "../../components/Pagination/Pagination";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import classNames from "classnames";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { CakeIcon, ChevronDownIcon, ChevronUpIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { createSearchParams, useNavigate, useParams } from "react-router-dom";
+import { Menu, Transition } from "@headlessui/react";
+import { JOB_POSITION } from "../../utils/Localization";
+import { BsFilterLeft } from "react-icons/bs";
 
 export type QueryConfig = {
   [key in keyof JobListConfig]: string;
@@ -26,8 +29,6 @@ const ReccerJobManagement = () => {
       index: queryParams.index || "1",
       size: queryParams.size || 10,
       name: queryParams.name,
-      location: queryParams.location,
-      posName: queryParams.posName,
       type: queryParams.type,
     },
     isUndefined,
@@ -40,17 +41,19 @@ const ReccerJobManagement = () => {
     (state) => state.RecJobList.recjobsList,
   );
   const totalJobs = useAppSelector((state) => state.RecJobList.recjobTotal);
-
+  // const type = useAppSelector((state) => state.Job.type);
+  const [showType, setShowType] = useState(false);
+  const listType = useAppSelector((state) => state.Job.type);
+  const [type, setType] = useState("");
   const [pageSize, setPageSize] = useState(
     Math.ceil(totalJobs / Number(queryParams.size ?? 10)),
   );
   const [isLoading, setIsLoading] = useState(false);
   const [showJobs, setShowJobs] = useState(jobs);
 
+
   const [dataSearch, setDataSearch] = useState({
     key: "",
-    posName: "",
-    location: "",
     type: "",
   });
 
@@ -103,14 +106,11 @@ const ReccerJobManagement = () => {
   const handleSearch = async () => {
     try {
       setIsLoading(true);
-
       navigate({
         pathname: "../jobs",
         search: createSearchParams({
           ...queryConfig,
           name: dataSearch.key,
-          posName: dataSearch.posName,
-          location: dataSearch.location,
           type: dataSearch.type,
           index: "1",
         }).toString(),
@@ -125,66 +125,93 @@ const ReccerJobManagement = () => {
 
   return (
     <>
-      {/* <form className="flex items-center w-3/4 p-2 mx-auto">
-        <div className="relative w-full">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg
-              className="w-4 h-4 text-gray-500 "
-              aria-hidden="true"
-              fill="none"
-              viewBox="0 0 18 20"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2"
-              />
-            </svg>
-          </div>
-          <input
-            type="text"
-            id="simple-search"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:border-blue-500 block w-full pl-10 p-2.5   "
-            placeholder="Search Name"
-            required
-          />
-        </div>
-        <div className="flex items-center p-5">
-          <Link to="../addjob">
-            <div className="sm:w-[100px] h-[50px] relative">
-              <button
-                className="w-full h-full left-5 top-0 absolute bg-[#48A280] hover:bg-emerald-700 text-white rounded-lg"
-                type="submit"
-              >
-                + Add Job
-              </button>
-            </div>
-          </Link>
-        </div>
-      </form> */}
       <div className="item-center flex justify-center mt-6">
-        <div
+        <div 
           className={classNames(
-            "flex items-center flex-shrink-0 w-1/2 h-1/2 p-2 mt-1 border rounded-lg ",
+            "flex items-center flex-shrink-0 w-[54.5%] h-1/2 p-2 mt-1 border rounded-lg ",
             "focus-within:border-emerald-700",
           )}
         >
+          <div
+            className={classNames(
+              "flex items-center w-full mr-5 gap-4 md:w-[40%] border-r-2",
+            )}
+          >
+            <BsFilterLeft className={classNames(`w-[20px]  md:ml-4`)} />
+            <Menu as="div" className={classNames("relative w-full")}>
+              <Menu.Button className={classNames("w-full")}>
+                <div
+                  className={classNames(
+                    "text-[13px] cursor-pointer flex items-center justify-between",
+                  )}
+                  onClick={() => setShowType(!showType)}
+                >
+                  {JOB_POSITION[type] || "TYPE OF JOB"}
+                  {showType && (
+                    <ChevronUpIcon className={classNames("w-[20px] mr-4")} />
+                  )}
+                  {!showType && (
+                    <ChevronDownIcon className={classNames("w-[20px] mr-4")} />
+                  )}
+                </div>
+              </Menu.Button>
+
+              <Transition
+                as={Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+              >
+                <Menu.Items className="absolute md:left-[-18px] w-full z-10 md:w-55 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <div className="py-1">
+                    {listType.map((type, index) => (
+                      <Menu.Item key={index}>
+                        {({ active }) => (
+                          <p
+                            className={classNames(
+                              active
+                                ? "bg-gray-100 text-gray-900"
+                                : "text-gray-700",
+                              "block px-4 py-2 text-sm",
+                            )}
+                            onClick={() => {
+                              setType(type);
+                              setShowType(false);
+                              setDataSearch({
+                                ...dataSearch,
+                                type: type,
+                              });
+                            }}
+                          >
+                            {JOB_POSITION[type]}
+                          </p>
+                        )}
+                      </Menu.Item>
+                    ))}
+                  </div>
+                </Menu.Items>
+              </Transition>
+            </Menu>
+          </div>
           <MagnifyingGlassIcon className={classNames(`w-[20px]`)} />
           <input
             value={dataSearch.key}
             onChange={(e) =>
               setDataSearch({ ...dataSearch, key: e.target.value })
             }
+
             type="text"
             placeholder="Search your Keywords"
             className={classNames(
               "w-[85%] h-full text-[12px] ml-3 focus:outline-none text-base text-zinc-400",
             )}
           />
+
         </div>
-        <div className={classNames("gap-2 ml-4 items-center justify-center")}>
+        <div className={classNames("gap-2 ml-10 items-center justify-center")}>
           <button
             className={classNames(
               "bg-[#05966A] hover:bg-emerald-700 text-white p-3 rounded-md flex w-full text-center items-center justify-center",

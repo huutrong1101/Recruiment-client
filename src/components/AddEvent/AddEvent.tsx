@@ -12,12 +12,11 @@ import axiosInstance from "../../utils/AxiosInstance";
 
 import {  BiLogoFacebook,  BiLogoInstagram,  BiLogoLinkedin,  BiLogoGitlab,  BiLogoTwitter,} from "react-icons/bi";
 import Contact from "./Contact";
+import moment from "moment";
 export default function AddEvent() {
       
       //Event Content
       const [time, setTime] =     useState('');
-      const [startAt, setstartAt] = useState('');
-      const [deadline, setDeadline] = useState('');
       const [title, settitle] = useState('');
       const [description, setdescription] = useState('');
       const [location, setlocation] = useState('');
@@ -34,7 +33,7 @@ export default function AddEvent() {
       // Các state khác giữ nguyên
 
       //Upload event avatar
-      const handleImageUpload = (event) => {
+      const handleImageUpload = (event: any) => {
         const file = event.target.files[0]; // Lấy file từ sự kiện chọn file
         if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
           setAvatar(file);
@@ -42,28 +41,56 @@ export default function AddEvent() {
           alert('Please choose an image file (jpg or png)');
         }
      };
-      // SubmitButon      
-      const handleSubmit = (event) => {
-        event.preventDefault();
-        // const [formData, setFormData] = useState({
-        //   title: title,
-        //   name: "ghj",
-        //   description: description,
-        //   file: avatar,
-        //   deadline: deadline,
-        //   startAt: startAt,
-        //   location: location,
-        //   time: time,
-        //  });
+      // SubmitButon  
+      const [startAt, setstartAt] = useState("");
+      const [deadline, setDeadline] = useState("");
+      // Hàm chuyển đổi giá trị từ dạng hh:mm:ss yyyy-mm-dd sang dạng phù hợp cho datetime-local
+      const formatDateTimeLocalValue = (value) => {
+        if (!value) return ""; // Nếu giá trị rỗng, trả về chuỗi rỗng
+        // Phân tích giá trị thành giờ, phút, giây, ngày, tháng và năm
+        const [datePart, timePart] = value.split("T");
+        const [year, month, day] = datePart.split("-");
+        const [hour, minute] = timePart.split(":");
+        // Tạo đối tượng Date từ các giá trị phân tích
+        const dateObj = new Date(year, month - 1, day, hour, minute);
+        // Chuyển đổi đối tượng Date thành giá trị phù hợp cho datetime-local
+        const formattedValue =
+          dateObj.toISOString().slice(0, 16) + dateObj.toISOString().slice(24);
+        return formattedValue;
+      };
+      const handleChangeStartAt = (event: any) => {
+        // Lấy giá trị từ trường datetime-local
+        const newValue = event.target.value;        
+        // Chuyển đổi giá trị và lưu vào state
+        setstartAt(newValue);
+      };
+      const handleChangeDeadline = (event: any) => {
+        // Lấy giá trị từ trường datetime-local
+        const newValue = event.target.value;        
+        // Chuyển đổi giá trị và lưu vào state
+        setDeadline(newValue);
+      };    
+      const handleSubmit = (event: any) => {
+        event.preventDefault();      
         const formData = new FormData();
+        const formattedValueStart = moment(startAt).format("HH:mm:ss YYYY-MM-DD");
+        const formattedValueDeadline = moment(deadline).format("HH:mm:ss YYYY-MM-DD");
         formData.append("title", title);
-        formData.append("name", "ghj");
         formData.append("description", description);
         formData.append("file", avatar);
-        formData.append("startAt", startAt);
-        formData.append("deadline", deadline);
+        formData.append("startAt", formattedValueStart);
+        formData.append("deadline", formattedValueDeadline);
         formData.append("location", location);
         formData.append("time", time);
+        // console.log({
+        //   title,
+        //   avatar,
+        //   description,
+        //   location,
+        //   time,
+        //   formattedValueStart,
+        //   formattedValueDeadline,
+        // })
         // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/events/create với FormData
         axiosInstance.post('recruiter/events/create', formData)
           .then((response) => {
@@ -89,7 +116,7 @@ export default function AddEvent() {
       };
   return (
     <>
-        <form className={classnames("flex flex gap-10")} onSubmit={handleSubmit}>
+        <form className={classnames("flex gap-10")} onSubmit={handleSubmit}>
           <div className={classnames("bg-white shadow rounded-xl w-full ml-5 w-75% mt-5")}>
              {/* Img */}
           <div className={classnames("flex items-left px-10 mt-10")}>
@@ -178,20 +205,7 @@ export default function AddEvent() {
                 </div>
               </div>
               <div  className={classnames( "bg-white  w-[30%] sticky top-0 " )} >
-               <div className="border mt-5 mb-5 rounded-xl">
-                  {/* Author  */}
-                  <div  className={classnames( "mp-5 flex items-center justify-center p-2 bg-emerald-600 rounded-tl-lg rounded-tr-lg" )}  >
-                  <h3  className={classnames(  "text-center text-white text-lg font-medium tracking-wider leading-7 capitalize" )}  >  Author </h3>
-                  </div>
-                  <div  className={classnames( "flex items-center justify-center")}   >
-                    <label htmlFor="avaActor">
-                      <img src={avatar} alt="blog_image"  className="w-[175px] h-[175px] rounded-full mt-5 mb-5"/>
-                    </label>
-                  </div>
-                  <div  className={classnames( "flex flex-col gap-1 items-center justify-center my-4 ")}   >
-                    <h3>Content Writer</h3>
-                    <h2>Name : {}</h2>
-                  </div>
+               <div className="border mt-5 mb-5 rounded-xl">      
                 </div>
 
                 {/* Lien he */}
@@ -236,28 +250,28 @@ export default function AddEvent() {
                       />
                     </label>
                 </div>
-                <div className={classnames("flex items-center gap-1 justify-between px-10 mt-4")}>
-                    <label className="">Date Start:
-                      <input
-                        type="datetime-local"
-                        id="startAt"
-                        className="text-emerald-600 border text-sm font-medium leading-tight"
-                        value={startAt}
-                        onChange={(event) => setstartAt(event.target.value)}
-                      />
-                    </label>
+                <div className="flex items-center gap-1 justify-between px-10 mt-4">
+                  <label className="">Date Start:
+                    <input
+                      type="datetime-local"
+                      id="startAt"
+                      className="text-emerald-600 border text-sm font-medium leading-tight"
+                      value={formatDateTimeLocalValue(startAt)}
+                      onChange={handleChangeStartAt}
+                    />
+                  </label>
                 </div>
-                <div className={classnames("flex items-center gap-1 justify-between px-10 mb-10 mt-5")}>
-                    <label className="">Date End:
-                      <input
-                        type="datetime-local"
-                        id="deadline"
-                        className="text-emerald-600 border text-sm font-medium leading-tight"
-                        value={deadline}
-                        onChange={(event) => setDeadline(event.target.value)}
-                      />
-                    </label>
-                </div>                
+                <div className="flex items-center gap-1 justify-between px-10 mb-10 mt-5">
+                  <label className="">Date End:
+                    <input
+                      type="datetime-local"
+                      id="deadline"
+                      className="text-emerald-600 border text-sm font-medium leading-tight"
+                      value={formatDateTimeLocalValue(deadline)}
+                      onChange={handleChangeDeadline}
+                    />
+                  </label>
+                </div>          
               </div>            
           </div>
 

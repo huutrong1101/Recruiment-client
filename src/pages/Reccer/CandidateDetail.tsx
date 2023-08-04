@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useAppSelector } from "../../hooks/hooks";
 import RecCandidateDetailCard from "../../components/RecCandidateManageCard/RecCandidateDetailCard";
-import CandidateList from "./CandidateList";
-import InterviewHistory from "../../components/RecCandidateManageCard/InterviewHistory";
-import {
+  import {
   MdOutlineEmail,
   MdOutlineCalendarMonth,
   MdOutlineLocationOn,
 } from "react-icons/md";
-import { HiOutlineDeviceMobile } from "react-icons/hi";
 import axiosInstance from "../../utils/AxiosInstance";
-import moment from "moment";
 import { RecCandidateInterface } from "../../services/services";
+import InterviewHistory from "../../components/RecCandidateManageCard/InterviewHistory";
 
 export default function CandidateDetail() {
   const { userId } = useParams();
@@ -47,9 +43,6 @@ export default function CandidateDetail() {
       {/* <div className="pb-10">
         <CandidateList />
       </div> */}
-      <div>
-        <InterviewHistory />
-      </div>
     </div>
   );
 }

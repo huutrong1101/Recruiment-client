@@ -157,7 +157,7 @@ export default function RecEventDetail() {
                 <h3 >Time</h3>
                 <label className="">                
                 <input
-                  type="time"
+                  type="text"
                   id="time"
                   className="text-sm font-medium leading-tight border text-emerald-600"
                   value={event?.time}

@@ -1,8 +1,8 @@
 import classNames from "classnames";
 import { PlusIcon, TrashIcon, UserPlusIcon } from "@heroicons/react/24/outline";
 import { TextareaAutosize } from "@mui/material";
-import InterviewerPopup from "./InterviewerPopup";
-// import InterviewerPopup from "./test";
+import InterviewerPopup, { Interviewer } from "./InterviewerPopup";
+import { useState } from "react";
 
 export default function Schedule() {
   const personArray = [
@@ -11,25 +11,22 @@ export default function Schedule() {
       email: "johndoe@example.com",
       phone: "111222333",
       date: new Date().toDateString(),
-      id: "1",
+      id: 1,
+      position: "Web Designer",
     },
   ];
-  const interviewerArray = [
-    {
-      name: "Sarah Wilson",
-      email: "johndoe@example.com",
-      phone: "111222333",
-      date: new Date().toDateString(),
-      id: "1",
-    },
-    {
-      name: "Mark Thompson",
-      email: "johndoe@example.com",
-      phone: "111222333",
-      date: new Date().toDateString(),
-      id: "2",
-    },
-  ];
+
+  const [interviewerArray, setInterviewers] = useState<any[]>([]);
+
+  const handleOnSelectInterviewer = (interviewer: Interviewer) => {
+    setInterviewers([...interviewerArray, interviewer]);
+  };
+  const handleDeleteInterviewer = (interviewerId: string) => {
+    const newList = interviewerArray.filter(
+      (interviewer: any) => interviewer.interviewerId !== interviewerId,
+    );
+    setInterviewers(newList);
+  };
 
   return (
     <div
@@ -43,7 +40,10 @@ export default function Schedule() {
         <h1 className="text-2xl font-semibold">Schedule</h1>
 
         {/* Add Interviewer */}
-        <InterviewerPopup />
+        <InterviewerPopup
+          interviewerArray={interviewerArray}
+          onSelectInterviewer={handleOnSelectInterviewer}
+        />
         {/* /////// */}
       </div>
 
@@ -61,9 +61,9 @@ export default function Schedule() {
               <th scope="col" className="px-6 py-4">
                 Email
               </th>
-              <th scope="col" className="px-6 py-4">
+              {/* <th scope="col" className="px-6 py-4">
                 Date created
-              </th>
+              </th> */}
               <th scope="col" className="py-4">
                 Delete
               </th>
@@ -80,7 +80,7 @@ export default function Schedule() {
                 </td>
                 <td className="px-6 py-4">{personArray.phone}</td>
                 <td className="px-6 py-4">{personArray.email}</td>
-                <td className="px-6 py-4">{personArray.date}</td>
+                {/* <td className="px-6 py-4">{personArray.date}</td> */}
                 <td className="px-4 py-4">
                   <button>
                     <TrashIcon className="w-6 h-6" />
@@ -102,28 +102,32 @@ export default function Schedule() {
               <th scope="col" className="px-6 py-4">
                 Email
               </th>
-              <th scope="col" className="px-6 py-4">
+              {/* <th scope="col" className="px-6 py-4">
                 Date created
-              </th>
+              </th> */}
               <th scope="col" className="py-4">
                 Delete
               </th>
             </tr>
           </thead>
           <tbody>
-            {interviewerArray.map((interviewerArray) => (
-              <tr className="bg-white border-b" key={interviewerArray.id}>
+            {interviewerArray.map((interviewers, index) => (
+              <tr className="bg-white border-b" key={index}>
                 <td
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
                 >
-                  {interviewerArray.name}
+                  {interviewers.fullName}
                 </td>
-                <td className="px-6 py-4">{interviewerArray.phone}</td>
-                <td className="px-6 py-4">{interviewerArray.email}</td>
-                <td className="px-6 py-4">{interviewerArray.date}</td>
+                <td className="px-6 py-4">{interviewers.phone}</td>
+                <td className="px-6 py-4">{interviewers.email}</td>
+                {/* <td className="px-6 py-4">{interviewer.date}</td> */}
                 <td className="px-4 py-4">
-                  <button>
+                  <button
+                    onClick={() =>
+                      handleDeleteInterviewer(interviewers.interviewerId)
+                    }
+                  >
                     <TrashIcon className="w-6 h-6" />
                   </button>
                 </td>
