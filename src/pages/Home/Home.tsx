@@ -74,12 +74,13 @@ export default function Home() {
 
   return (
     <div className={classnames("h-full")}>
-      <div className={classnames("flex justify-between")}>
-        <div
-          className={classnames(
-            "w-[55%] py-8 pl-[30px] md:pl-[60px] lg:pl-[90px]",
-          )}
-        >
+      {/* Hero */}
+      <div
+        className={classnames(
+          "flex justify-center flex-row items-center gap-12 md:gap-24 md:min-h-[80vh]",
+        )}
+      >
+        <div className={classnames("w-4/12")}>
           <img
             src={home_page}
             alt="home_page"
@@ -221,14 +222,15 @@ export default function Home() {
         <div className={classnames("text-center")}>
           <h3
             className={classnames(
-              "text-black text-xl md:text-2xl font-medium leading-7 tracking-wider capitalize",
+              "text-black text-2xl md:text-3xl font-semibold tracking-wider capitalize",
             )}
           >
             Popular Jobs
           </h3>
           <p
             className={classnames(
-              "text-gray-400 text-center text-sm md:text-lg font-medium capitalize",
+              "text-gray-500 text-sm md:text-base font-medium text-center",
+              `mt-2 mb-6 mx-6`,
             )}
           >
             Search all the open positions on the web. Get your own personalized

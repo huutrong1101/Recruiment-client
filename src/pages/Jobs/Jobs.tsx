@@ -7,7 +7,6 @@ import {
 } from "@heroicons/react/20/solid";
 import classNames from "classnames";
 import JobCard from "../../components/JobCard/JobCard";
-import { data } from "../../data/homeData";
 import { useAppSelector } from "../../hooks/hooks";
 import { JobInterface, JobListConfig } from "../../services/services";
 import Pagination from "../../components/Pagination/Pagination";
@@ -15,11 +14,11 @@ import axiosInstance from "../../utils/AxiosInstance";
 import { omitBy, isUndefined } from "lodash";
 import useQueryParams from "../../hooks/useQueryParams";
 import Loader from "../../components/Loader/Loader";
-import qs from "query-string";
 import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import { omit, isEqual } from "lodash";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import { JOB_POSITION } from "../../utils/Localization";
+import { AiOutlineBlock } from "react-icons/ai";
 
 export type QueryConfig = {
   [key in keyof JobListConfig]: string;
@@ -389,32 +388,39 @@ export default function Jobs() {
 
         <div className={classNames("w-[70%]")}>
           {isLoading ? (
-            <div className="flex justify-center my-4">
+            <div className="flex justify-center my-4 min-h-[70vh] flex-col items-center">
               <LoadSpinner className="text-3xl text-emerald-500" />
             </div>
           ) : (
             <div className="flex flex-wrap -mx-4">
               {/* <!-- Card --> */}
               {showJobs.length > 0 ? (
-                showJobs.map((job) => (
-                  <div key={job.jobId} className="w-full px-4 mb-8 md:w-1/2">
-                    <JobCard job={job} />
-                  </div>
-                ))
+                <>
+                  {showJobs.map((job) => (
+                    <>
+                      {" "}
+                      <div className="w-full px-4 mb-8 md:w-1/2">
+                        <JobCard job={job} key={job.jobId} />
+                      </div>
+                    </>
+                  ))}
+                  {/* Pagination  */}
+                  <Pagination
+                    queryConfig={queryConfig}
+                    pageSize={pageSize}
+                    url="/jobs"
+                  />
+                </>
               ) : (
-                <div className="flex justify-center w-full mb-10">
-                  <span>Không tìm thấy kết quả</span>
+                <div className="flex flex-col justify-center w-full mb-10 min-h-[70vh] items-center text-3xl gap-4">
+                  <span>
+                    <AiOutlineBlock />
+                  </span>
+                  <span>Not found any job</span>
                 </div>
               )}
             </div>
           )}
-
-          {/* Pagination  */}
-          <Pagination
-            queryConfig={queryConfig}
-            pageSize={pageSize}
-            url="/jobs"
-          />
         </div>
       </div>
     </>
