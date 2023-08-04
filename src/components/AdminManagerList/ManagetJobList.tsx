@@ -1,6 +1,6 @@
 import{ useState, useEffect } from "react";
 import { NavLink,  Link } from "react-router-dom";
-import {EyeIcon} from "@heroicons/react/24/outline";
+import {EyeIcon, MagnifyingGlassCircleIcon} from "@heroicons/react/24/outline";
 import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
@@ -22,24 +22,25 @@ export type QueryConfig = {
 import axiosInstance from "../../utils/AxiosInstance";
 import Paginationjoblist from "./Pagination/Paginationjoblist";
 import moment from "moment";
+import LoadSpinner from "../LoadSpinner/LoadSpinner";
 
 const ManagetJobList = () => {
-  const dispatch = useAppDispatch();
-  // 
   const jobs:  AdminJobInterface[] = useAppSelector((state) => state.adminmanagerjobList.adminmanagerJobList);
   const totalListJobs = useAppSelector((state) => state.adminmanagerjobList.totalListJobs);
   const queryParams: QueryConfig = useQueryParams();
+  const [isLoading, setIsLoading] = useState(false);
   const queryConfig: QueryConfig = omitBy(
     {
-      size: queryParams.size || 7,  
-      page: queryParams.page || "1",    
+      size: queryParams.size || 5,  
+      page: queryParams.page || "1",   
+      name: queryParams.name || "",
     },
     isUndefined,
   );
   const [prevQueryConfig, setPrevQueryConfig] =
     useState<QueryConfig>(queryConfig);
   const [pageSize, setPageSize] = useState(
-    Math.ceil(totalListJobs / Number(queryParams.size || 7)),
+    Math.ceil(totalListJobs / Number(queryParams.size || 5)),
   );
   const [showJobLists, setAdminManagerJobList] = useState(jobs);
 
@@ -48,7 +49,7 @@ const ManagetJobList = () => {
       const fetchJobs = async () => {
         try {
           const query = qs.stringify(queryConfig);
-          const response = await axiosInstance(`/admin/jobs?${query}`);
+          const response = await axiosInstance(`admin/jobs?${query}`);
           setAdminManagerJobList(response.data.result.content);
           setPageSize(response.data.result.totalPages);
         } catch (error) {
@@ -62,24 +63,79 @@ const ManagetJobList = () => {
 
   useEffect(() => {
     const fetchPosition = async () => {
-      
+      setIsLoading(true);
+      try {
         if (queryConfig) {
           const query = qs.stringify(queryConfig);
-          const response = await axiosInstance(`/admin/jobs?${query}`);
+          const response = await axiosInstance(`admin/jobs?${query}`);
           setAdminManagerJobList(response.data.result.content);
           setPageSize(response.data.result.totalPages);
         }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchPosition();
   }, []);
 
 
+  // 
+  // Search
+  const navigate = useNavigate();
+  const [dataSearch, setDataSearch] = useState({
+    key: "",
+  });
+  const handleSearch = async (e: any) => {
+    e.preventDefault();  
+    try {
+      setIsLoading(true);
+      navigate({
+        pathname: "/admin/jobs",
+        search: createSearchParams({
+          ...queryConfig,
+          name: dataSearch.key,
+        }).toString(),
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
       return (
       <>
-        <div className="flex-col mt-2">
+        <div className="justify-center flex grid-cols-[100%] sm:grid-cols-[15%,60%,25%] gap-1 pt-5 mx-auto lg:grid-cols-[25%,60%,25%] ">
+          <form
+            onSubmit={e => handleSearch(e)}
+            className="inline-flex items-center justify-start gap-1 px-0.5 py-0.5 bg-white border rounded-xl bg-opacity-5"
+          >
+            <div className="flex items-center justify-center gap-3 ml-3 relative w-[20px]"><MagnifyingGlassCircleIcon/></div>
+            <div className="flex items-center justify-center gap-3 relative">
+              <input
+                type="text"
+                className="font-medium ml-10 outline-none text-gray-900 text-[14px] h-[30px] text-left rounded-lg"
+                value={dataSearch.key}
+                onChange={(e) =>
+                  setDataSearch({ ...dataSearch, key: e.target.value })
+                }
+                placeholder=" Please enter a search     "
+              />
+            </div>
+          </form>
+          {/* <button
+          onClick={handleSearch}
+            type="submit"
+            className="px-6 py-1.5 ml-5 text-white rounded-lg bg-emerald-600 hover:bg-emerald-800"
+          >
+            Search
+          </button> */}
+        </div>
+        <div className="flex-col mt-5">
           <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}} >
             <Table className="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
-              <TableHead className="text-xs text-gray-700 bg-gray-200 text-center">
+              <TableHead className="text-xs text-gray-500 bg-gray-200 text-center">
                 <TableRow>
                   <TableCell scope="col" className="px-1 py-1 "  style={{ fontFamily: "Outfit, sans-serif" }}
                   >  Name Jobs                 </TableCell>
@@ -91,9 +147,23 @@ const ManagetJobList = () => {
                   >   Actions </TableCell>
                 </TableRow>
               </TableHead>
+              {isLoading ? (
               <TableBody>
-                {showJobLists.map((job) => (
-              <TableRow className="text-black bg-white text-center justify-center" key={job.idJob}>
+                <TableRow>
+                  <TableCell colSpan={6}>
+                    <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-10 mb-10">
+                      <LoadSpinner className="text-2xl text-[#059669] " />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            ) : (
+              <>
+              <TableBody>
+
+               {showJobLists && showJobLists.length > 0 ?
+                  (showJobLists.map((job) => (
+                  <TableRow className="text-black bg-white text-center justify-center" key={job.idJob}>
                   <TableCell scope="row" className="font-medium text-gray-900 whitespace-nowrap" style={{ fontFamily: "Outfit, sans-serif" }}
                   > {job.name}  </TableCell>
                   <TableCell className=""                 style={{ fontFamily: "Outfit, sans-serif" }}
@@ -111,8 +181,16 @@ const ManagetJobList = () => {
                     </NavLink>
                   </TableCell>
                 </TableRow>
-                ))}
-              </TableBody>
+                
+                ))): 
+                (
+                  <div className="flex justify-center w-full mb-10">
+                    <span>Không tìm thấy kết quả</span>
+                  </div>
+                )}
+            </TableBody>
+          </>
+            )}
             </Table>                
           </TableContainer>
       </div> 

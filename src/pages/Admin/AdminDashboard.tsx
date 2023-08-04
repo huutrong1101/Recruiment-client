@@ -13,6 +13,7 @@ import axiosInstance from "../../utils/AxiosInstance";
 import Paginationacountlist from "../../components/AdminManagerList/Pagination/Paginationacountlist";
 import moment from "moment";
 import Loader from "../../components/Loader/Loader";
+import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/outline";
 
 export type QueryConfig = {
   [key in keyof AcountConfig]: string;
@@ -54,7 +55,8 @@ export default function AdminDashboard() {
     isUndefined,
   );
 
-  const handleSearch = async () => {
+  const handleSearch = async (e: any) => {
+    e.preventDefault();
     try {
       setIsLoading(true);
       navigate({
@@ -94,17 +96,18 @@ export default function AdminDashboard() {
 
   return (
     <div className="flex flex-col">
-      <div className="p-1 text-center mb-3 mt-1">
+      <div className="p-1 text-center mb-5 mt-5">
         <form
-          onSubmit={handleSearch}
+          onSubmit={e => handleSearch(e)}
           className="inline-flex items-center justify-start gap-1 px-0.5 py-0.5 bg-white border rounded-xl bg-opacity-5"
         >
+          <div className="flex items-center justify-center gap-3 ml-3 relative w-[20px]"><MagnifyingGlassCircleIcon/></div>
           <div className="flex items-center justify-center gap-3 relative">
               <p> Type : </p>
               <select
                 value={dataSearch.field}
                 onChange={(e) => setDataSearch({ ...dataSearch, field: e.target.value })}
-                className="block appearance-none w-32 bg-white text-gray-700 py-1 px-1 pr-3 rounded-xl leading-tight focus:outline-none focus:bg-white focus:bg-[#DFF9EF]"
+                className="block appearance-none w-20 bg-white text-gray-700 py-1 px-1 pr-3 rounded-xl leading-tight focus:outline-none focus:bg-white focus:bg-[#DFF9EF]"
               >
                 <option value="name">Name</option>
                 <option value="phone">Phone</option>
@@ -130,7 +133,7 @@ export default function AdminDashboard() {
             <div className="relative">
             <input
               type="text"
-              className="font-medium outline-none text-gray-900 text-[14px] h-[30px] text-left rounded-lg"
+              className="font-medium outline-none text-gray-900 text-[14px] ml-5 h-[30px] text-left rounded-lg"
               value={dataSearch.key}
               onChange={(e) =>
                 setDataSearch({ ...dataSearch, key: e.target.value })
@@ -138,16 +141,10 @@ export default function AdminDashboard() {
                 placeholder=" Please enter a search     "
               />
             </div>
-        </form>
-        <button
-          onClick={() => handleSearch()}
-          className="px-6 py-1.5 ml-5 text-white rounded-lg bg-emerald-600 hover:bg-emerald-800"
-        >
-          Search
-        </button>
+        </form>       
       </div>
       <div className="relative bg-white">
-        <div className="inline-flex items-start justify-start p-1 overflow-x-auto border rounded-lg border-zinc-900 border-opacity-10">
+        <div className="inline-flex items-start justify-start p-1 overflow-x-auto border rounded-lg border-zinc-900 border-opacity-10 mb-5">
           {types.map((type) => (
             <div
               key={type.id}

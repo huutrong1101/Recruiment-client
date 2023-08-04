@@ -35,6 +35,11 @@ export const linksAll = [
         url: "admin/users",
       },
       {
+        name: "Create Acount",
+        icon: <HiOutlineDocumentDuplicate />,
+        url: "admin/userscreate",
+      },
+      {
         name: "Profile",
         icon: <HiOutlineDocumentDuplicate />,
         url: "admin/profile",
