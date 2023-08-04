@@ -221,7 +221,6 @@ export default function UpdateQuestion({  observation, onClick, questionID }: an
                                              onClick={() => {
                                                 // handleActive
                                                 setInputData({ ...inputData, type: type })
-
                                              }}
                                           >
                                              {TYPE_alter[type]}
