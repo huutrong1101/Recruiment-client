@@ -4,15 +4,32 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../utils/AxiosInstance";
 import { CalendarDaysIcon, EnvelopeIcon } from "@heroicons/react/24/outline";
+import { toast } from "react-toastify";
+import { InviteService } from "../../../services/InviteService";
 
 export default function Suggested() {
   const { jobId } = useParams();
-  let navigate = useNavigate();
-  const routeChange = (userId: string) => {
-    let path = `interview-schedule/${userId}`;
-    navigate(path);
-  };
+  // let navigate = useNavigate();
+  // const routeChange = (userId: string) => {
+  //   let path = `interview-schedule/${userId}`;
+  //   navigate(path);
+  // };
   const [suggestCandidate, setSuggestCandidate] = useState<any[]>([]);
+
+  const handleInvite = (userId: string) => {
+    const data = {
+      userId: userId || "",
+    };
+    console.log(data);
+    console.log(jobId);
+
+    toast
+      .promise(InviteService.inviteCandidate(jobId, data), {
+        pending: `Sending Invite`,
+        success: `User has received job invition`,
+      })
+      .catch((error) => toast.error(error.response.data.message));
+  };
 
   useEffect(() => {
     const getSuggestedCandidates = async () => {
@@ -46,7 +63,7 @@ export default function Suggested() {
                 <button className="text-left flex flex-col px-4 pt-4">
                   <EnvelopeIcon
                     className="w-6 h-6"
-                    onClick={() => routeChange(candidates.userId)}
+                    onClick={() => handleInvite(candidates.userId)}
                   />
                 </button>
                 <div className="flex flex-col items-center justify-center px-6 pb-4 ">

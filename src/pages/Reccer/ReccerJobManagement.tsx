@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 import RecJobCard from "../../components/RecJobManagementCard/RecJobManagementCard";
 import Loader from "../../components/Loader/Loader";
 import { useAppSelector } from "../../hooks/hooks";
-import { JobInterface, JobListConfig, JobReccerListConfig } from "../../services/services";
+import {
+  JobInterface,
+  JobListConfig,
+  JobReccerListConfig,
+} from "../../services/services";
 import { omitBy, isUndefined } from "lodash";
 import useQuerParams from "../../hooks/useQueryParams";
 import { omit, isEqual } from "lodash";
@@ -12,7 +16,12 @@ import qs from "query-string";
 import Pagination from "../../components/Pagination/Pagination";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import classNames from "classnames";
-import { CakeIcon, ChevronDownIcon, ChevronUpIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import {
+  CakeIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/outline";
 import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import { JOB_POSITION } from "../../utils/Localization";
@@ -50,7 +59,6 @@ const ReccerJobManagement = () => {
   );
   const [isLoading, setIsLoading] = useState(false);
   const [showJobs, setShowJobs] = useState(jobs);
-
 
   const [dataSearch, setDataSearch] = useState({
     key: "",
@@ -122,11 +130,10 @@ const ReccerJobManagement = () => {
     }
   };
 
-
   return (
     <>
-      <div className="item-center flex justify-center mt-6">
-        <div 
+      <div className="flex justify-center mt-6 item-center">
+        <div
           className={classNames(
             "flex items-center flex-shrink-0 w-[54.5%] h-1/2 p-2 mt-1 border rounded-lg ",
             "focus-within:border-emerald-700",
@@ -202,14 +209,12 @@ const ReccerJobManagement = () => {
             onChange={(e) =>
               setDataSearch({ ...dataSearch, key: e.target.value })
             }
-
             type="text"
             placeholder="Search your Keywords"
             className={classNames(
               "w-[85%] h-full text-[12px] ml-3 focus:outline-none text-base text-zinc-400",
             )}
           />
-
         </div>
         <div className={classNames("gap-2 ml-10 items-center justify-center")}>
           <button
@@ -221,7 +226,7 @@ const ReccerJobManagement = () => {
             Search
           </button>
         </div>
-        <div className="gap-2 items-center justify-center">
+        <div className="items-center justify-center gap-2">
           <Link to="../addjob">
             <div className="sm:w-[100px] h-[50px] relative">
               <button
@@ -235,7 +240,6 @@ const ReccerJobManagement = () => {
         </div>
       </div>
 
-
       <div className="flex justify-center items-center 2 mt-[10px] ">
         {isLoading ? (
           <div className="flex justify-center mb-10">
@@ -244,12 +248,12 @@ const ReccerJobManagement = () => {
         ) : (
           <div className="flex flex-wrap w-3/4 justify-center items-center 2 mt-[10px]">
             {/* <!-- Card --> */}
-            {showJobs.length > 0 ? (
+            {showJobs && showJobs.length > 0 ? (
               showJobs.map((job: any) => (
                 <Link
                   to={`../jobdetail/${job.jobId}`}
                   key={job.jobId}
-                  className="px-4 mb-8 flex lg:w-full md:w-1/3 sm:w-3/4"
+                  className="flex px-4 mb-8 lg:w-full md:w-1/3 sm:w-3/4"
                 >
                   <RecJobCard job={job} />
                 </Link>

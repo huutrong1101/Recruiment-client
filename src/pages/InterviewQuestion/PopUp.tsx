@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import ScorePage from './ScorePage'
 import DashboardFooter from '../../components/RecFooter/DashboardFooter'
 
-export default function PopUp({visible, onClose}) {
+export default function PopUp({visible, onClose}:any) {
     const handleOnClose = (e : any)=>{
         if (e.target.id ==='container'|| e.target.id ==='submit') onClose()
     }
