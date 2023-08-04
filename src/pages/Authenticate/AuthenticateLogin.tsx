@@ -20,9 +20,12 @@ export default function AuthenticateLogin() {
 
   const onSubmit = async (data: UserLoginParamsInterface) => {
     try {
-      await dispatch(authLogin(data)).unwrap();
-
-      toast.success(`Successfully signed in.`);
+      await dispatch(authLogin(data))
+        .unwrap()
+        .then(() => {
+          toast.success(`Successfully signed in.`);
+          navigate(-1);
+        });
 
       // if (state === null) {
       //   navigate(`/`);

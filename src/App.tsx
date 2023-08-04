@@ -111,11 +111,11 @@ export default function App() {
               <Route path="incomplete" element={<IncompleteConfirmEmail />} />
               <Route path="complete" element={<CompleteConfirmEmail />} />
             </Route>
+            <Route path="otp" element={<OneTimePasswordVerify />} />
           </Route>
 
           {/* This route is only accepted when user is logged in and/or token is not broken  */}
           <Route element={<FilterCandidate />}>
-            <Route path="otp" element={<OneTimePasswordVerify />} />
             <Route path="/profile" element={<UserProfileLayout />}>
               <Route index element={<UserProfileMyProfile />} />
               <Route path="resume" element={<UserProfileMyResume />} />
