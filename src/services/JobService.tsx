@@ -14,7 +14,9 @@ import {
 async function getJobs(dispatch: Dispatch) {
   dispatch(setJobsStatus(STATUS.LOADING));
   try {
-    const response = await axiosInstance.get("jobs");
+    const response = await axiosInstance.get("jobs", {
+      headers: { Authorization: null },
+    });
     const data = response.data.result.content;
     const totalJobs = response.data.result.totalElements;
     dispatch(setJobs(data));

@@ -4,17 +4,58 @@ import { HiFunnel, HiMagnifyingGlass } from "react-icons/hi2";
 import { Listbox, Transition } from "@headlessui/react";
 import Table from "../../components/Table/Table";
 import Button from "../../components/Button/Button";
-import { Fragment, useState } from "react";
-import InterviewStatusBadge from "../../components/Badge/JobStatusBadge";
+import { Fragment, useEffect, useState } from "react";
+
 import JobStatusBadge from "../../components/Badge/JobStatusBadge";
 import { useForm } from "react-hook-form";
-
-const APPLICANT_STATUS = ["Any", "Passed", "Reviewing", "Pending", "Failed"];
+import { getCandidateSubmittedJobs } from "../../services/CandidateService";
+import {
+  createSearchParams,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 
 export default function UserProfileSubmittedJob() {
   const [filterType, setFilterType] = useState<number>(0);
+  const [searchParams, setSearchParams] = useSearchParams();
   const { handleSubmit, register } = useForm();
   const onSubmit = (data: any) => {};
+  const [applicants, setApplicants] = useState<object[]>([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const index = searchParams.get("index") || 1;
+    const size = searchParams.get("size") || 10;
+
+    getCandidateSubmittedJobs({ index, size })
+      .then((response) => {
+        const { result } = response.data;
+        // Normalize the result onto a fitted table data
+        // Set onto a data list for rendering
+        setApplicants(normalizeResponseResult(result));
+      })
+      .catch(() => {
+        // toast.error(``)
+      });
+  }, [searchParams]);
+
+  const normalizeResponseResult = (result: any) => {
+    return (
+      result.content as {
+        jobApplyId: string;
+        status: "NOT_RECEIVED" | "RECEIVED" | "PASS" | "FAILED";
+        jobName: string;
+        date: Date;
+      }[]
+    ).map((applicant) => {
+      return {
+        jobTitle: applicant.jobName,
+        date: applicant.date,
+        status: <JobStatusBadge status={applicant.status} />,
+      };
+    });
+  };
 
   return (
     <div
@@ -51,7 +92,7 @@ export default function UserProfileSubmittedJob() {
                   <span>
                     <HiFunnel />
                   </span>
-                  <span>{APPLICANT_STATUS[filterType]}</span>
+                  {/* <span>{APPLICANT_STATUS[filterType]}</span> */}
                 </Listbox.Button>
                 <Transition
                   as={Fragment}
@@ -60,7 +101,7 @@ export default function UserProfileSubmittedJob() {
                   leaveTo="opacity-0"
                 >
                   <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                    {APPLICANT_STATUS.map((status, personIdx) => (
+                    {/* {APPLICANT_STATUS.map((status, personIdx) => (
                       <Listbox.Option
                         key={status}
                         className={({ active }) =>
@@ -84,7 +125,7 @@ export default function UserProfileSubmittedJob() {
                           </>
                         )}
                       </Listbox.Option>
-                    ))}
+                    ))} */}
                   </Listbox.Options>
                 </Transition>
               </div>
@@ -110,28 +151,7 @@ export default function UserProfileSubmittedJob() {
               value: "Status",
             },
           ]}
-          data={[
-            {
-              jobTitle: "Front End Developer Intern",
-              date: new Date().toDateString(),
-              status: <JobStatusBadge status="passed" />,
-            },
-            {
-              jobTitle: "Back End Developer",
-              date: new Date().toDateString(),
-              status: <JobStatusBadge status="reviewing" />,
-            },
-            {
-              jobTitle: "Full Stack Developer",
-              date: new Date().toDateString(),
-              status: <JobStatusBadge status="pending" />,
-            },
-            {
-              jobTitle: "Technical Support",
-              date: new Date().toDateString(),
-              status: <JobStatusBadge status="failed" />,
-            },
-          ]}
+          data={applicants}
           isModal={false}
         />
       </div>
@@ -144,8 +164,31 @@ export default function UserProfileSubmittedJob() {
       >
         <div>Page 1 of 10</div>
         <div className={classnames(`flex flex-row-reverse flex-1 gap-4`)}>
-          <Button text="Next" className={classnames(``)} size="sm" />
-          <Button text="Previous" className={classnames(``)} size="sm" />
+          <Button
+            text="Next"
+            className={classnames(``)}
+            size="sm"
+            onClick={() => {
+              setSearchParams((prev) => {
+                const index = prev.get("index") || "1";
+                const size = prev.get("size") || "10";
+
+                return {
+                  size,
+                  index: (Number.parseInt(index) + 1).toString(),
+                };
+              });
+            }}
+          />
+
+          <Button
+            text="Previous"
+            className={classnames(``)}
+            size="sm"
+            onClick={() => {
+              setSearchParams({});
+            }}
+          />
         </div>
       </div>
     </div>

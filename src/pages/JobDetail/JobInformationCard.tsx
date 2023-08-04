@@ -4,12 +4,15 @@ import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import JobInformationApplyModal from "./JobInformationApplyModal";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { setJobIsApplied } from "./slice/JobDetailSlice";
+import { useNavigate } from "react-router-dom";
+import qs from "qs";
 
-export default function JobInformationCard({ cardData }: any) {
+export default function JobInformationCard({ cardData, jobId }: any) {
   const [visibleApplyDialog, setVisibleApplyDialog] = useState<boolean>(false);
-  // const [isApplied, setApplied] = useState<boolean>(false);
+  const { isLoggedIn } = useAppSelector((app) => app.Auth);
   const { isApplied } = useAppSelector((state) => state.JobDetail.response);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const toggleVisibleApplyModal = () => {
     setVisibleApplyDialog((isVisible) => !isVisible);
@@ -19,6 +22,15 @@ export default function JobInformationCard({ cardData }: any) {
     dispatch(setJobIsApplied(true));
 
     toggleVisibleApplyModal();
+  };
+
+  const handleNavigateToSignIn = () => {
+    navigate(`/auth/login`);
+  };
+
+  const handleNavigateToApplicants = () => {
+    const searchParams = qs.stringify({ jobId });
+    navigate(`/profile/submitted-jobs?${searchParams}`);
   };
 
   return (
@@ -42,16 +54,26 @@ export default function JobInformationCard({ cardData }: any) {
           })}
       </div>
       <div>
-        {!isApplied ? (
-          <PrimaryButton text={`Apply now`} onClick={toggleVisibleApplyModal} />
+        {!isLoggedIn ? (
+          <PrimaryButton
+            text={`Sign in to apply`}
+            onClick={handleNavigateToSignIn}
+          />
         ) : (
-          <div
-            className={classNames(
-              `px-4 bg-emerald-500 py-2 text-emerald-100 rounded-xl`,
+          <>
+            {!isApplied ? (
+              <PrimaryButton text={`Apply`} onClick={toggleVisibleApplyModal} />
+            ) : (
+              <button
+                className={classNames(
+                  `px-4 bg-emerald-700 py-2 text-emerald-100 rounded-xl w-full`,
+                )}
+                onClick={handleNavigateToApplicants}
+              >
+                See your applicant
+              </button>
             )}
-          >
-            Your applicant is considering
-          </div>
+          </>
         )}
       </div>
 

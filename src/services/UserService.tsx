@@ -50,6 +50,15 @@ const getUserInterviews = async ({ page, limit }: GetUsersInterviewsParams) => {
   return await axiosInstance.get(`/candidate/interviews?${searchQuery}`);
 };
 
+const getUserInformation = async () => {
+  return await axiosInstance.get(`/candidate/information`);
+};
+
+const updateUserInformation = async (values: any) => {
+  const _values = JSON.stringify(values);
+  return await axiosInstance.put(`/candidate/information`, { values: _values });
+};
+
 export const UserService = {
   getUserFromToken,
   changeUserAvatar,
@@ -58,4 +67,6 @@ export const UserService = {
   changePassword,
   uploadResume,
   deleteResume,
+  getUserInformation,
+  updateUserInformation,
 };

@@ -16,16 +16,26 @@ export const JOB_POSITION: LocalizationDeclarationType = {
 
 export const TYPE_alter: LocalizationDeclarationType = {};
 
+export const TECHNICAL: LocalizationDeclarationType = {};
+
 export const REC_INTERVIEW_STATUS: LocalizationDeclarationType = {
   NOT_RECEIVED: "Not Received",
   RECEIVED: "Reveived",
   PASS: "Pass",
   FAIL: "Fail",
 };
-
+/**
+ * @deprecated using Localization.APPLICANTS_STATUS instead
+ */
 export const APPLY_STATUS: LocalizationDeclarationType = {
   NOT_RECEIVED: "Not Received",
   RECEIVED: "Reveived",
   PASSED: "Pass",
   FAILED: "Fail",
+};
+export const APPLICANTS_STATUS: LocalizationDeclarationType = {
+  NOT_RECEIVED: "Not Received",
+  RECEIVED: "Received",
+  PASS: "Passed",
+  FAIL: "Failed",
 };

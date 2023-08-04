@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Container from "../Container/Container";
 import MobileNavbar from "./MobileNavbar";
 import { useAppSelector } from "../../hooks/hooks";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
-
+import qs from "qs";
 import { useTokenAuthorize } from "../../hooks/useTokenAuthorize";
 import NavbarUserLoggedInCard from "./NavbarUserLoggedInCard";
 
@@ -13,10 +13,9 @@ export default function Navbar() {
   useTokenAuthorize();
 
   const { items } = useAppSelector((app) => app.Navbar);
-
   const { isLoggedIn, loading, user } = useAppSelector((app) => app.Auth);
-
   const [updatedLeftMenu, setUpdatedLeftMenu] = useState([...items]);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (user !== null && user !== undefined) {
@@ -83,7 +82,10 @@ export default function Navbar() {
             !isLoggedIn ? (
               <div className={classNames(`flex flex-row gap-4`)}>
                 <Link
-                  to="/auth/login"
+                  to={`/auth/login`}
+                  state={{
+                    from: pathname.includes(`logout`) ? `/` : pathname,
+                  }}
                   className={classNames(
                     `px-3 py-2`,
                     `bg-emerald-600 text-white hover:bg-emerald-700`,
