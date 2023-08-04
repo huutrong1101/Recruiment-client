@@ -31,14 +31,18 @@ export default function AdminChangePosition() {
     setRole(event.target.value);
   };
 
-  const isValidEmail = (email: string): boolean => {
+  const isValidEmail = (email) => {
     // Regular expression to match email format
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailPattern.test(email);
+    // Regular expression to match Gmail email format
+    const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    // Regular expression to match company email format
+    const companyPattern = /^[a-zA-Z0-9._%+-]+@(?:(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})$/;  
+    return emailPattern.test(email) && (gmailPattern.test(email) || companyPattern.test(email));
   };
   const handlePhoneChange = (event) => {
     // Only update the phone state if the new value matches the pattern or is an empty string
-    if (event.target.value === "" || /^\d{10,12}$/.test(event.target.value)) {
+    if (event.target.value === "" || /^\d{5,12}$/.test(event.target.value)) {
       setPhone(event.target.value);
     }
   };
@@ -92,14 +96,14 @@ export default function AdminChangePosition() {
   return (
     <>
       {isLoading ? (
-        <div className="flex items-center justify-center w-full h-[50px] text-[15px] mt-10 mb-10 l-16flex items-center justify-center">
+        <div className="flex items-center justify-center w-full h-[50px] text-[15px] mt-5 mb-5 l-16flex items-center justify-center">
           <LoadSpinner className="text-2xl text-[#059669] " />
         </div>
       ) : (
-        <div className="flex gap-5 mt-10 ">
+        <div className="flex gap-5">
           {/* Information */}
-          <div className="bg-white rounded-lg shadow-lg w-[50%] mt-4 border ">
-            <div className="grid md:grid-cols-1 text-sm self-stretch px-2 pt-[15px] pb-[15px]">
+          <div className="bg-white rounded-lg shadow-lg w-[50%] mt-5 border ">
+            <div className="grid md:grid-cols-1 text-sm self-stretch px-5 py-5 ">
               {/* Title */}
               <div className="flex items-center text-center space-x-2 font-semibold text-green-500 justify-center">
                 <span className="tracking-wide text-center text-emerald-600 text-[30px] ">
@@ -111,11 +115,11 @@ export default function AdminChangePosition() {
               >
                 {/* Name */}
                 <div className="grid grid-cols-1">
-                  <div className="px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide ">
+                  <div className="px-1 py-1 font-semibold text-black capitalize leading-7 tracking-wide ">
                     FullName
                   </div>
                   <input
-                    className="px-4 py-2 self-stretch pt-[15px] pb-[15px] bg-white bg-opacity-0 rounded-lg border   "
+                    className="px-1 py-1 self-stretch bg-white bg-opacity-0 rounded-lg border   "
                     value={name}
                     type="text"
                     onChange={(event) => setName(event.target.value)}
@@ -124,11 +128,11 @@ export default function AdminChangePosition() {
                 </div>
                 {/* Phone */}
                 <div className="grid grid-cols-1">
-                  <div className="px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">
+                  <div className="px-1 py-1 font-semibold text-black capitalize leading-7 tracking-wide">
                     Phone
                   </div>
                   <input
-                    className="px-4 py-2 self-stretch pt-[15px] pb-[15px] bg-white bg-opacity-0 rounded-lg border   "
+                    className="px-1 py-1 self-stretch  bg-white bg-opacity-0 rounded-lg border   "
                     value={phone}
                     type="number"
                     onChange={(event) => setPhone(event.target.value)}
@@ -137,11 +141,11 @@ export default function AdminChangePosition() {
                 </div>
                 {/* Email */}
                 <div className="grid grid-cols-1">
-                  <div className="px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">
+                  <div className="px-1 py-1 font-semibold text-black capitalize leading-7 tracking-wide">
                     Email.
                   </div>
                   <input
-                    className="px-4 py-2 self-stretch pt-[15px] pb-[15px] bg-white bg-opacity-0 rounded-lg border   "
+                    className="px-1 py-1 self-stretch  bg-white bg-opacity-0 rounded-lg border   "
                     value={email}
                     type="email"
                     onChange={(event) => setEmail(event.target.value)}
@@ -150,11 +154,11 @@ export default function AdminChangePosition() {
                 </div>
                 {/* Password */}
                 <div className="grid grid-cols-1">
-                  <div className="px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">
+                  <div className="px-1 py-1 font-semibold text-black capitalize leading-7 tracking-wide">
                     Password
                   </div>
                   <input
-                    className="px-4 py-2 self-stretch pt-[15px] pb-[15px] bg-white bg-opacity-0 rounded-lg border   "
+                    className="px-1 py-1 self-stretch  bg-white bg-opacity-0 rounded-lg border   "
                     value={password}
                     type="password"
                     onChange={(event) => setPassword(event.target.value)}
@@ -163,14 +167,13 @@ export default function AdminChangePosition() {
                 </div>
                 {/*  */}
                 <div className="grid grid-cols-1">
-                  <div className="px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">
-                    Choossen Role for Acount:
-                  </div>
+                  <div className="px-1 py-1 font-semibold text-black capitalize leading-7 tracking-wide">
+                    Choossen Role for Acount:                  </div>
 
                   <select
                     value={role}
                     onChange={handleDropdownChange}
-                    className="lp ti adp afq bbi bmg bnl chy px-5 py-5 self-stretch pt-[15px] pb-[15px] bg-white bg-opacity-0 rounded-lg border-2    "
+                    className="lp ti adp afq bbi bmg bnl chy px-1 py-1 self-stretch  bg-white bg-opacity-0 rounded-lg border-2    "
                   >
                     <option value="" disabled>
                       Choose Role for acount
@@ -180,10 +183,10 @@ export default function AdminChangePosition() {
                     {/* <option value="CANDIDATE">Candidate</option> */}
                   </select>
                   {/* Submit button */}
-                  <div className="flex-row-reverse mt-10 text-center px-5 py-4">
+                  <div className="flex-row-reverse mt-5 text-center px-1 py-1">
                     <button
                       type="button"
-                      className="text-white rounded-xl bg-red-600 py-2 px-4 mr-10 hover:bg-red-800"
+                      className="text-white rounded-xl bg-red-600 py-2 px-4 mr-5 hover:bg-red-800"
                     >
                       <NavLink to={`/admin/users`}>
                       Cancel
@@ -213,7 +216,7 @@ export default function AdminChangePosition() {
                         </DialogContent>
                         <DialogContentText
                             id="alert-dialog-description"
-                            className="border bg-orange-100 px-3 py-2 "
+                            className="border bg-orange-50 px-3 py-2 "
                         >
                             <div className="flex">
                             <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
@@ -229,13 +232,13 @@ export default function AdminChangePosition() {
                     </div>
                         <DialogActions style={{ justifyContent: 'center' }}>
                         <button
-                            className="rounded-lg bg-red-700 hover:bg-green-900 px-4 py-2 mx-1 my-1 text-white"
+                            className="rounded-lg bg-red-700 hover:bg-green-900 px-1 py-1 mx-1 my-1 text-white"
                             onClick={handleClose}
                             >
                             Cancel
                             </button>
                             <button
-                              className="rounded-lg bg-[#059669] hover:bg-red-900 px-4 py-2 mx-1 my-1 text-white"
+                              className="rounded-lg bg-[#059669] hover:bg-red-900 px-1 py-1 mx-1 my-1 text-white"
                               onClick = {handleSubmit}
                               type="submit"
                             >
@@ -250,7 +253,7 @@ export default function AdminChangePosition() {
             </div>
           </div>
           <div className="bg-white w-[50%] md:block hidden">
-            <div className="grid md:grid-cols-1 text-sm self-stretch px-2 pt-[15px] pb-[15px]">
+            <div className="grid md:grid-cols-1 text-sm self-stretch px-2 mt-5">
               {/* Title */}
               <div
                 className={classnames(
@@ -262,7 +265,7 @@ export default function AdminChangePosition() {
                 <h1
                   className={classnames(
                     `text-white`,
-                    `font-bold text-3xl leading-10`,
+                    `font-bold text-3xl leading-5`,
                   )}
                 >
                   Be a conscientious admin
@@ -271,6 +274,7 @@ export default function AdminChangePosition() {
                   className={classnames(
                     `text-[#89EFC9] text-[16px]`,
                     `leading-tight`,
+                    `text-justify`,
                   )}
                 >
                   This page allows the admin to create new accounts for recruiters and interviewers, 
@@ -283,10 +287,10 @@ export default function AdminChangePosition() {
                   alt="Authenticate block decoration"
                   src={image}
                   className={classnames(
-                    `right-0 bottom-[-280px] opacity-100`,
+                    `right-0 bottom-[-280px] opacity-50`,
                     `absolute`,
                     `w-[160px]`,
-                    "right-0 bottom-[-280px] opacity-100 absolute w-[160px]",
+                    "right-0 bottom-[-280px] opacity-50 absolute w-[160px]",
                     "animate-spin-vertical"
                    )}
                 />

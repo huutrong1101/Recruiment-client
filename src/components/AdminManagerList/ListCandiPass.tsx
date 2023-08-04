@@ -91,7 +91,9 @@ export default function ListCandiPass() {
             <TableCell scope="col" className="px-1 py-1">
               Phone
             </TableCell>
-            
+            <TableCell scope="col" className="px-1 py-1">
+              State
+            </TableCell>
             <TableCell scope="col" className="px-1 py-1">
               Date created
             </TableCell>
@@ -115,14 +117,17 @@ export default function ListCandiPass() {
             {
             showJobLists && showJobLists.length > 0 ?
             (showJobLists.map((job)  => (
-            <TableRow className="text-black bg-white text-center" >
-              <TableCell scope="row" className="px-1 py-1 font-medium text-gray-900 whitespace-nowrap">   {job.name}  </TableCell>
-              <TableCell className="px-1 py-1">{job.phone}</TableCell>
-              <TableCell className="px-1 py-1">
+              <TableRow className="text-black bg-white text-center">
+              <TableCell scope="row" className="px-1 py-1 font-semibold text-blue-500 whitespace-nowrap">
+                {job.name}
+              </TableCell>
+              <TableCell className="px-1 py-1 text-gray-500">{job.phone}</TableCell>
+              <TableCell className="px-1 py-1 text-green-500">{job.state}</TableCell>
+              <TableCell className="px-1 py-1 italic">
                 {moment(job.date).format("HH:mm:ss DD-MM-YYYY")}
               </TableCell>
-              <TableCell className="px-1 py-1">{job.score}</TableCell>
-            </TableRow>
+              <TableCell className="px-1 py-1 font-semibold">{job.score}</TableCell>
+            </TableRow>            
             ))): 
             (
               <TableBody>
