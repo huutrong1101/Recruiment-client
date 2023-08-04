@@ -95,7 +95,7 @@ export default function UpdateQuestion({  observation, onClick, questionID }: an
       toast
         .promise(InterviewService.updateQuestion(data,questionID), {
           pending: "Updating the question",
-          success:"The question was updated",
+          success:"The question was updated. Please reload page",
           error: "có lỗi"
         })
    }
