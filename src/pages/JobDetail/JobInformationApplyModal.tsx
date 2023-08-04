@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import Modal from "../../components/Modal/Modal";
 import classNames from "classnames";
 import {
   getCandidateResume,
   sendApplyRequestToJob,
 } from "../../services/CandidateService";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
-import { ResumeResponse } from "../../services/services";
+import { LoadingStatus, ResumeResponse } from "../../services/services";
 import { AiFillEye } from "react-icons/ai";
 import { useAppSelector } from "../../hooks/hooks";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { GrDocumentPdf } from "react-icons/gr";
+import Dialog from "../../components/Modal/Dialog";
 
 export interface JobInformationApplyModal {
   visible: boolean;
@@ -29,6 +29,8 @@ export default function JobInformationApplyModal({
   const [resumeList, setResumeList] = useState<ResumeResponse[]>([]);
   const [resumeSelectedIndex, setResumeSelectedIndex] = useState(0);
   const user = useAppSelector((app) => app.Auth.user);
+  const [submitLoadingState, setSubmitLoadingState] =
+    useState<LoadingStatus>("idle");
 
   useEffect(() => {
     setResumeListLoadingState(true);
@@ -46,6 +48,7 @@ export default function JobInformationApplyModal({
       return toast.warn(`The resume list is loading, please wait`);
     }
 
+    setSubmitLoadingState("pending");
     const { resumeId } = resumeList[resumeSelectedIndex];
     if (!jobId) {
       return toast.error(`Job id cannot be undefined or null`);
@@ -53,9 +56,11 @@ export default function JobInformationApplyModal({
     sendApplyRequestToJob({ jobId, resumeId })
       .then(() => {
         onApplySucceeded();
+        setSubmitLoadingState("fulfill");
       })
       .catch(() => {
         toast.error(`Cannot apply to the job`);
+        setSubmitLoadingState("failed");
       })
       .finally();
   };
@@ -65,16 +70,39 @@ export default function JobInformationApplyModal({
   };
 
   return (
-    <Modal
-      isOpen={visible}
+    <Dialog
+      visible={visible}
       onClose={onClose}
-      title="Apply for Web Designer"
+      title=""
       titleClass="text-lg font-semibold leading-6text-gray-900"
-      cancelTitle="Cancel"
-      successClass="text-red-900 bg-red-100 hover:bg-red-200 focus-visible:ring-red-500"
-      successTitle="Apply"
+      // cancelTitle="Cancel"
+      // successClass="text-emerald-700 bg-emerald-100 hover:bg-emerald-200 focus-visible:ring-emerald-500"
+      // successTitle="Apply"
       size="max-w-full md:max-w-lg xl:max-w-sm"
-      handleSucces={handleApply}
+      // handleSucces={handleApply}
+      buttons={[
+        <button
+          onClick={onClose}
+          className={`bg-red-200 px-4 py-2 rounded-xl text-red-900`}
+        >
+          Cancel
+        </button>,
+        <button
+          onClick={handleApply}
+          className={classNames(
+            `bg-emerald-200 hover:bg-emerald-300 px-4 py-2 rounded-xl text-emerald-900 flex flex-row items-center gap-4`,
+            `cursor-pointer`,
+            {
+              "bg-emerald-50":
+                submitLoadingState === "pending" || resumeListLoadingState,
+            },
+          )}
+          disabled={submitLoadingState === "pending" || resumeListLoadingState}
+        >
+          {submitLoadingState === "pending" && <LoadSpinner />}
+          Submit
+        </button>,
+      ]}
     >
       <div className={classNames(`flex flex-col gap-6`)}>
         {/* Information */}
@@ -157,12 +185,13 @@ export default function JobInformationApplyModal({
                       <button
                         className={classNames(
                           `px-4 py-2 border rounded-xl hover:border-emerald-600 hover:text-emerald-600`,
-                          `flex flex-row gap-4 items-center text-gray-500`,
+                          `flex flex-row gap-4 items-center`,
                           `cursor-pointer`,
                           {
-                            "text-gray-100 bg-emerald-600 hover:text-gray-50":
+                            "bg-emerald-600 hover:text-gray-50 !text-gray-100":
                               _index === resumeSelectedIndex,
                           },
+                          `text-gray-950`,
                         )}
                         onClick={() => handleSelectResume(_index)}
                       >
@@ -189,6 +218,6 @@ export default function JobInformationApplyModal({
           </div>
         </div>
       </div>
-    </Modal>
+    </Dialog>
   );
 }
