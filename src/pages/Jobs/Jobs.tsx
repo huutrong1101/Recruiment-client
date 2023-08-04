@@ -19,6 +19,7 @@ import { omit, isEqual } from "lodash";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import { JOB_POSITION } from "../../utils/Localization";
 import { AiOutlineBlock } from "react-icons/ai";
+import qs from "query-string";
 
 export type QueryConfig = {
   [key in keyof JobListConfig]: string;
