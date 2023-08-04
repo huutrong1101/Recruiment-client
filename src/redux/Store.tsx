@@ -8,8 +8,7 @@ import INTInterviewsReducer from "./reducer/INTInterviewsSlice";
 import INTCandidatesReducer from "./reducer/INTCandidatesSlice";
 import INTQuestionsReducer from "./reducer/INTQuestionsSlice";
 
-
-import SearchReducer from "./reducer/SearchSlice";
+// import SearchReducer from "./reducer/SearchSlice";
 import AuthSlice from "./AuthSlice";
 import OneTimePasswordSlice from "../pages/OneTimePasswordVerify/slices/OneTimePasswordSlice";
 import CandidateListSlice from "./reducer/CandidateListSlice";
@@ -25,12 +24,14 @@ import RecInterviewerSilce from "./reducer/RecInterviewerSilce";
 import AdminAcountUseProfileSlice from "./reducer/AdminAcountUseProfileSlice";
 import RecEventSlice from "./reducer/RecEventSlice";
 import JobDetailSlice from "../pages/JobDetail/slice/JobDetailSlice";
+import UserInterviewSlice from "../pages/UserProfile/slices/UserInterviewSlice";
 
 export const ApplicationStore = configureStore({
   reducer: {
     Home: HomeSlice,
     Job: JobSlice,
     candidateList: CandidateListSlice,
+    userInterview: UserInterviewSlice,
 
     INTCandidates: INTCandidatesReducer,
     INTInterviews: INTInterviewsReducer,
