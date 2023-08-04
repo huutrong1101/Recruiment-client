@@ -74,6 +74,7 @@ import FilterAdmin from "./components/Routers/FilterAdmin";
 import FilterInterviewer from "./components/Routers/FilterInterviewer";
 import FilterRecruiter from "./components/Routers/FilterRecruiter";
 import NotFound from "./components/NotFound/NotFound";
+import AdminProflieUser from "./pages/Admin/AdminProflieUser";
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -137,8 +138,17 @@ export default function App() {
 
         <Route element={<FilterAdmin />}>
           <Route path="/admin" element={<ManagementAppLayOut />}>
+            {/* <Route path="users" index element={<AdminDashboard />} />
+            <Route path="users/:userId" index element={<AdminProflieUser />} />
+            <Route path="userscreate" element={<AdminChangePosition />} />
+            <Route path="users/blacklist/:userId" element={<AddBlacklist />} />
+            <Route path="blacklist/:userId" element={<DeleteBlacklist />} />
+            <Route path="profile" element={<AdminProfile />} />
+            <Route path="jobs/:jobId" element={<ListCandiPass />} />
+            <Route path="jobs" element={<ManagetJobList />} /> */}
             <Route path="users" index element={<AdminDashboard />} />
-            <Route path="users/:userId" element={<AdminChangePosition />} />
+            <Route path="users/:userId" index element={<AdminProflieUser />} />
+            <Route path="userscreate" element={<AdminChangePosition />} />
             <Route path="blacklist-add" element={<AddBlacklist />} />
             <Route path="blacklist-delete" element={<DeleteBlacklist />} />
             <Route path="profile" element={<AdminProfile />} />

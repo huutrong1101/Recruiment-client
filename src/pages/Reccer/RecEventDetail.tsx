@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 import axiosInstance from "../../utils/AxiosInstance";
 import moment from "moment";
 import Loader from "../../components/Loader/Loader";import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 export default function RecEventDetail() {
   const { eventId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +42,7 @@ export default function RecEventDetail() {
     setOpenDelete(false);
   };
   //Upload event avatar
-  const handleImageUpload = (event) => {
+  const handleImageUpload = (event: any) => {
     const file = event.target.files[0];
     setAvatar1(file);
     setAvatar(URL.createObjectURL(file));
@@ -72,6 +73,15 @@ export default function RecEventDetail() {
   // Change Event
   const handleSubmit = (event: any) => {
     event.preventDefault();      
+    // Convert the selected dates to Date objects
+    const startDateObj = new Date(daystar);
+    const endDateObj = new Date(dayend);        
+    // Check if "Date Start" is earlier than "Date End"
+    if (startDateObj >= endDateObj) {
+      toast.error('Date Start must be earlier than Date End');
+      return;
+    } 
+    //     
     const formData = new FormData();
     const formattedValueStart = moment(daystar).format("HH:mm:ss YYYY-MM-DD");
     const formattedValueDeadline = moment(dayend).format("HH:mm:ss YYYY-MM-DD");
@@ -81,20 +91,10 @@ export default function RecEventDetail() {
     formData.append("startAt", formattedValueStart);
     formData.append("deadline", formattedValueDeadline);
     formData.append("location", location);
-    formData.append("time", time);   
-      // Store form data elements in state
-    // Log the form data elements
-      console.log("Title:", title);
-      console.log("Description:", description);
-      console.log("Avatar1:",  avatar1 !== null ? avatar1 : avatar);
-      console.log("Start At:", formattedValueStart);
-      console.log("Deadline:", formattedValueDeadline);
-      console.log("Location:", location);
-      console.log("Time:", time);
+    formData.append("time", time);     
     // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/events/create với FormData
     axiosInstance.put( `/recruiter/events/${eventId}`, formData)
       .then((response) => {
-        // alert('Successful');
         // Xử lý phản hồi từ server (nếu cần)
         toast.success(response.data.message); // Display the response message from the server
         // In tất cả thông tin từ FormData
@@ -104,7 +104,6 @@ export default function RecEventDetail() {
       })
       .catch((error) => {
         // Xử lý lỗi (nếu có)
-        // console.error('Error:', error);
         toast.error('Error occurred', error); // Display an error message
       });
     setOpenSave(false);
@@ -123,8 +122,7 @@ export default function RecEventDetail() {
       })
       .catch((error) => {
         // Xử lý lỗi nếu có
-        toast.success('Error occurred', error);
-        // Hiển thị thông báo lỗi hoặc thực hiện các hành động khác tùy theo trường hợp
+        toast.error('Error occurred: ' + error.message);        // Hiển thị thông báo lỗi hoặc thực hiện các hành động khác tùy theo trường hợp
       });
       setOpenSave(false);
       setOpenDelete(true);
@@ -134,12 +132,11 @@ export default function RecEventDetail() {
     {isLoading ? 
       (
         <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-10 mb-10">
-          <Loader className ="l-20flex items-center justify-center" />
+          <LoadSpinner className="text-2xl text-[#059669] " />
       </div>
       ):(
-        <>
-        <div className={classnames("flex pt-5 justify-center gap-5")}>
-          <div className={classnames("bg-white rounded-lg shadow-lg item-center")}>
+      <div className={classnames("flex gap-10")}>
+        <div  className={classnames("bg-white shadow rounded-xl w-full md:w-8/12`, `flex flex-col gap-6 mt-5")}>
             <div className={classnames("flex items-left px-10 mt-10")}>
               <label className="text-zinc-900 text-2xl font-normal leading-7 ">Image here</label>
             </div>
@@ -148,10 +145,12 @@ export default function RecEventDetail() {
               {avatar ? (
                 <div>
                   {avatar1 === null ? (
-                    <img src={avatar} alt="blog_image" className="w-auto h-auto min-w-[400px] min-h-[400px] rounded-xl" />
+                    <img src={avatar} alt="blog_image" 
+                      className="w-auto h-auto max-w-[300px] max-h-[300px] rounded-xl" />
                   ) : (
                     <div>
-                      <img src={URL.createObjectURL(avatar1)} alt="blog_image" className="w-auto h-auto min-w-[400px] min-h-[400px] rounded-xll" />
+                      <img src={URL.createObjectURL(avatar1)} alt="blog_image" 
+                      className="w-auto h-auto max-w-[300px] max-h-[300px] rounded-xll" />
                       <div>{avatar1.name.split('.').slice(0, -1).join('.')}</div>
                     </div>
                   )}
@@ -166,13 +165,93 @@ export default function RecEventDetail() {
                 onChange={handleImageUpload}
               />
             </label>
-            </div>          
-            <div
-              className={classnames(
-                "flex items-center justify-between px-10 mt-4",
-              )}
-            >
-              <div className={classnames("flex items-center gap-1")}>
+            </div>  
+            <div className={classnames("mt-4 px-10")}>
+              <h3 className={classnames( "text-black font-outfit text-2xl font-medium leading-31 tracking-wider capitalize mt-3 mb-3", )}>
+                Event Title
+                <TextareaAutosize
+                  minRows={1}
+                  id="title"
+                  value={title}
+                  className="resize-none p-2.5 text-[13px] w-full text-justify bg-white border rounded-xl mt-3 mb-3 "
+                  onChange={(event) => settitle(event.target.value)}
+                />
+              </h3>
+              <div className={classnames("mt-2")}>
+                <h3
+                  className={classnames(
+                    "text-black font-outfit text-2xl font-medium leading-31 tracking-wider capitalize mt-3 mb-3",
+                  )}
+                >Description</h3>
+                <TextareaAutosize
+                  minRows={10}
+                  id="description"
+                  value={description}
+                  className="resize-none p-2.5 text-[13px] w-full text-justify bg-white border rounded-xl mt-3 mb-3"
+                  onChange={(event) => setdescription(event.target.value)}
+                />
+              </div>
+
+              <div className={classnames("mt-10 text-center px-6 py-3")}>
+                <button
+                  onClick={handleSubmit}
+                  className="px-6 py-3 ml-5 text-white rounded-full bg-emerald-600 hover:bg-emerald-800"
+                >
+                  Save
+                </button>          
+                <button
+                  className="px-6 py-3 ml-5 text-white bg-red-600 rounded-full hover:bg-emerald-800"
+                  onClick={handleClickOpen1}
+                >
+                  Delete
+                </button>
+                <Dialog
+                  open={openDelete}
+                  onClose={handleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                  <p className="font-extrabold pt-4 text-center">Delete Event</p>
+                  </DialogTitle>
+                  <DialogContent className="text-center">
+                    <div className="text-center px-6">
+                      <DialogContent className="font-semibold text-lg mb-2">
+                        Are you sure you want to delete name "{title}"?
+                      </DialogContent>
+                      <DialogContentText
+                        id="alert-dialog-description"
+                        className="border bg-orange-100 px-3 py-2 "
+                      >
+                        <div className="flex">
+                          <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
+                          <p className="flex text-red-800 font-semibold px-2">
+                            WARNING
+                          </p>
+                        </div>
+                        <div className="text-left font-semibold">
+                          This action cannot be undone, the deleted item
+                          cannot be restored.
+                        </div>
+                      </DialogContentText>
+                    </div>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleClose}>Disagree</Button>
+                    <Button onClick={handleDelete} autoFocus type="submit">
+                      Agree
+                    </Button>
+                  </DialogActions>
+                </Dialog>
+              </div>  
+            </div>
+          
+        </div>
+
+        <div className={classnames( "w-full md:w-3/12 flex-1 relativ bg-white mt-5 " )} >
+          <div className="border-[2px] rounded-xl">
+            <div className={classnames("mt-5 mb-5 px-3")}>
+              <div>
                 <h3>Start:</h3>
                 <label className="">                  
                   <input
@@ -184,25 +263,24 @@ export default function RecEventDetail() {
                   />
                 </label>
               </div>
-              <div className={classnames("flex items-center gap-1")}>
-                  <h3>End:</h3>
-                  <label className="">                
-                  <input
-                    type="datetime-local"
-                    id="dateend"
-                    className="text-sm font-medium leading-tight border text-emerald-600"
-                    value={dayend}
-                    onChange={(event) => setDayend(event.target.value)}
-                  />
+
+              <div >
+                <h3>End:</h3>
+                <label className="">                
+                <input
+                  type="datetime-local"
+                  id="dateend"
+                  className="text-sm font-medium leading-tight border text-emerald-600"
+                  value={dayend}
+                  onChange={(event) => setDayend(event.target.value)}
+                />
                 </label>
-              </div>
-            </div>
-            <div className={classnames("mt-4 px-10")}>
-            <div className={classnames("flex items-center gap-1")}>
-                  <h3 >Time</h3>
+              </div>            
+              <div >
+                  <h3 >Time:</h3>
                   <label className="">                
                   <input
-                    type="number"
+                    type="text"
                     id="time"
                     className="text-sm font-medium leading-tight border text-emerald-600"
                     value={time}
@@ -210,8 +288,9 @@ export default function RecEventDetail() {
                   />
                 </label>
               </div>
-              <div className={classnames("flex items-center gap-1")}>
-                  <h3 >Location</h3>
+
+              <div >
+                  <h3 >Location:</h3>
                   <label className="">                
                   <input
                     type="text"
@@ -221,96 +300,11 @@ export default function RecEventDetail() {
                     onChange={(event) => setlocation(event.target.value)}
                   />
                 </label>
-              </div>
-            
-            </div>
-
-            <div className={classnames("mt-4 px-10")}>
-              <h3
-                className={classnames(
-                  "text-black font-outfit text-2xl font-medium leading-31 tracking-wider capitalize",
-                )}
-              >
-                Event Title
-                <TextareaAutosize
-                  minRows={1}
-                  id="title"
-                  value={title}
-                  className="resize-none font-medium leading-tight border text-emerald-6 text-[16px] w-full text-black font-outfit text-2xl font-medium leading-31 tracking-wider capitalize"
-                  onChange={(event) => settitle(event.target.value)}
-                />
-              </h3>
-              <div className={classnames("mt-2")}>
-                <h3
-                  className={classnames(
-                    "text-black font-outfit text-2xl font-medium leading-31 tracking-wider capitalize",
-                  )}
-                >Description</h3>
-                <TextareaAutosize
-                  minRows={10}
-                  id="description"
-                  value={description}
-                  className="resize-none p-2.5 text-[13px] w-full text-justify bg-white mb-10 font-medium leading-tight border text-emerald-6"
-                  onChange={(event) => setdescription(event.target.value)}
-                />
-              </div>
+              </div>            
             </div>
           </div>
-        </div>
-
-        <div className={classnames("mt-10 text-center px-6 py-3")}>
-          <button
-            onClick={handleSubmit}
-            className="px-6 py-3 ml-5 text-white rounded-full bg-emerald-600 hover:bg-emerald-800"
-          >
-            Save
-          </button>          
-          <button
-            className="px-6 py-3 ml-5 text-white bg-red-600 rounded-full hover:bg-emerald-800"
-            onClick={handleClickOpen1}
-          >
-            Delete
-          </button>
-          <Dialog
-            open={openDelete}
-            onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-          >
-            <DialogTitle id="alert-dialog-title">
-            <p className="font-extrabold pt-4 text-center">Delete Event</p>
-            </DialogTitle>
-            <DialogContent className="text-center">
-              <div className="text-center px-6">
-                <DialogContent className="font-semibold text-lg mb-2">
-                  Are you sure you want to delete name "{title}"?
-                </DialogContent>
-                <DialogContentText
-                  id="alert-dialog-description"
-                  className="border bg-orange-100 px-3 py-2 "
-                >
-                  <div className="flex">
-                    <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
-                    <p className="flex text-red-800 font-semibold px-2">
-                      WARNING
-                    </p>
-                  </div>
-                  <div className="text-left font-semibold">
-                    This action cannot be undone, the deleted item
-                    cannot be restored.
-                  </div>
-                </DialogContentText>
-              </div>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose}>Disagree</Button>
-              <Button onClick={handleDelete} autoFocus type="submit">
-                Agree
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </div>  
-    </>
+        </div>      
+      </div>
     )} 
     </>   
   );  
