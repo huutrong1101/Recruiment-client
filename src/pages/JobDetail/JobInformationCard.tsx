@@ -5,8 +5,9 @@ import JobInformationApplyModal from "./JobInformationApplyModal";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { setJobIsApplied } from "./slice/JobDetailSlice";
 import { useNavigate } from "react-router-dom";
+import qs from "qs";
 
-export default function JobInformationCard({ cardData }: any) {
+export default function JobInformationCard({ cardData, jobId }: any) {
   const [visibleApplyDialog, setVisibleApplyDialog] = useState<boolean>(false);
   const { isLoggedIn } = useAppSelector((app) => app.Auth);
   const { isApplied } = useAppSelector((state) => state.JobDetail.response);
@@ -25,6 +26,11 @@ export default function JobInformationCard({ cardData }: any) {
 
   const handleNavigateToSignIn = () => {
     navigate(`/auth/login`);
+  };
+
+  const handleNavigateToApplicants = () => {
+    const searchParams = qs.stringify({ jobId });
+    navigate(`/profile/submitted-jobs?${searchParams}`);
   };
 
   return (
@@ -58,13 +64,14 @@ export default function JobInformationCard({ cardData }: any) {
             {!isApplied ? (
               <PrimaryButton text={`Apply`} onClick={toggleVisibleApplyModal} />
             ) : (
-              <div
+              <button
                 className={classNames(
-                  `px-4 bg-emerald-500 py-2 text-emerald-100 rounded-xl`,
+                  `px-4 bg-emerald-700 py-2 text-emerald-100 rounded-xl w-full`,
                 )}
+                onClick={handleNavigateToApplicants}
               >
-                Your applicant is considering
-              </div>
+                See your applicant
+              </button>
             )}
           </>
         )}

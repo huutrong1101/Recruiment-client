@@ -168,7 +168,7 @@ export default function JobDetail() {
 
                 {/* Right side description */}
                 <div className={classNames(`w-full md:w-3/12 flex-1 relative`)}>
-                  <JobInformationCard cardData={jobInformation} />
+                  <JobInformationCard cardData={jobInformation} jobId={jobId} />
                 </div>
               </div>
               {/* Footer */}
@@ -197,8 +197,8 @@ export default function JobDetail() {
             <NotFound />
           )
         ) : (
-          <div className="flex justify-center my-4">
-            <LoadSpinner className="text-3xl text-emerald-500" />
+          <div className="flex justify-center items-center my-4 min-h-[70vh]">
+            <LoadSpinner className="text-4xl text-gray-400" />
           </div>
         )}
       </div>
