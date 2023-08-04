@@ -71,6 +71,7 @@ import FilterCandidate from "./components/Routers/FilterCandidate";
 import FilterAdmin from "./components/Routers/FilterAdmin";
 import FilterInterviewer from "./components/Routers/FilterInterviewer";
 import FilterRecruiter from "./components/Routers/FilterRecruiter";
+import NotFound from "./components/NotFound/NotFound";
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -194,6 +195,7 @@ export default function App() {
         </Route>
 
         {/* <Route path="/test" element={Test} /> */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
