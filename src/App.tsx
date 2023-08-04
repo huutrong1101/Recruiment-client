@@ -108,8 +108,6 @@ export default function App() {
 
           {/* This route is accepted when user is not logged in */}
           <Route element={<FilterNonLogin />}>
-
-
             <Route path="/email" element={<EmailConfirmationLayout />}>
               <Route path="incomplete" element={<IncompleteConfirmEmail />} />
               <Route path="complete" element={<CompleteConfirmEmail />} />

@@ -9,6 +9,7 @@ import UserProfileInterviewListViewTable from "../../../components/Table/Table";
 import PrimaryButton from "../../../components/PrimaryButton/PrimaryButton";
 import Button from "../../../components/Button/Button";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const INTERVIEW_STATUS = ["Any", "Pending", "Finished"];
 

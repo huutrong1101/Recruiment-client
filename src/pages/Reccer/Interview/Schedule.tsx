@@ -106,7 +106,7 @@ export default function Schedule() {
       state: "received",
     };
     // console.log(candidateId);
-  StateService.changeState(data)
+    StateService.changeState(data);
   };
 
   const handleOnClick = () => {
