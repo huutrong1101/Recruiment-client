@@ -100,14 +100,15 @@ export default function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="about-us" element={<AboutUs />} />
           <Route path="create-cv" element={<CreateCV />} />
+          <Route path="auth" element={<Authenticate />}>
+            <Route path="login" element={<AuthenticateLogin />} />
+            <Route path="signup" element={<AuthenticateSignUp />} />
+            <Route element={<AuthenticateLogin />} />
+          </Route>
 
           {/* This route is accepted when user is not logged in */}
           <Route element={<FilterNonLogin />}>
-            <Route path="auth" element={<Authenticate />}>
-              <Route path="login" element={<AuthenticateLogin />} />
-              <Route path="signup" element={<AuthenticateSignUp />} />
-              <Route element={<AuthenticateLogin />} />
-            </Route>
+
 
             <Route path="/email" element={<EmailConfirmationLayout />}>
               <Route path="incomplete" element={<IncompleteConfirmEmail />} />
