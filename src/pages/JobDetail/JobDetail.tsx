@@ -23,6 +23,7 @@ import { JobService } from "../../services/JobService";
 import { fetchJobDetail } from "./slice/JobDetailSlice";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { toast } from "react-toastify";
+import NotFound from "../../components/NotFound/NotFound";
 
 export default function JobDetail() {
   const { jobId } = useParams();
@@ -193,20 +194,7 @@ export default function JobDetail() {
               </div>
             </>
           ) : (
-            <div
-              className={classNames(
-                `flex flex-col justify-center items-center min-h-[60vh] gap-6`,
-              )}
-            >
-              <h1 className={classNames(`font-semibold text-3xl`)}>
-                The job that you found has not exist.
-              </h1>
-              <PrimaryButton
-                text={`Back to jobs`}
-                className="w-[30vw]"
-                onClick={handleBackToJobs}
-              />
-            </div>
+            <NotFound />
           )
         ) : (
           <div className="flex justify-center my-4">

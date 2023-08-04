@@ -9,24 +9,33 @@ import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { authLogin } from "../../redux/AuthSlice";
 import { UserLoginParamsInterface } from "../../services/services";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function AuthenticateLogin() {
   const { register, handleSubmit } = useForm<UserLoginParamsInterface>();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { loading, signInLoadingState } = useAppSelector((app) => app.Auth);
+  const { state } = useLocation();
 
-  const onSubmit = (data: UserLoginParamsInterface) => {
-    dispatch(authLogin(data))
-      .unwrap()
-      .then(() => {
-        toast.success(`Successfully signed in.`);
-        navigate(-1);
-      })
-      .catch((err) => {
-        toast.error(`Failed to signed in with error: ${err.message}`);
-      });
+  const onSubmit = async (data: UserLoginParamsInterface) => {
+    try {
+      await dispatch(authLogin(data))
+        .unwrap()
+        .then(() => {
+          toast.success(`Successfully signed in.`);
+          navigate(-1);
+        });
+
+      // if (state === null) {
+      //   navigate(`/`);
+      // } else {
+      //   navigate(state.from);
+      // }
+    } catch (err: any) {
+      toast.error(`Failed to signed in with error: ${err.message}`);
+      throw err;
+    }
   };
 
   return (
