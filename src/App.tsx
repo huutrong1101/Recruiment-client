@@ -64,6 +64,7 @@ import { JobService } from "./services/JobService";
 import Logout from "./pages/Logout/Logout";
 import OneTimePasswordVerify from "./pages/OneTimePasswordVerify/OneTimePasswordVerify";
 import { EventService } from "./services/EventService";
+import PrintResume from "./pages/PrintResume/PrintResume";
 import CandidateDetail from "./pages/Reccer/CandidateDetail";
 import UserProfileMyResume from "./pages/UserProfile/UserProfileMyResume";
 import ReccerEditJob from "./pages/Reccer/Jobs/EditJob";
@@ -129,6 +130,7 @@ export default function App() {
                 element={<UserProfileSubmittedJob />}
               />
             </Route>
+            <Route path="/print-resume" element={<PrintResume />} />
             <Route path="/test-request" element={<RequestTest />} />
           </Route>
         </Route>
