@@ -2,6 +2,7 @@ import{ useState, useEffect } from "react";
 import { NavLink,  Link } from "react-router-dom";
 import {EyeIcon} from "@heroicons/react/24/outline";
 import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 import {fetchAdminManagerJobList} from "../../redux/reducer/AdminListJobRecentSlice";
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
@@ -20,6 +21,7 @@ export type QueryConfig = {
 };
 import axiosInstance from "../../utils/AxiosInstance";
 import Paginationjoblist from "./Pagination/Paginationjoblist";
+import moment from "moment";
 
 const ManagetJobList = () => {
   const dispatch = useAppDispatch();
@@ -29,7 +31,7 @@ const ManagetJobList = () => {
   const queryParams: QueryConfig = useQueryParams();
   const queryConfig: QueryConfig = omitBy(
     {
-      size: queryParams.size || 8,  
+      size: queryParams.size || 7,  
       page: queryParams.page || "1",    
     },
     isUndefined,
@@ -37,7 +39,7 @@ const ManagetJobList = () => {
   const [prevQueryConfig, setPrevQueryConfig] =
     useState<QueryConfig>(queryConfig);
   const [pageSize, setPageSize] = useState(
-    Math.ceil(totalListJobs / Number(queryParams.size || 8)),
+    Math.ceil(totalListJobs / Number(queryParams.size || 7)),
   );
   const [showJobLists, setAdminManagerJobList] = useState(jobs);
 
@@ -74,46 +76,50 @@ const ManagetJobList = () => {
 
       return (
       <>
-        <div className="mt-8">
-        <div className="relative overflow-x-auto rounded-lg mb-8">
+        <div className="flex-col mt-2">
           <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}} >
             <Table className="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
-              <TableHead className="text-xs text-gray-700 uppercase bg-gray-200 text-center">
+              <TableHead className="text-xs text-gray-700 bg-gray-200 text-center">
                 <TableRow>
-                  <TableCell scope="col" className="px-6 py-1 ">                   Name Jobs                 </TableCell>
-                  <TableCell scope="col" className="px-6 py-1">                    Date created                  </TableCell>
-                  <TableCell scope="col" className="px-6 py-1">                    Process                  </TableCell>
-                  <TableCell scope="col" className="px-6 py-1">                    Actions                  </TableCell>
+                  <TableCell scope="col" className="px-1 py-1 "  style={{ fontFamily: "Outfit, sans-serif" }}
+                  >  Name Jobs                 </TableCell>
+                  <TableCell scope="col" className="px-1 py-1"                style={{ fontFamily: "Outfit, sans-serif" }}
+                  >   Date created </TableCell>
+                  <TableCell scope="col" className="px-1 py-1"                style={{ fontFamily: "Outfit, sans-serif" }}
+                  >   Process </TableCell>
+                  <TableCell scope="col" className="px-1 py-1"                style={{ fontFamily: "Outfit, sans-serif" }}
+                  >   Actions </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {showJobLists.map((job) => (
-                  <TableRow className="text-black bg-white text-center justify-center" key={job.idJob}>
-                      <TableCell scope="row" className="font-medium text-gray-900 whitespace-nowrap"  > {job.name}  </TableCell>
-                      <TableCell className="">{job.date}</TableCell>
-                      <TableCell className=" flex justify-center">
-                        <div className="w-full h-3 bg-gray-300 rounded-xl">
-                          <div className="h-3 bg-emerald-400 rounded-xl"   style={{ width: `${job.member}%` }} ></div>
-                          <div className=" justify-center text-center">{job.member} / {job.quantity} </div>
-                        </div>
-                      </TableCell>
-                      <TableCell   className="px-6 py-4 items-center  flex   justify-center">
-                        <NavLink to={`/admin/jobs/${job.idJob}`} onClick={() => {}}>
-                          {/* ${adminlistjobs.id} */}
-                          <EyeIcon className="relative w-5 h-5 gap-2 rounded-xl" />
-                        </NavLink>
-                      </TableCell>
-                    </TableRow>
+              <TableRow className="text-black bg-white text-center justify-center" key={job.idJob}>
+                  <TableCell scope="row" className="font-medium text-gray-900 whitespace-nowrap" style={{ fontFamily: "Outfit, sans-serif" }}
+                  > {job.name}  </TableCell>
+                  <TableCell className=""                 style={{ fontFamily: "Outfit, sans-serif" }}
+                  >                {moment(job.date).format("HH:mm:ss DD-MM-YYYY")}                  </TableCell>
+                  <TableCell className=" flex justify-center">
+                    <div className="w-full h-3 bg-gray-300 rounded-xl">
+                      <div className="h-3 bg-emerald-400 rounded-xl"   style={{ width: `${job.member}%` }} ></div>
+                      <div className=" justify-center text-center">{job.member} / {job.quantity} </div>
+                    </div>
+                  </TableCell>
+                  <TableCell   className="px-6 py-4 items-center  flex   justify-center">
+                    <NavLink to={`/admin/jobs/${job.idJob}`} onClick={() => {}}>
+                      {/* ${adminlistjobs.id} */}
+                      <EyeIcon className="relative w-5 h-5 gap-2 rounded-xl" />
+                    </NavLink>
+                  </TableCell>
+                </TableRow>
                 ))}
               </TableBody>
             </Table>                
           </TableContainer>
-        </div>                
       </div> 
-      <div className="">
-        {/* Pagination  */}
-        <Paginationjoblist  queryConfig={queryConfig} pageSize={pageSize} />
-      </div> 
+        <div className="flex justify-center mt-3">
+          {/* Pagination  */}
+          <Paginationjoblist  queryConfig={queryConfig} pageSize={pageSize} />
+        </div> 
     </>
     );
 }

@@ -1,6 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { STATUS } from "../../utils/Status";
-const BASE_URL_FAKE_DATA = `https://api.escuelajs.co/api/v1/`;
+import { getLocalToken } from "../../utils/localToken";
+import axiosInstance from "../../utils/AxiosInstance";
+import { toast } from "react-toastify";
+
 
 const INTInterviewsSlice = createSlice({
   name: "INTInterviews",
@@ -9,6 +12,8 @@ const INTInterviewsSlice = createSlice({
     INTInterviewsStatus: STATUS.IDLE,
     INTSingleInterview: [],
     INTSingleInterviewStatus: STATUS.IDLE,
+    INTTotalPages: 0,
+    INTTotalInterviews: 0
   },
   reducers: {
 
@@ -19,12 +24,17 @@ const INTInterviewsSlice = createSlice({
         state.INTInterviewsStatus = STATUS.LOADING;
       })
       .addCase(fetchINTInterviewsData.fulfilled, (state, action) => {
-        state.INTInterviews = action.payload;
+        state.INTInterviews = action.payload.content;
+        state.INTTotalPages = action.payload.totalPages;
+        state.INTTotalInterviews = action.payload.totalElements;
         state.INTInterviewsStatus = STATUS.IDLE;
       })
-      .addCase(fetchINTInterviewsData.rejected, (state) => {
+      .addCase(fetchINTInterviewsData.rejected, (state, action) => {
+        toast.error(`${action.error.message}`)
         state.INTInterviewsStatus = STATUS.ERROR;
       })
+
+      
       .addCase(fetchINTInterviewByID.pending, (state) => {
         state.INTSingleInterviewStatus = STATUS.LOADING;
       })
@@ -32,7 +42,8 @@ const INTInterviewsSlice = createSlice({
         state.INTSingleInterview = action.payload;
         state.INTSingleInterviewStatus = STATUS.IDLE;
       })
-      .addCase(fetchINTInterviewByID.rejected, (state) => {
+      .addCase(fetchINTInterviewByID.rejected, (state, action) => {
+        toast.error(`${action.error.message}`);
         state.INTSingleInterviewStatus = STATUS.ERROR;
       })
   }
@@ -40,20 +51,19 @@ const INTInterviewsSlice = createSlice({
 
 export default INTInterviewsSlice.reducer;
 
+
 export const fetchINTInterviewsData = createAsyncThunk(
   'INTInterviews/fetchINTInterviewsData', 
-  async () => {
-    const reponse = await fetch(`${BASE_URL_FAKE_DATA}users`);
-    const data = await reponse.json();
-    return data;
+  async (query : string) => {
+    const response = await axiosInstance.get(`/interviewer/interviews${query}`);
+    return response.data.result;
   }
 );
 
 export const fetchINTInterviewByID = createAsyncThunk<any, string | undefined>(
   'INTInterviews/fetchINTInterviewByID', 
   async (interviewID : string | undefined) => {
-    const reponse = await fetch(`${BASE_URL_FAKE_DATA}users/${interviewID}`);
-    const data = await reponse.json();
-    return data;
+    const response = await axiosInstance.get(`/interviewer/interviews/${interviewID}`);
+    return response.data.result;
   }
-);
+); 

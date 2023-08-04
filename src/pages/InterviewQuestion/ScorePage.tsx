@@ -1,227 +1,192 @@
-import { MagnifyingGlassIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
-import AddQuestion from "./AddQuestion";
-import PopUp from "./PopUp";
+import { TrashIcon, BriefcaseIcon, AcademicCapIcon, CheckBadgeIcon } from "@heroicons/react/24/outline";
+
 import { useState, useEffect } from "react"
-import ListQuestions from "./ListQuestion";
-import QuestionFilter from "./QuestionFilter";
-import TechFilter from "./TechFilter";
 import { Menu, Transition } from "@headlessui/react";
+import { fetchQuestionList } from "../../redux/reducer/QuestionListSlice";
+import { STATUS } from '../../utils/Status';
+import Loader from '../../components/Loader/Loader';
+import qs from "query-string";
+import { omit, isEqual } from "lodash";
+import useQuerParams from "../../hooks/useQueryParams";
+import Pagination from "../../components/Pagination/Pagination";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import { omitBy, isUndefined } from "lodash";
+import { QuestionListConfig, QuestionListInterface } from "../../services/services";
+import axiosInstance from "../../utils/AxiosInstance";
+
+export type QueryConfig = {
+   [key in keyof QuestionListConfig]: string;
+};
+
+import { fetchINTCandidatesByID } from "../../redux/reducer/INTCandidatesSlice";
+import { fetchINTAssignedQuestions,deleteQuestionOfInterview, setScore, setNote, markScore} from "../../redux/reducer/INTQuestionsSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useParams } from "react-router-dom";
 
 export default function ScorePage() {
-   //-----------ListQuestion----------------------------------------------------
-   const [showPopUp, setShowPopUp] = useState(false)
-   const [questions, setQuestions] = useState(' ')
-   const [addQuestion, setAddQuestion] = useState(false)
-   const handleOnClick = () => setAddQuestion(false)
-   const handleSubmit = () => setShowPopUp(false)
-   const handleQuestionClick = (question: any) => {
-      setQuestions(question);
-   };
+
+   const {id} = useParams();
+   const ID : string = id!;
+
+   const [clickedQuestion, setClickedQuestion] = useState<any>();
+
+   const {INTSingleCandidate, INTSingleCandidateStatus} = useAppSelector((state:any) => state.INTCandidates)
+   const dispatch = useAppDispatch();
+   const {assignedQuestions, assignedQuestionsStatus} = useAppSelector((state: any) => state.INTQuestions);
+
+   const handleDelete = (question : any) => {
+      dispatch(deleteQuestionOfInterview({ID, question}));
+  }
+   const handleClick = (question : any) => {
+      setClickedQuestion(question);
+      setScoreForm(question.score);
+      setNoteForm(question.note)
+   }
+
+   const [scoreForm, setScoreForm] = useState();
+   const [noteForm, setNoteForm] = useState();
+   const handleChangeScore = (questionId: any, event : any) =>{
+      const value = event.target.value;
+      setScoreForm(value); 
+      dispatch(setScore({questionId, value}))
+   }
+   const handleChangeNote = (questionId: any, event : any) =>{
+      const value = event.target.value;
+      setNoteForm(value);
+      dispatch(setNote({questionId, value}))
+   }
+
+   const handleMarkScore = () => {
+      dispatch(markScore({ID, assignedQuestions}))
+   }
+
+   useEffect(() => {
+      dispatch(fetchINTCandidatesByID(id));
+      dispatch(fetchINTAssignedQuestions(id));
+   }, [])
+
    return (
       <div>
-         <div className="flex flex-col justify-center md:flex-row md:items-start md:w-full h-full my-3  drop-shadow-md">
-            {/* left component */}
-            <div className="w-5/12 h-full bg-white flex flex-col mx-4 my-4 relative rounded-md  ">
-               <div className="  w-full  bg-white rounded-lg shadow border  border-gray-200 ">
-                  <div className="w-full h-full">
-                     <div className="flex flex-col ">
-                        <div className="md:flex flex-row justify-center h-fit relative my-4" >
-                           <div className="flex items-center">
-                              <img className="rounded-full w-[150px] h-[150px] border-4 border-emerald-600  p-1
-                                            md:mb-0 md:auto md:mr-4 md:rounded-full     "
-                                 src="../../../../images/cover.jpg" alt="avatar" />
-                           </div>
-                           <div className=" lg:w-[230px] h-full md:w-[230px] flex relative ">
-                              <div className="px-4 h-full w-full flex flex-nowrap flex-col absolute">
-                                 <div>Name: Trinh Minh Huy</div>
-                                 <div>Age: 23</div>
-                                 <div >Position: Fullstack developer</div>
-                                 <div>Email: </div>
-                                 <div>Contact No: aaaaaaaaa</div>
-                              </div>
-                           </div>
-                        </div>
-                        <div className="lg:w-full md:h-[400px] my-2">
-                           <div className=" w-full h-fit  md:bottom-0 md:my-3">
-                              <div className="gap-y-8 p-4 flex flex-col flex-wrap">
-                                 <div>Graduation
-                                    <div className="w-fit h-fit rounded-lg border-2 border-gray-200 px-2">
-                                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                    </div>
-                                 </div>
-                                 <div>Acknowlegde
-                                    <div className="w-fit h-fit rounded-lg border-2 border-gray-200 px-2">
-                                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                    </div>
-                                 </div>
-                                 <div>Certification
-                                    <div className="w-fit h-fit rounded-lg border-2 border-gray-200 px-2">
-                                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                    </div>
-                                 </div>
-                                 <div>Work Experience
-                                    <div className="w-fit h-fit rounded-lg border-2 border-gray-200 px-2">
-                                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
+         <div className="flex mt-8 min-h-[500px]">
+            <div className="w-5/12 border-2 px-4 rounded-xl mr-10">
+               <div className="flex"> 
+                     <div className="w-4/12 flex items-center">
+                        <div className=" pt-[2rem]">
+                           <img src={INTSingleCandidate?.avatar} className=" w-[120px] h-[120px] border-4 rounded-full border-green"/>
                         </div>
                      </div>
-                  </div>
+                     <div className="w-8/12 ml-2">
+                        <div className="flex pt-[2rem]">
+                           <div className="text-2xl mr-4">
+                                 {INTSingleCandidate?.fullName} 
+                           </div>
+                        </div>
+                        <div className="text-gray-400 mt-5 text-sm">
+                           contacts___________________________
+                        </div>
+                        <div className="ml-4">
+                           <div className="mt-2 text-base">Phone: <span className="text-sm ml-2">{INTSingleCandidate?.phone}</span></div>
+                           <div className="text-base">Address: <span className="text-sm ml-2">{INTSingleCandidate?.address}</span></div>
+                           <div className="text-base">Birtday: <span className="text-sm ml-2">{INTSingleCandidate?.dateOfBirth}</span></div>
+                           <div className="text-base">Email: <span className="text-sm ml-2">{INTSingleCandidate?.email}</span></div>
+                        </div>
+                     </div>
                </div>
-            </div>
-            {/* right component */}
-            <div className="w-7/12 h-full  bg-white flex flex-col mx-4 my-4 relative items-center drop-shadow-md rounded-md">
-               <div className="w-full h-fit bg-white rounded-lg shadow border  border-gray-200  ">
-                  {/* table */}
-                  <div className="flex justify-center my-2 ">
-                     <div className=" rounded-lg border-gray-200 border-2 w-11/12 h-fit">
-                        <div className="overflow-auto px-2">
-                           <table className="w-full ">
-                              <thead className="w-fit">
-                                 <tr className="flex justify-between  mt-3 ml-4 ">
-                                    <th className="text-lg tracking-wide text-left font-semibold basis-1/5 ">Position</th>
-                                    <th className="text-lg tracking-wide text-left font-semibold basis-1/5 ">Tech</th>
-                                    <th className="text-lg tracking-wide text-left font-semibold basis-3/5 ">Question</th>
-                                 </tr>
-                              </thead>
-                              <tbody className="">
-                                 <div className="grid text-left">
-                                    <div>
-                                       {ListQuestions.map((question) => (
-                                          <tr className="flex flex-row  p-2 m-2 text-left text-md cursor-pointer 
-                                       border-2 border-white hover: hover:border-emerald-600 hover:rounded-lg hover:text-black hover:transition-all duration-100"
-                                             key={question.questionID}>
-                                             <td className="basis-1/5" onClick={() => handleQuestionClick(question.interviewQuestions)}>{question.position}</td>
-                                             <td className="basis-1/5" onClick={() => handleQuestionClick(question.interviewQuestions)}>{question.typeQuestion}</td>
-                                             <td className="basis-3/5 flex-nowrap" onClick={() => handleQuestionClick(question.interviewQuestions)}>{question.interviewQuestions}</td>
-                                          </tr>
-                                       ))}
-                                    </div>
-                                 </div>
-                              </tbody>
-                           </table>
-                        </div>
-                        {/* pagination */}
-                        <div className="flex justify-end">
-                           <ul className="inline-flex gap-x-2 p-3 ">
-                              <li className="px-2 cursor-pointer hover:bg-emerald-100 hover:rounded-md hover:text-black ">
-                                 <a href="#"></a>
-                                 Prev
-                              </li>
-                              <li className="px-2 cursor-pointer hover:bg-emerald-100 hover:rounded-md hover:text-black ">
-                                 <a href="#"></a>
-                                 1
-                              </li>
-                              <li className="px-2 cursor-pointer hover:bg-emerald-100 hover:rounded-md hover:text-black ">
-                                 <a href="#"></a>
-                                 2
-                              </li>
-                              <li className="px-2 cursor-pointer hover:bg-emerald-100 hover:rounded-md hover:text-black ">
-                                 <a href="#"></a>
-                                 3
-                              </li>
-                              <li className="px-2 cursor-pointer hover:bg-emerald-100 hover:rounded-md hover:text-black ">
-                                 <a href="#"></a>
-                                 Next
-                              </li>
-                           </ul>
-                        </div>
-                     </div>
+               <hr className="my-5"/>
+               <div className="pl-[2rem]">
+                  <div className="text-gray-400">
+                     Educations
                   </div>
-                  {/* score */}
-                  <div className="flex flex-col " >
-                     <div className="flex justify-center my-2 ">
-                        <div className="bg-emerald-600 h-fit w-11/12 rounded-lg p-2 pb-2 relative 
-                                    drop-shadow-lg hover:bg-emerald-700 hover:transition-all ">
-                           <div className="flex flex-col">
-                              <div className=" inline-flex gap-3 w-full h-full ">
-                                 <div className=" text-white font-semibold flex flex-col w-full justify-start">Question
-                                    <div className="w-full h-[30px] bg-white rounded-md flex items-center p-2 ">
-                                       <h2 className="text-black font-semibold transition-all duration-75">
-                                          {questions}
-                                       </h2>
-                                    </div>
-                                 </div>
-                                 <div className="w-[10rem]">
-                                    <div className="text-white text-left font-semibold rounded flex flex-col w-fit items-start">Score
-                                       <div className="w-full h-[30px] bg-white rounded-md  text-black flex items-center" >
-                                          <input type="number" className="w-full text-center rounded-md" />
-                                       </div>
-                                    </div>
-                                 </div>
+    
+                  {
+                     INTSingleCandidate.educations?.map((item : any) => (
+                        <div className="ml-4">
+                              <div className="mt-2 text-sm">{item.schoolName}</div>
+                              <div className="text-gray-500 text-xs flex ml-2">
+                                 <AcademicCapIcon className="w-[10px] h-[10px] mt-[3px] mr-1" /> {item.certificate}
                               </div>
-                           </div>
-                           <div className="w-full ">
-                              <textarea className="flex flex-col justify-start w-full h-fit bg-white rounded-md p-2 my-2 text-black break-words resize-none"
-                                 placeholder="Note..." ></textarea>
-                           </div>
                         </div>
-                     </div>
+                     ))
+                  }
+    
+                  <div className="text-gray-400 mt-3 mb-2">
+                     Experiences
                   </div>
+    
+                  {
+                     INTSingleCandidate.experiences?.map((item : any) => (
+                        <div className="ml-4">
+                              <div className="mt-2 text-sm">{item.companyName}</div>
+                              <div className="text-gray-500 text-xs flex ml-2">
+                                 <BriefcaseIcon className="w-[10px] h-[10px] mt-[3px] mr-1" /> {item.position}
+                              </div>
+                              <div className="text-gray-500 text-xs flex ml-2">
+                                 <CheckBadgeIcon className="w-[10px] h-[10px] mt-[3px] mr-1" /> {item.time}
+                              </div>
+                        </div>
+                     ))
+                  }
 
-                  {/* Position - technology */}
-                  <div className="absolute flex top-[-20px] left-[-20px] w-5/12">
-                     <div className="flex flex-row  gap-x-2.5 pl-2 w-full h-fit">
-                        <div className=" w-full flex flex-col relative mt-3">
-                           <Menu as="div" className="w-full h-fit">
-                              <QuestionFilter />
-                           </Menu>
-                        </div>
-                        <div className=" w-full h-[50px] flex flex-col relative mt-3 ">
-                           <Menu as="div" className="w-full h-full">
-                              <TechFilter />
-                           </Menu>
-                        </div>
-                     </div>
+                  <div className="text-gray-400 mt-3 mb-2">
+                     Skills
                   </div>
-                  {/* Add question */}
-                  <div className=" w-2/5 h-fit absolute flex right-[-15px] top-[-20px] justify-end ">
-                     <button className="Text text-white p-2.5 mt-3 bg-emerald-600 rounded-lg shadow-md
-                                                text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
-                                                border-transparent border hover:border-emerald-600 hover:transition-all duration-200 " onClick={() => setAddQuestion(true)} >
-                        <PlusCircleIcon className="w-5 inline-flex" /> Add Question
-                     </button>
-                  </div>
-                  <div className=" h-fit flex flex-row w-11/12 mx-8 justify-between mb-3">
-                     {/* Prev - Next */}
-                     <div className="inline-flex items-start relative w-fit gap-x-2 ">
-                        <div className="flex ">
-                           <button className="text-white px-10 py-2.5  bg-emerald-600 rounded-lg drop-shadow-lg mb-2 transition-all duration-200
-                                                text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
-                                                border-transparent border hover:border-emerald-600 w-fit flex justify-center bottom-0 ">
-                              PREV
-                           </button>
-                        </div>
-                        <div className="flex ">
-                           <button className="text-white px-10 py-2.5  bg-emerald-600 rounded-lg drop-shadow-lg mb-2 transition-all duration-200
-                                                text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
-                                                border-transparent border hover:border-emerald-600 w-fit flex justify-center bottom-0 ">
-                              NEXT
-                           </button>
-                        </div>
-                     </div>
-                     {/* send */}
-                     <div className="flex items-end">
-                        <button className="text-white px-10 py-2.5  bg-emerald-600 rounded-lg drop-shadow-lg  mb-2 transition-all duration-200
-                                                text-[14px] font-medium leading-tight hover:text-emerald-600 hover:bg-white
-                                                border-transparent border hover:border-emerald-600 w-fit flex justify-center bottom-0 "
-                           onClick={() => setShowPopUp(true)}>    SEND
-                        </button>
-                     </div>
+                  <div className="flex">
+                     { 
+                        INTSingleCandidate.jobSkills?.map((item : any) => (
+                              <div className="text-white text-sm mr-2 bg-green-600 hover:bg-green-800 px-2 py-1 rounded-xl">{item.name}</div>
+                        ))
+                     }
                   </div>
                </div>
             </div>
-         </div>
-         <div>
-            <PopUp onClose={handleSubmit} visible={showPopUp} />
-            <AddQuestion onClick={handleOnClick} observation={addQuestion} />
-         </div>
+            <div className="w-7/12 border-2 px-4 rounded-xl">
+               <table className="w-full table-auto border-collapse border border-gray-300 rounded mt-5">
+                  <thead>
+                  <tr className="bg-gray-200">
+                     <th className="px-4 py-2">Question</th>
+                     <th className="px-4 py-2">Type</th>
+                     <th className="px-4 py-2">Skill</th>
+                     <th className="px-4 py-2">Button</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                     {assignedQuestions?.map((item: any) => (
+                        <tr onClick={() => {handleClick(item)}} key={item.questionId} className="bg-white">
+                        <td className="px-4 py-2">{item.content}</td>
+                        <td className="px-4 py-2">{item.typeQuestion}</td>
+                        <td className="px-4 py-2">{item.skill}</td>
+                        <td className="px-4 py-2">
+                          <TrashIcon onClick={() => {handleDelete(item)}}  className="ml-3 cursor-pointer w-5 h-5 text-gray-500"/>
+                        </td>
+                        </tr>
+                     ))}
+                  </tbody>
+               </table>
+               <div className="bg-green-600 px-5 py-5 mt-4 rounded-xl">
+                  <div className="flex">
+                     <div className="w-9/12 bg-white rounded-xl px-2 py-2">
+                        {clickedQuestion?.content}
+                     </div>
+                     <div className="w-3/12 ml-4">
+                        <div><label htmlFor="score" className="text-white text-xl">Score: </label></div>
+                        <input value={scoreForm} type="number" id="score" className="bg-white rounded-xl px-2 py-2 mt-1" 
+                         onChange={(event) => handleChangeScore(clickedQuestion?.questionId, event)}
+                         required min="0" max="10"></input>
+                     </div>
+                  </div>
+                  <div>
+                     <div><label htmlFor="note" className="text-white text-xl mt-2">Note: </label></div>
+                     <textarea value={noteForm} id="note" onChange={(event) => handleChangeNote(clickedQuestion?.questionId, event)}
+                     className="w-full bg-white rounded-xl px-2 py-2 min-h-[100px] mt-1"></textarea> 
+                  </div>
+               </div>
+               <div className="flex justify-end mt-4 mb-4">
+                  <button className="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded" onClick={handleMarkScore}>
+                        Mark Score
+                  </button>
+               </div>
+            </div>
       </div>
+   </div>
    )
-
 }

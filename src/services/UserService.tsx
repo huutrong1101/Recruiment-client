@@ -22,6 +22,26 @@ const changeUserAvatar = async (data: FormData) => {
   });
 };
 
+const uploadResume = async (data: FormData) => {
+  return await axiosInstance.put(`/candidate/resumes`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
+const deleteResume = async (resumeId: any) => {
+  return await axiosInstance.delete(`/candidate/resumes/${resumeId}`);
+};
+
+const updateProfile = async (data: FormData) => {
+  return await axiosInstance.put(`/user/update`, data);
+};
+
+const changePassword = async (data: FormData) => {
+  return await axiosInstance.put(`/user/change-password`, data);
+};
+
 /**
  * Returns the interviews that owned by a candidate.
  */
@@ -34,4 +54,8 @@ export const UserService = {
   getUserFromToken,
   changeUserAvatar,
   getUserInterviews,
+  updateProfile,
+  changePassword,
+  uploadResume,
+  deleteResume,
 };

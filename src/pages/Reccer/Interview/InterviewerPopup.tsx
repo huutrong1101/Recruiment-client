@@ -1,52 +1,72 @@
-import { TrashIcon, XCircleIcon } from "@heroicons/react/24/outline";
-import React, { useState } from "react";
+import { PlusIcon, TrashIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 import { UserPlusIcon } from "@heroicons/react/24/outline";
+import axiosInstance from "../../../utils/AxiosInstance";
+import { Checkbox } from "@mui/material";
 
-export default function InterviewerPopup() {
+export interface Interviewer {
+  name: string | null;
+  email: string | null;
+  phone: string | null;
+  date: string | null;
+  id: string | null;
+  position: string | null;
+}
+interface InterviewerPopupProps {
+  interviewers: Interviewer[];
+  onSelectInterviewer: (newListInterviewer: Interviewer[]) => void;
+}
+
+export default function InterviewerPopup({
+  interviewers,
+  onSelectInterviewer,
+}: InterviewerPopupProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const memberList = [
-    {
-      id: 1,
-      name: "John Doe",
-      phone: "1234567890",
-      email: "john@example.com",
-      date: "2023-07-01",
-      position: "Web Designer",
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      phone: "9876543210",
-      email: "jane@example.com",
-      date: "2023-07-02",
-      position: "Web Designer",
-    },
-    {
-      id: 3,
-      name: "Bob Johnson",
-      phone: "5555555555",
-      email: "bob@example.com",
-      date: "2023-07-03",
-      position: "Web Designer",
-    },
-    {
-      id: 4,
-      name: "Alice Williams",
-      phone: "1111111111",
-      email: "alice@example.com",
-      date: "2023-07-04",
-      position: "Web Designer",
-    },
-    {
-      id: 5,
-      name: "Sam Brown",
-      phone: "9999999999",
-      email: "sam@example.com",
-      date: "2023-07-05",
-      position: "Web Designer",
-    },
-  ];
+
+  const [interviewerList, setInterviewerList] = useState<any[]>([]);
+
+  useEffect(() => {
+    const getInterviewers = async () => {
+      try {
+        const response = await axiosInstance(`/recruiter/interviewers`);
+        setInterviewerList(response.data.result.content);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getInterviewers();
+  }, []);
+
+  const [selectedInterviewers, setSelectedInterviewers] = useState<any[]>([]);
+
+  useEffect(() => {
+    setSelectedInterviewers(interviewers);
+  }, [interviewers]);
+
+  const handleChoose = (interviewer: any) => {
+    const index = selectedInterviewers.findIndex(
+      (selected) => selected.interviewerId === interviewer.interviewerId,
+    );
+    if (index === -1) {
+      setSelectedInterviewers([...selectedInterviewers, interviewer]);
+    } else {
+      const updatedSelectedInterviewers = [...selectedInterviewers];
+      updatedSelectedInterviewers.splice(index, 1);
+      setSelectedInterviewers(updatedSelectedInterviewers);
+    }
+  };
+
+  const isSelected = (interviewer: any) => {
+    return selectedInterviewers.some(
+      (selected) => selected.interviewerId === interviewer.interviewerId,
+    );
+  };
+
+  const handleAdd = () => {
+    onSelectInterviewer(selectedInterviewers);
+    setIsOpen(false);
+  };
 
   return (
     <div>
@@ -62,8 +82,8 @@ export default function InterviewerPopup() {
         <p>Add Interviewer</p>
       </button>
       {isOpen && (
-        <div className="fixed inset-0 backdrop-blur-md flex justify-center items-center">
-          <div className="popup-content bg-white border border-gray-300 p-4 rounded-lg flex flex-col">
+        <div className="fixed inset-0 z-10 flex items-center justify-center backdrop-blur-md">
+          <div className="flex flex-col p-4 bg-white border border-gray-300 rounded-lg popup-content">
             <button
               onClick={() => setIsOpen(false)}
               className={classNames(`flex justify-end`)}
@@ -72,7 +92,7 @@ export default function InterviewerPopup() {
             </button>
             <table className="w-full text-sm text-left text-gray-500">
               {/* Interviewer Info */}
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
                   <th scope="col" className="px-6 py-4">
                     Interviewer's Name
@@ -83,31 +103,33 @@ export default function InterviewerPopup() {
                   <th scope="col" className="px-6 py-4">
                     Email
                   </th>
-                  <th scope="col" className="px-6 py-4">
-                    Date created
-                  </th>
-                  <th scope="col" className="py-4">
-                    Position
-                  </th>
-                  <th scope="col" className="py-4"></th> {/* Add button */}
+                  <th scope="col" className="py-4"></th>
                 </tr>
               </thead>
               <tbody>
-                {memberList.map((memberList) => (
-                  <tr className="bg-white border-b" key={memberList.id}>
+                {interviewerList.map((interviewers: any) => (
+                  <tr
+                    className="bg-white border-b"
+                    key={interviewers.interviewerId}
+                  >
                     <td
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
                     >
-                      {memberList.name}
+                      {interviewers.fullName}
                     </td>
-                    <td className="px-6 py-4">{memberList.phone}</td>
-                    <td className="px-6 py-4">{memberList.email}</td>
-                    <td className="px-6 py-4">{memberList.date}</td>
-                    <td className="px-6 py-4">{memberList.position}</td>
+                    <td className="px-6 py-4">{interviewers.phone}</td>
+                    <td className="px-6 py-4">{interviewers.email}</td>
                     <td className="px-4 py-4">
-                      <button className="bg-emerald-700 py-2 px-4 rounded-xl mr-4 text-white">
-                        Add
+                      <button
+                        className="flex"
+                        onClick={() => handleChoose(interviewers)}
+                      >
+                        <Checkbox
+                          color="success"
+                          size="medium"
+                          checked={isSelected(interviewers)}
+                        />
                       </button>
                     </td>
                   </tr>
@@ -115,6 +137,14 @@ export default function InterviewerPopup() {
               </tbody>
               {/* /////////// */}
             </table>
+            <div className="flex items-center justify-center mt-3">
+              <div
+                className="p-2 text-white border rounded-lg cursor-pointer bg-emerald-600"
+                onClick={handleAdd}
+              >
+                <PlusIcon className="w-[25px]" />
+              </div>
+            </div>
           </div>
         </div>
       )}

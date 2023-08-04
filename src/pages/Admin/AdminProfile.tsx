@@ -80,7 +80,8 @@ const AdminProfile = () => {
                             <input
                                 type="text"
                                 id="name"
-                                value={adminprofilesRecent.Fullname}
+                                readOnly
+                                value={adminprofilesRecent.fullName}
                                 className="px-4 py-2 self-stretch pt-[13px] pb-[13px] bg-white bg-opacity-0 rounded-lg border border-zinc-900" placeholder={adminprofilesRecent.Fullname}
                                 // onChange={(event) => setname(event.target.value)}
                             />
@@ -91,6 +92,7 @@ const AdminProfile = () => {
                             <input
                                 type="text"
                                 id="phone"
+                                readOnly
                                 value={adminprofilesRecent.phone}
                                 className="px-4 py-2 self-stretch pt-[13px] pb-[13px] bg-white bg-opacity-0 rounded-lg border border-zinc-900" placeholder={adminprofilesRecent.phone}
                                 // onChange={(event) => setphone(event.target.value)}
@@ -102,6 +104,7 @@ const AdminProfile = () => {
                             <input
                                 type="email"
                                 id="email"
+                                readOnly
                                 value={adminprofilesRecent.email}
                                 className="px-4 py-2 self-stretch pt-[13px] pb-[13px] bg-white bg-opacity-0 rounded-lg border border-zinc-900" placeholder= {adminprofilesRecent.email}
                                 // onChange={(event) => setemail(event.target.value)}
@@ -113,46 +116,14 @@ const AdminProfile = () => {
                             <input
                                 type="text"
                                 id="adress"
+                                readOnly
                                 value={adminprofilesRecent.adress}
                                 className="px-4 py-2 self-stretch pt-[13px] pb-[13px] bg-white bg-opacity-0 rounded-lg border border-zinc-900" placeholder={adminprofilesRecent.address}
                                 // onChange={(event) => setadress(event.target.value)}
                             />
                         </div>
                         {/* Save Buton */}
-                        <div className={classnames("text-center px-5 py-4")}>
-                        <Button
-                            sx={{
-                                backgroundColor: "#059669",
-                                '&:hover': {
-                                backgroundColor: "#289972",
-                                },
-                            }}
-                            variant="contained" onClick={handleClickOpen}>
-                                Save
-                        </Button>
-                            <Dialog
-                            open={open}
-                            onClose={handleClose}
-                            aria-labelledby="alert-dialog-title"
-                            aria-describedby="alert-dialog-description"
-                            >
-                            <DialogTitle id="alert-dialog-title">
-                            {" Are you sure you want to change the location of this account?"}
-                            </DialogTitle>
-                            <DialogContent>
-                            <DialogContentText id="alert-dialog-description">
-                                Or consider carefully before deleting them all changes when pressing the agree button.                        </DialogContentText>
-                            </DialogContent>
-                            <DialogActions>
-                            <Button onClick={handleClose} color="error" variant="contained">Disagree</Button>
-                            <Button onClick={handleClose} autoFocus type='submit' variant="contained" sx={{
-                                    backgroundColor: "#059669",'&:hover': { backgroundColor: "#289972", },
-                                }}>
-                                Agree
-                            </Button>
-                            </DialogActions>
-                        </Dialog>
-                        </div>
+                      
                     </div>
                 </form>
             </div>

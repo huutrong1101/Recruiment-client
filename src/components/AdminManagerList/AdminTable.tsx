@@ -1,651 +1,367 @@
-// import React, { useState,useEffect } from "react";
-// import { NavLink } from "react-router-dom";
-// import { PencilSquareIcon, TrashIcon,UserMinusIcon} from "@heroicons/react/24/outline";
-// import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
-// import Button from '@mui/material/Button';
-// import Dialog from '@mui/material/Dialog';
-// import DialogActions from '@mui/material/DialogActions';
-// import DialogContent from '@mui/material/DialogContent';
-// import DialogContentText from '@mui/material/DialogContentText';
-// import DialogTitle from '@mui/material/DialogTitle';
-
-// import { useAppSelector } from "../../hooks/hooks";
-
-// import { AcountInterface, AcountConfig } from "../../services/services";
-// import PaginationAcountlist from "./Pagination/Paginationacountlist";
-// import axiosInstance from "../../utils/AxiosInstance";
-// import { omitBy, isUndefined } from "lodash";
-// import useQueryParams from "../../hooks/useQueryParams";
-// import qs from "query-string";
-// import { createSearchParams, useNavigate } from "react-router-dom";
-// import { omit, isEqual } from "lodash";
-
-// export type QueryConfig = {
-//   [key in keyof AcountConfig]: string;
-// };
-// interface TypeData {
-//   typeSelected: string;
-// }
-// export default function AdminTable({ typeSelected }: TypeData) {
-//   const Acounts: AcountInterface[] = useAppSelector((state) => state.adminacountList.Acounts);
-//   const totalAcounts = useAppSelector((state) => state.adminacountList.totalAcounts);
-
-//   const navigate = useNavigate();
-
-//   const queryParams: QueryConfig = useQueryParams();
-
-//   const queryConfig: QueryConfig = omitBy(
-//     {
-//       page: queryParams.page || "1",
-//       size: queryParams.size || 10,
-//       searchText: queryParams.searchText,
-//       searchBy: queryParams.searchBy,
-//     },
-//     isUndefined,
-//   );
-
-//   const [prevQueryConfig, setPrevQueryConfig] =
-//     useState<QueryConfig>(queryConfig);
-
-//   const [showAcounts, setAdminManagerAcountList] = useState(Acounts);
-
-//   const [pageSize, setPageSize] = useState(
-//     Math.ceil(totalAcounts / Number(queryParams.size || 10)),
-//   );
-
-//   const [isLoading, setIsLoading] = useState(false);
-//   if (typeSelected == "Blacklist") {
-//     {
-//       const queryConfig: QueryConfig = omitBy(
-//         {
-//           page: queryParams.page || "1",
-//           size: queryParams.size || 10,
-//           searchText: queryParams.searchText   || "BLACKLIST",
-//           searchBy: queryParams.searchBy  || "role",
-//         },
-//         isUndefined,
-//       );  
-//       useEffect(() => {
-//         if (!isEqual(prevQueryConfig, queryConfig)) {
-//           const fetchAcounts = async () => {
-//             try {
-//               const query = qs.stringify(queryConfig);
-//               const response = await axiosInstance(`/admin/users?${query}`);
-//               setAdminManagerAcountList(response.data.result.content);
-//               setPageSize(response.data.result.totalPages);
-//             } catch (error) {
-//               console.log(error);
-//             }
-//           };
-//           fetchAcounts();
-//           setPrevQueryConfig(queryConfig);
-//         }
-//       }, [queryConfig, prevQueryConfig]);
-//       return (
-//           <div className="mt-10 w-full max-w-full overflow-x-auto rounded-xl">
-//           <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
-//             <Table className="w-full text-gray-500 dark:text-gray-400 text-center">
-//               <TableHead className=" text-gray-700 uppercase bg-gray-200 text-center">
-//                 <TableRow>
-//                   <TableCell scope="col" className="px-3 py-1">                    Name                  </TableCell>
-//                   <TableCell scope="col" className="px-3 py-1">                    ROLE           </TableCell>
-//                   <TableCell scope="col" className="px-3 py-1">                    Phone number                  </TableCell>
-//                   <TableCell scope="col" className="px-3 py-1">                    Email                  </TableCell>
-//                   <TableCell scope="col" className="px-3 py-1">                    Date created                  </TableCell>
-//                   <TableCell scope="col" className="px-3 py-1">                    Actions                  </TableCell>
-//                   {                  }
-//                 </TableRow>
-//               </TableHead>
-//               <TableBody>
-//               {showJobLists.map((datalist)  => (
-//                   <TableRow className="text-black bg-white text-center justify-center" key={datalist.id}>
-//                     <TableCell  scope="row"   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-//                       {datalist.name}
-//                     </TableCell>
-//                     <TableCell className="px-6 py-4 text-center justify-center">BlackList</TableCell>
-//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.phone}</TableCell>
-//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.email}</TableCell>
-//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.date}</TableCell>
-//                     {/* <td className="px-6 py-4">{item.stateBlackList}</td> */}
-//                     <TableCell className="px-6 py-4">
-//                       <button>
-//                         <NavLink to={`/admin/blacklist-delete/`} onClick={() => {}}>
-//                             <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
-//                         </NavLink>
-//                       </button>
-//                       <button>
-//                         <NavLink to={"/admin/blacklist-delete"} onClick={() => {}}>
-//                           <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
-//                         </NavLink>
-//                       </button>
-//                     </TableCell>
-//                     </TableRow>
-//                 ))}
-//               </TableBody>
-//             </Table>           
-//           </div>
-//       )
-//     }
-//   }
-//   else if (typeSelected === "All") {
-//     const queryConfig: QueryConfig = omitBy(
-//       {
-//         page: queryParams.page || "1",
-//         size: queryParams.size || 10,
-//         searchText: queryParams.searchText   || ,
-//         searchBy: queryParams.searchBy  || ,
-//       },
-//       isUndefined,
-//     );  
-//     useEffect(() => {
-//       if (!isEqual(prevQueryConfig, queryConfig)) {
-//         const fetchAcounts = async () => {
-//           try {
-//             const query = qs.stringify(queryConfig);
-//             const response = await axiosInstance(`/admin/users?${query}`);
-//             setAdminManagerAcountList(response.data.result.content);
-//             setPageSize(response.data.result.totalPages);
-//           } catch (error) {
-//             console.log(error);
-//           }
-//         };
-//         fetchAcounts();
-//         setPrevQueryConfig(queryConfig);
-//       }
-//     }, [queryConfig, prevQueryConfig]);
-//     return (
-//       <div className="mt-10 w-full max-w-full overflow-x-auto rounded-xl">
-//           <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
-//             <Table className="w-full text-gray-500 dark:text-gray-400 text-center">
-//               <TableHead className=" text-gray-700 uppercase bg-gray-200 text-center">
-//                 <TableRow>
-//                   <TableCell scope="col" className="px-3 py-1">                    Name                  </TableCell>
-//                   <TableCell scope="col" className="px-3 py-1">                    ROLE           </TableCell>
-//                   <TableCell scope="col" className="px-3 py-1">                    Phone number                  </TableCell>
-//                   <TableCell scope="col" className="px-3 py-1">                    Email                  </TableCell>
-//                   <TableCell scope="col" className="px-3 py-1">                    Date created                  </TableCell>
-//                   <TableCell scope="col" className="px-3 py-1">                    Actions                  </TableCell>
-//                   {                  }
-//                 </TableRow>
-//               </TableHead>
-//               <TableBody>
-//               {showJobLists.map((datalist)  => (
-//                   <TableRow className="text-black bg-white text-center justify-center" key={datalist.id}>
-//                     <TableCell  scope="row"   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-//                       {datalist.name}
-//                     </TableCell>
-//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.role}</TableCell>
-//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.phone}</TableCell>
-//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.email}</TableCell>
-//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.date}</TableCell>
-//                     {/* <td className="px-6 py-4">{item.stateBlackList}</td> */}
-//                     <TableCell className="px-6 py-4">
-//                       <button>
-//                         <NavLink to={`/admin/blacklist-delete/`} onClick={() => {}}>
-//                             <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
-//                         </NavLink>
-//                       </button>
-//                       <button>
-//                         <NavLink to={"/admin/blacklist-delete"} onClick={() => {}}>
-//                           <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
-//                         </NavLink>
-//                       </button>
-//                     </TableCell>
-//                     </TableRow>
-//                 ))}
-//               </TableBody>
-//             </Table>           
-//           </div>
-//     )
-//   } else if (typeSelected === "Recruiter") {
-//     const queryConfig: QueryConfig = omitBy(
-//       {
-//         page: queryParams.page || "1",
-//         size: queryParams.size || 10,
-//         searchText: queryParams.searchText   || "RECRUITER",
-//         searchBy: queryParams.searchBy  || role,
-//       },
-//       isUndefined,
-//     );  
-//     useEffect(() => {
-//       if (!isEqual(prevQueryConfig, queryConfig)) {
-//         const fetchAcounts = async () => {
-//           try {
-//             const query = qs.stringify(queryConfig);
-//             const response = await axiosInstance(`/admin/users?${query}`);
-//             setAdminManagerAcountList(response.data.result.content);
-//             setPageSize(response.data.result.totalPages);
-//           } catch (error) {
-//             console.log(error);
-//           }
-//         };
-//         fetchAcounts();
-//         setPrevQueryConfig(queryConfig);
-//       }
-//     }, [queryConfig, prevQueryConfig]);
-//     return (
-//       <div className="mt-10 w-full max-w-full overflow-x-auto rounded-xl">
-//           <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
-//             <Table className="w-full text-gray-500 dark:text-gray-400 text-center">
-//               <TableHead className=" text-gray-700 uppercase bg-gray-200 text-center">
-//                 <TableRow>
-//                   <TableCell scope="col" className="px-3 py-1">                    Name                  </TableCell>
-//                   <TableCell scope="col" className="px-3 py-1">                    ROLE           </TableCell>
-//                   <TableCell scope="col" className="px-3 py-1">                    Phone number                  </TableCell>
-//                   <TableCell scope="col" className="px-3 py-1">                    Email                  </TableCell>
-//                   <TableCell scope="col" className="px-3 py-1">                    Date created                  </TableCell>
-//                   <TableCell scope="col" className="px-3 py-1">                    Actions                  </TableCell>
-//                   {                  }
-//                 </TableRow>
-//               </TableHead>
-//               <TableBody>
-//               {showJobLists.map((datalist)  => (
-//                   <TableRow className="text-black bg-white text-center justify-center" key={datalist.id}>
-//                     <TableCell  scope="row"   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-//                       {datalist.name}
-//                     </TableCell>
-//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.role}</TableCell>
-//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.phone}</TableCell>
-//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.email}</TableCell>
-//                     <TableCell className="px-6 py-4 text-center justify-center">{datalist.date}</TableCell>
-//                     {/* <td className="px-6 py-4">{item.stateBlackList}</td> */}
-//                     <TableCell className="px-6 py-4">
-//                       <button>
-//                         <NavLink to={`/admin/blacklist-delete/`} onClick={() => {}}>
-//                             <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
-//                         </NavLink>
-//                       </button>
-//                       <button>
-//                         <NavLink to={"/admin/blacklist-delete"} onClick={() => {}}>
-//                           <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
-//                         </NavLink>
-//                       </button>
-//                     </TableCell>
-//                     </TableRow>
-//                 ))}
-//               </TableBody>
-//             </Table>           
-//         </div>
-//       }
-// else if (typeSelected === "Interviewer") {
-//   const queryConfig: QueryConfig = omitBy(
-//     {
-//     page: queryParams.page || "1",
-//     size: queryParams.size || 10,
-//     searchText: queryParams.searchText   || "INTERVIEW",
-//     searchBy: queryParams.searchBy  || role,
-//     },
-//     isUndefined,
-//   );  
-//   useEffect(() => { 
-//     if (!isEqual(prevQueryConfig, queryConfig)) {
-//     const fetchAcounts = async () => {
-//     try {
-//           const query = qs.stringify(queryConfig);
-//           const response = await axiosInstance(`/admin/users?${query}`);
-//           setAdminManagerAcountList(response.data.result.content);
-//           setPageSize(response.data.result.totalPages);
-//         } catch (error) {
-//           console.log(error);
-//         }
-//       };
-//     fetchAcounts();
-//     setPrevQueryConfig(queryConfig);
-//     }
-//   }, [queryConfig, prevQueryConfig]);
-//   }
-//   return (
-//     <div className="mt-10 w-full max-w-full overflow-x-auto rounded-xl">
-//       <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
-//         <Table className="w-full text-gray-500 dark:text-gray-400 text-center">
-//           <TableHead className=" text-gray-700 uppercase bg-gray-200 text-center">
-//           <TableRow>
-//           <TableCell scope="col" className="px-3 py-1">                    Name                  </TableCell>
-//           <TableCell scope="col" className="px-3 py-1">                    ROLE           </TableCell>
-//           <TableCell scope="col" className="px-3 py-1">                    Phone number                  </TableCell>
-//           <TableCell scope="col" className="px-3 py-1">                    Email                  </TableCell>
-//           <TableCell scope="col" className="px-3 py-1">                    Date created                  </TableCell>
-//           <TableCell scope="col" className="px-3 py-1">                    Actions                  </TableCell>
-//           </TableRow>
-//         </TableHead>
-//         <TableBody>
-//           {showJobLists.map((datalist)  => (
-//           <TableRow className="text-black bg-white text-center justify-center" key={datalist.id}>
-//           <TableCell  scope="row"   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-//           {datalist.name}
-//           </TableCell>
-//           <TableCell className="px-6 py-4 text-center justify-center">Interviewer</TableCell>
-//           <TableCell className="px-6 py-4 text-center justify-center">{datalist.phone}</TableCell>
-//           <TableCell className="px-6 py-4 text-center justify-center">{datalist.email}</TableCell>
-//           <TableCell className="px-6 py-4 text-center justify-center">{datalist.date}</TableCell>
-//           {/* <td className="px-6 py-4">{item.stateBlackList}</td> */}
-//           <TableCell className="px-6 py-4">
-//           <button>
-//           <NavLink to={`/admin/blacklist-delete/`} onClick={() => {}}>
-//           <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
-//           </NavLink>
-//           </button>
-//           <button>
-//           <NavLink to={"/admin/blacklist-delete"} onClick={() => {}}>
-//           <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
-//           </NavLink>
-//           </button>
-//           </TableCell>
-//           </TableRow>
-//         ))}
-//     </TableBody>
-//     </Table>           
-//     </div>)
-//   }
-//   return (
-//               <div className="mt-10 w-full max-w-full overflow-x-auto rounded-xl">
-//               <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
-//                     <Table className="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
-//                       <TableHead className="text-xs text-gray-700 uppercase bg-gray-200 text-center">
-//                         <TableRow>
-//                           <TableCell scope="col" className="px-3 py-1">                    Name                  </TableCell>
-//                           <TableCell scope="col" className="px-3 py-1">                    ROLE                 </TableCell>
-//                           <TableCell scope="col" className="px-3 py-1">                    Phone number                  </TableCell>
-//                           <TableCell scope="col" className="px-3 py-1">                    Email                  </TableCell>
-//                           <TableCell scope="col" className="px-3 py-1">                    Date created                  </TableCell>
-//                           <TableCell scope="col" className="px-3 py-1">                    Actions                  </TableCell>
-//                           {                  }
-//                         </TableRow>
-//                       </TableHead>
-//                   <TableBody>
-//                   {showJobLists.map((datalist)  =>  (
-//                       <TableRow className="text-black bg-white text-center" key={datalist.id}>
-//                         <TableCell   scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"> {datalist.name}</TableCell>
-//                         <TableCell className="px-6 py-4">Candidate</TableCell>
-//                         <TableCell className="px-6 py-4">{datalist.phone}</TableCell>
-//                         <TableCell className="px-6 py-4">{datalist.email}</TableCell>
-//                         <TableCell className="px-6 py-4">{datalist.day}</TableCell>
-//                         {/* <td className="px-6 py-4">{item.stateBlackList}</td> */}
-//                         <TableCell className="px-6 py-4">
-//                           <button>
-//                               <NavLink to={"/admin/position-change"} onClick={() => {}}>
-//                                 <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
-//                               </NavLink>
-//                           </button>
-//                           <button>
-//                           <TrashIcon onClick={handleClickOpen} className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
-//                               <Dialog
-//                                   open={open}
-//                                   onClose={handleClose}
-//                                   aria-labelledby="alert-dialog-title"
-//                                   aria-describedby="alert-dialog-description"
-//                                 >
-//                                   <DialogTitle id="alert-dialog-title" className='text-center'>
-//                                     {"Use Google's location service?"}
-//                                   </DialogTitle>
-//                                   <DialogContent>
-//                                     <DialogContentText id="alert-dialog-description">
-//                                     Or consider carefully before deleting them all changes when pressing the agree button.
-//                                     </DialogContentText>
-//                                   </DialogContent>
-//                                   <DialogActions>
-//                                     <Button onClick={handleClose} color="error" variant="contained">Disagree</Button>
-//                                     <Button onClick={handleClose} autoFocus type='submit' variant="contained" sx={{
-//                                             backgroundColor: "#059669",'&:hover': { backgroundColor: "#289972", },
-//                                         }}>
-//                                         Agree
-//                                     </Button>
-//                                   </DialogActions>
-//                                 </Dialog>
-//                           </button>
-//                             <button>
-//                             <NavLink to={"/admin/blacklist-add"} onClick={() => {}}>
-//                               <UserMinusIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
-//                             </NavLink>
-//                             </button>
-//                         </TableCell>
-//                       </TableRow>
-//                     ))}
-//                     </TableBody>
-//                   </Table>        
-//                 </div>
-//               );
-// }
-
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { PencilSquareIcon, TrashIcon,UserMinusIcon} from "@heroicons/react/24/outline";
-import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
-import TablePagination from '@mui/material/TablePagination';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import {
+  ExclamationTriangleIcon,
+  PencilSquareIcon,
+  TrashIcon,
+  UserMinusIcon,
+} from "@heroicons/react/24/outline";
+import {
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Paper,
+} from "@mui/material";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 interface TypeData {
   typeSelected: string;
 }
-const rowsPerPageOptions = [10];
+import { useAppSelector } from "../../hooks/hooks";
+import { AcountConfig, AcountInterface } from "../../services/services";
+import { omitBy, isUndefined } from "lodash";
+import useQueryParams from "../../hooks/useQueryParams";
+import qs from "query-string";
+import {  isEqual } from "lodash";
+import axiosInstance from "../../utils/AxiosInstance";
+import Paginationacountlist from "./Pagination/Paginationacountlist";
+import moment from "moment";
+// import UserAccountDeletionButton from "../Delete/DeleteButon";
+import Loader from "../Loader/Loader";
+
+export type QueryConfig = {
+  [key in keyof AcountConfig]: string;
+};
+
 export default function AdminTable({ typeSelected }: TypeData) {
-  console.log(typeSelected);
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const handleChangePage = (event: any, newPage: number) => {
-      setPage(newPage);
-  };
-  const handleChangeRowsPerPage = (event: any) => {
-      setRowsPerPage(parseInt(event.target.value, 100));
-      setPage(0);
-  };
   const [open, setOpen] = React.useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  
   const handleClose = () => {
     setOpen(false);
   };
-  // Candidate.state
-  let Candidate = [
-    {     name: "Nguyễn Văn A",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Recruiter",      stateBlackList: 0,   },
-    {     name: "Nguyễn Văn B",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "5/6/2002",      position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn C",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Recruiter",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn D",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "6/11/2002",      position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn E",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "2/11/2002",      position: "Recruiter",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn F",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn G",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn K",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn ",       email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn G",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "11/4/2002",      position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn H",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "25/6/2002",      position: "Recruiter",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn I",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "29/10/2002",      position: "Candidate",      stateBlackList: 1,    },
-    {     name: "Nguyễn Văn K",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Recruiter",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn A",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn B",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "5/6/2002",      position: "Recruiter",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn C",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
-    {     name: "Nguyễn Văn X",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
-    {     name: "Nguyễn Văn Y",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
-    {     name: "Nguyễn Văn M",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
-    {     name: "Nguyễn Văn T",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
-    {     name: "Nguyễn Văn Z",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
-    {     name: "Nguyễn Văn D",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "6/11/2002",      position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn E",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "2/11/2002",     position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn F",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn G",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "11/4/2002",      position: "Interviewer",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn H",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "11/4/2002",      position: "Interviewer",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn I",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "11/4/2002",      position: "Interviewer",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn H",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "25/6/2002",      position: "Interviewer",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn I",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "29/10/2002",      position: "Interviewer",     stateBlackList: 0,    },
-    {     name: "Nguyễn Văn K",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Interviewer",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn A",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Recruiter",      stateBlackList: 0,   },
-    {     name: "Nguyễn Văn B",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "5/6/2002",      position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn C",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Recruiter",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn D",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "6/11/2002",      position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn E",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "2/11/2002",      position: "Recruiter",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn F",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn G",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn K",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn ",       email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn G",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "11/4/2002",      position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn H",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "25/6/2002",      position: "Recruiter",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn I",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "29/10/2002",      position: "Candidate",      stateBlackList: 1,    },
-    {     name: "Nguyễn Văn K",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Recruiter",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn A",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn B",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "5/6/2002",      position: "Recruiter",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn C",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
-    {     name: "Nguyễn Văn X",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
-    {     name: "Nguyễn Văn Y",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
-    {     name: "Nguyễn Văn M",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
-    {     name: "Nguyễn Văn T",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
-    {     name: "Nguyễn Văn Z",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "7/9/2002",      position: "Candidate",      stateBlackList: 1,    },
-    {     name: "Nguyễn Văn D",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "6/11/2002",      position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn E",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "2/11/2002",     position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn F",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "8/2/2002",      position: "Candidate",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn G",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "11/4/2002",      position: "Interviewer",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn H",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "11/4/2002",      position: "Interviewer",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn I",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "11/4/2002",      position: "Interviewer",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn H",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "25/6/2002",      position: "Interviewer",      stateBlackList: 0,    },
-    {     name: "Nguyễn Văn I",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "29/10/2002",      position: "Interviewer",     stateBlackList: 0,    },
-    {     name: "Nguyễn Văn K",      email: "Candidate@example.com",      phone: "0978123xxx",      day: "9/10/2002",      position: "Interviewer",      stateBlackList: 0,    },
-  ];
-  if (typeSelected == "Blacklist") {
+  const jobs: AcountInterface[] = useAppSelector(
+    (state) => state.adminacountList.adminmanagerAcountList,
+  );
+  const totalListJobs = useAppSelector(
+    (state) => state.adminacountList.totalListAcounts,
+  );
+  const queryParams: QueryConfig = useQueryParams();
+  const queryConfig: QueryConfig = omitBy(
     {
-      Candidate = Candidate.filter((item) => item.stateBlackList == 1)
-      return (
-          <div className="mt-10 w-full max-w-full overflow-x-auto rounded-xl">
-          <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
-            <Table className="w-full text-gray-500 dark:text-gray-400 text-center">
-              <TableHead className=" text-gray-700 uppercase bg-gray-200 text-center">
-                <TableRow>
-                  <TableCell scope="col" className="px-3 py-1">                    Name                  </TableCell>
-                  <TableCell scope="col" className="px-3 py-1">                    Position                  </TableCell>
-                  <TableCell scope="col" className="px-3 py-1">                    Phone number                  </TableCell>
-                  <TableCell scope="col" className="px-3 py-1">                    Email                  </TableCell>
-                  <TableCell scope="col" className="px-3 py-1">                    Date created                  </TableCell>
-                  <TableCell scope="col" className="px-3 py-1">                    Actions                  </TableCell>
-                  {                  }
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {Candidate.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, index,Candidate:any) => (
-                  <TableRow className="text-black bg-white text-center justify-center" key={index}>
-                    <TableCell  scope="row"   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                      {item.name}
-                    </TableCell>
-                    <TableCell className="px-6 py-4 text-center justify-center">{item.position}</TableCell>
-                    <TableCell className="px-6 py-4 text-center justify-center">{item.phone}</TableCell>
-                    <TableCell className="px-6 py-4 text-center justify-center">{item.email}</TableCell>
-                    <TableCell className="px-6 py-4 text-center justify-center">{item.day}</TableCell>
-                    {/* <td className="px-6 py-4">{item.stateBlackList}</td> */}
-                    <TableCell className="px-6 py-4">
-                      <button>
-                        <NavLink to={`/admin/blacklist-delete/`} onClick={() => {}}>
-                            <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
-                        </NavLink>
-                      </button>
-                      <button>
-                        <NavLink to={"/admin/blacklist-delete"} onClick={() => {}}>
-                          <TrashIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
-                        </NavLink>
-                      </button>
-                    </TableCell>
-                    </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-            <TablePagination
-              rowsPerPageOptions={rowsPerPageOptions}
-              component="div"
-              count={100}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-            </TableContainer>
-          </div>
-      );
+      size: queryParams.size || 5,
+      page: queryParams.page ,
+      role: queryParams.role || (typeSelected === "Blacklist" ? "CANDIDATE" : (typeSelected === "" ? "" : typeSelected)),
+      name: queryParams.name  ||"",
+      blacklist: queryParams.blacklist || typeSelected == "Blacklist" ?  "true" : "",
+      phone: queryParams.phone ,
+      email: queryParams.email,
+    },
+    isUndefined,
+  );
+
+  const [prevQueryConfig, setPrevQueryConfig] =
+    useState<QueryConfig>(queryConfig);
+  const [pageSize, setPageSize] = useState(
+    Math.ceil(totalListJobs / Number(queryParams.size || 5)),
+  );
+  const [showJobLists, setAdminManagerJobList] = useState(jobs);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedUserId, setSelectedUserId] = React.useState('');
+
+  const handleClickOpen = (userId) => {
+    setSelectedUserId(userId);
+    setOpen(true);
+  };
+
+  const handleDelete = () => {
+    // Perform the DELETE request to delete the user with the selectedUserId
+    axiosInstance.put(`admin/delete/${selectedUserId}`)
+      .then((response) => {
+        // Handle the successful response, e.g., show an alert or update the UI
+        alert('User deleted successfully!');
+        // Reload the page after deletion to update the table
+        window.location.reload();
+      })
+      .catch((error) => {
+        // Handle errors, e.g., show an error message or log the error
+        console.error('Error deleting user:', error);
+      })
+      .finally(() => {
+        // Always close the dialog after handling the delete operation
+        handleClose();
+      });
+  };
+
+
+  useEffect(() => {
+    if (!isEqual(prevQueryConfig, queryConfig)) {
+      const fetchJobs = async () => {
+        setIsLoading(true);
+        try {
+          const query = qs.stringify(queryConfig);
+          const response = await axiosInstance(`/admin/users?${query}`);
+          setAdminManagerJobList(response.data.result.content);
+          setPageSize(response.data.result.totalPages);
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetchJobs();
+      setPrevQueryConfig(queryConfig);
     }
-  };
-  if (typeSelected !== "All") {
-    Candidate = Candidate.filter((item) => item.position == typeSelected);
-  };
-  Candidate = Candidate.filter((item) => item.stateBlackList == 0)
+  }, [queryConfig, prevQueryConfig]);
+
+  useEffect(() => {
+    const fetchPosition = async () => {
+      setIsLoading(true);
+      try {
+        if (queryConfig) {
+          const query = qs.stringify(queryConfig);
+          const response = await axiosInstance(`/admin/users?${query}`);
+          setAdminManagerJobList(response.data.result.content);
+          setPageSize(response.data.result.totalPages);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchPosition();
+  }, []);
+
   return (
-      <div className="mt-10 w-full max-w-full overflow-x-auto rounded-xl">
-      <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
-            <Table className="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
-              <TableHead className="text-xs text-gray-700 uppercase bg-gray-200 text-center">
-                <TableRow>
-                  <TableCell scope="col" className="px-3 py-1">                    Name                  </TableCell>
-                  <TableCell scope="col" className="px-3 py-1">                    Position                  </TableCell>
-                  <TableCell scope="col" className="px-3 py-1">                    Phone number                  </TableCell>
-                  <TableCell scope="col" className="px-3 py-1">                    Email                  </TableCell>
-                  <TableCell scope="col" className="px-3 py-1">                    Date created                  </TableCell>
-                  <TableCell scope="col" className="px-3 py-1">                    Actions                  </TableCell>
-                  {                  }
-                </TableRow>
-              </TableHead>
+    <div className="w-full max-w-full rounded-xl">
+      <TableContainer
+        component={Paper}
+        sx={{ border: "1px solid rgba(0, 0, 0, 0.4)" }}
+      >
+        <Table className="w-full text-sm text-center text-gray-500 dark:text-gray-400">
+          <TableHead className="w-full text-xs text-center text-gray-700 bg-gray-200 text-[1px]">
+            <TableRow>
+              <TableCell
+                scope="col"
+                className="px-1 py-1"
+                style={{ fontFamily: "Outfit, sans-serif" }}
+              >
+                {" "}
+                Name{" "}
+              </TableCell>
+              <TableCell
+                scope="col"
+                className="px-1 py-1"
+                style={{ fontFamily: "Outfit, sans-serif" }}
+              >
+                {" "}
+                Role{" "}
+              </TableCell>
+              <TableCell
+                scope="col"
+                className="px-1 py-1"
+                style={{ fontFamily: "Outfit, sans-serif" }}
+              >
+                {" "}
+                Phone number{" "}
+              </TableCell>
+              <TableCell
+                scope="col"
+                className="px-1 py-1"
+                style={{ fontFamily: "Outfit, sans-serif" }}
+              >
+                {" "}
+                Email{" "}
+              </TableCell>
+              <TableCell
+                scope="col"
+                className="px-1 py-1"
+                style={{ fontFamily: "Outfit, sans-serif" }}
+              >
+                {" "}
+                Date created{" "}
+              </TableCell>
+              <TableCell
+                scope="col"
+                className="px-1 py-1"
+                style={{ fontFamily: "Outfit, sans-serif" }}
+              >
+                {" "}
+                Actions{" "}
+              </TableCell>
+              {}
+            </TableRow>
+          </TableHead>
           <TableBody>
-            {Candidate.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, index,Candidate:any) => (
-              <TableRow className="text-black bg-white text-center" key={index}>
-                <TableCell   scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"> {item.name}</TableCell>
-                <TableCell className="px-6 py-4">{item.position}</TableCell>
-                <TableCell className="px-6 py-4">{item.phone}</TableCell>
-                <TableCell className="px-6 py-4">{item.email}</TableCell>
-                <TableCell className="px-6 py-4">{item.day}</TableCell>
-                {/* <td className="px-6 py-4">{item.stateBlackList}</td> */}
-                <TableCell className="px-6 py-4">
-                  <button>
-                      <NavLink to={"/admin/position-change"} onClick={() => {}}>
-                        <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
-                      </NavLink>
-                  </button>
-                  <button>
-                  <TrashIcon onClick={handleClickOpen} className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex"/>
-                      <Dialog
+            {isLoading ? (
+              <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-10 mb-10">
+                <Loader />
+              </div>
+            ) : (
+              <>
+                {showJobLists.map((job) => (
+                  <TableRow
+                    className="text-center text-black bg-white"
+                    style={{
+                      background: job.active === false ? "#FF0033" : "none",
+                      // Add any other inline styles you want for each row
+                    }}
+                    key={job.userId}
+                  >
+                    <TableCell
+                      scope="row"
+                      className="px-1 py-1 font-medium text-gray-900 whitespace-nowrap"
+                      style={{ fontFamily: "Outfit, sans-serif" }}
+                    >
+                      {" "}
+                      {job.fullName}
+                    </TableCell>
+                    <TableCell
+                      className="px-1 py-1"
+                      style={{ fontFamily: "Outfit, sans-serif" }}
+                    >
+                      {job.role.charAt(0).toUpperCase() + job.role.slice(1).toLowerCase()}
+                      {/* {job.blacklisted ? "tao ngu qua": "tao qua ngu"}  */}
+                    </TableCell>
+                    <TableCell
+                      className="px-1 py-1"
+                      style={{ fontFamily: "Outfit, sans-serif" }}
+                    >
+                      {job.phone}
+                    </TableCell>
+                    <TableCell
+                      className="px-1 py-1"
+                      style={{ fontFamily: "Outfit, sans-serif" }}
+                    >
+                      {job.email}
+                    </TableCell>
+                    <TableCell className="justify-center px-1 py-1 text-center">
+                      {job.createdAt
+                        ? new Date(job.createdAt).toISOString().split("T")[0]
+                        : ""}
+                    </TableCell>
+                      {/* Change Role Acount */}
+                    <TableCell className="px-1 py-1">
+                       {job.role !== "ADMIN" && typeSelected !== "Blacklist" && job.active !== false ? (
+                        <>
+                        <button>
+                          <NavLink to={`/admin/users/${job.userId}`} onClick={() => {}}>
+                            <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
+                          </NavLink>
+                        </button>
+                        </>
+                      ) : null}
+                      {/*  Acount BlackList */}
+                      {job.role !== "ADMIN" && typeSelected == "Blacklist" && job.active !== false ? (
+                        <>
+                        <button>
+                          <NavLink to={`/admin/blacklist/${job.userId}`} onClick={() => {}}>
+                            <PencilSquareIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
+                          </NavLink>
+                        </button>
+                        </>
+                      )   : null}
+
+                      {/* Delete  */}
+                      {job.role !== "ADMIN" && typeSelected !== "Blacklist" && job.active !== false && (
+                        <>
+                        <button>                         
+                        <TrashIcon
+                          onClick={() => handleClickOpen(job.userId)}
+                          className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg"
+                        />                       
+                        {/* Delete Dialog */}
+                        <Dialog
                           open={open}
                           onClose={handleClose}
+                          BackdropProps={{ invisible: true }}
+                          sx={{ borderRadius: 30 }}
                           aria-labelledby="alert-dialog-title"
                           aria-describedby="alert-dialog-description"
                         >
-                          <DialogTitle id="alert-dialog-title" className='text-center'>
-                            {"Use Google's location service?"}
+                          <DialogTitle
+                            id="alert-dialog-title"
+                            className="text-center"
+                          >
+                            <p className="font-extrabold pt-4">Delete Job</p>
                           </DialogTitle>
-                          <DialogContent>
-                            <DialogContentText id="alert-dialog-description">
-                            Or consider carefully before deleting them all changes when pressing the agree button.
-                            </DialogContentText>
+                          <DialogContent className="text-center">
+                            <div className="text-center px-6">
+                              <DialogContent className="font-semibold text-lg mb-2">
+                                Are you sure you want to delete "{job.fullName}"?
+                              </DialogContent>
+                              <DialogContentText
+                                id="alert-dialog-description"
+                                className="border bg-orange-100 px-3 py-2 "
+                              >
+                                <div className ="flex">
+                                  <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
+                                  <p className="flex text-red-800 font-semibold px-2">
+                                    WARNING
+                                  </p>
+                                </div>
+                                <div className="text-left font-semibold">
+                                  This action cannot be undone, the deleted item
+                                  cannot be restored.
+                                </div>
+                              </DialogContentText>
+                            </div>
                           </DialogContent>
                           <DialogActions>
-                            <Button onClick={handleClose} color="error" variant="contained">Disagree</Button>
-                            <Button onClick={handleClose} autoFocus type='submit' variant="contained" sx={{
-                                    backgroundColor: "#059669",'&:hover': { backgroundColor: "#289972", },
-                                }}>
-                                Agree
-                            </Button>
-                          </DialogActions>
-                        </Dialog>
-                  </button>
-                  {(item.position === "Candidate" && item.stateBlackList === 0) ? (
-                    <button>
-                      <NavLink to={"/admin/blacklist-add"} onClick={() => {}}>
-                        <UserMinusIcon className="w-5 h-5 relative rounded-lg justify-center items-center gap-2 flex" />
-                      </NavLink>
-                    </button>
-                    ) : null}
-                </TableCell>
-              </TableRow>
-            ))}
-            </TableBody>
-          </Table>
-          <TablePagination
-            rowsPerPageOptions={rowsPerPageOptions}
-            component="div"
-            count={100}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </TableContainer>
+                            <button
+                              className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-1 my-1 text-white"
+                              onClick={handleClose}
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              className="rounded-lg bg-red-700 hover:bg-red-900 px-4 py-2 mx-1 my-1 text-white"
+                              onClick={handleDelete}
+                              autoFocus
+                            >
+                              Delete
+                            </button>
+                          </DialogActions>   
+                        </Dialog>                   
+                        </button>
+                      </>
+                      )}
+                      {/*  */}
+                      {job.role === "CANDIDATE"   && typeSelected !=="Blacklist" && job.active !== false ?  (
+                        <>
+                          {job.blacklist !== true ? (
+                              <button>
+                                <NavLink
+                                  to={`/admin/users/blacklist/${job.userId}`}
+                                  onClick={() => {}}
+                                >
+                                  <UserMinusIcon className="relative flex items-center justify-center w-5 h-5 gap-2 rounded-lg" />
+                                </NavLink>
+                              </button>)
+                            : null
+                          }
+                        </>
+                        ): null}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <div className="flex justify-center mt-5">
+        {/* Pagination  */}
+        <Paginationacountlist queryConfig={queryConfig} pageSize={pageSize} />
       </div>
+    </div>
   );
 }
-
