@@ -3,6 +3,7 @@ import axiosInstance from "../../utils/AxiosInstance";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import classNames from "classnames";
+import { REC_CANDIDATE_STATUS } from "../../utils/Localization";
 
 export default function InterviewHistory() {
   const { userId } = useParams();
@@ -71,7 +72,7 @@ export default function InterviewHistory() {
                             : "bg-yellow-100"
                         }`}
                       >
-                        {interview.state}
+                        {REC_CANDIDATE_STATUS[interview.state]}
                       </span>
                     </td>
                   </tr>

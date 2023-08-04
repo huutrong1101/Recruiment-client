@@ -186,7 +186,10 @@ export default function App() {
 
             <Route path="event-manager" element={<ReccerEventManagement />} />
 
-            <Route path="interview-schedule" element={<InterviewSched />} />
+            <Route
+              path="jobdetail/:jobId/interview-schedule/:userId"
+              element={<InterviewSched />}
+            />
           </Route>
         </Route>
 

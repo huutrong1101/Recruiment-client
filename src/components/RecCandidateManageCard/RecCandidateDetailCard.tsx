@@ -1,6 +1,5 @@
 // import { avatar } from "@material-tailwind/react";
 import React, { useEffect, useState } from "react";
-import blog_image from "../../../images/blog_image.png";
 import { GrDocumentText } from "react-icons/gr";
 import classNames from "classnames";
 import RecCandidateinfoCard from "./RecCandidateInfoCard";
@@ -74,7 +73,7 @@ export default function RecCandidateDetailCard(props: any) {
                 <div className="md:w-full">
                   <div className="relative flex items-end">
                     <img
-                      src={blog_image}
+                      src={candidate.avatar}
                       className="h-28 w-28 rounded-full ring-4 ring-slate-50 "
                     />
                     <div className="ms-4 mb-7">
@@ -137,7 +136,7 @@ export default function RecCandidateDetailCard(props: any) {
                               key={index}
                               className="text-zinc-600 mt-3 text-lg "
                             >
-                              {education.educationId}. {education.schoolName} -{" "}
+                              {education.educationId}. {education.schoolName}
                               {education.specialized} - {education?.certificate}
                             </p>
                           </>

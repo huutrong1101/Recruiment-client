@@ -89,7 +89,7 @@ export default function Suggested() {
                   </div>
                   <div className="pt-4">
                     <Link
-                      to={`/recruiter/applied-candidates/${candidates.userId}`}
+                      to={`/recruiter/candidates/${candidates.userId}`}
                     >
                       <button className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 border-emerald-600 dark:border-emerald-600 text-white rounded-md">
                         Profile

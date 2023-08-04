@@ -1737,10 +1737,10 @@
   resolved "https://registry.yarnpkg.com/@syncfusion/ej2-icons/-/ej2-icons-22.2.5.tgz#c223ab5ac65d6e8e59c9b8df0571b7e092a2b1ef"
   integrity sha512-gNfUKBZ3kQNCX9fPDYai0xDVXbMPpmTSA9/tcuAv2rJhilCtkL7WSof5dPV/z9IOX8tjWYW/KCOdaTpxMPDQlg==
 
-"@syncfusion/ej2-popups@22.2.7":
-  version "22.2.7"
-  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-popups/-/ej2-popups-22.2.7.tgz#32e4cc3239053ed70686f6a2831e47cda3bd8519"
-  integrity sha512-M4m+Hla9Fg8j2pV0sgMtWJkqERdL517ETGzn7zY9frYf+kLGUxNsv5/tP6VdqD0+hoSTUWDSjlbCe2vmyjyHdQ==
+"@syncfusion/ej2-popups@22.2.5":
+  version "22.2.5"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-popups/-/ej2-popups-22.2.5.tgz#605936265dee7d47308c7571f8acf89403087f59"
+  integrity sha512-7UGkiKOkrELyDYmkjPvcDBHHes2IKEuly1gc8JGlfz1fQHzthxU3LkVJKInGAqIig1iaqQzuTajrCJIdXpPNaA==
   dependencies:
     "@syncfusion/ej2-base" "~22.2.5"
     "@syncfusion/ej2-buttons" "~22.2.5"
