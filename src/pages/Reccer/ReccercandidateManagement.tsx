@@ -32,18 +32,11 @@ export type QueryConfig = {
 };
 
 const ReccerCandidateManagement = () => {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchCandidateList());
-    dispatch(fetchCandidateSkill());
-  }, []);
-
   const queryParams: QueryConfig = useQueryParams();
   const queryConfig: QueryConfig = omitBy(
     {
       index: queryParams.index || "1",
-      size: queryParams.size || 1,
+      size: queryParams.size || 3,
       name: queryParams.name,
       skill: queryParams.skill,
     },
@@ -61,18 +54,24 @@ const ReccerCandidateManagement = () => {
   );
 
   const [pageSize, setPageSize] = useState(
-    Math.ceil(totalCandidates / Number(queryParams.size ?? 2)),
+    Math.ceil(totalCandidates / Number(queryParams.size ?? 3)),
   );
 
-  console.log(pageSize);
-
   const [isLoading, setIsLoading] = useState(false);
-  const [showCandidates, setshowCandidates] = useState(candidates);
+
+  const [showCandidates, setshowCandidates] = useState([]);
 
   const [dataSearch, setDataSearch] = useState({
     key: "",
     skill: "",
   });
+
+  const [showSkill, setShowSkill] = useState(false);
+  // console.log(showSkill)
+  const [skill, setCandidateskillList] = useState("");
+  // console.log(skill)
+  const listSkills = useAppSelector((state) => state.candidateList.skill);
+  // console.log(listSkills)
 
   useEffect(() => {
     const fetchSkills = async () => {
@@ -83,7 +82,8 @@ const ReccerCandidateManagement = () => {
           const response = await axiosInstance(
             `/recruiter/applied-candidates?${query}`,
           );
-          setshowCandidates(response.data.result.content);
+          // console.log(response.data.result.content);
+          setshowCandidates(response.data.result?.content);
           setPageSize(response.data.result.totalPages);
         }
         setDataSearch({
@@ -109,7 +109,8 @@ const ReccerCandidateManagement = () => {
           const response = await axiosInstance(
             `/recruiter/applied-candidates?${query}`,
           );
-          setshowCandidates(response.data.result.content);
+
+          setshowCandidates(response.data.result?.content);
           setPageSize(response.data.result.totalPages);
         } catch (error) {
           console.log(error);
@@ -122,25 +123,15 @@ const ReccerCandidateManagement = () => {
     }
   }, [queryConfig, prevQueryConfig]);
 
-  const [showSkill, setShowSkill] = useState(false);
-  // console.log(showSkill)
-  const [skill, setCandidateskillList] = useState("");
-  // console.log(skill)
-  const listSkills = useAppSelector((state) => state.candidateList.skill);
-  // console.log(listSkills)
-
   const navigate = useNavigate();
 
   const handleSearch = async () => {
     try {
       setIsLoading(true);
-      console.log("Searching with fullName:", dataSearch.key);
-      console.log("co vao day");
       navigate({
-        pathname: "../applied-candidates",
+        pathname: "",
         search: createSearchParams({
           ...queryConfig,
-          //Dưới đây chính là cái parameter ở URL
           name: dataSearch.key,
           skill: dataSearch.skill,
           index: "1",
@@ -153,9 +144,11 @@ const ReccerCandidateManagement = () => {
     }
   };
 
+  console.log(showCandidates);
+
   return (
     <>
-      <div className="item-center flex justify-center mt-6">
+      <div className="flex justify-center mt-6 item-center">
         <div
           className={classNames(
             "flex items-center flex-shrink-0 w-[54.5%] h-1/2 p-2 mt-1 border rounded-lg ",
@@ -253,16 +246,16 @@ const ReccerCandidateManagement = () => {
       <>
         {isLoading ? (
           <div className="flex justify-center mb-10">
-            <LoadSpinner className="text-3xl mt-5" />
+            <LoadSpinner className="mt-5 text-3xl" />
           </div>
         ) : (
           <div className="flex flex-wrap justify-center items-center mt-[20px] ">
             {/* <!-- Card --> */}
-            {showCandidates.length > 0 ? (
-              candidates.map((candidate: any) => (
+            {showCandidates && showCandidates.length > 0 ? (
+              showCandidates.map((candidate: any) => (
                 <div
                   key={candidate.id}
-                  className=" px-3 mb-8 lg:w-1/4 md:w-1/3 sm:w-3/4"
+                  className="px-3 mb-8 lg:w-1/4 md:w-1/3 sm:w-3/4"
                 >
                   <RecCandidateCard candidate={candidate} />
                 </div>
