@@ -80,6 +80,7 @@ export default function Applied() {
     getApplyCandidate();
   }, [jobId]);
 
+
   useEffect(() => {
     if (!isEqual(prevQueryConfig, queryConfig)) {
       const fetchApplyCandidate = async () => {
@@ -152,6 +153,7 @@ export default function Applied() {
     }
   };
 
+  console.log(applyCandidate.interviewerFullNames)
   return (
     <div
       className={classNames(
@@ -178,6 +180,15 @@ export default function Applied() {
               <th scope="col" className="px-6 py-4">
                 <div className="flex gap-3 items-center">
                   Email
+                  <ChevronUpDownIcon
+                    className="w-5 h-5 cursor-pointer"
+                    onClick={() => sorting("candidateEmail")}
+                  />
+                </div>
+              </th>
+              <th scope="col" className="px-6 py-4">
+                <div className="flex gap-3 items-center">
+                  Interviewer's Name
                   <ChevronUpDownIcon
                     className="w-5 h-5 cursor-pointer"
                     onClick={() => sorting("candidateEmail")}
@@ -258,6 +269,7 @@ export default function Applied() {
                   {applyCandidate.candidateFullName}
                 </td>
                 <td className="px-6 py-4">{applyCandidate.candidateEmail}</td>
+                <td className="px-6 py-4">{applyCandidate.interviewerFullNames == null ? "None" :applyCandidate.interviewerFullNames }</td>
                 <td className="px-6 py-4">
                   {applyCandidate.score
                     ? applyCandidate.score + " / 100"

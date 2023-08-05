@@ -18,7 +18,7 @@ import classNames from 'classnames';
 
 export default function InterviewerDetail() {
   const { interviewerId } = useParams();
-  const [interviewer, setInterviewer] = useState<RecInterviewerInterface | null>(null);
+  const [interviewer, setInterviewer] = useState<anny | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const getInterviewerDetail = async () => {
@@ -72,6 +72,7 @@ export default function InterviewerDetail() {
     // If the phone number doesn't have 10 digits, return the original value
     return phoneNumber;
   }
+  console.log(interviewer)
   return (
     <div>
       {interviewer ? (
@@ -140,167 +141,99 @@ export default function InterviewerDetail() {
                   className={classNames(
                     `border bg-white shadow-sm rounded-xl`,
                     `px-8 py-8`,
-                    `text-justify`, `mt-5`
+                    `text-justify mt-5`,
                   )}
                 >
-                  <div>
-                    <h1 className="text-2xl font-semibold">
-                      Education
-                    </h1>
-                    <p>
-                      {
-                        interviewer?.educations?.map((education, index) => (
-                          <>
-                            <p
-                              key={index}
-                              className="text-zinc-600 mt-3 text-lg "
-                            >
-                              {education.educationId}. {education.schoolName} - {education.specialized} - {education?.certificate}
-                            </p>
-                          </>
-                        ))}
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className={classNames(
-                    `border bg-white shadow-sm rounded-xl`,
-                    `px-8 py-8`,
-                    `text-justify`, `mt-5`
-                  )}
-                >
-                  <div>
-                    <h1 className="text-2xl font-semibold">
-                      Course
-                    </h1>
-                    <p>
-                      {
-                        interviewer?.courses?.map((course, index) => (
-                          <>
-                            <p
-                              key={index}
-                              className="text-zinc-600 mt-3 text-lg "
-                            >
-                              {course.courseId}. {course.courseName} - {course.trainningOrganizations} - {moment(course?.completionTime).format("Do MMM, YYYY")}
-                            </p>
-                          </>
-                        ))}
-                    </p>
+                  <div className="text-2xl font-semibold">Education</div>
+                  <div className="flex gap-4 flex-wrap">
+                    {JSON.parse(interviewer.information)?.education?.map(
+                      (edu: any, index: any) => (
+                        <>
+                          <div
+                            key={index}
+                            className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                          >
+                            <p>School: {edu.school}</p>
+                            <p>Major: {edu.major}</p>
+                            <p>Graduated Year: {edu.graduatedYear}</p>
+                          </div>
+                        </>
+                      ),
+                    )}
                   </div>
                 </div>
                 <div
                   className={classNames(
                     `border bg-white shadow-sm rounded-xl`,
                     `px-8 py-8`,
-                    `text-justify`, `mt-5`
+                    `text-justify mt-5`,
                   )}
                 >
-                  <div>
-                    <h1 className="text-2xl font-semibold">
-                      Project
-                    </h1>
-                    <p>
-                      {
-                        interviewer?.projects?.map((project, index) => (
-                          <>
-                            <p
-                              key={index}
-                              className="text-zinc-600 mt-3 text-lg "
-                            >
-                              {project.projectId}. {project.projectName} - {project.positionInProject}
-                            </p>
-                            <p
-                              key={index}
-                              className="text-zinc-600 mt-3 text-lg ml-4"
-                            >
-                              {project.description}
-                            </p>
-                          </>
-                        ))}
-                    </p>
+                  <div className="text-2xl font-semibold">Project</div>
+                  <div className="flex gap-4 flex-wrap">
+                    {JSON.parse(interviewer.information)?.project?.map(
+                      (edu: any, index: any) => (
+                        <>
+                          <div
+                            key={index}
+                            className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                          >
+                            <p>Project: {edu.school}</p>
+                            <p>Major: {edu.major}</p>
+                            <p>Graduated Year: {edu.graduatedYear}</p>
+                          </div>
+                        </>
+                      ),
+                    )}
                   </div>
                 </div>
-
                 <div
                   className={classNames(
                     `border bg-white shadow-sm rounded-xl`,
                     `px-8 py-8`,
-                    `text-justify`, `mt-5`
+                    `text-justify mt-5`,
                   )}
                 >
-                  <div>
-                    <h1 className="text-2xl font-semibold">
-                      Experience
-                    </h1>
-                    <p>
-                      {
-                        interviewer?.experiences?.map((experience, index) => (
-                          <>
-                            <p
-                              key={index}
-                              className="text-zinc-600 mt-3 text-lg "
-                            >
-                              {experience.experienceId}. {experience.companyName} - {experience.position} - {experience.time}
-                            </p>
-                          </>
-                        ))}
-                    </p>
-                  </div>
+                  <div className="text-2xl font-semibold">Experience</div>
+                  {JSON.parse(interviewer.information)?.experience?.map(
+                    (edu: any, index: any) => (
+                      <>
+                        <div
+                          key={index}
+                          className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                        >
+                          <p>Project: {edu.school}</p>
+                          <p>Major: {edu.major}</p>
+                          <p>Graduated Year: {edu.graduatedYear}</p>
+                        </div>
+                      </>
+                    ),
+                  )}
                 </div>
-
                 <div
                   className={classNames(
                     `border bg-white shadow-sm rounded-xl`,
                     `px-8 py-8`,
-                    `text-justify`, `mt-5`
+                    `text-justify mt-5`,
                   )}
                 >
-                  <div>
-                    <h1 className="text-2xl font-semibold">
-                      Award
-                    </h1>
-                    <p>
-                      {
-                        interviewer?.awards?.map((award, index) => (
-                          <>
-                            <p
-                              key={index}
-                              className="text-zinc-600 mt-3 text-lg "
-                            >
-                              {award.awardId}. {award.awardName} - {award.awardOrganization} - {moment(award?.awardWinningTime).format("Do MMM, YYYY")}
-                            </p>
-                          </>
-                        ))}
-                    </p>
+                  <div className="text-2xl font-semibold">
+                    Certificate
                   </div>
-                </div>
-
-                <div
-                  className={classNames(
-                    `border bg-white shadow-sm rounded-xl`,
-                    `px-8 py-8`,
-                    `text-justify`, `mt-5`
+                  {JSON.parse(interviewer.information)?.certificate?.map(
+                    (edu: any, index: any) => (
+                      <>
+                        <div
+                          key={index}
+                          className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                        >
+                          <p>Project: {edu.school}</p>
+                          <p>Major: {edu.major}</p>
+                          <p>Graduated Year: {edu.graduatedYear}</p>
+                        </div>
+                      </>
+                    ),
                   )}
-                >
-                  <div>
-                    <h1 className="text-2xl font-semibold">
-                      Certificate
-                    </h1>
-                    <p>
-                      {
-                        interviewer?.certificates?.map((certificate, index) => (
-                          <>
-                            <p
-                              key={index}
-                              className="text-zinc-600 mt-3 text-lg "
-                            >
-                              {certificate.certificateId}. {certificate.certificateName} - {certificate.certificateBody} - {moment(certificate?.certificationTime).format("Do MMM, YYYY")}
-                            </p>
-                          </>
-                        ))}
-                    </p>
-                  </div>
                 </div>
 
               </div>
