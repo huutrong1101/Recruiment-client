@@ -34,6 +34,8 @@ import moment from "moment";
 import Loader from "../../../components/Loader/Loader";
 import {JOB_POSITION} from "../../../utils/Localization";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import { toast } from "react-toastify";
+import { JobService } from "../../../services/JobService";
 
 export default function ReccerJobDetail() {
   const [jobInformation, setJobInformation] = useState([
@@ -83,13 +85,17 @@ export default function ReccerJobDetail() {
 
   const navigate = useNavigate();
   const deleteJob = async () => {
-    const response = await axiosInstance.delete(`/recruiter/job/${jobId}`);
-    await axiosInstance.delete(`/recruiter/job/${jobId}`);
-    alert(response.data.message); // In ra thông tin phản hồi từ máy chủ
+    toast
+      .promise(JobService.deleteJob(job?.jobId), {
+        pending: `Delete Job`,
+        success: `The Job was deleted`,
+      })
+      .catch((error) => toast.error(error.response.data.result));
     navigate({
       pathname: "/recruiter/jobs",
     });
   };
+
   const routeChange = () => {
     let path = `./edit`;
     navigate(path);

@@ -46,6 +46,13 @@ export interface JobListConfig {
   type?: string;
   location?: string;
   posName?: string;
+  active?: boolean;
+}
+export interface EventListConfig {
+  index?: number | string;
+  size?: number | string;
+  name?: string;
+  state?: string;
 }
 export interface AppliedCandidateListConfig {
   name?: string;
@@ -237,6 +244,13 @@ export interface AdminJobPassListConfig {
   id?: number | string;
 }
 export interface AcountFrofileInterface {
+  userId: string;
+  name: string;
+  avatar: string;
+  phone: number;
+  address: string;
+}
+export interface AcountFrofileUsersInterface {
   userId: string;
   name: string;
   avatar: string;

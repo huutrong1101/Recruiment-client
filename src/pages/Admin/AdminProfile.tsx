@@ -1,16 +1,7 @@
 
-import React, { useState, useEffect, useRef } from "react";
-import classnames from "classnames";
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-
+import {useEffect} from "react";
 import {fetchAdminProfileRecent} from "../../redux/reducer/AdminProfileRecentSlice";
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import Loader from "../../components/Loader/Loader";
 import { STATUS } from '../../utils/Status';
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
@@ -20,14 +11,6 @@ const AdminProfile = () => {
     useEffect(() => {
         dispatch(fetchAdminProfileRecent())
     }, []);
-    const fileInputRef = useRef(null);
-    const [open, setOpen] = React.useState(false);
-    const handleClickOpen = () => {
-    setOpen(true);
-    };
-    const handleClose = () => {
-    setOpen(false);
-    };
     if(adminprofilesRecentStatus === STATUS.LOADING){
         return (
             <div className="flex justify-center mt-10">

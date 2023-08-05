@@ -74,7 +74,21 @@ async function getIfUserAppliedTheJob(jobId: string) {
   return axiosInstance.get(`/candidate/applied-jobs/${jobId}`);
 }
 
+const createJob = async (data: any) => {
+  return await axiosInstance.post(`recruiter/job`, data);
+};
+const deleteJob = async (data: string) => {
+  return await axiosInstance.delete(`/recruiter/job/${data}`);
+};
+const editJob = async (data: any,jobId : any) => {
+  return await axiosInstance.put(`recruiter/jobs/${jobId}`, data)
+};
+
+
 export const JobService = {
+  editJob,
+  deleteJob,
+  createJob,
   getJobs,
   getPosition,
   getType,

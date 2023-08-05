@@ -91,7 +91,7 @@ export default function UserProfileMyInformation() {
               <LoadSpinner />
             </div>
           ) : (
-            <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-2 sm:grid-cols-6">
+            <div className="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6">
               <FieldContainer
                 label="Education"
                 // values={educationItems}
