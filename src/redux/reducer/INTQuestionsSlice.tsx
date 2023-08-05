@@ -1,6 +1,5 @@
 import { createAsyncThunk, PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { STATUS } from "../../utils/Status";
-import { getLocalToken } from "../../utils/localToken";
 import axiosInstance from "../../utils/AxiosInstance";
 import { toast } from "react-toastify";
 
@@ -66,7 +65,8 @@ const INTQuestionsSlice = createSlice({
                 state.searchQuestions = action.payload.content;
                 state.searchQuestionsStatus = STATUS.IDLE;
             })
-            .addCase(fetchINTQuestionData.rejected, (state) => {
+            .addCase(fetchINTQuestionData.rejected, (state, action) => {
+                toast.error(`${action.error.message}`);
                 state.searchQuestionsStatus = STATUS.IDLE;
                 state.searchQuestions = [];
             })
@@ -80,30 +80,77 @@ const INTQuestionsSlice = createSlice({
                 state.assignedQuestionsStatus = STATUS.IDLE;
             })
             .addCase(fetchINTAssignedQuestions.rejected, (state, action) => {
-                toast.error(`${action.error.message}`);
-                state.assignedQuestionsStatus = STATUS.ERROR;
+                if(action.error.message === "Request failed with status code 500"){
+                    state.assignedQuestionsStatus = STATUS.ERROR500;
+                }else if(action.error.message === "Request failed with status code 404"){
+                    state.assignedQuestionsStatus = STATUS.ERROR404;
+                }
+                else{
+                    toast.error(`${action.error.message}`);
+                    state.assignedQuestionsStatus = STATUS.ERROR;
+                }
             })
 
+            .addCase(assignQuestionForInterview.pending, (state,action) => {
+                state.assignedQuestionsStatus = STATUS.LOADING;
+            })
             .addCase(assignQuestionForInterview.fulfilled, (state, action) => {
                 toast.success(`${action.payload.message}`);
+                state.assignedQuestionsStatus = STATUS.IDLE;
             })
             .addCase(assignQuestionForInterview.rejected, (state, action) => {
-                toast.error(`${action.error.message}`);
-                state.assignedQuestionsStatus = STATUS.ERROR;
+                if(action.error.message === "Request failed with status code 409"){
+                    toast.warning(`Questions has been assigned for the interview`, {
+                        style: {
+                            background: '#FFD700',
+                            color: '#000',
+                        }
+                    });
+                }else{
+                    toast.info(`${action.error.message}`, {
+                        style: {
+                            background: '#007bff',
+                            color: '#fff',
+                        }
+                    });
+                }
+                state.assignedQuestionsStatus = STATUS.IDLE;
             })
 
+            .addCase(deleteQuestionOfInterview.pending, (state, action) => {
+                state.assignedQuestionsStatus = STATUS.LOADING;
+            })
             .addCase(deleteQuestionOfInterview.fulfilled, (state, action) => {
                 toast.success(`${action.payload.message}`);
+                state.assignedQuestionsStatus = STATUS.IDLE;
             })
             .addCase(deleteQuestionOfInterview.rejected, (state, action) => {
                 toast.error(`${action.error.message}`);
+                state.assignedQuestionsStatus = STATUS.IDLE;
             })
 
+
             .addCase(markScore.fulfilled, (state, action) => {
-                toast.success(`${action.payload.message}`);
+                toast.success(`Mark score successfully`);
             })
             .addCase(markScore.rejected, (state, action) => {
-                toast.error(`${action.error.message}`);
+                if(action.error.message === "Request failed with status code 422"){
+                    toast.warning(`Entry point must be in the range 0-10`, {
+                        style: {
+                            background: '#FFD700',
+                            color: '#000',
+                        }
+                    });
+                }else if(action.error.message === "Request failed with status code 500"){
+                    toast.warning(`Scores must be entered for all questions`, {
+                        style: {
+                            background: '#FFD700',
+                            color: '#000',
+                        }
+                    });
+                }else{
+                    toast.error(`${action.error.message}`);
+                }
             })
     }
 });
@@ -114,7 +161,7 @@ export const {selectQuestions, removeQuestions, setEmptySelectedQuestions, setSc
 export const fetchINTQuestionData = createAsyncThunk(
     'INTQuestions/fetchINTQuestionData',
     async(query : string = "") => {
-        const response = await axiosInstance.get(`/interviewer/question${query}`);
+        const response = await axiosInstance.get(`/interviewer/questionList${query}`);
         return response.data.result;
     }
 )
@@ -131,7 +178,6 @@ export const deleteQuestionOfInterview = createAsyncThunk(
     'INTQuestions/deleteQuestionOfInterview',
     async(data : any) => {
         const {ID, question} = data;
-        console.log(ID, question.questionId)
         const response = await axiosInstance.delete(`/interviewer/interview/${ID}/questions/question/${question.questionId}`);
         return response.data;
     }
@@ -141,11 +187,14 @@ export const assignQuestionForInterview = createAsyncThunk(
     'INTQuestions/assignQuestionForInterview',
     async(data : any) => {
         const {ID, selectedQuestions} = data;
-        const assignQuestions :  { questionId: string; score: number, note: string}[] = selectedQuestions[ID].map((item : any) => ({
+        const assignQuestions :  { questionId: string; score: number, note: string}[] = selectedQuestions[ID]?.map((item : any) => ({
             questionId : item.questionId,
             score : "",
             note : ""
         }));
+        if(!selectedQuestions[ID] || selectedQuestions[ID].length === 0){
+            throw "All questions have been saved";
+        }
         const response = await axiosInstance.post(`/interviewer/interview/${ID}/questions`, assignQuestions);
         return response.data;
     }

@@ -1,12 +1,17 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { fetchINTCandidatesByID } from "../../../../redux/reducer/INTCandidatesSlice";
+import { useParams, Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
-import { Link } from "react-router-dom";
-import { MapPinIcon, BriefcaseIcon, AcademicCapIcon, CheckBadgeIcon} from "@heroicons/react/24/outline";
+
+// Component & Icon
+import { BriefcaseIcon, AcademicCapIcon, CheckBadgeIcon} from "@heroicons/react/24/outline";
+import Error from "../../Error/Error";
+
+// Function from Slice
+import { fetchINTCandidatesByID } from "../../../../redux/reducer/INTCandidatesSlice";
+
+// Status
 import { STATUS } from "../../../../utils/Status";
 import Loader from "../../../../components/Loader/Loader";
-
 
 const INTCandidateDetail = () => {
     const {id} = useParams();
@@ -22,22 +27,22 @@ const INTCandidateDetail = () => {
     }else if(INTSingleCandidateStatus === STATUS.IDLE){
         return (
             <div className="INTCandidateDetail">
-                <div className="mb-8">
-                    <div className='text-2xl mt-4'>Profile Candidate</div>
+                <div className="mt-8 border-2 shadow-xl px-6 py-6 rounded-xl">
+                    <div className='text-2xl mb-4 font-semibold	'>Profile Candidate</div>
                     <div className="flex">
                         <div className="w-5/12">
-                            <div className="flex items-center pt-[2rem] pl-[2rem]">
+                            <div className="flex items-center pl-[1.5rem]">
                                 <img src={INTSingleCandidate?.avatar} className=" w-[180px] h-[180px] border-4 "/>
                             </div>
                         </div>
-                        <div className="w-7/12 ">
-                            <div className="flex pt-[2rem]">
-                                <div className="text-2xl mr-4">
+                        <div className="w-7/12">
+                            <div className="flex">
+                                <div className="text-xl mr-4">
                                     {INTSingleCandidate?.name} 
                                 </div>
                             </div>
                             <div className="text-gray-400 mt-5 text-sm ">
-                                contacts___________________________
+                                CONTACTS
                             </div>
                             <div className="ml-4">
                                 <div className="mt-2 text-base">Phone: <span className="text-sm ml-2">{INTSingleCandidate?.phone}</span></div>
@@ -106,8 +111,14 @@ const INTCandidateDetail = () => {
                 </div>
             </div>
         );
-    }else if(INTSingleCandidateStatus === STATUS.ERROR){
-        return <div>ERROR</div>
+    }else if(INTSingleCandidateStatus === STATUS.ERROR500){
+        return (
+            <Error errorCode={STATUS.ERROR500} />
+        )
+    }else if(INTSingleCandidateStatus === STATUS.ERROR404){
+        return (
+            <Error errorCode={STATUS.ERROR404} />
+        )
     }
 }
 
