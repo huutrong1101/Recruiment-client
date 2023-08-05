@@ -72,6 +72,7 @@ export default function InterviewerDetail() {
     // If the phone number doesn't have 10 digits, return the original value
     return phoneNumber;
   }
+  console.log(interviewer)
   return (
     <div>
       {interviewer ? (
@@ -140,7 +141,7 @@ export default function InterviewerDetail() {
                   className={classNames(
                     `border bg-white shadow-sm rounded-xl`,
                     `px-8 py-8`,
-                    `text-justify`,
+                    `text-justify mt-5`,
                   )}
                 >
                   <div className="text-2xl font-semibold">Education</div>
@@ -165,7 +166,7 @@ export default function InterviewerDetail() {
                   className={classNames(
                     `border bg-white shadow-sm rounded-xl`,
                     `px-8 py-8`,
-                    `text-justify`,
+                    `text-justify mt-5`,
                   )}
                 >
                   <div className="text-2xl font-semibold">Project</div>
@@ -190,7 +191,7 @@ export default function InterviewerDetail() {
                   className={classNames(
                     `border bg-white shadow-sm rounded-xl`,
                     `px-8 py-8`,
-                    `text-justify`,
+                    `text-justify mt-5`,
                   )}
                 >
                   <div className="text-2xl font-semibold">Experience</div>
@@ -213,7 +214,7 @@ export default function InterviewerDetail() {
                   className={classNames(
                     `border bg-white shadow-sm rounded-xl`,
                     `px-8 py-8`,
-                    `text-justify`,
+                    `text-justify mt-5`,
                   )}
                 >
                   <div className="text-2xl font-semibold">
