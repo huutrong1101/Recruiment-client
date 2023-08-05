@@ -214,7 +214,7 @@ export default function Jobs() {
                   )}
                 >
                   <span className={classNames("ml-2 text-zinc-400")}>
-                    {dataSearch.posName || "Position"}
+                    {JOB_POSITION[dataSearch.posName] || "Position"}
                   </span>
                   <ChevronDownIcon className={classNames("w-[20px] ml-4")} />
                   {/* Drop down  */}
@@ -248,7 +248,7 @@ export default function Jobs() {
                                 })
                               }
                             >
-                              {pos}
+                              {JOB_POSITION[pos]}
                             </p>
                           )}
                         </Menu.Item>
@@ -270,7 +270,7 @@ export default function Jobs() {
                   )}
                 >
                   <span className={classNames("ml-2 text-zinc-400")}>
-                    {dataSearch.location || "Location"}
+                    {JOB_POSITION[dataSearch.location] || "Location"}
                   </span>
                   <ChevronDownIcon className={classNames("w-[20px] ml-4")} />
                   {/* Drop down  */}
@@ -304,7 +304,7 @@ export default function Jobs() {
                                 })
                               }
                             >
-                              {location}
+                              {JOB_POSITION[location]}
                             </p>
                           )}
                         </Menu.Item>

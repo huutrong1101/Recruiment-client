@@ -41,9 +41,7 @@ export default function Reccer_dashboard() {
     const fetchPosition = async () => {
       setIsLoading(true);
       try {
-        const response = await axiosInstance(
-          `recruiter/statistic`
-        );
+        const response = await axiosInstance(`recruiter/statistic`);
         setshowdata(response.data.result);
       } catch (error) {
         console.log(error);
@@ -56,12 +54,12 @@ export default function Reccer_dashboard() {
   const currentDate = new Date();
 
   const year = currentDate.getFullYear();
-  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-  const day = String(currentDate.getDate()).padStart(2, '0');
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+  const day = String(currentDate.getDate()).padStart(2, "0");
 
   const formattedDate = `${year}-${month}-${day}`;
 
-  console.log(showdata)
+  console.log(showdata);
   interface ShowData {
     newUser: { total: number; details: string[] };
     activeUser: { total: number; details: string[] };
@@ -143,201 +141,270 @@ export default function Reccer_dashboard() {
           {/* First Line */}
           {/* Active User */}
           <div className="px-3 mb-8 lg:w-1/4 md:w-1/2">
-            <button className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}>
+            <button
+              className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}
+            >
               <div className="flex items-start justify-between">
                 <div
                   className={classNames(
-                    "flex items-center flex-col leading-7 tracking-wider"
+                    "flex items-center flex-col leading-7 tracking-wider",
                   )}
                 >
-                  <h3 className={classNames("text-black text-m font-semibold ")}>
+                  <h3
+                    className={classNames("text-black text-m font-semibold ")}
+                  >
                     Active Users
                   </h3>
                 </div>
               </div>
-              <div className={classNames("mt-4 flex text-2xl justify-between font-semibold ")}>
-
+              <div
+                className={classNames(
+                  "mt-4 flex text-2xl justify-between font-semibold ",
+                )}
+              >
                 {showdata &&
                   showdata.activeUser &&
                   showdata.activeUser.details.map((data: any) => {
                     <>
                       <p>sdfsdfsdfsdfsdfs</p>
                       <div className="flex">
-                        <p className=" text-sm my-2 gap-2 inline-flex">asdasasdasddasd</p>
-                        <span className="flex justify-center items-center"><HiOutlineArrowTrendingUp /></span>
+                        <p className="inline-flex gap-2 my-2 text-sm ">
+                          asdasasdasddasd
+                        </p>
+                        <span className="flex items-center justify-center">
+                          <HiOutlineArrowTrendingUp />
+                        </span>
                       </div>
-                    </>
+                    </>;
                   })}
               </div>
-
             </button>
-
-
           </div>
           <div className="px-3 mb-8 lg:w-1/4 md:w-1/2">
-            <button className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}>
+            <button
+              className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}
+            >
               <div className="flex items-start justify-between">
                 <div
                   className={classNames(
-                    "flex items-center flex-col leading-7 tracking-wider"
+                    "flex items-center flex-col leading-7 tracking-wider",
                   )}
                 >
-                  <h3 className={classNames("text-black text-m font-semibold ")}>
+                  <h3
+                    className={classNames("text-black text-m font-semibold ")}
+                  >
                     asdasdasdasdasd
                   </h3>
                 </div>
               </div>
-              <div className={classNames("mt-4 flex text-2xl justify-between font-semibold ")}>
+              <div
+                className={classNames(
+                  "mt-4 flex text-2xl justify-between font-semibold ",
+                )}
+              >
                 <p>asdasdsa</p>
                 <div className="flex">
-                  <p className=" text-sm my-2 gap-2 inline-flex">asdasdasd</p>
-                  <span className="flex justify-center items-center"><HiOutlineArrowTrendingUp /></span>
+                  <p className="inline-flex gap-2 my-2 text-sm ">asdasdasd</p>
+                  <span className="flex items-center justify-center">
+                    <HiOutlineArrowTrendingUp />
+                  </span>
                 </div>
               </div>
             </button>
-
           </div>
           <div className="px-3 mb-8 lg:w-1/4 md:w-1/2">
-            <button className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}>
+            <button
+              className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}
+            >
               <div className="flex items-start justify-between">
                 <div
                   className={classNames(
-                    "flex items-center flex-col leading-7 tracking-wider"
+                    "flex items-center flex-col leading-7 tracking-wider",
                   )}
                 >
-                  <h3 className={classNames("text-black text-m font-semibold ")}>
+                  <h3
+                    className={classNames("text-black text-m font-semibold ")}
+                  >
                     asdasdasdasdasd
                   </h3>
                 </div>
               </div>
-              <div className={classNames("mt-4 flex text-2xl justify-between font-semibold ")}>
+              <div
+                className={classNames(
+                  "mt-4 flex text-2xl justify-between font-semibold ",
+                )}
+              >
                 <p>asdasdsa</p>
                 <div className="flex">
-                  <p className=" text-sm my-2 gap-2 inline-flex">asdasdasd</p>
-                  <span className="flex justify-center items-center"><HiOutlineArrowTrendingUp /></span>
+                  <p className="inline-flex gap-2 my-2 text-sm ">asdasdasd</p>
+                  <span className="flex items-center justify-center">
+                    <HiOutlineArrowTrendingUp />
+                  </span>
                 </div>
               </div>
             </button>
-
           </div>
           <div className="px-3 mb-8 lg:w-1/4 md:w-1/2">
-            <button className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}>
+            <button
+              className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}
+            >
               <div className="flex items-start justify-between">
                 <div
                   className={classNames(
-                    "flex items-center flex-col leading-7 tracking-wider"
+                    "flex items-center flex-col leading-7 tracking-wider",
                   )}
                 >
-                  <h3 className={classNames("text-black text-m font-semibold ")}>
+                  <h3
+                    className={classNames("text-black text-m font-semibold ")}
+                  >
                     asdasdasdasdasd
                   </h3>
                 </div>
               </div>
-              <div className={classNames("mt-4 flex text-2xl justify-between font-semibold ")}>
+              <div
+                className={classNames(
+                  "mt-4 flex text-2xl justify-between font-semibold ",
+                )}
+              >
                 <p>asdasdsa</p>
                 <div className="flex">
-                  <p className=" text-sm my-2 gap-2 inline-flex">asdasdasd</p>
-                  <span className="flex justify-center items-center"><HiOutlineArrowTrendingUp /></span>
+                  <p className="inline-flex gap-2 my-2 text-sm ">asdasdasd</p>
+                  <span className="flex items-center justify-center">
+                    <HiOutlineArrowTrendingUp />
+                  </span>
                 </div>
               </div>
             </button>
-
           </div>
           {/* Second Line */}
           <div className="px-3 mb-8 lg:w-1/4 md:w-1/2">
-            <button className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}>
+            <button
+              className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}
+            >
               <div className="flex items-start justify-between">
                 <div
                   className={classNames(
-                    "flex items-center flex-col leading-7 tracking-wider"
+                    "flex items-center flex-col leading-7 tracking-wider",
                   )}
                 >
-                  <h3 className={classNames("text-black text-m font-semibold ")}>
+                  <h3
+                    className={classNames("text-black text-m font-semibold ")}
+                  >
                     asdasdasdasdasd
                   </h3>
                 </div>
               </div>
-              <div className={classNames("mt-4 flex text-2xl justify-between font-semibold ")}>
+              <div
+                className={classNames(
+                  "mt-4 flex text-2xl justify-between font-semibold ",
+                )}
+              >
                 <p>asdasdsa</p>
                 <div className="flex">
-                  <p className=" text-sm my-2 gap-2 inline-flex">asdasdasd</p>
-                  <span className="flex justify-center items-center"><HiOutlineArrowTrendingUp /></span>
+                  <p className="inline-flex gap-2 my-2 text-sm ">asdasdasd</p>
+                  <span className="flex items-center justify-center">
+                    <HiOutlineArrowTrendingUp />
+                  </span>
                 </div>
               </div>
             </button>
-
           </div>
           <div className="px-3 mb-8 lg:w-1/4 md:w-1/2">
-            <button className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}>
+            <button
+              className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}
+            >
               <div className="flex items-start justify-between">
                 <div
                   className={classNames(
-                    "flex items-center flex-col leading-7 tracking-wider"
+                    "flex items-center flex-col leading-7 tracking-wider",
                   )}
                 >
-                  <h3 className={classNames("text-black text-m font-semibold ")}>
+                  <h3
+                    className={classNames("text-black text-m font-semibold ")}
+                  >
                     asdasdasdasdasd
                   </h3>
                 </div>
               </div>
-              <div className={classNames("mt-4 flex text-2xl justify-between font-semibold ")}>
+              <div
+                className={classNames(
+                  "mt-4 flex text-2xl justify-between font-semibold ",
+                )}
+              >
                 <p>asdasdsa</p>
                 <div className="flex">
-                  <p className=" text-sm my-2 gap-2 inline-flex">asdasdasd</p>
-                  <span className="flex justify-center items-center"><HiOutlineArrowTrendingUp /></span>
+                  <p className="inline-flex gap-2 my-2 text-sm ">asdasdasd</p>
+                  <span className="flex items-center justify-center">
+                    <HiOutlineArrowTrendingUp />
+                  </span>
                 </div>
               </div>
             </button>
-
           </div>
           <div className="px-3 mb-8 lg:w-1/4 md:w-1/2">
-            <button className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}>
+            <button
+              className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}
+            >
               <div className="flex items-start justify-between">
                 <div
                   className={classNames(
-                    "flex items-center flex-col leading-7 tracking-wider"
+                    "flex items-center flex-col leading-7 tracking-wider",
                   )}
                 >
-                  <h3 className={classNames("text-black text-m font-semibold ")}>
+                  <h3
+                    className={classNames("text-black text-m font-semibold ")}
+                  >
                     asdasdasdasdasd
                   </h3>
                 </div>
               </div>
-              <div className={classNames("mt-4 flex text-2xl justify-between font-semibold ")}>
+              <div
+                className={classNames(
+                  "mt-4 flex text-2xl justify-between font-semibold ",
+                )}
+              >
                 <p>asdasdsa</p>
                 <div className="flex">
-                  <p className=" text-sm my-2 gap-2 inline-flex">asdasdasd</p>
-                  <span className="flex justify-center items-center"><HiOutlineArrowTrendingUp /></span>
+                  <p className="inline-flex gap-2 my-2 text-sm ">asdasdasd</p>
+                  <span className="flex items-center justify-center">
+                    <HiOutlineArrowTrendingUp />
+                  </span>
                 </div>
               </div>
             </button>
-
           </div>
           <div className="px-3 mb-8 lg:w-1/4 md:w-1/2">
-            <button className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}>
+            <button
+              className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}
+            >
               <div className="flex items-start justify-between">
                 <div
                   className={classNames(
-                    "flex items-center flex-col leading-7 tracking-wider"
+                    "flex items-center flex-col leading-7 tracking-wider",
                   )}
                 >
-                  <h3 className={classNames("text-black text-m font-semibold ")}>
+                  <h3
+                    className={classNames("text-black text-m font-semibold ")}
+                  >
                     asdasdasdasdasd
                   </h3>
                 </div>
               </div>
-              <div className={classNames("mt-4 flex text-2xl justify-between font-semibold ")}>
+              <div
+                className={classNames(
+                  "mt-4 flex text-2xl justify-between font-semibold ",
+                )}
+              >
                 <p>asdasdsa</p>
                 <div className="flex">
-                  <p className=" text-sm my-2 gap-2 inline-flex">asdasdasd</p>
-                  <span className="flex justify-center items-center"><HiOutlineArrowTrendingUp /></span>
+                  <p className="inline-flex gap-2 my-2 text-sm ">asdasdasd</p>
+                  <span className="flex items-center justify-center">
+                    <HiOutlineArrowTrendingUp />
+                  </span>
                 </div>
               </div>
             </button>
-
           </div>
-
-
         </div>
         <div className="mb-5 bg-white drop-shadow-md rounded-2xl">
           <p className="px-[5%] pt-[3%] font-semibold text-2xl">

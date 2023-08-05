@@ -17,6 +17,15 @@ interface BlogCardProps {
 export default function BlogCard({ event }: BlogCardProps) {
   const formattedDate = moment(event.startAt).format("Do MMMM, YYYY");
 
+  const maxCharacters = 20; // Số ký tự tối đa bạn muốn hiển thị
+  const title = event.title;
+
+  let shortenedTitle = title;
+
+  if (title.length > maxCharacters) {
+    shortenedTitle = title.substring(0, maxCharacters) + "...";
+  }
+
   console.log(event);
   return (
     <>
@@ -25,7 +34,7 @@ export default function BlogCard({ event }: BlogCardProps) {
           <img
             src={event.img || blog_image}
             alt="blog_image"
-            className={classnames("w-full h-[200px] object-cover")}
+            className={classnames("w-full h-[150px] object-cover")}
           />
         </div>
         <div className={classnames("p-6")}>
@@ -49,7 +58,7 @@ export default function BlogCard({ event }: BlogCardProps) {
                 "text-black text-base font-medium leading-7 tracking-wider capitalize",
               )}
             >
-              {event.title}
+              {shortenedTitle}
             </h3>
           </div>
           <div className={classnames("mt-6 flex items-center justify-center")}>
