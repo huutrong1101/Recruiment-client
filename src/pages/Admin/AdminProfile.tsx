@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from "react";
+import {useEffect} from "react";
 import {fetchAdminProfileRecent} from "../../redux/reducer/AdminProfileRecentSlice";
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { STATUS } from '../../utils/Status';
@@ -11,14 +11,6 @@ const AdminProfile = () => {
     useEffect(() => {
         dispatch(fetchAdminProfileRecent())
     }, []);
-    const fileInputRef = useRef(null);
-    const [open, setOpen] = React.useState(false);
-    const handleClickOpen = () => {
-    setOpen(true);
-    };
-    const handleClose = () => {
-    setOpen(false);
-    };
     if(adminprofilesRecentStatus === STATUS.LOADING){
         return (
             <div className="flex justify-center mt-10">
