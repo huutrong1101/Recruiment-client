@@ -31,6 +31,8 @@ import EditJobWidget from "../../../components/RecJob/EditJobWidget";
 import { fetchRecInterviewerSkill } from "../../../redux/reducer/RecInterviewerSilce";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import EditJobCard from "../../../components/RecJob/EditJobCard";
+import { toast } from "react-toastify";
+import { JobService } from "../../../services/JobService";
 
 export default function ReccerJobDetail() {
 
@@ -54,22 +56,22 @@ export default function ReccerJobDetail() {
         {
           icon: <UserIcon />,
           name: "Employee Type",
-          value: JOB_POSITION[job.position.name],
+          value: job.position.name,
         },
         {
           icon: <MapPinIcon />,
           name: "Location",
-          value: JOB_POSITION[job.location],
+          value: job.location,
         },
         {
           icon: <ComputerDesktopIcon />,
           name: "Job Type",
-          value: JOB_POSITION[job.jobType],
+          value: job.jobType,
         },
       ]);
       setName(job?.name || '')
       setDescription(job?.description || '')
-      setQuantity(job?.quantity )
+      setQuantity(job?.quantity)
       setRequirement(job?.requirement || '')
       setBenefit(job?.benefit || '')
       setSkillsRequired(job?.skills.name || [])
@@ -121,7 +123,7 @@ export default function ReccerJobDetail() {
 
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(job?.quantity || Number);
-  const [description, setDescription] = useState( "");
+  const [description, setDescription] = useState("");
   const [requirement, setRequirement] = useState("");
   const [benefit, setBenefit] = useState("");
   const [skillsRequired, setSkillsRequired] = useState([]);
@@ -132,7 +134,7 @@ export default function ReccerJobDetail() {
   const [deadline, setDeadline] = useState("");
   const [isActive, setjobactive] = useState("");
   const selectedValues = skillsRequired.map((option: any) => option.label);
-  
+
   const handleSelectChange = (selectedOptions: any) => {
     setSkillsRequired(selectedOptions);
   };
@@ -142,6 +144,34 @@ export default function ReccerJobDetail() {
     //   pathname: `/recruiter/jobs/`
     // });
     event.preventDefault();
+    if (name === "") {
+      toast.error('Please enter Job Name');
+      return
+    }
+    else if (quantity === 0) {
+      toast.error('Please enter Quantity');
+      return
+    }
+    else if (description === "") {
+      toast.error('Please enter Description');
+      return
+    }
+    else if (requirement === "") {
+      toast.error('Please enter Requirement');
+      return
+    }
+    else if (benefit === "") {
+      toast.error('Please enter Benefit');
+      return
+    }
+    else if (selectedValues.length === 0) {
+      toast.error('Please select Skills');
+      return
+    }
+    else if (salaryRange === "") {
+      toast.error('Please enter Salary');
+      return
+    }
     const data = {
       name,
       jobType,
@@ -153,38 +183,21 @@ export default function ReccerJobDetail() {
       location,
       description,
       isActive,
-      deadline:job?.deadline,
-      skillRequired:selectedValues,
+      deadline: job?.deadline,
+      skillRequired: selectedValues,
     };
-    // console.log("name", name)
-    // console.log("jobType", jobType)
-    // console.log('positionName', positionName)
-    // console.log('quantity', quantity)
-    // console.log('benefit', benefit)
-    // console.log('salaryRange', salaryRange)
-    // console.log('requirement', requirement)
-    // console.log('location', location)
-    // console.log('description', description)
-    // console.log('isActive',isActive)
-    // console.log('deadline', deadline)
-    // console.log('skillsRequired', selectedValues)
-    console.log(data)
+    // console.log(data)
     navigate({
       pathname: "/recruiter/jobs",
     });
     // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/job
-    axiosInstance
-      .put(`recruiter/jobs/${job?.jobId}`, data)
-      .then((response) => {
-        alert("Successful");
-        // Xử lý phản hồi từ server (nếu cần)
-        console.log(response.data); // In ra thông tin phản hồi từ máy chủ
-        // In tất cả thông tin từ FormData
+    toast
+      .promise(JobService.editJob(data, job?.jobId), {
+        pending: `Job Editing`,
+        success: `The Job was Edited`,
       })
-      .catch((error) => {
-        // Xử lý lỗi (nếu có)
-        console.error("Error:", error);
-      });
+      .catch((error) => toast.error(error.response.data.result));
+
   };
 
   return (

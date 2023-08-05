@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -14,11 +14,17 @@ export default function DateTimePickerValue({
   value,
   onChange,
 }: DateTimePickerValueProps) {
-  const currentDate = new Date();
+  const minDateTime = dayjs(); // Thời gian hiện tại
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={["DateTimePicker", "DateTimePicker"]}>
-        <DateTimePicker label="Choose Date" value={value} onChange={onChange} />
+        <DateTimePicker
+          label="Choose Date and Time"
+          value={value}
+          onChange={onChange}
+          minDateTime={minDateTime} // Giới hạn ngày và giờ tối thiểu
+        />
       </DemoContainer>
     </LocalizationProvider>
   );

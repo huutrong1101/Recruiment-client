@@ -2,17 +2,14 @@ import React,{useState,useEffect} from 'react'
 import classnames from "classnames";
 import TextareaAutosize from "react-textarea-autosize";
 import { NavLink } from "react-router-dom";
-import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import axiosInstance from "../../utils/AxiosInstance";
-import {  AcountFrofileInterface,AcountFrofileInterfaceConfig } from "../../services/services";
+import {AcountFrofileInterface} from "../../services/services";
 import {useParams } from "react-router-dom";
 import { useAppSelector } from "../../hooks/hooks";
-import Loader from '../../components/Loader/Loader';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { toast } from "react-toastify";
 import LoadSpinner from '../../components/LoadSpinner/LoadSpinner';
@@ -54,7 +51,6 @@ export default function AddBlacklist() {
         setOpen(false);
         axiosInstance.post(`admin/users/blacklist/${userId}`, {reason})
         .then((response) => {
-            // alert('Successful');
             // Xử lý phản hồi từ server (nếu cần)
             toast.success(response.data.message); // In ra thông tin phản hồi từ máy chủ
             window.history.back();
@@ -62,9 +58,7 @@ export default function AddBlacklist() {
         })
         .catch((error) => {
             // Xử lý lỗi (nếu có)
-            // console.error('Error:', error);
-            // Xử lý lỗi nếu có
-            toast.error('Error occurred: ' + error.message);
+            toast.error(error.response.data.message);
         });
     } 
     return (
@@ -147,8 +141,9 @@ export default function AddBlacklist() {
                             aria-describedby="alert-dialog-description"
                         >
                             <div className="text-center px-6">
-                            <DialogContent className="font-semibold text-lg mb-2">
-                                Are you sure you want to AddBlacklist "{showJobLists.name}"?
+                            <DialogContent className="font-semibold text-lg mb-2" style={{ fontFamily: "Outfit, sans-serif" }}>
+                               <p> Are you sure you want to AddBlacklist </p>
+                               <p>"{showJobLists.name}"?</p>
                             </DialogContent>
                             <DialogContentText
                                 id="alert-dialog-description"
@@ -160,7 +155,7 @@ export default function AddBlacklist() {
                                     WARNING
                                 </p>
                                 </div>
-                                <div className="text-left font-semibold">
+                                <div className="text-left font-semibold" style={{ fontFamily: "Outfit, sans-serif" }}>
                                 This action cannot be undone, the deleted item
                                 cannot be restored.
                                 </div>
@@ -168,13 +163,13 @@ export default function AddBlacklist() {
                         </div>
                             <DialogActions style={{ justifyContent: 'center' }}>
                             <button
-                                className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-1 my-1 text-white"
+                                className="rounded-lg bg-red-700 hover:bg-red-900 px-4 py-2 mx-1 my-1 text-white"
                                 onClick={handleClose}
                                 >
                                 Cancel
                                 </button>
                                 <button
-                                className="rounded-lg bg-red-700 hover:bg-red-900 px-4 py-2 mx-1 my-1 text-white"
+                                className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-1 my-1 text-white"
                                 onClick={handleSubmit}
                                 autoFocus
                                 >

@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import axiosInstance from "../../utils/AxiosInstance";
 import classnames from "classnames";
-import Loader from "../../components/Loader/Loader";
 import { toast } from "react-toastify";
 import image from "../../../images/sprite.png";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { NavLink } from "react-router-dom";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
@@ -30,7 +27,6 @@ export default function AdminChangePosition() {
   const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setRole(event.target.value);
   };
-
   const isValidEmail = (email) => {
     // Regular expression to match email format
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -75,8 +71,6 @@ export default function AdminChangePosition() {
         password: password,
         role: role,
       };
-      console.log(userData);
-      
       // Make the API request to create the user
       axiosInstance
         .post(`admin/usercreate`, userData)
@@ -173,7 +167,7 @@ export default function AdminChangePosition() {
                   <select
                     value={role}
                     onChange={handleDropdownChange}
-                    className="lp ti adp afq bbi bmg bnl chy px-1 py-1 self-stretch  bg-white bg-opacity-0 rounded-lg border-2    "
+                    className="lp ti adp afq bbi bmg bnl chy px-2 py-2 self-stretch  bg-white bg-opacity-0 rounded-lg border-2    "
                   >
                     <option value="" disabled>
                       Choose Role for acount
@@ -186,7 +180,7 @@ export default function AdminChangePosition() {
                   <div className="flex-row-reverse mt-5 text-center px-1 py-1">
                     <button
                       type="button"
-                      className="text-white rounded-xl bg-red-600 py-2 px-4 mr-5 hover:bg-red-800"
+                      className="text-white rounded-xl bg-red-600 py-2 px-4 mr-5 hover:bg-red-800 font-bold"
                     >
                       <NavLink to={`/admin/users`}>
                       Cancel
@@ -208,10 +202,10 @@ export default function AdminChangePosition() {
                         <DialogContent className="font-semibold text-lg">
                           <p className="mb-3">  Are you sure you want to create acount ?</p>
                           <div className="border rounded-lg p-4 mb-4 ">
-                            <h2>Name: {name}</h2>
-                            <h2>Email: {email}</h2>
-                            <h2>Email: {password}</h2>
-                            <h2>Role: {role}</h2>
+                            <h2 className="text-e-justify">Name: {name}</h2>
+                            <h2 className="text-e-justify">Email: {email}</h2>
+                            <h2 className="text-e-justify">Password: {password}</h2>
+                            <h2 className="text-e-justify">Role: {role}</h2>
                           </div>                        
                         </DialogContent>
                         <DialogContentText
@@ -275,6 +269,7 @@ export default function AdminChangePosition() {
                     `text-[#89EFC9] text-[16px]`,
                     `leading-tight`,
                     `text-justify`,
+                    `italic`,
                   )}
                 >
                   This page allows the admin to create new accounts for recruiters and interviewers, 
@@ -287,10 +282,10 @@ export default function AdminChangePosition() {
                   alt="Authenticate block decoration"
                   src={image}
                   className={classnames(
-                    `right-0 bottom-[-280px] opacity-50`,
+                    `right-0 bottom-[-280px] `,
                     `absolute`,
                     `w-[160px]`,
-                    "right-0 bottom-[-280px] opacity-50 absolute w-[160px]",
+                    "right-5 bottom-[-230px] absolute w-[150px]",
                     "animate-spin-vertical"
                    )}
                 />

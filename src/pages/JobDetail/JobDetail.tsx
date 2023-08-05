@@ -24,6 +24,7 @@ import { fetchJobDetail } from "./slice/JobDetailSlice";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { toast } from "react-toastify";
 import NotFound from "../../components/NotFound/NotFound";
+import { JOB_POSITION } from "../../utils/Localization";
 
 export default function JobDetail() {
   const { jobId } = useParams();
@@ -80,7 +81,11 @@ export default function JobDetail() {
   useEffect(() => {
     if (job) {
       setJobInformation([
-        { icon: <UserIcon />, name: "Employee Type", value: job.jobType },
+        {
+          icon: <UserIcon />,
+          name: "Employee Type",
+          value: JOB_POSITION[job.jobType],
+        },
         { icon: <MapPinIcon />, name: "Location", value: job.location },
         {
           icon: <ComputerDesktopIcon />,
@@ -94,8 +99,8 @@ export default function JobDetail() {
         },
         {
           icon: <ClockIcon />,
-          name: "Posted at",
-          value: moment(job.createdAt).format("Do MMM, YYYY"),
+          name: "Deadline",
+          value: moment(job.deadline).format("Do MMM, YYYY"),
         },
       ]);
     }
