@@ -411,12 +411,6 @@ export default function Jobs() {
                       </div>
                     </>
                   ))}
-                  {/* Pagination  */}
-                  <Pagination
-                    queryConfig={queryConfig}
-                    pageSize={pageSize}
-                    url="/jobs"
-                  />
                 </>
               ) : (
                 <div className="flex flex-col justify-center w-full mb-10 min-h-[70vh] items-center text-3xl gap-4">
@@ -428,6 +422,12 @@ export default function Jobs() {
               )}
             </div>
           )}
+          {/* Pagination  */}
+          <Pagination
+            queryConfig={queryConfig}
+            pageSize={pageSize}
+            url="/jobs"
+          />
         </div>
       </div>
     </>

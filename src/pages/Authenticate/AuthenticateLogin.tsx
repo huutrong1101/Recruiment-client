@@ -9,7 +9,7 @@ import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { authLogin } from "../../redux/AuthSlice";
 import { UserLoginParamsInterface } from "../../services/services";
 import { toast } from "react-toastify";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function AuthenticateLogin() {
   const { register, handleSubmit } = useForm<UserLoginParamsInterface>();
@@ -77,9 +77,12 @@ export default function AuthenticateLogin() {
         <button className="inline-flex flex-col items-center justify-center h-10 text-sm bg-white bg-opacity-0 rounded-lg Button w-44">
           <div className="Basebutton px-3 py-1.5 justify-center items-center inline-flex">
             <div className="flex items-center justify-center gap-2 Content">
-              <div className="font-semibold leading-7 tracking-wide capitalize Button text-emerald-800">
+              <Link
+                to="/forget-password"
+                className="font-semibold leading-7 tracking-wide capitalize Button text-emerald-800"
+              >
                 Forget Password?
-              </div>
+              </Link>
             </div>
           </div>
         </button>
