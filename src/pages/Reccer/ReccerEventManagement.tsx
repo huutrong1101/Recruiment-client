@@ -115,7 +115,7 @@ export default function ReccerEventManagement() {
     <>
       <div>
         {/* Search */}
-        <div className="flex flex-wrap -mx-4 mt-[50px] justify-center mb-10">
+        <div className="flex flex-wrap -mx-4 mt-5 justify-center mb-5 sticky-form">
           <form
             onSubmit={e => handleSearch(e)}
             className="inline-flex items-center justify-start gap-1 px-0.5 py-0.5 bg-white border rounded-xl bg-opacity-5"
@@ -139,7 +139,6 @@ export default function ReccerEventManagement() {
           >
             Search
           </button> */}
-
         </div>
         {/* Add Event */}
           <button className="text-white shadow text-sm font-medium leading-tight flex py-2 px-2 justify-start bg-emerald-600 rounded-xl ">

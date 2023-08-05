@@ -104,7 +104,7 @@ export default function RecEventDetail() {
       })
       .catch((error) => {
         // Xử lý lỗi (nếu có)
-        toast.error('Error occurred', error); // Display an error message
+        toast.error(error.response.data.result); // Display an error message
       });
     setOpenSave(false);
   }
@@ -180,14 +180,15 @@ export default function RecEventDetail() {
               <div className={classnames("mt-2")}>
                 <h3
                   className={classnames(
-                    "text-black font-outfit text-2xl font-medium leading-31 tracking-wider capitalize mt-3 mb-3",
+                    "text-black font-outfit text-2xl font-medium tracking-wider capitalize mt-3 mb-3",
                   )}
                 >Description</h3>
-                <TextareaAutosize
-                  minRows={10}
+                 <TextareaAutosize
                   id="description"
+                  minRows={10}
                   value={description}
-                  className="resize-none p-2.5 text-[13px] w-full text-justify bg-white border rounded-xl mt-3 mb-3"
+                  className="resize-none p-2.5 w-full text-justify bg-white border"
+                  // placeholder="Job description here..."
                   onChange={(event) => setdescription(event.target.value)}
                 />
               </div>

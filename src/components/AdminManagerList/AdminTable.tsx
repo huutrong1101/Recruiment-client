@@ -91,6 +91,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
         // Handle the successful response, e.g., show an alert or update the UI
         toast.success(response.data.message);
         // Reload the page after deletion to update the table
+        window.history.back();
       })
       .catch((error) => {
         // Handle errors, e.g., show an error message or log the error

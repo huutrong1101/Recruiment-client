@@ -28,6 +28,7 @@ export const getUserInterviews = createAsyncThunk(
       // console.log(response);
       const { result } = response.data;
       // alert("ho");
+      thunkAPI.dispatch(setInterviews(result.Interviews));
     } catch (err: any) {
       // console.log({ error: err.response.data });
       // const status = err.response.status;
@@ -42,7 +43,11 @@ export const getUserInterviews = createAsyncThunk(
 const UserAddedInterview = createSlice({
   name: "UserAddedInterview",
   initialState,
-  reducers: {},
+  reducers: {
+    setInterviews: (state, action) => {
+      state.interviews = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder.addCase(getUserInterviews.pending, (state) => {
       state.loadingState = "pending";
@@ -51,6 +56,6 @@ const UserAddedInterview = createSlice({
   },
 });
 
-export const {} = UserAddedInterview.actions;
+export const { setInterviews } = UserAddedInterview.actions;
 
 export default UserAddedInterview.reducer;

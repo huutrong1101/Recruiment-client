@@ -46,7 +46,11 @@ const Reccercalender = () => {
 
   return (
     <Box m="20px">
-      <Box display="flex" backgroundColor="#F8FDFB" justifyContent="space-between">
+      <Box
+        display="flex"
+        backgroundColor="#F8FDFB"
+        justifyContent="space-between"
+      >
         <Box flex="1 1 100%" ml="15px" mr="20px">
           <FullCalendar
             height="88vh"

@@ -5,13 +5,14 @@ import { useParams } from "react-router-dom";
 import {  useAppSelector } from '../../hooks/hooks';
 import moment from "moment";
 import classNames from "classnames";
-import Loader from "../../components/Loader/Loader";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
 export default function AdminProflieUser() {
   const {userId} = useParams(); 
   const jobs:  AcountFrofileInterface[] = useAppSelector((state) => state.adminacountuseprofileRecent.adminacountuseprofileRecent);
   const [showJobLists, setAdminuseprofile] = useState(jobs);
   const [isLoading, setIsLoading] = useState(false);
+  const [avatar, setAvatar] = useState('');
   const goBack = () => {
     window.history.back();
   };
@@ -22,7 +23,9 @@ export default function AdminProflieUser() {
       setIsLoading(true);
       try {      
         const response = await axiosInstance(`admin/users/${userId}`);
+        console.log(response.data.result);
         setAdminuseprofile(response.data.result);
+        setAvatar(response.data.result.avatar);
       } catch (error) {
         console.log(error);
       } finally {
@@ -40,13 +43,13 @@ export default function AdminProflieUser() {
   return ( 
     <> 
     {isLoading ?(
-      <div className="flex items-center justify-center w-full h-[50px] text-[15px] mt-10 mb-10">
-        <Loader  className ="l-20flex items-center justify-center" />
+      <div className="flex items-center justify-center w-full text-[15px] mt-5 mb-5">
+          <LoadSpinner className="text-2xl text-[#059669] " />
     </div>
     ):(
-      <div className="flex gap-5 mt-10 ">
+      <div className="flex gap-5 md:flex-row md:flex">
         {/* Information */}
-        <div className="bg-white rounded-lg shadow-lg w-[50%] mt-4 border ">
+        <div className="bg-white rounded-lg shadow-lg w-1/2 mt-5 border">
           <div className = "grid md:grid-cols-1 text-sm self-stretch px-2 pt-[15px] pb-[15px]">
             {/* Title */}
             <div className = "flex items-center text-center space-x-2 font-semibold text-green-500 justify-center">
@@ -74,15 +77,30 @@ export default function AdminProflieUser() {
                 value={showJobLists.email}
                 readOnly // Thêm thuộc tính readOnly vào input
                 />
-            </div>
-            {/* Address */}
-            <div className = "grid grid-cols-1">
+            </div>                    
+          </div>
+        </div>
+        <div className="bg-white rounded-lg shadow-lg w-1/2 mt-5 border">
+          {/* Avatar
+          <div className="">
+              <div className="px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Avatar Users</div>
+              <div>
+                <img
+                  className="rounded-full flex justify-center"
+                  alt="avatar"
+                  src={showJobLists.avatar}
+                />
+              </div>
+            </div> */}
+          {/* Address */}
+          <div className = "grid grid-cols-1 mt-10">
                 <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Current Address</div>
                 <input className = "px-4 py-2 self-stretch pt-[15px] pb-[15px] bg-white bg-opacity-0 rounded-lg border   "
                 value={showJobLists.address}
                 readOnly // Thêm thuộc tính readOnly vào input
                 />
-            </div>
+          </div>  
+          <div className = "grid md:grid-cols-1 text-sm self-stretch px-2 pt-[15px] pb-[15px]">      
             {/* Address */}
             <div className = "grid grid-cols-1">
                 <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Role Acount</div>
@@ -92,8 +110,8 @@ export default function AdminProflieUser() {
                 />
             </div>
           </div>
-        </div>        
-    </div>
+        </div>         
+      </div>
     )} 
     </>   
   );  
