@@ -6,13 +6,14 @@ import {  useAppSelector } from '../../hooks/hooks';
 import moment from "moment";
 import classNames from "classnames";
 import Loader from "../../components/Loader/Loader";
-import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { toast } from "react-toastify";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 export default function AdminChangePosition() {
   const {userId} = useParams(); 
   const jobs:  AcountFrofileInterface[] = useAppSelector((state) => state.adminacountuseprofileRecent.adminacountuseprofileRecent);
@@ -52,13 +53,15 @@ export default function AdminChangePosition() {
     axiosInstance.delete(`admin/blacklist?candidateId=${userId}`, { userId })
       .then((response) => {
       // Xử lý phản hồi từ server (nếu cần)
-      alert(response.data.message); // In ra thông tin phản hồi từ máy chủ
+      toast.success(response.data.message);
       // In tất cả thông tin từ FormData  
       window.history.back();
     })
     .catch((error) => {
-    // Xử lý lỗi (nếu có)
-    console.error('Error:', error);
+      // Xử lý lỗi (nếu có)
+      // console.error('Error:', error);
+       // Xử lý lỗi nếu có
+      toast.error('Error occurred: ' + error.message);
     });
   };
 
@@ -66,7 +69,8 @@ export default function AdminChangePosition() {
     <> 
     {isLoading ? (
       <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-10 mb-10">
-        <Loader  className ="l-20flex items-center justify-center" />
+        {/* <Loader  className ="l-20flex items-center justify-center" /> */}
+        <LoadSpinner className="text-2xl text-[#059669]"/>
     </div>
     ):(
       <div className="flex gap-5 top-5 ">

@@ -31,9 +31,13 @@ const NavbarSlice = createSlice({
     setNavbarMenu: (state, action) => {
       state.menu = action.payload;
     },
+    setItems: (state, action) => {
+      state.items = action.payload;
+    },
   },
 });
 
-export const { setNavbarDrawerVisible, setNavbarMenu } = NavbarSlice.actions;
+export const { setNavbarDrawerVisible, setNavbarMenu, setItems } =
+  NavbarSlice.actions;
 
 export default NavbarSlice.reducer;

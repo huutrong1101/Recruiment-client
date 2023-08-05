@@ -10,6 +10,8 @@ import {
 import moment from "moment";
 import { JobInterface } from "../../services/services";
 import { JOB_POSITION } from "../../utils/Localization";
+import { HiMapPin, HiUser } from "react-icons/hi2";
+import classNames from "classnames";
 
 interface JobCardProps {
   job: JobInterface;
@@ -22,70 +24,87 @@ export default function JobCard({ job }: JobCardProps) {
   const days = duration.asDays();
 
   return (
-    <>
-      <div className="p-6 bg-white rounded-lg shadow-lg">
-        <div className={classnames("flex items-start justify-between")}>
-          <img src={logo_FPT} alt="" className="w-1/12" />
-          <div
+    <Link to={`/jobs/${job.jobId}`}>
+      <div
+        className={classNames(
+          `p-6 bg-white rounded-lg shadow-sm border hover:border-emerald-700`,
+          `ease-in-out duration-75 hover:shadow-md`,
+          `flex flex-row md:flex-col`,
+        )}
+      >
+        <div className={classnames("w-8/12 md:w-full")}>
+          <h3
             className={classnames(
-              "flex items-center flex-col leading-7 tracking-wider capitalize",
+              "text-black text-md font-bold leading-7 tracking-wider capitalize break-words",
             )}
           >
-            <h3 className={classnames("text-black text-lg font-medium ")}>
-              FPT Softwave
-            </h3>
-            <p
+            {job.name}
+          </h3>
+          <div
+            className={classnames(
+              "mt-2 text-gray-600 text-sm flex flex-col gap-1",
+            )}
+          >
+            <div className={classnames("flex flex-row gap-4 items-center")}>
+              <HiMapPin />
+              <p className="flex-1">{JOB_POSITION[job.location]}</p>
+            </div>
+            <div className={classnames("flex flex-row gap-4 items-center")}>
+              <HiUser />
+              <p className="flex-1">{job.quantity} members</p>
+            </div>
+          </div>
+        </div>
+
+        {/* <div className={classnames("mt-4")}>
+          <div className={classnames("flex items-center justify-center")}>
+            <Link
+              to={`/jobs/${job.jobId}`}
               className={classnames(
-                "text-gray-500 text-center text-sm font-normal ",
+                "bg-emerald-700 text-emerald-100 p-2 rounded-md flex gap-2",
               )}
             >
+              <span>Read More</span>
+              <ChevronRightIcon className={classnames(`w-[20px] ml-1`)} />
+            </Link>
+          </div>
+        </div> */}
+
+        {/* Job pill */}
+        {/* <div>
+          <p
+            className={classnames(
+              "text-emerald-700 text-xs font-medium p-1 rounded-full px-2",
+            )}
+          >
+            {JOB_POSITION[job.jobType]}
+          </p>
+        </div> */}
+        <hr className="hidden sm:block my-2 opacity-30" />
+
+        <div
+          className={classnames(
+            "flex flex-col md:flex-row items-center justify-center md:gap-4",
+          )}
+        >
+          <img src={logo_FPT} alt="" className="w-2/12 md:w-3/12" />
+          <div
+            className={classnames(
+              "flex flex-col tracking-wider capitalize flex-1",
+            )}
+          >
+            <h3 className={classnames("text-black text-base font-medium ")}>
+              FPT Software
+            </h3>
+            <p className={classnames("text-gray-300 text-xs font-normal ")}>
               {days >= 1
                 ? `${Math.floor(days)} days`
                 : `${Math.abs(duration.asHours()).toFixed(0)} hours`}{" "}
               ago
             </p>
           </div>
-          <p
-            className={classnames(
-              "text-green-500 text-center text-xs font-medium bg-slate-300 p-1 rounded-full px-2",
-            )}
-          >
-            {JOB_POSITION[job.jobType]}
-          </p>
-        </div>
-        <div className={classnames("mt-4")}>
-          <h3
-            className={classnames(
-              "text-black text-center text-lg font-medium leading-7 tracking-wider capitalize",
-            )}
-          >
-            {job.name}
-          </h3>
-          <div className={classnames("mt-2")}>
-            <div className={classnames("flex gap-2")}>
-              <MapPinIcon className={classnames(`w-[20px] ml-4`)} />
-              <p>{job.location}</p>
-            </div>
-            <div className={classnames("flex gap-2")}>
-              <UserIcon className={classnames(`w-[20px] ml-4`)} />
-              <p>{job.quantity} member</p>
-            </div>
-          </div>
-        </div>
-        <div className={classnames("mt-4")}>
-          <div className={classnames("flex items-center justify-center")}>
-            <Link
-              to={`/jobs/${job.jobId}`}
-              className={classnames(
-                "bg-emerald-700 text-white p-2 rounded-md flex",
-              )}
-            >
-              Read More
-              <ArrowRightIcon className={classnames(`w-[20px] ml-1`)} />
-            </Link>
-          </div>
         </div>
       </div>
-    </>
+    </Link>
   );
 }

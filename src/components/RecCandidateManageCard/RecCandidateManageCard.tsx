@@ -35,7 +35,7 @@ const RecCandidateCard = (props: any) => {
           {candidate.phone}
         </div>
         <div className="pt-4">
-          <Link to={`/recruiter/applied-candidates/${candidate.userId}`}>
+          <Link to={`/recruiter/candidates/${candidate.userId}`}>
             <button className="px-4 py-2 text-white rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 dark:border-emerald-600">
               Profile
             </button>

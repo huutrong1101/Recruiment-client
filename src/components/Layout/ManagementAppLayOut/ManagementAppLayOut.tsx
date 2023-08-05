@@ -13,6 +13,8 @@ import {
   HiOutlineCalendarDays,
   HiOutlineUser,
   HiOutlineChartPie,
+  HiOutlinePlusCircle,
+  HiOutlineMinusCircle,
   HiOutlineDocumentDuplicate,
   HiOutlineClipboardDocument,
   HiOutlineClipboardDocumentList,
@@ -35,14 +37,24 @@ export const linksAll = [
         url: "admin/users",
       },
       {
-        name: "Profile",
-        icon: <HiOutlineDocumentDuplicate />,
-        url: "admin/profile",
-      },
+        name: "Acount Delete",
+        icon: <HiOutlineMinusCircle />,
+        url: "admin/accountsDeleted",
+      }, 
+      {
+        name: "Create Acount",
+        icon: <HiOutlinePlusCircle />,
+        url: "admin/userscreate",
+      },      
       {
         name: "Manager Job",
         icon: <HiOutlineCalendarDays />,
         url: "admin/jobs",
+      },
+      {
+        name: "Profile",
+        icon: <HiOutlineDocumentDuplicate />,
+        url: "admin/profile",
       },
     ],
   },
@@ -67,7 +79,7 @@ export const linksAll = [
       {
         name: "Candidate",
         icon: <HiOutlineUser />,
-        url: "recruiter/applied-candidates",
+        url: "recruiter/candidates",
       },
       {
         name: "Job",

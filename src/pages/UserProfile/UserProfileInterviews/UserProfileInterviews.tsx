@@ -11,7 +11,7 @@ import listPlugin from "@fullcalendar/list";
 import Modal from "../../../components/Modal/Modal";
 import classNames from "classnames";
 import moment from "moment";
-import { useAppDispatch } from "../../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { getUserInterviews } from "../slices/UserInterviewSlice";
 import { useSearchParams } from "react-router-dom";
 import qs from "qs";
@@ -31,10 +31,12 @@ function UserProfileInterviewCalendarView<T>({ rows, data }: TableProps<T>) {
   let [isOpen, setIsOpen] = useState(false);
 
   const [itemClick, setItemClick] = useState({
-    job: "",
-    dateData: "",
-    interviewer: "",
-    link: "",
+    interviewId: "",
+    interviewLink: "",
+    interviewerNames: [],
+    jobId: "",
+    jobName: "",
+    time: "",
   });
 
   function closeModal() {
@@ -47,15 +49,16 @@ function UserProfileInterviewCalendarView<T>({ rows, data }: TableProps<T>) {
 
   const convertDataForFullCalendar = (data: any) => {
     const initialEvents = data.map((item: any, index: any) => {
-      const dateObject = moment(item.date);
+      const dateObject = moment(item.time);
       return {
         id: index.toString(),
-        title: item.job,
+        title: item.jobName,
         date: dateObject.format("YYYY-MM-DD"),
-        interviewer: item.interviewer,
-        link: item.link,
-        dateData: item.date,
-        job: item.job,
+
+        jobName: item.jobName,
+        interviewerNames: item.interviewerNames,
+        interviewLink: item.interviewLink,
+        time: item.time,
       };
     });
 
@@ -109,7 +112,7 @@ function UserProfileInterviewCalendarView<T>({ rows, data }: TableProps<T>) {
         <div className="flex items-center justify-center gap-5 mt-2">
           <div className="w-full">
             <div className="flex flex-row justify-center mt-2">
-              <div className="flex flex-col w-[40%] ">
+              <div className="flex flex-col w-[50%] ">
                 {rows.map((row, _rowIdx) => {
                   return (
                     <div
@@ -124,14 +127,14 @@ function UserProfileInterviewCalendarView<T>({ rows, data }: TableProps<T>) {
                   );
                 })}
               </div>
-              <div className="flex flex-col w-[60%]">
+              <div className="flex flex-col w-[50%]">
                 <div
                   className={classNames(
                     `text-zinc-400 text-left py-2 px-4 text-xs  rounded-xl`,
                     ` hover:text-emerald-600 transition-color duration-75`,
                   )}
                 >
-                  {itemClick.job}
+                  {itemClick.jobName}
                 </div>
                 <div
                   className={classNames(
@@ -139,7 +142,7 @@ function UserProfileInterviewCalendarView<T>({ rows, data }: TableProps<T>) {
                     ` hover:text-emerald-600 transition-color duration-75`,
                   )}
                 >
-                  {itemClick.dateData}
+                  {moment(itemClick.time).format("YYYY-MM-DD HH:mm:ss")}
                 </div>
                 <div
                   className={classNames(
@@ -147,17 +150,17 @@ function UserProfileInterviewCalendarView<T>({ rows, data }: TableProps<T>) {
                     ` hover:text-emerald-600 transition-color duration-75`,
                   )}
                 >
-                  {itemClick.interviewer}
+                  {itemClick.interviewerNames.join(", ")}
                 </div>
                 <a
-                  href={itemClick.link}
+                  href={itemClick.interviewLink}
                   target="_blank"
                   className={classNames(
                     `text-zinc-400 text-left py-2 px-4 text-xs  rounded-xl`,
                     ` hover:text-emerald-600 transition-color duration-75`,
                   )}
                 >
-                  {itemClick.link}
+                  Click here to get interview
                 </a>
               </div>
             </div>
@@ -181,46 +184,29 @@ const viewModeItems = [
 
 const rows = [
   {
-    id: "job",
-    value: "Position recruitment",
+    id: "jobName",
+    value: "Job title",
   },
   {
-    id: "date",
+    id: "time",
     value: "Date",
+    format: "DD/MM/YYYY HH:mm:ss",
   },
   {
-    id: "interviewer",
+    id: "interviewerNames",
     value: "Interviewer",
+    format: "join",
   },
   {
     id: "link",
     value: "Link",
   },
 ];
-const data = [
-  {
-    job: "Interview for Jobs #1722",
-    date: new Date().toDateString(),
-    interviewer: "Trong",
-    link: "https://meet.google.com/_meet/rxs-hbwt-wrg?ijlm=1689842478187&adhoc=1&hs=187",
-  },
-  {
-    job: "Interview for Jobs #481",
-    date: new Date().toDateString(),
-    interviewer: "Trong",
-    link: "Google Meet Link",
-  },
-  {
-    job: "Interview for React #012",
-    date: new Date().toDateString(),
-    interviewer: "Trong",
-    link: "Google Meet Link",
-  },
-];
 
 export default function UserProfileInterviews() {
   const dispatch = useAppDispatch();
   const [searchParams] = useSearchParams();
+  const data = useAppSelector((state) => state.userInterview.interviews);
 
   useEffect(() => {
     // console.log(searchParams);

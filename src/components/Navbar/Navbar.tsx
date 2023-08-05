@@ -1,36 +1,25 @@
 import { useEffect, useState } from "react";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Container from "../Container/Container";
 import MobileNavbar from "./MobileNavbar";
 import { useAppSelector } from "../../hooks/hooks";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
-
 import { useTokenAuthorize } from "../../hooks/useTokenAuthorize";
 import NavbarUserLoggedInCard from "./NavbarUserLoggedInCard";
 
 export default function Navbar() {
-  useTokenAuthorize();
+  
 
   const { items } = useAppSelector((app) => app.Navbar);
-
   const { isLoggedIn, loading, user } = useAppSelector((app) => app.Auth);
 
-  const [updatedLeftMenu, setUpdatedLeftMenu] = useState([...items]);
-
-  useEffect(() => {
-    if (user !== null && user !== undefined) {
-      if (user.role !== "CANDIDATE") {
-        setUpdatedLeftMenu([
-          ...updatedLeftMenu,
-          { name: "Dashboard", url: "/recruiter/dashboard" },
-        ]);
-      }
-    }
-  }, [user]);
+  const { pathname } = useLocation();
 
   return (
-    <>
+    <div
+    // className="sticky top-0 bg-white z-50 border-b"
+    >
       {/* Small width devices */}
       <MobileNavbar />
 
@@ -54,18 +43,17 @@ export default function Navbar() {
               JobPort
             </Link>
             <ul className="hidden md:block">
-              <li
-                className={classNames(`flex flex-row gap-12`, `font-semibold`)}
-              >
-                {updatedLeftMenu.map((item) => {
+              <li className={classNames(`flex flex-row gap-2`)}>
+                {items.map((item) => {
                   return (
                     <Link
                       to={item.url}
                       key={item.name}
                       className={classNames(
-                        `py-4`,
+                        `px-4 py-4`,
                         `text-zinc-400 hover:text-zinc-600`,
                         ` transition-colors ease-in-out `,
+                        `hover:bg-gray-50 rounded-xl`,
                       )}
                     >
                       {item.name}
@@ -83,7 +71,10 @@ export default function Navbar() {
             !isLoggedIn ? (
               <div className={classNames(`flex flex-row gap-4`)}>
                 <Link
-                  to="/auth/login"
+                  to={`/auth/login`}
+                  state={{
+                    from: pathname.includes(`logout`) ? `/` : pathname,
+                  }}
                   className={classNames(
                     `px-3 py-2`,
                     `bg-emerald-600 text-white hover:bg-emerald-700`,
@@ -137,6 +128,6 @@ export default function Navbar() {
           )}
         </div>
       </Container>
-    </>
+    </div>
   );
 }

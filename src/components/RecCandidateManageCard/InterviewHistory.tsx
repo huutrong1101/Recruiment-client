@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../../utils/AxiosInstance";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
 import classNames from "classnames";
+import { REC_CANDIDATE_STATUS } from "../../utils/Localization";
 
 export default function InterviewHistory() {
   const { userId } = useParams();
   const [interview, setInterview] = useState([]);
   const [interview2, setInterview2] = useState([]);
+  let navigate = useNavigate();
+  const routeChange = (jobId: string) => {
+    let path = `../jobdetail/${jobId}`;
+    navigate(path);
+  };
   useEffect(() => {
     const getInterviewHistory = async () => {
       try {
@@ -58,9 +64,16 @@ export default function InterviewHistory() {
                   <tr className="bg-white border-b" key={index}>
                     <td
                       scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                     >
-                      {interview.jobName}
+                      <p
+                        className="cursor-pointer w-fit hover:underline"
+                        onClick={() => {
+                          routeChange(interview.jobId);
+                        }}
+                      >
+                        {interview.jobName}
+                      </p>
                     </td>
                     <td className="px-6 py-4">{date}</td>
                     <td className="px-4 py-4 rounded-lg p-2 mx-2 my-1">
@@ -71,7 +84,7 @@ export default function InterviewHistory() {
                             : "bg-yellow-100"
                         }`}
                       >
-                        {interview.state}
+                        {REC_CANDIDATE_STATUS[interview.state]}
                       </span>
                     </td>
                   </tr>

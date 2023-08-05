@@ -33,6 +33,12 @@ export default function FieldContainer<T>({
     initialValues === undefined ? [] : [...initialValues],
   );
 
+  useEffect(() => {
+    if (initialValues !== undefined) {
+      setValues([...initialValues]);
+    }
+  }, [initialValues]);
+
   const handleDeleteItem = (indexToRemove: number) => {
     if (values.length > 1) {
       const newValues = structuredClone(values);
@@ -71,7 +77,7 @@ export default function FieldContainer<T>({
     let clonedObject = structuredClone(values);
     clonedObject[index] = data;
     setValues(clonedObject);
-    
+
     onFieldUpdate(clonedObject);
   };
 
@@ -96,6 +102,7 @@ export default function FieldContainer<T>({
           values.map((value, index) => {
             return (
               <FieldItemInput
+                key={index}
                 value={value}
                 index={index}
                 schema={fieldListSchema}

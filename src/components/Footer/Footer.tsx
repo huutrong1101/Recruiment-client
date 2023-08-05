@@ -12,7 +12,7 @@ import Container from "../Container/Container";
 
 export default function Footer() {
   return (
-    <div className={classNames("footer-wrapper bg-[#0F172A] text-white")}>
+    <div className={classNames("footer-wrapper bg-gray-950 text-white")}>
       <Container className={"footer-container"}>
         <div
           className={classNames(
