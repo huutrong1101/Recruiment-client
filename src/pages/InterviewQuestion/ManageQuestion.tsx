@@ -113,11 +113,6 @@ export default function QuestionInterview() {
       const resType = await axiosInstance(`interviewer/type-questions`)
       setShowTypes(resType.data.result)
       setShowSkills(resSkill.data.result);
-      // setDataSearch({
-      //   ...dataSearch,
-      //   skill: queryConfig.skill || "",
-      //   type: queryConfig.type || "",
-      // });
     };
     fetchSkillType();
   }, []);
@@ -217,6 +212,7 @@ export default function QuestionInterview() {
                                           search: createSearchParams({
                                             ...queryConfig,
                                             skill: skill.name,
+                                            page: "1"
                                           }).toString(),
                                         }}
                                         className={classNames(
@@ -279,6 +275,7 @@ export default function QuestionInterview() {
                                         search: createSearchParams({
                                           ...queryConfig,
                                           type: type,
+                                          page: "1"
                                         }).toString(),
                                       }}
                                       className={classNames(
@@ -334,7 +331,7 @@ export default function QuestionInterview() {
                             <LoadSpinner className="text-3xl" />
                           </div>
                         ) : (
-                          <div className="px-4">
+                          <div className="px-4  min-w-[145vh] "> {/*max-w-[145vh] */}
                             {showQuestion.length > 0 ? (
                               showQuestion.map((question: any) => (
                                 <tr className="flex flex-row py-2 my-2 text-left text-md cursor-pointer items-center
@@ -342,10 +339,10 @@ export default function QuestionInterview() {
                                   key={question.questionId}>
                                   <td className="basis-1/6 mx-3">{question.skill}</td>
                                   <td className="basis-1/6 mx-3">{question.typeQuestion}</td>
-                                  <td className="basis-2/6 mx-3 flex-nowrap truncate ">
+                                  <td className="basis-2/6 mx-3 flex-wrap truncate ">
                                     {question.content}
                                   </td>
-                                  <td className="basis-2/6 mx-3 flex-nowrap truncate ">
+                                  <td className="basis-2/6 mx-3 flex-wrap truncate ">
                                       {question.note}
                                   </td>
                                   <td className="inline-flex gap-x-2 basis-1/6 justify-center">
