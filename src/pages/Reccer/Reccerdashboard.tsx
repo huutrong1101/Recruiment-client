@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { data } from "../../data/RecDashboardData";
 import RecCard from "../../components/RecDashboardCard/RecDashboardCard";
 import LineChart from "./Recchart";
-import { useAppDispatch } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { fetchRecJobList } from "../../redux/reducer/RecJobSlice";
 import {
   fetchRecInterviewerList,
@@ -16,6 +16,9 @@ import {
   fetchCandidateList,
   fetchCandidateSkill,
 } from "../../redux/reducer/CandidateListSlice";
+import axiosInstance from "../../utils/AxiosInstance";
+import { current } from "@reduxjs/toolkit";
+import { HiOutlineArrowTrendingUp } from "react-icons/hi2";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -29,6 +32,44 @@ export default function Reccer_dashboard() {
     dispatch(fetchCandidateList());
     dispatch(fetchCandidateSkill());
   }, []);
+  const [isLoading, setIsLoading] = useState(false);
+  const dashboard: any = useAppSelector(
+    (state) => state.RecDashboardList.recDashboardList,
+  );
+  const [showdata, setshowdata] = useState(dashboard);
+  useEffect(() => {
+    const fetchPosition = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axiosInstance(
+          `recruiter/statistic`
+        );
+        setshowdata(response.data.result);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchPosition();
+  }, []);
+  const currentDate = new Date();
+
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+  const day = String(currentDate.getDate()).padStart(2, '0');
+
+  const formattedDate = `${year}-${month}-${day}`;
+
+  console.log(showdata)
+  interface ShowData {
+    newUser: { total: number; details: string[] };
+    activeUser: { total: number; details: string[] };
+    jobPost: { total: number; details: string[] };
+    jobApply: { total: number; details: string[] };
+    hiring: { total: number; details: string[] };
+  }
+  // console.log(showdata.activeUser.details)
   return (
     <>
       <div className="mx-[3%] h-full">
@@ -99,12 +140,204 @@ export default function Reccer_dashboard() {
         </Menu>
         <div className="flex flex-wrap justify-center items-center mt-[20px] ">
           {/* <!-- Card --> */}
-          {data.listJobs &&
-            data.listJobs.map((job, index) => (
-              <div key={index} className="px-3 mb-8 lg:w-1/4 md:w-1/2">
-                <RecCard job={job} index={index} />
+          {/* First Line */}
+          {/* Active User */}
+          <div className="px-3 mb-8 lg:w-1/4 md:w-1/2">
+            <button className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}>
+              <div className="flex items-start justify-between">
+                <div
+                  className={classNames(
+                    "flex items-center flex-col leading-7 tracking-wider"
+                  )}
+                >
+                  <h3 className={classNames("text-black text-m font-semibold ")}>
+                    Active Users
+                  </h3>
+                </div>
               </div>
-            ))}
+              <div className={classNames("mt-4 flex text-2xl justify-between font-semibold ")}>
+
+                {showdata &&
+                  showdata.activeUser &&
+                  showdata.activeUser.details.map((data: any) => {
+                    <>
+                      <p>sdfsdfsdfsdfsdfs</p>
+                      <div className="flex">
+                        <p className=" text-sm my-2 gap-2 inline-flex">asdasasdasddasd</p>
+                        <span className="flex justify-center items-center"><HiOutlineArrowTrendingUp /></span>
+                      </div>
+                    </>
+                  })}
+              </div>
+
+            </button>
+
+
+          </div>
+          <div className="px-3 mb-8 lg:w-1/4 md:w-1/2">
+            <button className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}>
+              <div className="flex items-start justify-between">
+                <div
+                  className={classNames(
+                    "flex items-center flex-col leading-7 tracking-wider"
+                  )}
+                >
+                  <h3 className={classNames("text-black text-m font-semibold ")}>
+                    asdasdasdasdasd
+                  </h3>
+                </div>
+              </div>
+              <div className={classNames("mt-4 flex text-2xl justify-between font-semibold ")}>
+                <p>asdasdsa</p>
+                <div className="flex">
+                  <p className=" text-sm my-2 gap-2 inline-flex">asdasdasd</p>
+                  <span className="flex justify-center items-center"><HiOutlineArrowTrendingUp /></span>
+                </div>
+              </div>
+            </button>
+
+          </div>
+          <div className="px-3 mb-8 lg:w-1/4 md:w-1/2">
+            <button className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}>
+              <div className="flex items-start justify-between">
+                <div
+                  className={classNames(
+                    "flex items-center flex-col leading-7 tracking-wider"
+                  )}
+                >
+                  <h3 className={classNames("text-black text-m font-semibold ")}>
+                    asdasdasdasdasd
+                  </h3>
+                </div>
+              </div>
+              <div className={classNames("mt-4 flex text-2xl justify-between font-semibold ")}>
+                <p>asdasdsa</p>
+                <div className="flex">
+                  <p className=" text-sm my-2 gap-2 inline-flex">asdasdasd</p>
+                  <span className="flex justify-center items-center"><HiOutlineArrowTrendingUp /></span>
+                </div>
+              </div>
+            </button>
+
+          </div>
+          <div className="px-3 mb-8 lg:w-1/4 md:w-1/2">
+            <button className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}>
+              <div className="flex items-start justify-between">
+                <div
+                  className={classNames(
+                    "flex items-center flex-col leading-7 tracking-wider"
+                  )}
+                >
+                  <h3 className={classNames("text-black text-m font-semibold ")}>
+                    asdasdasdasdasd
+                  </h3>
+                </div>
+              </div>
+              <div className={classNames("mt-4 flex text-2xl justify-between font-semibold ")}>
+                <p>asdasdsa</p>
+                <div className="flex">
+                  <p className=" text-sm my-2 gap-2 inline-flex">asdasdasd</p>
+                  <span className="flex justify-center items-center"><HiOutlineArrowTrendingUp /></span>
+                </div>
+              </div>
+            </button>
+
+          </div>
+          {/* Second Line */}
+          <div className="px-3 mb-8 lg:w-1/4 md:w-1/2">
+            <button className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}>
+              <div className="flex items-start justify-between">
+                <div
+                  className={classNames(
+                    "flex items-center flex-col leading-7 tracking-wider"
+                  )}
+                >
+                  <h3 className={classNames("text-black text-m font-semibold ")}>
+                    asdasdasdasdasd
+                  </h3>
+                </div>
+              </div>
+              <div className={classNames("mt-4 flex text-2xl justify-between font-semibold ")}>
+                <p>asdasdsa</p>
+                <div className="flex">
+                  <p className=" text-sm my-2 gap-2 inline-flex">asdasdasd</p>
+                  <span className="flex justify-center items-center"><HiOutlineArrowTrendingUp /></span>
+                </div>
+              </div>
+            </button>
+
+          </div>
+          <div className="px-3 mb-8 lg:w-1/4 md:w-1/2">
+            <button className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}>
+              <div className="flex items-start justify-between">
+                <div
+                  className={classNames(
+                    "flex items-center flex-col leading-7 tracking-wider"
+                  )}
+                >
+                  <h3 className={classNames("text-black text-m font-semibold ")}>
+                    asdasdasdasdasd
+                  </h3>
+                </div>
+              </div>
+              <div className={classNames("mt-4 flex text-2xl justify-between font-semibold ")}>
+                <p>asdasdsa</p>
+                <div className="flex">
+                  <p className=" text-sm my-2 gap-2 inline-flex">asdasdasd</p>
+                  <span className="flex justify-center items-center"><HiOutlineArrowTrendingUp /></span>
+                </div>
+              </div>
+            </button>
+
+          </div>
+          <div className="px-3 mb-8 lg:w-1/4 md:w-1/2">
+            <button className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}>
+              <div className="flex items-start justify-between">
+                <div
+                  className={classNames(
+                    "flex items-center flex-col leading-7 tracking-wider"
+                  )}
+                >
+                  <h3 className={classNames("text-black text-m font-semibold ")}>
+                    asdasdasdasdasd
+                  </h3>
+                </div>
+              </div>
+              <div className={classNames("mt-4 flex text-2xl justify-between font-semibold ")}>
+                <p>asdasdsa</p>
+                <div className="flex">
+                  <p className=" text-sm my-2 gap-2 inline-flex">asdasdasd</p>
+                  <span className="flex justify-center items-center"><HiOutlineArrowTrendingUp /></span>
+                </div>
+              </div>
+            </button>
+
+          </div>
+          <div className="px-3 mb-8 lg:w-1/4 md:w-1/2">
+            <button className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}>
+              <div className="flex items-start justify-between">
+                <div
+                  className={classNames(
+                    "flex items-center flex-col leading-7 tracking-wider"
+                  )}
+                >
+                  <h3 className={classNames("text-black text-m font-semibold ")}>
+                    asdasdasdasdasd
+                  </h3>
+                </div>
+              </div>
+              <div className={classNames("mt-4 flex text-2xl justify-between font-semibold ")}>
+                <p>asdasdsa</p>
+                <div className="flex">
+                  <p className=" text-sm my-2 gap-2 inline-flex">asdasdasd</p>
+                  <span className="flex justify-center items-center"><HiOutlineArrowTrendingUp /></span>
+                </div>
+              </div>
+            </button>
+
+          </div>
+
+
         </div>
         <div className="mb-5 bg-white drop-shadow-md rounded-2xl">
           <p className="px-[5%] pt-[3%] font-semibold text-2xl">

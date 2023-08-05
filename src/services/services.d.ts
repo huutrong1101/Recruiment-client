@@ -46,6 +46,7 @@ export interface JobListConfig {
   type?: string;
   location?: string;
   posName?: string;
+  active?: boolean;
 }
 export interface EventListConfig {
   index?: number | string;
