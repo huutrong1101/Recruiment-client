@@ -78,12 +78,37 @@ export default function AddQuestion({ observation, onClick }: any) {
 
     console.log(data)
 
-    toast
-      .promise(InterviewService.createQuestion(data), {
-        pending: "Adding the question",
-        success:"The question was added. Please RELOAD page",
-        error: "có lỗi"
-      })
+    // toast
+    //   .promise(InterviewService.createQuestion(data), {
+    //     pending: "Adding the question",
+    //     success:"The question was added. Please RELOAD page",
+    //     error: "có lỗi"
+    //   })
+    // data.content === ' ' && data.note === ' ' ? alert('Please fill your full content and note') : (navigate(""))
+
+    // data.content === ' ' || data.note !== ' ' ? alert('Please fill your full content') : (
+    //   // toast
+    //   //   .promise(InterviewService.createQuestion(data), {
+    //   //     error: "có lỗi"
+    //   //   })
+    //   data.content
+    // )
+
+    // data.content !== ' ' || data.note === ' ' ? alert('Please fill your full note') : (
+    //   // toast
+    //   //   .promise(InterviewService.createQuestion(data), {
+    //   //     error: "có lỗi"
+    //   //   })
+    //   data.note
+    // )
+    data.content !== ' ' && data.note !== ' ' && data.skillId !== ' ' && data.typeQuestion !== ' ' ? "" : (
+      toast
+        .promise(InterviewService.createQuestion(data), {
+          pending: "Adding the question",
+          success: "The question was added. Please RELOAD page",
+          error: "có lỗi"
+        })
+    )
   }
 
 
@@ -153,7 +178,7 @@ export default function AddQuestion({ observation, onClick }: any) {
 
                                     onClick={() => {
                                       // handleActive
-                                      setInputData({...inputData, skill: skill.name })
+                                      setInputData({ ...inputData, skill: skill.name })
                                     }}
                                   >
                                     {skill.name}
