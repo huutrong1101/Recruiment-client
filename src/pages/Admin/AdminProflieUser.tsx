@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import axiosInstance from '../../utils/AxiosInstance';
-import {  AcountFrofileInterface,AcountFrofileInterfaceConfig } from "../../services/services";
+import {  AcountFrofileUsersInterface,AcountFrofileInterfaceConfig } from "../../services/services";
 import { useParams } from "react-router-dom";
 import {  useAppSelector } from '../../hooks/hooks';
 import moment from "moment";
@@ -9,10 +9,9 @@ import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
 export default function AdminProflieUser() {
   const {userId} = useParams(); 
-  const jobs:  AcountFrofileInterface[] = useAppSelector((state) => state.adminacountuseprofileRecent.adminacountuseprofileRecent);
+  const jobs:  AcountFrofileUsersInterface[] = useAppSelector((state) => state.adminacountuseprofileRecent.adminacountuseprofileRecent);
   const [showJobLists, setAdminuseprofile] = useState(jobs);
   const [isLoading, setIsLoading] = useState(false);
-  const [avatar, setAvatar] = useState('');
   const goBack = () => {
     window.history.back();
   };
@@ -23,9 +22,8 @@ export default function AdminProflieUser() {
       setIsLoading(true);
       try {      
         const response = await axiosInstance(`admin/users/${userId}`);
-        console.log(response.data.result);
+        // console.log(response.data.result);
         setAdminuseprofile(response.data.result);
-        setAvatar(response.data.result.avatar);
       } catch (error) {
         console.log(error);
       } finally {
@@ -77,32 +75,33 @@ export default function AdminProflieUser() {
                 value={showJobLists.email}
                 readOnly // Thêm thuộc tính readOnly vào input
                 />
-            </div>                    
-          </div>
-        </div>
-        <div className="bg-white rounded-lg shadow-lg w-1/2 mt-5 border">
-          {/* Avatar */}
-          <div className="">
-             <div className="px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Avatar Users</div>
-           <div>
-                 <img
-                   className="rounded-full flex justify-center"
-                  alt="avatar"
-                   src={showJobLists.avatar}
-                 />
-               </div>
-            </div>
-          {/* Address */}
-          <div className = "grid md:grid-cols-1 text-sm self-stretch px-2 pt-[15px] pb-[15px]">     
+            </div> 
 
-          <div className = "grid grid-cols-1 mt-10">
+             {/* Address */}
+          <div className = "grid md:grid-cols-1 text-sm self-stretch px-2 pt-[15px] pb-[15px]">     
+            <div className = "grid grid-cols-1">
                 <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Current Address</div>
                 <input className = "px-4 py-2 self-stretch pt-[15px] pb-[15px] bg-white bg-opacity-0 rounded-lg border   "
                 value={showJobLists.address}
                 readOnly // Thêm thuộc tính readOnly vào input
                 />
-          </div>  
+            </div>  
+          </div>                   
           </div>
+        </div>
+        <div className="bg-white rounded-lg shadow-lg w-1/2 mt-5 border ">
+          {/* Avatar */}
+          <div className="">
+              <div className="px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Avatar Users</div>
+              <div className="flex justify-center">
+              <img
+                className="rounded-full w-[175px] h-[175px]"
+              alt="avatar"
+                src={showJobLists.avatar}
+              />
+            </div>
+          </div>    
+
           <div className = "grid md:grid-cols-1 text-sm self-stretch px-2 pt-[15px] pb-[15px]">      
             {/* Address */}
             <div className = "grid grid-cols-1">
@@ -112,7 +111,7 @@ export default function AdminProflieUser() {
                 readOnly // Thêm thuộc tính readOnly vào input
                 />
             </div>
-          </div>
+          </div>         
         </div>         
       </div>
     )} 
