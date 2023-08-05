@@ -9,7 +9,7 @@ function DeleteQuestion({id}: any) {
     return (
       axiosInstance.delete('interviewer/question/'+id) 
       .then (res => {
-        alert('Question has deleted')
+        alert('Question has deleted. Page will be reloaded')
         navigate('interviewer/interview-question')
       }).catch(err => console.log(err))
     )

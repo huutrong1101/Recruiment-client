@@ -95,7 +95,7 @@ export default function UpdateQuestion({  observation, onClick, questionID }: an
       toast
         .promise(InterviewService.updateQuestion(data,questionID), {
           pending: "Updating the question",
-          success:"The question was updated",
+          success:"The question was updated. Please RELOAD page",
           error: "có lỗi"
         })
    }
@@ -106,14 +106,14 @@ export default function UpdateQuestion({  observation, onClick, questionID }: an
    return (
       <div className='fixed inset-0 bg-black bg-opacity-10 backdrop-blur-sm flex justify-center items-center rounded-lg z-20 '
          id='Update' onClick={handleOnClick} > {/**/}
-         <div className='w-1/3 h-2/3 rounded-lg bg-white drop-shadow-md flex flex-col relative'>
+         <div className='w-1/2 h-3/4 rounded-lg bg-white drop-shadow-md flex flex-col relative'>
             <div className='flex justify-start m-5 font-medium text-lg'>
                Update Question
             </div>
             <div className='mx-5 font-normal text-md my-3'>Content</div>
             <div className='flex flex-col gap-y-5 w-full items-center'>
                <div className='w-11/12 p-2 h-fit mx-5 border-2 border-emerald-600 rounded-md'>
-                  <textarea className='resize-none w-full flex outline-none'
+                  <textarea className='resize-none w-full flex outline-none h-[20vh]'
                      placeholder='Question here' 
                      value={inputData.content}
                      onChange={e => setInputData({ ...inputData, content: e.target.value })}
@@ -188,7 +188,7 @@ export default function UpdateQuestion({  observation, onClick, questionID }: an
                      </div>
                   </Menu>
                   {/* Type button */}
-                  <div className=' font-normal text-md'>Type</div>
+                  <div className=' font-normal text-md mt-2'>Type</div>
                   <Menu as='div' className='w-full h-[25%] relative flex flex-col'>
                      <div className='absolute w-2/3  '>
                         <Menu.Button className='w-full h-fit p-3 my-1 bg-emerald-600 rounded-md text-white border border-transparent
@@ -221,7 +221,6 @@ export default function UpdateQuestion({  observation, onClick, questionID }: an
                                              onClick={() => {
                                                 // handleActive
                                                 setInputData({ ...inputData, type: type })
-
                                              }}
                                           >
                                              {TYPE_alter[type]}
