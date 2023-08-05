@@ -19,14 +19,40 @@ export default function Navbar() {
 
   useEffect(() => {
     if (user !== null && user !== undefined) {
-      if (user.role !== "CANDIDATE") {
+      if (user.role === "RECRUITER") {
         if (updatedLeftMenu.length < 4) {
           setUpdatedLeftMenu([
             ...updatedLeftMenu,
             { name: "Dashboard", url: "/recruiter/dashboard" },
           ]);
         }
+      } else if (user.role === "INTERVIEWER") {
+        const updatedMenuWithoutDashboard = updatedLeftMenu.filter(
+          (item) => item.name !== "Dashboard",
+        );
+        setUpdatedLeftMenu([
+          ...updatedMenuWithoutDashboard,
+          { name: "Dashboard", url: "/interviewer/interview-recent" },
+        ]);
+      } else if (user.role === "ADMIN") {
+        const updatedMenuWithoutDashboard = updatedLeftMenu.filter(
+          (item) => item.name !== "Dashboard",
+        );
+        setUpdatedLeftMenu([
+          ...updatedMenuWithoutDashboard,
+          { name: "Dashboard", url: "/admin/users" },
+        ]);
+      } else {
+        const updatedMenuWithoutDashboard = updatedLeftMenu.filter(
+          (item) => item.name !== "Dashboard",
+        );
+        setUpdatedLeftMenu([...updatedMenuWithoutDashboard]);
       }
+    } else {
+      const updatedMenuWithoutDashboard = updatedLeftMenu.filter(
+        (item) => item.name !== "Dashboard",
+      );
+      setUpdatedLeftMenu([...updatedMenuWithoutDashboard]);
     }
   }, [user]);
 
