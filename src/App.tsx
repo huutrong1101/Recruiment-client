@@ -77,6 +77,7 @@ import NotFound from "./components/NotFound/NotFound";
 
 export default function App() {
   const dispatch = useAppDispatch();
+  useTokenAuthorize();
 
   useEffect(() => {
     JobService.getJobs(dispatch);
