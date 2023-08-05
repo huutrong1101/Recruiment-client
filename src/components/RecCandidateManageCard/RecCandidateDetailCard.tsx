@@ -1,6 +1,5 @@
 // import { avatar } from "@material-tailwind/react";
 import React, { useEffect, useState } from "react";
-import blog_image from "../../../images/blog_image.png";
 import { GrDocumentText } from "react-icons/gr";
 import classNames from "classnames";
 import RecCandidateinfoCard from "./RecCandidateInfoCard";
@@ -74,7 +73,7 @@ export default function RecCandidateDetailCard(props: any) {
                 <div className="md:w-full">
                   <div className="relative flex items-end">
                     <img
-                      src={blog_image}
+                      src={candidate.avatar}
                       className="h-28 w-28 rounded-full ring-4 ring-slate-50 "
                     />
                     <div className="ms-4 mb-7">
@@ -113,7 +112,7 @@ export default function RecCandidateDetailCard(props: any) {
                       >
                         <p className="text-2xl font-semibold">Skill:</p>
                         <div>
-                          {candidate?.skills?.map((skill, index) => (
+                          {candidate.skills?.map((skill, index) => (
                             <p
                               key={index}
                               className="px-4 py-2 gap-2 ml-2 inline-flex bg-emerald-600 hover:bg-emerald-700 border-emerald-600  text-white rounded-md"
@@ -131,40 +130,22 @@ export default function RecCandidateDetailCard(props: any) {
                         )}
                       >
                         <div className="text-2xl font-semibold">Education</div>
-                        {candidate?.educations?.map((education, index) => (
-                          <>
-                            <p
-                              key={index}
-                              className="text-zinc-600 mt-3 text-lg "
-                            >
-                              {education.educationId}. {education.schoolName} -{" "}
-                              {education.specialized} - {education?.certificate}
-                            </p>
-                          </>
-                        ))}
-                      </div>
-                      <div
-                        className={classNames(
-                          `border bg-white shadow-sm rounded-xl`,
-                          `px-8 py-8`,
-                          `text-justify`,
-                        )}
-                      >
-                        <div className="text-2xl font-semibold">Course</div>
-                        {candidate?.courses?.map((course, index) => (
-                          <>
-                            <p
-                              key={index}
-                              className="text-zinc-600 mt-3 text-lg "
-                            >
-                              {course.courseId}. {course.courseName} -{" "}
-                              {course.trainningOrganizations} -{" "}
-                              {moment(course?.completionTime).format(
-                                "Do MMM, YYYY",
-                              )}
-                            </p>
-                          </>
-                        ))}
+                        <div className="flex gap-4 flex-wrap">
+                          {JSON.parse(candidate.information).education.map(
+                            (edu: any, index: any) => (
+                              <>
+                                <div
+                                  key={index}
+                                  className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                                >
+                                  <p>School: {edu.school}</p>
+                                  <p>Major: {edu.major}</p>
+                                  <p>Graduated Year: {edu.graduatedYear}</p>
+                                </div>
+                              </>
+                            ),
+                          )}
+                        </div>
                       </div>
                       <div
                         className={classNames(
@@ -174,23 +155,22 @@ export default function RecCandidateDetailCard(props: any) {
                         )}
                       >
                         <div className="text-2xl font-semibold">Project</div>
-                        {candidate?.projects?.map((project, index) => (
-                          <>
-                            <p
-                              key={index}
-                              className="text-zinc-600 mt-3 text-lg "
-                            >
-                              {project.projectId}. {project.projectName} -{" "}
-                              {project.positionInProject}
-                            </p>
-                            <p
-                              key={index}
-                              className="text-zinc-600 mt-3 text-lg ml-4"
-                            >
-                              {project.description}
-                            </p>
-                          </>
-                        ))}
+                        <div className="flex gap-4 flex-wrap">
+                          {JSON.parse(candidate.information).project.map(
+                            (edu: any, index: any) => (
+                              <>
+                                <div
+                                  key={index}
+                                  className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                                >
+                                  <p>Project: {edu.school}</p>
+                                  <p>Major: {edu.major}</p>
+                                  <p>Graduated Year: {edu.graduatedYear}</p>
+                                </div>
+                              </>
+                            ),
+                          )}
+                        </div>
                       </div>
                       <div
                         className={classNames(
@@ -200,41 +180,20 @@ export default function RecCandidateDetailCard(props: any) {
                         )}
                       >
                         <div className="text-2xl font-semibold">Experience</div>
-                        {candidate?.experiences?.map((experience, index) => (
-                          <>
-                            <p
-                              key={index}
-                              className="text-zinc-600 mt-3 text-lg "
-                            >
-                              {experience.experienceId}.{" "}
-                              {experience.companyName} - {experience.position} -{" "}
-                              {experience.time}
-                            </p>
-                          </>
-                        ))}
-                      </div>
-                      <div
-                        className={classNames(
-                          `border bg-white shadow-sm rounded-xl`,
-                          `px-8 py-8`,
-                          `text-justify`,
+                        {JSON.parse(candidate.information).experience.map(
+                          (edu: any, index: any) => (
+                            <>
+                              <div
+                                key={index}
+                                className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                              >
+                                <p>Project: {edu.school}</p>
+                                <p>Major: {edu.major}</p>
+                                <p>Graduated Year: {edu.graduatedYear}</p>
+                              </div>
+                            </>
+                          ),
                         )}
-                      >
-                        <div className="text-2xl font-semibold">Award</div>
-                        {candidate?.awards?.map((award, index) => (
-                          <>
-                            <p
-                              key={index}
-                              className="text-zinc-600 mt-3 text-lg "
-                            >
-                              {award.awardId}. {award.awardName} -{" "}
-                              {award.awardOrganization} -{" "}
-                              {moment(award?.awardWinningTime).format(
-                                "Do MMM, YYYY",
-                              )}
-                            </p>
-                          </>
-                        ))}
                       </div>
                       <div
                         className={classNames(
@@ -246,21 +205,20 @@ export default function RecCandidateDetailCard(props: any) {
                         <div className="text-2xl font-semibold">
                           Certificate
                         </div>
-                        {candidate?.certificates?.map((certificate, index) => (
-                          <>
-                            <p
-                              key={index}
-                              className="text-zinc-600 mt-3 text-lg "
-                            >
-                              {certificate.certificateId}.{" "}
-                              {certificate.certificateName} -{" "}
-                              {certificate.certificateBody} -{" "}
-                              {moment(certificate?.certificationTime).format(
-                                "Do MMM, YYYY",
-                              )}
-                            </p>
-                          </>
-                        ))}
+                        {JSON.parse(candidate.information).certificate.map(
+                          (edu: any, index: any) => (
+                            <>
+                              <div
+                                key={index}
+                                className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                              >
+                                <p>Project: {edu.school}</p>
+                                <p>Major: {edu.major}</p>
+                                <p>Graduated Year: {edu.graduatedYear}</p>
+                              </div>
+                            </>
+                          ),
+                        )}
                       </div>
                     </div>
                   </div>

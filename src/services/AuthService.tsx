@@ -22,7 +22,15 @@ async function register({
 }
 
 function login({ credentialId, password }: UserLoginParamsInterface) {
-  return axiosInstance.post(`/auth/login`, { credentialId, password });
+  return axiosInstance.post(
+    `/auth/login`,
+    { credentialId, password },
+    {
+      headers: {
+        Authorization: null,
+      },
+    },
+  );
 }
 
 function verifyOtp({ otp, email }: UserVerifySendParamsInterface) {

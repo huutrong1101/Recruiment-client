@@ -5,19 +5,19 @@ import { Link } from "react-router-dom";
 export default function Advertise() {
   return (
     <>
-      <div className="my-[40px] md:my-[80px] bg-white shadow-lg border border-gray-100 p-6">
-        <h3
-          className={classnames(
-            "text-black text-xl md:text-2xl font-medium leading-7 tracking-wider capitalize",
-          )}
-        >
+      <div className="my-[40px] md:my-[80px] w-full bg-white shadow-lg border rounded-xl p-6 flex flex-col">
+        <h3 className={classnames("text-black md:text-2xl font-semibold mb-4")}>
           Explore jobs Now
         </h3>
-        <div className={classnames("flex items-center justify-between gap-4")}>
-          <div className={classnames("w-2/3 md:w-[80%]")}>
+        <div
+          className={classnames(
+            "flex flex-col md:flex-row items-center justify-between gap-4 md:gap-16",
+          )}
+        >
+          <div className={classnames("flex-1")}>
             <p
               className={classnames(
-                "text-gray-400 text-sm md:text-lg font-medium capitalize",
+                "text-gray-400 text-sm md:text-base font-normal",
               )}
             >
               Search all the open positions on the web. Get your own
@@ -25,11 +25,7 @@ export default function Advertise() {
               companies worldwide.
             </p>
           </div>
-          <div
-            className={classnames(
-              "w-1/3 md:w-[20%] flex gap-3 items-center justify-center",
-            )}
-          >
+          <div className={classnames("flex gap-3 items-center justify-center")}>
             <Link
               to="/jobs"
               className={classnames(

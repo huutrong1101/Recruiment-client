@@ -212,8 +212,25 @@ export interface AdminJobPassInterface {
   date: string;
   phone: number;
   score: string;
+  state: string;
+  interview: string;
 }
 
+export interface AdminDelete {
+  fullName: string;
+  createdAt: string;
+  clastLoginAt: string;
+  email: string;
+  phone: number;
+  gender: string;
+  userId: string;
+  state: string;
+}
+export interface  AdminDeleteAcountConfig{
+  index: string;
+  size: string;
+  fullName : string;
+}
 export interface AdminJobPassListConfig {
   page?: number | string;
   size?: number | string;
@@ -222,6 +239,7 @@ export interface AdminJobPassListConfig {
 export interface AcountFrofileInterface {
   userId: string;
   name: string;
+  avatar: string;
   createdAt: string;
   phone: number;
   address: string;
