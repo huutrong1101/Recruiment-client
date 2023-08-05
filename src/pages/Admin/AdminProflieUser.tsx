@@ -81,18 +81,20 @@ export default function AdminProflieUser() {
           </div>
         </div>
         <div className="bg-white rounded-lg shadow-lg w-1/2 mt-5 border">
-          {/* Avatar
+          {/* Avatar */}
           <div className="">
-              <div className="px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Avatar Users</div>
-              <div>
-                <img
-                  className="rounded-full flex justify-center"
+             <div className="px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Avatar Users</div>
+           <div>
+                 <img
+                   className="rounded-full flex justify-center"
                   alt="avatar"
-                  src={showJobLists.avatar}
-                />
-              </div>
-            </div> */}
+                   src={showJobLists.avatar}
+                 />
+               </div>
+            </div>
           {/* Address */}
+          <div className = "grid md:grid-cols-1 text-sm self-stretch px-2 pt-[15px] pb-[15px]">     
+
           <div className = "grid grid-cols-1 mt-10">
                 <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Current Address</div>
                 <input className = "px-4 py-2 self-stretch pt-[15px] pb-[15px] bg-white bg-opacity-0 rounded-lg border   "
@@ -100,6 +102,7 @@ export default function AdminProflieUser() {
                 readOnly // Thêm thuộc tính readOnly vào input
                 />
           </div>  
+          </div>
           <div className = "grid md:grid-cols-1 text-sm self-stretch px-2 pt-[15px] pb-[15px]">      
             {/* Address */}
             <div className = "grid grid-cols-1">
