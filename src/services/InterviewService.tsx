@@ -12,7 +12,12 @@ const updateQuestion = async (data:any, questionID:string ) => {
   return await axiosInstance.put(`interviewer/question/${questionID}`, data);
 }
 
+const deleteQuestion = async (questionID:string) => {
+  return await axiosInstance.delete('interviewer/question/'+ questionID) 
+}
+
 export const InterviewService = {
   createQuestion,
   updateQuestion,
+  deleteQuestion
 };
