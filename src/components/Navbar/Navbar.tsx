@@ -5,21 +5,59 @@ import Container from "../Container/Container";
 import MobileNavbar from "./MobileNavbar";
 import { useAppSelector } from "../../hooks/hooks";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
+import qs from "qs";
 import { useTokenAuthorize } from "../../hooks/useTokenAuthorize";
 import NavbarUserLoggedInCard from "./NavbarUserLoggedInCard";
 
 export default function Navbar() {
-  
+  useTokenAuthorize();
 
   const { items } = useAppSelector((app) => app.Navbar);
   const { isLoggedIn, loading, user } = useAppSelector((app) => app.Auth);
-
+  const [updatedLeftMenu, setUpdatedLeftMenu] = useState([...items]);
   const { pathname } = useLocation();
 
+  useEffect(() => {
+    if (user !== null && user !== undefined) {
+      if (user.role === "RECRUITER") {
+        if (updatedLeftMenu.length < 4) {
+          setUpdatedLeftMenu([
+            ...updatedLeftMenu,
+            { name: "Dashboard", url: "/recruiter/dashboard" },
+          ]);
+        }
+      } else if (user.role === "INTERVIEWER") {
+        const updatedMenuWithoutDashboard = updatedLeftMenu.filter(
+          (item) => item.name !== "Dashboard",
+        );
+        setUpdatedLeftMenu([
+          ...updatedMenuWithoutDashboard,
+          { name: "Dashboard", url: "/interviewer/interview-recent" },
+        ]);
+      } else if (user.role === "ADMIN") {
+        const updatedMenuWithoutDashboard = updatedLeftMenu.filter(
+          (item) => item.name !== "Dashboard",
+        );
+        setUpdatedLeftMenu([
+          ...updatedMenuWithoutDashboard,
+          { name: "Dashboard", url: "/admin/users" },
+        ]);
+      } else {
+        const updatedMenuWithoutDashboard = updatedLeftMenu.filter(
+          (item) => item.name !== "Dashboard",
+        );
+        setUpdatedLeftMenu([...updatedMenuWithoutDashboard]);
+      }
+    } else {
+      const updatedMenuWithoutDashboard = updatedLeftMenu.filter(
+        (item) => item.name !== "Dashboard",
+      );
+      setUpdatedLeftMenu([...updatedMenuWithoutDashboard]);
+    }
+  }, [user]);
+
   return (
-    <div
-    // className="sticky top-0 bg-white z-50 border-b"
-    >
+    <>
       {/* Small width devices */}
       <MobileNavbar />
 
@@ -43,17 +81,18 @@ export default function Navbar() {
               JobPort
             </Link>
             <ul className="hidden md:block">
-              <li className={classNames(`flex flex-row gap-2`)}>
-                {items.map((item) => {
+              <li
+                className={classNames(`flex flex-row gap-12`, `font-semibold`)}
+              >
+                {updatedLeftMenu.map((item) => {
                   return (
                     <Link
                       to={item.url}
                       key={item.name}
                       className={classNames(
-                        `px-4 py-4`,
+                        `py-4`,
                         `text-zinc-400 hover:text-zinc-600`,
                         ` transition-colors ease-in-out `,
-                        `hover:bg-gray-50 rounded-xl`,
                       )}
                     >
                       {item.name}
@@ -128,6 +167,6 @@ export default function Navbar() {
           )}
         </div>
       </Container>
-    </div>
+    </>
   );
 }

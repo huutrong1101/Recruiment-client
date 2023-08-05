@@ -53,9 +53,7 @@ export default function UserProfileMyInformation() {
 
   const handleSelectChange = (selectedOptions: any) => {
     // setSelectedOptions(selectedOptions);
-    const clonedObject = structuredClone(containerItem);
-    clonedObject["skills"] = selectedOptions;
-    setContainerItem({ ...clonedObject });
+    handleValuesUpdate("skills", selectedOptions);
   };
 
   const handleSubmit = (e: any) => {
