@@ -76,6 +76,9 @@ import FilterRecruiter from "./components/Routers/FilterRecruiter";
 import NotFound from "./components/NotFound/NotFound";
 import AdminProflieUser from "./pages/Admin/AdminProflieUser";
 import AdminAcountDelete from "./components/AdminManagerList/AdminAcountDelete";
+import ForgetPasswordLayout from "./pages/ForgetPassword/ForgetPasswordLayout";
+import ForgetPassword from "./pages/ForgetPassword/ForgetPassword";
+import ConfirmPassword from "./pages/ForgetPassword/ConfirmPassword";
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -114,6 +117,10 @@ export default function App() {
               <Route path="complete" element={<CompleteConfirmEmail />} />
             </Route>
             <Route path="otp" element={<OneTimePasswordVerify />} />
+            <Route path="/forget-password" element={<ForgetPasswordLayout />}>
+              <Route index element={<ForgetPassword />} />
+              <Route path="confirm-password" element={<ConfirmPassword />} />
+            </Route>
           </Route>
 
           {/* This route is only accepted when user is logged in and/or token is not broken  */}
@@ -142,7 +149,7 @@ export default function App() {
             <Route path="users/:userId" index element={<AdminProflieUser />} />
             <Route path="userscreate" element={<AdminChangePosition />} />
             <Route path="users/blacklist/:userId" element={<AddBlacklist />} />
-            <Route path="accountsDeleted" element={<AdminAcountDelete/>} />
+            <Route path="accountsDeleted" element={<AdminAcountDelete />} />
             <Route path="blacklist/:userId" element={<DeleteBlacklist />} />
             <Route path="profile" element={<AdminProfile />} />
             <Route path="jobs/:jobId" element={<ListCandiPass />} />
@@ -197,9 +204,12 @@ export default function App() {
               path="candidate-recent/:id"
               element={<INTCandidateDetail />}
             />
-            <Route index path="score-page" element={<ScorePage />} />
             <Route index path="manage-question" element={<ManageQuestion />} />
-            <Route index path="score-page" element={<ScorePage />} />
+            <Route
+              index
+              path="candidate-recent/:id/score-page"
+              element={<ScorePage />}
+            />
           </Route>
         </Route>
 
