@@ -65,11 +65,13 @@ export default function InterviewHistory() {
                     <td
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                      onClick={() => {
-                        routeChange(interview.jobId);
-                      }}
                     >
-                      <p className="cursor-pointer w-fit hover:underline">
+                      <p
+                        className="cursor-pointer w-fit hover:underline"
+                        onClick={() => {
+                          routeChange(interview.jobId);
+                        }}
+                      >
                         {interview.jobName}
                       </p>
                     </td>

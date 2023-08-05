@@ -131,7 +131,7 @@ export default function RecCandidateDetailCard(props: any) {
                       >
                         <div className="text-2xl font-semibold">Education</div>
                         <div className="flex gap-4 flex-wrap">
-                          {JSON.parse(candidate.information).education.map(
+                          {JSON.parse(candidate.information)?.education?.map(
                             (edu: any, index: any) => (
                               <>
                                 <div
@@ -156,7 +156,7 @@ export default function RecCandidateDetailCard(props: any) {
                       >
                         <div className="text-2xl font-semibold">Project</div>
                         <div className="flex gap-4 flex-wrap">
-                          {JSON.parse(candidate.information).project.map(
+                          {JSON.parse(candidate.information)?.project?.map(
                             (edu: any, index: any) => (
                               <>
                                 <div
@@ -180,7 +180,7 @@ export default function RecCandidateDetailCard(props: any) {
                         )}
                       >
                         <div className="text-2xl font-semibold">Experience</div>
-                        {JSON.parse(candidate.information).experience.map(
+                        {JSON.parse(candidate.information)?.experience?.map(
                           (edu: any, index: any) => (
                             <>
                               <div
@@ -205,7 +205,7 @@ export default function RecCandidateDetailCard(props: any) {
                         <div className="text-2xl font-semibold">
                           Certificate
                         </div>
-                        {JSON.parse(candidate.information).certificate.map(
+                        {JSON.parse(candidate.information)?.certificate?.map(
                           (edu: any, index: any) => (
                             <>
                               <div
