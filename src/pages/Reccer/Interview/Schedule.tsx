@@ -109,6 +109,7 @@ export default function Schedule() {
   };
 
   const handleOnClick = () => {
+    console.log("check")
     handleCreateInterview();
     handleChangeState();
   };

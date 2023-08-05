@@ -1,8 +1,8 @@
 import axiosInstance from "../utils/AxiosInstance";
 
-// const createInterview = async (data: any) => {
-//   return await axiosInstance.post(`/recruiter/interviews`, data);
-// };
+const createInterview = async (data: any) => {
+  return await axiosInstance.post(`/recruiter/interviews`, data);
+};
 
 const createQuestion = async (data: any) => {
   return await axiosInstance.post(`interviewer/question`, data);
@@ -17,6 +17,7 @@ const deleteQuestion = async (questionID:string) => {
 }
 
 export const InterviewService = {
+  createInterview,
   createQuestion,
   updateQuestion,
   deleteQuestion

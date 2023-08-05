@@ -26,8 +26,8 @@ export const TECHNICAL: LocalizationDeclarationType = {};
 export const REC_INTERVIEW_STATUS: LocalizationDeclarationType = {
   NOT_RECEIVED: "Not Received",
   RECEIVED: "Received",
-  PASS: "Pass",
-  FAIL: "Fail",
+  PASSED: "Pass",
+  FAILED: "Fail",
 };
 /**
  * @deprecated using Localization.APPLICANTS_STATUS instead
