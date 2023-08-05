@@ -11,6 +11,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { toast } from "react-toastify";
 import { InterviewService } from "../../../services/InterviewService";
 import { StateService } from "../../../services/changeState";
+import moment from "moment";
 
 interface UserProps {
   userId: string;
@@ -83,6 +84,19 @@ export default function Schedule() {
     const listInterviewersId = interviewerArray.map(
       (interviewer) => interviewer.interviewerId,
     );
+    const selectedDateTime = selectedDate?.toDate(); // Chuyển ngày và giờ đã chọn sang dạng Date
+
+    if (selectedDateTime && selectedDateTime < new Date()) {
+      // Kiểm tra nếu ngày và giờ đã chọn trước thời gian hiện tại
+      toast.error("Selected date and time is in the past.");
+      return; // Dừng quá trình tạo buổi phỏng vấn
+    }
+
+    if (listInterviewersId.length === 0) {
+      toast.error("Please select at least one interviewer.");
+      return; // Dừng quá trình tạo buổi phỏng vấn
+    }
+
     const timeFormat = selectedDate?.format("YYYY-MM-DDTHH:mm:ss.SSSZ");
 
     const data = {
@@ -93,8 +107,8 @@ export default function Schedule() {
 
     toast
       .promise(InterviewService.createInterview(data), {
-        pending: `Creating the interview`,
-        success: `The interview was created`,
+        pending: "Creating the interview",
+        success: "The interview was created",
       })
       .catch((error) => toast.error(error.response.data.result));
   };
@@ -109,7 +123,7 @@ export default function Schedule() {
   };
 
   const handleOnClick = () => {
-    console.log("check")
+    // console.log("check");
     handleCreateInterview();
     handleChangeState();
   };
