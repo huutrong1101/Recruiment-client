@@ -9,7 +9,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import classNames from "classnames";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import {
   Link,
   createSearchParams,
@@ -27,6 +27,13 @@ import useQueryParams from "../../../hooks/useQueryParams";
 import { isEqual } from "lodash";
 import qs from "query-string";
 import { BsFilterLeft } from "react-icons/bs";
+import {
+  Popover,
+  PopoverHandler,
+  PopoverContent,
+  Button,
+} from "@material-tailwind/react";
+import PopupTick from "../../../components/Popup";
 
 interface UserProps {
   candidateId: string;
@@ -79,7 +86,6 @@ export default function Applied() {
     };
     getApplyCandidate();
   }, [jobId]);
-
 
   useEffect(() => {
     if (!isEqual(prevQueryConfig, queryConfig)) {
@@ -153,7 +159,6 @@ export default function Applied() {
     }
   };
 
-  console.log(applyCandidate.interviewerFullNames)
   return (
     <div
       className={classNames(
@@ -164,163 +169,214 @@ export default function Applied() {
     >
       <h1 className="text-2xl font-semibold">Applied Candidate</h1>
 
-      <div className="relative p-4 overflow-x-auto">
-        <table className="w-full text-sm text-left text-gray-500">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-            <tr>
-              <th scope="col" className="px-6 py-4">
-                <div className="flex gap-3 items-center">
-                  Name
-                  <ChevronUpDownIcon
-                    className="w-5 h-5 cursor-pointer"
-                    onClick={() => sorting("candidateFullName")}
-                  />
-                </div>
-              </th>
-              <th scope="col" className="px-6 py-4">
-                <div className="flex gap-3 items-center">
-                  Email
-                  <ChevronUpDownIcon
-                    className="w-5 h-5 cursor-pointer"
-                    onClick={() => sorting("candidateEmail")}
-                  />
-                </div>
-              </th>
-              <th scope="col" className="px-6 py-4">
-                <div className="flex gap-3 items-center">
-                  Interviewer's Name
-                  <ChevronUpDownIcon
-                    className="w-5 h-5 cursor-pointer"
-                    onClick={() => sorting("candidateEmail")}
-                  />
-                </div>
-              </th>
-              <th scope="col" className="px-6 py-4">
-                <div className="flex gap-3 items-center">
-                  Score
-                  <ChevronUpDownIcon
-                    className="w-5 h-5 cursor-pointer"
-                    onClick={() => sorting("score")}
-                  />
-                </div>
-              </th>
-              <th scope="col" className="px-6 py-4">
-                <Menu as="div" className={classNames("relative")}>
-                  <Menu.Button
-                    className={classNames(
-                      "cursor-pointer flex items-center gap-3 w-full text-xs text-gray-700 uppercase bg-gray-50 ",
-                    )}
-                  >
-                    State
-                    <AdjustmentsHorizontalIcon className="w-4 h-4" />
-                  </Menu.Button>
-
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
-                  >
-                    <Menu.Items className="absolute left-0 z-10 w-3/4 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <div className="py-1">
-                        {StateType.map((state, index) => (
-                          <Menu.Item key={index}>
-                            {({ active }) => (
-                              <Link
-                                to={{
-                                  pathname: "",
-                                  search: createSearchParams({
-                                    ...queryConfig,
-                                    state: state,
-                                  }).toString(),
-                                }}
-                                className={classNames(
-                                  active
-                                    ? "bg-gray-100 text-gray-900"
-                                    : "text-gray-700",
-                                  "block px-4 py-2 text-[12px]",
-                                )}
-                                // onClick={() => handleFilter(state)}
-                              >
-                                {state}
-                              </Link>
-                            )}
-                          </Menu.Item>
-                        ))}
-                      </div>
-                    </Menu.Items>
-                  </Transition>
-                </Menu>
-              </th>
-              <th scope="col" className="px-0 py-4"></th>
-              <th className="py-4"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {applyCandidate?.map((applyCandidate, index) => (
-              <tr className="bg-white border-b " key={index}>
-                <td
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                >
-                  {applyCandidate.candidateFullName}
-                </td>
-                <td className="px-6 py-4">{applyCandidate.candidateEmail}</td>
-                <td className="px-6 py-4">{applyCandidate.interviewerFullNames == null ? "None" :applyCandidate.interviewerFullNames }</td>
-                <td className="px-6 py-4">
-                  {applyCandidate.score
-                    ? applyCandidate.score + " / 100"
-                    : "Pending"}
-                </td>
-                <td className="p-2 px-4 py-4 mx-2 my-1 rounded-lg">
-                  <span
-                    className={`rounded-lg p-2 mx-2 my-1  ${
-                      applyCandidate.state === "PASSED"
-                        ? "bg-green-400 text-green-800"
-                        : applyCandidate.state === "FAILED"
-                        ? "bg-red-300"
-                        : applyCandidate.state === "NOT_RECEIVED"
-                        ? "bg-yellow-100"
-                        : "bg-green-200"
-                    }`}
-                  >
-                    {APPLY_STATUS[applyCandidate.state]}
-                  </span>
-                </td>
-                <td>
-                  {applyCandidate.state !== "NOT_RECEIVED" ? (
-                    <div>
-                      <button>
-                        <CheckIcon
-                          className="w-6 h-6 text-green-800"
-                          onClick={() => handlePass(applyCandidate.candidateId)}
-                        />
-                      </button>
-                      <button>
-                        <XMarkIcon
-                          className="w-6 h-6 text-red-800"
-                          onClick={() => handleFail(applyCandidate.candidateId)}
-                        />
-                      </button>
-                    </div>
-                  ) : null}
-                </td>
-                <td>
-                  <button>
-                    <CalendarDaysIcon
-                      className="w-6 h-6"
-                      onClick={() => routeChange(applyCandidate.candidateId)}
+      {applyCandidate.length > 0 ? (
+        <div className="relative p-4 overflow-x-auto max-h-96 h-80">
+          <table className="w-full text-sm text-left text-gray-500">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+              <tr>
+                <th scope="col" className="px-6 py-4">
+                  <div className="flex gap-3 items-center">
+                    Name
+                    <ChevronUpDownIcon
+                      className="w-5 h-5 cursor-pointer"
+                      onClick={() => sorting("candidateFullName")}
                     />
-                  </button>
-                </td>
+                  </div>
+                </th>
+                <th scope="col" className="px-6 py-4">
+                  <div className="flex gap-3 items-center">
+                    Email
+                    <ChevronUpDownIcon
+                      className="w-5 h-5 cursor-pointer"
+                      onClick={() => sorting("candidateEmail")}
+                    />
+                  </div>
+                </th>
+                <th scope="col" className="px-6 py-4">
+                  <div className="flex gap-3 items-center">
+                    Interviewer's Name
+                    <ChevronUpDownIcon
+                      className="w-5 h-5 cursor-pointer"
+                      onClick={() => sorting("candidateEmail")}
+                    />
+                  </div>
+                </th>
+                <th scope="col" className="px-6 py-4">
+                  <div className="flex gap-3 items-center">
+                    Score
+                    <ChevronUpDownIcon
+                      className="w-5 h-5 cursor-pointer"
+                      onClick={() => sorting("score")}
+                    />
+                  </div>
+                </th>
+                <th scope="col" className="px-6 py-4">
+                  <Menu as="div" className={classNames("relative")}>
+                    <Menu.Button
+                      className={classNames(
+                        "cursor-pointer flex items-center gap-3 w-full text-xs text-gray-700 uppercase bg-gray-50 ",
+                      )}
+                    >
+                      State
+                      <AdjustmentsHorizontalIcon className="w-4 h-4" />
+                    </Menu.Button>
+
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      <Menu.Items className="absolute left-0 z-10 w-3/4 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <div className="py-1">
+                          {StateType.map((state, index) => (
+                            <Menu.Item key={index}>
+                              {({ active }) => (
+                                <Link
+                                  to={{
+                                    pathname: "",
+                                    search: createSearchParams({
+                                      ...queryConfig,
+                                      state: state,
+                                    }).toString(),
+                                  }}
+                                  className={classNames(
+                                    active
+                                      ? "bg-gray-100 text-gray-900"
+                                      : "text-gray-700",
+                                    "block px-4 py-2 text-[12px]",
+                                  )}
+                                >
+                                  {state}
+                                </Link>
+                              )}
+                            </Menu.Item>
+                          ))}
+                        </div>
+                      </Menu.Items>
+                    </Transition>
+                  </Menu>
+                </th>
+                <th scope="col" className="px-0 py-4"></th>
+                <th className="py-4"></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {applyCandidate.map(
+                (applyCandidate, index) =>
+                  applyCandidate.blackList === false && (
+                    <tr className="bg-white border-b " key={index}>
+                      <td
+                        scope="row"
+                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                      >
+                        {applyCandidate.candidateFullName}
+                      </td>
+                      <td className="px-6 py-4">
+                        {applyCandidate.candidateEmail}
+                      </td>
+                      <td className="px-6 py-4">
+                        {applyCandidate.interviewerFullNames == null
+                          ? "None"
+                          : applyCandidate.interviewerFullNames
+                              .slice(0, 2)
+                              .map((name: any, index: any) => (
+                                <div key={index}>{name}</div>
+                              ))}
+                        {applyCandidate.interviewerFullNames.length > 2 && (
+                          <Popover>
+                            <PopoverHandler>
+                              <div className="hover:underline cursor-context-menu w-fit">
+                                "Show all"
+                              </div>
+                            </PopoverHandler>
+                            <PopoverContent>
+                              {applyCandidate.interviewerFullNames.map(
+                                (name: any, index: any) => (
+                                  <div
+                                    key={index}
+                                    className="font-small text-gray-500"
+                                  >
+                                    + {name}
+                                  </div>
+                                ),
+                              )}
+                            </PopoverContent>
+                          </Popover>
+                        )}
+                      </td>
+                      <td className="px-6 py-4">
+                        {applyCandidate.score
+                          ? applyCandidate.score + " / 100"
+                          : "Pending"}
+                      </td>
+                      <td className="p-2 px-4 py-4 mx-2 my-1 rounded-lg">
+                        <span
+                          className={`rounded-lg p-2 mx-2 my-1  ${
+                            applyCandidate.state === "PASSED"
+                              ? "bg-green-400 text-green-800"
+                              : applyCandidate.state === "FAILED"
+                              ? "bg-red-300"
+                              : applyCandidate.state === "NOT_RECEIVED"
+                              ? "bg-yellow-100"
+                              : "bg-green-200"
+                          }`}
+                        >
+                          {APPLY_STATUS[applyCandidate.state]}
+                        </span>
+                      </td>
+                      <td>
+                        {applyCandidate.state !== "NOT_RECEIVED" ? (
+                          applyCandidate.score !== null ? (
+                            <div>
+                              <button>
+                                <CheckIcon
+                                  className="w-6 h-6 text-green-800"
+                                  onClick={() =>
+                                    handlePass(applyCandidate.candidateId)
+                                  }
+                                />
+                              </button>
+
+                              <button>
+                                <XMarkIcon
+                                  className="w-6 h-6 text-red-800"
+                                  onClick={() =>
+                                    handleFail(applyCandidate.candidateId)
+                                  }
+                                />
+                                {/* Reject this Candidate */}
+                              </button>
+                            </div>
+                          ) : null
+                        ) : null}
+                      </td>
+                      <td>
+                        {applyCandidate.state === "NOT_RECEIVED" && (
+                          <button>
+                            <CalendarDaysIcon
+                              className="w-6 h-6"
+                              onClick={() =>
+                                routeChange(applyCandidate.candidateId)
+                              }
+                            />
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ),
+              )}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div className="text-center text-[1.1rem]">
+          This job has no one applied yet
+        </div>
+      )}
     </div>
   );
 }

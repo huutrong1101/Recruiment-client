@@ -163,7 +163,7 @@ const ReccerInterviewerManagement = () => {
             "focus-within:border-emerald-700",
           )}
         >
-          <div
+          {/* <div
             className={classNames(
               "flex items-center w-full mr-5 gap-4 md:w-[30%] border-r-2",
             )}
@@ -226,7 +226,8 @@ const ReccerInterviewerManagement = () => {
                 </Menu.Items>
               </Transition>
             </Menu>
-          </div>
+          </div> */}
+          {/* Xoa search Skill */}
           <MagnifyingGlassIcon className={classNames(`w-[20px]`)} />
           <input
             value={dataSearch.key}
