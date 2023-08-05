@@ -32,11 +32,18 @@ export type QueryConfig = {
 };
 
 const ReccerCandidateManagement = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCandidateList());
+    dispatch(fetchCandidateSkill());
+  }, []);
+
   const queryParams: QueryConfig = useQueryParams();
   const queryConfig: QueryConfig = omitBy(
     {
       index: queryParams.index || "1",
-      size: queryParams.size || 3,
+      size: queryParams.size || 10,
       name: queryParams.name,
       skill: queryParams.skill,
     },
@@ -69,7 +76,7 @@ const ReccerCandidateManagement = () => {
   const [showSkill, setShowSkill] = useState(false);
   // console.log(showSkill)
   const [skill, setCandidateskillList] = useState("");
-  // console.log(skill)
+  // console.log(skill);
   const listSkills = useAppSelector((state) => state.candidateList.skill);
   // console.log(listSkills)
 
@@ -144,7 +151,7 @@ const ReccerCandidateManagement = () => {
     }
   };
 
-  console.log(showCandidates);
+  // console.log(showCandidates);
 
   return (
     <>
@@ -155,7 +162,7 @@ const ReccerCandidateManagement = () => {
             "focus-within:border-emerald-700",
           )}
         >
-          <div
+          {/* <div
             className={classNames(
               "flex items-center w-full mr-5 gap-4 md:w-[30%] border-r-2",
             )}
@@ -218,7 +225,8 @@ const ReccerCandidateManagement = () => {
                 </Menu.Items>
               </Transition>
             </Menu>
-          </div>
+          </div> */}
+          {/* Xoa search SKILL NHA */}
           <MagnifyingGlassIcon className={classNames(`w-[20px]`)} />
           <input
             value={dataSearch.key}
