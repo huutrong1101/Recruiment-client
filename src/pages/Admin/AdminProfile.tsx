@@ -1,16 +1,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
-import classnames from "classnames";
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-
 import {fetchAdminProfileRecent} from "../../redux/reducer/AdminProfileRecentSlice";
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import Loader from "../../components/Loader/Loader";
 import { STATUS } from '../../utils/Status';
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
