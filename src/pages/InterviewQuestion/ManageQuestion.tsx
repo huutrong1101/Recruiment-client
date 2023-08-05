@@ -88,6 +88,8 @@ export default function QuestionInterview() {
   //     setIsLoading(false);
   //   }
   // }
+  const [clicked, setClicked] = useState(false)
+  const handleSetClicked = () => setClicked(!clicked)
 
   useEffect(() => {
     const fetchQuesList = async () => {
@@ -141,25 +143,29 @@ export default function QuestionInterview() {
   }, [queryConfig, prevQueryConfig]);
 
   function DeleteQuestion(id) {
-    const conf = window.confirm('Do you make sure delete this question')
-    if (conf) {
-      console.log(id)
-      return (
-        axiosInstance.delete(`interviewer/question/${id}`)
-          .then(res => {
-            alert('Question has deleted')
-            navigate('interviewer/interview-question')
-            // setShowQuestion(res.data.result.content)
-            window.history.back()
-          }).catch(err => console.log(err))
-      )
+    //const conf = window.confirm('Do you make sure delete this question')
+    if (clicked) {
+      // console.log(id)
+      // return (
+      //   axiosInstance.delete(`interviewer/question/${id}`)
+      //     .then(res => {
+      //       alert('Question has deleted')
+      //       navigate('interviewer/interview-question')
+      //       window.history.back()
+      //     }).catch(err => console.log(err))
+      // )
+      toast
+        .promise(InterviewService.deleteQuestion(id), {
+          pending: "Deleting this question !!",
+          success: "The question was added. Please RELOAD page",
+          error: "có lỗi"
+        })
     }
-    // toast
-    //   .promise(InterviewService.deleteQuestion(id), {
-    //     pending: "Deleting this question !!",
-    //     success:"The question was added. Please RELOAD page",
-    //     error: "có lỗi"
-    //   })
+    // id.preventDefault()
+
+    // .then(res=>{
+    //   window.history.back()
+    // })
   }
 
   console.log(showTypes)
@@ -363,8 +369,12 @@ export default function QuestionInterview() {
                                       <PencilIcon className="w-5 h-5" />
                                     </button>
                                     <button className="p-2 hover:bg-zinc-300 hover:rounded-md "
-                                      onClick={() => DeleteQuestion(question.questionId)}
+                                      onClick={() => {
+                                        handleSetClicked
+                                        DeleteQuestion(question.questionId)
+                                      }}
                                     >
+                                      {clicked}
                                       <TrashIcon className="w-5 h-5" />
                                     </button>
                                   </td>
