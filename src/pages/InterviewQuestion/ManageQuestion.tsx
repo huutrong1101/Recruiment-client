@@ -55,6 +55,8 @@ export default function QuestionInterview() {
   const [isActive, setIsActive] = useState(false)
   const handleActive = (e: any) => setIsActive(!isActive)
 
+  const [clicked, setClicked] = useState(false)
+
   const [prevQueryConfig, setPrevQueryConfig] = useState<QueryConfig>(queryConfig);
   const { totalQuestions }: any = useAppSelector((state) => state.questionList.questionList);
   const questions: QuestionListInterface[] = useAppSelector((state) => state.questionList.questionList,);
@@ -70,26 +72,6 @@ export default function QuestionInterview() {
   const [showTypes, setShowTypes] = useState(types)
 
   const [questionID, setQuestionID] = useState([])
-  // const handleSearch = () => {
-  //   try {
-  //     setIsLoading(true);
-  //     navigate({
-  //       pathname: "/interviewer/question",
-  //       search: createSearchParams({
-  //         ...queryConfig,
-  //         type: dataSearch.type,
-  //         skill: dataSearch.skill,
-  //         page: "1",
-  //       }).toString(),
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }
-  const [clicked, setClicked] = useState(false)
-  const handleSetClicked = () => setClicked(!clicked)
 
   useEffect(() => {
     const fetchQuesList = async () => {
@@ -121,7 +103,6 @@ export default function QuestionInterview() {
     fetchSkillType();
   }, []);
 
-
   useEffect(() => {
     if (!isEqual(prevQueryConfig, queryConfig)) {
       const fetchQuestionPagination = async () => {
@@ -142,33 +123,37 @@ export default function QuestionInterview() {
     }
   }, [queryConfig, prevQueryConfig]);
 
-  function DeleteQuestion(id) {
-    //const conf = window.confirm('Do you make sure delete this question')
-    if (clicked) {
-      // console.log(id)
-      // return (
-      //   axiosInstance.delete(`interviewer/question/${id}`)
-      //     .then(res => {
-      //       alert('Question has deleted')
-      //       navigate('interviewer/interview-question')
-      //       window.history.back()
-      //     }).catch(err => console.log(err))
-      // )
+  function ListAllQuesstion() {
+    setDataSearch({
+      skill: "",
+      type: "",
+    });
+
+    navigate({
+      pathname: "",
+      search: createSearchParams(
+        omit(queryConfig, [
+          "page",
+          "size",
+          "skill",
+          "type",
+        ]),
+      ).toString(),
+    });
+  }
+
+  function DeleteQuestion(id: any) {
+    if (setClicked) {
       toast
         .promise(InterviewService.deleteQuestion(id), {
           pending: "Deleting this question !!",
-          success: "The question was added. Please RELOAD page",
+          success: "The question was deleted. Please RELOAD page",
           error: "có lỗi"
         })
     }
-    // id.preventDefault()
-
-    // .then(res=>{
-    //   window.history.back()
-    // })
   }
 
-  console.log(showTypes)
+  // console.log(showTypes)
 
 
   return (
@@ -197,7 +182,6 @@ export default function QuestionInterview() {
                   {/* Skill */}
                   <div className=" relative flex flex-col w-40  h-fit  ">
                     <Menu as="div" className=" h-fit">
-                      {/* <TechFilter setDataSearch={setDataSearch} dataSearch={dataSearch} skills={skills} /> */}
                       <div className='absolute w-full'>
                         <div className='w-full h-full  '>
                           <Menu.Button className='w-full p-1.5 mb-1 bg-emerald-600 rounded-md text-white border border-transparent
@@ -235,15 +219,12 @@ export default function QuestionInterview() {
                                             : "text-gray-700", "p-2",
                                           "block  text-sm",
                                         )}
-                                        // // onClick={() => handleSetTech(type)}
                                         onClick={() => {
-                                          // handleActive
                                           setDataSearch({
                                             ...dataSearch,
                                             skill: skill.name
                                           })
-                                        }
-                                        }
+                                        }}
                                       >
                                         {skill.name}
                                       </Link>
@@ -261,7 +242,6 @@ export default function QuestionInterview() {
                   {/* Type */}
                   <div className=" relative flex flex-col w-40 h-fit  ">
                     <Menu as="div" className=" w-full h-fit ">
-                      {/* <QuestionFilter setDataSearch={setDataSearch} dataSearch={dataSearch} types={types} /> */}
                       <div className='absolute w-full '>
                         <Menu.Button className='w-full h-fit p-1.5 mb-1 bg-emerald-600 rounded-md text-white border border-transparent
                                 active:border-emerald-600  active:text-emerald-600 
@@ -352,7 +332,7 @@ export default function QuestionInterview() {
                                               border-2 border-white hover: hover:border-emerald-600 hover:rounded-lg hover:text-black hover:transition-all "
                                   key={question.questionId}>
                                   <td className="basis-1/6 mx-3">{question.skill}</td>
-                                  <td className="basis-1/6 mx-3">{question.typeQuestion}</td>
+                                  <td className="basis-1/6 mx-3">{TYPE_alter[question.typeQuestion]}</td>
                                   <td className="basis-2/6 mx-3 flex-wrap truncate ">
                                     {question.content}
                                   </td>
@@ -370,7 +350,7 @@ export default function QuestionInterview() {
                                     </button>
                                     <button className="p-2 hover:bg-zinc-300 hover:rounded-md "
                                       onClick={() => {
-                                        handleSetClicked
+                                        setClicked(true)
                                         DeleteQuestion(question.questionId)
                                       }}
                                     >
@@ -391,9 +371,18 @@ export default function QuestionInterview() {
                     </tbody>
                   </table>
                 </div>
+
                 {/* pagination */}
-                <div className="flex justify-end m-4">
-                  <PaginationInterview queryConfig={queryConfig} pageSize={pageSize} />
+                <div className="flex m-4 w-full justify-between">
+                  <div
+                    className=" px-3 text-emerald-600 text-lg cursor-pointer hover:bg-zinc-100
+                    hover:text-emerald-600 hover:underline  hover:rounded-lg "
+                    onClick={ListAllQuesstion} >
+                    Turn to all questions
+                  </div>
+                  <div className="mr-10">
+                    <PaginationInterview queryConfig={queryConfig} pageSize={pageSize} />
+                  </div>
                 </div>
               </div>
             </div>
@@ -401,8 +390,7 @@ export default function QuestionInterview() {
         </div>
       </div>
       <AddQuestion onClick={handleOnClick} observation={addQuestion} />
-      <UpdateQuestion onClick={handleUpdateClick} observation={updateQuestion} questionID={questionID} />{/* questionID={question.questionId*/}
-
+      <UpdateQuestion onClick={handleUpdateClick} observation={updateQuestion} questionID={questionID} />
     </div>
   );
 }

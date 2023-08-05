@@ -22,11 +22,11 @@ interface Skill {
    skillId: string;
    name: string;
 }
-// observation, onClick, questionID
+
 export default function UpdateQuestion({  observation, onClick, questionID }: any) {
-   // const { id } = useParams()
+   
      const [inputData, setInputData] = useState({ note: " ", content: " ", type: "", skill: "" })
-   // const [inputData, setInputData] = useState([])
+   
 
    useEffect(() => {
       const getQuestionDetail = async () => {
@@ -47,8 +47,6 @@ export default function UpdateQuestion({  observation, onClick, questionID }: an
 
    const navigate = useNavigate()
 
-   // const [isLoading, setIsLoading] = useState(false);
-
    const skills: QuestionListInterface[] = useAppSelector((state) => state.questionList.skills);
    const types: QuestionListInterface[] = useAppSelector((state) => state.questionList.types);
 
@@ -63,8 +61,6 @@ export default function UpdateQuestion({  observation, onClick, questionID }: an
          setShowSkills(response.data.result);
          setDataSearch({
             ...dataSearch,
-            // skill: queryConfig.skill || "",
-            // type: queryConfig.type || "",
          });
 
       };
@@ -73,11 +69,6 @@ export default function UpdateQuestion({  observation, onClick, questionID }: an
 
    const [isActive, setIsActive] = useState(false)
    const handleActive = (e: any) => setIsActive(!isActive)
-
-   // const handleOnClick = (event: any) => {
-   //    if (event.target.id === 'container' || event.target.id === 'Update') onClick()
-   // }
-
 
    const handleSubmitUpdate = (e: any) => {
       e.preventDefault()
@@ -90,7 +81,7 @@ export default function UpdateQuestion({  observation, onClick, questionID }: an
         "skillId": foundSkill.skillId
       };
   
-      console.log(data)
+      // console.log(data)
   
       toast
         .promise(InterviewService.updateQuestion(data,questionID), {
@@ -99,8 +90,6 @@ export default function UpdateQuestion({  observation, onClick, questionID }: an
           error: "có lỗi"
         })
    }
-
-
 
    if (!observation) return null
    return (
