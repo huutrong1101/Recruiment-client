@@ -46,7 +46,7 @@ const ReccerInterviewerManagement = () => {
   const queryConfig: QueryConfig = omitBy(
     {
       page: queryParams.page || "1",
-      size: queryParams.size || 10,
+      size: queryParams.size || 8,
       name: queryParams.name,
       skill: queryParams.skill,
     },

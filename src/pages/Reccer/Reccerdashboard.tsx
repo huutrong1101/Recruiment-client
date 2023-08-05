@@ -173,7 +173,6 @@ export default function Reccer_dashboard() {
             </button>
 
 
-
           </div>
           <div className="px-3 mb-8 lg:w-1/4 md:w-1/2">
             <button className={`p-4 rounded-lg hover:bg-blue-200 w-full bg-[#E3F5FF]`}>

@@ -39,6 +39,7 @@ const ReccerJobManagement = () => {
       size: queryParams.size || 10,
       name: queryParams.name,
       type: queryParams.type,
+      active: queryParams.active
     },
     isUndefined,
   );
@@ -63,6 +64,7 @@ const ReccerJobManagement = () => {
   const [dataSearch, setDataSearch] = useState({
     key: "",
     type: "",
+    active: "",
   });
 
   const navigate = useNavigate();
@@ -80,6 +82,7 @@ const ReccerJobManagement = () => {
           ...dataSearch,
           key: queryConfig.name || "",
           type: queryConfig.type || "",
+          active: queryConfig.active || "",
         });
       } catch (error) {
         console.log(error);
@@ -111,6 +114,7 @@ const ReccerJobManagement = () => {
       setPrevQueryConfig(queryConfig);
     }
   }, [queryConfig, prevQueryConfig]);
+  // console.log(showJobs[0].isActive)
   const handleSearch = async () => {
     try {
       setIsLoading(true);
@@ -120,6 +124,7 @@ const ReccerJobManagement = () => {
           ...queryConfig,
           name: dataSearch.key,
           type: dataSearch.type,
+          active: dataSearch.active,
           index: "1",
         }).toString(),
       });
@@ -129,6 +134,23 @@ const ReccerJobManagement = () => {
       setIsLoading(false);
     }
   };
+  console.log()
+  const [showDuration, setShowDuration] = useState(false);
+  const [duration, setDuration] = useState("");
+  const Duration = {
+    listTypeJobs: ["On Going", "Expired"],
+  };
+
+  const handleonClick = (data :any) => {
+    const newData = data === "Expired" ? false : true;
+    setDuration(data);
+    setShowDuration(false);
+    setDataSearch({
+      ...dataSearch,
+      active: newData,
+    });
+
+  }
 
   return (
     <>
@@ -162,6 +184,7 @@ const ReccerJobManagement = () => {
                   )}
                 </div>
               </Menu.Button>
+
               <Transition
                 as={Fragment}
                 enter="transition ease-out duration-100"
@@ -202,6 +225,66 @@ const ReccerJobManagement = () => {
               </Transition>
             </Menu>
           </div>
+          <div
+            className={classNames(
+              "flex items-center w-full mr-5 gap-4 md:w-[40%] border-r-2",
+            )}
+          >
+            <BsFilterLeft className={classNames(`w-[20px]  md:ml-4`)} />
+            <Menu as="div" className={classNames("relative w-full")}>
+              <Menu.Button className={classNames("w-full")}>
+                <div
+                  className={classNames(
+                    "text-[13px] cursor-pointer flex items-center justify-between",
+                  )}
+                  onClick={() => setShowDuration(!showDuration)}
+                >
+                  {duration || "DURATION"}
+                  {showDuration && (
+                    <ChevronUpIcon className={classNames("w-[20px] mr-4")} />
+                  )}
+                  {!showDuration && (
+                    <ChevronDownIcon className={classNames("w-[20px] mr-4")} />
+                  )}
+                </div>
+              </Menu.Button>
+
+              <Transition
+                as={Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+              >
+                <Menu.Items className="absolute md:left-[-18px] w-full z-10 md:w-55 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <div className="py-1">
+                    {Duration.listTypeJobs.map((data, index) => (
+                      <Menu.Item key={index}>
+                        {({ active }) => (
+                          <div>
+                            <p
+                              className={classNames(
+                                active
+                                  ? "bg-gray-100 text-gray-900"
+                                  : "text-gray-700",
+                                "block px-4 py-2 text-sm",
+                              )}
+                              onClick={() => handleonClick(data)}
+                            >
+                              {data}
+                            </p></div>
+
+                        )}
+                      </Menu.Item>
+                    ))}
+                  </div>
+                </Menu.Items>
+              </Transition>
+            </Menu>
+          </div>
+
           <MagnifyingGlassIcon className={classNames(`w-[20px]`)} />
           <input
             value={dataSearch.key}
@@ -215,6 +298,7 @@ const ReccerJobManagement = () => {
             )}
           />
         </div>
+
         <div className={classNames("gap-2 ml-10 items-center justify-center")}>
           <button
             className={classNames(
