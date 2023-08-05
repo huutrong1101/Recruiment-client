@@ -110,16 +110,18 @@ export default function RecCandidateDetailCard(props: any) {
                           `text-justify`,
                         )}
                       >
-                        <p className="text-2xl font-semibold">Skill:</p>
+                        <div className="text-2xl font-semibold">Skill:</div>
                         <div>
-                          {candidate.skills?.map((skill, index) => (
-                            <p
-                              key={index}
-                              className="px-4 py-2 gap-2 ml-2 inline-flex bg-emerald-600 hover:bg-emerald-700 border-emerald-600  text-white rounded-md"
-                            >
-                              {skill.name}
-                            </p>
-                          ))}
+                          {JSON.parse(candidate.information)?.skills?.map(
+                            (skill, index) => (
+                              <p
+                                key={index}
+                                className="px-4 py-2 gap-2 ml-2 inline-flex bg-emerald-600 hover:bg-emerald-700 border-emerald-600  text-white rounded-md"
+                              >
+                                {skill.label}
+                              </p>
+                            ),
+                          )}
                         </div>
                       </div>
                       <div

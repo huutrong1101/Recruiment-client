@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 const RecCandidateCard = (props: any) => {
   const candidate = props.candidate;
-  const sliceSkill = candidate.skills.slice(0, 3);
 
   return (
     <div className="grid grid-cols-1">
@@ -20,12 +19,12 @@ const RecCandidateCard = (props: any) => {
         </div>
         <ul className="mt-2 list-none">
           <li className="inline">
-            {sliceSkill.map((item: any) => (
+            {JSON.parse(candidate.information)?.skills?.slice(0, 3).map((skill, index) => (
               <p
-                key={item.skillId}
+                key={index}
                 className="bg-[#C6DED5] ml-2 inline-block text-[#218F6E] text-xs px-2.5 py-0.5 font-semibold rounded-full"
               >
-                {item.name}
+                {skill.label}
               </p>
             ))}
           </li>
