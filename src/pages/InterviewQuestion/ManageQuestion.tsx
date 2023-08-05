@@ -15,8 +15,10 @@ import { QuestionListConfig, QuestionListInterface, SkillListInterface, TypeList
 import { Link, createSearchParams, useNavigate } from "react-router-dom";
 import PaginationInterview from "./PaginationInterview";
 import classNames from 'classnames';
-import  {TYPE_alter}  from "../../utils/Localization";
+import { TYPE_alter } from "../../utils/Localization";
 import UpdateQuestion from "./UpdateQuestion";
+import { toast } from "react-toastify";
+import { InterviewService } from "../../services/InterviewService";
 
 export type QueryConfig = {
   [key in keyof QuestionListConfig]: string;
@@ -152,6 +154,12 @@ export default function QuestionInterview() {
           }).catch(err => console.log(err))
       )
     }
+    // toast
+    //   .promise(InterviewService.deleteQuestion(id), {
+    //     pending: "Deleting this question !!",
+    //     success:"The question was added. Please RELOAD page",
+    //     error: "có lỗi"
+    //   })
   }
 
   console.log(showTypes)
@@ -343,7 +351,7 @@ export default function QuestionInterview() {
                                     {question.content}
                                   </td>
                                   <td className="basis-2/6 mx-3 flex-wrap truncate ">
-                                      {question.note}
+                                    {question.note}
                                   </td>
                                   <td className="inline-flex gap-x-2 basis-1/6 justify-center">
                                     <button className="p-2 hover:bg-zinc-300 hover:rounded-md "
@@ -351,7 +359,7 @@ export default function QuestionInterview() {
                                         setUpdateQuestion(true)
                                         setQuestionID(question.questionId)
                                       }}>
-                                      
+
                                       <PencilIcon className="w-5 h-5" />
                                     </button>
                                     <button className="p-2 hover:bg-zinc-300 hover:rounded-md "
@@ -384,7 +392,7 @@ export default function QuestionInterview() {
       </div>
       <AddQuestion onClick={handleOnClick} observation={addQuestion} />
       <UpdateQuestion onClick={handleUpdateClick} observation={updateQuestion} questionID={questionID} />{/* questionID={question.questionId*/}
-      
+
     </div>
   );
 }
