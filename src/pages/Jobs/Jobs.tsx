@@ -13,12 +13,13 @@ import Pagination from "../../components/Pagination/Pagination";
 import axiosInstance from "../../utils/AxiosInstance";
 import { omitBy, isUndefined } from "lodash";
 import useQueryParams from "../../hooks/useQueryParams";
+import Loader from "../../components/Loader/Loader";
 import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import { omit, isEqual } from "lodash";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import { JOB_POSITION } from "../../utils/Localization";
 import { AiOutlineBlock } from "react-icons/ai";
-import qs from "qs";
+import qs from "query-string";
 
 export type QueryConfig = {
   [key in keyof JobListConfig]: string;
@@ -172,8 +173,7 @@ export default function Jobs() {
         {/* Sidebar Search  */}
         <div
           className={classNames(
-            "p-6 bg-white rounded-lg shadow-lg w-[30%] h-fit sticky top-1 flex flex-col gap-3 ",
-            `border`,
+            "p-6 bg-white rounded-lg shadow-lg w-[30%] h-fit sticky top-1 flex flex-col gap-3",
           )}
         >
           <form onSubmit={(e) => handleSearch(e)}>

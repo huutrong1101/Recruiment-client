@@ -79,7 +79,6 @@ import AdminAcountDelete from "./components/AdminManagerList/AdminAcountDelete";
 
 export default function App() {
   const dispatch = useAppDispatch();
-  useTokenAuthorize();
 
   useEffect(() => {
     JobService.getJobs(dispatch);
