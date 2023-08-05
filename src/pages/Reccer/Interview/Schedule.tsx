@@ -105,7 +105,6 @@ export default function Schedule() {
       jobId: jobId || "",
       state: "received",
     };
-    // console.log(candidateId);
     StateService.changeState(data);
   };
 

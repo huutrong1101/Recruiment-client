@@ -20,7 +20,7 @@ export const TECHNICAL: LocalizationDeclarationType = {};
 
 export const REC_INTERVIEW_STATUS: LocalizationDeclarationType = {
   NOT_RECEIVED: "Not Received",
-  RECEIVED: "Reveived",
+  RECEIVED: "Received",
   PASS: "Pass",
   FAIL: "Fail",
 };
@@ -29,9 +29,15 @@ export const REC_INTERVIEW_STATUS: LocalizationDeclarationType = {
  */
 export const APPLY_STATUS: LocalizationDeclarationType = {
   NOT_RECEIVED: "Not Received",
-  RECEIVED: "Reveived",
+  RECEIVED: "Received",
   PASSED: "Pass",
   FAILED: "Fail",
+};
+export const REC_CANDIDATE_STATUS: LocalizationDeclarationType = {
+  NOT_RECEIVED: "Not Received",
+  RECEIVED: "Received",
+  PASSED: "Pass",
+  FAILED: "Received",
 };
 export const APPLICANTS_STATUS: LocalizationDeclarationType = {
   NOT_RECEIVED: "Not Received",

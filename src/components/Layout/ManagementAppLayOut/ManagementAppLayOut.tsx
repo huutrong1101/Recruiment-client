@@ -79,7 +79,7 @@ export const linksAll = [
       {
         name: "Candidate",
         icon: <HiOutlineUser />,
-        url: "recruiter/applied-candidates",
+        url: "recruiter/candidates",
       },
       {
         name: "Job",

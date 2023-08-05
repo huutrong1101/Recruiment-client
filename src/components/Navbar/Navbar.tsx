@@ -20,10 +20,12 @@ export default function Navbar() {
   useEffect(() => {
     if (user !== null && user !== undefined) {
       if (user.role !== "CANDIDATE") {
-        setUpdatedLeftMenu([
-          ...updatedLeftMenu,
-          { name: "Dashboard", url: "/recruiter/dashboard" },
-        ]);
+        if (updatedLeftMenu.length < 4) {
+          setUpdatedLeftMenu([
+            ...updatedLeftMenu,
+            { name: "Dashboard", url: "/recruiter/dashboard" },
+          ]);
+        }
       }
     }
   }, [user]);
