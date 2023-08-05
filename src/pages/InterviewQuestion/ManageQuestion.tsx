@@ -375,7 +375,7 @@ export default function QuestionInterview() {
                 {/* pagination */}
                 <div className="flex m-4 w-full justify-between">
                   <div
-                    className=" px-3 text-emerald-600 text-lg cursor-pointer hover:bg-zinc-100
+                    className=" px-3 text-emerald-600 text-lg cursor-pointer
                     hover:text-emerald-600 hover:underline  hover:rounded-lg "
                     onClick={ListAllQuesstion} >
                     Turn to all questions
