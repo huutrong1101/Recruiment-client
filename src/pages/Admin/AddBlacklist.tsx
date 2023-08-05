@@ -14,6 +14,8 @@ import {useParams } from "react-router-dom";
 import { useAppSelector } from "../../hooks/hooks";
 import Loader from '../../components/Loader/Loader';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import { toast } from "react-toastify";
+import LoadSpinner from '../../components/LoadSpinner/LoadSpinner';
 
 export default function AddBlacklist() {
     const {userId} = useParams();  
@@ -52,22 +54,25 @@ export default function AddBlacklist() {
         setOpen(false);
         axiosInstance.post(`admin/users/blacklist/${userId}`, {reason})
         .then((response) => {
-            alert('Successful');
+            // alert('Successful');
             // Xử lý phản hồi từ server (nếu cần)
-            console.log(response.data); // In ra thông tin phản hồi từ máy chủ
+            toast.success(response.data.message); // In ra thông tin phản hồi từ máy chủ
             window.history.back();
             // In tất cả thông tin từ FormData      
         })
         .catch((error) => {
             // Xử lý lỗi (nếu có)
-            console.error('Error:', error);
+            // console.error('Error:', error);
+            // Xử lý lỗi nếu có
+            toast.error('Error occurred: ' + error.message);
         });
     } 
     return (
     <> 
     {isLoading ? (
       <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-10 mb-10">
-        <Loader  className ="l-20flex items-center justify-center" />
+        {/* <Loader  className ="l-20flex items-center justify-center" /> */}
+        <LoadSpinner className='text-2xl text-[#059669]'/>
     </div>
     ):(
         <div className="flex gap-5 top-5 ">
@@ -125,7 +130,8 @@ export default function AddBlacklist() {
                         minRows={4}
                         className="resize-none p-2.5 w-full text-justify bg-white border rounded-lg border border-zinc-900 border-opacity-50"
                         onChange={(event) => setReason(event.target.value)}
-                        value="Reasion description here..."
+                        value={reason}
+                        placeholder="Reasion description here..."
                     />
                     </div>
                     {/* AdBacklist */}
@@ -172,7 +178,7 @@ export default function AddBlacklist() {
                                 onClick={handleSubmit}
                                 autoFocus
                                 >
-                                Delete
+                                Agree
                             </button>
                             </DialogActions>
                         </Dialog>

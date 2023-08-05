@@ -19,6 +19,7 @@ import Paginationpasslist from "./Pagination/Paginationpasslist";
 import Loader from "../Loader/Loader";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
 import moment from "moment";
+import PageNotFound from "../Notfound/Notfound";
 
 export default function ListCandiPass() {
 
@@ -90,7 +91,9 @@ export default function ListCandiPass() {
             <TableCell scope="col" className="px-1 py-1">
               Phone
             </TableCell>
-            
+            <TableCell scope="col" className="px-1 py-1">
+              State
+            </TableCell>
             <TableCell scope="col" className="px-1 py-1">
               Date created
             </TableCell>
@@ -99,22 +102,43 @@ export default function ListCandiPass() {
             </TableCell>
           </TableRow>
         </TableHead>
-        {isLoading ? (
-              <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-10 mb-10">
-                <Loader />
-              </div>
+          {isLoading ? (
+              <TableBody>
+              <TableRow>
+                <TableCell colSpan={6}>
+                  <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-10 mb-10">
+                    <LoadSpinner className="text-2xl text-[#059669] " />
+                  </div>
+                </TableCell>
+              </TableRow>
+            </TableBody>
             ) : (
             <TableBody>
-            {showJobLists.map((job)  => (
-            <TableRow className="text-black bg-white text-center" >
-              <TableCell scope="row" className="px-1 py-1 font-medium text-gray-900 whitespace-nowrap">   {job.name}  </TableCell>
-              <TableCell className="px-1 py-1">{job.phone}</TableCell>
-              <TableCell className="px-1 py-1">
+            {
+            showJobLists && showJobLists.length > 0 ?
+            (showJobLists.map((job)  => (
+              <TableRow className="text-black bg-white text-center">
+              <TableCell scope="row" className="px-1 py-1 font-semibold text-blue-500 whitespace-nowrap">
+                {job.name}
+              </TableCell>
+              <TableCell className="px-1 py-1 text-gray-500">{job.phone}</TableCell>
+              <TableCell className="px-1 py-1 text-green-500">{job.state}</TableCell>
+              <TableCell className="px-1 py-1 italic">
                 {moment(job.date).format("HH:mm:ss DD-MM-YYYY")}
               </TableCell>
-              <TableCell className="px-1 py-1">{job.score}</TableCell>
-            </TableRow>
-            ))}
+              <TableCell className="px-1 py-1 font-semibold">{job.score}</TableCell>
+            </TableRow>            
+            ))): 
+            (
+              <TableBody>
+                <TableRow>
+                  <TableCell colSpan={4} className="text-center">
+                    <p>Không Tìm thấy Kết Quả. Vui lòng Kiểm Tra Lại</p>
+                    {/* <PageNotFound /> */}
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            )}
             </TableBody>
             )
           }

@@ -12,6 +12,7 @@ import {fetchAdminProfileRecent} from "../../redux/reducer/AdminProfileRecentSli
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import Loader from "../../components/Loader/Loader";
 import { STATUS } from '../../utils/Status';
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
 const AdminProfile = () => {
     const {adminprofilesRecent, adminprofilesRecentStatus} = useAppSelector((state: any) => state.adminprofilesRecent);
@@ -20,15 +21,6 @@ const AdminProfile = () => {
         dispatch(fetchAdminProfileRecent())
     }, []);
     const fileInputRef = useRef(null);
-    // const handleImageUpload = (event) => {
-    // const file = event.target.files[0];
-    // // if (file) {
-    //     setAvatar(URL.createObjectURL(file));
-    // }
-    // };
-    // const handleImageClick = () => {
-    //     fileInputRef.current.click();
-    // };
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
     setOpen(true);
@@ -36,36 +28,19 @@ const AdminProfile = () => {
     const handleClose = () => {
     setOpen(false);
     };
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     setOpen(false);
-    // }
     if(adminprofilesRecentStatus === STATUS.LOADING){
         return (
-            <Loader/>
+            <div className="flex justify-center mt-10">
+                <LoadSpinner className="text-2xl text-[#059669] " />
+            </div>
         );
     }else if(adminprofilesRecentStatus === STATUS.IDLE){
     return (
         <div className="flex gap-5">
             <div className="bg-white rounded-lg shadow-lg w-[40%] flex justify-center items-center">
             <div >
-                <img src={adminprofilesRecent.avatar} className="w-[175px] h-[175px] rounded-full" alt="avatar" />
-                {/* onClick={handleImageClick} */}
-                {/* adminprofilesRecent.avatar ? ( */}
-                {/* // ) : (
-                // <div className="upload-placeholder">
-                //     <span>Choose Image</span>
-                // </div>
-                // ) */}
+                <img src={adminprofilesRecent.avatar} className="w-[175px] h-[175px] rounded-full" alt="avatar" />              
             </div>
-            {/* <input
-                type="file"
-                id="avatar"
-                accept="image/*"
-                className="hidden"
-                ref={fileInputRef}
-                onChange={handleImageUpload}
-            /> */}
             </div>
             <div className="bg-white rounded-lg shadow-lg w-[50%] h-fit sticky">
                 <div className="flex items-center justify-center text-center space-x-2 font-semibold text-green-500">
@@ -122,8 +97,7 @@ const AdminProfile = () => {
                                 // onChange={(event) => setadress(event.target.value)}
                             />
                         </div>
-                        {/* Save Buton */}
-                      
+                        {/* Save Buton */}                      
                     </div>
                 </form>
             </div>

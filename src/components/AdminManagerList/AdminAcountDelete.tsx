@@ -1,46 +1,38 @@
 import{ useState, useEffect } from "react";
-import { NavLink,  Link } from "react-router-dom";
-import {EyeIcon, MagnifyingGlassCircleIcon} from "@heroicons/react/24/outline";
+import {MagnifyingGlassCircleIcon} from "@heroicons/react/24/outline";
 import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-
-import {fetchAdminManagerJobList} from "../../redux/reducer/AdminListJobRecentSlice";
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { STATUS } from '../../utils/Status';
-import { AdminJobListConfig, AdminJobInterface } from "../../services/services";
+import { useAppSelector } from '../../hooks/hooks';
+import { AdminDeleteAcountConfig, AdminDelete } from "../../services/services";
 import { omitBy, isUndefined } from "lodash";
 import useQueryParams from "../../hooks/useQueryParams";
-
 import qs from "query-string";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { omit, isEqual } from "lodash";
-
-
+import { isEqual } from "lodash";
 export type QueryConfig = {
-  [key in keyof AdminJobListConfig]: string;
+  [key in keyof AdminDeleteAcountConfig]: string;
 };
 import axiosInstance from "../../utils/AxiosInstance";
-import Paginationjoblist from "./Pagination/Paginationjoblist";
+import Paginationacountlistdelette from "./Pagination/Paginationacountlistdelette";
 import moment from "moment";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
 
-const ManagetJobList = () => {
-  const jobs:  AdminJobInterface[] = useAppSelector((state) => state.adminmanagerjobList.adminmanagerJobList);
+const AdminAcountDelete = () => {
+  const jobs:  AdminDelete[] = useAppSelector((state) => state.adminmanagerjobList.adminmanagerJobList);
   const totalListJobs = useAppSelector((state) => state.adminmanagerjobList.totalListJobs);
   const queryParams: QueryConfig = useQueryParams();
   const [isLoading, setIsLoading] = useState(false);
   const queryConfig: QueryConfig = omitBy(
     {
-      size: queryParams.size || 5,  
-      page: queryParams.page || "1",   
-      name: queryParams.name || "",
+      fullName: queryParams.fullName || "",
+      index: queryParams.index ||"1" ,  
+      size: queryParams.size || 5,   
     },
     isUndefined,
   );
   const [prevQueryConfig, setPrevQueryConfig] =
     useState<QueryConfig>(queryConfig);
   const [pageSize, setPageSize] = useState(
-    Math.ceil(totalListJobs / Number(queryParams.size || 5)),
+    Math.ceil(totalListJobs / Number(queryParams.index || 5)),
   );
   const [showJobLists, setAdminManagerJobList] = useState(jobs);
 
@@ -49,7 +41,7 @@ const ManagetJobList = () => {
       const fetchJobs = async () => {
         try {
           const query = qs.stringify(queryConfig);
-          const response = await axiosInstance(`admin/jobs?${query}`);
+          const response = await axiosInstance(`/admin/accountsDeleted?${query}`);
           setAdminManagerJobList(response.data.result.content);
           setPageSize(response.data.result.totalPages);
         } catch (error) {
@@ -66,8 +58,8 @@ const ManagetJobList = () => {
       setIsLoading(true);
       try {
         if (queryConfig) {
-          const query = qs.stringify(queryConfig);
-          const response = await axiosInstance(`admin/jobs?${query}`);
+          const query = qs.stringify(queryConfig);          
+          const response = await axiosInstance(`/admin/accountsDeleted?${query}`);
           setAdminManagerJobList(response.data.result.content);
           setPageSize(response.data.result.totalPages);
         }
@@ -89,13 +81,14 @@ const ManagetJobList = () => {
   });
   const handleSearch = async (e: any) => {
     e.preventDefault();  
+    console.log(dataSearch.key);
     try {
       setIsLoading(true);
       navigate({
-        pathname: "/admin/jobs",
+        pathname: "/admin/accountsDeleted",
         search: createSearchParams({
           ...queryConfig,
-          name: dataSearch.key,
+          fullName: dataSearch.key,
         }).toString(),
       });
     } catch (error) {
@@ -124,13 +117,6 @@ const ManagetJobList = () => {
               />
             </div>
           </form>
-          {/* <button
-          onClick={handleSearch}
-            type="submit"
-            className="px-6 py-1.5 ml-5 text-white rounded-lg bg-emerald-600 hover:bg-emerald-800"
-          >
-            Search
-          </button> */}
         </div>
         <div className="flex-col mt-5">
           <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}} >
@@ -138,13 +124,17 @@ const ManagetJobList = () => {
               <TableHead className="text-xs text-gray-500 bg-gray-200 text-center">
                 <TableRow>
                   <TableCell scope="col" className="px-1 py-1 "  style={{ fontFamily: "Outfit, sans-serif" }}
-                  >  Name Jobs                 </TableCell>
+                  >  Name                  </TableCell>
+                  <TableCell scope="col" className="px-1 py-1 "  style={{ fontFamily: "Outfit, sans-serif" }}
+                  >  Gender                 </TableCell>
+                   <TableCell scope="col" className="px-1 py-1 "  style={{ fontFamily: "Outfit, sans-serif" }}
+                  >  Phone                 </TableCell>
+                    <TableCell scope="col" className="px-1 py-1 "  style={{ fontFamily: "Outfit, sans-serif" }}
+                  >  Email                 </TableCell>
                   <TableCell scope="col" className="px-1 py-1"                style={{ fontFamily: "Outfit, sans-serif" }}
                   >   Date created </TableCell>
                   <TableCell scope="col" className="px-1 py-1"                style={{ fontFamily: "Outfit, sans-serif" }}
-                  >   Process </TableCell>
-                  <TableCell scope="col" className="px-1 py-1"                style={{ fontFamily: "Outfit, sans-serif" }}
-                  >   Actions </TableCell>
+                  >   Date delete </TableCell>
                 </TableRow>
               </TableHead>
               {isLoading ? (
@@ -163,25 +153,20 @@ const ManagetJobList = () => {
 
                {showJobLists && showJobLists.length > 0 ?
                   (showJobLists.map((job) => (
-                  <TableRow className="text-black bg-white text-center justify-center" key={job.idJob}>
+                  <TableRow className="text-black bg-white text-center justify-center" key={job.userId}>
                   <TableCell scope="row" className="font-medium text-gray-900 whitespace-nowrap" style={{ fontFamily: "Outfit, sans-serif" }}
-                  > {job.name}  </TableCell>
+                  > {job.fullName}  </TableCell>
+                  <TableCell scope="row" className="font-medium text-gray-900 whitespace-nowrap" style={{ fontFamily: "Outfit, sans-serif" }}
+                  > {job.gender}  </TableCell>
+                  <TableCell scope="row" className="font-medium text-gray-900 whitespace-nowrap" style={{ fontFamily: "Outfit, sans-serif" }}
+                  > {job.phone}  </TableCell>
+                  <TableCell scope="row" className="font-medium text-gray-900 whitespace-nowrap" style={{ fontFamily: "Outfit, sans-serif" }}
+                  > {job.email}  </TableCell>
                   <TableCell className=""                 style={{ fontFamily: "Outfit, sans-serif" }}
-                  >                {moment(job.date).format("HH:mm:ss DD-MM-YYYY")}                  </TableCell>
-                  <TableCell className=" flex justify-center">
-                    <div className="w-full h-3 bg-gray-300 rounded-xl">
-                      <div className="h-3 bg-emerald-400 rounded-xl"   style={{ width: `${job.member}%` }} ></div>
-                      <div className=" justify-center text-center">{job.member} / {job.quantity} </div>
-                    </div>
-                  </TableCell>
-                  <TableCell   className="px-6 py-4 items-center  flex   justify-center">
-                    <NavLink to={`/admin/jobs/${job.idJob}`} onClick={() => {}}>
-                      {/* ${adminlistjobs.id} */}
-                      <EyeIcon className="relative w-5 h-5 gap-2 rounded-xl" />
-                    </NavLink>
-                  </TableCell>
-                </TableRow>
-                
+                  >                {moment(job.createdAt).format("HH:mm:ss DD-MM-YYYY")}                  </TableCell>
+                   <TableCell className=""                 style={{ fontFamily: "Outfit, sans-serif" }}
+                  >                {moment(job.clastLoginAt).format("HH:mm:ss DD-MM-YYYY")}                  </TableCell>  
+                </TableRow>                
                 ))): 
                 (
                   <div className="flex justify-center w-full mb-10">
@@ -196,9 +181,9 @@ const ManagetJobList = () => {
       </div> 
         <div className="flex justify-center mt-3">
           {/* Pagination  */}
-          <Paginationjoblist  queryConfig={queryConfig} pageSize={pageSize} />
+          <Paginationacountlistdelette  queryConfig={queryConfig} pageSize={pageSize} />
         </div> 
     </>
     );
 }
-export default ManagetJobList;
+export default AdminAcountDelete;

@@ -1,10 +1,8 @@
-import React, { useEffect, useState, } from "react";
+import { useEffect, useState, } from "react";
 import classnames from "classnames";
 import blog_image from "../../../images/blog_image.png";
 import { Link, NavLink } from "react-router-dom";
-import { data } from "../../data/homeData";
 import { ArrowRightIcon, CalendarDaysIcon, ClockIcon, } from "@heroicons/react/24/outline";
-import SearchBar from "../../components/Search/Search";
 import { EventInterface, JobListConfig } from "../../services/services";
 import useQueryParams from "../../hooks/useQueryParams";
 import { omitBy, isUndefined, isEqual } from "lodash";
@@ -19,7 +17,9 @@ import AdminTable from "../../components/AdminManagerList/AdminTable";
 import { STATUS } from "../../utils/Status";
 import { AcountConfig, AcountInterface } from "../../services/services";
 import { createSearchParams, useNavigate } from "react-router-dom";
+import {MagnifyingGlassCircleIcon} from '@heroicons/react/24/outline'
 import Paginationacountlist from "../../components/AdminManagerList/Pagination/Paginationacountlist";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
 export type QueryConfig = {
   [key in keyof JobListConfig]: string;
@@ -56,7 +56,7 @@ export default function ReccerEventManagement() {
       try {
         if (queryConfig) {
           const query = qs.stringify(queryConfig);
-          const response = await axiosInstance(`/events?${query}`);
+          const response = await axiosInstance(`/recruiter/events?${query}`);
           setShowEvents(response.data.result.content);
           setPageSize(response.data.result.totalPages);
         }
@@ -75,7 +75,7 @@ export default function ReccerEventManagement() {
         setIsLoading(true);
         try {
           const query = qs.stringify(queryConfig);
-          const response = await axiosInstance(`/events?${query}`);
+          const response = await axiosInstance(`/recruiter/events?${query}`);
           setShowEvents(response.data.result.content);
           setPageSize(response.data.result.totalPages);
         } catch (error) {
@@ -91,11 +91,11 @@ export default function ReccerEventManagement() {
 
   // Search
   const navigate = useNavigate();
-  const [typeSelected, setTypeSelected] = useState("");
   const [dataSearch, setDataSearch] = useState({
     key: "",
   });
-  const handleSearch = async () => {
+  const handleSearch = async (e: any) => {
+    e.preventDefault();
     try {
       setIsLoading(true);
       navigate({
@@ -111,31 +111,20 @@ export default function ReccerEventManagement() {
       setIsLoading(false);
     }
   };
-  const handleGetData = (type: any) => {
-    setTypeSelected(type.typename);
-    navigate({
-      pathname: "/recruiter/events",
-      search: createSearchParams({
-        ...queryConfig,
-        page: "1",
-        name: dataSearch.key,
-      }).toString(),
-    });
-  };
-
   return (
     <>
       <div>
         {/* Search */}
-        <div className="justify-center flex grid-cols-[100%] sm:grid-cols-[15%,60%,25%] gap-1 pt-5 mx-auto lg:grid-cols-[25%,60%,25%] ">
+        <div className="flex flex-wrap -mx-4 mt-5 justify-center mb-5 sticky-form">
           <form
-            onSubmit={handleSearch}
+            onSubmit={e => handleSearch(e)}
             className="inline-flex items-center justify-start gap-1 px-0.5 py-0.5 bg-white border rounded-xl bg-opacity-5"
           >
+            <div className="flex items-center justify-center gap-3 ml-3 relative w-[20px]"><MagnifyingGlassCircleIcon/></div>
             <div className="flex items-center justify-center gap-3 relative">
               <input
                 type="text"
-                className="font-medium outline-none text-gray-900 text-[14px] h-[30px] text-left rounded-lg"
+                className="font-medium outline-none text-gray-900 ml-3 text-[14px] h-[30px] text-left rounded-lg"
                 value={dataSearch.key}
                 onChange={(e) =>
                   setDataSearch({ ...dataSearch, key: e.target.value })
@@ -144,13 +133,12 @@ export default function ReccerEventManagement() {
               />
             </div>
           </form>
-          <button
-            onClick={() => handleSearch()}
-            className="px-6 py-1.5 ml-5 text-white rounded-lg bg-emerald-600 hover:bg-emerald-800"
+          {/* <button
+            onClick={() => handleSearch(e)}
+            className="px-6 py-1.5 ml-5 text-white rounded-lg bg-emerald-600 hover:bg-emerald-800 md:block hidden"
           >
             Search
-          </button>
-
+          </button> */}
         </div>
         {/* Add Event */}
           <button className="text-white shadow text-sm font-medium leading-tight flex py-2 px-2 justify-start bg-emerald-600 rounded-xl ">
@@ -163,7 +151,7 @@ export default function ReccerEventManagement() {
         <div>
           {isLoading ? (
             <div className="flex justify-center">
-              <Loader />
+                    <LoadSpinner className="text-2xl text-[#059669] " />
             </div>
           ) : (
             <div className="flex flex-wrap -mx-4 mt-[50px]">
@@ -171,43 +159,47 @@ export default function ReccerEventManagement() {
               {showEvents && showEvents.length > 0 ?
                 (showEvents.map((event) => (
                   <div key={event.id} className="w-full px-4 mb-8 md:w-1/3">
-                    {/* <BlogCard event={event} /> */}
                     <div className="bg-white rounded-lg shadow-lg">
-                      <div className={classnames("w-full")}>
+                      <div className="w-full">
                         <img
                           src={event.img || blog_image}
-                          className={classnames("w-full h-[300px] object-cover")}
+                          className="w-full h-[300px] object-cover"
                         />
                       </div>
-                      <div className={classnames("p-6")}>
-                        <div className={classnames("flex items-center justify-between")}>
-                          <div className={classnames("flex items-center gap-1")}>
-                            <CalendarDaysIcon className={classnames(`w-[20px]`)} />
+                      <div className="p-6">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-1">
+                            <CalendarDaysIcon className="w-[20px]" />
                             <p>{moment(event.startAt).format("Do MMMM, YYYY")}</p>
                           </div>
-                          <div className={classnames("flex items-center gap-1")}>
-                            <ClockIcon className={classnames(`w-[20px]`)} />
+                          <div className="flex items-center gap-1">
+                            <ClockIcon className="w-[20px]" />
                             <p>{event.time}</p>
-\\\                          </div>
+                          </div>
                         </div>
-                        <div className={classnames("mt-2")}>
-                          <h3
-                            className={classnames(
-                              "text-black text-base font-medium leading-7 tracking-wider capitalize",
-                            )}
-                          >
-                            {event.title}
+                        <div className="mt-2 text-left">
+                          {moment().isAfter(event.deadline) ? (
+                            <p style={{ color: 'red', fontStyle: 'italic' }}>Đã hết hạn</p>
+                          ) : moment().isSame(event.deadline, 'day') ? (
+                            <p style={{ color: '#FFD700', fontStyle: 'italic' }}>Sắp kết thúc</p>
+                          ) : (
+                            <p style={{ color: '#059669', fontStyle: 'italic' }}>Đang diễn ra</p>
+                          )}
+                        </div>
+                        <div className="mt-2 text-center">
+                          <h3>
+                            {event.title.length > 35
+                              ? event.title.substring(0, 25) + "  ..."
+                              : event.title}
                           </h3>
                         </div>
-                        <div className={classnames("mt-6 flex items-center justify-center")}>
+                        <div className="mt-6 flex items-center justify-center">
                           <Link
                             to={`${event.id}`}
-                            className={classnames(
-                              "bg-emerald-700 text-white p-2 rounded-md flex",
-                            )}
+                            className="bg-emerald-700 text-white p-2 rounded-md flex"
                           >
                             Read More
-                            <ArrowRightIcon className={classnames(`w-[20px] ml-1`)} />
+                            <ArrowRightIcon className="w-[20px] ml-1" />
                           </Link>
                         </div>
                       </div>

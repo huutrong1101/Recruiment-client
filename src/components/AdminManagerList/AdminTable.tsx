@@ -35,6 +35,9 @@ import Paginationacountlist from "./Pagination/Paginationacountlist";
 import moment from "moment";
 // import UserAccountDeletionButton from "../Delete/DeleteButon";
 import Loader from "../Loader/Loader";
+import LoadSpinner from "../LoadSpinner/LoadSpinner";
+import PageNotFound from "../Notfound/Notfound";
+import { toast } from "react-toastify";
 
 export type QueryConfig = {
   [key in keyof AcountConfig]: string;
@@ -86,13 +89,13 @@ export default function AdminTable({ typeSelected }: TypeData) {
     axiosInstance.put(`admin/delete/${selectedUserId}`)
       .then((response) => {
         // Handle the successful response, e.g., show an alert or update the UI
-        alert('User deleted successfully!');
+        toast.success(response.data.message);
         // Reload the page after deletion to update the table
-        window.location.reload();
+        window.history.back();
       })
       .catch((error) => {
         // Handle errors, e.g., show an error message or log the error
-        console.error('Error deleting user:', error);
+        toast.error(error.response.data.result);
       })
       .finally(() => {
         // Always close the dialog after handling the delete operation
@@ -141,7 +144,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
   }, []);
 
   return (
-    <div className="w-full max-w-full rounded-xl">
+  <div className="w-full max-w-full rounded-xl">
       <TableContainer
         component={Paper}
         sx={{ border: "1px solid rgba(0, 0, 0, 0.4)" }}
@@ -200,14 +203,22 @@ export default function AdminTable({ typeSelected }: TypeData) {
               {}
             </TableRow>
           </TableHead>
-          <TableBody>
+          
             {isLoading ? (
-              <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-10 mb-10">
-                <Loader />
-              </div>
+              <TableBody>
+                <TableRow>
+                  <TableCell colSpan={6}>
+                    <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-10 mb-10">
+                      <LoadSpinner className="text-2xl text-[#059669] " />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
             ) : (
               <>
-                {showJobLists.map((job) => (
+                <TableBody>
+                {showJobLists && showJobLists.length > 0 ?
+                  (showJobLists.map((job) => (
                   <TableRow
                     className="text-center text-black bg-white"
                     style={{
@@ -352,10 +363,22 @@ export default function AdminTable({ typeSelected }: TypeData) {
                         ): null}
                     </TableCell>
                   </TableRow>
-                ))}
+                ))): 
+                (
+                  <TableBody>
+                    <TableRow>
+                      <TableCell colSpan={3}>
+                        <div className="flex justify-center w-full mb-10">
+                              {/* <PageNotFound/> */}
+                              <p>Không Tìm thấy Kết Quả. Vui lòng Kiểm Tra Lại</p>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>                 
+                )}
+                </TableBody>  
               </>
             )}
-          </TableBody>
         </Table>
       </TableContainer>
       <div className="flex justify-center mt-5">

@@ -81,14 +81,14 @@ export default function RecDashboardCard({ job }: any) {
                         Edit
                      </Link>
                   </li>
-                  <li>
+                  {/* <li>
                      <Link
                         to="../interview-schedule/"
                         className="w-full px-2 py-2 mt-4 text-white rounded-2xl bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 md:ms-4 lg:w-auto lg:mt-0"
                      >
                         Create Schedule
                      </Link>
-                  </li>
+                  </li> */}
                </ul>
             </div>
             <a className="absolute top-0 m-3 rounded-full btn btn-icon bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white end-0"></a>

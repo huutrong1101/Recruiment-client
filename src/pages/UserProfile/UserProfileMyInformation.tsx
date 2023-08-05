@@ -29,7 +29,6 @@ export default function UserProfileMyInformation() {
     experience: [],
     certificate: [],
     project: [],
-    skills: [],
   });
   const [loadingState, setLoadingState] = useState<LoadingStatus>("idle");
 
@@ -49,13 +48,10 @@ export default function UserProfileMyInformation() {
     return () => {};
   }, []);
 
-  // const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState([]);
 
   const handleSelectChange = (selectedOptions: any) => {
-    // setSelectedOptions(selectedOptions);
-    const clonedObject = structuredClone(containerItem);
-    clonedObject["skills"] = selectedOptions;
-    setContainerItem({ ...clonedObject });
+    setSelectedOptions(selectedOptions);
   };
 
   const handleSubmit = (e: any) => {
@@ -69,7 +65,6 @@ export default function UserProfileMyInformation() {
 
   const handleValuesUpdate = (ofId: string, values: any[]) => {
     const clonedObject = structuredClone(containerItem);
-    // @ts-ignore
     clonedObject[ofId] = values;
     setContainerItem({ ...clonedObject });
     handleSubmit(null);
@@ -147,7 +142,7 @@ export default function UserProfileMyInformation() {
                     classNamePrefix="select"
                     closeMenuOnSelect={false}
                     components={animatedComponents}
-                    value={containerItem.skills}
+                    value={selectedOptions}
                     onChange={handleSelectChange}
                     styles={{
                       menu: (provided) => ({

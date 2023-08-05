@@ -10,19 +10,19 @@ interface Props {
 
 const RANGE = 2;
 
-export default function Paginationacountlist({ queryConfig, pageSize }: Props) {
+export default function Paginationacountlistdelette({ queryConfig, pageSize }: Props) {
   const page = Number(queryConfig.page);
 
-  const renderPaginationAcountlist = () => {
+  const renderPaginationacountlistdelette = () => {
     let dotAfter = false;
     let dotBefore = false;
 
-    const renderDotBefore = (index: number) => {
+    const renderDotBefore = (page: number) => {
       if (!dotBefore) {
         dotBefore = true;
         return (
           <button
-            key={index}
+            key={page}
             className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"
           >
             ...
@@ -32,12 +32,12 @@ export default function Paginationacountlist({ queryConfig, pageSize }: Props) {
       return null;
     };
 
-    const renderDotAfter = (index: number) => {
+    const renderDotAfter = (page: number) => {
       if (!dotAfter) {
         dotAfter = true;
         return (
           <span
-            key={index}
+            key={page}
             className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"
           >
             ...
@@ -49,43 +49,43 @@ export default function Paginationacountlist({ queryConfig, pageSize }: Props) {
 
     return Array(pageSize)
       .fill(0)
-      .map((_, index) => {
-        const pageNumber = index + 1;
+      .map((_, page) => {
+        const pageNumber = page + 1;
 
         if (
           page <= RANGE * 2 + 1 &&
           pageNumber > page + RANGE &&
           pageNumber < pageSize - RANGE + 1
         ) {
-          return renderDotAfter(index);
+          return renderDotAfter(page);
         } else if (page > RANGE * 2 + 1 && page < pageSize - RANGE * 2) {
           if (pageNumber < page - RANGE && pageNumber > RANGE) {
-            return renderDotBefore(index);
+            return renderDotBefore(page);
           } else if (
             pageNumber > page + RANGE &&
             pageNumber < pageSize - RANGE + 1
           ) {
-            return renderDotAfter(index);
+            return renderDotAfter(page);
           }
         } else if (
           page >= pageSize - RANGE * 2 &&
           pageNumber > RANGE &&
           pageNumber < page - RANGE
         ) {
-          return renderDotBefore(index);
+          return renderDotBefore(page);
         }
 
         return (
-          <li key={index}>
+          <li key={page}>
             <Link
               to={{
                 pathname: "",
                 search: createSearchParams({
                   ...queryConfig,
-                  page: pageNumber.toString(),
+                  index: pageNumber.toString(),
                 }).toString(),
               }}
-              key={index}
+              key={page}
               className={classNames(
                 "mx-2 cursor-pointer rounded border bg-white px-3 py-2 shadow-sm",
                 {
@@ -103,7 +103,7 @@ export default function Paginationacountlist({ queryConfig, pageSize }: Props) {
   return (
     <>
       <nav
-        aria-label="Page navigation example"
+        aria-label="page navigation example"
         className="flex items-center justify-center"
       >
         <ul className="flex items-center justify-center list-style-none">
@@ -118,7 +118,7 @@ export default function Paginationacountlist({ queryConfig, pageSize }: Props) {
                   pathname: "",
                   search: createSearchParams({
                     ...queryConfig,
-                    page: (page - 1).toString(),
+                    index: (page - 1).toString(),
                   }).toString(),
                 }}
                 className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"
@@ -128,7 +128,7 @@ export default function Paginationacountlist({ queryConfig, pageSize }: Props) {
             )}
           </li>
 
-          {renderPaginationAcountlist()}
+          {renderPaginationacountlistdelette()}
 
           <li>
             {page === pageSize ? (
@@ -141,7 +141,7 @@ export default function Paginationacountlist({ queryConfig, pageSize }: Props) {
                   pathname: "",
                   search: createSearchParams({
                     ...queryConfig,
-                    page: (page - 1).toString(),
+                    index: (page - 1).toString(),
                   }).toString(),
                 }}
                 className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"

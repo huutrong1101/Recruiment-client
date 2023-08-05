@@ -74,10 +74,11 @@ import FilterAdmin from "./components/Routers/FilterAdmin";
 import FilterInterviewer from "./components/Routers/FilterInterviewer";
 import FilterRecruiter from "./components/Routers/FilterRecruiter";
 import NotFound from "./components/NotFound/NotFound";
+import AdminProflieUser from "./pages/Admin/AdminProflieUser";
+import AdminAcountDelete from "./components/AdminManagerList/AdminAcountDelete";
 
 export default function App() {
   const dispatch = useAppDispatch();
-  useTokenAuthorize();
 
   useEffect(() => {
     JobService.getJobs(dispatch);
@@ -100,15 +101,14 @@ export default function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="about-us" element={<AboutUs />} />
           <Route path="create-cv" element={<CreateCV />} />
+          <Route path="auth" element={<Authenticate />}>
+            <Route path="login" element={<AuthenticateLogin />} />
+            <Route path="signup" element={<AuthenticateSignUp />} />
+            <Route element={<AuthenticateLogin />} />
+          </Route>
 
           {/* This route is accepted when user is not logged in */}
           <Route element={<FilterNonLogin />}>
-            <Route path="auth" element={<Authenticate />}>
-              <Route path="login" element={<AuthenticateLogin />} />
-              <Route path="signup" element={<AuthenticateSignUp />} />
-              <Route element={<AuthenticateLogin />} />
-            </Route>
-
             <Route path="/email" element={<EmailConfirmationLayout />}>
               <Route path="incomplete" element={<IncompleteConfirmEmail />} />
               <Route path="complete" element={<CompleteConfirmEmail />} />
@@ -139,9 +139,11 @@ export default function App() {
         <Route element={<FilterAdmin />}>
           <Route path="/admin" element={<ManagementAppLayOut />}>
             <Route path="users" index element={<AdminDashboard />} />
-            <Route path="users/:userId" element={<AdminChangePosition />} />
-            <Route path="blacklist-add" element={<AddBlacklist />} />
-            <Route path="blacklist-delete" element={<DeleteBlacklist />} />
+            <Route path="users/:userId" index element={<AdminProflieUser />} />
+            <Route path="userscreate" element={<AdminChangePosition />} />
+            <Route path="users/blacklist/:userId" element={<AddBlacklist />} />
+            <Route path="accountsDeleted" element={<AdminAcountDelete/>} />
+            <Route path="blacklist/:userId" element={<DeleteBlacklist />} />
             <Route path="profile" element={<AdminProfile />} />
             <Route path="jobs/:jobId" element={<ListCandiPass />} />
             <Route path="jobs" element={<ManagetJobList />} />
@@ -177,7 +179,10 @@ export default function App() {
 
             <Route path="event-manager" element={<ReccerEventManagement />} />
 
-            <Route path="interview-schedule" element={<InterviewSched />} />
+            <Route
+              path="jobdetail/:jobId/interview-schedule/:userId"
+              element={<InterviewSched />}
+            />
           </Route>
         </Route>
 
@@ -186,7 +191,7 @@ export default function App() {
             {/* Define interviewer routes here */}
             <Route path="interview-recent" element={<InterviewRecent />} />
             <Route path="interview-recent/:id" element={<InterviewDetail />} />
-            <Route path="interview-question" element={<ManageQuestion />} />
+            <Route path="question" element={<ManageQuestion />} />
             <Route path="candidate-recent" element={<CandidateRecent />} />
             <Route
               path="candidate-recent/:id"

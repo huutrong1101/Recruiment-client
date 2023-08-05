@@ -2,6 +2,8 @@ import {
   AdjustmentsHorizontalIcon,
   CalendarDaysIcon,
   CheckIcon,
+  ChevronDoubleDownIcon,
+  ChevronUpDownIcon,
   MagnifyingGlassIcon,
   PencilSquareIcon,
   XMarkIcon,
@@ -68,15 +70,15 @@ export default function Applied() {
     getApplyCandidate();
   }, [state]);
 
-  // useEffect(() => {
-  //   const getApplyCandidate = async () => {
-  //     const response = await axiosInstance.get(
-  //       `recruiter/job/${jobId}/candidates`,
-  //     );
-  //     setApplyCandidate(response.data.result.content); // API get
-  //   };
-  //   getApplyCandidate();
-  // }, [jobId, applyCandidate]);
+  useEffect(() => {
+    const getApplyCandidate = async () => {
+      const response = await axiosInstance.get(
+        `recruiter/job/${jobId}/candidates`,
+      );
+      setApplyCandidate(response.data.result.content); // API get
+    };
+    getApplyCandidate();
+  }, [jobId]);
 
   useEffect(() => {
     if (!isEqual(prevQueryConfig, queryConfig)) {
@@ -132,6 +134,24 @@ export default function Applied() {
       .catch((error) => toast.error(error.response.data.result));
   };
 
+  const [sort, setSort] = useState("ASC");
+  const sorting = (col: any) => {
+    if (sort === "ASC") {
+      const sorted = [...applyCandidate].sort((a, b) =>
+        a[col] > b[col] ? 1 : -1,
+      );
+      setApplyCandidate(sorted);
+      setSort("DSC");
+    }
+    if (sort === "DSC") {
+      const sorted = [...applyCandidate].sort((a, b) =>
+        a[col] < b[col] ? 1 : -1,
+      );
+      setApplyCandidate(sorted);
+      setSort("ASC");
+    }
+  };
+
   return (
     <div
       className={classNames(
@@ -144,16 +164,34 @@ export default function Applied() {
 
       <div className="relative p-4 overflow-x-auto">
         <table className="w-full text-sm text-left text-gray-500">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
               <th scope="col" className="px-6 py-4">
-                Name
+                <div className="flex gap-3 items-center">
+                  Name
+                  <ChevronUpDownIcon
+                    className="w-5 h-5 cursor-pointer"
+                    onClick={() => sorting("candidateFullName")}
+                  />
+                </div>
               </th>
               <th scope="col" className="px-6 py-4">
-                Email
+                <div className="flex gap-3 items-center">
+                  Email
+                  <ChevronUpDownIcon
+                    className="w-5 h-5 cursor-pointer"
+                    onClick={() => sorting("candidateEmail")}
+                  />
+                </div>
               </th>
               <th scope="col" className="px-6 py-4">
-                Score
+                <div className="flex gap-3 items-center">
+                  Score
+                  <ChevronUpDownIcon
+                    className="w-5 h-5 cursor-pointer"
+                    onClick={() => sorting("score")}
+                  />
+                </div>
               </th>
               <th scope="col" className="px-6 py-4">
                 <Menu as="div" className={classNames("relative")}>
