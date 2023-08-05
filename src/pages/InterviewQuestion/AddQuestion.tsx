@@ -32,6 +32,7 @@ export default function AddQuestion({ observation, onClick }: any) {
   });
 
   // const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate()
 
   const skills: QuestionListInterface[] = useAppSelector((state) => state.questionList.skills);
   const types: QuestionListInterface[] = useAppSelector((state) => state.questionList.types);
@@ -69,21 +70,39 @@ export default function AddQuestion({ observation, onClick }: any) {
   const handleSubmitAdd = (e: any) => {
     e.preventDefault()
     const foundSkill: any = showSkills.find((skill) => skill.name === inputData.skill);
+
     const data = {
       "content": inputData.content,
       "note": inputData.note,
       "typeQuestion": inputData.type,
-      "skillId": foundSkill.skillId
+      "skillId": foundSkill.skillId 
     };
 
-    console.log(data)
+    // data.content === ' ' && data.note === ' ' ? alert('Please fill your full content and note') : (navigate(""))
 
-    toast
-      .promise(InterviewService.createQuestion(data), {
-        pending: "Adding the question",
-        success:"The question was added. Please RELOAD page",
-        error: "có lỗi"
-      })
+    // data.content === ' ' || data.note !== ' ' ? alert('Please fill your full content') : (
+    //   // toast
+    //   //   .promise(InterviewService.createQuestion(data), {
+    //   //     error: "có lỗi"
+    //   //   })
+    //   data.content
+    // )
+
+    // data.content !== ' ' || data.note === ' ' ? alert('Please fill your full note') : (
+    //   // toast
+    //   //   .promise(InterviewService.createQuestion(data), {
+    //   //     error: "có lỗi"
+    //   //   })
+    //   data.note
+    // )
+    data.content !== ' ' && data.note !== ' '  && data.skillId !== ' '  && data.typeQuestion !== ' ' ? "" : (
+      toast
+        .promise(InterviewService.createQuestion(data), {
+          pending: "Adding the question",
+          success: "The question was added. Please RELOAD page",
+          error: "có lỗi"
+        })
+    )
   }
 
 
@@ -153,7 +172,7 @@ export default function AddQuestion({ observation, onClick }: any) {
 
                                     onClick={() => {
                                       // handleActive
-                                      setInputData({...inputData, skill: skill.name })
+                                      setInputData({ ...inputData, skill: skill.name })
                                     }}
                                   >
                                     {skill.name}
