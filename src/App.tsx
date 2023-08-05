@@ -76,6 +76,9 @@ import FilterRecruiter from "./components/Routers/FilterRecruiter";
 import NotFound from "./components/NotFound/NotFound";
 import AdminProflieUser from "./pages/Admin/AdminProflieUser";
 import AdminAcountDelete from "./components/AdminManagerList/AdminAcountDelete";
+import ForgetPasswordLayout from "./pages/ForgetPassword/ForgetPasswordLayout";
+import ForgetPassword from "./pages/ForgetPassword/ForgetPassword";
+import ConfirmPassword from "./pages/ForgetPassword/ConfirmPassword";
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -114,6 +117,10 @@ export default function App() {
               <Route path="complete" element={<CompleteConfirmEmail />} />
             </Route>
             <Route path="otp" element={<OneTimePasswordVerify />} />
+            <Route path="/forget-password" element={<ForgetPasswordLayout />}>
+              <Route index element={<ForgetPassword />} />
+              <Route path="confirm-password" element={<ConfirmPassword />} />
+            </Route>
           </Route>
 
           {/* This route is only accepted when user is logged in and/or token is not broken  */}
