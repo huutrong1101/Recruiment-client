@@ -237,12 +237,8 @@ export default function RecCandidateDetailCard(props: any) {
                         <span className="font-medium ms-2">
                           {candidate?.fullName}.pdf
                         </span>
-                        <a
-                          href=""
-                          className="px-4 py-2 gap-2 ml-4 mt-2 bg-emerald-600 hover:bg-emerald-700 border-emerald-600  text-white rounded-md"
-                        >
-                          Download
-                        </a>
+                        {/* <a href="linkResume" download></a> */}
+                        {/* DOWNLOAD */}
                       </div>
                     </div>
                   </div>

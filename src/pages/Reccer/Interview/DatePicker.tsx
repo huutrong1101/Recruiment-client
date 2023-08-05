@@ -14,6 +14,7 @@ export default function DateTimePickerValue({
   value,
   onChange,
 }: DateTimePickerValueProps) {
+  const currentDate = new Date();
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={["DateTimePicker", "DateTimePicker"]}>
