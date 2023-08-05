@@ -61,8 +61,8 @@ export default function AdminChangePosition() {
       // Xử lý lỗi (nếu có)
       // console.error('Error:', error);
        // Xử lý lỗi nếu có
-      toast.error('Error occurred: ' + error.message);
-    });
+       toast.error(error.response.data.result);
+      });
   };
 
   return ( 

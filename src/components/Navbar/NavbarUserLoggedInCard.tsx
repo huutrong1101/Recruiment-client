@@ -8,6 +8,8 @@ import DummyAvatar from "../DummyAvatar/DummyAvatar";
 import {
   HiArrowLeftOnRectangle,
   HiCog6Tooth,
+  HiEnvelope,
+  HiInformationCircle,
   HiQuestionMarkCircle,
   HiUserCircle,
 } from "react-icons/hi2";
@@ -18,6 +20,17 @@ const SIGNED_IN_DROPDOWN_ITEMS = [
     icon: <HiUserCircle />,
     text: "My Profile",
   },
+  {
+    url: "/profile/information",
+    icon: <HiInformationCircle />,
+    text: "My Information",
+  },
+  {
+    url: "/profile/resume",
+    icon: <HiEnvelope />,
+    text: "My Resume",
+  },
+
   {
     url: "/profile/interviews",
     icon: <HiCog6Tooth />,

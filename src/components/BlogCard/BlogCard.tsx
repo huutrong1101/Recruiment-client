@@ -16,6 +16,8 @@ interface BlogCardProps {
 
 export default function BlogCard({ event }: BlogCardProps) {
   const formattedDate = moment(event.startAt).format("Do MMMM, YYYY");
+
+  console.log(event);
   return (
     <>
       <div className="bg-white rounded-lg shadow-lg">
