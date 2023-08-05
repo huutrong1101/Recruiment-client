@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import classnames from "classnames";
 import { useParams } from "react-router-dom";
-import { EventInterface } from "../../services/services";
+// import { EventInterface } from "../../services/services";
 import { useAppSelector } from "../../hooks/hooks";
 import TextareaAutosize from "react-textarea-autosize";
 import Button from "@mui/material/Button";
@@ -11,22 +11,22 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { toast } from "react-toastify";
-
-
 import axiosInstance from "../../utils/AxiosInstance";
 import moment from "moment";
-import Loader from "../../components/Loader/Loader";import { CalendarDaysIcon, ExclamationTriangleIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import { CalendarDaysIcon, ExclamationTriangleIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import { ClockIcon } from "@mui/x-date-pickers";
 export default function RecEventDetail() {
   const { eventId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
-  const events:  EventInterface[] = useAppSelector((state) => state.recevent.RecEventRecent);
+  // const events:  EventInterface[] = useAppSelector((state) => state.recevent.RecEventRecent);
   // Define the initial state outside the useEffect hook
   const [avatar, setAvatar] = useState('');
   const [avatar1, setAvatar1] = useState(null);
   const [dayend, setDayend] = useState('');
   const [daystar, setDaystar] = useState('');
+  const [daycheck, setcheck] = useState('');
+
   const [time, setTime] = useState('');
   const [location, setlocation] = useState('');
   const [title, settitle] = useState('');
@@ -58,6 +58,8 @@ export default function RecEventDetail() {
         setAvatar(response.data.result.img);
         setDayend(moment(response.data.result.deadline).format("YYYY-MM-DD"));
         setDaystar(moment(response.data.result.startAt).format("YYYY-MM-DD"));
+        setcheck(moment(response.data.result.startAt).format("YYYY-MM-DD"));
+
         setTime(response.data.result.time);
         setlocation(response.data.result.location);
         settitle(response.data.result.title);
@@ -96,16 +98,16 @@ export default function RecEventDetail() {
     // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/events/create với FormData
     axiosInstance.put( `/recruiter/events/${eventId}`, formData)
       .then((response) => {
+        setOpenSave(true);
+        setOpenDelete(false);
         // Xử lý phản hồi từ server (nếu cần)
         toast.success(response.data.message); // Display the response message from the server
         // In tất cả thông tin từ FormData
         window.history.back();
-        setOpenSave(true);
-        setOpenDelete(false);
       })
       .catch((error) => {
         // Xử lý lỗi (nếu có)
-        toast.error(error.response.data.result); // Display an error message
+        toast.error(error.response.data.message); // Display an error message
       });
     setOpenSave(false);
   }
@@ -113,6 +115,7 @@ export default function RecEventDetail() {
   //Delete
   const handleDelete = () => {
     // Gửi yêu cầu DELETE đến API
+    event.preventDefault();      
     axiosInstance
       .delete(`recruiter/events/${eventId}`)
       .then((response) => {
@@ -256,7 +259,7 @@ export default function RecEventDetail() {
                   </DialogContent>
                   <DialogActions>
                     <Button onClick={handleClose}>Disagree</Button>
-                    <Button onClick={handleDelete} autoFocus type="submit">
+                    <Button onClick={handleDelete} type="submit">
                       Agree
                     </Button>
                   </DialogActions>
@@ -267,7 +270,7 @@ export default function RecEventDetail() {
         </div>
 
 
-        <div  className={classnames( "w-full md:w-3/12 flex-1 relative " )} >
+        <div  className={classnames( "w-full md:w-3/12 flex-1 relative mt-5" )} >
               <div className="border-[2px] rounded-xl shadow">
                 <div className={classnames("mt-5 mb-5 px-3")}>
                   {/* Lien he */}
@@ -283,6 +286,7 @@ export default function RecEventDetail() {
                           id="startAt"
                           className="text-emerald-600 text-sm font-medium leading-tight"
                           value={daystar}
+                          min={daycheck}
                           // readOnly
                           onChange={(event) => setDaystar(event.target.value)}
                           />
@@ -299,6 +303,7 @@ export default function RecEventDetail() {
                           id="deadline"
                           className="text-emerald-600  border text-sm font-medium leading-tight"
                           value={dayend}
+                          min ={daystar}
                           onChange={(event) => setDayend(event.target.value)}
                           />
                       </div>
@@ -318,7 +323,7 @@ export default function RecEventDetail() {
                           />
                         </div>
                   </div>
-                  <div className={classnames("items-center gap-1 rounded-xl justify-between px-10 mb-5 mt-5")}>
+                  <div className={classnames("items-center gap-1 rounded-xl justify-between px-10 mb-5 mt-5 ")}>
                       <div className="flex  mt-1 mb-1">
                         <MapPinIcon className="w-6 h-6 mr-2 "/>
                         <h3>Location:</h3>
@@ -327,7 +332,7 @@ export default function RecEventDetail() {
                         <select
                           value={location}
                           onChange={(event) => setlocation(event.target.value)}
-                          className="cursor-pointer flex items-center justify-between w-[60%] px-1 border rounded-full bg-gray-100  "
+                          className="cursor-pointer flex items-center justify-between w-full px-1 border rounded-full bg-gray-100  "
                         >
                           <option value="" disabled> Choose</option>
                           <option value="F-Town 1">F-Town1</option>
@@ -338,7 +343,7 @@ export default function RecEventDetail() {
                   </div> 
                 </div>
               </div>                        
-            </div>            
+        </div>            
       </div>
     )} 
     </>   

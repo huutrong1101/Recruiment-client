@@ -196,10 +196,10 @@ export default function ReccerEventManagement() {
                 (showEvents.map((event) => (
                   <div key={event.id} className="w-full px-4 mb-8 md:w-1/3">
                     <div className="bg-white rounded-lg shadow-lg">
-                      <div className="w-full ml:w-max300 h-max300 ">
+                      <div className="w-full">
                         <img
                           src={event.img || blog_image}
-                          className="w-full h-[300px] object-cover"
+                          className="w-full h-[250px] object-center rounded-lg flex justify-center"
                         />
                       </div>
                       <div className="p-6">
@@ -218,15 +218,15 @@ export default function ReccerEventManagement() {
                           {moment().isAfter(event.deadline) ? (
                             <p style={{ color: 'red', fontStyle: 'italic' }}>Finished ...</p>
                           ) : moment().isSame(event.deadline, 'day') ? (
-                            <p style={{ color: '#FFD700', fontStyle: 'italic' }}>Coming to an end ...</p>
+                            <p style={{ color: '#FFD700', fontStyle: 'italic' }}>Coming to end ...</p>
                           ) : (
-                            <p style={{ color: '#059669', fontStyle: 'italic' }}>Happenning ...</p>
+                            <p style={{ color: '#059669', fontStyle: 'italic' }}>On Going ...</p>
                           )}
                         </div>
                         <div className="mt-2 text-center">
-                          <h1 className="text-2xl e-justify text-e-bold">
-                            {event.title.length > 35
-                              ? event.title.substring(0, 20) + "  ..."
+                          <h1 className="text-xl e-justify text-e-bold italic">
+                            {event.title.length > 20
+                              ? event.title.substring(0, 17) + "  ..."
                               : event.title}
                           </h1>
                         </div>

@@ -1,10 +1,8 @@
 import React, { useState,useEffect } from "react";
 import axiosInstance from '../../utils/AxiosInstance';
-import {  AcountFrofileUsersInterface,AcountFrofileInterfaceConfig } from "../../services/services";
+import {  AcountFrofileUsersInterface} from "../../services/services";
 import { useParams } from "react-router-dom";
 import {  useAppSelector } from '../../hooks/hooks';
-import moment from "moment";
-import classNames from "classnames";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
 export default function AdminProflieUser() {
@@ -15,14 +13,13 @@ export default function AdminProflieUser() {
   const goBack = () => {
     window.history.back();
   };
-  const [roleId,selectedRoleId]= useState();
   //
   useEffect(() => {
     const fetchPosition = async () => {
       setIsLoading(true);
       try {      
         const response = await axiosInstance(`admin/users/${userId}`);
-        // console.log(response.data.result);
+        console.log(response.data.result);
         setAdminuseprofile(response.data.result);
       } catch (error) {
         console.log(error);

@@ -27,7 +27,7 @@ export default function AddEvent() {
         const file = event.target.files[0]; // Lấy file từ sự kiện chọn file
         setAvatar(file);        
       };
-    
+      //
       // SubmitButon 
       const [startAt, setstartAt] = useState("");
       useEffect(() => {
@@ -106,7 +106,7 @@ export default function AddEvent() {
               <label htmlFor="avatar">
                 {avatar ? (
                   <div className="flex justify-center">
-                    <img src={URL.createObjectURL(avatar)} alt="blog_image" className=" rounded-xl"/>
+                    <img src={URL.createObjectURL(avatar)} alt="blog_image" className=" rounded-xl w-[300px] h-[300px]"/>
                   </div>
                 ) : (
                   <div className="flex justify-center">
@@ -180,29 +180,35 @@ export default function AddEvent() {
                 aria-describedby="alert-dialog-description"
               >
                 <div className="text-center px-6">
-                  <DialogTitle id="alert-dialog-title" className='text-center'>
-                      Are you sure you want to create event name: "{title}"?
+                  <DialogTitle id="alert-dialog-title" className='text-center' style={{ fontFamily: "Outfit, sans-serif" }}>
+                      <h2 className='text-center' style={{ fontFamily: "Outfit, sans-serif" }}>Are you sure you want to create event name: </h2>
+                      <h2 className="justify text-center">"{title}"</h2>
                   </DialogTitle>
                   <DialogContent>
 
                   <div className="flex">
                     <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
-                    <p className="flex text-red-800 font-semibold px-2">
+                    <p className="flex text-red-800 font-semibold px-2 justify-center text-center">
                       WARNING
                     </p>
-                  </div>
-                  <div className="text-left font-semibold">
-                    This action cannot be undone, the deleted item
-                    cannot be restored.
-                  </div>
+                  </div>                 
                   </DialogContent>
                 </div>
 
                 <DialogActions>
-                  <Button onClick={handleClose}>Disagree</Button>
-                  <Button onClick={handleSubmit} autoFocus type="submit">
+                  <button
+                    className="rounded-lg bg-red-700 hover:bg-red-900 px-4 py-2 mx-1 my-1 text-white"
+                    onClick={handleClose}
+                  >
+                    Disagree
+                  </button>
+                  <button
+                    className="rounded-lg bg-[#059669] hover:bg-green-900  px-4 py-2 mx-1 my-1 text-white"
+                    onClick={handleSubmit}
+                    autoFocus
+                  >
                     Agree
-                  </Button>
+                  </button>
                 </DialogActions>
               </Dialog>
             </div>
@@ -223,6 +229,8 @@ export default function AddEvent() {
                           id="startAt"
                           className="text-emerald-600 border text-sm font-medium leading-tight"
                           value={startAt}
+                          min ={startAt}
+                          max ={deadline}
                           onChange={(event) => setstartAt(event.target.value)}
                           />
                       </div>
@@ -238,6 +246,7 @@ export default function AddEvent() {
                           id="deadline"
                           className="text-emerald-600  border text-sm font-medium leading-tight"
                           value={deadline}
+                          min ={startAt}
                           onChange={(event) => setDeadline(event.target.value)}
                           />
                       </div>
