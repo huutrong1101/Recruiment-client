@@ -162,7 +162,6 @@ const ReccerJobManagement = () => {
                   )}
                 </div>
               </Menu.Button>
-
               <Transition
                 as={Fragment}
                 enter="transition ease-out duration-100"
@@ -230,10 +229,10 @@ const ReccerJobManagement = () => {
           <Link to="../addjob">
             <div className="sm:w-[100px] h-[50px] relative">
               <button
-                className="w-full h-full left-5 top-0 absolute bg-[#05966A] hover:bg-emerald-700 text-white rounded-lg"
+                className="w-[80%] h-full left-5 top-0 absolute bg-[#05966A] hover:bg-emerald-700 text-white rounded-lg"
                 type="submit"
               >
-                + Add Job
+                Add Job
               </button>
             </div>
           </Link>

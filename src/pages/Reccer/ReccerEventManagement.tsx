@@ -129,7 +129,7 @@ export default function ReccerEventManagement() {
                 onChange={(e) =>
                   setDataSearch({ ...dataSearch, key: e.target.value })
                 }
-                placeholder=" Please enter a search     "
+                placeholder=" Please enter a search"
               />
             </div>
           </form>
