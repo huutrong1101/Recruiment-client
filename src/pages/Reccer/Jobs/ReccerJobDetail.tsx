@@ -32,14 +32,14 @@ import { JobInterface } from "../../../services/services";
 import axiosInstance from "../../../utils/AxiosInstance";
 import moment from "moment";
 import Loader from "../../../components/Loader/Loader";
-import {JOB_POSITION} from "../../../utils/Localization";
+import { JOB_POSITION } from "../../../utils/Localization";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 import { toast } from "react-toastify";
 import { JobService } from "../../../services/JobService";
 
 export default function ReccerJobDetail() {
   const [jobInformation, setJobInformation] = useState([
-    { icon: <UserIcon/>, name: "", value: "" },
+    { icon: <UserIcon />, name: "", value: "" },
   ]);
   const { jobId } = useParams();
   const [job, setJob] = useState<JobInterface | null>(null);
@@ -129,7 +129,7 @@ export default function ReccerJobDetail() {
                     .format("Do MMM, YYYY")
                     .toString()}
                   logo={{ src: Logo, alt: "image" }}
-                  quantity = {job?.quantity}
+                  quantity={job?.quantity}
                 />
                 {/* Details */}
                 <div
@@ -197,8 +197,7 @@ export default function ReccerJobDetail() {
                     </div>
                   </div>
                 </div>
-                {/* /Skill */}
-                <div className={classNames(`flex`)}>
+                {job.isActive === true ? <div className={classNames(`flex`)}>
                   <div className={classNames(`px-8 py-8`, `text-justify`)}>
                     <button
                       className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-2 my-1 text-white"
@@ -266,7 +265,12 @@ export default function ReccerJobDetail() {
                       </DialogActions>
                     </Dialog>
                   </div>
-                </div>
+                </div> : <></>
+                }
+
+
+
+
               </div>
               {/* Right side description */}
               <div className={classNames(`w-full md:w-3/12 flex-1 relative`)}>
