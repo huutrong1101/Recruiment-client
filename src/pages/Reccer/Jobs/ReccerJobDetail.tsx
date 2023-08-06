@@ -32,14 +32,14 @@ import { JobInterface } from "../../../services/services";
 import axiosInstance from "../../../utils/AxiosInstance";
 import moment from "moment";
 import Loader from "../../../components/Loader/Loader";
-import {JOB_POSITION} from "../../../utils/Localization";
+import { JOB_POSITION } from "../../../utils/Localization";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 import { toast } from "react-toastify";
 import { JobService } from "../../../services/JobService";
 
 export default function ReccerJobDetail() {
   const [jobInformation, setJobInformation] = useState([
-    { icon: <UserIcon/>, name: "", value: "" },
+    { icon: <UserIcon />, name: "", value: "" },
   ]);
   const { jobId } = useParams();
   const [job, setJob] = useState<JobInterface | null>(null);
@@ -225,7 +225,7 @@ export default function ReccerJobDetail() {
                         id="alert-dialog-title"
                         className="text-center"
                       >
-                        <p className="pt-4 font-extrabold">Delete Job</p>
+                        <p className="pt-3 font-extrabold">Delete Job</p>
                       </DialogTitle>
                       <DialogContent className="text-center">
                         <div className="px-6 text-center">
@@ -275,7 +275,7 @@ export default function ReccerJobDetail() {
             </div>
 
             {/* /Applied Candidate */}
-            <Applied />
+            <Applied num={job?.quantity} />
 
             {/* Suggested Candidate*/}
             <Suggested />

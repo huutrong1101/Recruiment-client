@@ -78,16 +78,23 @@ export default function InterviewHistory() {
                     <td className="px-6 py-4">{date}</td>
                     <td className="px-4 py-4 rounded-lg p-2 mx-2 my-1">
                       <span
-                        className={`rounded-lg p-2 mx-2 my-1  ${interview.state === "PASSED"
-                          ? "bg-green-200"
-                          : interview.state === "FAILED"
+                        className={`rounded-lg p-2 mx-2 my-1  ${
+                          interview.state === "PASSED"
+                            ? "bg-green-200"
+                            : interview.state === "FAILED"
                             ? "bg-green-200"
                             : interview.state === "NOT_RECEIVED"
-                              ? "bg-yellow-100"
-                              : "bg-yellow-100"
-                          }`}
+                            ? "bg-yellow-100"
+                            : "bg-yellow-100"
+                        }`}
                       >
-                        {interview.state === "RECEIVED" ? "Pending" : interview.state === "NOT_RECEIVED" ? "Pending" : interview.state === "PASSED" ? "Finish" : "Finish"}
+                        {interview.state === "RECEIVED"
+                          ? "Pending"
+                          : interview.state === "NOT_RECEIVED"
+                          ? "Pending"
+                          : interview.state === "PASSED"
+                          ? "Finish"
+                          : "Finish"}
                       </span>
                     </td>
                   </tr>
@@ -97,7 +104,9 @@ export default function InterviewHistory() {
           </table>
         </div>
       ) : (
-        "No interviews found for this candidate"
+        <div className="text-center text-[1.1rem]">
+          No interviews found for this candidate
+        </div>
       )}
     </div>
   );
