@@ -97,7 +97,7 @@ export default function JobDetail() {
         },
         {
           icon: <ClockIcon />,
-          name: "Deadline",
+          name: "End At",
           value: moment(job.deadline).format("Do MMM, YYYY"),
         },
       ]);
