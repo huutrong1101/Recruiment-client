@@ -31,7 +31,8 @@ export default function AuthenticateLogin() {
         .unwrap()
         .then(() => {
           toast.success(`Successfully signed in.`);
-          navigate(from === null ? "/" : from);
+          console.log(`Navigate from `, from, navigate === null ? `/` : from);
+          navigate(from === null ? "/" : from.toString());
         });
     } catch (err: any) {
       toast.error(`Failed to signed in with error: ${err.message}`);

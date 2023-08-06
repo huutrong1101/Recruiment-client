@@ -44,7 +44,7 @@ export default function JobCard({ job }: JobCardProps) {
         <div className={classnames("w-8/12 md:w-full")}>
           <h3
             className={classnames(
-              "text-black text-md font-bold leading-7 tracking-wider capitalize break-words",
+              "text-black text-md font-bold leading-7 tracking-wider capitalize break-words min-h-12 break-normal",
             )}
           >
             {shortenedTitle}

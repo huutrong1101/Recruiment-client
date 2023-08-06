@@ -26,7 +26,7 @@ export default function BlogCard({ event }: BlogCardProps) {
     shortenedTitle = title.substring(0, maxCharacters) + "...";
   }
 
-  console.log(event);
+  // console.log(event);
   return (
     <>
       <div className="bg-white rounded-lg shadow-lg">
