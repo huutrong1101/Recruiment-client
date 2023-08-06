@@ -33,7 +33,6 @@ import {
   PopoverContent,
   Button,
 } from "@material-tailwind/react";
-import PopupTick from "../../../components/Popup";
 
 interface UserProps {
   candidateId: string;
@@ -158,6 +157,7 @@ export default function Applied() {
       setSort("ASC");
     }
   };
+  // console.log(applyCandidate.length)
 
   return (
     <div
@@ -169,7 +169,7 @@ export default function Applied() {
     >
       <h1 className="text-2xl font-semibold">Applied Candidate</h1>
 
-      {applyCandidate.length > 0 ? (
+      {applyCandidate ? (
         <div className="relative p-4 overflow-x-auto max-h-96 h-80">
           <table className="w-full text-sm text-left text-gray-500">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
@@ -279,14 +279,14 @@ export default function Applied() {
                         {applyCandidate.candidateEmail}
                       </td>
                       <td className="px-6 py-4">
-                        {applyCandidate.interviewerFullNames == null
+                        {applyCandidate.interviewerFullNames === null
                           ? "None"
                           : applyCandidate.interviewerFullNames
                               .slice(0, 2)
                               .map((name: any, index: any) => (
                                 <div key={index}>{name}</div>
                               ))}
-                        {applyCandidate.interviewerFullNames.length > 2 && (
+                        {applyCandidate.interviewerFullNames?.length > 2 && (
                           <Popover>
                             <PopoverHandler>
                               <div className="hover:underline cursor-context-menu w-fit">
