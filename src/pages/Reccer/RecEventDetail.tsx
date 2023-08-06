@@ -59,7 +59,6 @@ export default function RecEventDetail() {
         setDayend(moment(response.data.result.deadline).format("YYYY-MM-DD"));
         setDaystar(moment(response.data.result.startAt).format("YYYY-MM-DD"));
         setcheck(moment(response.data.result.startAt).format("YYYY-MM-DD"));
-
         setTime(response.data.result.time);
         setlocation(response.data.result.location);
         settitle(response.data.result.title);
@@ -74,6 +73,8 @@ export default function RecEventDetail() {
   }, [eventId]);
   
   // Change Event
+  const DateStart = new Date();        
+
   const handleSubmit = (event: any) => {
     event.preventDefault();      
     // Convert the selected dates to Date objects
@@ -113,7 +114,7 @@ export default function RecEventDetail() {
   }
  
   //Delete
-  const handleDelete = () => {
+  const handleDelete = (event:any) => {
     // Gửi yêu cầu DELETE đến API
     event.preventDefault();      
     axiosInstance
@@ -286,7 +287,7 @@ export default function RecEventDetail() {
                           id="startAt"
                           className="text-emerald-600 text-sm font-medium leading-tight"
                           value={daystar}
-                          min={daycheck}
+                          min={daycheck < DateStart ? daycheck : DateStart}
                           // readOnly
                           onChange={(event) => setDaystar(event.target.value)}
                           />

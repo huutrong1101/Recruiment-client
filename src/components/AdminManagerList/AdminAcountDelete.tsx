@@ -1,5 +1,5 @@
 import{ useState, useEffect } from "react";
-import {MagnifyingGlassCircleIcon} from "@heroicons/react/24/outline";
+import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
 import { useAppSelector } from '../../hooks/hooks';
 import { AdminDeleteAcountConfig, AdminDelete } from "../../services/services";
@@ -112,7 +112,7 @@ const AdminAcountDelete = () => {
               > 
                 <div
                   className={classNames(
-                    "flex justify-center items-center w-80% p-1 border rounded-xl",
+                    "flex justify-center items-center w-80% p-1 border rounded-xl ",
                     "focus-within:border-emerald-400",
                   )}
                 >
@@ -125,7 +125,7 @@ const AdminAcountDelete = () => {
                         Name Acount     
                     </div>
                     <div className=" flex items-center p-3 rounded-xl">
-                      <MagnifyingGlassCircleIcon className="w-5 h-5 mx-2  mr-4" />
+                      <MagnifyingGlassIcon className="w-5 h-5 mx-2  mr-4" />
                       <input
                         type="text"
                         placeholder="Search your name acount"
