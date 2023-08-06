@@ -80,6 +80,14 @@ export default function AddQuestion({ observation, onClick }: any) {
 
     // data.content === ' ' && data.note === ' ' ? alert('Please fill your full content and note') : (navigate(""))
 
+    // toast
+    //   .promise(InterviewService.createQuestion(data), {
+    //     pending: "Adding the question",
+    //     success:"The question was added. Please RELOAD page",
+    //     error: "có lỗi"
+    //   })
+    // data.content === ' ' && data.note === ' ' ? alert('Please fill your full content and note') : (navigate(""))
+
     // data.content === ' ' || data.note !== ' ' ? alert('Please fill your full content') : (
     //   // toast
     //   //   .promise(InterviewService.createQuestion(data), {
@@ -95,14 +103,24 @@ export default function AddQuestion({ observation, onClick }: any) {
     //   //   })
     //   data.note
     // )
-    data.content !== ' ' && data.note !== ' '  && data.skillId !== ' '  && data.typeQuestion !== ' ' ? "" : (
+
+
+    if (data.content === " " || data.note === " ") {
+      alert('Please fill your content or note')
+      navigate('')
+    }
+    else if (data.typeQuestion === " " || data.skillId === " ") {
+      alert('Please select your type and skill')
+      navigate('')
+    }
+    else {
       toast
         .promise(InterviewService.createQuestion(data), {
           pending: "Adding the question",
           success: "The question was added. Please RELOAD page",
-          error: "có lỗi"
+          error: "Please fill full question information"
         })
-    )
+    }
   }
 
 

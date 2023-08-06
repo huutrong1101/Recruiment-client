@@ -15,6 +15,8 @@ import axiosInstance from "../../utils/AxiosInstance";
 import Paginationacountlistdelette from "./Pagination/Paginationacountlistdelette";
 import moment from "moment";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
+import classNames from "classnames";
+import { BsFilterLeft } from "react-icons/bs";
 
 const AdminAcountDelete = () => {
   const jobs:  AdminDelete[] = useAppSelector((state) => state.adminmanagerjobList.adminmanagerJobList);
@@ -99,25 +101,54 @@ const AdminAcountDelete = () => {
   };
       return (
       <>
-        <div className="justify-center flex grid-cols-[100%] sm:grid-cols-[15%,60%,25%] gap-1 pt-5 mx-auto lg:grid-cols-[25%,60%,25%] ">
-          <form
-            onSubmit={e => handleSearch(e)}
-            className="inline-flex items-center justify-start gap-1 px-0.5 py-0.5 bg-white border rounded-xl bg-opacity-5"
-          >
-            <div className="flex items-center justify-center gap-3 ml-3 relative w-[20px]"><MagnifyingGlassCircleIcon/></div>
-            <div className="flex items-center justify-center gap-3 relative">
-              <input
-                type="text"
-                className="font-medium ml-10 outline-none text-gray-900 text-[14px] h-[30px] text-left rounded-lg"
-                value={dataSearch.key}
-                onChange={(e) =>
-                  setDataSearch({ ...dataSearch, key: e.target.value })
-                }
-                placeholder=" Please enter a search     "
-              />
-            </div>
-          </form>
-        </div>
+           
+           <div
+              className={classNames(
+                "flex justify-center item-center mt-5",
+              )}
+            >
+              <form
+                onSubmit={e => handleSearch(e)}
+              > 
+                <div
+                  className={classNames(
+                    "flex justify-center items-center w-80% p-1 border rounded-xl",
+                    "focus-within:border-emerald-400",
+                  )}
+                >
+                    <BsFilterLeft className={classNames(`w-[20px] ml-4 mr-4`)} />
+                    <div
+                      className={classNames(
+                        "text-[16px] cursor-pointer flex items-center justify-between",
+                      )}
+                    >
+                        Name Acount     
+                    </div>
+                    <div className=" flex items-center p-3 rounded-xl">
+                      <MagnifyingGlassCircleIcon className="w-5 h-5 mx-2  mr-4" />
+                      <input
+                        type="text"
+                        placeholder="Search your name acount"
+                        className="w-[85%] h-full text-base text-zinc-400 focus:outline-none"
+                        value={dataSearch.key}
+                        onChange={(e) => setDataSearch({ ...dataSearch, key: e.target.value })}
+                      />
+                    </div> 
+                    <div
+                      className={classNames(
+                        "text-[16px] cursor-pointer flex items-center justify-between",
+                      )}
+                    >
+                        <button
+                          type="submit"
+                          className="bg-[#05966A] hover:bg-emerald-700 text-white p-2 rounded-md flex items-center justify-center"
+                        >
+                          Search
+                        </button>      
+                    </div>                              
+                </div>                  
+              </form>
+        </div>  
         <div className="flex-col mt-5">
           <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}} >
             <Table className="w-full text-sm text-gray-500 dark:text-gray-400 text-center">

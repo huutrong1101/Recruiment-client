@@ -22,6 +22,8 @@ import { fetchRecInterviewerSkill } from "../../../redux/reducer/RecInterviewerS
 import { Menu, Transition } from "@headlessui/react";
 import { useNavigate } from "react-router-dom";
 import { JobInterface } from "../../../services/services";
+import { toast } from "react-toastify";
+import { JobService } from "../../../services/JobService";
 
 export default function Addjob() {
   const dispatch = useAppDispatch();
@@ -51,7 +53,7 @@ export default function Addjob() {
   ]);
 
   const [name, setName] = useState('');
-  const [quantity, setQuantity] = useState('');
+  const [quantity, setQuantity] = useState<number>(0);
   const [description, setDescription] = useState('')
   const [requirement, setRequirement] = useState('')
   const [benefit, setBenefit] = useState('')
@@ -70,40 +72,77 @@ export default function Addjob() {
 
   const navigate = useNavigate();
 
-
   const handleSubmit = (event: any) => {
-    navigate({
-      pathname: `/recruiter/jobs/`
-    });
     event.preventDefault();
-    const data = {
-      name: name,
-      jobType: jobType,
-      quantity: quantity,
-      benefit: benefit,
-      salaryRange: salaryRange,
-      requirement: requirement,
-      location: location,
-      description: description,
-      deadline: deadline,
-      positionName: positionName,
-      skillsRequired: selectedValues,
-    };
-    navigate({
-      pathname: "/recruiter/jobs",
-    });
-    // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/job
-    axiosInstance.post('recruiter/job', data)
-      .then((response) => {
-        alert('Successful');
-        // Xử lý phản hồi từ server (nếu cần)
-        console.log(response.data); // In ra thông tin phản hồi từ máy chủ
-        // In tất cả thông tin từ FormData
-      })
-      .catch((error) => {
-        // Xử lý lỗi (nếu có)
-        console.error('Error:', error);
+    if (name === "") {
+      toast.error('Please enter Job Name');
+      return
+    }
+    else if (jobType?.length === 0) {
+      toast.error('Please select Job Type');
+      return
+    }
+    else if (quantity === 0) {
+      toast.error('Please enter Quantity');
+      return
+    }
+    else if (description === "") {
+      toast.error('Please enter Description');
+      return
+    }
+    else if (requirement === "") {
+      toast.error('Please enter Requirement');
+      return
+    }
+    else if (positionName.length === 0) {
+      toast.error('Please select Employee Type');
+      return
+    }
+    else if (benefit === "") {
+      toast.error('Please enter Benefit');
+      return
+    }
+    else if (selectedValues.length === 0) {
+      toast.error('Please select Skills');
+      return
+    }
+    else if (salaryRange === "") {
+      toast.error('Please enter Salary');
+      return
+    }
+    else if (location.length === 0) {
+      toast.error('Please select location');
+      return
+    }
+    else if (deadline === "") {
+      toast.error('Please enter end day');
+      return
+    }
+    else {
+      const data = {
+        name: name,
+        jobType: jobType,
+        quantity: quantity,
+        benefit: benefit,
+        salaryRange: salaryRange,
+        requirement: requirement,
+        location: location,
+        description: description,
+        deadline: deadline,
+        positionName: positionName,
+        skillsRequired: selectedValues,
+      };
+      console.log(data)
+      navigate({
+        pathname: "/recruiter/jobs",
       });
+      // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/job
+      toast
+        .promise(JobService.createJob(data), {
+          pending: `Creating Job`,
+          success: `Job was created`,
+        })
+    }
   }
 
   return (
@@ -222,12 +261,6 @@ export default function Addjob() {
           />
         </div>
       </div>
-
-      {/* /Applied Candidate */}
-      {/* <Applied /> */}
-
-      {/* Suggested Candidate*/}
-      {/* <Suggested /> */}
     </div>
   );
 }

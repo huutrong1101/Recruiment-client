@@ -24,7 +24,7 @@ import BlogCard from "../../components/BlogCard/BlogCard";
 import InputIcon from "../../components/InputIcon/InputIcon";
 import Modal from "../../components/Modal/Modal";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { EventInterface } from "../../services/services";
 import { useAppSelector } from "../../hooks/hooks";
 import axiosInstance from "../../utils/AxiosInstance";
@@ -67,6 +67,10 @@ export default function EventDetail() {
   }, [eventId]);
 
   const formattedDate = moment(event?.startAt).format("Do MMMM, YYYY");
+
+  const handleForward = (url: string) => {
+    window.open(url, "_blank");
+  };
 
   return (
     <>
@@ -184,19 +188,36 @@ export default function EventDetail() {
                       "flex items-center justify-center gap-3",
                     )}
                   >
-                    <li className="p-1 border border-gray-500 rounded-lg cursor-pointer hover:bg-emerald-300 hover:text-white">
+                    <li
+                      onClick={() => handleForward(event.linkContacts.Facebook)}
+                      className="p-1 border border-gray-500 rounded-lg cursor-pointer hover:bg-emerald-300 hover:text-white"
+                    >
                       <BiLogoFacebook size={20} />
                     </li>
-                    <li className="p-1 border border-gray-500 rounded-lg cursor-pointer hover:bg-emerald-300 hover:text-white">
+                    <li
+                      onClick={() =>
+                        handleForward(event.linkContacts.Instagram)
+                      }
+                      className="p-1 border border-gray-500 rounded-lg cursor-pointer hover:bg-emerald-300 hover:text-white"
+                    >
                       <BiLogoInstagram size={20} />
                     </li>
-                    <li className="p-1 border border-gray-500 rounded-lg cursor-pointer hover:bg-emerald-300 hover:text-white">
+                    <li
+                      onClick={() => handleForward(event.linkContacts.LinkedIn)}
+                      className="p-1 border border-gray-500 rounded-lg cursor-pointer hover:bg-emerald-300 hover:text-white"
+                    >
                       <BiLogoLinkedin size={20} />
                     </li>
-                    <li className="p-1 border border-gray-500 rounded-lg cursor-pointer hover:bg-emerald-300 hover:text-white">
+                    <li
+                      onClick={() => handleForward(event.linkContacts.Gitlab)}
+                      className="p-1 border border-gray-500 rounded-lg cursor-pointer hover:bg-emerald-300 hover:text-white"
+                    >
                       <BiLogoGitlab size={20} />
                     </li>
-                    <li className="p-1 border border-gray-500 rounded-lg cursor-pointer hover:bg-emerald-300 hover:text-white">
+                    <li
+                      onClick={() => handleForward(event.linkContacts.Twitter)}
+                      className="p-1 border border-gray-500 rounded-lg cursor-pointer hover:bg-emerald-300 hover:text-white"
+                    >
                       <BiLogoTwitter size={20} />
                     </li>
                   </ul>

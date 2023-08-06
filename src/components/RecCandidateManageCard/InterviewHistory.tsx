@@ -78,13 +78,16 @@ export default function InterviewHistory() {
                     <td className="px-6 py-4">{date}</td>
                     <td className="px-4 py-4 rounded-lg p-2 mx-2 my-1">
                       <span
-                        className={`rounded-lg p-2 mx-2 my-1 ${
-                          interview.state !== "NOT_RECEIVED"
+                        className={`rounded-lg p-2 mx-2 my-1  ${interview.state === "PASSED"
+                          ? "bg-green-200"
+                          : interview.state === "FAILED"
                             ? "bg-green-200"
-                            : "bg-yellow-100"
-                        }`}
+                            : interview.state === "NOT_RECEIVED"
+                              ? "bg-yellow-100"
+                              : "bg-yellow-100"
+                          }`}
                       >
-                        {REC_CANDIDATE_STATUS[interview.state]}
+                        {interview.state === "RECEIVED" ? "Pending" : interview.state === "NOT_RECEIVED" ? "Pending" : interview.state === "PASSED" ? "Finish" : "Finish"}
                       </span>
                     </td>
                   </tr>

@@ -3,7 +3,7 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import InterviewerPopup, { Interviewer } from "./InterviewerPopup";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../utils/AxiosInstance";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 import DatePicker from "./DatePicker";
 import * as React from "react";
@@ -11,6 +11,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { toast } from "react-toastify";
 import { InterviewService } from "../../../services/InterviewService";
 import { StateService } from "../../../services/changeState";
+import moment from "moment";
 
 interface UserProps {
   userId: string;
@@ -46,6 +47,8 @@ export default function Schedule() {
   const [selectedDate, setSelectedDate] = React.useState<Dayjs | null>(dayjs());
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const currentDate = new Date();
 
   useEffect(() => {
     setIsLoading(true);
@@ -83,6 +86,19 @@ export default function Schedule() {
     const listInterviewersId = interviewerArray.map(
       (interviewer) => interviewer.interviewerId,
     );
+    const selectedDateTime = selectedDate?.toDate(); // Chuyển ngày và giờ đã chọn sang dạng Date
+
+    if (selectedDateTime && selectedDateTime < new Date()) {
+      // Kiểm tra nếu ngày và giờ đã chọn trước thời gian hiện tại
+      toast.error("Selected date and time is in the past.");
+      return; // Dừng quá trình tạo buổi phỏng vấn
+    }
+
+    if (listInterviewersId.length === 0) {
+      toast.error("Please select at least one interviewer.");
+      return; // Dừng quá trình tạo buổi phỏng vấn
+    }
+
     const timeFormat = selectedDate?.format("YYYY-MM-DDTHH:mm:ss.SSSZ");
 
     const data = {
@@ -93,8 +109,8 @@ export default function Schedule() {
 
     toast
       .promise(InterviewService.createInterview(data), {
-        pending: `Creating the interview`,
-        success: `The interview was created`,
+        pending: "Creating the interview",
+        success: "The interview was created",
       })
       .catch((error) => toast.error(error.response.data.result));
   };
@@ -108,9 +124,17 @@ export default function Schedule() {
     StateService.changeState(data);
   };
 
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = `../jobdetail/${jobId}`;
+    navigate(path);
+  };
+
   const handleOnClick = () => {
+    // console.log("check");
     handleCreateInterview();
     handleChangeState();
+    routeChange();
   };
 
   return (
@@ -234,18 +258,32 @@ export default function Schedule() {
       </div>
       <div className="flex items-start justify-start w-1/2 gap-3 px-4">
         <h1>Choose Date</h1>
-        <DatePicker value={selectedDate} onChange={handleDateChange} />
+        <DatePicker
+          value={selectedDate}
+          onChange={handleDateChange}
+          // minDate={currentDate}
+        />
       </div>
-      <div className={classNames(`flex justify-center`)}>
+      <div className={classNames(`flex justify-center gap-10`)}>
         <button
           className={classNames(
             `text-lg font-normal text-white`,
             `flex items-center`,
-            `bg-emerald-700 py-2 px-4 rounded-xl`,
+            `bg-[#059669] hover:bg-green-900 py-2 px-4 rounded-xl`,
           )}
           onClick={handleOnClick}
         >
           Save
+        </button>
+        <button
+          className={classNames(
+            `text-lg font-normal text-white`,
+            `flex items-center`,
+            `text-white bg-red-700 hover:bg-red-900 py-2 px-4 rounded-xl`,
+          )}
+          onClick={routeChange}
+        >
+          Cancel
         </button>
       </div>
     </div>

@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { STATUS } from "../../utils/Status";
-import { getLocalToken } from "../../utils/localToken";
 import axiosInstance from "../../utils/AxiosInstance";
 import { toast } from "react-toastify";
 
@@ -13,10 +12,24 @@ const INTInterviewsSlice = createSlice({
     INTSingleInterview: [],
     INTSingleInterviewStatus: STATUS.IDLE,
     INTTotalPages: 0,
-    INTTotalInterviews: 0
+    INTTotalInterviews: 0,
+
+    skills: [],
+    types: [],
+    skill: "",
+    type: "",
+    text: "",
   },
   reducers: {
-
+    setType(state, action){
+      state.type = action.payload;
+    },
+    setSkill(state, action){
+      state.skill = action.payload;
+    },
+    setText(state, action){
+      state.text = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -30,8 +43,15 @@ const INTInterviewsSlice = createSlice({
         state.INTInterviewsStatus = STATUS.IDLE;
       })
       .addCase(fetchINTInterviewsData.rejected, (state, action) => {
-        toast.error(`${action.error.message}`)
-        state.INTInterviewsStatus = STATUS.ERROR;
+        if(action.error.message === "Request failed with status code 500"){
+          state.INTInterviewsStatus = STATUS.ERROR500;
+        }else if(action.error.message === "Request failed with status code 404"){
+          state.INTInterviewsStatus = STATUS.ERROR404;
+        }
+        else {
+          toast.error(`${action.error.message}`)
+          state.INTInterviewsStatus = STATUS.IDLE;
+        }
       })
 
       
@@ -43,14 +63,28 @@ const INTInterviewsSlice = createSlice({
         state.INTSingleInterviewStatus = STATUS.IDLE;
       })
       .addCase(fetchINTInterviewByID.rejected, (state, action) => {
-        toast.error(`${action.error.message}`);
-        state.INTSingleInterviewStatus = STATUS.ERROR;
+        if(action.error.message === "Request failed with status code 500"){
+          state.INTSingleInterviewStatus = STATUS.ERROR500;
+        }else if(action.error.message === "Request failed with status code 404"){
+          state.INTSingleInterviewStatus = STATUS.ERROR404;
+        }
+        else {
+          toast.error(`${action.error.message}`);
+          state.INTSingleInterviewStatus = STATUS.IDLE;
+        }
+      })
+
+      .addCase(fetchSkills.fulfilled, (state, action) =>{
+        state.skills = action.payload;
+      })
+      .addCase(fetchTypes.fulfilled, (state, action) =>{
+        state.types = action.payload;
       })
   }
 });
 
 export default INTInterviewsSlice.reducer;
-
+export const {setText, setSkill, setType} = INTInterviewsSlice.actions;
 
 export const fetchINTInterviewsData = createAsyncThunk(
   'INTInterviews/fetchINTInterviewsData', 
@@ -67,3 +101,20 @@ export const fetchINTInterviewByID = createAsyncThunk<any, string | undefined>(
     return response.data.result;
   }
 ); 
+
+
+export const fetchSkills = createAsyncThunk(
+  'INTInterviews/fetchSkill', 
+  async () => {
+    const response = await axiosInstance.get(`/interviewer/skills`);
+    return response.data.result;
+  }
+);
+
+export const fetchTypes = createAsyncThunk(
+  'INTInterviews/fetchTypes', 
+  async () => {
+    const response = await axiosInstance.get(`/interviewer/type-questions`);
+    return response.data.result;
+  }
+);

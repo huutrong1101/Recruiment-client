@@ -23,6 +23,15 @@ export default function JobCard({ job }: JobCardProps) {
   const duration = moment.duration(now.diff(created));
   const days = duration.asDays();
 
+  const maxCharacters = 30; // Số ký tự tối đa bạn muốn hiển thị
+  const title = job.name;
+
+  let shortenedTitle = title;
+
+  if (title.length > maxCharacters) {
+    shortenedTitle = title.substring(0, maxCharacters) + "...";
+  }
+
   return (
     <Link to={`/jobs/${job.jobId}`}>
       <div
@@ -38,7 +47,7 @@ export default function JobCard({ job }: JobCardProps) {
               "text-black text-md font-bold leading-7 tracking-wider capitalize break-words",
             )}
           >
-            {job.name}
+            {shortenedTitle}
           </h3>
           <div
             className={classnames(
@@ -80,7 +89,7 @@ export default function JobCard({ job }: JobCardProps) {
             {JOB_POSITION[job.jobType]}
           </p>
         </div> */}
-        <hr className="hidden sm:block my-2 opacity-30" />
+        <hr className="hidden my-2 sm:block opacity-30" />
 
         <div
           className={classnames(

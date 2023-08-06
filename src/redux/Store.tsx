@@ -2,8 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import HomeSlice from "../pages/Home/slices/HomeSlice";
 import NavbarSlice from "../components/Navbar/slices/NavbarSlice";
 
-///
-import CandidateRecentReducer from "./reducer/CandidateRecentSlice";
+/// 
 import INTInterviewsReducer from "./reducer/INTInterviewsSlice";
 import INTCandidatesReducer from "./reducer/INTCandidatesSlice";
 import INTQuestionsReducer from "./reducer/INTQuestionsSlice";
@@ -25,6 +24,7 @@ import AdminAcountUseProfileSlice from "./reducer/AdminAcountUseProfileSlice";
 import RecEventSlice from "./reducer/RecEventSlice";
 import JobDetailSlice from "../pages/JobDetail/slice/JobDetailSlice";
 import UserInterviewSlice from "../pages/UserProfile/slices/UserInterviewSlice";
+import RecdashboardSlice from "./reducer/RecdashboardSlice";
 
 export const ApplicationStore = configureStore({
   reducer: {
@@ -39,13 +39,14 @@ export const ApplicationStore = configureStore({
 
     questionList: QuestionListSlice,
 
-    candidateRecent: CandidateRecentReducer,
+    // candidateRecent: CandidateRecentReducer,
     Navbar: NavbarSlice,
     Auth: AuthSlice,
     OneTimePassword: OneTimePasswordSlice,
 
     RecJobList: RecJobListSlice,
     RecInterviewerList: RecInterviewerSilce,
+    RecDashboardList:RecdashboardSlice,
 
     // Admin
     adminmanagerjobList: AdminListJobRecentSlice,
