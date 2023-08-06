@@ -16,6 +16,7 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import moment from "moment";
 
 export default function UserProfileSubmittedJob() {
   const [filterType, setFilterType] = useState<number>(0);
@@ -64,12 +65,12 @@ export default function UserProfileSubmittedJob() {
         jobApplyId: string;
         status: "NOT_RECEIVED" | "RECEIVED" | "PASSED" | "FAILED";
         jobName: string;
-        date: Date;
+        applicationDate: Date;
       }[]
     ).map((applicant) => {
       return {
         jobTitle: applicant.jobName,
-        date: applicant.date,
+        date: moment(applicant.applicationDate).format("DD/MM/yyyy"),
         status: <JobStatusBadge status={applicant.status} />,
       };
     });
@@ -138,10 +139,11 @@ export default function UserProfileSubmittedJob() {
               label={`search`}
             />
           </div> */}
-          <div className="w-32">
+          <div className="w-40">
             <Listbox
               value={searchParams.get("size") || 5}
               onChange={handleChangeLimit}
+              disabled={pagination.loading}
             >
               <div className={classnames(`relative`)}>
                 <Listbox.Button
@@ -149,12 +151,13 @@ export default function UserProfileSubmittedJob() {
                     `bg-white px-3 py-2 border rounded-md w-full`,
                     `text-left flex flex-row items-center gap-4`,
                     filterType !== 0 ? `text-emerald-600` : `text-zinc-500`,
+                    `disabled:bg-gray-200 disabled:border disabled:animate-pulse`,
                   )}
                 >
                   <span>
                     <HiListBullet />
                   </span>
-                  <span>{searchParams.get("size" || 5)} jobs</span>
+                  <span>{searchParams.get("size") || 5} applicants</span>
                 </Listbox.Button>
                 <Transition
                   as={Fragment}
