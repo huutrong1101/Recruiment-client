@@ -40,6 +40,16 @@ export default function AddQuestion({ observation, onClick }: any) {
   const [showSkills, setShowSkills] = useState(skills)
   const [showTypes, setShowTypes] = useState(types)
 
+  const [triggeredSkill, setTriggeredSkill] = useState(false)
+  const [triggeredType, setTriggeredType] = useState(false)
+
+  const handleTriggerSkill = (e:any) => {
+      setTriggeredSkill(!triggeredSkill)
+  }
+  const handleTriggerType = (e:any) => {
+      setTriggeredType(!triggeredType)
+  }
+
 
   const [inputData, setInputData] = useState({ note: " ", content: " ", type: "", skill: "" })
 
@@ -79,47 +89,32 @@ export default function AddQuestion({ observation, onClick }: any) {
 
     console.log(data)
 
-    // toast
-    //   .promise(InterviewService.createQuestion(data), {
-    //     pending: "Adding the question",
-    //     success:"The question was added. Please RELOAD page",
-    //     error: "có lỗi"
-    //   })
-    // data.content === ' ' && data.note === ' ' ? alert('Please fill your full content and note') : (navigate(""))
-
-    // data.content === ' ' || data.note !== ' ' ? alert('Please fill your full content') : (
-    //   // toast
-    //   //   .promise(InterviewService.createQuestion(data), {
-    //   //     error: "có lỗi"
-    //   //   })
-    //   data.content
-    // )
-
-    // data.content !== ' ' || data.note === ' ' ? alert('Please fill your full note') : (
-    //   // toast
-    //   //   .promise(InterviewService.createQuestion(data), {
-    //   //     error: "có lỗi"
-    //   //   })
-    //   data.note
-    // )
-
 
     if (data.content === " " ) {
-      alert('Please fill your content')
-      navigate('')
+      toast
+      .promise(InterviewService.error(data.content), {
+        error: "Please fill full question information"
+      })
     }
-    // else if () {
-    //   alert('fill your note')
-    //   navigate('')
-    // }
-    else if (data.typeQuestion === " " || data.skillId === " ") {
-      alert('Please select your type and skill')
-      navigate('')
+    // data.typeQuestion === " " || data.skillId === " "
+    else if (!setTriggeredSkill) {
+      toast
+      .promise(InterviewService.error(data.skillId), {
+        error: "Please select Skill "
+      })
     }
-    // else if (data.skillId === " ") {
-    //   alert('select your skill')
-    //   navigate('')
+    // else if (!triggeredType) {
+    //   toast
+    //   .promise(InterviewService.type(!setTriggeredType()), {
+    //     error: "Please select Type "
+    //   })
     // }
+    else if (!setTriggeredType) {
+      toast
+      .promise(InterviewService.error(data.typeQuestion), {
+        error: "Please select Type "
+      })
+    }
     else {
       toast
         .promise(InterviewService.createQuestion(data), {
@@ -197,6 +192,7 @@ export default function AddQuestion({ observation, onClick }: any) {
 
                                     onClick={() => {
                                       // handleActive
+                                      setTriggeredSkill(true)
                                       setInputData({ ...inputData, skill: skill.name })
                                     }}
                                   >
@@ -246,8 +242,8 @@ export default function AddQuestion({ observation, onClick }: any) {
                               )}
                               onClick={() => {
                                 // handleActive
+                                setTriggeredType(true)
                                 setInputData({ ...inputData, type: type })
-
                               }}
                             >
                               {TYPE_alter[type]}
