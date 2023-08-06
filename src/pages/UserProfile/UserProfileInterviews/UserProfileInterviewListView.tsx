@@ -37,6 +37,8 @@ export default function UserProfileInterviewListView<T>({
     formState: { errors },
   } = useForm();
 
+  console.log(data);
+
   const onSubmit = () => {};
 
   return (

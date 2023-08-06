@@ -131,6 +131,15 @@ export default function Events() {
         <div className={classNames("flex flex-col gap-4 mt-2 pt-2 border-t-2")}>
           {events.slice(0, 3).map((event) => {
             const formattedDate = moment(event.startAt).format("Do MMMM, YYYY");
+            const maxCharacters = 10; // Số ký tự tối đa bạn muốn hiển thị
+            const title = event.title;
+
+            let shortenedTitle = title;
+
+            if (title.length > maxCharacters) {
+              shortenedTitle = title.substring(0, maxCharacters) + "...";
+            }
+
             return (
               <Link
                 to={`/events/${event.id}`}
@@ -142,12 +151,12 @@ export default function Events() {
                   <img
                     src={event.img || blog_image}
                     alt=""
-                    className={classNames("h-full object-cover")}
+                    className={classNames("h-[100px] object-cover")}
                   />
                 </div>
                 <div className={classNames("w-[70%]")}>
                   <h3 className="text-base font-medium text-black capitalize">
-                    {event.title}
+                    {shortenedTitle}
                   </h3>
                   <p className="text-gray-500">{formattedDate}</p>
                 </div>

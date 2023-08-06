@@ -29,6 +29,7 @@ export default function UserProfileMyInformation() {
     experience: [],
     certificate: [],
     project: [],
+    skills: [],
   });
   const [loadingState, setLoadingState] = useState<LoadingStatus>("idle");
 
@@ -48,10 +49,13 @@ export default function UserProfileMyInformation() {
     return () => {};
   }, []);
 
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  // useEffect
+
+  // const [selectedOptions, setSelectedOptions] = useState([]);
 
   const handleSelectChange = (selectedOptions: any) => {
-    setSelectedOptions(selectedOptions);
+    // setSelectedOptions(selectedOptions);
+    handleValuesUpdate("skills", selectedOptions);
   };
 
   const handleSubmit = (e: any) => {
@@ -65,6 +69,7 @@ export default function UserProfileMyInformation() {
 
   const handleValuesUpdate = (ofId: string, values: any[]) => {
     const clonedObject = structuredClone(containerItem);
+    // @ts-ignore
     clonedObject[ofId] = values;
     setContainerItem({ ...clonedObject });
     handleSubmit(null);
@@ -88,7 +93,7 @@ export default function UserProfileMyInformation() {
               <LoadSpinner />
             </div>
           ) : (
-            <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-2 sm:grid-cols-6">
+            <div className="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6">
               <FieldContainer
                 label="Education"
                 // values={educationItems}
@@ -142,7 +147,7 @@ export default function UserProfileMyInformation() {
                     classNamePrefix="select"
                     closeMenuOnSelect={false}
                     components={animatedComponents}
-                    value={selectedOptions}
+                    value={containerItem.skills}
                     onChange={handleSelectChange}
                     styles={{
                       menu: (provided) => ({
@@ -152,6 +157,7 @@ export default function UserProfileMyInformation() {
                     }}
                   />
                 </div>
+                <small>Please save your skill after</small>
               </div>
             </div>
           )}

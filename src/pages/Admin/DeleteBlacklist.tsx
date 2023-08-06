@@ -1,11 +1,10 @@
 import React, { useState,useEffect } from "react";
 import axiosInstance from '../../utils/AxiosInstance';
-import {  AcountFrofileInterface,AcountFrofileInterfaceConfig } from "../../services/services";
+import {  AcountFrofileInterface } from "../../services/services";
 import { useParams } from "react-router-dom";
 import {  useAppSelector } from '../../hooks/hooks';
 import moment from "moment";
 import classNames from "classnames";
-import Loader from "../../components/Loader/Loader";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -59,10 +58,8 @@ export default function AdminChangePosition() {
     })
     .catch((error) => {
       // Xử lý lỗi (nếu có)
-      // console.error('Error:', error);
-       // Xử lý lỗi nếu có
-      toast.error('Error occurred: ' + error.message);
-    });
+       toast.error(error.response.data.result);
+      });
   };
 
   return ( 
@@ -136,8 +133,8 @@ export default function AdminChangePosition() {
                 />
             </div>
             <div className={classNames("mt-10 text-center px-5 py-4")}>
-              <button type="submit" onClick={goBack} className="px-6 py-3 text-white rounded-full bg-red-600     hover:bg-red-800">  Cancel   </button>
-              <button type="submit" onClick ={handleClickOpen}className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800 ml-5">  Delete   </button>
+              <button type="submit" onClick={goBack} className="px-6 py-3 text-white rounded-xl bg-red-600     hover:bg-red-800">  Cancel   </button>
+              <button type="submit" onClick ={handleClickOpen}className="px-6 py-3 text-white rounded-xl bg-emerald-600 hover:bg-emerald-800 ml-5">  Delete   </button>
                     <Dialog
                       open={open}
                       onClose={handleClose}
@@ -153,7 +150,8 @@ export default function AdminChangePosition() {
                       <DialogContent className="text-center">
                         <div className="text-center px-6">
                           <DialogContent className="font-semibold text-lg mb-2">
-                            Are you sure you want to delete "{showJobLists.name} "?
+                            <p>Are you sure you want to delete "</p>
+                            <p>{showJobLists.name} "?</p>
                           </DialogContent>
                           <DialogContentText
                             id="alert-dialog-description"

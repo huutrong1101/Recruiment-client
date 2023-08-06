@@ -57,8 +57,8 @@ export default function Suggested() {
             `py-4`,
           )}
         >
-          {suggestCandidate.length > 0 ? (
-            suggestCandidate.map((candidates, index) => (
+          {suggestCandidate?.length > 0 ? (
+            suggestCandidate.slice(0, 3).map((candidates, index) => (
               <div className="w-[22%] bg-white rounded-xl drop-shadow-lg border-2 border-gray-300">
                 <button className="text-left flex flex-col px-4 pt-4">
                   <EnvelopeIcon
@@ -98,7 +98,9 @@ export default function Suggested() {
               </div>
             ))
           ) : (
-            <div>Cannot found candidate suggest for job!</div>
+            <div className="text-center text-[1.1rem]">
+              Cannot found candidate suggest for job!
+            </div>
           )}
         </div>
       </div>

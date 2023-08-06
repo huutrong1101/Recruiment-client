@@ -2,23 +2,14 @@ import { Fragment } from "react";
 import { Transition } from "@headlessui/react";
 import classNames from "classnames";
 
-interface JobDescriptionWidgetProps {
-  companyName: any;
-  jobRole: any;
-  publishDate: any;
-
-  logo: {
-    src: any;
-    alt: any;
-  };
-}
 
 export default function ReccerJobDescriptionWidget({
   companyName,
   jobRole,
   publishDate,
   logo,
-}: JobDescriptionWidgetProps) {
+  quantity,
+}: any) {
   return (
     <Transition as={Fragment} show={true}>
       <div
@@ -49,6 +40,8 @@ export default function ReccerJobDescriptionWidget({
           >
             <span>{companyName}</span>
             <span>{jobRole}</span>
+            <span className="text-sm text-zinc-400">{quantity}   {quantity > 1 ? `Applicants` : `Applicant`}  </span>
+
           </div>
           {/* Right */}
 

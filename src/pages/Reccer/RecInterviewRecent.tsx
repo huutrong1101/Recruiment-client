@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../../utils/AxiosInstance";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
 import { REC_INTERVIEW_STATUS } from "../../utils/Localization";
 import classNames from "classnames";
@@ -9,6 +9,11 @@ export default function RecInterviewRecent() {
   const { interviewerId } = useParams();
   const [interview, setInterview] = useState([]);
   const [interview2, setInterview2] = useState([]);
+  let navigate = useNavigate();
+  const routeChange = (jobId: string) => {
+    let path = `../jobdetail/${jobId}`;
+    navigate(path);
+  };
   useEffect(() => {
     const getInterviewHistory = async () => {
       try {
@@ -31,7 +36,7 @@ export default function RecInterviewRecent() {
   interview.map((interview: any, index) => {
     const data = moment(interview.time).format("Do MMM, YYYY");
   });
-
+  
   return (
     <div className="bg-white p-6 border rounded-2xl">
       <div className="relative overflow-x-auto">
@@ -58,19 +63,30 @@ export default function RecInterviewRecent() {
                   <tr className="bg-white border-b" key={index}>
                     <td
                       scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                     >
-                      {interview.jobName}
+                      <p
+                        className="cursor-pointer w-fit hover:underline"
+                        onClick={() => {
+                          routeChange(interview?.jobId);
+                        }}
+                      >
+                        {interview.jobName}
+                      </p>
                     </td>
                     <td className="px-6 py-4">{date}</td>
                     <td className="px-4 py-4 rounded-lg p-2 mx-2 my-1">
                       <span
-                        className={`rounded-lg p-2 mx-2 my-1 ${interview.state !== "NOT_RECEIVED"
+                        className={`rounded-lg p-2 mx-2 my-1  ${interview.state === "PASSED"
                           ? "bg-green-200"
-                          : "bg-yellow-100"
+                          : interview.state === "FAILED"
+                            ? "bg-green-200"
+                            : interview.state === "NOT_RECEIVED"
+                              ? "bg-yellow-100"
+                              : "bg-yellow-100"
                           }`}
                       >
-                        {REC_INTERVIEW_STATUS[interview.state]}
+                        {interview.state === "RECEIVED" ? "Pending" : interview.state === "NOT_RECEIVED" ? "Pending" : interview.state === "PASSED" ? "Finish" : "Finish"}
                       </span>
                     </td>
                   </tr>

@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { STATUS } from '../../utils/Status';
 import axiosInstance from "../../utils/AxiosInstance";
-import { getLocalToken } from "../../utils/localToken";
 import { toast } from "react-toastify";
 
 
@@ -42,8 +41,15 @@ const INTCandidatesSlice = createSlice({
             state.INTCandidatesStatus = STATUS.IDLE;
           })
           .addCase(fetchINTCandidatesData.rejected, (state, action) => {
-            toast.error(`${action.error.message}`)
-            state.INTCandidatesStatus = STATUS.ERROR;
+            const errorMessage = action.error.message;
+            if(errorMessage === "Request failed with status code 500"){
+              state.INTCandidatesStatus = STATUS.ERROR500;
+            }else if(errorMessage === "Request failed with status code 404"){
+              state.INTCandidatesStatus = STATUS.ERROR404;
+            }else{
+              toast.error(`${action.error.message}`)
+              state.INTCandidatesStatus = STATUS.IDLE;
+            }
           })
 
 
@@ -53,11 +59,17 @@ const INTCandidatesSlice = createSlice({
           .addCase(fetchINTCandidatesByID.fulfilled, (state, action) => {
             state.INTSingleCandidate = action.payload;
             state.INTSingleCandidateStatus = STATUS.IDLE;
-
           })
           .addCase(fetchINTCandidatesByID.rejected, (state, action) => {
-            toast.error(`${action.error.message}`)
-            state.INTSingleCandidateStatus = STATUS.ERROR;
+            const errorMessage = action.error.message;
+            if(errorMessage === "Request failed with status code 500"){
+              state.INTSingleCandidateStatus = STATUS.ERROR500;
+            }else if(errorMessage === "Request failed with status code 404"){
+              state.INTSingleCandidateStatus = STATUS.ERROR404;
+            }else {
+              toast.error(`${action.error.message}`)
+              state.INTSingleCandidateStatus = STATUS.IDLE;
+            }
           });
       }
 });

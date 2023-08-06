@@ -84,7 +84,11 @@ axiosInstance.interceptors.response.use(
             `Clean the access token because we have to refresh token`,
           );
           clearLocalToken();
-          window.location.reload();
+
+          // Reload the page if it is was not a login page
+          if (!window.location.toString().includes(`/login`)) {
+            window.location.reload();
+          }
         } else {
           requestRefreshAccessToken()
             .then(() => {
@@ -96,6 +100,7 @@ axiosInstance.interceptors.response.use(
               );
               clearLocalToken();
               clearRefreshToken();
+
               window.location.reload();
             })
             .catch(() => {

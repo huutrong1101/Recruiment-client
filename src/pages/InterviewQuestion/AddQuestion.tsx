@@ -80,14 +80,15 @@ export default function AddQuestion({ observation, onClick }: any) {
   const handleSubmitAdd = (e: any) => {
     e.preventDefault()
     const foundSkill: any = showSkills.find((skill) => skill.name === inputData.skill);
+
     const data = {
       "content": inputData.content,
       "note": inputData.note,
       "typeQuestion": inputData.type,
-      "skillId": foundSkill.skillId
+      "skillId": foundSkill.skillId 
     };
 
-    console.log(data)
+    // data.content === ' ' && data.note === ' ' ? alert('Please fill your full content and note') : (navigate(""))
 
 
     if (data.content === " ") {

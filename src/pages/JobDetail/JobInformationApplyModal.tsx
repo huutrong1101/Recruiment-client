@@ -57,6 +57,7 @@ export default function JobInformationApplyModal({
       .then(() => {
         onApplySucceeded();
         setSubmitLoadingState("fulfill");
+        toast.success(`You applicant is submit and will be reviewed.`);
       })
       .catch(() => {
         toast.error(`Cannot apply to the job`);

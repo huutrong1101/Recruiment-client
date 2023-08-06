@@ -6,6 +6,7 @@ import {
   TrashIcon,
   UserMinusIcon,
 } from "@heroicons/react/24/outline";
+
 import {
   TableContainer,
   Table,
@@ -63,8 +64,8 @@ export default function AdminTable({ typeSelected }: TypeData) {
       role: queryParams.role || (typeSelected === "Blacklist" ? "CANDIDATE" : (typeSelected === "" ? "" : typeSelected)),
       name: queryParams.name  ||"",
       blacklist: queryParams.blacklist || typeSelected == "Blacklist" ?  "true" : "",
-      phone: queryParams.phone ,
-      email: queryParams.email,
+      phone: queryParams.phone ||"",
+      email: queryParams.email ||"",    
     },
     isUndefined,
   );
@@ -216,15 +217,13 @@ export default function AdminTable({ typeSelected }: TypeData) {
               </TableBody>
             ) : (
               <>
-                <TableBody>
+                <TableBody className="hover">
                 {showJobLists && showJobLists.length > 0 ?
                   (showJobLists.map((job) => (
                   <TableRow
-                    className="text-center text-black bg-white"
-                    style={{
-                      background: job.active === false ? "#FF0033" : "none",
-                      // Add any other inline styles you want for each row
-                    }}
+                    className={`text-center text-black bg-white hover:bg-gray-100 ${
+                      job.active === false ? "bg-red-500" : ""
+                    }`}
                     key={job.userId}
                   >
                     <TableCell
@@ -295,6 +294,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
                           onClose={handleClose}
                           BackdropProps={{ invisible: true }}
                           sx={{ borderRadius: 30 }}
+                          style={{ fontFamily: "Outfit, sans-serif" }}
                           aria-labelledby="alert-dialog-title"
                           aria-describedby="alert-dialog-description"
                         >
@@ -302,24 +302,25 @@ export default function AdminTable({ typeSelected }: TypeData) {
                             id="alert-dialog-title"
                             className="text-center"
                           >
-                            <p className="font-extrabold pt-4">Delete Job</p>
+                            <p className=" pt-4">Delete Job</p>
                           </DialogTitle>
                           <DialogContent className="text-center">
-                            <div className="text-center px-6">
-                              <DialogContent className="font-semibold text-lg mb-2">
-                                Are you sure you want to delete "{job.fullName}"?
+                            <div className="text-center">
+                              <DialogContent className="  text-lg mb-2">
+                                <p>Are you sure you want to delete</p>
+                                <p> "{job.fullName}"</p>
                               </DialogContent>
                               <DialogContentText
                                 id="alert-dialog-description"
                                 className="border bg-orange-100 px-3 py-2 "
                               >
-                                <div className ="flex">
+                                <div className ="flex text-italic">
                                   <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
-                                  <p className="flex text-red-800 font-semibold px-2">
+                                  <p className="flex text-red-800   px-2">
                                     WARNING
                                   </p>
                                 </div>
-                                <div className="text-left font-semibold">
+                                <div className="text-left  ">
                                   This action cannot be undone, the deleted item
                                   cannot be restored.
                                 </div>
@@ -370,7 +371,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
                       <TableCell colSpan={3}>
                         <div className="flex justify-center w-full mb-10">
                               {/* <PageNotFound/> */}
-                              <p>Không Tìm thấy Kết Quả. Vui lòng Kiểm Tra Lại</p>
+                              <p>No results were found. Please check again</p>
                         </div>
                       </TableCell>
                     </TableRow>
