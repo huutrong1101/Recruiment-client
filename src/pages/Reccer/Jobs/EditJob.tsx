@@ -140,9 +140,6 @@ export default function ReccerJobDetail() {
   };
 
   const handleSubmit = (event: any) => {
-    // navigate({
-    //   pathname: `/recruiter/jobs/`
-    // });
     event.preventDefault();
     if (name === "") {
       toast.error('Please enter Job Name');
@@ -197,7 +194,6 @@ export default function ReccerJobDetail() {
         success: `The Job was Edited`,
       })
       .catch((error) => toast.error(error.response.data.result));
-
   };
 
   return (

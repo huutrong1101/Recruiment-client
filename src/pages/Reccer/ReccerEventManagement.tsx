@@ -166,7 +166,7 @@ export default function ReccerEventManagement() {
         <div className="mt-5">
         {/* Add Event */}
           <button
-          className={classNames(  "text-white p-3 rounded-xl w-1/8 text-white shadow text-sm font-medium leading-tight flex justify-start bg-emerald-600 ",
+          className={classNames(  "text-white p-3 rounded-xl w-1/8  shadow text-sm font-medium leading-tight flex justify-start bg-emerald-600 ",
           )}>
             <NavLink to="/recruiter/events-add" onClick={() => { }}>
               + Add Event
