@@ -143,7 +143,7 @@ export default function UpdateQuestion({  observation, onClick, questionID }: an
                                     leave="transition ease-in duration-75"
                                     leaveFrom="transform opacity-100 scale-100"
                                     leaveTo="transform opacity-0 scale-95" >
-                                    <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 aboslute bg-opacity-90 shadow-md '>
+                                    <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 aboslute bg-opacity-90 shadow-md cursor-pointer '>
                                        <div className='w-full h-full  text-black rounded-md border border-zinc-200'>
                                           {showSkills.map((skill: any) => (
                                              <Menu.Item key={skill.skillId}>
@@ -195,7 +195,7 @@ export default function UpdateQuestion({  observation, onClick, questionID }: an
                            leave="transition ease-in duration-75"
                            leaveFrom="transform opacity-100 scale-100"
                            leaveTo="transform opacity-0 scale-95" >
-                           <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 bg-opacity-80 aboslute shadow-md  '>
+                           <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 bg-opacity-80 aboslute shadow-md cursor-pointer  '>
                               <div className='w-full h-full  text-black rounded-md border border-zinc-200'>
                                  {showTypes.map((type: any, index: any) => (
                                     <Menu.Item key={index}>
