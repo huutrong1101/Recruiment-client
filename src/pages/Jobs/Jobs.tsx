@@ -417,7 +417,7 @@ export default function Jobs() {
                   <span>
                     <AiOutlineBlock />
                   </span>
-                  <span>Not found any job</span>
+                  <span>There is no job available.</span>
                 </div>
               )}
             </div>

@@ -60,6 +60,8 @@ export default function AddJobCard({ cardData, setCardData, setpositionId, setLo
     },
   }
   const currentDate = new Date();
+  const nextDay = new Date(currentDate);
+  nextDay.setDate(currentDate.getDate() + 1);
 
   return (
     <div
@@ -177,7 +179,7 @@ export default function AddJobCard({ cardData, setCardData, setpositionId, setLo
             onChange={handleDateChange}
             dateFormat="yyyy-MM-dd"
             placeholderText="Select a day"
-            minDate ={currentDate}
+            minDate ={nextDay}
             className="border w-[160px] p-[1px] focus:outline-none focus:ring-black focus:ring-1 rounded-md"
           />
         </div>

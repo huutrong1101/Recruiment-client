@@ -9,14 +9,21 @@ import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { authLogin } from "../../redux/AuthSlice";
 import { UserLoginParamsInterface } from "../../services/services";
 import { toast } from "react-toastify";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
 export default function AuthenticateLogin() {
   const { register, handleSubmit } = useForm<UserLoginParamsInterface>();
   const dispatch = useAppDispatch();
+  const [searchParams] = useSearchParams();
+  const from = searchParams.get("from");
   const navigate = useNavigate();
   const { loading, signInLoadingState } = useAppSelector((app) => app.Auth);
-  const { state } = useLocation();
 
   const onSubmit = async (data: UserLoginParamsInterface) => {
     try {
@@ -24,21 +31,17 @@ export default function AuthenticateLogin() {
         .unwrap()
         .then(() => {
           toast.success(`Successfully signed in.`);
-          navigate(-1);
+          navigate(from === null ? "/" : from);
         });
-
-      // if (state === null) {
-      //   navigate(`/`);
-      // } else {
-      //   navigate(state.from);
-      // }
     } catch (err: any) {
       toast.error(`Failed to signed in with error: ${err.message}`);
       throw err;
     }
   };
 
-  return (
+  return loading === "pending" ? (
+    <LoadSpinner />
+  ) : (
     <form
       className={classnames(
         `py-8 gap-4 items-center justify-center flex flex-col h-[400px]`,
