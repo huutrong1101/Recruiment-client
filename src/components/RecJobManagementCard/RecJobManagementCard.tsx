@@ -6,6 +6,7 @@ import moment from "moment"
 import { JOB_POSITION } from "../../utils/Localization";
 import { JobInterface } from "../../services/services";
 import axiosInstance from "../../utils/AxiosInstance";
+import { JobService } from "../../services/JobService";
 
 
 
@@ -15,20 +16,47 @@ export default function RecDashboardCard({ job }: any) {
    const duration = moment.duration(now.diff(created));
    const days = duration.asDays();
 
-   console.log({ ...job, isActive: false })
+
+
+   const currentDate = moment(new Date()).format("Do MMMM, YYYY") // Get the current date and time
+   const targetDate = moment(job.deadline).format("Do MMMM, YYYY"); // Replace this with your target date
+   const currentDateMoment = moment(currentDate, 'Do MMMM, YYYY');
+   const targetDateMoment = moment(targetDate, 'Do MMMM, YYYY');
+
+   // Compare dates
+   if (currentDateMoment.isBefore(targetDateMoment)) {
+      console.log('Current date is before the target date.');
+   } else if (currentDateMoment.isSame(targetDateMoment)) {
+      console.log('Current date is the same as the target date.');
+   } else {
+      console.log('Current date is after the target date.');
+   }
+   // console.log(job?.name)
+   // console.log(moment(new Date()).format("Do MMMM, YYYY"))
+   // console.log( moment(job.deadline).format("Do MMMM, YYYY"))
 
    const temp = { ...job, isActive: false }
    const currentDay = new Date()
+   var test = ""
 
-   if (currentDay >= job?.deadline) {
-   }
+   // if (currentDay >= job?.deadline) {
+   //    test = "true"
+   //    console.log(test)
+   //    // JobService.editJob(temp, job?.jobId)
+   // }
+   // else {
+   //    test = "fasle"
+   //    console.log(test)
+   // }
    const handleActive = (data: boolean) => {
       var temp = ""
       if (data === true) {
 
          temp = "On Going"
       }
-      else temp = "Expired"
+      else {
+         temp = "Expired"
+      }
       return temp
    }
 
