@@ -289,7 +289,7 @@ export default function AdminChangePosition() {
                   alt="Authenticate block decoration"
                   src={image}
                   className={classnames(
-                    `right-0 bottom-[-280px] `,
+                    `right-0 bottom-[-260px] `,
                     `absolute`,
                     `w-[160px]`,
                     "right-5 bottom-[-230px] absolute w-[150px]",

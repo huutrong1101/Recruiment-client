@@ -26,12 +26,11 @@ export default function RecEventDetail() {
   const [dayend, setDayend] = useState('');
   const [daystar, setDaystar] = useState('');
   const [daycheck, setcheck] = useState('');
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [time, setTime] = useState('');
   const [location, setlocation] = useState('');
   const [title, settitle] = useState('');
   const [description, setdescription] = useState('');
-
   const [openSave, setOpenSave] = React.useState(false);
   const [openDelete, setOpenDelete] = React.useState(false);
   const handleClickOpen1 = () => {
@@ -96,6 +95,8 @@ export default function RecEventDetail() {
     formData.append("deadline", formattedValueDeadline);
     formData.append("location", location);
     formData.append("time", time);     
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/events/create với FormData
     axiosInstance.put( `/recruiter/events/${eventId}`, formData)
       .then((response) => {
@@ -109,6 +110,9 @@ export default function RecEventDetail() {
       .catch((error) => {
         // Xử lý lỗi (nếu có)
         toast.error(error.response.data.message); // Display an error message
+      }) 
+      .finally(() => {
+        setIsSubmitting(false); // Reset the submitting state after handling the request
       });
     setOpenSave(false);
   }
@@ -155,7 +159,7 @@ export default function RecEventDetail() {
                   ) : (
                     <div>
                       <img src={URL.createObjectURL(avatar1)} alt="blog_image" 
-                      className="w-auto h-auto max-w-[300px] max-h-[300px] rounded-xll" />
+                      className="w-auto h-auto max-w-[300px] max-h-[300px] rounded-xl" />
                       <div>{avatar1.name.split('.').slice(0, -1).join('.')}</div>
                     </div>
                   )}

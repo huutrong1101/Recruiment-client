@@ -108,6 +108,9 @@ export default function ReccerEventManagement() {
       setIsLoading(false);
     }
   };
+  const handleResetClick = () => {
+    window.location.reload(); // Gọi lại trang khi nút được nhấn
+  };
   return (
     <>
       <div>        
@@ -137,7 +140,7 @@ export default function ReccerEventManagement() {
                       <MagnifyingGlassIcon className="w-5 h-5 mx-2  mr-4" />
                       <input
                         type="text"
-                        placeholder="Search your name Event"
+                        placeholder="Please enter a search ..."
                         className="w-[85%] h-full text-base text-zinc-400 focus:outline-none"
                         value={dataSearch.key}
                         onChange={(e) => setDataSearch({ ...dataSearch, key: e.target.value })}
@@ -157,22 +160,29 @@ export default function ReccerEventManagement() {
                     </div>                              
                 </div>                  
               </form>
+              <div className=" ml-10">
+                {/* Add Event */}
+                  <button
+                  onClick={handleResetClick}
+                  className={classNames(  "mr-3 text-white p-3 rounded-xl  bg-red-600", 
+                  )}>
+                      Reset
+                  </button>
+                  <button
+                  className={classNames(  "ml-3 text-white p-3 rounded-xl bg-emerald-600 ",
+                  )}>
+                    <NavLink to="/recruiter/events-add" onClick={() => { }}>
+                      + Create
+                    </NavLink>
+                  </button>                 
+              </div>
             </div>           
 
 
 
 
 
-        <div className="mt-5">
-        {/* Add Event */}
-          <button
-          className={classNames(  "text-white p-3 rounded-xl w-1/8  shadow text-sm font-medium leading-tight flex justify-start bg-emerald-600 ",
-          )}>
-            <NavLink to="/recruiter/events-add" onClick={() => { }}>
-              + Add Event
-            </NavLink>
-          </button>
-        </div>
+       
         {/* Conten */}
         <div>
           {isLoading ? (
@@ -213,9 +223,9 @@ export default function ReccerEventManagement() {
                           )}
                         </div>
                         <div className="mt-2 text-center">
-                          <h1 className="text-2xl e-justify text-e-bold italic">
+                          <h1 className="text-xl e-justify text-e-bold italic">
                             {event.title.length > 25
-                              ? event.title.substring(0, 15) + "  ..."
+                              ? event.title.substring(0, 10) + "  ..."
                               : event.title}
                           </h1>
                         </div>
