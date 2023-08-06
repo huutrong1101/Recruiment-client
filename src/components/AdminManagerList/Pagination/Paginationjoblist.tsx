@@ -102,7 +102,7 @@ export default function Paginationjoblist({ queryConfig, pageSize }: Props) {
   };
   return (
     <>
-      <nav
+      <nav 
         aria-label="Page navigation example"
         className="flex items-center justify-center"
       >
@@ -141,7 +141,7 @@ export default function Paginationjoblist({ queryConfig, pageSize }: Props) {
                   pathname: "",
                   search: createSearchParams({
                     ...queryConfig,
-                    page: (page - 1).toString(),
+                    page: (page + 1).toString(),
                   }).toString(),
                 }}
                 className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"
