@@ -44,7 +44,7 @@ export default function UserProfileSubmittedJob() {
     return (
       result.content as {
         jobApplyId: string;
-        status: "NOT_RECEIVED" | "RECEIVED" | "PASS" | "FAILED";
+        status: "NOT_RECEIVED" | "RECEIVED" | "PASSED" | "FAILED";
         jobName: string;
         date: Date;
       }[]
