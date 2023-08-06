@@ -175,7 +175,7 @@ export default function Applied() {
             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
                 <th scope="col" className="px-6 py-4">
-                  <div className="flex gap-3 items-center">
+                  <div className="flex items-center gap-3">
                     Name
                     <ChevronUpDownIcon
                       className="w-5 h-5 cursor-pointer"
@@ -184,7 +184,7 @@ export default function Applied() {
                   </div>
                 </th>
                 <th scope="col" className="px-6 py-4">
-                  <div className="flex gap-3 items-center">
+                  <div className="flex items-center gap-3">
                     Email
                     <ChevronUpDownIcon
                       className="w-5 h-5 cursor-pointer"
@@ -193,7 +193,7 @@ export default function Applied() {
                   </div>
                 </th>
                 <th scope="col" className="px-6 py-4">
-                  <div className="flex gap-3 items-center">
+                  <div className="flex items-center gap-3">
                     Interviewer's Name
                     <ChevronUpDownIcon
                       className="w-5 h-5 cursor-pointer"
@@ -202,7 +202,7 @@ export default function Applied() {
                   </div>
                 </th>
                 <th scope="col" className="px-6 py-4">
-                  <div className="flex gap-3 items-center">
+                  <div className="flex items-center gap-3">
                     Score
                     <ChevronUpDownIcon
                       className="w-5 h-5 cursor-pointer"
@@ -298,7 +298,7 @@ export default function Applied() {
                                 (name: any, index: any) => (
                                   <div
                                     key={index}
-                                    className="font-small text-gray-500"
+                                    className="text-gray-500 font-small"
                                   >
                                     + {name}
                                   </div>
