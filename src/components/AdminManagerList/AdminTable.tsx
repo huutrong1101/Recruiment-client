@@ -6,6 +6,7 @@ import {
   TrashIcon,
   UserMinusIcon,
 } from "@heroicons/react/24/outline";
+
 import {
   TableContainer,
   Table,
@@ -63,8 +64,8 @@ export default function AdminTable({ typeSelected }: TypeData) {
       role: queryParams.role || (typeSelected === "Blacklist" ? "CANDIDATE" : (typeSelected === "" ? "" : typeSelected)),
       name: queryParams.name  ||"",
       blacklist: queryParams.blacklist || typeSelected == "Blacklist" ?  "true" : "",
-      phone: queryParams.phone ,
-      email: queryParams.email,
+      phone: queryParams.phone ||"",
+      email: queryParams.email ||"",    
     },
     isUndefined,
   );
@@ -216,7 +217,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
               </TableBody>
             ) : (
               <>
-                <TableBody>
+                <TableBody className="hover">
                 {showJobLists && showJobLists.length > 0 ?
                   (showJobLists.map((job) => (
                   <TableRow
@@ -370,7 +371,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
                       <TableCell colSpan={3}>
                         <div className="flex justify-center w-full mb-10">
                               {/* <PageNotFound/> */}
-                              <p>Không Tìm thấy Kết Quả. Vui lòng Kiểm Tra Lại</p>
+                              <p>No results were found. Please check again</p>
                         </div>
                       </TableCell>
                     </TableRow>

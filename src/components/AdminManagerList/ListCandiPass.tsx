@@ -133,7 +133,7 @@ export default function ListCandiPass() {
               <TableBody>
                 <TableRow>
                   <TableCell colSpan={4} className="text-center">
-                    <p>Không Tìm thấy Kết Quả. Vui lòng Kiểm Tra Lại</p>
+                    <p>No results were found. Please check again</p>
                     {/* <PageNotFound /> */}
                   </TableCell>
                 </TableRow>
