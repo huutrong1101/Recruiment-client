@@ -35,87 +35,34 @@ export default function RecDashboardCard({ job }: any) {
   const currentDay = new Date();
   var test = "";
 
-   // Compare dates
-   const temp = { ...job, isActive: false }
-   if (currentDateMoment.isBefore(targetDateMoment)) {
-   } else if (currentDateMoment.isSame(targetDateMoment)) {
-   } else {
-      JobService.editJob(temp, job?.jobId)
-   }
-   const handleActive = (data: boolean) => {
-      var temp = ""
-      if (data === true) {
+  // if (currentDay >= job?.deadline) {
+  //    test = "true"
+  //    console.log(test)
+  //    // JobService.editJob(temp, job?.jobId)
+  // }
+  // else {
+  //    test = "fasle"
+  //    console.log(test)
+  // }
+  const handleActive = (data: boolean) => {
+    var temp = "";
+    if (data === true) {
+      temp = "On Going";
+    } else {
+      temp = "Expired";
+    }
+    return temp;
+  };
 
-         temp = "On Going"
-      }
-      else {
-         temp = "Expired"
-      }
-      return temp
-   }
-
-   return (
-      <>
-
-         <div className={`relative w-full overflow-hidden transition-all duration-500 bg-white border rounded-md shadow group hover:shadow-lg h-fit `}>
-            <div className="p-6">
-               <div className="flex items-center">
-                  <div className="w-14 h-14 min-w-[56px] flex items-center justify-center bg-white shadow  rounded-md">
-                     <img className="w-12 my-3 h-110" src={logo_FPT} />
-                  </div>
-
-                  <div
-                     className={classnames(
-                        "ml-4 items-center leading-7 tracking-wider",
-                     )}
-                  >
-                     <h1 className={classnames("text-black text-lg font-semibold ")}>
-                        {job.name}
-                        <span className="ml-5 text-sm font-semibold text-gray-400 ">
-                           {days >= 1
-                              ? `${Math.floor(days)} days`
-                              : `${Math.abs(duration.asHours()).toFixed(0)} hours`}{" "}
-                           ago
-                        </span>
-                     </h1>
-                     <button
-                        className={classnames(
-                           "text-[#05966A] text-center text-xs font-semibold bg-[#C6DED5] p-1 rounded-full px-2 hover:bg-[#05966A] hover:text-white",
-                        )}
-                     >
-                        {JOB_POSITION[job.jobType]}
-                     </button>
-                     <span className="ml-3 text-sm font-semibold text-gray-400 ">
-                        Salary: {job.salaryRange}
-                     </span>
-                     <span className={`ml-3 text-sm font-semibold ${job?.isActive === true ? "text-green-700" : "text-red-600"} `}>
-                        {handleActive(job?.isActive)}
-
-                     </span>
-                  </div>
-               </div>
-               <div className={classnames("flex items-start mt-4 overflow-hidden")}>
-                  <div className="w-[70%] text-black inline-flex text-center text-sm font-semibold leading-7 tracking-wider capitalize overflow-hidden">
-                     Decription:
-                     <p className="ml-1 font-normal text-gray-400 whitespace-nowrap overflow-hidden overflow-ellipsis">
-                        {job.description}
-                     </p>
-                  </div>
-               </div>
-               {
-                  job.skills.map((items: any) => (
-                     <span
-                        className={classnames(
-                           "bg-gray-300 hover:bg-gray-400  inline-block text-slate-900 text-xs px-2.5 py-0.5 font-semibold rounded-full me-1",
-                        )}
-                     >
-                        {items.name}
-                     </span>
-
-                  ))
-               }
-               <div>
-               </div>
+  return (
+    <>
+      <div
+        className={`relative w-full overflow-hidden transition-all duration-500 bg-white border rounded-md shadow group hover:shadow-lg h-fit `}
+      >
+        <div className="p-6">
+          <div className="flex items-center">
+            <div className="w-14 h-14 min-w-[56px] flex items-center justify-center bg-white shadow  rounded-md">
+              <img className="w-12 my-3 h-110" src={logo_FPT} />
             </div>
 
             <div
