@@ -32,6 +32,7 @@ export default function AddQuestion({ observation, onClick }: any) {
   });
 
   // const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate()
 
   const skills: QuestionListInterface[] = useAppSelector((state) => state.questionList.skills);
   const types: QuestionListInterface[] = useAppSelector((state) => state.questionList.types);
@@ -78,12 +79,55 @@ export default function AddQuestion({ observation, onClick }: any) {
 
     console.log(data)
 
-    toast
-      .promise(InterviewService.createQuestion(data), {
-        pending: "Adding the question",
-        success:"The question was added. Please RELOAD page",
-        error: "có lỗi"
-      })
+    // toast
+    //   .promise(InterviewService.createQuestion(data), {
+    //     pending: "Adding the question",
+    //     success:"The question was added. Please RELOAD page",
+    //     error: "có lỗi"
+    //   })
+    // data.content === ' ' && data.note === ' ' ? alert('Please fill your full content and note') : (navigate(""))
+
+    // data.content === ' ' || data.note !== ' ' ? alert('Please fill your full content') : (
+    //   // toast
+    //   //   .promise(InterviewService.createQuestion(data), {
+    //   //     error: "có lỗi"
+    //   //   })
+    //   data.content
+    // )
+
+    // data.content !== ' ' || data.note === ' ' ? alert('Please fill your full note') : (
+    //   // toast
+    //   //   .promise(InterviewService.createQuestion(data), {
+    //   //     error: "có lỗi"
+    //   //   })
+    //   data.note
+    // )
+
+
+    if (data.content === " " || data.note === " ") {
+      alert('Please fill your content or note')
+      navigate('')
+    }
+    // else if () {
+    //   alert('fill your note')
+    //   navigate('')
+    // }
+    else if (data.typeQuestion === " " || data.skillId === " ") {
+      alert('Please select your type and skill')
+      navigate('')
+    }
+    // else if (data.skillId === " ") {
+    //   alert('select your skill')
+    //   navigate('')
+    // }
+    else {
+      toast
+        .promise(InterviewService.createQuestion(data), {
+          pending: "Adding the question",
+          success: "The question was added. Please RELOAD page",
+          error: "Please fill full question information"
+        })
+    }
   }
 
 
@@ -153,7 +197,7 @@ export default function AddQuestion({ observation, onClick }: any) {
 
                                     onClick={() => {
                                       // handleActive
-                                      setInputData({...inputData, skill: skill.name })
+                                      setInputData({ ...inputData, skill: skill.name })
                                     }}
                                   >
                                     {skill.name}
