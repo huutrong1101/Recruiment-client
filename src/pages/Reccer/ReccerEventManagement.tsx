@@ -1,5 +1,4 @@
 import { useEffect, useState, } from "react";
-import classnames from "classnames";
 import blog_image from "../../../images/blog_image.png";
 import { Link, NavLink } from "react-router-dom";
 import { ArrowRightIcon, CalendarDaysIcon, ChevronDownIcon, ClockIcon, MagnifyingGlassIcon, } from "@heroicons/react/24/outline";
@@ -11,18 +10,10 @@ import qs from "query-string";
 import axiosInstance from "../../utils/AxiosInstance";
 import moment from "moment";
 import Pagination from "../../components/Pagination/Pagination";
-import Loader from "../../components/Loader/Loader";
-import { Outlet } from "react-router-dom";
-import AdminTable from "../../components/AdminManagerList/AdminTable";
-import { STATUS } from "../../utils/Status";
-import { AcountConfig, AcountInterface } from "../../services/services";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import {MagnifyingGlassCircleIcon} from '@heroicons/react/24/outline'
-import Paginationacountlist from "../../components/AdminManagerList/Pagination/Paginationacountlist";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import classNames from "classnames";
 import { BsFilterLeft } from "react-icons/bs";
-import { Menu } from "@headlessui/react";
 
 export type QueryConfig = {
   [key in keyof EventListConfig]: string;
@@ -117,10 +108,12 @@ export default function ReccerEventManagement() {
       setIsLoading(false);
     }
   };
+  const handleResetClick = () => {
+    window.location.reload(); // Gọi lại trang khi nút được nhấn
+  };
   return (
     <>
-      <div>
-        
+      <div>        
             <div
               className={classNames(
                 "flex justify-center mt-5 item-center ",
@@ -147,7 +140,7 @@ export default function ReccerEventManagement() {
                       <MagnifyingGlassIcon className="w-5 h-5 mx-2  mr-4" />
                       <input
                         type="text"
-                        placeholder="Search your name Event"
+                        placeholder="Please enter a search ..."
                         className="w-[85%] h-full text-base text-zinc-400 focus:outline-none"
                         value={dataSearch.key}
                         onChange={(e) => setDataSearch({ ...dataSearch, key: e.target.value })}
@@ -167,22 +160,29 @@ export default function ReccerEventManagement() {
                     </div>                              
                 </div>                  
               </form>
+              <div className=" ml-10">
+                {/* Add Event */}
+                  <button
+                  onClick={handleResetClick}
+                  className={classNames(  "mr-3 text-white p-3 rounded-xl  bg-red-600", 
+                  )}>
+                      Reset
+                  </button>
+                  <button
+                  className={classNames(  "ml-3 text-white p-3 rounded-xl bg-emerald-600 ",
+                  )}>
+                    <NavLink to="/recruiter/events-add" onClick={() => { }}>
+                      + Create
+                    </NavLink>
+                  </button>                 
+              </div>
             </div>           
 
 
 
 
 
-        <div className="mt-5">
-        {/* Add Event */}
-          <button
-          className={classNames(  "text-white p-3 rounded-xl w-1/8 text-white shadow text-sm font-medium leading-tight flex justify-start bg-emerald-600 ",
-          )}>
-            <NavLink to="/recruiter/events-add" onClick={() => { }}>
-              + Add Event
-            </NavLink>
-          </button>
-        </div>
+       
         {/* Conten */}
         <div>
           {isLoading ? (
@@ -190,7 +190,7 @@ export default function ReccerEventManagement() {
                     <LoadSpinner className="text-2xl text-[#059669] " />
             </div>
           ) : (
-            <div className="flex flex-wrap -mx-4 mt-[50px]">
+            <div className="flex flex-wrap mx-4 mt-[50px]">
               {/* <!-- Card --> */}
               {showEvents && showEvents.length > 0 ?
                 (showEvents.map((event) => (
@@ -210,8 +210,7 @@ export default function ReccerEventManagement() {
                           </div>
                           <div className="flex items-center gap-1">
                             <ClockIcon className="w-[20px]" />
-                            <p>{event.time}</p>
-
+                            <p>{moment(event.time, "HH:mm:ss").format("HH:mm")}</p>
                           </div>
                         </div>
                         <div className="mt-2 text-left">
@@ -225,8 +224,8 @@ export default function ReccerEventManagement() {
                         </div>
                         <div className="mt-2 text-center">
                           <h1 className="text-xl e-justify text-e-bold italic">
-                            {event.title.length > 20
-                              ? event.title.substring(0, 17) + "  ..."
+                            {event.title.length > 25
+                              ? event.title.substring(0, 10) + "  ..."
                               : event.title}
                           </h1>
                         </div>
@@ -245,7 +244,7 @@ export default function ReccerEventManagement() {
                 ))
                 ) : (
                   <div className="flex justify-center w-full mb-10">
-                    <span>Không tìm thấy kết quả</span>
+                    <span>No results were found. Please check again</span>
                   </div>
                   )}
 

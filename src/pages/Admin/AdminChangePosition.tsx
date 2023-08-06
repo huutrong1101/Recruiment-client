@@ -36,15 +36,20 @@ export default function AdminChangePosition() {
     const companyPattern = /^[a-zA-Z0-9._%+-]+@(?:(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})$/;  
     return emailPattern.test(email) && (gmailPattern.test(email) || companyPattern.test(email));
   };
-  const handlePhoneChange = (event) => {
-    // Only update the phone state if the new value matches the pattern or is an empty string
-    if (event.target.value === "" || /^\d{5,12}$/.test(event.target.value)) {
-      setPhone(event.target.value);
-    }
-  };
+   const [isPending, setIsPending] = useState(false);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsPending(true); // Thiết lập trạng thái pending khi bắt đầu gửi yêu cầu
     setOpen(false);
+    // CHeckphone
+    const inputPhone = phone;
+    const isValidPhone = /^\d{10,11}$/.test(inputPhone);
+    if (!isValidPhone) {
+      toast.error('Please enter a valid phone number with 10 or 11 digits.');
+      return;
+    } else {
+      setPhone(inputPhone);
+    }
     // Check email đúng đinh dang hay không
     if (!isValidEmail(email)) {
       // Invalid email format
@@ -61,7 +66,7 @@ export default function AdminChangePosition() {
     ) {
       toast.error("Please fill in all required fields.");
       return;
-    }
+    }    
 
     if (role !== undefined) {
       const userData = {
@@ -71,9 +76,8 @@ export default function AdminChangePosition() {
         password: password,
         role: role,
       };
-      // Make the API request to create the user
-      axiosInstance
-        .post(`admin/usercreate`, userData)
+            // Make the API request to create the user
+      axiosInstance.post(`admin/usercreate`, userData)
         .then((response) => {
           // Handle success
           toast.success(response.data.message);
@@ -81,9 +85,12 @@ export default function AdminChangePosition() {
         .catch((error) => {
           // Handle error
           toast.error(error.response.data.result);
-        });
+        })
+        .finally(() => {
+          setIsPending(false); // Thiết lập trạng thái pending về false khi kết thúc yêu cầu (bất kể thành công hoặc lỗi)
+        });;
     } else {
-      toast.error("Error occurred: ");
+      toast.error("Error:");
     }
   };
 
@@ -201,7 +208,7 @@ export default function AdminChangePosition() {
                         <div className="text-center px-6">
                         <DialogContent className="font-semibold text-lg">
                           <p className="mb-3">  Are you sure you want to create acount ?</p>
-                          <div className="border rounded-lg p-4 mb-4 ">
+                          <div className="border rounded-lg p-4 text-justify">
                             <h2 className="text-e-justify">Name: {name}</h2>
                             <h2 className="text-e-justify">Email: {email}</h2>
                             <h2 className="text-e-justify">Password: {password}</h2>
@@ -210,29 +217,29 @@ export default function AdminChangePosition() {
                         </DialogContent>
                         <DialogContentText
                             id="alert-dialog-description"
-                            className="border bg-orange-50 px-3 py-2 "
+                            className="bg-orange-50"
                         >
-                            <div className="flex">
-                            <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
-                            <p className="flex text-red-800 font-semibold px-2">
-                                WARNING
-                            </p>
-                            </div>
-                            <div className="text-left font-semibold">
-                            This action cannot be undone, the deleted item
-                            cannot be restored.
-                            </div>
+                            <div className="flex border rounded-lg p-4 text-justify">
+                              <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
+                              <p className="flex text-red-800 font-semibold px-2">
+                                  WARNING
+                              </p>
+                              <div className="text-left font-semibold">
+                                This action cannot be undone, the deleted item
+                                cannot be restored.
+                              </div>
+                            </div>                           
                         </DialogContentText>
                     </div>
                         <DialogActions style={{ justifyContent: 'center' }}>
                         <button
-                            className="rounded-lg bg-red-700 hover:bg-green-900 px-1 py-1 mx-1 my-1 text-white"
+                            className="rounded-lg bg-red-700 px-2 py-2 mx-1 my-1 text-white hover:bg-red-900"
                             onClick={handleClose}
                             >
                             Cancel
                             </button>
                             <button
-                              className="rounded-lg bg-[#059669] hover:bg-red-900 px-1 py-1 mx-1 my-1 text-white"
+                              className="rounded-lg bg-[#059669] hover:bg-green-900  px-2 py-2 mx-1 my-1 text-white"
                               onClick = {handleSubmit}
                               type="submit"
                             >
@@ -282,7 +289,7 @@ export default function AdminChangePosition() {
                   alt="Authenticate block decoration"
                   src={image}
                   className={classnames(
-                    `right-0 bottom-[-280px] `,
+                    `right-0 bottom-[-260px] `,
                     `absolute`,
                     `w-[160px]`,
                     "right-5 bottom-[-230px] absolute w-[150px]",

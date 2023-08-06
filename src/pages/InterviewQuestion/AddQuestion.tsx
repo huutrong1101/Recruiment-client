@@ -32,12 +32,23 @@ export default function AddQuestion({ observation, onClick }: any) {
   });
 
   // const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate()
 
   const skills: QuestionListInterface[] = useAppSelector((state) => state.questionList.skills);
   const types: QuestionListInterface[] = useAppSelector((state) => state.questionList.types);
 
   const [showSkills, setShowSkills] = useState(skills)
   const [showTypes, setShowTypes] = useState(types)
+
+  const [triggeredSkill, setTriggeredSkill] = useState(false)
+  const [triggeredType, setTriggeredType] = useState(false)
+
+  const handleTriggerSkill = (e: any) => {
+    setTriggeredSkill(!triggeredSkill)
+  }
+  const handleTriggerType = (e: any) => {
+    setTriggeredType(!triggeredType)
+  }
 
 
   const [inputData, setInputData] = useState({ note: " ", content: " ", type: "", skill: "" })
@@ -69,21 +80,44 @@ export default function AddQuestion({ observation, onClick }: any) {
   const handleSubmitAdd = (e: any) => {
     e.preventDefault()
     const foundSkill: any = showSkills.find((skill) => skill.name === inputData.skill);
+
     const data = {
       "content": inputData.content,
       "note": inputData.note,
       "typeQuestion": inputData.type,
-      "skillId": foundSkill.skillId
+      "skillId": foundSkill.skillId 
     };
 
-    console.log(data)
+    // data.content === ' ' && data.note === ' ' ? alert('Please fill your full content and note') : (navigate(""))
 
-    toast
-      .promise(InterviewService.createQuestion(data), {
-        pending: "Adding the question",
-        success:"The question was added. Please RELOAD page",
-        error: "có lỗi"
-      })
+
+    if (data.content === " ") {
+      toast
+        .promise(InterviewService.error(data.content), {
+          error: "Please fill full question information"
+        })
+    }
+    // data.typeQuestion === " " || data.skillId === " "
+    else if (!setTriggeredSkill) {
+      toast
+        .promise(InterviewService.error(data.skillId), {
+          error: "Please select Skill "
+        })
+    }
+    else if (!setTriggeredType) {
+      toast
+        .promise(InterviewService.error(data.typeQuestion), {
+          error: "Please select Type "
+        })
+    }
+    else {
+      toast
+        .promise(InterviewService.createQuestion(data), {
+          pending: "Adding the question",
+          success: "The question was added. Please RELOAD page",
+          error: "Please fill full question information"
+        })
+    }
   }
 
 
@@ -108,11 +142,14 @@ export default function AddQuestion({ observation, onClick }: any) {
         <div className='flex h-full'>
           <div className='flex flex-col w-3/5 h-[83%] '>
             <div className='mx-5 font-normal text-md my-1'>Note</div>
-            <div className='w-11/12 p-2 h-full border-2 border-emerald-600 rounded-md ml-7 '>
-              <textarea className='w-full resize-none outline-none h-full ' placeholder='Answer'
-                onChange={e => setInputData({ ...inputData, note: e.target.value })}
-              ></textarea>
+            <div className="w-full h-full flex justify-center">
+              <div className='w-11/12 h-full ml-6 border-2 border-emerald-600 rounded-md  p-2 '>
+                <textarea className='w-full resize-none outline-none h-full ' placeholder='Answer'
+                  onChange={e => setInputData({ ...inputData, note: e.target.value })}
+                ></textarea>
+              </div>
             </div>
+
           </div>
           {/* skill button */}
           <div className='flex flex-col w-2/5 p-2 relative'>
@@ -137,7 +174,7 @@ export default function AddQuestion({ observation, onClick }: any) {
                         leave="transition ease-in duration-75"
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95" >
-                        <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 aboslute bg-opacity-90 shadow-md '>
+                        <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 aboslute bg-opacity-90 shadow-md cursor-pointer'>
                           <div className='w-full h-full  text-black rounded-md border border-zinc-200'>
                             {showSkills.map((skill: any) => (
                               <Menu.Item key={skill.skillId}>
@@ -145,7 +182,7 @@ export default function AddQuestion({ observation, onClick }: any) {
                                   <p
                                     className={classNames(
                                       active
-                                        ? "bg-gray-100 text-gray-900 bg-opacity-80"
+                                        ? "bg-gray-100 text-gray-900 bg-opacity-80 "
                                         : "text-gray-700", "p-2",
                                       "block  text-sm",
                                     )}
@@ -153,7 +190,8 @@ export default function AddQuestion({ observation, onClick }: any) {
 
                                     onClick={() => {
                                       // handleActive
-                                      setInputData({...inputData, skill: skill.name })
+                                      setTriggeredSkill(true)
+                                      setInputData({ ...inputData, skill: skill.name })
                                     }}
                                   >
                                     {skill.name}
@@ -188,7 +226,7 @@ export default function AddQuestion({ observation, onClick }: any) {
                   leave="transition ease-in duration-75"
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95" >
-                  <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 bg-opacity-80 aboslute shadow-md  '>
+                  <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 bg-opacity-80 aboslute shadow-md cursor-pointer '>
                     <div className='w-full h-full  text-black rounded-md border border-zinc-200'>
                       {showTypes.map((type: any, index: any) => (
                         <Menu.Item key={index}>
@@ -196,14 +234,14 @@ export default function AddQuestion({ observation, onClick }: any) {
                             <p
                               className={classNames(
                                 active
-                                  ? "bg-gray-100 text-gray-900 bg-opacity-80"
+                                  ? "bg-gray-100 text-gray-900 bg-opacity-80 "
                                   : "text-gray-700", "p-2",
                                 "block  text-sm",
                               )}
                               onClick={() => {
                                 // handleActive
+                                setTriggeredType(true)
                                 setInputData({ ...inputData, type: type })
-
                               }}
                             >
                               {TYPE_alter[type]}

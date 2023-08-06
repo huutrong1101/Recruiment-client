@@ -204,7 +204,7 @@ export default function App() {
               element={<INTCandidateDetail />}
             />
             <Route index path="interview-recent/:id/score-page" element={<ScorePage />} />
-            <Route index path="manage-question" element={<ManageQuestion />} />
+            <Route index path="question" element={<ManageQuestion />} />
           </Route>
         </Route>
 

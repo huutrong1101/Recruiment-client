@@ -90,7 +90,7 @@ export default function Schedule() {
 
     if (selectedDateTime && selectedDateTime < new Date()) {
       // Kiểm tra nếu ngày và giờ đã chọn trước thời gian hiện tại
-      toast.error("Selected date and time is in the past.");
+      toast.error("The selected date and time is in the past.");
       return; // Dừng quá trình tạo buổi phỏng vấn
     }
 
@@ -111,6 +111,10 @@ export default function Schedule() {
       .promise(InterviewService.createInterview(data), {
         pending: "Creating the interview",
         success: "The interview was created",
+      })
+      .then(() => {
+        handleChangeState();
+        routeChange();
       })
       .catch((error) => toast.error(error.response.data.result));
   };
@@ -133,8 +137,8 @@ export default function Schedule() {
   const handleOnClick = () => {
     // console.log("check");
     handleCreateInterview();
-    handleChangeState();
-    routeChange();
+    // handleChangeState();
+    // routeChange();
   };
 
   return (

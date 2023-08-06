@@ -13,9 +13,10 @@ import axiosInstance from "../../utils/AxiosInstance";
 import Paginationacountlist from "../../components/AdminManagerList/Pagination/Paginationacountlist";
 import moment from "moment";
 import Loader from "../../components/Loader/Loader";
-import { ChevronDownIcon, MagnifyingGlassCircleIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon} from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import { BsFilterLeft } from "react-icons/bs";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 export type QueryConfig = {
   [key in keyof AcountConfig]: string;
@@ -100,16 +101,16 @@ export default function AdminDashboard() {
     <div className="flex flex-col">
         <div
           className={classNames(
-            "flex justify-center item-center ","p-1 text-center mb-5 mt-5",
+            "flex justify-center item-center ","p-1 text-center mb-5 mt-5  mr-4",
           )}
         >
         <form
           onSubmit={e => handleSearch(e)}
-          className="inline-flex items-center justify-start gap-1 px-0.5 py-0.5 bg-white border rounded-xl bg-opacity-5"
+          className=" inline-flex items-center justify-start gap-1 px-0.5 py-0.5 bg-white border rounded-xl bg-opacity-5 "
         >
           <BsFilterLeft className={classNames(`w-[20px] ml-4 mr-4`)} />
 
-          <div className="flex items-center justify-center gap-3 relative">
+          <div className="flex items-center justify-center gap-3 relative ">
               <p> Type : </p>
               <select
                 value={dataSearch.field}
@@ -124,8 +125,8 @@ export default function AdminDashboard() {
                   <ChevronDownIcon className={classNames("w-[20px]")}                      />      
               </div>          
             </div>
-            <div className="flex items-center justify-center gap-3 ml-3 relative w-[20px]"><MagnifyingGlassCircleIcon/></div>
-            <div className="relative">
+            <div className="flex items-center justify-center gap-3 ml-3 relative w-[20px]"><MagnifyingGlassIcon/></div>
+            <div className="relative ">
             <input
               type="text"
               className="font-medium outline-none text-gray-900 text-[14px] ml-5 h-[30px] text-left rounded-lg"

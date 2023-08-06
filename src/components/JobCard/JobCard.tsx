@@ -2,15 +2,15 @@ import React from "react";
 import classnames from "classnames";
 import logo_FPT from "../../../images/logo_FPT.png";
 import { Link } from "react-router-dom";
-import {
-  MapPinIcon,
-  UserIcon,
-  ArrowRightIcon,
-} from "@heroicons/react/24/outline";
 import moment from "moment";
 import { JobInterface } from "../../services/services";
 import { JOB_POSITION } from "../../utils/Localization";
-import { HiMapPin, HiUser } from "react-icons/hi2";
+import {
+  HiMapPin,
+  HiUser,
+  HiComputerDesktop,
+  HiMiniUser,
+} from "react-icons/hi2";
 import classNames from "classnames";
 
 interface JobCardProps {
@@ -44,23 +44,35 @@ export default function JobCard({ job }: JobCardProps) {
         <div className={classnames("w-8/12 md:w-full")}>
           <h3
             className={classnames(
-              "text-black text-md font-bold leading-7 tracking-wider capitalize break-words",
+              "text-black text-md font-bold leading-7 tracking-wider capitalize break-words min-h-12 break-normal",
             )}
           >
             {shortenedTitle}
           </h3>
           <div
             className={classnames(
-              "mt-2 text-gray-600 text-sm flex flex-col gap-1",
+              "mt-2 text-gray-600 text-sm flex flex-row items-center justify-between gap-1",
             )}
           >
-            <div className={classnames("flex flex-row gap-4 items-center")}>
-              <HiMapPin />
-              <p className="flex-1">{JOB_POSITION[job.location]}</p>
+            <div>
+              <div className={classnames("flex flex-row gap-4 items-center")}>
+                <HiMiniUser />
+                <p className="flex-1">{JOB_POSITION[job.jobType]}</p>
+              </div>
+              <div className={classnames("flex flex-row gap-4 items-center")}>
+                <HiComputerDesktop />
+                <p className="flex-1">{JOB_POSITION[job.position.name]}</p>
+              </div>
             </div>
-            <div className={classnames("flex flex-row gap-4 items-center")}>
-              <HiUser />
-              <p className="flex-1">{job.quantity} members</p>
+            <div>
+              <div className={classnames("flex flex-row gap-4 items-center")}>
+                <HiMapPin />
+                <p className="flex-1">{JOB_POSITION[job.location]}</p>
+              </div>
+              <div className={classnames("flex flex-row gap-4 items-center")}>
+                <HiUser />
+                <p className="flex-1">{job.quantity} members</p>
+              </div>
             </div>
           </div>
         </div>

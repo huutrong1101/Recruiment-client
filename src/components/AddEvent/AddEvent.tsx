@@ -13,13 +13,14 @@ import { toast } from "react-toastify";
 import classNames from "classnames";
 import { CalendarDaysIcon, ExclamationTriangleIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import { ClockIcon } from "@mui/x-date-pickers";
-export default function AddEvent() {
-      
+export default function AddEvent() {      
       //Event Content
       const [time, setTime] =     useState('');
       const [title, settitle] = useState('');
       const [description, setdescription] = useState('');
       const [location, setlocation] = useState('');
+      const [isPending, setIsPending] = useState(false);
+
       //Upload event avatar      
       const [avatar, setAvatar] = useState(null); // Thay đổi giá trị của useState thành null
       //Upload event avatar
@@ -27,13 +28,15 @@ export default function AddEvent() {
         const file = event.target.files[0]; // Lấy file từ sự kiện chọn file
         setAvatar(file);        
       };
-      //
       // SubmitButon 
       const [startAt, setstartAt] = useState("");
+      const [startAt1, setstartAt1] = useState("");
+
       useEffect(() => {
         // Set the default value for "Day Start" to the current date
         const currentDate = moment().format("YYYY-MM-DD");
         setstartAt(currentDate);
+        setstartAt1(currentDate);
       }, []); 
       const [deadline, setDeadline] = useState("");
       const handleSubmit = (event: any) => {
@@ -68,7 +71,7 @@ export default function AddEvent() {
         formData.append("deadline", formattedValueDeadline);
         formData.append("location", location);
         formData.append("time",  time+":00");       
-
+        setIsPending(true); // Thiết lập trạng thái pending khi bắt đầu gửi yêu cầu
         // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/events/create với FormData
         axiosInstance.post('recruiter/events/create', formData)
           .then((response) => {
@@ -79,7 +82,11 @@ export default function AddEvent() {
           .catch((error) => {
             // console.error('Error:', error);
             toast.error(error.response.data.result);
+          })
+          .finally(() => {
+            setIsPending(false); // Thiết lập trạng thái pending về false khi kết thúc yêu cầu (bất kể thành công hoặc lỗi)
           });
+          
         setOpen(false);
       }
       const [open, setOpen] = React.useState(false);
@@ -213,9 +220,9 @@ export default function AddEvent() {
               </Dialog>
             </div>
             </div>   
-            <div  className={classnames( "w-full md:w-3/12 flex-1 relative " )} >
-              <div className="border-[2px] rounded-xl shadow">
-                <div className={classnames("mt-5 mb-5 px-3")}>
+            <div  className={classnames( "w-full md:w-3/12 flex-1 relative sticky" )} >
+              <div className="border-[2px] rounded-xl shadow sticky">
+                <div className={classnames("mt-5 mb-5 px-3 sticky")}>
                   {/* Lien he */}
                   {/* Set Time  */}
                   <div className="items-center gap-1 justify-between px-10 mt-4">
@@ -229,8 +236,7 @@ export default function AddEvent() {
                           id="startAt"
                           className="text-emerald-600 border text-sm font-medium leading-tight"
                           value={startAt}
-                          min ={startAt}
-                          max ={deadline}
+                          min ={startAt1}
                           onChange={(event) => setstartAt(event.target.value)}
                           />
                       </div>
@@ -262,6 +268,7 @@ export default function AddEvent() {
                             id="time"
                             className="ml-2 text-emerald-600 border text-sm font-medium leading-tight"
                             value={time}
+                            placeholder="12:00 AM"
                             onChange={(event) => setTime(event.target.value)}
                           />
                         </div>

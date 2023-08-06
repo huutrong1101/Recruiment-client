@@ -33,7 +33,6 @@ import {
   PopoverContent,
   Button,
 } from "@material-tailwind/react";
-import PopupTick from "../../../components/Popup";
 
 interface UserProps {
   candidateId: string;
@@ -45,7 +44,7 @@ export type QueryConfig = {
   [key in keyof AppliedCandidateListConfig]: string;
 };
 
-export default function Applied() {
+export default function Applied(num: any) {
   const { jobId } = useParams();
 
   const [applyCandidate, setApplyCandidate] = useState<any[]>([]);
@@ -118,13 +117,20 @@ export default function Applied() {
       jobId: jobId || "",
       state: "passed",
     };
+    const countReceivedStates = applyCandidate
+      ?.map((data) => data.state)
+      .filter((state) => state === "PASSED").length;
 
-    toast
-      .promise(StateService.changeState(data), {
-        pending: `Changing`,
-        success: `The state was changed to pass`,
-      })
-      .catch((error) => toast.error(error.response.data.result));
+    if (countReceivedStates <= num.num) {
+      toast
+        .promise(StateService.changeState(data), {
+          pending: `Changing`,
+          success: `The state was changed to pass`,
+        })
+        .catch((error) => toast.error(error.response.data.result));
+    } else toast.error(`This job already have enough candidates`);
+    // console.log(countReceivedStates);
+    // console.log(num.num);
   };
 
   const handleFail = (candidateId: string) => {
@@ -159,6 +165,8 @@ export default function Applied() {
     }
   };
 
+  // console.log(num);
+
   return (
     <div
       className={classNames(
@@ -169,13 +177,13 @@ export default function Applied() {
     >
       <h1 className="text-2xl font-semibold">Applied Candidate</h1>
 
-      {applyCandidate.length > 0 ? (
+      {applyCandidate?.length > 0 ? (
         <div className="relative p-4 overflow-x-auto max-h-96 h-80">
           <table className="w-full text-sm text-left text-gray-500">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
                 <th scope="col" className="px-6 py-4">
-                  <div className="flex gap-3 items-center">
+                  <div className="flex items-center gap-3">
                     Name
                     <ChevronUpDownIcon
                       className="w-5 h-5 cursor-pointer"
@@ -184,7 +192,7 @@ export default function Applied() {
                   </div>
                 </th>
                 <th scope="col" className="px-6 py-4">
-                  <div className="flex gap-3 items-center">
+                  <div className="flex items-center gap-3">
                     Email
                     <ChevronUpDownIcon
                       className="w-5 h-5 cursor-pointer"
@@ -193,7 +201,7 @@ export default function Applied() {
                   </div>
                 </th>
                 <th scope="col" className="px-6 py-4">
-                  <div className="flex gap-3 items-center">
+                  <div className="flex items-center gap-3">
                     Interviewer's Name
                     <ChevronUpDownIcon
                       className="w-5 h-5 cursor-pointer"
@@ -202,7 +210,7 @@ export default function Applied() {
                   </div>
                 </th>
                 <th scope="col" className="px-6 py-4">
-                  <div className="flex gap-3 items-center">
+                  <div className="flex items-center gap-3">
                     Score
                     <ChevronUpDownIcon
                       className="w-5 h-5 cursor-pointer"
@@ -279,14 +287,14 @@ export default function Applied() {
                         {applyCandidate.candidateEmail}
                       </td>
                       <td className="px-6 py-4">
-                        {applyCandidate.interviewerFullNames == null
+                        {applyCandidate.interviewerFullNames === null
                           ? "None"
                           : applyCandidate.interviewerFullNames
                               .slice(0, 2)
                               .map((name: any, index: any) => (
                                 <div key={index}>{name}</div>
                               ))}
-                        {applyCandidate.interviewerFullNames.length > 2 && (
+                        {applyCandidate.interviewerFullNames?.length > 2 && (
                           <Popover>
                             <PopoverHandler>
                               <div className="hover:underline cursor-context-menu w-fit">
@@ -298,7 +306,7 @@ export default function Applied() {
                                 (name: any, index: any) => (
                                   <div
                                     key={index}
-                                    className="font-small text-gray-500"
+                                    className="text-gray-500 font-small"
                                   >
                                     + {name}
                                   </div>
@@ -332,14 +340,16 @@ export default function Applied() {
                         {applyCandidate.state !== "NOT_RECEIVED" ? (
                           applyCandidate.score !== null ? (
                             <div>
-                              <button>
-                                <CheckIcon
-                                  className="w-6 h-6 text-green-800"
-                                  onClick={() =>
-                                    handlePass(applyCandidate.candidateId)
-                                  }
-                                />
-                              </button>
+                              {
+                                <button>
+                                  <CheckIcon
+                                    className="w-6 h-6 text-green-800"
+                                    onClick={() =>
+                                      handlePass(applyCandidate.candidateId)
+                                    }
+                                  />
+                                </button>
+                              }
 
                               <button>
                                 <XMarkIcon
@@ -352,10 +362,7 @@ export default function Applied() {
                               </button>
                             </div>
                           ) : null
-                        ) : null}
-                      </td>
-                      <td>
-                        {applyCandidate.state === "NOT_RECEIVED" && (
+                        ) : (
                           <button>
                             <CalendarDaysIcon
                               className="w-6 h-6"
@@ -366,6 +373,18 @@ export default function Applied() {
                           </button>
                         )}
                       </td>
+                      {/* <td>
+                        {applyCandidate.state === "NOT_RECEIVED" && (
+                          <button>
+                            <CalendarDaysIcon
+                              className="w-6 h-6"
+                              onClick={() =>
+                                routeChange(applyCandidate.candidateId)
+                              }
+                            />
+                          </button>
+                        )}
+                      </td> */}
                     </tr>
                   ),
               )}

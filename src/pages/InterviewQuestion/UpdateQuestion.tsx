@@ -23,22 +23,22 @@ interface Skill {
    name: string;
 }
 
-export default function UpdateQuestion({  observation, onClick, questionID }: any) {
-   
-     const [inputData, setInputData] = useState({ note: " ", content: " ", type: "", skill: "" })
-   
+export default function UpdateQuestion({ observation, onClick, questionID }: any) {
+
+   const [inputData, setInputData] = useState({ note: " ", content: " ", type: "", skill: "" })
+
 
    useEffect(() => {
       const getQuestionDetail = async () => {
-        const response = await axiosInstance.get(`interviewer/question/${questionID}`);
-        setInputData(response.data.result);
+         const response = await axiosInstance.get(`interviewer/question/${questionID}`);
+         setInputData(response.data.result);
       };
       getQuestionDetail();
-    }, [questionID]);
+   }, [questionID]);
 
    const handleOnClick = (event: any) => {
       if (event.target.id === 'container' || event.target.id === 'Update') onClick()
-    }
+   }
 
    const [dataSearch, setDataSearch] = useState({
       skill: "",
@@ -74,21 +74,21 @@ export default function UpdateQuestion({  observation, onClick, questionID }: an
       e.preventDefault()
       const foundSkill: any = showSkills.find((skill) => skill.name === inputData.skill);
       const data = {
-      "questionId":questionID,
-        "content": inputData.content,
-        "note": inputData.note,
-        "typeQuestion": inputData.type,
-        "skillId": foundSkill.skillId
+         "questionId": questionID,
+         "content": inputData.content,
+         "note": inputData.note,
+         "typeQuestion": inputData.type,
+         "skillId": foundSkill.skillId
       };
-  
+
       // console.log(data)
-  
+
       toast
-        .promise(InterviewService.updateQuestion(data,questionID), {
-          pending: "Updating the question",
-          success:"The question was updated. Please RELOAD page",
-          error: "có lỗi"
-        })
+         .promise(InterviewService.updateQuestion(data, questionID), {
+            pending: "Updating the question",
+            success: "The question was updated. Please RELOAD page",
+            error: "có lỗi"
+         })
    }
 
    if (!observation) return null
@@ -103,7 +103,7 @@ export default function UpdateQuestion({  observation, onClick, questionID }: an
             <div className='flex flex-col gap-y-5 w-full items-center'>
                <div className='w-11/12 p-2 h-fit mx-5 border-2 border-emerald-600 rounded-md'>
                   <textarea className='resize-none w-full flex outline-none h-[20vh]'
-                     placeholder='Question here' 
+                     placeholder='Question here'
                      value={inputData.content}
                      onChange={e => setInputData({ ...inputData, content: e.target.value })}
                   >
@@ -113,12 +113,15 @@ export default function UpdateQuestion({  observation, onClick, questionID }: an
             <div className='flex h-full'>
                <div className='flex flex-col w-3/5 h-[83%] '>
                   <div className='mx-5 font-normal text-md my-1'>Note</div>
-                  <div className='w-11/12 p-2 h-full mx-5 border-2 border-emerald-600 rounded-md'>
-                     <textarea className='w-full resize-none outline-none h-full' placeholder='Answer'
-                        value={inputData.note}
-                        onChange={e => setInputData({ ...inputData, note: e.target.value })}
-                     ></textarea>
+                  <div className="w-full h-full flex justify-center">
+                     <div className=' w-11/12 h-full border-2 border-emerald-600 rounded-md ml-6 p-2'>
+                        <textarea className='w-full  resize-none outline-none h-full' placeholder='Answer'
+                           value={inputData.note}
+                           onChange={e => setInputData({ ...inputData, note: e.target.value })}
+                        ></textarea>
+                     </div>
                   </div>
+
                </div>
                {/* skill button */}
                <div className='flex flex-col w-2/5 p-2 relative'>
@@ -143,7 +146,7 @@ export default function UpdateQuestion({  observation, onClick, questionID }: an
                                     leave="transition ease-in duration-75"
                                     leaveFrom="transform opacity-100 scale-100"
                                     leaveTo="transform opacity-0 scale-95" >
-                                    <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 aboslute bg-opacity-90 shadow-md '>
+                                    <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 aboslute bg-opacity-90 shadow-md cursor-pointer '>
                                        <div className='w-full h-full  text-black rounded-md border border-zinc-200'>
                                           {showSkills.map((skill: any) => (
                                              <Menu.Item key={skill.skillId}>
@@ -195,7 +198,7 @@ export default function UpdateQuestion({  observation, onClick, questionID }: an
                            leave="transition ease-in duration-75"
                            leaveFrom="transform opacity-100 scale-100"
                            leaveTo="transform opacity-0 scale-95" >
-                           <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 bg-opacity-80 aboslute shadow-md  '>
+                           <Menu.Items className='flex flex-col items-start rounded-md w-full h-full bg-gray-200 bg-opacity-80 aboslute shadow-md cursor-pointer  '>
                               <div className='w-full h-full  text-black rounded-md border border-zinc-200'>
                                  {showTypes.map((type: any, index: any) => (
                                     <Menu.Item key={index}>

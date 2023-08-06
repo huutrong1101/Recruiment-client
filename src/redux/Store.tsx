@@ -37,11 +37,12 @@ export const ApplicationStore = configureStore({
     INTInterviews: INTInterviewsReducer,
     INTQuestions: INTQuestionsReducer,
 
+    questionList: QuestionListSlice,
+
+    // candidateRecent: CandidateRecentReducer,
     Navbar: NavbarSlice,
     Auth: AuthSlice,
     OneTimePassword: OneTimePasswordSlice,
-
-    questionList: QuestionListSlice,
 
     RecJobList: RecJobListSlice,
     RecInterviewerList: RecInterviewerSilce,

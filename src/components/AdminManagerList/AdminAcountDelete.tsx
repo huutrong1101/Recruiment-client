@@ -1,5 +1,5 @@
 import{ useState, useEffect } from "react";
-import {MagnifyingGlassCircleIcon} from "@heroicons/react/24/outline";
+import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
 import { useAppSelector } from '../../hooks/hooks';
 import { AdminDeleteAcountConfig, AdminDelete } from "../../services/services";
@@ -112,7 +112,7 @@ const AdminAcountDelete = () => {
               > 
                 <div
                   className={classNames(
-                    "flex justify-center items-center w-80% p-1 border rounded-xl",
+                    "flex justify-center items-center w-80% p-1 border rounded-xl ",
                     "focus-within:border-emerald-400",
                   )}
                 >
@@ -125,10 +125,10 @@ const AdminAcountDelete = () => {
                         Name Acount     
                     </div>
                     <div className=" flex items-center p-3 rounded-xl">
-                      <MagnifyingGlassCircleIcon className="w-5 h-5 mx-2  mr-4" />
+                      <MagnifyingGlassIcon className="w-5 h-5 mx-2  mr-4" />
                       <input
                         type="text"
-                        placeholder="Search your name acount"
+                        placeholder="Please enter a search ..."
                         className="w-[85%] h-full text-base text-zinc-400 focus:outline-none"
                         value={dataSearch.key}
                         onChange={(e) => setDataSearch({ ...dataSearch, key: e.target.value })}
@@ -184,7 +184,7 @@ const AdminAcountDelete = () => {
 
                {showJobLists && showJobLists.length > 0 ?
                   (showJobLists.map((job) => (
-                  <TableRow className="text-black bg-white text-center justify-center" key={job.userId}>
+                  <TableRow className="text-center text-black bg-white hover:bg-gray-100" key={job.userId}>
                   <TableCell scope="row" className="font-medium text-gray-900 whitespace-nowrap" style={{ fontFamily: "Outfit, sans-serif" }}
                   > {job.fullName}  </TableCell>
                   <TableCell scope="row" className="font-medium text-gray-900 whitespace-nowrap" style={{ fontFamily: "Outfit, sans-serif" }}
@@ -201,7 +201,7 @@ const AdminAcountDelete = () => {
                 ))): 
                 (
                   <div className="flex justify-center w-full mb-10">
-                    <span>Không tìm thấy kết quả</span>
+                    <span>No results were found. Please check again</span>
                   </div>
                 )}
             </TableBody>

@@ -64,11 +64,13 @@ function UserProfileInformation() {
   };
 
   const handleUpdateProfile = (data: any) => {
-    toast.promise(UserService.updateProfile(data), {
-      pending: `Updating your profile`,
-      success: `Your profile was updated`,
-      error: `Failed to update your profile`,
-    });
+    toast
+      .promise(UserService.updateProfile(data), {
+        pending: `Updating your profile`,
+        success: `Your profile was updated`,
+        error: `Failed to update your profile`,
+      })
+      .then((response) => dispatch(setUser(response.data.result)));
   };
 
   return (
@@ -105,7 +107,7 @@ function UserProfileInformation() {
                 <img
                   src={user.avatar}
                   alt={`${user.fullName}'s avatar`}
-                  className={`rounded-full`}
+                  className={`rounded-full aspect-square w-full`}
                 />
               )}
             </div>

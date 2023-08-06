@@ -133,8 +133,8 @@ export default function AdminChangePosition() {
                 />
             </div>
             <div className={classNames("mt-10 text-center px-5 py-4")}>
-              <button type="submit" onClick={goBack} className="px-6 py-3 text-white rounded-full bg-red-600     hover:bg-red-800">  Cancel   </button>
-              <button type="submit" onClick ={handleClickOpen}className="px-6 py-3 text-white rounded-full bg-emerald-600 hover:bg-emerald-800 ml-5">  Delete   </button>
+              <button type="submit" onClick={goBack} className="px-6 py-3 text-white rounded-xl bg-red-600     hover:bg-red-800">  Cancel   </button>
+              <button type="submit" onClick ={handleClickOpen}className="px-6 py-3 text-white rounded-xl bg-emerald-600 hover:bg-emerald-800 ml-5">  Delete   </button>
                     <Dialog
                       open={open}
                       onClose={handleClose}

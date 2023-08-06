@@ -12,6 +12,7 @@ import { HiOutlineDeviceMobile } from "react-icons/hi";
 import moment from "moment";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
 import InterviewHistory from "./InterviewHistory";
+import { toast } from "react-toastify";
 
 export default function RecCandidateDetailCard(props: any) {
   const candidate = props.candidate;
@@ -57,6 +58,14 @@ export default function RecCandidateDetailCard(props: any) {
     return phoneNumber;
   }
 
+  // console.log(candidate?.resumeDetailDTO.name)
+  const handleEdit = () => {
+    window.open(candidate?.resumeDetailDTO?.resumeUpload, "_blank");
+  };
+  const handleLink = (url: string) => {
+    url ? window.open(url) : toast.error("Not Available ");
+  };
+
   return (
     <div>
       {candidate ? (
@@ -100,7 +109,7 @@ export default function RecCandidateDetailCard(props: any) {
                     >
                       <h1 className="text-2xl font-semibold">Description:</h1>
                       {/* <p className='text-zinc-600 mt-3 text-lg'>{candidate?.about}</p> */}
-                      <p className="">{candidate?.about}</p>
+                      <p>{candidate?.about}</p>
                     </div>
                     <div className="grid lg:grid-cols-1 grid-cols-1 mt-4 gap-6">
                       <div
@@ -113,7 +122,7 @@ export default function RecCandidateDetailCard(props: any) {
                         <div className="text-2xl font-semibold">Skill:</div>
                         <div>
                           {JSON.parse(candidate.information)?.skills?.map(
-                            (skill, index) => (
+                            (skill: any, index: any) => (
                               <p
                                 key={index}
                                 className="px-4 py-2 gap-2 ml-2 inline-flex bg-emerald-600 hover:bg-emerald-700 border-emerald-600  text-white rounded-md"
@@ -160,14 +169,47 @@ export default function RecCandidateDetailCard(props: any) {
                         <div className="flex gap-4 flex-wrap">
                           {JSON.parse(candidate.information)?.project?.map(
                             (edu: any, index: any) => (
+                              <div>
+                                <div
+                                  key={index}
+                                  className="text-zinc-600 mt-3 text-lg border rounded-t-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                                >
+                                  <p>Project: {edu.name}</p>
+                                  <p>Description: {edu.description}</p>
+                                  {/* <p>Link: {edu.url}</p> */}
+                                </div>
+                                <button
+                                  className="shadow border rounded-b-lg bg-emerald-500 hover:bg-emerald-700 border-emerald-600  text-white p-1 text-center w-full"
+                                  onClick={() => handleLink(edu.url)}
+                                >
+                                  View Project
+                                </button>
+                              </div>
+                            ),
+                          )}
+                        </div>
+                      </div>
+                      <div
+                        className={classNames(
+                          `border bg-white shadow-sm rounded-xl`,
+                          `px-8 py-8`,
+                          `text-justify`,
+                        )}
+                      >
+                        <div className="text-2xl font-semibold">Experience</div>
+                        <div className="flex gap-4 flex-wrap">
+                          {JSON.parse(candidate.information)?.experience?.map(
+                            (edu: any, index: any) => (
                               <>
                                 <div
                                   key={index}
                                   className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
                                 >
-                                  <p>Project: {edu.school}</p>
-                                  <p>Major: {edu.major}</p>
-                                  <p>Graduated Year: {edu.graduatedYear}</p>
+                                  <p>Company Name: {edu.companyName}</p>
+                                  <p>Position: {edu.position}</p>
+                                  <p>
+                                    From: {edu.dateFrom + " to " + edu.dateTo}
+                                  </p>
                                 </div>
                               </>
                             ),
@@ -181,46 +223,32 @@ export default function RecCandidateDetailCard(props: any) {
                           `text-justify`,
                         )}
                       >
-                        <div className="text-2xl font-semibold">Experience</div>
-                        {JSON.parse(candidate.information)?.experience?.map(
-                          (edu: any, index: any) => (
-                            <>
-                              <div
-                                key={index}
-                                className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
-                              >
-                                <p>Project: {edu.school}</p>
-                                <p>Major: {edu.major}</p>
-                                <p>Graduated Year: {edu.graduatedYear}</p>
-                              </div>
-                            </>
-                          ),
-                        )}
-                      </div>
-                      <div
-                        className={classNames(
-                          `border bg-white shadow-sm rounded-xl`,
-                          `px-8 py-8`,
-                          `text-justify`,
-                        )}
-                      >
                         <div className="text-2xl font-semibold">
                           Certificate
                         </div>
-                        {JSON.parse(candidate.information)?.certificate?.map(
-                          (edu: any, index: any) => (
-                            <>
-                              <div
-                                key={index}
-                                className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
-                              >
-                                <p>Project: {edu.school}</p>
-                                <p>Major: {edu.major}</p>
-                                <p>Graduated Year: {edu.graduatedYear}</p>
+                        <div className="flex gap-4 flex-wrap">
+                          {JSON.parse(candidate.information)?.certificate?.map(
+                            (edu: any, index: any) => (
+                              <div>
+                                <div
+                                  key={index}
+                                  className="text-zinc-600 mt-3 text-lg border rounded-t-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                                >
+                                  <p>Title: {edu.name}</p>
+                                  <p>Id: {edu.id}</p>
+                                  <p>Received Date: {edu.receivedDate}</p>
+                                  {/* <p>Link: {edu.url}</p> */}
+                                </div>
+                                <button
+                                  className="shadow border rounded-b-lg bg-emerald-500 hover:bg-emerald-700 border-emerald-600  text-white p-1 text-center w-full"
+                                  onClick={() => handleLink(edu.url)}
+                                >
+                                  View Project
+                                </button>
                               </div>
-                            </>
-                          ),
-                        )}
+                            ),
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -234,8 +262,11 @@ export default function RecCandidateDetailCard(props: any) {
                       <RecCandidateinfoCard cardData={CandidateInformaiton} />
                       <div className="mt-3 flex w-full bg-white p-3 items-center justify-center rounded-md shadow ">
                         <GrDocumentText />
-                        <span className="font-medium ms-2">
-                          {candidate?.fullName}.pdf
+                        <span
+                          className="font-medium ms-2 hover:underline cursor-pointer"
+                          onClick={handleEdit}
+                        >
+                          {candidate?.resumeDetailDTO?.name}
                         </span>
                         {/* <a href="linkResume" download></a> */}
                         {/* DOWNLOAD */}

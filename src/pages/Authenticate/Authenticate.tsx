@@ -27,7 +27,7 @@ export default function Authenticate() {
   }, [isLoggedIn, token]);
 
   if (loading === "pending") {
-    navigate(-1);
+    // navigate(-1);
     return (
       <div
         className={classNames(
@@ -42,7 +42,7 @@ export default function Authenticate() {
   }
 
   if (isLoggedIn && token) {
-    navigate(-1);
+    // navigate(-1);
     return <div className="min-h-screen"></div>;
   }
 

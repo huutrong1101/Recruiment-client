@@ -117,23 +117,28 @@ export default function ListCandiPass() {
             {
             showJobLists && showJobLists.length > 0 ?
             (showJobLists.map((job)  => (
-              <TableRow className="text-black bg-white text-center">
+              <TableRow
+                className={`text-center text-black bg-white hover:bg-gray-100 
+                }`}
+              >
               <TableCell scope="row" className="px-1 py-1 font-semibold text-blue-500 whitespace-nowrap">
                 {job.name}
               </TableCell>
               <TableCell className="px-1 py-1 text-gray-500">{job.phone}</TableCell>
-              <TableCell className="px-1 py-1 text-green-500 italic">{job.state === "NOT_RECEIVED" ?"Waiting for interview ..." : job.state}</TableCell>
+              <TableCell className="px-1 py-1 text-green-500 italic">{job.state === "NOT_RECEIVED" ?"No interview scheduled yet ..." :(job.state === "RECEIVED" ?"Waiting for interview ..." :job.state)}</TableCell>
               <TableCell className="px-1 py-1 italic">
-                {job.state === "NOT_RECEIVED" ?"Waiting for interview" : moment(job.date).format("HH:mm:ss DD-MM-YYYY")}
+              {job.state === "NOT_RECEIVED" ?"No interview scheduled yet ..." :(job.state === "RECEIVED" ?"Waiting for interview ..." :moment(job.date).format("HH:mm:ss DD-MM-YYYY"))}
               </TableCell>
-              <TableCell className="px-1 py-1 font-semibold e-bold">{job.score}</TableCell>
+              <TableCell className="px-1 py-1 font-semibold bold">
+                {job.score}
+                </TableCell>
             </TableRow>            
             ))): 
             (
               <TableBody>
                 <TableRow>
                   <TableCell colSpan={4} className="text-center">
-                    <p>Không Tìm thấy Kết Quả. Vui lòng Kiểm Tra Lại</p>
+                    <p>No results were found. Please check again</p>
                     {/* <PageNotFound /> */}
                   </TableCell>
                 </TableRow>

@@ -143,16 +143,24 @@ export default function UserProfileMyResume() {
           </h1>
           <div className="flex flex-row-reverse gap-2">
             <label
+              htmlFor="file-input"
               className={classNames(
                 `Button bg-emerald-600 hover:bg-emerald-800 text-white`,
                 `transition-colors ease-in-out duration-100`,
                 `rounded-lg flex-col justify-center items-center inline-flex`,
                 "text-base px-4 py-2 w-full md:!w-5/12",
               )}
-              onClick={openModalUpload}
             >
-              <HiArrowUpTray size={20} />
+              <HiArrowUpTray size={25} />
             </label>
+
+            <input
+              type="file"
+              id="file-input"
+              className="hidden"
+              accept="application/pdf"
+              onChange={handleFileUpload}
+            />
           </div>
         </div>
 
@@ -203,54 +211,6 @@ export default function UserProfileMyResume() {
           </div>
         </div>
       </div>
-
-      <Modal
-        isOpen={isUpload}
-        onClose={closeModalUpload}
-        title=""
-        cancelTitle="Cancel"
-        successClass="text-green-900 bg-green-100 hover:bg-green-200 focus-visible:ring-green-500"
-        successTitle="OK"
-        handleSucces={closeModalUpload}
-        titleClass="text-center"
-        size=""
-      >
-        <div className="flex items-center justify-center gap-3">
-          <Link
-            to={"/jobs"}
-            className={classNames(
-              `Button bg-emerald-600 hover:bg-emerald-800 text-white`,
-              `transition-colors ease-in-out duration-100`,
-              `rounded-lg flex-col justify-center items-center inline-flex`,
-              "text-base px-4 py-2 w-full md:!w-5/12",
-            )}
-          >
-            <HiPlus size={25} />
-            <span>Create your resume</span>
-          </Link>
-          <label
-            htmlFor="file-input"
-            className={classNames(
-              `Button bg-emerald-600 hover:bg-emerald-800 text-white`,
-              `transition-colors ease-in-out duration-100`,
-              `rounded-lg flex-col justify-center items-center inline-flex`,
-              "text-base px-4 py-2 w-full md:!w-5/12",
-            )}
-          >
-            <HiArrowUpTray size={25} />
-
-            <span> Upload your resume</span>
-          </label>
-
-          <input
-            type="file"
-            id="file-input"
-            className="hidden"
-            accept="application/pdf"
-            onChange={handleFileUpload}
-          />
-        </div>
-      </Modal>
 
       <ResumeDeleteModal
         visible={visibleDeleteModal}
