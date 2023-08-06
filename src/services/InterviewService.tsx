@@ -23,6 +23,11 @@ export async function getCandidateInterviews({ index, size }: any) {
   return axiosInstance.get(`/candidate/jobs/applicants?${query}`);
 }
 
+const error = async (data: any) => {
+  return await axiosInstance.post(`interviewer/question`, data);
+}
+
+
 export const InterviewService = {
   createInterview,
   createQuestion,
