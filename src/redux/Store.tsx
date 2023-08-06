@@ -2,8 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import HomeSlice from "../pages/Home/slices/HomeSlice";
 import NavbarSlice from "../components/Navbar/slices/NavbarSlice";
 
-///
-import CandidateRecentReducer from "./reducer/CandidateRecentSlice";
+/// 
 import INTInterviewsReducer from "./reducer/INTInterviewsSlice";
 import INTCandidatesReducer from "./reducer/INTCandidatesSlice";
 import INTQuestionsReducer from "./reducer/INTQuestionsSlice";
@@ -38,7 +37,6 @@ export const ApplicationStore = configureStore({
     INTInterviews: INTInterviewsReducer,
     INTQuestions: INTQuestionsReducer,
 
-    candidateRecent: CandidateRecentReducer,
     Navbar: NavbarSlice,
     Auth: AuthSlice,
     OneTimePassword: OneTimePasswordSlice,

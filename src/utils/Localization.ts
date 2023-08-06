@@ -47,4 +47,6 @@ export const APPLICANTS_STATUS: LocalizationDeclarationType = {
   RECEIVED: "Received",
   PASS: "Passed",
   FAIL: "Failed",
+  PASSED: "Passed",
+  FAILED: "Failed",
 };
