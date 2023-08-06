@@ -12,7 +12,7 @@ import { fetchINTInterviewsData } from '../../../redux/reducer/INTInterviewsSlic
 import { formatDDMMYY } from '../CandidateRecent/CandidateRecent';
 
 // Status
-import Loader from '../../../components/Loader/Loader';
+import LoadSpinner from '../../../components/LoadSpinner/LoadSpinner';
 import { STATUS } from '../../../utils/Status';
 import { APPLICANTS_STATUS } from '../../../utils/Localization';
 
@@ -69,6 +69,7 @@ const InterviewRecent = () => {
                             <TableHead className='bg-gray-200'>
                             <TableRow>
                                 <TableCell>Job Name</TableCell>
+                                <TableCell>Position</TableCell>
                                 <TableCell>Date</TableCell>
                                 <TableCell>State</TableCell>
                                 <TableCell>Button</TableCell>
@@ -78,8 +79,12 @@ const InterviewRecent = () => {
                             {
                                 INTInterviewsStatus === STATUS.LOADING?
                                 (
-                                    <TableRow className='flex justify-end items-center'>
-                                        <TableCell colSpan={4}><Loader/></TableCell>
+                                    <TableRow>
+                                        <TableCell colSpan={5}>
+                                            <div className='flex justify-center'>
+                                                <LoadSpinner className='h-8 w-8'/>
+                                            </div>
+                                        </TableCell>
                                     </TableRow>
                                 )
                                 :
@@ -89,6 +94,7 @@ const InterviewRecent = () => {
                                             <TableCell component="th" scope="row">
                                                 {interview?.jobName}
                                             </TableCell>
+                                            <TableCell>{interview?.position}</TableCell>
                                             <TableCell>{formatDDMMYY(interview?.time)}</TableCell>
                                             <TableCell>
                                                     <span className={`badge-${interview?.jobApplyState}`}>

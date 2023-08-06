@@ -11,7 +11,7 @@ import { fetchINTCandidatesByID } from "../../../../redux/reducer/INTCandidatesS
 
 // Status
 import { STATUS } from "../../../../utils/Status";
-import Loader from "../../../../components/Loader/Loader";
+import LoadSpinner from '../../../../components/LoadSpinner/LoadSpinner';
 
 const INTCandidateDetail = () => {
     const {id} = useParams();
@@ -22,7 +22,11 @@ const INTCandidateDetail = () => {
         dispatch(fetchINTCandidatesByID(id));
     }, []);
     if(INTSingleCandidateStatus === STATUS.LOADING){
-        return <Loader />
+        return (
+            <div className='flex justify-center'>
+                <LoadSpinner className='h-8 w-8 mt-8'/>
+            </div>
+        )
     }else if(INTSingleCandidateStatus === STATUS.IDLE){
         return (
             <div className="INTCandidateDetail">
