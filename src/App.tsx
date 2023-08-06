@@ -198,18 +198,13 @@ export default function App() {
             {/* Define interviewer routes here */}
             <Route path="interview-recent" element={<InterviewRecent />} />
             <Route path="interview-recent/:id" element={<InterviewDetail />} />
-            <Route path="question" element={<ManageQuestion />} />
             <Route path="candidate-recent" element={<CandidateRecent />} />
             <Route
               path="candidate-recent/:id"
               element={<INTCandidateDetail />}
             />
+            <Route index path="interview-recent/:id/score-page" element={<ScorePage />} />
             <Route index path="manage-question" element={<ManageQuestion />} />
-            <Route
-              index
-              path="candidate-recent/:id/score-page"
-              element={<ScorePage />}
-            />
           </Route>
         </Route>
 
