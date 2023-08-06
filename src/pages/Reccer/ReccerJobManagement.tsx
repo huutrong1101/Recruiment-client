@@ -141,7 +141,7 @@ const ReccerJobManagement = () => {
     listTypeJobs: ["On Going", "Expired"],
   };
 
-  const handleonClick = (data :any) => {
+  const handleonClick = (data: any) => {
     const newData = data === "Expired" ? false : true;
     setDuration(data);
     setShowDuration(false);
@@ -149,8 +149,27 @@ const ReccerJobManagement = () => {
       ...dataSearch,
       active: newData,
     });
-
   }
+
+  const handleReset = () => {
+    setDataSearch({
+      key: "",
+      type: "",
+      active: "",
+    });
+    navigate({
+      pathname: "../jobs",
+      search: createSearchParams(
+        omit(queryConfig, [
+          "name",
+          "active",
+          "type",
+        ]),
+      ).toString(),
+    });
+  };
+
+
 
   return (
     <>
@@ -163,7 +182,7 @@ const ReccerJobManagement = () => {
         >
           <div
             className={classNames(
-              "flex items-center w-full mr-5 gap-4 md:w-[40%] border-r-2",
+              "flex items-center w-full gap-4 md:w-[56%] border-r-2",
             )}
           >
             <BsFilterLeft className={classNames(`w-[20px]  md:ml-4`)} />
@@ -227,7 +246,7 @@ const ReccerJobManagement = () => {
           </div>
           <div
             className={classNames(
-              "flex items-center w-full mr-5 gap-4 md:w-[40%] border-r-2",
+              "flex items-center w-full mr-5 gap-4 md:w-[50%] border-r-2",
             )}
           >
             <BsFilterLeft className={classNames(`w-[20px]  md:ml-4`)} />
@@ -241,7 +260,7 @@ const ReccerJobManagement = () => {
                 >
                   {duration || "DURATION"}
                   {showDuration && (
-                    <ChevronUpIcon className={classNames("w-[20px] mr-4")} />
+                    <ChevronUpIcon className={classNames("w-[20px] mr-5")} />
                   )}
                   {!showDuration && (
                     <ChevronDownIcon className={classNames("w-[20px] mr-4")} />
@@ -309,6 +328,9 @@ const ReccerJobManagement = () => {
             Search
           </button>
         </div>
+
+
+
         <div className="items-center justify-center gap-2">
           <Link to="../addjob">
             <div className="sm:w-[100px] h-[50px] relative">
@@ -321,7 +343,20 @@ const ReccerJobManagement = () => {
             </div>
           </Link>
         </div>
-      </div>
+        <div className="items-center justify-center gap-2">
+          <div className="sm:w-[100px] h-[50px] relative">
+            <button
+              className="w-[80%] h-full left-5 top-0 absolute bg-red-500 hover:bg-red-700 text-white rounded-lg"
+              type="submit"
+              onClick={() => handleReset()}
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+      </div >
+
+
 
       <div className="flex justify-center items-center 2 mt-[10px] ">
         {isLoading ? (
@@ -343,7 +378,7 @@ const ReccerJobManagement = () => {
               ))
             ) : (
               <div className="flex justify-center w-full mb-10">
-                <span>Không tìm thấy kết quả</span>
+                <span>No Job Found</span>
               </div>
             )}
           </div>

@@ -157,8 +157,8 @@ export default function Applied() {
       setSort("ASC");
     }
   };
-  // console.log(applyCandidate.length)
 
+  console.log(applyCandidate)
   return (
     <div
       className={classNames(

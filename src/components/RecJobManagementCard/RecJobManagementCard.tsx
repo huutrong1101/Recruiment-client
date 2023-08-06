@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classnames from "classnames";
 import logo_FPT from "../../../images/logo_FPT.png";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import moment from "moment"
 import { JOB_POSITION } from "../../utils/Localization";
+import { JobInterface } from "../../services/services";
+import axiosInstance from "../../utils/AxiosInstance";
 
 
 
@@ -12,6 +14,24 @@ export default function RecDashboardCard({ job }: any) {
    const created = moment(job.createdAt);
    const duration = moment.duration(now.diff(created));
    const days = duration.asDays();
+
+   console.log({ ...job, isActive: false })
+
+   const temp = { ...job, isActive: false }
+   const currentDay = new Date()
+
+   if (currentDay >= job?.deadline) {
+   }
+   const handleActive = (data: boolean) => {
+      var temp = ""
+      if (data === true) {
+
+         temp = "On Going"
+      }
+      else temp = "Expired"
+      return temp
+   }
+
    return (
       <>
 
@@ -44,7 +64,11 @@ export default function RecDashboardCard({ job }: any) {
                         {JOB_POSITION[job.jobType]}
                      </button>
                      <span className="ml-3 text-sm font-semibold text-gray-400 ">
-                        Hourly: {job.salaryRange}
+                        Salary: {job.salaryRange}
+                     </span>
+                     <span className={`ml-3 text-sm font-semibold ${job?.isActive === true ? "text-green-700" : "text-red-600"} `}>
+                        {handleActive(job?.isActive)}
+
                      </span>
                   </div>
                </div>

@@ -129,6 +129,7 @@ export default function ReccerJobDetail() {
                     .format("Do MMM, YYYY")
                     .toString()}
                   logo={{ src: Logo, alt: "image" }}
+                  quantity = {job?.quantity}
                 />
                 {/* Details */}
                 <div
