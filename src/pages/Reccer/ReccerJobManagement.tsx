@@ -26,6 +26,7 @@ import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import { JOB_POSITION } from "../../utils/Localization";
 import { BsFilterLeft } from "react-icons/bs";
+import { data } from "../../data/homeData";
 
 export type QueryConfig = {
   [key in keyof JobListConfig]: string;
@@ -39,7 +40,7 @@ const ReccerJobManagement = () => {
       size: queryParams.size || 10,
       name: queryParams.name,
       type: queryParams.type,
-      active: queryParams.active
+      active: queryParams.active,
     },
     isUndefined,
   );
@@ -54,7 +55,7 @@ const ReccerJobManagement = () => {
   // const type = useAppSelector((state) => state.Job.type);
   const [showType, setShowType] = useState(false);
   const listType = useAppSelector((state) => state.Job.type);
-  const [type, setType] = useState("");
+  // const [type, setType] = useState("");
   const [pageSize, setPageSize] = useState(
     Math.ceil(totalJobs / Number(queryParams.size ?? 10)),
   );
@@ -134,7 +135,7 @@ const ReccerJobManagement = () => {
       setIsLoading(false);
     }
   };
-  console.log()
+  console.log();
   const [showDuration, setShowDuration] = useState(false);
   const [duration, setDuration] = useState("");
   const Duration = {
@@ -147,9 +148,9 @@ const ReccerJobManagement = () => {
     setShowDuration(false);
     setDataSearch({
       ...dataSearch,
-      active: newData,
+      active: newData.toString(),
     });
-  }
+  };
 
   const handleReset = () => {
     setDataSearch({
@@ -157,19 +158,18 @@ const ReccerJobManagement = () => {
       type: "",
       active: "",
     });
+
+    setDuration("");
+
     navigate({
       pathname: "../jobs",
       search: createSearchParams(
-        omit(queryConfig, [
-          "name",
-          "active",
-          "type",
-        ]),
+        omit(queryConfig, ["name", "active", "type"]),
       ).toString(),
     });
   };
 
-
+  console.log(dataSearch);
 
   return (
     <>
@@ -194,7 +194,7 @@ const ReccerJobManagement = () => {
                   )}
                   onClick={() => setShowType(!showType)}
                 >
-                  {JOB_POSITION[type] || "TYPE OF JOB"}
+                  {JOB_POSITION[dataSearch.type] || "TYPE OF JOB"}
                   {showType && (
                     <ChevronUpIcon className={classNames("w-[20px] mr-4")} />
                   )}
@@ -226,7 +226,6 @@ const ReccerJobManagement = () => {
                               "block px-4 py-2 text-sm",
                             )}
                             onClick={() => {
-                              setType(type);
                               setShowType(false);
                               setDataSearch({
                                 ...dataSearch,
@@ -258,7 +257,8 @@ const ReccerJobManagement = () => {
                   )}
                   onClick={() => setShowDuration(!showDuration)}
                 >
-                  {duration || "DURATION"}
+                  {duration === "" ? "DURATION" : duration}
+
                   {showDuration && (
                     <ChevronUpIcon className={classNames("w-[20px] mr-5")} />
                   )}
@@ -293,8 +293,8 @@ const ReccerJobManagement = () => {
                               onClick={() => handleonClick(data)}
                             >
                               {data}
-                            </p></div>
-
+                            </p>
+                          </div>
                         )}
                       </Menu.Item>
                     ))}
@@ -329,8 +329,6 @@ const ReccerJobManagement = () => {
           </button>
         </div>
 
-
-
         <div className="items-center justify-center gap-2">
           <Link to="../addjob">
             <div className="sm:w-[100px] h-[50px] relative">
@@ -354,9 +352,7 @@ const ReccerJobManagement = () => {
             </button>
           </div>
         </div>
-      </div >
-
-
+      </div>
 
       <div className="flex justify-center items-center 2 mt-[10px] ">
         {isLoading ? (
