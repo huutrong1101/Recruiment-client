@@ -20,16 +20,6 @@ const error = async (data: any) => {
   return await axiosInstance.post(`interviewer/question`, data);
 }
 
-const [click, setClick] = useState(false)
-const handleClick = () => {
-  setClick(!click)
-}
-
-const type = async (click:any) => {
-  handleClick
-  return await axiosInstance.post(`interviewer/question`, click);
-  
-}
 
 export const InterviewService = {
   createInterview,
@@ -37,5 +27,4 @@ export const InterviewService = {
   updateQuestion,
   deleteQuestion,
   error, 
-  type
 };

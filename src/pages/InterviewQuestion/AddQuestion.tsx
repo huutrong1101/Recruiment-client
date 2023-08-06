@@ -103,12 +103,6 @@ export default function AddQuestion({ observation, onClick }: any) {
         error: "Please select Skill "
       })
     }
-    // else if (!triggeredType) {
-    //   toast
-    //   .promise(InterviewService.type(!setTriggeredType()), {
-    //     error: "Please select Type "
-    //   })
-    // }
     else if (!setTriggeredType) {
       toast
       .promise(InterviewService.error(data.typeQuestion), {
