@@ -30,7 +30,7 @@ export default function JobDetail() {
   const { jobId } = useParams();
   const dispatch = useAppDispatch();
   // const [job, setJob] = useState<JobInterface | null>(null);
-  const jobs = useAppSelector((state) => state.Home.jobs);
+  const jobs: JobInterface[] = useAppSelector((state) => state.Home.jobs);
   const { status } = useAppSelector((state) => state.JobDetail);
   const { job } = useAppSelector((state) => state.JobDetail.response);
   const [jobInformation, setJobInformation] = useState([
@@ -62,12 +62,6 @@ export default function JobDetail() {
       throw new Error(`The parameter jobId is undefined`);
     }
 
-    // Fetch the job detail
-    // const getJobDetail = async () => {
-    //   const response = await JobService.getJobFromId(jobId);
-    //   setJob(response.data.result);
-    // };
-    // getJobDetail();
     dispatch(fetchJobDetail({ jobId }))
       .unwrap()
       .catch((message) => toast.error(message));
@@ -86,11 +80,15 @@ export default function JobDetail() {
           name: "Employee Type",
           value: JOB_POSITION[job.jobType],
         },
-        { icon: <MapPinIcon />, name: "Location", value: job.location },
+        {
+          icon: <MapPinIcon />,
+          name: "Location",
+          value: JOB_POSITION[job.location],
+        },
         {
           icon: <ComputerDesktopIcon />,
           name: "Job Type",
-          value: job.position.name,
+          value: JOB_POSITION[job.position.name],
         },
         {
           icon: <CurrencyDollarIcon />,
@@ -99,12 +97,29 @@ export default function JobDetail() {
         },
         {
           icon: <ClockIcon />,
-          name: "Deadline",
+          name: "End At",
           value: moment(job.deadline).format("Do MMM, YYYY"),
         },
       ]);
     }
   }, [job]);
+
+  const otherJobs = jobs.filter((job) => job.jobId !== jobId);
+
+  const shuffledJobs = [...otherJobs];
+  let currentIndex = shuffledJobs.length;
+  let temporaryValue, randomIndex;
+
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    temporaryValue = shuffledJobs[currentIndex];
+    shuffledJobs[currentIndex] = shuffledJobs[randomIndex];
+    shuffledJobs[randomIndex] = temporaryValue;
+  }
+
+  const suggestedJobs = shuffledJobs.slice(0, 3);
 
   return (
     <>
@@ -192,7 +207,7 @@ export default function JobDetail() {
                 </h2>
                 <div className={classNames(`flex flex-col md:flex-row gap-6`)}>
                   {/* TODO: add job fetch data */}
-                  {jobs.slice(0, 3).map((data) => {
+                  {suggestedJobs.map((data) => {
                     return <JobCard job={data} />;
                   })}
                 </div>

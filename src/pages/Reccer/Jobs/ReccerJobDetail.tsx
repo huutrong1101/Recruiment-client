@@ -224,7 +224,7 @@ export default function ReccerJobDetail() {
                         id="alert-dialog-title"
                         className="text-center"
                       >
-                        <p className="pt-4 font-extrabold">Delete Job</p>
+                        <p className="pt-3 font-extrabold">Delete Job</p>
                       </DialogTitle>
                       <DialogContent className="text-center">
                         <div className="px-6 text-center">
@@ -279,7 +279,7 @@ export default function ReccerJobDetail() {
             </div>
 
             {/* /Applied Candidate */}
-            <Applied />
+            <Applied num={job?.quantity} />
 
             {/* Suggested Candidate*/}
             <Suggested />

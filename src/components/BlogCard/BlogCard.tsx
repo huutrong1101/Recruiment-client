@@ -17,7 +17,7 @@ interface BlogCardProps {
 export default function BlogCard({ event }: BlogCardProps) {
   const formattedDate = moment(event.startAt).format("Do MMMM, YYYY");
 
-  const maxCharacters = 20; // Số ký tự tối đa bạn muốn hiển thị
+  const maxCharacters = 26; // Số ký tự tối đa bạn muốn hiển thị
   const title = event.title;
 
   let shortenedTitle = title;
@@ -49,7 +49,7 @@ export default function BlogCard({ event }: BlogCardProps) {
               className={classnames("flex items-center gap-1 text-gray-500")}
             >
               <ClockIcon className={classnames(`w-[20px]`)} />
-              <p>{event.time}</p>
+              <p>{moment(event.time, "HH:mm:ss").format("HH:mm")}</p>
             </div>
           </div>
           <div className={classnames("mt-2")}>

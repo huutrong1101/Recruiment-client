@@ -19,7 +19,6 @@ import {
   JobInterface,
   JobListConfig,
 } from "../../services/services";
-import axiosInstance from "../../utils/AxiosInstance";
 import useQueryParams from "../../hooks/useQueryParams";
 import { omitBy, isUndefined } from "lodash";
 import { JOB_POSITION } from "../../utils/Localization";
@@ -30,21 +29,13 @@ export type QueryConfig = {
 
 export default function Home() {
   const jobs: JobInterface[] = useAppSelector((state) => state.Job.jobs);
-
   const events: EventInterface[] = useAppSelector((state) => state.Home.events);
-
   const listType = useAppSelector((state) => state.Job.type);
-
   const [type, setType] = useState("");
-
   const [showType, setShowType] = useState(false);
-
   const [search, setSearch] = useState("");
-
   const navigate = useNavigate();
-
   const queryParams: QueryConfig = useQueryParams();
-
   const queryConfig: QueryConfig = omitBy(
     {
       index: queryParams.index || "1",
@@ -71,6 +62,8 @@ export default function Home() {
       console.error(error);
     }
   };
+
+  
 
   return (
     <div className={classnames("h-full")}>

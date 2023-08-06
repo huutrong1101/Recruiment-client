@@ -15,10 +15,11 @@ import InterviewRecent from '../../pages/Interviewer/InterviewRecent/InterviewRe
 import RecInterviewrecent from './RecInterviewRecent';
 import RecInterviewRecent from './RecInterviewRecent';
 import classNames from 'classnames';
+import { toast } from 'react-toastify';
 
 export default function InterviewerDetail() {
   const { interviewerId } = useParams();
-  const [interviewer, setInterviewer] = useState<anny | null>(null);
+  const [interviewer, setInterviewer] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const getInterviewerDetail = async () => {
@@ -72,7 +73,10 @@ export default function InterviewerDetail() {
     // If the phone number doesn't have 10 digits, return the original value
     return phoneNumber;
   }
-  console.log(interviewer)
+  // console.log(interviewer)
+  const handleLink = (url: string) => {
+    url ? window.open(url) : toast.error("Not Available ");
+  };
   return (
     <div>
       {interviewer ? (
@@ -125,7 +129,7 @@ export default function InterviewerDetail() {
                     <p>
                       <div>
                       {JSON.parse(interviewer.information)?.skills?.map(
-                            (skill, index) => (
+                            (skill:any, index:any) => (
                               <p
                                 key={index}
                                 className="px-4 py-2 gap-2 ml-2 inline-flex bg-emerald-600 hover:bg-emerald-700 border-emerald-600  text-white rounded-md"
@@ -139,103 +143,122 @@ export default function InterviewerDetail() {
                   </div>
                 </div>
                 <div
-                  className={classNames(
-                    `border bg-white shadow-sm rounded-xl`,
-                    `px-8 py-8`,
-                    `text-justify mt-5`,
-                  )}
-                >
-                  <div className="text-2xl font-semibold">Education</div>
-                  <div className="flex gap-4 flex-wrap">
-                    {JSON.parse(interviewer.information)?.education?.map(
-                      (edu: any, index: any) => (
-                        <>
-                          <div
-                            key={index}
-                            className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
-                          >
-                            <p>School: {edu.school}</p>
-                            <p>Major: {edu.major}</p>
-                            <p>Graduated Year: {edu.graduatedYear}</p>
-                          </div>
-                        </>
-                      ),
-                    )}
-                  </div>
-                </div>
-                <div
-                  className={classNames(
-                    `border bg-white shadow-sm rounded-xl`,
-                    `px-8 py-8`,
-                    `text-justify mt-5`,
-                  )}
-                >
-                  <div className="text-2xl font-semibold">Project</div>
-                  <div className="flex gap-4 flex-wrap">
-                    {JSON.parse(interviewer.information)?.project?.map(
-                      (edu: any, index: any) => (
-                        <>
-                          <div
-                            key={index}
-                            className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
-                          >
-                            <p>Project: {edu.school}</p>
-                            <p>Major: {edu.major}</p>
-                            <p>Graduated Year: {edu.graduatedYear}</p>
-                          </div>
-                        </>
-                      ),
-                    )}
-                  </div>
-                </div>
-                <div
-                  className={classNames(
-                    `border bg-white shadow-sm rounded-xl`,
-                    `px-8 py-8`,
-                    `text-justify mt-5`,
-                  )}
-                >
-                  <div className="text-2xl font-semibold">Experience</div>
-                  {JSON.parse(interviewer.information)?.experience?.map(
-                    (edu: any, index: any) => (
-                      <>
-                        <div
-                          key={index}
-                          className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
-                        >
-                          <p>Project: {edu.school}</p>
-                          <p>Major: {edu.major}</p>
-                          <p>Graduated Year: {edu.graduatedYear}</p>
+                        className={classNames(
+                          `border bg-white shadow-sm rounded-xl`,
+                          `px-8 py-8`,
+                          `text-justify`,
+                        )}
+                      >
+                        <div className="text-2xl font-semibold">Education</div>
+                        <div className="flex gap-4 flex-wrap">
+                          {JSON.parse(interviewer.information)?.education?.map(
+                            (edu: any, index: any) => (
+                              <>
+                                <div
+                                  key={index}
+                                  className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                                >
+                                  <p>School: {edu.school}</p>
+                                  <p>Major: {edu.major}</p>
+                                  <p>Graduated Year: {edu.graduatedYear}</p>
+                                </div>
+                              </>
+                            ),
+                          )}
                         </div>
-                      </>
-                    ),
-                  )}
-                </div>
-                <div
-                  className={classNames(
-                    `border bg-white shadow-sm rounded-xl`,
-                    `px-8 py-8`,
-                    `text-justify mt-5`,
-                  )}
-                >
-                  <div className="text-2xl font-semibold">
-                    Certificate
-                  </div>
-                  {JSON.parse(interviewer.information)?.certificate?.map(
-                    (edu: any, index: any) => (
-                      <>
-                        <div
-                          key={index}
-                          className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
-                        >
-                          <p>Project: {edu.school}</p>
-                          <p>Major: {edu.major}</p>
-                          <p>Graduated Year: {edu.graduatedYear}</p>
+                      </div>
+                      <div
+                        className={classNames(
+                          `border bg-white shadow-sm rounded-xl`,
+                          `px-8 py-8`,
+                          `text-justify`,
+                        )}
+                      >
+                        <div className="text-2xl font-semibold">Project</div>
+                        <div className="flex gap-4 flex-wrap">
+                          {JSON.parse(interviewer.information)?.project?.map(
+                            (edu: any, index: any) => (
+                              <div>
+                                <div
+                                  key={index}
+                                  className="text-zinc-600 mt-3 text-lg border rounded-t-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                                >
+                                  <p>Project: {edu.name}</p>
+                                  <p>Description: {edu.description}</p>
+                                  {/* <p>Link: {edu.url}</p> */}
+                                </div>
+                                <button
+                                  className="shadow border rounded-b-lg bg-emerald-500 hover:bg-emerald-700 border-emerald-600  text-white p-1 text-center w-full"
+                                  onClick={() => handleLink(edu.url)}
+                                >
+                                  View Project
+                                </button>
+                              </div>
+                            ),
+                          )}
                         </div>
-                      </>
-                    ),
-                  )}
-                </div>
+                      </div>
+                      <div
+                        className={classNames(
+                          `border bg-white shadow-sm rounded-xl`,
+                          `px-8 py-8`,
+                          `text-justify`,
+                        )}
+                      >
+                        <div className="text-2xl font-semibold">Experience</div>
+                        <div className="flex gap-4 flex-wrap">
+                          {JSON.parse(interviewer.information)?.experience?.map(
+                            (edu: any, index: any) => (
+                              <>
+                                <div
+                                  key={index}
+                                  className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                                >
+                                  <p>Company Name: {edu.companyName}</p>
+                                  <p>Position: {edu.position}</p>
+                                  <p>
+                                    From: {edu.dateFrom + " to " + edu.dateTo}
+                                  </p>
+                                </div>
+                              </>
+                            ),
+                          )}
+                        </div>
+                      </div>
+                      <div
+                        className={classNames(
+                          `border bg-white shadow-sm rounded-xl`,
+                          `px-8 py-8`,
+                          `text-justify`,
+                        )}
+                      >
+                        <div className="text-2xl font-semibold">
+                          Certificate
+                        </div>
+                        <div className="flex gap-4 flex-wrap">
+                          {JSON.parse(interviewer.information)?.certificate?.map(
+                            (edu: any, index: any) => (
+                              <div>
+                                <div
+                                  key={index}
+                                  className="text-zinc-600 mt-3 text-lg border rounded-t-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                                >
+                                  <p>Title: {edu.name}</p>
+                                  <p>Id: {edu.id}</p>
+                                  <p>Received Date: {edu.receivedDate}</p>
+                                  {/* <p>Link: {edu.url}</p> */}
+                                </div>
+                                <button
+                                  className="shadow border rounded-b-lg bg-emerald-500 hover:bg-emerald-700 border-emerald-600  text-white p-1 text-center w-full"
+                                  onClick={() => handleLink(edu.url)}
+                                >
+                                  View Project
+                                </button>
+                              </div>
+                            ),
+                          )}
+                        </div>
+                      </div>
 
               </div>
 
