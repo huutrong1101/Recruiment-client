@@ -232,10 +232,10 @@ export interface AdminDelete {
   userId: string;
   state: string;
 }
-export interface  AdminDeleteAcountConfig{
+export interface AdminDeleteAcountConfig {
   index: string;
   size: string;
-  fullName : string;
+  fullName: string;
 }
 export interface AdminJobPassListConfig {
   page?: number | string;
@@ -271,43 +271,42 @@ export interface AcountInterface {
 }
 
 export interface AcountConfig {
-  index: number
+  index: number;
   page?: number | string;
   size?: number | string;
   searchText?: string;
   searchBy?: string;
 }
 
-export interface QuestionListConfig{
+export interface QuestionListConfig {
   page?: number | string;
   size?: number | string;
-  skill?: string
-  type?: string
-  note?: number | string,
-  content?: string
+  skill?: string;
+  type?: string;
+  note?: number | string;
+  content?: string;
 }
 
-export interface QuestionListInterface{
-    skill: string
-    type: string
-    questionId?: number | string,
-    note: number | string,
-    content: string
-  
+export interface QuestionListInterface {
+  skill: string;
+  type: string;
+  questionId?: number | string;
+  note: number | string;
+  content: string;
 }
 
-export interface TypeListInterface{
-  type: string
+export interface TypeListInterface {
+  type: string;
 }
 
-export interface SkillListInterface{
-  skillId: number
-  skill: string
+export interface SkillListInterface {
+  skillId: number;
+  skill: string;
 }
 
-export interface DataSearchInterface{
-  skill?: string
-  type?: string
+export interface DataSearchInterface {
+  skill?: string;
+  type?: string;
 }
 
 export interface Pagable {
