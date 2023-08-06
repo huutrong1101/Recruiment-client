@@ -56,6 +56,23 @@ export default function Navbar() {
     }
   }, [user]);
 
+  const { pathname: currentPathname } = useLocation();
+
+  const [compiledQuerySearch, setCompiledQuerySearch] = useState(
+    qs.stringify({}),
+  );
+  useEffect(() => {
+    setCompiledQuerySearch(
+      qs.stringify(
+        currentPathname.includes(`/auth/login`) ||
+          currentPathname.includes(`/logout`) ||
+          currentPathname.includes(`/otp`)
+          ? {}
+          : { from: currentPathname },
+      ),
+    );
+  }, [currentPathname]);
+
   return (
     <>
       {/* Small width devices */}
@@ -110,10 +127,7 @@ export default function Navbar() {
             !isLoggedIn ? (
               <div className={classNames(`flex flex-row gap-4`)}>
                 <Link
-                  to={`/auth/login`}
-                  state={{
-                    from: pathname.includes(`logout`) ? `/` : pathname,
-                  }}
+                  to={`/auth/login?${compiledQuerySearch}`}
                   className={classNames(
                     `px-3 py-2`,
                     `bg-emerald-600 text-white hover:bg-emerald-700`,
