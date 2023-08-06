@@ -90,7 +90,6 @@ export const fetchINTCandidatesByID = createAsyncThunk(
   'INTcandidates/fetchINTCandidatesByID', 
   async (interviewID : any, thunkAPI) => {
       const response = await axiosInstance.get(`/interviewer/candidates/${interviewID}`);
-      console.log(response.data.statusCode);
       return response.data.result;
   }
 );

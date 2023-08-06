@@ -59,7 +59,7 @@ export default function ScorePage() {
 
    return (
       <div>
-         <div className="flex mt-8 min-h-[500px]">
+         <div className="flex mt-8 min-h-[450px]">
             <div className="w-5/12 border-2 shadow-xl px-6 py-6 rounded-xl mr-6">
                <div className="flex items-center"> 
                      <div className="">
@@ -71,51 +71,52 @@ export default function ScorePage() {
                            {INTSingleCandidate?.name} 
                      </div>
                </div>
-               <div className="">
-                  <div className="text-gray-400 mt-5 text-sm">
-                     CONTACTS
-                  </div>
-                  <div className="">
-                     <div className="mt-2 text-base">Phone: <span className="text-sm ml-2">{INTSingleCandidate?.phone}</span></div>
-                     <div className="text-base">Address: <span className="text-sm ml-2">{INTSingleCandidate?.address}</span></div>
-                     <div className="text-base">Birtday: <span className="text-sm ml-2">{INTSingleCandidate?.dateOfBirth}</span></div>
-                     <div className="text-base">Email: <span className="text-sm ml-2">{INTSingleCandidate?.email}</span></div>
-                  </div>
-               </div>
                <hr className="my-5"/>
                <div className="">
                   <div className="text-gray-400">
                      Educations
                   </div>
                   {
-                     INTSingleCandidate.educations?.map((item : any) => (
+                     INTSingleCandidate?.information && JSON.parse(INTSingleCandidate?.information)
+                     ?.education?.map((item : any) => (
                         <div className="ml-4">
-                              <div className="mt-2 text-sm">{item.schoolName}</div>
-                              <div className="text-gray-500 text-xs flex ml-2">
-                                 <AcademicCapIcon className="w-[10px] h-[10px] mt-[3px] mr-1" /> {item.certificate}
+                              <div className="mt-2 text-sm flex items-center">
+                                 <AcademicCapIcon className="w-[15px] h-[15px] mt-[3px] mr-1" />{item.school}</div>
+                              <div className="text-gray-500 text-xs flex ml-[19px]">
+                                 {item.major} - {item.graduatedYear}
                               </div>
                         </div>
                      ))
                   }
-    
                   <div className="text-gray-400 mt-3 mb-2">
                      Experiences
                   </div>
-    
                   {
-                     INTSingleCandidate.experiences?.map((item : any) => (
+                     INTSingleCandidate?.information && JSON.parse(INTSingleCandidate?.information)
+                     ?.experience?.map((item : any) => (
                         <div className="ml-4">
-                              <div className="mt-2 text-sm">{item.companyName}</div>
-                              <div className="text-gray-500 text-xs flex ml-2">
-                                 <BriefcaseIcon className="w-[10px] h-[10px] mt-[3px] mr-1" /> {item.position}
+                              <div className="mt-2 text-sm flex">
+                                 <BriefcaseIcon className="w-[15px] h-[15px] mt-[3px] mr-1" />{item.companyName}</div>
+                              <div className="text-gray-500 text-xs flex ml-[19px]">
+                                 {item.position}
                               </div>
-                              <div className="text-gray-500 text-xs flex ml-2">
-                                 <CheckBadgeIcon className="w-[10px] h-[10px] mt-[3px] mr-1" /> {item.time}
+                              <div className="text-gray-500 text-xs flex ml-[19px]">
+                                 {item.dateFrom} - {item.dateTo}
                               </div>
                         </div>
                      ))
                   }
-
+                  <div className="text-gray-400 mt-3 mb-2">
+                     Projects
+                  </div>
+                  {
+                     INTSingleCandidate?.information && JSON.parse(INTSingleCandidate?.information)
+                     ?.project?.map((item : any) => (
+                        <div className="ml-4">
+                              
+                        </div>
+                     ))
+                  }
                   <div className="text-gray-400 mt-3 mb-2">
                      Skills
                   </div>

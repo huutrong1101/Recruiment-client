@@ -45,7 +45,3 @@ export const fetchRecJobList = () => {
     }
   };
 };
-
-const updateJob = async (data: object) => {
-  return await axiosInstance.put(`/recruiter/job`, data);
-};

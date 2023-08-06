@@ -21,7 +21,6 @@ const INTCandidateDetail = () => {
     useEffect(() => {
         dispatch(fetchINTCandidatesByID(id));
     }, []);
-
     if(INTSingleCandidateStatus === STATUS.LOADING){
         return <Loader />
     }else if(INTSingleCandidateStatus === STATUS.IDLE){
@@ -42,7 +41,7 @@ const INTCandidateDetail = () => {
                                 </div>
                             </div>
                             <div className="text-gray-400 mt-5 text-sm ">
-                                CONTACTS
+                                Contacts
                             </div>
                             <div className="ml-4">
                                 <div className="mt-2 text-base">Phone: <span className="text-sm ml-2">{INTSingleCandidate?.phone}</span></div>
@@ -58,31 +57,32 @@ const INTCandidateDetail = () => {
                             <div className="text-gray-400">
                                 Educations
                             </div>
-    
                             {
-                                INTSingleCandidate.educations?.map((item : any) => (
+                               INTSingleCandidate?.information && JSON.parse(INTSingleCandidate?.information)
+                               ?.education?.map((item : any) => (
                                     <div className="ml-4">
-                                        <div className="mt-2 text-sm">{item.schoolName}</div>
-                                        <div className="text-gray-500 text-xs flex ml-2">
-                                            <AcademicCapIcon className="w-[10px] h-[10px] mt-[3px] mr-1" /> {item.certificate}
+                                        <div className="mt-2 text-sm flex items-center">
+                                            <AcademicCapIcon className="w-[15px] h-[15px] mt-[3px] mr-1" />{item.school}</div>
+                                        <div className="text-gray-500 text-xs flex ml-[19px]">
+                                            {item.major} - {item.graduatedYear}
                                         </div>
                                     </div>
                                 ))
                             }
-    
                             <div className="text-gray-400 mt-3 mb-2">
                                 Experiences
                             </div>
-    
                             {
-                                INTSingleCandidate.experiences?.map((item : any) => (
+                                INTSingleCandidate?.information && JSON.parse(INTSingleCandidate?.information)
+                                ?.experience?.map((item : any) => (
                                     <div className="ml-4">
-                                        <div className="mt-2 text-sm">{item.companyName}</div>
-                                        <div className="text-gray-500 text-xs flex ml-2">
-                                            <BriefcaseIcon className="w-[10px] h-[10px] mt-[3px] mr-1" /> {item.position}
+                                        <div className="mt-2 text-sm flex">
+                                            <BriefcaseIcon className="w-[15px] h-[15px] mt-[3px] mr-1" />{item.companyName}</div>
+                                        <div className="text-gray-500 text-xs flex ml-[19px]">
+                                            {item.position}
                                         </div>
-                                        <div className="text-gray-500 text-xs flex ml-2">
-                                            <CheckBadgeIcon className="w-[10px] h-[10px] mt-[3px] mr-1" /> {item.time}
+                                        <div className="text-gray-500 text-xs flex ml-[19px]">
+                                            {item.dateFrom} - {item.dateTo}
                                         </div>
                                     </div>
                                 ))
@@ -100,12 +100,23 @@ const INTCandidateDetail = () => {
                             </div>
                         </div>
                         <div className="w-7/12">
-                            <div className="text-gray-400 text-sm mt-2">
-                                DESCRIPTION 
+                            <div className="text-gray-400 mt-2">
+                                Description 
                             </div>
                             <div className="ml-4 mt-2">
                                 <p>{INTSingleCandidate?.about}</p>
                             </div>
+                            <div className="text-gray-400 mt-2">
+                                Projects
+                            </div>
+                            {
+                                INTSingleCandidate?.information && JSON.parse(INTSingleCandidate?.information)
+                                ?.project?.map((item : any) => (
+                                    <div className="ml-4">
+                                        
+                                    </div>
+                                ))
+                            }
                         </div>
                     </div>
                 </div>

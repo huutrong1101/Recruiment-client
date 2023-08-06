@@ -2,8 +2,8 @@ import { useEffect, useState, } from "react";
 import classnames from "classnames";
 import blog_image from "../../../images/blog_image.png";
 import { Link, NavLink } from "react-router-dom";
-import { ArrowRightIcon, CalendarDaysIcon, ClockIcon, } from "@heroicons/react/24/outline";
-import { EventInterface, JobListConfig } from "../../services/services";
+import { ArrowRightIcon, CalendarDaysIcon, ChevronDownIcon, ClockIcon, MagnifyingGlassIcon, } from "@heroicons/react/24/outline";
+import { EventInterface, EventListConfig } from "../../services/services";
 import useQueryParams from "../../hooks/useQueryParams";
 import { omitBy, isUndefined, isEqual } from "lodash";
 import { useAppSelector } from "../../hooks/hooks";
@@ -20,9 +20,12 @@ import { createSearchParams, useNavigate } from "react-router-dom";
 import {MagnifyingGlassCircleIcon} from '@heroicons/react/24/outline'
 import Paginationacountlist from "../../components/AdminManagerList/Pagination/Paginationacountlist";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import classNames from "classnames";
+import { BsFilterLeft } from "react-icons/bs";
+import { Menu } from "@headlessui/react";
 
 export type QueryConfig = {
-  [key in keyof JobListConfig]: string;
+  [key in keyof EventListConfig]: string;
 };
 export default function ReccerEventManagement() {
   const events: EventInterface[] = useAppSelector((state) => state.Home.events);
@@ -35,6 +38,7 @@ export default function ReccerEventManagement() {
     {
       index: queryParams.index || "1",
       size: queryParams.size || 6,
+      state: queryParams.state || true,
       name: queryParams.name || "",
     },
     isUndefined,
@@ -78,6 +82,7 @@ export default function ReccerEventManagement() {
           const response = await axiosInstance(`/recruiter/events?${query}`);
           setShowEvents(response.data.result.content);
           setPageSize(response.data.result.totalPages);
+          console.log(response.data.result.content);
         } catch (error) {
           console.log(error);
         } finally {
@@ -102,6 +107,7 @@ export default function ReccerEventManagement() {
         pathname: "/recruiter/events",
         search: createSearchParams({
           ...queryConfig,
+          index: "1",
           name: dataSearch.key,
         }).toString(),
       });
@@ -114,39 +120,69 @@ export default function ReccerEventManagement() {
   return (
     <>
       <div>
-        {/* Search */}
-        <div className="flex flex-wrap -mx-4 mt-5 justify-center mb-5 sticky-form">
-          <form
-            onSubmit={e => handleSearch(e)}
-            className="inline-flex items-center justify-start gap-1 px-0.5 py-0.5 bg-white border rounded-xl bg-opacity-5"
-          >
-            <div className="flex items-center justify-center gap-3 ml-3 relative w-[20px]"><MagnifyingGlassCircleIcon/></div>
-            <div className="flex items-center justify-center gap-3 relative">
-              <input
-                type="text"
-                className="font-medium outline-none text-gray-900 ml-3 text-[14px] h-[30px] text-left rounded-lg"
-                value={dataSearch.key}
-                onChange={(e) =>
-                  setDataSearch({ ...dataSearch, key: e.target.value })
-                }
-                placeholder=" Please enter a search     "
-              />
-            </div>
-          </form>
-          {/* <button
-            onClick={() => handleSearch(e)}
-            className="px-6 py-1.5 ml-5 text-white rounded-lg bg-emerald-600 hover:bg-emerald-800 md:block hidden"
-          >
-            Search
-          </button> */}
-        </div>
+        
+            <div
+              className={classNames(
+                "flex justify-center mt-5 item-center ",
+              )}
+            >
+              <form
+                onSubmit={e => handleSearch(e)}
+              > 
+                <div
+                  className={classNames(
+                    "flex justify-center items-center w-80% p-1 border rounded-xl",
+                    "focus-within:border-emerald-400",
+                  )}
+                >
+                    <BsFilterLeft className={classNames(`w-[20px] ml-4 mr-4`)} />
+                    <div
+                      className={classNames(
+                        "text-[16px] cursor-pointer flex items-center justify-between",
+                      )}
+                    >
+                        Name Event      
+                    </div>
+                    <div className=" flex items-center p-3 rounded-xl">
+                      <MagnifyingGlassIcon className="w-5 h-5 mx-2  mr-4" />
+                      <input
+                        type="text"
+                        placeholder="Search your name Event"
+                        className="w-[85%] h-full text-base text-zinc-400 focus:outline-none"
+                        value={dataSearch.key}
+                        onChange={(e) => setDataSearch({ ...dataSearch, key: e.target.value })}
+                      />
+                    </div> 
+                    <div
+                      className={classNames(
+                        "text-[16px] cursor-pointer flex items-center justify-between",
+                      )}
+                    >
+                        <button
+                          type="submit"
+                          className="bg-[#05966A] hover:bg-emerald-700 text-white p-2 rounded-md flex items-center justify-center"
+                        >
+                          Search
+                        </button>      
+                    </div>                              
+                </div>                  
+              </form>
+            </div>           
+
+
+
+
+
+        <div className="mt-5">
         {/* Add Event */}
-          <button className="text-white shadow text-sm font-medium leading-tight flex py-2 px-2 justify-start bg-emerald-600 rounded-xl ">
+          <button
+          className={classNames(  "text-white p-3 rounded-xl w-1/8 text-white shadow text-sm font-medium leading-tight flex justify-start bg-emerald-600 ",
+          )}>
             <NavLink to="/recruiter/events-add" onClick={() => { }}>
               + Add Event
             </NavLink>
           </button>
-
+        </div>
         {/* Conten */}
         <div>
           {isLoading ? (
@@ -163,7 +199,7 @@ export default function ReccerEventManagement() {
                       <div className="w-full">
                         <img
                           src={event.img || blog_image}
-                          className="w-full h-[300px] object-cover"
+                          className="w-full h-[250px] object-center rounded-lg flex justify-center"
                         />
                       </div>
                       <div className="p-6">
@@ -175,23 +211,24 @@ export default function ReccerEventManagement() {
                           <div className="flex items-center gap-1">
                             <ClockIcon className="w-[20px]" />
                             <p>{event.time}</p>
+
                           </div>
                         </div>
                         <div className="mt-2 text-left">
                           {moment().isAfter(event.deadline) ? (
-                            <p style={{ color: 'red', fontStyle: 'italic' }}>Đã hết hạn</p>
+                            <p style={{ color: 'red', fontStyle: 'italic' }}>Finished ...</p>
                           ) : moment().isSame(event.deadline, 'day') ? (
-                            <p style={{ color: '#FFD700', fontStyle: 'italic' }}>Sắp kết thúc</p>
+                            <p style={{ color: '#FFD700', fontStyle: 'italic' }}>Coming to end ...</p>
                           ) : (
-                            <p style={{ color: '#059669', fontStyle: 'italic' }}>Đang diễn ra</p>
+                            <p style={{ color: '#059669', fontStyle: 'italic' }}>On Going ...</p>
                           )}
                         </div>
                         <div className="mt-2 text-center">
-                          <h3>
-                            {event.title.length > 35
-                              ? event.title.substring(0, 25) + "  ..."
+                          <h1 className="text-xl e-justify text-e-bold italic">
+                            {event.title.length > 20
+                              ? event.title.substring(0, 17) + "  ..."
                               : event.title}
-                          </h3>
+                          </h1>
                         </div>
                         <div className="mt-6 flex items-center justify-center">
                           <Link

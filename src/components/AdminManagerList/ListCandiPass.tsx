@@ -83,21 +83,21 @@ export default function ListCandiPass() {
     <div className="flex-col mt-3">
     <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
       <Table className="text-sm text-gray-500 dark:text-gray-400 text-center sticky">
-        <TableHead className="text-xs text-gray-700 bg-gray-200 text-center"style={{ fontFamily: "Outfit, sans-serif" }}>
+        <TableHead className="text-xs bold text-gray-700 bg-gray-200 text-center"style={{ fontFamily: "Outfit, sans-serif" }}>
           <TableRow>
-          <TableCell scope="col" className="px-1 py-1">
+          <TableCell scope="col" className="px-1 py-1 bold">
               Name
             </TableCell>
-            <TableCell scope="col" className="px-1 py-1">
+            <TableCell scope="col" className="px-1 py-1 bold">
               Phone
             </TableCell>
-            <TableCell scope="col" className="px-1 py-1">
+            <TableCell scope="col" className="px-1 py-1 bold">
               State
             </TableCell>
-            <TableCell scope="col" className="px-1 py-1">
+            <TableCell scope="col" className="px-1 py-1 bold" >
               Date created
             </TableCell>
-            <TableCell scope="col" className="px-1 py-1">
+            <TableCell scope="col" className="px-1 py-1 bold">
               Point
             </TableCell>
           </TableRow>
@@ -122,11 +122,11 @@ export default function ListCandiPass() {
                 {job.name}
               </TableCell>
               <TableCell className="px-1 py-1 text-gray-500">{job.phone}</TableCell>
-              <TableCell className="px-1 py-1 text-green-500">{job.state}</TableCell>
+              <TableCell className="px-1 py-1 text-green-500 italic">{job.state === "NOT_RECEIVED" ?"Waiting for interview ..." : job.state}</TableCell>
               <TableCell className="px-1 py-1 italic">
-                {moment(job.date).format("HH:mm:ss DD-MM-YYYY")}
+                {job.state === "NOT_RECEIVED" ?"Waiting for interview" : moment(job.date).format("HH:mm:ss DD-MM-YYYY")}
               </TableCell>
-              <TableCell className="px-1 py-1 font-semibold">{job.score}</TableCell>
+              <TableCell className="px-1 py-1 font-semibold e-bold">{job.score}</TableCell>
             </TableRow>            
             ))): 
             (

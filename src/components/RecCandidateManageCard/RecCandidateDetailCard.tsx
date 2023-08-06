@@ -110,16 +110,18 @@ export default function RecCandidateDetailCard(props: any) {
                           `text-justify`,
                         )}
                       >
-                        <p className="text-2xl font-semibold">Skill:</p>
+                        <div className="text-2xl font-semibold">Skill:</div>
                         <div>
-                          {candidate.skills?.map((skill, index) => (
-                            <p
-                              key={index}
-                              className="px-4 py-2 gap-2 ml-2 inline-flex bg-emerald-600 hover:bg-emerald-700 border-emerald-600  text-white rounded-md"
-                            >
-                              {skill.name}
-                            </p>
-                          ))}
+                          {JSON.parse(candidate.information)?.skills?.map(
+                            (skill, index) => (
+                              <p
+                                key={index}
+                                className="px-4 py-2 gap-2 ml-2 inline-flex bg-emerald-600 hover:bg-emerald-700 border-emerald-600  text-white rounded-md"
+                              >
+                                {skill.label}
+                              </p>
+                            ),
+                          )}
                         </div>
                       </div>
                       <div
@@ -235,12 +237,8 @@ export default function RecCandidateDetailCard(props: any) {
                         <span className="font-medium ms-2">
                           {candidate?.fullName}.pdf
                         </span>
-                        <a
-                          href=""
-                          className="px-4 py-2 gap-2 ml-4 mt-2 bg-emerald-600 hover:bg-emerald-700 border-emerald-600  text-white rounded-md"
-                        >
-                          Download
-                        </a>
+                        {/* <a href="linkResume" download></a> */}
+                        {/* DOWNLOAD */}
                       </div>
                     </div>
                   </div>

@@ -30,7 +30,7 @@ export default function PaginationInterview({ queryConfig, pageSize }: Props) {
                                 }}
                                 key={index}
                                 className={classNames(
-                                    "mx-2 cursor-pointer rounded border bg-white px-3 py-2 shadow-sm",
+                                    "mx-2 cursor-pointer rounded border bg-white px-3 py-2 shadow-sm hover:bg-zinc-100",
                                     {
                                         "border-cyan-500": pageNumber === page,
                                         "border-transparent": pageNumber !== page,
@@ -53,10 +53,10 @@ export default function PaginationInterview({ queryConfig, pageSize }: Props) {
                 aria-label="Page navigation example"
                 className="flex items-center justify-center"
             >
-                <ul className="flex items-center justify-center list-style-none">
+                <ul className="flex items-center justify-center list-style-none  ">
                     <li>
                         {page === 1 ? (
-                            <span className="px-3 py-2 mx-2 border rounded shadow-sm cursor-not-allowed bg-white/60">
+                            <span className="px-3 py-2 mx-2 border rounded shadow-sm cursor-not-allowed bg-white/60 ">
                                 Prev
                             </span>
                         ) : (
@@ -68,7 +68,7 @@ export default function PaginationInterview({ queryConfig, pageSize }: Props) {
                                         page: (page - 1).toString(),
                                     }).toString(),
                                 }}
-                                className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"
+                                className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer hover:bg-zinc-100"
                             >
                                 Prev
                             </Link>
@@ -79,7 +79,7 @@ export default function PaginationInterview({ queryConfig, pageSize }: Props) {
 
                     <li>
                         {page === pageSize ? (
-                            <button className="px-3 py-2 mx-2 border rounded shadow-sm cursor-not-allowed bg-white/60">
+                            <button className="px-3 py-2 mx-2 border rounded shadow-sm cursor-not-allowed bg-white/60 ">
                                 Next
                             </button>
                         ) : (
@@ -91,7 +91,7 @@ export default function PaginationInterview({ queryConfig, pageSize }: Props) {
                                         page: (page + 1).toString(),
                                     }).toString(),
                                 }}
-                                className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"
+                                className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer hover:bg-zinc-100"
                             >
                                 Next
                             </Link>
