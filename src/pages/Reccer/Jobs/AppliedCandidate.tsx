@@ -117,13 +117,20 @@ export default function Applied(num: any) {
       jobId: jobId || "",
       state: "passed",
     };
+    const countReceivedStates = applyCandidate
+      ?.map((data) => data.state)
+      .filter((state) => state === "PASSED").length;
 
-    toast
-      .promise(StateService.changeState(data), {
-        pending: `Changing`,
-        success: `The state was changed to pass`,
-      })
-      .catch((error) => toast.error(error.response.data.result));
+    if (countReceivedStates <= num.num) {
+      toast
+        .promise(StateService.changeState(data), {
+          pending: `Changing`,
+          success: `The state was changed to pass`,
+        })
+        .catch((error) => toast.error(error.response.data.result));
+    } else toast.error(`This job already have enough candidates`);
+    // console.log(countReceivedStates);
+    // console.log(num.num);
   };
 
   const handleFail = (candidateId: string) => {
@@ -158,7 +165,8 @@ export default function Applied(num: any) {
     }
   };
 
-  console.log(applyCandidate)
+  // console.log(num);
+
   return (
     <div
       className={classNames(
