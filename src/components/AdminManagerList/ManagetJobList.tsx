@@ -137,7 +137,7 @@ const ManagetJobList = () => {
                       <MagnifyingGlassIcon className="w-5 h-5 mx-2  mr-4" />
                       <input
                         type="text"
-                        placeholder="Search your Name Acount"
+                        placeholder="Fill in the search information ..."
                         className="w-[85%] h-full text-base text-zinc-400 focus:outline-none"
                         value={dataSearch.key}
                         onChange={(e) => setDataSearch({ ...dataSearch, key: e.target.value })}
@@ -188,10 +188,9 @@ const ManagetJobList = () => {
             ) : (
               <>
               <TableBody>
-
                {showJobLists && showJobLists.length > 0 ?
-                  (showJobLists.map((job) => (
-                  <TableRow className="text-black bg-white text-center justify-center" key={job.idJob}>
+                  (showJobLists.map((job) => (                    
+                  <TableRow className="text-center text-black bg-white hover:bg-gray-100" key={job.idJob}>
                   <TableCell scope="row" className="font-medium text-gray-900 whitespace-nowrap" style={{ fontFamily: "Outfit, sans-serif" }}
                   > {job.name}  </TableCell>
                   <TableCell className=""                 style={{ fontFamily: "Outfit, sans-serif" }}

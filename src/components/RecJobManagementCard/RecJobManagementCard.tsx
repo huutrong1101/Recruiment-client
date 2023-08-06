@@ -19,31 +19,15 @@ export default function RecDashboardCard({ job }: any) {
   const currentDateMoment = moment(currentDate, "Do MMMM, YYYY");
   const targetDateMoment = moment(targetDate, "Do MMMM, YYYY");
 
+  const temp = { ...job, isActive: false };
   // Compare dates
   if (currentDateMoment.isBefore(targetDateMoment)) {
     console.log("Current date is before the target date.");
   } else if (currentDateMoment.isSame(targetDateMoment)) {
     console.log("Current date is the same as the target date.");
   } else {
-    console.log("Current date is after the target date.");
+    JobService.editJob(temp, job?.jobId)
   }
-  // console.log(job?.name)
-  // console.log(moment(new Date()).format("Do MMMM, YYYY"))
-  // console.log( moment(job.deadline).format("Do MMMM, YYYY"))
-
-  const temp = { ...job, isActive: false };
-  const currentDay = new Date();
-  var test = "";
-
-  // if (currentDay >= job?.deadline) {
-  //    test = "true"
-  //    console.log(test)
-  //    // JobService.editJob(temp, job?.jobId)
-  // }
-  // else {
-  //    test = "fasle"
-  //    console.log(test)
-  // }
   const handleActive = (data: boolean) => {
     var temp = "";
     if (data === true) {
@@ -90,9 +74,8 @@ export default function RecDashboardCard({ job }: any) {
                 Salary: {job.salaryRange}
               </span>
               <span
-                className={`ml-3 text-sm font-semibold ${
-                  job?.isActive === true ? "text-green-700" : "text-red-600"
-                } `}
+                className={`ml-3 text-sm font-semibold ${job?.isActive === true ? "text-green-700" : "text-red-600"
+                  } `}
               >
                 {handleActive(job?.isActive)}
               </span>

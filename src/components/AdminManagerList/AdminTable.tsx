@@ -221,11 +221,9 @@ export default function AdminTable({ typeSelected }: TypeData) {
                 {showJobLists && showJobLists.length > 0 ?
                   (showJobLists.map((job) => (
                   <TableRow
-                    className="text-center text-black bg-white"
-                    style={{
-                      background: job.active === false ? "#FF0033" : "none",
-                      // Add any other inline styles you want for each row
-                    }}
+                    className={`text-center text-black bg-white hover:bg-gray-100 ${
+                      job.active === false ? "bg-red-500" : ""
+                    }`}
                     key={job.userId}
                   >
                     <TableCell
@@ -296,6 +294,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
                           onClose={handleClose}
                           BackdropProps={{ invisible: true }}
                           sx={{ borderRadius: 30 }}
+                          style={{ fontFamily: "Outfit, sans-serif" }}
                           aria-labelledby="alert-dialog-title"
                           aria-describedby="alert-dialog-description"
                         >
@@ -303,24 +302,25 @@ export default function AdminTable({ typeSelected }: TypeData) {
                             id="alert-dialog-title"
                             className="text-center"
                           >
-                            <p className="font-extrabold pt-4">Delete Job</p>
+                            <p className=" pt-4">Delete Job</p>
                           </DialogTitle>
                           <DialogContent className="text-center">
-                            <div className="text-center px-6">
-                              <DialogContent className="font-semibold text-lg mb-2">
-                                Are you sure you want to delete "{job.fullName}"?
+                            <div className="text-center">
+                              <DialogContent className="  text-lg mb-2">
+                                <p>Are you sure you want to delete</p>
+                                <p> "{job.fullName}"</p>
                               </DialogContent>
                               <DialogContentText
                                 id="alert-dialog-description"
                                 className="border bg-orange-100 px-3 py-2 "
                               >
-                                <div className ="flex">
+                                <div className ="flex text-italic">
                                   <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
-                                  <p className="flex text-red-800 font-semibold px-2">
+                                  <p className="flex text-red-800   px-2">
                                     WARNING
                                   </p>
                                 </div>
-                                <div className="text-left font-semibold">
+                                <div className="text-left  ">
                                   This action cannot be undone, the deleted item
                                   cannot be restored.
                                 </div>
