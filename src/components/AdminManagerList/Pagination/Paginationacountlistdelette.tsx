@@ -133,7 +133,7 @@ export default function Paginationacountlistdelette({ queryConfig, pageSize }: P
           <li>
             {page === pageSize ? (
               <button className="px-3 py-2 mx-2 border rounded shadow-sm cursor-not-allowed bg-white/60">
-                Next
+                Prev
               </button>
             ) : (
               <Link

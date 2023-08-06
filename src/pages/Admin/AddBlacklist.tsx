@@ -142,22 +142,20 @@ export default function AddBlacklist() {
                         >
                             <div className="text-center px-6">
                             <DialogContent className=" font-semibold  text-lg mb-2" style={{ fontFamily: "Outfit, sans-serif" }}>
-                               <p> Are you sure you want to AddBlacklist </p>
-                               <p>"{showJobLists.name}"?</p>
+                               <h1  className=" font-semibold  text-lg mb-2"> Are you sure you want to add {showJobLists.name} to Blacklist ?</h1>
                             </DialogContent>
                             <DialogContentText
                                 id="alert-dialog-description"
                                 className="border bg-orange-100 px-3 py-2 "
                             >
-                                <div className="flex">
+                                <div className="flex justify-center p-4 py-2">
                                 <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
-                                <p className="flex text-red-800  font-semibold  px-2">
+                                <p className="flex text-red-800 text-center font-semibold  px-2">
                                     WARNING
                                 </p>
                                 </div>
                                 <div className="text-left  font-semibold " style={{ fontFamily: "Outfit, sans-serif" }}>
-                                This action cannot be undone, the deleted item
-                                cannot be restored.
+                                    <p>You definitely want to continue. Be careful with your decisions</p>
                                 </div>
                             </DialogContentText>
                         </div>

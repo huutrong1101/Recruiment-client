@@ -25,7 +25,6 @@ export default function RecEventDetail() {
   const [avatar1, setAvatar1] = useState(null);
   const [dayend, setDayend] = useState('');
   const [daystar, setDaystar] = useState('');
-  const [daycheck, setcheck] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [time, setTime] = useState('');
   const [location, setlocation] = useState('');
@@ -36,6 +35,10 @@ export default function RecEventDetail() {
   const handleClickOpen1 = () => {
     setOpenSave(false);
     setOpenDelete(true);
+  };
+  const handleClickOpen = () => {
+    setOpenSave(true);
+    setOpenDelete(false);
   };
   const handleClose = () => {
     setOpenSave(false);
@@ -57,7 +60,6 @@ export default function RecEventDetail() {
         setAvatar(response.data.result.img);
         setDayend(moment(response.data.result.deadline).format("YYYY-MM-DD"));
         setDaystar(moment(response.data.result.startAt).format("YYYY-MM-DD"));
-        setcheck(moment(response.data.result.startAt).format("YYYY-MM-DD"));
         setTime(response.data.result.time);
         setlocation(response.data.result.location);
         settitle(response.data.result.title);
@@ -85,6 +87,15 @@ export default function RecEventDetail() {
       return;
     } 
     //     
+    if (!avatar) {
+      toast.error('Please choose an image.');
+      return;
+    }
+    // Check if the title or description is empty
+    if (title.trim() === '' || description.trim() === ''|| time.trim() === '' || location.trim() === '' || !daystar || !dayend) {
+      toast.error('Please fill in all required fields.');
+      return;
+    }
     const formData = new FormData();
     const formattedValueStart = moment(daystar).format("YYYY-MM-DD");
     const formattedValueDeadline = moment(dayend).format("YYYY-MM-DD");
@@ -140,8 +151,8 @@ export default function RecEventDetail() {
     <>
     {isLoading ? 
       (
-        <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-10 mb-10">
-          <LoadSpinner className="text-2xl text-[#059669] " />
+        <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-20 mb-20">
+          <LoadSpinner className="text-3xl text-[#059669] " />
       </div>
       ):(
       <div className={classnames("flex gap-10")}>
@@ -149,7 +160,7 @@ export default function RecEventDetail() {
             <div className={classnames("flex items-left px-10 mt-10")}>
               <label className="text-zinc-900 text-2xl font-normal leading-7 ">Image here</label>
             </div>
-            <div className="flex items-left px-10 mt-10 justify-center ">
+            <div className="flex items-left px-10 mt-10 justify-center borded-2">
             <label htmlFor="avatar">
             {avatar ? (
                 <div>
@@ -175,6 +186,8 @@ export default function RecEventDetail() {
               />
             </label>
             </div>  
+
+
             <div className={classnames("mt-4 px-10")}>
 
               <div
@@ -220,13 +233,56 @@ export default function RecEventDetail() {
 
               <div className={classnames("mt-10 text-center px-6 py-3")}>
                 <button
-                  onClick={handleSubmit}
-                  className="px-6 py-3 ml-5 text-white rounded-full bg-emerald-600 hover:bg-emerald-800"
+                  onClick={handleClickOpen}
+                  className="px-6 py-3 ml-5 text-white rounded-xl bg-emerald-600 hover:bg-emerald-800"
                 >
                   Save
-                </button>          
+                </button>   
+                <Dialog
+                  open={openSave}
+                  onClose={handleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                  <p className="font-extrabold pt-4 text-center italic">Save Al Change</p>
+                  </DialogTitle>
+                  <DialogContent className="text-center">
+                    <div className="text-center px-6">                      
+                      <DialogContentText
+                        id="alert-dialog-description"
+                        className="border bg-orange-100 px-3 py-2 "
+                      >
+                        <div className="flex">
+                          <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
+                          <p className="flex text-red-800 font-semibold px-2">
+                            WARNING
+                          </p>
+                        </div>
+                        <div className="text-left font-semibold">
+                        This action cannot be undone, the saved item cannot be restored.
+                        </div>
+                      </DialogContentText>
+                    </div>
+                  </DialogContent >
+                  <DialogActions style={{ justifyContent: 'center' }}>
+                        <button
+                        className="rounded-lg bg-red-700 hover:bg-red-900 px-2 py-2 mx-1 my-1 text-white"
+                        onClick={handleClose}
+                        >
+                        Cancel
+                        </button>
+                        <button
+                        className="rounded-lg bg-[#059669] hover:bg-green-900 px-2 py-2 mx-1 my-1 text-white"
+                        onClick={handleSubmit}
+                        autoFocus
+                        >
+                        Agree
+                    </button>                  
+                  </DialogActions>
+                </Dialog>       
                 <button
-                  className="px-6 py-3 ml-5 text-white bg-red-600 rounded-full hover:bg-emerald-800"
+                  className="px-6 py-3 ml-5 text-white bg-red-600 rounded-lg hover:bg-red-800"
                   onClick={handleClickOpen1}
                 >
                   Delete
@@ -243,7 +299,8 @@ export default function RecEventDetail() {
                   <DialogContent className="text-center">
                     <div className="text-center px-6">
                       <DialogContent className="font-semibold text-lg mb-2">
-                        Are you sure you want to delete name "{title}"?
+                        <p>Are you sure you want to delete name</p>
+                        <p>"{title}"?</p> 
                       </DialogContent>
                       <DialogContentText
                         id="alert-dialog-description"
@@ -262,11 +319,20 @@ export default function RecEventDetail() {
                       </DialogContentText>
                     </div>
                   </DialogContent>
-                  <DialogActions>
-                    <Button onClick={handleClose}>Disagree</Button>
-                    <Button onClick={handleDelete} type="submit">
-                      Agree
-                    </Button>
+                  <DialogActions style={{ justifyContent: 'center' }}>
+                      <button
+                        className="rounded-lg bg-red-700 hover:bg-red-900 px-2 py-2 mx-1 my-1 text-white"
+                        onClick={handleClose}
+                        >
+                        Cancel
+                        </button>
+                        <button
+                        className="rounded-lg bg-[#059669] hover:bg-green-900 px-2 py-2 mx-1 my-1 text-white"
+                        onClick={handleDelete}
+                        autoFocus
+                        >
+                        Agree
+                    </button>              
                   </DialogActions>
                 </Dialog>
               </div>  
@@ -291,8 +357,8 @@ export default function RecEventDetail() {
                           id="startAt"
                           className="text-emerald-600 text-sm font-medium leading-tight"
                           value={daystar}
-                          min={daycheck < DateStart ? daycheck : DateStart}
-                          // readOnly
+                          // min={daycheck < DateStart ? daycheck : DateStart}
+                          readOnly
                           onChange={(event) => setDaystar(event.target.value)}
                           />
                       </div>

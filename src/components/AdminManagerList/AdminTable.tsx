@@ -297,16 +297,10 @@ export default function AdminTable({ typeSelected }: TypeData) {
                           style={{ fontFamily: "Outfit, sans-serif" }}
                           aria-labelledby="alert-dialog-title"
                           aria-describedby="alert-dialog-description"
-                        >
-                          <DialogTitle
-                            id="alert-dialog-title"
-                            className="text-center"
-                          >
-                            <p className=" pt-4">Delete Job</p>
-                          </DialogTitle>
+                        >                          
                           <DialogContent className="text-center">
                             <div className="text-center">
-                              <DialogContent className="  text-lg mb-2">
+                              <DialogContent className="text-xl mb-2">
                                 <p>Are you sure you want to delete</p>
                                 <p> "{job.fullName}"</p>
                               </DialogContent>

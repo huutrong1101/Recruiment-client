@@ -108,9 +108,6 @@ export default function ReccerEventManagement() {
       setIsLoading(false);
     }
   };
-  const handleResetClick = () => {
-    window.location.reload(); // Gọi lại trang khi nút được nhấn
-  };
   return (
     <>
       <div>        
@@ -134,13 +131,13 @@ export default function ReccerEventManagement() {
                         "text-[16px] cursor-pointer flex items-center justify-between",
                       )}
                     >
-                        Name Event      
+                        Name      
                     </div>
                     <div className=" flex items-center p-3 rounded-xl">
                       <MagnifyingGlassIcon className="w-5 h-5 mx-2  mr-4" />
                       <input
                         type="text"
-                        placeholder="Please enter a search ..."
+                        placeholder="Please enter a search ...."
                         className="w-[85%] h-full text-base text-zinc-400 focus:outline-none"
                         value={dataSearch.key}
                         onChange={(e) => setDataSearch({ ...dataSearch, key: e.target.value })}
@@ -148,7 +145,7 @@ export default function ReccerEventManagement() {
                     </div> 
                     <div
                       className={classNames(
-                        "text-[16px] cursor-pointer flex items-center justify-between",
+                        "text-[16px] cursor-pointer flex items-center justify-between mr-5",
                       )}
                     >
                         <button
@@ -160,33 +157,26 @@ export default function ReccerEventManagement() {
                     </div>                              
                 </div>                  
               </form>
-              <div className=" ml-10">
-                {/* Add Event */}
-                  <button
-                  onClick={handleResetClick}
-                  className={classNames(  "mr-3 text-white p-3 rounded-xl  bg-red-600", 
-                  )}>
-                      Reset
-                  </button>
-                  <button
-                  className={classNames(  "ml-3 text-white p-3 rounded-xl bg-emerald-600 ",
-                  )}>
-                    <NavLink to="/recruiter/events-add" onClick={() => { }}>
-                      + Create
-                    </NavLink>
-                  </button>                 
-              </div>
             </div>           
 
 
 
 
 
-       
+        <div className="mt-5">
+        {/* Add Event */}
+          <button
+          className={classNames(  "text-white p-3 rounded-xl w-2/8  shadow text-sm font-medium leading-tight flex justify-start bg-emerald-600 ",
+          )}>
+            <NavLink to="/recruiter/events-add" onClick={() => { }}>
+              + Add Event
+            </NavLink>
+          </button>
+        </div>
         {/* Conten */}
         <div>
           {isLoading ? (
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-10 mb-10">
                     <LoadSpinner className="text-2xl text-[#059669] " />
             </div>
           ) : (
@@ -194,12 +184,12 @@ export default function ReccerEventManagement() {
               {/* <!-- Card --> */}
               {showEvents && showEvents.length > 0 ?
                 (showEvents.map((event) => (
-                  <div key={event.id} className="w-full px-4 mb-8 md:w-1/3">
-                    <div className="bg-white rounded-lg shadow-lg">
-                      <div className="w-full">
+                  <div key={event.id} className="w-full px-4 mb-5 md:w-1/3 borded-2">
+                    <div className="bg-white rounded-lg shadow-lg borded-2">
+                      <div className="w-full flex justify-center">
                         <img
                           src={event.img || blog_image}
-                          className="w-full h-[250px] object-center rounded-lg flex justify-center"
+                          className="w-[250px] h-[250px] object-center rounded-xl "
                         />
                       </div>
                       <div className="p-6">
@@ -223,19 +213,19 @@ export default function ReccerEventManagement() {
                           )}
                         </div>
                         <div className="mt-2 text-center">
-                          <h1 className="text-xl e-justify text-e-bold italic">
+                          <h1 className="text-xl justify text-bold italic">
                             {event.title.length > 25
-                              ? event.title.substring(0, 10) + "  ..."
+                              ? event.title.substring(0, 15) + "  ..."
                               : event.title}
                           </h1>
                         </div>
                         <div className="mt-6 flex items-center justify-center">
                           <Link
                             to={`${event.id}`}
-                            className="bg-emerald-700 text-white p-2 rounded-md flex"
+                            className="bg-emerald-700 text-white p-1 px-3 rounded-md flex"
                           >
-                            Read More
-                            <ArrowRightIcon className="w-[20px] ml-1" />
+                            Read Detail
+                            {/* <ArrowRightIcon className="w-[20px] ml-1" /> */}
                           </Link>
                         </div>
                       </div>
