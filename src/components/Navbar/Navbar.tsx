@@ -66,7 +66,8 @@ export default function Navbar() {
       qs.stringify(
         currentPathname.includes(`/auth/login`) ||
           currentPathname.includes(`/logout`) ||
-          currentPathname.includes(`/otp`)
+          currentPathname.includes(`/otp`) ||
+          currentPathname.includes("/email")
           ? {}
           : { from: currentPathname },
       ),

@@ -64,11 +64,13 @@ function UserProfileInformation() {
   };
 
   const handleUpdateProfile = (data: any) => {
-    toast.promise(UserService.updateProfile(data), {
-      pending: `Updating your profile`,
-      success: `Your profile was updated`,
-      error: `Failed to update your profile`,
-    });
+    toast
+      .promise(UserService.updateProfile(data), {
+        pending: `Updating your profile`,
+        success: `Your profile was updated`,
+        error: `Failed to update your profile`,
+      })
+      .then((response) => dispatch(setUser(response.data.result)));
   };
 
   return (

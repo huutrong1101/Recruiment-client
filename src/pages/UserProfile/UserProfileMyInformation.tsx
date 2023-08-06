@@ -49,6 +49,8 @@ export default function UserProfileMyInformation() {
     return () => {};
   }, []);
 
+  // useEffect
+
   // const [selectedOptions, setSelectedOptions] = useState([]);
 
   const handleSelectChange = (selectedOptions: any) => {
@@ -155,6 +157,7 @@ export default function UserProfileMyInformation() {
                     }}
                   />
                 </div>
+                <small>Please save your skill after</small>
               </div>
             </div>
           )}
