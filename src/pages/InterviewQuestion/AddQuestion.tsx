@@ -43,11 +43,11 @@ export default function AddQuestion({ observation, onClick }: any) {
   const [triggeredSkill, setTriggeredSkill] = useState(false)
   const [triggeredType, setTriggeredType] = useState(false)
 
-  const handleTriggerSkill = (e:any) => {
-      setTriggeredSkill(!triggeredSkill)
+  const handleTriggerSkill = (e: any) => {
+    setTriggeredSkill(!triggeredSkill)
   }
-  const handleTriggerType = (e:any) => {
-      setTriggeredType(!triggeredType)
+  const handleTriggerType = (e: any) => {
+    setTriggeredType(!triggeredType)
   }
 
 
@@ -90,24 +90,24 @@ export default function AddQuestion({ observation, onClick }: any) {
     console.log(data)
 
 
-    if (data.content === " " ) {
+    if (data.content === " ") {
       toast
-      .promise(InterviewService.error(data.content), {
-        error: "Please fill full question information"
-      })
+        .promise(InterviewService.error(data.content), {
+          error: "Please fill full question information"
+        })
     }
     // data.typeQuestion === " " || data.skillId === " "
     else if (!setTriggeredSkill) {
       toast
-      .promise(InterviewService.error(data.skillId), {
-        error: "Please select Skill "
-      })
+        .promise(InterviewService.error(data.skillId), {
+          error: "Please select Skill "
+        })
     }
     else if (!setTriggeredType) {
       toast
-      .promise(InterviewService.error(data.typeQuestion), {
-        error: "Please select Type "
-      })
+        .promise(InterviewService.error(data.typeQuestion), {
+          error: "Please select Type "
+        })
     }
     else {
       toast
@@ -141,11 +141,14 @@ export default function AddQuestion({ observation, onClick }: any) {
         <div className='flex h-full'>
           <div className='flex flex-col w-3/5 h-[83%] '>
             <div className='mx-5 font-normal text-md my-1'>Note</div>
-            <div className='w-11/12 p-2 h-full border-2 border-emerald-600 rounded-md ml-7 '>
-              <textarea className='w-full resize-none outline-none h-full ' placeholder='Answer'
-                onChange={e => setInputData({ ...inputData, note: e.target.value })}
-              ></textarea>
+            <div className="w-full h-full flex justify-center">
+              <div className='w-11/12 h-full ml-6 border-2 border-emerald-600 rounded-md  p-2 '>
+                <textarea className='w-full resize-none outline-none h-full ' placeholder='Answer'
+                  onChange={e => setInputData({ ...inputData, note: e.target.value })}
+                ></textarea>
+              </div>
             </div>
+
           </div>
           {/* skill button */}
           <div className='flex flex-col w-2/5 p-2 relative'>
