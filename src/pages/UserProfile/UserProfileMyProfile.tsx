@@ -105,7 +105,7 @@ function UserProfileInformation() {
                 <img
                   src={user.avatar}
                   alt={`${user.fullName}'s avatar`}
-                  className={`rounded-full`}
+                  className={`rounded-full aspect-square w-full`}
                 />
               )}
             </div>
