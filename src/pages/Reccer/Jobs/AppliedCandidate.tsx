@@ -44,7 +44,7 @@ export type QueryConfig = {
   [key in keyof AppliedCandidateListConfig]: string;
 };
 
-export default function Applied() {
+export default function Applied(num: any) {
   const { jobId } = useParams();
 
   const [applyCandidate, setApplyCandidate] = useState<any[]>([]);
@@ -157,8 +157,8 @@ export default function Applied() {
       setSort("ASC");
     }
   };
-  // console.log(applyCandidate.length)
 
+  console.log(applyCandidate)
   return (
     <div
       className={classNames(
@@ -169,7 +169,7 @@ export default function Applied() {
     >
       <h1 className="text-2xl font-semibold">Applied Candidate</h1>
 
-      {applyCandidate ? (
+      {applyCandidate?.length > 0 ? (
         <div className="relative p-4 overflow-x-auto max-h-96 h-80">
           <table className="w-full text-sm text-left text-gray-500">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
@@ -332,14 +332,16 @@ export default function Applied() {
                         {applyCandidate.state !== "NOT_RECEIVED" ? (
                           applyCandidate.score !== null ? (
                             <div>
-                              <button>
-                                <CheckIcon
-                                  className="w-6 h-6 text-green-800"
-                                  onClick={() =>
-                                    handlePass(applyCandidate.candidateId)
-                                  }
-                                />
-                              </button>
+                              {
+                                <button>
+                                  <CheckIcon
+                                    className="w-6 h-6 text-green-800"
+                                    onClick={() =>
+                                      handlePass(applyCandidate.candidateId)
+                                    }
+                                  />
+                                </button>
+                              }
 
                               <button>
                                 <XMarkIcon
@@ -352,10 +354,7 @@ export default function Applied() {
                               </button>
                             </div>
                           ) : null
-                        ) : null}
-                      </td>
-                      <td>
-                        {applyCandidate.state === "NOT_RECEIVED" && (
+                        ) : (
                           <button>
                             <CalendarDaysIcon
                               className="w-6 h-6"
@@ -366,6 +365,18 @@ export default function Applied() {
                           </button>
                         )}
                       </td>
+                      {/* <td>
+                        {applyCandidate.state === "NOT_RECEIVED" && (
+                          <button>
+                            <CalendarDaysIcon
+                              className="w-6 h-6"
+                              onClick={() =>
+                                routeChange(applyCandidate.candidateId)
+                              }
+                            />
+                          </button>
+                        )}
+                      </td> */}
                     </tr>
                   ),
               )}
