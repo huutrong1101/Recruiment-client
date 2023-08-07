@@ -21,6 +21,7 @@ const rowsPerPageOptions = [5,10,15];
 const InterviewRecent = () => {
 
     const {INTInterviews, INTInterviewsStatus, INTTotalInterviews, INTTotalPages} = useAppSelector((state: any) => state.INTInterviews);
+    const { INTCandidates } = useAppSelector((state: any) => state.INTCandidates);
     const dispatch = useAppDispatch();
 
     const [page, setPage] = useState(0);
