@@ -56,7 +56,7 @@ export default function AddJobCard({ cardData, setCardData, setpositionId, setLo
     listJobInfoSearch: {
       "Employee Type": formattedEmployeeType,
       Location: formattedLocation,
-      "Job Type": formattedJobType,
+      "Position": formattedJobType,
     },
   }
   const currentDate = new Date();

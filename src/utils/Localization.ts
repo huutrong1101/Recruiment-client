@@ -50,3 +50,12 @@ export const APPLICANTS_STATUS: LocalizationDeclarationType = {
   PASSED: "Passed",
   FAILED: "Received",
 };
+
+export const ADMIN_APPLICANTS_STATUS: LocalizationDeclarationType = {
+  NOT_RECEIVED: "Not Received",
+  RECEIVED: "Received",
+  PASS: "Passed",
+  FAIL: "Failed",
+  PASSED: "Passed",
+  FAILED: "Failed",
+};

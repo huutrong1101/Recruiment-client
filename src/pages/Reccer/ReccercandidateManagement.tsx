@@ -132,7 +132,8 @@ const ReccerCandidateManagement = () => {
 
   const navigate = useNavigate();
 
-  const handleSearch = async () => {
+  const handleSearch = async (e: any) => {
+    e.preventDefault();
     try {
       setIsLoading(true);
       navigate({
@@ -152,13 +153,16 @@ const ReccerCandidateManagement = () => {
   };
 
   // console.log(showCandidates);
-
   return (
     <>
-      <div className="flex justify-center mt-6 item-center">
+      <form
+        className="flex justify-center mt-6 item-center"
+        onSubmit={handleSearch}
+      >
+        {/* Input */}
         <div
           className={classNames(
-            "flex items-center flex-shrink-0 w-[54.5%] h-1/2 p-2 mt-1 border rounded-lg ",
+            "flex items-center flex-shrink-0 w-1/2 p-2 border rounded-lg ",
             "focus-within:border-emerald-700",
           )}
         >
@@ -171,21 +175,22 @@ const ReccerCandidateManagement = () => {
             type="text"
             placeholder="Search your Keywords"
             className={classNames(
-              "w-[85%] h-full text-[12px] ml-3 focus:outline-none text-base text-zinc-400",
+              "w-full h-full text-[12px] ml-3 focus:outline-none text-base text-zinc-400",
             )}
           />
         </div>
+        {/* Button */}
         <div className={classNames("gap-2 ml-10 items-center justify-center")}>
           <button
             className={classNames(
               "bg-[#05966A] hover:bg-emerald-700 text-white p-3 rounded-md flex w-full text-center items-center justify-center",
             )}
-            onClick={() => handleSearch()}
+            type="submit"
           >
             Search
           </button>
         </div>
-      </div>
+      </form>
       <>
         {isLoading ? (
           <div className="flex justify-center my-4 min-h-[70vh] flex-col items-center">

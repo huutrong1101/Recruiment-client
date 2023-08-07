@@ -59,7 +59,6 @@ export default function RecCandidateDetailCard(props: any) {
     return phoneNumber;
   }
 
-  // console.log(candidate?.resumeDetailDTO.name)
   const handleEdit = () => {
     window.open(candidate?.resumeDetailDTO?.resumeUpload, "_blank");
   };
@@ -73,13 +72,13 @@ export default function RecCandidateDetailCard(props: any) {
         <>
           <section className="relative">
             <div className="">
-              <div className="relative shrink-0 w-full">
+              <div className="relative w-full shrink-0">
                 <img
                   src="../../../images/cover2.jpg"
-                  className="h-64 w-full object-cover lg:rounded-xl shadow "
+                  className="object-cover w-full h-64 shadow lg:rounded-xl "
                 />
               </div>
-              <div className="md:flex ms-4 -mt-12">
+              <div className="-mt-12 md:flex ms-4">
                 <div className="md:w-full">
                   <div className="relative flex items-end">
                     <img
@@ -96,7 +95,7 @@ export default function RecCandidateDetailCard(props: any) {
               </div>
             </div>
           </section>
-          <section className="relative mt-12 md:pb-15 pb-10">
+          <section className="relative pb-10 mt-12 md:pb-15">
             <div className="">
               <div className="">
                 <div className="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
@@ -109,10 +108,10 @@ export default function RecCandidateDetailCard(props: any) {
                       )}
                     >
                       <h1 className="text-2xl font-semibold">Description:</h1>
-                      {/* <p className='text-zinc-600 mt-3 text-lg'>{candidate?.about}</p> */}
+                      {/* <p className='mt-3 text-lg text-zinc-600'>{candidate?.about}</p> */}
                       <p>{candidate?.about}</p>
                     </div>
-                    <div className="grid lg:grid-cols-1 grid-cols-1 mt-4 gap-6">
+                    <div className="grid grid-cols-1 gap-6 mt-4 lg:grid-cols-1">
                       <div
                         className={classNames(
                           `border bg-white shadow-sm rounded-xl`,
@@ -126,7 +125,7 @@ export default function RecCandidateDetailCard(props: any) {
                             (skill: any, index: any) => (
                               <p
                                 key={index}
-                                className="px-4 py-2 gap-2 ml-2 inline-flex bg-emerald-600 hover:bg-emerald-700 border-emerald-600  text-white rounded-md"
+                                className="inline-flex gap-2 px-4 py-2 ml-2 text-white rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600"
                               >
                                 {skill.label}
                               </p>
@@ -142,13 +141,13 @@ export default function RecCandidateDetailCard(props: any) {
                         )}
                       >
                         <div className="text-2xl font-semibold">Education</div>
-                        <div className="flex gap-4 flex-wrap">
+                        <div className="flex flex-wrap gap-4">
                           {JSON.parse(candidate.information)?.education?.map(
                             (edu: any, index: any) => (
                               <>
                                 <div
                                   key={index}
-                                  className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                                  className="px-2 py-2 mt-3 text-lg border rounded-lg shadow text-zinc-600 w-fit bg-emerald-50"
                                 >
                                   <p>School: {edu.school}</p>
                                   <p>Major: {edu.major}</p>
@@ -167,20 +166,20 @@ export default function RecCandidateDetailCard(props: any) {
                         )}
                       >
                         <div className="text-2xl font-semibold">Project</div>
-                        <div className="flex gap-4 flex-wrap">
+                        <div className="flex flex-wrap gap-4">
                           {JSON.parse(candidate.information)?.project?.map(
                             (edu: any, index: any) => (
                               <div>
                                 <div
                                   key={index}
-                                  className="text-zinc-600 mt-3 text-lg border rounded-t-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                                  className="px-2 py-2 mt-3 text-lg border rounded-t-lg shadow text-zinc-600 w-fit bg-emerald-50"
                                 >
                                   <p>Project: {edu.name}</p>
                                   <p>Description: {edu.description}</p>
                                   {/* <p>Link: {edu.url}</p> */}
                                 </div>
                                 <button
-                                  className="shadow border rounded-b-lg bg-emerald-500 hover:bg-emerald-700 border-emerald-600  text-white p-1 text-center w-full"
+                                  className="w-full p-1 text-center text-white border rounded-b-lg shadow bg-emerald-500 hover:bg-emerald-700 border-emerald-600"
                                   onClick={() => handleLink(edu.url)}
                                 >
                                   View Project
@@ -198,13 +197,13 @@ export default function RecCandidateDetailCard(props: any) {
                         )}
                       >
                         <div className="text-2xl font-semibold">Experience</div>
-                        <div className="flex gap-4 flex-wrap">
+                        <div className="flex flex-wrap gap-4">
                           {JSON.parse(candidate.information)?.experience?.map(
                             (edu: any, index: any) => (
                               <>
                                 <div
                                   key={index}
-                                  className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                                  className="px-2 py-2 mt-3 text-lg border rounded-lg shadow text-zinc-600 w-fit bg-emerald-50"
                                 >
                                   <p>Company Name: {edu.companyName}</p>
                                   <p>Position: {edu.position}</p>
@@ -227,13 +226,13 @@ export default function RecCandidateDetailCard(props: any) {
                         <div className="text-2xl font-semibold">
                           Certificate
                         </div>
-                        <div className="flex gap-4 flex-wrap">
+                        <div className="flex flex-wrap gap-4">
                           {JSON.parse(candidate.information)?.certificate?.map(
                             (edu: any, index: any) => (
                               <div>
                                 <div
                                   key={index}
-                                  className="text-zinc-600 mt-3 text-lg border rounded-t-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                                  className="px-2 py-2 mt-3 text-lg border rounded-t-lg shadow text-zinc-600 w-fit bg-emerald-50"
                                 >
                                   <p>Title: {edu.name}</p>
                                   <p>Id: {edu.id}</p>
@@ -241,7 +240,7 @@ export default function RecCandidateDetailCard(props: any) {
                                   {/* <p>Link: {edu.url}</p> */}
                                 </div>
                                 <button
-                                  className="shadow border rounded-b-lg bg-emerald-500 hover:bg-emerald-700 border-emerald-600  text-white p-1 text-center w-full"
+                                  className="w-full p-1 text-center text-white border rounded-b-lg shadow bg-emerald-500 hover:bg-emerald-700 border-emerald-600"
                                   onClick={() => handleLink(edu.url)}
                                 >
                                   View Project

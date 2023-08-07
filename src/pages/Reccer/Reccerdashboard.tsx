@@ -65,11 +65,7 @@ export default function Reccer_dashboard() {
             <Menu as="div" className="relative inline-block pt-4 text-left">
               <div>
                 <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                  Today
-                  <ChevronDownIcon
-                    className="w-5 h-5 -mr-1 text-gray-400"
-                    aria-hidden="true"
-                  />
+                  Today Status
                 </Menu.Button>
               </div>
             </Menu>
@@ -79,15 +75,16 @@ export default function Reccer_dashboard() {
               {showdata &&
                 showdata.length > 0 &&
                 showdata.map((data: any, index: any) => (
-                    <div key={index} className=" px-3 mb-8 lg:w-1/5 md:w-1/2">
-                      <RecCard job={data} index={index} />
-                    </div>
-                  ))}
+                  <div key={index} className=" px-3 mb-8 lg:w-1/5 md:w-1/2">
+                    <RecCard job={data} index={index} />
+                  </div>
+                ))}
             </div>
 
-            <div className="mb-5 bg-white drop-shadow-md rounded-2xl">
+            <div className="mb-4 bg-white border hover:shadow-lg duration-500 rounded-2xl">
               <p className="px-[5%] pt-[3%] font-semibold text-2xl">
-                Today DashBoard
+              General Analytic
+
               </p>
 
               <div className="h-[400px]">

@@ -15,7 +15,7 @@ export default function IncompleteConfirmEmail() {
   return (
     <div
       className={classNames(
-        `px-10 py-8 rounded-[35px] w-full md:w-7/12 lg:w-5/12 xl:w-4/12 2xl:w-3/12`,
+        `px-10 py-8 rounded-[35px] w-full md:w-7/12 lg:w-6/12 xl:w-5/12 2xl:w-4/12`,
         `bg-[#176A4B]`,
         `flex flex-col shadow-lg`,
       )}
@@ -24,7 +24,7 @@ export default function IncompleteConfirmEmail() {
       <div>
         <Transition appear={true} show={true}>
           <Transition.Child
-            className="flex flex-col items-center transition-all ease-in-out duration-700"
+            className="flex flex-col items-center transition-all duration-700 ease-in-out"
             enter=" transform opacity-0 scale-50"
             enterFrom="transform opacity-0  scale-50"
             enterTo="transform opacity-100 scale-100"

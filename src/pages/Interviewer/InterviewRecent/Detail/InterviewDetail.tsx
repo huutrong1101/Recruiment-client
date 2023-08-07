@@ -42,12 +42,13 @@ export function truncatedString(str : any) {
     return str;
 }
 export function checkCompleteMarkScore(lst : any){
-    if(lst.length == 0) return false;
+    let sum = 0;
     for (let i = 0; i < lst.length; i++) {
         if (lst[i]?.score === "") {
           return false;
-        }
+        }else sum += lst[i]?.score;
     }
+    if(sum === 0) return false;
     return true;
 }
 function calculateTotalScore(lst : any){
@@ -56,6 +57,17 @@ function calculateTotalScore(lst : any){
         sum += lst[i]?.score;
     }
     return sum;
+}
+export function isDateReached(targetDate : any) {
+  var currentDate = new Date();
+  if (!(targetDate instanceof Date)) {
+    targetDate = new Date(targetDate);
+  }
+  if (currentDate > targetDate) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 const InterviewDetail = () => {
@@ -339,24 +351,37 @@ const InterviewDetail = () => {
                             <button className="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded" onClick={showCandidate}>
                                 Show More Candidate Information
                             </button>
-                            {!checkCompleteMarkScore(assignedQuestions) &&
-                                (<Link to={`/interviewer/interview-recent/${id}/score-page`}>
+                            {!checkCompleteMarkScore(assignedQuestions) && isDateReached(INTSingleInterview?.time) &&
+                                (
+                                <Link to={`/interviewer/interview-recent/${id}/score-page`}>
                                     <button className="bg-orange-600 hover:bg-orange-800 text-white font-bold py-2 px-4 rounded">
                                         Start Interview
                                     </button>      
                                 </Link>)
                             }
+                            {!checkCompleteMarkScore(assignedQuestions) && !isDateReached(INTSingleInterview?.time) &&
+                                <button className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded">
+                                    Not Arrived Yet
+                                </button> 
+                            }
                         </div>
                     )
                 }      
                     {
-                        view && !checkCompleteMarkScore(assignedQuestions) &&
+                        view && !checkCompleteMarkScore(assignedQuestions) && isDateReached(INTSingleInterview?.time) &&
                         <div className="flex justify-end mt-8">
                             <Link to={`/interviewer/interview-recent/${id}/score-page`}>
                                 <button className="bg-orange-600 hover:bg-orange-800 text-white font-bold py-2 px-4 rounded">
                                     Start Interview
                                 </button>      
                             </Link>
+                        </div>
+                    }
+                    {view && !checkCompleteMarkScore(assignedQuestions) && !isDateReached(INTSingleInterview?.time) &&
+                        <div className="flex justify-end mt-8">
+                            <button className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded">
+                                Not Arrived Yet
+                            </button> 
                         </div>
                     }
             </div>
