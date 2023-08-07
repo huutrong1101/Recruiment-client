@@ -42,6 +42,7 @@ export default function UserProfileSubmittedJob() {
       .then((response) => {
         const { result } = response.data;
         const { pageNumber, pageSize, totalElements, totalPages } = result;
+
         // Normalize the result onto a fitted table data
         // Set onto a data list for rendering
         setApplicants(normalizeResponseResult(result));

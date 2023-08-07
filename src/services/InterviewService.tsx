@@ -20,14 +20,12 @@ const deleteQuestion = async (questionID: string) => {
 export async function getCandidateInterviews({ index, size }: any) {
   const query = qs.stringify({ index, size });
 
-  return axiosInstance.get(`/candidate/jobs/applicants?${query}`);
+  return axiosInstance.get(`/candidate/interviews?${query}`);
 }
 
 const error = async (data: any) => {
   return await axiosInstance.post(`interviewer/question`, data);
 };
-
-
 
 export const InterviewService = {
   createInterview,
