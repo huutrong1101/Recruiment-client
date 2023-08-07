@@ -91,14 +91,18 @@ export default function JobInformationApplyModal({
         <button
           onClick={handleApply}
           className={classNames(
-            `bg-emerald-200 hover:bg-emerald-300 px-4 py-2 rounded-xl text-emerald-900 flex flex-row items-center gap-4`,
+            `bg-emerald-200 hover:bg-emerald-300 px-4 py-2 rounded-xl text-emerald-900 flex flex-row items-center gap-4 disabled:bg-gray-300 disabled:cursor-no-drop`,
             `cursor-pointer`,
             {
               "bg-emerald-50":
                 submitLoadingState === "pending" || resumeListLoadingState,
             },
           )}
-          disabled={submitLoadingState === "pending" || resumeListLoadingState}
+          disabled={
+            submitLoadingState === "pending" ||
+            resumeListLoadingState ||
+            resumeList.length === 0
+          }
         >
           {submitLoadingState === "pending" && <LoadSpinner />}
           Submit
