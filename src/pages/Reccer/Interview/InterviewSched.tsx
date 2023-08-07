@@ -176,7 +176,8 @@ export default function ReccerJobDetail() {
             <Schedule />
           </>
         ) : (
-          <LoadSpinner />
+          <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-30 mb-30">
+          <LoadSpinner className="text-2xl"/> </div>
         )}
       </div>
     </>

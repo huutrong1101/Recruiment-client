@@ -13,6 +13,7 @@ import moment from "moment";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
 import InterviewHistory from "./InterviewHistory";
 import { toast } from "react-toastify";
+import ava from "../../../images/ava.jpg";
 
 export default function RecCandidateDetailCard(props: any) {
   const candidate = props.candidate;
@@ -82,7 +83,7 @@ export default function RecCandidateDetailCard(props: any) {
                 <div className="md:w-full">
                   <div className="relative flex items-end">
                     <img
-                      src={candidate.avatar}
+                      src={candidate?.avatar ? candidate.avatar : ava}
                       className="h-28 w-28 rounded-full ring-4 ring-slate-50 "
                     />
                     <div className="ms-4 mb-7">
@@ -261,15 +262,19 @@ export default function RecCandidateDetailCard(props: any) {
                     >
                       <RecCandidateinfoCard cardData={CandidateInformaiton} />
                       <div className="mt-3 flex w-full bg-white p-3 items-center justify-center rounded-md shadow ">
-                        <GrDocumentText />
-                        <span
-                          className="font-medium ms-2 hover:underline cursor-pointer"
-                          onClick={handleEdit}
-                        >
-                          {candidate?.resumeDetailDTO?.name}
-                        </span>
-                        {/* <a href="linkResume" download></a> */}
-                        {/* DOWNLOAD */}
+                        {candidate?.resumeDetailDTO ? (
+                          <div className="flex justify-center items-center">
+                            <GrDocumentText />
+                            <span
+                              className="font-medium ms-2 hover:underline cursor-pointer"
+                              onClick={handleEdit}
+                            >
+                              {candidate?.resumeDetailDTO?.name}
+                            </span>
+                          </div>
+                        ) : (
+                          "No resume available"
+                        )}
                       </div>
                     </div>
                   </div>
@@ -282,8 +287,8 @@ export default function RecCandidateDetailCard(props: any) {
           </div>
         </>
       ) : (
-        <div className="grid items-center justify-center pt-5">
-          <LoadSpinner className="text-4xl " />
+        <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-30 mb-30">
+          <LoadSpinner className="text-2xl " />
         </div>
       )}
     </div>
