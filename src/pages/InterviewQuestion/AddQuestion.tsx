@@ -23,6 +23,13 @@ import { input } from "@material-tailwind/react";
 import { toast } from "react-toastify";
 import { InterviewService } from "../../services/InterviewService";
 
+const INITIAL_INPUT_DATA = {
+  note: "",
+  content: "",
+  type: "",
+  skill: "",
+};
+
 interface Skill {
   skillId: string;
   name: string;
@@ -52,12 +59,7 @@ export default function AddQuestion({ observation, onClick }: any) {
   const [triggeredSkill, setTriggeredSkill] = useState(false);
   const [triggeredType, setTriggeredType] = useState(false);
 
-  const [inputData, setInputData] = useState({
-    note: " ",
-    content: " ",
-    type: "",
-    skill: "",
-  });
+  const [inputData, setInputData] = useState(INITIAL_INPUT_DATA);
 
   useEffect(() => {
     const fetchSkillType = async () => {
@@ -92,7 +94,7 @@ export default function AddQuestion({ observation, onClick }: any) {
       skillId: foundSkill?.skillId || null,
     };
 
-    if (data.content === " ") {
+    if (data.content === "") {
       toast.promise(InterviewService.error(data.content), {
         error: "Please fill full question information and reload page",
       });
@@ -110,11 +112,13 @@ export default function AddQuestion({ observation, onClick }: any) {
     }
 
     if (data.content !== " " && triggeredType && triggeredSkill) {
-      toast.promise(InterviewService.createQuestion(data), {
-        pending: "Adding the question",
-        success: "The question was added. Please RELOAD page",
-        error: "Please fill full question information",
-      });
+      toast
+        .promise(InterviewService.createQuestion(data), {
+          pending: "Adding the question",
+          success: "The question was added. Please RELOAD page",
+          error: "Please fill full question information",
+        })
+        .then(() => setInputData(INITIAL_INPUT_DATA));
     }
   };
 
@@ -158,7 +162,7 @@ export default function AddQuestion({ observation, onClick }: any) {
           </div>
           {/* skill button */}
           <div className="relative flex flex-col w-2/5 p-2">
-            <div className="font-normal  text-md">Skill</div>
+            <div className="font-normal text-md">Skill</div>
             <Menu
               as="div"
               className="w-full h-[25%] relative flex flex-col z-10"
@@ -223,7 +227,7 @@ export default function AddQuestion({ observation, onClick }: any) {
               </div>
             </Menu>
             {/* Type button */}
-            <div className="mt-2 font-normal  text-md">Type</div>
+            <div className="mt-2 font-normal text-md">Type</div>
             <Menu as="div" className="w-full h-[25%] relative flex flex-col">
               <div className="absolute w-2/3 ">
                 <Menu.Button
@@ -276,8 +280,13 @@ export default function AddQuestion({ observation, onClick }: any) {
             <div className="w-full px-3 my-6 font-normal h-1/5 text-md">
               <div className="flex items-end justify-end w-full h-full ">
                 <button
-                  className="px-6 py-2 text-white border border-transparent rounded-md  w-fit h-fit bg-emerald-600 hover:border-emerald-600 hover:text-emerald-600 hover:transition-all hover:bg-white active:bg-zinc-200 active:border-emerald-600 active:drop-shadow-md"
+                  className="px-6 py-2 text-white border border-transparent rounded-md w-fit h-fit bg-emerald-600 hover:border-emerald-600 hover:text-emerald-600 hover:transition-all hover:bg-white active:bg-zinc-200 active:border-emerald-600 active:drop-shadow-md disabled:bg-gray-700 disabled:hover:text-white"
                   id="Submit"
+                  disabled={
+                    inputData.content === "" ||
+                    inputData.skill === "" ||
+                    inputData.type === ""
+                  }
                   onClick={handleSubmitAdd}
                 >
                   Submit
