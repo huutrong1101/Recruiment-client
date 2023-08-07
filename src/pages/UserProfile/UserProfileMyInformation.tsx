@@ -14,7 +14,7 @@ import { UserService } from "../../services/UserService";
 import { LoadingStatus } from "../../services/services";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import { getSkills } from "../../services/CandidateService";
-import classNames from "classnames";
+import { useNavigate } from "react-router-dom";
 
 // const colourOptions = [
 //   { value: "reactjs", label: "ReactJS" },
@@ -36,6 +36,7 @@ export default function UserProfileMyInformation() {
   });
   const [loadingState, setLoadingState] = useState<LoadingStatus>("idle");
   const [skillOptions, setSkillOptions] = useState<any[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoadingState("pending");
@@ -43,7 +44,6 @@ export default function UserProfileMyInformation() {
       .then(async (response) => {
         const fetchContainerItem = await response.data.result.information;
         if (fetchContainerItem !== null) {
-          console.log(JSON.parse(fetchContainerItem));
           setContainerItem({ ...JSON.parse(fetchContainerItem) });
         }
       })
@@ -80,9 +80,9 @@ export default function UserProfileMyInformation() {
     setContainerItem({ ...clonedObject });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: any, updatedItem: any) => {
     e !== null && e.preventDefault();
-    toast.promise(UserService.updateUserInformation(containerItem), {
+    toast.promise(UserService.updateUserInformation(updatedItem), {
       pending: `Updating your information`,
       success: `Successfully update the information`,
       error: `There was an error when updated the information`,
@@ -94,7 +94,7 @@ export default function UserProfileMyInformation() {
     // @ts-ignore
     clonedObject[ofId] = values;
     setContainerItem({ ...clonedObject });
-    handleSubmit(null);
+    handleSubmit(null, { ...clonedObject });
     // Maybe save the information
     // toast.promise(
     //   {},
@@ -108,7 +108,7 @@ export default function UserProfileMyInformation() {
 
   return (
     <div className="flex flex-col flex-1 gap-4">
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <form onSubmit={(e) => handleSubmit(e, containerItem)}>
         <div className="pb-12">
           {loadingState === "pending" ? (
             <div className="min-h-[60vh] flex flex-col items-center justify-center text-2xl">
@@ -187,6 +187,16 @@ export default function UserProfileMyInformation() {
           )}
         </div>
         <div className="flex items-center justify-end gap-x-6">
+          <button
+            type="button"
+            onClick={() => {
+              navigate("/print-resume");
+            }}
+            className="px-3 py-2 text-sm font-semibold text-white rounded-md shadow-sm bg-emerald-600 hover:bg-emerald-500
+             focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+          >
+            Export to pdf
+          </button>
           <button
             type="submit"
             className="px-3 py-2 text-sm font-semibold text-white rounded-md shadow-sm bg-emerald-600 hover:bg-emerald-500

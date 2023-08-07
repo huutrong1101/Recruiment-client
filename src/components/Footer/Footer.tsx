@@ -9,6 +9,7 @@ import {
   BsFillTelephoneFill,
 } from "react-icons/bs";
 import Container from "../Container/Container";
+import "./styles/Footer.css";
 
 export default function Footer() {
   return (
