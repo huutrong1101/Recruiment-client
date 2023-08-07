@@ -173,6 +173,21 @@ const ReccerJobManagement = () => {
 
   return (
     <>
+      <div className="fixed bottom-4 right-0 p-4 text-white">
+        <Link to="../addjob">
+          <div className="sm:w-[100px] h-[50px] relative">
+            <button className="relative w-[50%] h-full text-3xl font-w bg-[#05966A] hover:bg-emerald-700 text-white rounded-full transition-all duration-300 hover:w-[100%] group">
+              <span className="absolute left-1/2 top-1/2 transform -translate-x-1/2 text-sm -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                Add Job
+              </span>
+              <span className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-100 transition-opacity duration-300 group-hover:opacity-0">
+                +
+              </span>
+            </button>
+          </div>
+        </Link>
+      </div>
+
       <div className="flex justify-center mt-6 item-center">
         <div
           className={classNames(
@@ -328,23 +343,10 @@ const ReccerJobManagement = () => {
             Search
           </button>
         </div>
-
-        <div className="items-center justify-center gap-2">
-          <Link to="../addjob">
-            <div className="sm:w-[100px] h-[50px] relative">
-              <button
-                className="w-[80%] h-full left-5 top-0 absolute bg-[#05966A] hover:bg-emerald-700 text-white rounded-lg"
-                type="submit"
-              >
-                Add Job
-              </button>
-            </div>
-          </Link>
-        </div>
         <div className="items-center justify-center gap-2">
           <div className="sm:w-[100px] h-[50px] relative">
             <button
-              className="w-[80%] h-full left-5 top-0 absolute bg-red-500 hover:bg-red-700 text-white rounded-lg"
+              className="w-[70%] h-full left-5 top-0 absolute bg-red-500 hover:bg-red-700 text-white rounded-lg"
               type="submit"
               onClick={() => handleReset()}
             >
@@ -353,6 +355,7 @@ const ReccerJobManagement = () => {
           </div>
         </div>
       </div>
+
 
       <div className="flex justify-center items-center 2 mt-[10px] ">
         {isLoading ? (
