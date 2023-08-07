@@ -116,7 +116,7 @@ export default function Schedule() {
         handleChangeState();
         routeChange();
       })
-      .catch((error) => toast.error(error.response.data.result));
+      .catch((error) => toast.error(error.response.data.message));
   };
 
   const handleChangeState = () => {

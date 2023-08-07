@@ -208,20 +208,20 @@ export default function UserProfileInterviews() {
   const [searchParams] = useSearchParams();
   const data = useAppSelector((state) => state.userInterview.interviews);
 
-  // useEffect(() => {
-  //   // console.log(searchParams);
-  //   const page = searchParams.get("page") || "1";
-  //   const limit = searchParams.get("limit") || "10";
-  //   dispatch(getUserInterviews({ page, limit }))
-  //     .unwrap()
-  //     .catch((response) => {
-  //       console.log();
-  //       toast.error(
-  //         // `There was an error when fetching your interview schedule.`,
-  //         response.message,
-  //       );
-  //     });
-  // }, []);
+  useEffect(() => {
+    // console.log(searchParams);
+    const page = searchParams.get("page") || "1";
+    const limit = searchParams.get("limit") || "10";
+    dispatch(getUserInterviews({ page, limit }))
+      .unwrap()
+      .catch((response) => {
+        console.log();
+        toast.error(
+          // `There was an error when fetching your interview schedule.`,
+          response.message,
+        );
+      });
+  }, []);
 
   return (
     <div className="flex-1">
