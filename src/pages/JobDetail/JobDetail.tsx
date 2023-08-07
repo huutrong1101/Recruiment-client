@@ -38,7 +38,7 @@ export default function JobDetail() {
     { icon: <MapPinIcon />, name: "Location", value: "" },
     {
       icon: <ComputerDesktopIcon />,
-      name: "Job Type",
+      name: "Position Type",
       value: "Back-end Developer",
     },
     { icon: <BriefcaseIcon />, name: "Experience", value: "2+ years" },
