@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import AdminTable from "../../components/AdminManagerList/AdminTable";
 import React, { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
@@ -158,10 +158,23 @@ export default function AdminDashboard() {
             Search
           </button>
         </div>
-      </form>           
+      </form>   
+                 
      
-      <div className="relative bg-white">
-        <div className="inline-flex items-start justify-start p-1 overflow-x-auto border rounded-lg border-zinc-900 border-opacity-10 mb-5">
+      <div className="relative bg-white flex-col justify-center">  
+        {/* <div className="sm:w-[80px] h-[40px] relative mr-10">
+          <NavLink to="/admin/userscreate" >
+          <button className="relative w-[50%] h-full text-3xl font-w bg-[#05966A] hover:bg-emerald-700 text-white rounded-full transition-all duration-300 hover:w-[100%] group">
+            <span className="absolute left-1/2 top-1/2 transform -translate-x-1/2 text-sm -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              Add account
+            </span>
+            <span className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-100 transition-opacity duration-300 group-hover:opacity-0">
+              +
+            </span>
+          </button>
+            </NavLink>
+        </div>      */}
+        <div className="inline-flex items-start justify-start p-1 overflow-x-auto border rounded-lg border-zinc-900 border-opacity-10 mb-5">   
           {types.map((type) => (
             <div
               key={type.id}
@@ -183,7 +196,7 @@ export default function AdminDashboard() {
               </div>
             </div>
           ))}
-        </div>
+        </div>       
         <div>
           <AdminTable typeSelected={typeSelected} />
         </div>

@@ -17,6 +17,7 @@ import moment from "moment";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
 import classNames from "classnames";
 import { BsFilterLeft } from "react-icons/bs";
+import Pagination from "../Pagination/Pagination";
 
 const AdminAcountDelete = () => {
   const jobs:  AdminDelete[] = useAppSelector((state) => state.adminmanagerjobList.adminmanagerJobList);
@@ -199,9 +200,11 @@ const AdminAcountDelete = () => {
             </Table>                
           </TableContainer>
       </div> 
-        <div className="flex justify-center mt-3">
+        <div className="flex justify-center mt-10">
           {/* Pagination  */}
-          <Paginationacountlistdelette  queryConfig={queryConfig} pageSize={pageSize} />
+          {/* <Paginationacountlistdelette  queryConfig={queryConfig} pageSize={pageSize} /> */}
+                <Pagination queryConfig={queryConfig} pageSize={pageSize} url="" />
+
         </div> 
     </>
     );

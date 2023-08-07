@@ -13,6 +13,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { toast } from "react-toastify";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import { TextareaAutosize } from "@mui/material";
 export default function AdminChangePosition() {
   const {userId} = useParams(); 
   const jobs:  AcountFrofileInterface[] = useAppSelector((state) => state.adminacountuseprofileRecent.adminacountuseprofileRecent);
@@ -65,14 +66,14 @@ export default function AdminChangePosition() {
   return ( 
     <> 
     {isLoading ? (
-      <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-10 mb-10">
+      <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-30 mb-30">
         {/* <Loader  className ="l-20flex items-center justify-center" /> */}
-        <LoadSpinner className="text-2xl text-[#059669]"/>
+        <LoadSpinner className="text-3xl text-[#059669]"/>
     </div>
     ):(
-      <div className="flex gap-5 top-5 ">
+      <div className="flex gap-5 mt-10 ">
         {/* Information */}
-        <div className="bg-white rounded-lg shadow-lg w-[50%] top-4 ">
+        <div className="bg-white rounded-lg shadow-lg w-1/3 mt-30 ">
           <div className = "grid md:grid-cols-1 text-sm self-stretch px-2 pt-[13px] pb-[11px]">
             {/* Title */}
             <div className = "flex items-center text-center space-x-2 font-semibold text-green-500 justify-center">
@@ -111,23 +112,28 @@ export default function AdminChangePosition() {
             </div>
           </div>
         </div>
-        <div className="p-4 border rounded-xl border-zinc-100">
+        <div className="bg-white rounded-lg shadow-lg w-1/2 mt-30 ml-10">
             {/* Title */}
-             <div className = "mt-10 px-5 py-4 flex items-center text-center space-x-2 font-semibold text-green-500 justify-center">
+             <div className = "px-5 py-4 flex items-center text-center space-x-2 font-semibold text-green-500 justify-center">
               <span className = "tracking-wide text-center  text-emerald-600 text-[28px] ">Resion Add blacklist</span>
             </div>
             {/* Resion Blacklist */}
             <div className = "grid grid-cols-1">
                 <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Resion</div>
-                <input className = "px-4 py-2 self-stretch pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50"
-                value={showJobLists.blackReason}
-                readOnly // Thêm thuộc tính readOnly vào input
-                />
+                <TextareaAutosize
+                  id="reasion"
+                  minRows={5}
+                  className="resize-none p-2.5 ml-10 mr-10 text-justify bg-white border rounded-lg border border-zinc-900 border-opacity-50"
+                  value={showJobLists.blackReason}
+                  readOnly // Thêm thuộc tính readOnly vào input
+                  placeholder="Reasion description here..."
+                />               
             </div>
             {/* Resion Blacklist */}
              <div className = "grid grid-cols-1">
                 <div className = "px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">Add blackList Date</div>
-                <input className = "px-4 py-2 self-stretch pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50"
+                <input 
+                className = "px-4 ml-10 py-2 self-stretch mr-10 pt-[13px] pb-[11px] bg-white bg-opacity-0 rounded-lg border border-zinc-900 border-opacity-50"
                 value={moment(showJobLists.blackDate).format("HH:mm:ss DD-MM-YYYY")}
                 readOnly // Thêm thuộc tính readOnly vào input
                 />
@@ -150,8 +156,8 @@ export default function AdminChangePosition() {
                       <DialogContent className="text-center">
                         <div className="text-center px-6">
                           <DialogContent className="font-semibold text-lg mb-2">
-                            <p>Are you sure you want to delete "</p>
-                            <p>{showJobLists.name} "?</p>
+                            <p>Are you sure you want to delete </p>
+                            <p>{showJobLists.name}</p>
                           </DialogContent>
                           <DialogContentText
                             id="alert-dialog-description"

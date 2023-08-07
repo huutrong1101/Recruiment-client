@@ -39,12 +39,12 @@ export default function AdminProflieUser() {
   return ( 
     <> 
     {isLoading ?(
-      <div className="flex items-center justify-center w-full text-[15px] mt-5 mb-5">
-          <LoadSpinner className="text-2xl text-[#059669] " />
+      <div className="flex items-center justify-center w-full text-[15px] mt-20 mb-20">
+          <LoadSpinner className="text-3xl text-[#059669] " />
     </div>
     ):(
       <div className="flex flex-wrap mx-4 mt-[50px]">
-      <div className="w-full px-4 mb-10 md:w-1/2 ">
+      <div className="w-full px-4 mb-10 md:w-1/3 ">
         <div className="bg-white rounded-lg shadow-lg mt-5 ">
           {/* Avatar */}
           <div className="mt-20">
@@ -73,7 +73,7 @@ export default function AdminProflieUser() {
       </div> 
         {/* Information */}
         <div className="w-full px-4 mb-10 md:w-1/2 ">
-          <div className = "bg-white rounded-lg shadow-lg w-full mt-5 border">
+          <div className = "bg-white rounded-lg shadow-lg w-full border">
             <div className = "flex items-center text-center space-x-2 font-semibold text-green-500 justify-center">
                 <span className = "tracking-wide text-center  text-emerald-600 text-[28px] ">Information</span>
             </div>

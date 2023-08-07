@@ -31,7 +31,7 @@ export default function ListCandiPass() {
   const queryConfig: QueryConfig = omitBy(
     {
       page: queryParams.page || "1",   
-      size: queryParams.size || 7,  
+      size: queryParams.size || 5,  
     },
     isUndefined,
   );
