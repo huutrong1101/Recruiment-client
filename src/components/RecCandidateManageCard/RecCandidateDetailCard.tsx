@@ -263,7 +263,7 @@ export default function RecCandidateDetailCard(props: any) {
                       <RecCandidateinfoCard cardData={CandidateInformaiton} />
                       <div className="mt-3 flex w-full bg-white p-3 items-center justify-center rounded-md shadow ">
                         {candidate?.resumeDetailDTO ? (
-                          <div>
+                          <div className="flex justify-center items-center">
                             <GrDocumentText />
                             <span
                               className="font-medium ms-2 hover:underline cursor-pointer"
