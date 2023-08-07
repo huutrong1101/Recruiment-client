@@ -302,7 +302,6 @@ export default function AdminTable({ typeSelected }: TypeData) {
                             <div className="text-center">
                               <DialogContent className="text-xl mb-2">
                                 <p>Are you sure you want to delete</p>
-                                <p> "{job.fullName}"</p>
                               </DialogContent>
                               <DialogContentText
                                 id="alert-dialog-description"
@@ -363,9 +362,9 @@ export default function AdminTable({ typeSelected }: TypeData) {
                   <TableBody>
                     <TableRow>
                       <TableCell colSpan={3}>
-                        <div className="flex justify-center text-center w-full mt-10 mb-10">
+                        <div className="flex justify-center w-full mb-10">
                               {/* <PageNotFound/> */}
-                              <p className="text-center">No results were found. Please check again</p>
+                              <p>No results were found. Please check again</p>
                         </div>
                       </TableCell>
                     </TableRow>
