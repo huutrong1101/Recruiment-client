@@ -44,7 +44,7 @@ export default function ReccerEventManagement() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [prevQueryConfig, setPrevQueryConfig] =
-    useState<QueryConfig>(queryConfig);
+  useState<QueryConfig>(queryConfig);
   useEffect(() => {
     const fetchPosition = async () => {
       setIsLoading(true);
@@ -109,34 +109,20 @@ export default function ReccerEventManagement() {
     }
   };
   return (
-    <div>
-      <div
-        className={classNames(
-          "flex justify-center mt-5 item-center ",
-        )}
-      >
-        <form
-          onSubmit={e => handleSearch(e)}
-        >
-          <div
-            className={classNames(
-              "flex justify-center items-center w-80% p-1 border rounded-xl",
-              "focus-within:border-emerald-400",
-            )}
-          >
-            <form
-              onSubmit={e => handleSearch(e)}
+    <>
+      <div>        
+            <div
+              className={classNames(
+                "flex justify-center mt-5 item-center ",
+              )}
             >
-              <div
-                className={classNames(
-                  "flex justify-center items-center w-80% p-1 border rounded-xl",
-                  "focus-within:border-emerald-400",
-                )}
-              >
-                <BsFilterLeft className={classNames(`w-[20px] ml-4 mr-4`)} />
+              <form
+                onSubmit={e => handleSearch(e)}
+              > 
                 <div
                   className={classNames(
-                    "text-[16px] cursor-pointer flex items-center justify-between",
+                    "flex justify-center items-center w-80% p-1 border rounded-xl",
+                    "focus-within:border-emerald-400",
                   )}
                 >
                     <BsFilterLeft className={classNames(`w-[20px] ml-4 mr-4`)} />
@@ -190,8 +176,8 @@ export default function ReccerEventManagement() {
         {/* Conten */}
         <div>
           {isLoading ? (
-            <div className="flex justify-center mt-20 mb-20">
-                    <LoadSpinner className="text-2xl text-[#059669] " />
+            <div className="flex justify-center my-4 min-h-[70vh] flex-col items-center">
+                    <LoadSpinner className="text-3xl " />
             </div>
           ) : (
             <div className="flex flex-wrap mx-4 mt-[50px]">
@@ -212,59 +198,59 @@ export default function ReccerEventManagement() {
                             <CalendarDaysIcon className="w-[20px]" />
                             <p>{moment(event.startAt).format("Do MMMM, YYYY")}</p>
                           </div>
-                          <div className="mt-2 text-left">
-                            {moment().isAfter(event.deadline) ? (
-                              <p style={{ color: 'red', fontStyle: 'italic' }}>Finished ...</p>
-                            ) : moment().isSame(event.deadline, 'day') ? (
-                              <p style={{ color: '#FFD700', fontStyle: 'italic' }}>Coming to end ...</p>
-                            ) : (
-                              <p style={{ color: '#059669', fontStyle: 'italic' }}>On Going ...</p>
-                            )}
+                          <div className="flex items-center gap-1">
+                            <ClockIcon className="w-[20px]" />
+                            <p>{moment(event.time, "HH:mm:ss").format("HH:mm")}</p>
                           </div>
-                          <div className="mt-2 text-center">
-                            <h1 className="text-xl justify text-bold italic">
-                              {event.title.length > 25
-                                ? event.title.substring(0, 15) + "  ..."
-                                : event.title}
-                            </h1>
-                          </div>
-                          <div className="mt-6 flex items-center justify-center">
-                            <Link
-                              to={`${event.id}`}
-                              className="bg-emerald-700 text-white p-1 px-3 rounded-md flex"
-                            >
-                              Read Detail
-                              {/* <ArrowRightIcon className="w-[20px] ml-1" /> */}
-                            </Link>
-                          </div>
+                        </div>
+                        <div className="mt-2 text-left">
+                          {moment().isAfter(event.deadline) ? (
+                            <p style={{ color: 'red', fontStyle: 'italic' }}>Finished ...</p>
+                          ) : moment().isSame(event.deadline, 'day') ? (
+                            <p style={{ color: '#FFD700', fontStyle: 'italic' }}>Coming to end ...</p>
+                          ) : (
+                            <p style={{ color: '#059669', fontStyle: 'italic' }}>On Going ...</p>
+                          )}
+                        </div>
+                        <div className="mt-2 text-center">
+                          <h1 className="text-xl justify text-bold italic">
+                            {event.title.length > 25
+                              ? event.title.substring(0, 15) + "  ..."
+                              : event.title}
+                          </h1>
+                        </div>
+                        <div className="mt-6 flex items-center justify-center">
+                          <Link
+                            to={`${event.id}`}
+                            className="bg-emerald-700 text-white p-1 px-3 rounded-md flex"
+                          >
+                            Read Detail
+                            {/* <ArrowRightIcon className="w-[20px] ml-1" /> */}
+                          </Link>
                         </div>
                       </div>
                     </div>
-                  ))
-                  ) : (
-                    <div className="flex justify-center w-full mb-10">
-                      <span>No results were found. Please check again</span>
-                    </div>
+                  </div>
+                ))
+                ) : (
+                  <div className="flex justify-center w-full mb-10">
+                    <span>No results were found. Please check again</span>
+                  </div>
                   )}
 
-              </div>
-            )}
-          </div>
+            </div>
+          )}
+        </div>
 
-          <div>
-            {/* Pagination  */}
-            <Pagination
-              queryConfig={queryConfig}
-              pageSize={pageSize}
-              url="/recruiter/events"
-            />
-          </div>
-        </form>
+        <div>
+          {/* Pagination  */}
+          <Pagination
+            queryConfig={queryConfig}
+            pageSize={pageSize}
+            url="/recruiter/events"
+          />
+        </div>
       </div >
-    </div>
-
-
-  )
-
+    </>
+  );
 }
-
