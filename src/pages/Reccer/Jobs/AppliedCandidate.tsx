@@ -107,8 +107,14 @@ export default function Applied(num: any) {
 
   let navigate = useNavigate();
   const routeChange = (userId: string) => {
-    let path = `interview-schedule/${userId}`;
-    navigate(path);
+    const countReceivedStates = applyCandidate
+      ?.map((data) => data.state)
+      .filter((state) => state === "PASSED").length;
+
+    if (countReceivedStates < num.num) {
+      let path = `interview-schedule/${userId}`;
+      navigate(path);
+    } else toast.error(`This job already have enough candidates`);
   };
 
   const handlePass = (candidateId: string) => {

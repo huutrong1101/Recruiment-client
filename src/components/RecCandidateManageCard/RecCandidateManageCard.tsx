@@ -2,6 +2,7 @@ import React from "react";
 import { useAppSelector } from "../../hooks/hooks";
 import { Link } from "react-router-dom";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
+import user from "../../../images/uses.png"
 
 const RecCandidateCard = (props: any) => {
   const candidate = props.candidate;
@@ -19,7 +20,7 @@ const RecCandidateCard = (props: any) => {
         <div></div>
       )}
       <img
-        src={candidate.avatar}
+        src={candidate.avatar || user}
         className="w-20 h-20 mx-auto rounded-full shadow dark:shadow-gray-700"
       />
       <div className="mt-2">

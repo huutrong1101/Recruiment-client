@@ -10,12 +10,13 @@ import { useState } from "react";
 const LineChart = ({ showdata }: any) => {
   const chartData = showdata.length > 0 && [...showdata];
   let data: any[] = [];
+  console.log(chartData)
   if (chartData) {
     data = [
       {
-        id: chartData[0]?.title,
+        id: chartData[2]?.title,
         color: "hsl(85, 70%, 50%)",
-        data: chartData[0].details?.map((item: any) => ({
+        data: chartData[2].details?.map((item: any) => ({
           x: item.date,
           y: item.value,
         })),
@@ -29,9 +30,9 @@ const LineChart = ({ showdata }: any) => {
         })),
       },
       {
-        id: showdata[2].title,
+        id: showdata[0].title,
         color: "hsl(254, 70%, 50%)",
-        data: showdata[2].details.map((item: any) => ({
+        data: showdata[0].details.map((item: any) => ({
           x: item.date,
           y: item.value,
         })),

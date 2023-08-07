@@ -28,10 +28,13 @@ const error = async (data: any) => {
 }
 
 
+
+
 export const InterviewService = {
   createInterview,
   createQuestion,
   updateQuestion,
   deleteQuestion,
+  error,
   getCandidateInterviews,
 };
