@@ -94,22 +94,23 @@ export default function AddQuestion({ observation, onClick }: any) {
     if (data.content === " ") {
       toast
         .promise(InterviewService.error(data.content), {
-          error: "Please fill full question information"
+          error: "Please fill full question information and reload page"
         })
     }
     // data.typeQuestion === " " || data.skillId === " "
-    else if (!setTriggeredSkill) {
-      toast
-        .promise(InterviewService.error(data.skillId), {
-          error: "Please select Skill "
-        })
-    }
-    else if (!setTriggeredType) {
+    else if (!triggeredType) {
       toast
         .promise(InterviewService.error(data.typeQuestion), {
           error: "Please select Type "
         })
     }
+    else if (!triggeredSkill) {
+      toast
+        .promise(InterviewService.error(data.skillId), {
+          error: "Please select Skill "
+        })
+    }
+    
     else {
       toast
         .promise(InterviewService.createQuestion(data), {
