@@ -51,8 +51,10 @@ export default function ReccerEventManagement() {
       try {
         if (queryConfig) {
           const query = qs.stringify(queryConfig);
-          const response = await axiosInstance(`/recruiter/events?${query}`);
-          setShowEvents(response.data.result.content);
+          const response = await axiosInstance(
+            `/recruiter/interviewers?${query}`,
+          );
+          setshowinterviewers(response.data.result?.content);
           setPageSize(response.data.result.totalPages);
         }
       } catch (error) {
@@ -108,6 +110,8 @@ export default function ReccerEventManagement() {
       setIsLoading(false);
     }
   };
+
+
   return (
     <>
       <div>        

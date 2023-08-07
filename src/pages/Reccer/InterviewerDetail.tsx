@@ -1,7 +1,6 @@
 import { avatar } from '@material-tailwind/react';
 import React, { useEffect, useState } from 'react'
 import { GrDocumentText } from "react-icons/gr";
-import blog_image from "../../../images/blog_image.png";
 import { RecInterviewerInterface } from '../../services/services';
 import axiosInstance from '../../utils/AxiosInstance';
 import { useParams } from 'react-router-dom';
@@ -16,6 +15,7 @@ import RecInterviewrecent from './RecInterviewRecent';
 import RecInterviewRecent from './RecInterviewRecent';
 import classNames from 'classnames';
 import { toast } from 'react-toastify';
+import user from '../../../images/uses.png'
 
 export default function InterviewerDetail() {
   const { interviewerId } = useParams();
@@ -77,6 +77,7 @@ export default function InterviewerDetail() {
   const handleLink = (url: string) => {
     url ? window.open(url) : toast.error("Not Available ");
   };
+  console.log(interviewer?.avatar)
   return (
     <div>
       {interviewer ? (
@@ -88,7 +89,7 @@ export default function InterviewerDetail() {
             <div className='md:flex ms-4 -mt-12'>
               <div className='md:w-full'>
                 <div className='relative flex items-end'>
-                  <img src={interviewer?.avatar || blog_image} className='h-28 w-28 rounded-full ring-4 ring-slate-50 ' />
+                  <img src={interviewer?.avatar || user} className='h-28 w-28 rounded-full ring-4 ring-slate-50 ' />
                   <div className='ms-4'>
                     <p className='text-lg font-semibold'>{interviewer?.fullName}</p>
                   </div>
