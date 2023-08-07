@@ -169,7 +169,7 @@ export default function AdminChangePosition() {
                                 WARNING
                               </p>
                             </div>
-                            <div className="text-left font-semibold">
+                            <div className="text-center font-semibold">
                               This action cannot be undone, the deleted item
                               cannot be restored.
                             </div>
