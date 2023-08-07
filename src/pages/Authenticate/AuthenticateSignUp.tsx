@@ -227,13 +227,16 @@ export default function AuthenticateSignUp() {
             "border-red-300": errors && errors.confirmPassword,
           })}
         />
-
+        {/* <input type="tel" /> */}
         <InputIcon
           icon={<PhoneIcon />}
           register={register}
           label="phone"
           required
           placeholder="phone number"
+          type="tel"
+          maxLength={12}
+          pattern="([0-9]{8,12})"
           wrapperClassName={classnames({
             "border-red-300": errors && errors.phone,
           })}

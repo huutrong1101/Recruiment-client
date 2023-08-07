@@ -29,6 +29,7 @@ export default function Button({
           "text-xl px-8 py-3": _size === "xl",
         },
         `bg-zinc-100 hover:bg-zinc-300 hover:text-black`,
+        `disabled:bg-zinc-600 disabled:text-zinc-300 disabled:cursor-no-drop`,
         className,
       )}
       {...children}

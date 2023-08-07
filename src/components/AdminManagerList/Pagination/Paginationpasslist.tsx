@@ -123,7 +123,7 @@ export default function Paginationpasslist({ queryConfig, pageSize }: Props) {
                 }}
                 className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"
               >
-                Prev
+                Next
               </Link>
             )}
           </li>
@@ -133,7 +133,7 @@ export default function Paginationpasslist({ queryConfig, pageSize }: Props) {
           <li>
             {page === pageSize ? (
               <button className="px-3 py-2 mx-2 border rounded shadow-sm cursor-not-allowed bg-white/60">
-                 Prev
+                Next
               </button>
             ) : (
               <Link

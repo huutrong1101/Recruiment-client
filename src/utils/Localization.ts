@@ -2,8 +2,6 @@ interface LocalizationDeclarationType {
   [index: string]: string;
 }
 
-
-
 export const JOB_POSITION: LocalizationDeclarationType = {
   FULL_TIME: "Full Time",
   PART_TIME: "Part Time",
@@ -18,7 +16,7 @@ export const JOB_POSITION: LocalizationDeclarationType = {
 
 export const TYPE_alter: LocalizationDeclarationType = {
   TECHNICAL: "Technical",
-  SOFT_SKILL: "Soft-skill"
+  SOFT_SKILL: "Soft-skill",
 };
 
 export const TECHNICAL: LocalizationDeclarationType = {};
@@ -26,8 +24,8 @@ export const TECHNICAL: LocalizationDeclarationType = {};
 export const REC_INTERVIEW_STATUS: LocalizationDeclarationType = {
   NOT_RECEIVED: "Not Received",
   RECEIVED: "Received",
-  PASS: "Pass",
-  FAIL: "Fail",
+  PASSED: "Pass",
+  FAILED: "Fail",
 };
 /**
  * @deprecated using Localization.APPLICANTS_STATUS instead
@@ -49,4 +47,6 @@ export const APPLICANTS_STATUS: LocalizationDeclarationType = {
   RECEIVED: "Received",
   PASS: "Passed",
   FAIL: "Failed",
+  PASSED: "Passed",
+  FAILED: "Failed",
 };

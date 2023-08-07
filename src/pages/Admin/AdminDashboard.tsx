@@ -13,7 +13,10 @@ import axiosInstance from "../../utils/AxiosInstance";
 import Paginationacountlist from "../../components/AdminManagerList/Pagination/Paginationacountlist";
 import moment from "moment";
 import Loader from "../../components/Loader/Loader";
-import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon} from "@heroicons/react/24/outline";
+import classNames from "classnames";
+import { BsFilterLeft } from "react-icons/bs";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 export type QueryConfig = {
   [key in keyof AcountConfig]: string;
@@ -96,13 +99,18 @@ export default function AdminDashboard() {
 
   return (
     <div className="flex flex-col">
-      <div className="p-1 text-center mb-5 mt-5">
+        <div
+          className={classNames(
+            "flex justify-center item-center ","p-1 text-center mb-5 mt-5  mr-4",
+          )}
+        >
         <form
           onSubmit={e => handleSearch(e)}
-          className="inline-flex items-center justify-start gap-1 px-0.5 py-0.5 bg-white border rounded-xl bg-opacity-5"
+          className=" inline-flex items-center justify-start gap-1 px-0.5 py-0.5 bg-white border rounded-xl bg-opacity-5 "
         >
-          <div className="flex items-center justify-center gap-3 ml-3 relative w-[20px]"><MagnifyingGlassCircleIcon/></div>
-          <div className="flex items-center justify-center gap-3 relative">
+          <BsFilterLeft className={classNames(`w-[20px] ml-4 mr-4`)} />
+
+          <div className="flex items-center justify-center gap-3 relative ">
               <p> Type : </p>
               <select
                 value={dataSearch.field}
@@ -114,23 +122,11 @@ export default function AdminDashboard() {
                 <option value="email">Email</option>
               </select>
               <div className="absolute inset-y-0 right-0 flex items-center pl-2 pr-1 pointer-events-none">
-                <svg
-                  className="w-5 h-5 text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
+                  <ChevronDownIcon className={classNames("w-[20px]")}                      />      
               </div>          
             </div>
-            <div className="relative">
+            <div className="flex items-center justify-center gap-3 ml-3 relative w-[20px]"><MagnifyingGlassIcon/></div>
+            <div className="relative ">
             <input
               type="text"
               className="font-medium outline-none text-gray-900 text-[14px] ml-5 h-[30px] text-left rounded-lg"
@@ -141,6 +137,12 @@ export default function AdminDashboard() {
                 placeholder=" Please enter a search     "
               />
             </div>
+            <button
+              type="submit"
+              className="bg-[#05966A] hover:bg-emerald-700 text-white p-2 rounded-md flex items-center justify-center"
+            >
+              Search
+            </button> 
         </form>       
       </div>
       <div className="relative bg-white">

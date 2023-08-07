@@ -173,19 +173,19 @@ export default function Jobs() {
         {/* Sidebar Search  */}
         <div
           className={classNames(
-            "p-6 bg-white rounded-lg shadow-lg w-[30%] h-fit sticky top-1 flex flex-col gap-3",
+            "p-6 bg-white rounded-lg shadow-sm w-1/3 h-fit sticky top-[25px] flex flex-col gap-3 border",
           )}
         >
           <form onSubmit={(e) => handleSearch(e)}>
             {/* Search  */}
             <div>
-              <h3 className={classNames("text-base font-semibold capitalize")}>
-                Search Position
+              <h3 className={classNames("text-base font-semibold")}>
+                Search for
               </h3>
               <div
                 className={classNames(
-                  "flex items-center flex-shrink-0 w-full p-2 border rounded-full mt-2",
-                  "focus-within:border-emerald-400",
+                  "flex items-center flex-shrink-0 w-full p-2 border rounded-xl mt-2",
+                  "focus-within:border-emerald-600 text-base",
                 )}
               >
                 <MagnifyingGlassIcon className={classNames(`w-[20px]`)} />
@@ -210,11 +210,11 @@ export default function Jobs() {
               <Menu as="div" className={classNames("relative mt-2")}>
                 <Menu.Button
                   className={classNames(
-                    "cursor-pointer flex items-center justify-between w-full p-2 border rounded-full",
+                    "cursor-pointer flex items-center justify-between w-full p-2 border rounded-xl",
                   )}
                 >
                   <span className={classNames("ml-2 text-zinc-400")}>
-                    {dataSearch.posName || "Position"}
+                    {JOB_POSITION[dataSearch.posName] || "Position"}
                   </span>
                   <ChevronDownIcon className={classNames("w-[20px] ml-4")} />
                   {/* Drop down  */}
@@ -248,7 +248,7 @@ export default function Jobs() {
                                 })
                               }
                             >
-                              {pos}
+                              {JOB_POSITION[pos]}
                             </p>
                           )}
                         </Menu.Item>
@@ -266,11 +266,11 @@ export default function Jobs() {
               <Menu as="div" className={classNames("relative mt-2")}>
                 <Menu.Button
                   className={classNames(
-                    "cursor-pointer flex items-center justify-between w-full p-2 border rounded-full",
+                    "cursor-pointer flex items-center justify-between w-full p-2 border rounded-xl",
                   )}
                 >
                   <span className={classNames("ml-2 text-zinc-400")}>
-                    {dataSearch.location || "Location"}
+                    {JOB_POSITION[dataSearch.location] || "Location"}
                   </span>
                   <ChevronDownIcon className={classNames("w-[20px] ml-4")} />
                   {/* Drop down  */}
@@ -304,7 +304,7 @@ export default function Jobs() {
                                 })
                               }
                             >
-                              {location}
+                              {JOB_POSITION[location]}
                             </p>
                           )}
                         </Menu.Item>
@@ -316,13 +316,13 @@ export default function Jobs() {
             </div>
             {/* Jobs Type  */}
             <div className={classNames("mt-4")}>
-              <h3 className={classNames("text-base font-semibold  capitalize")}>
+              <h3 className={classNames("text-base font-semibold")}>
                 Jobs Type
               </h3>
               <Menu as="div" className={classNames("relative mt-2")}>
                 <Menu.Button
                   className={classNames(
-                    "cursor-pointer flex items-center justify-between w-full p-2 border rounded-full",
+                    "cursor-pointer flex items-center justify-between w-full p-2 border rounded-xl",
                   )}
                 >
                   <span className={classNames("ml-2 text-zinc-400")}>
@@ -374,7 +374,7 @@ export default function Jobs() {
             <div className={classNames("mt-6 flex gap-2 flex-col")}>
               <button
                 className={classNames(
-                  "bg-emerald-700 text-white p-3 rounded-md flex w-full text-center items-center justify-center",
+                  "bg-emerald-700 hover:bg-emerald-900 text-white p-3 rounded-md flex w-full text-center items-center justify-center",
                 )}
               >
                 Search
@@ -383,7 +383,7 @@ export default function Jobs() {
           </form>
           <button
             className={classNames(
-              "bg-red-400 hover:bg-red-500 text-white p-3 rounded-md flex w-full text-center items-center justify-center",
+              "bg-red-700 hover:bg-red-900 text-white p-3 rounded-md flex w-full text-center items-center justify-center",
             )}
             onClick={() => handleReset()}
           >
@@ -411,23 +411,23 @@ export default function Jobs() {
                       </div>
                     </>
                   ))}
-                  {/* Pagination  */}
-                  <Pagination
-                    queryConfig={queryConfig}
-                    pageSize={pageSize}
-                    url="/jobs"
-                  />
                 </>
               ) : (
                 <div className="flex flex-col justify-center w-full mb-10 min-h-[70vh] items-center text-3xl gap-4">
                   <span>
                     <AiOutlineBlock />
                   </span>
-                  <span>Not found any job</span>
+                  <span>There is no job available.</span>
                 </div>
               )}
             </div>
           )}
+          {/* Pagination  */}
+          <Pagination
+            queryConfig={queryConfig}
+            pageSize={pageSize}
+            url="/jobs"
+          />
         </div>
       </div>
     </>

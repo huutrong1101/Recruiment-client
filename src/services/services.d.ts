@@ -47,6 +47,12 @@ export interface JobListConfig {
   location?: string;
   posName?: string;
 }
+export interface EventListConfig {
+  index?: number | string;
+  size?: number | string;
+  name?: string;
+  state?: string;
+}
 export interface AppliedCandidateListConfig {
   name?: string;
   state?: string;
@@ -226,10 +232,10 @@ export interface AdminDelete {
   userId: string;
   state: string;
 }
-export interface  AdminDeleteAcountConfig{
+export interface AdminDeleteAcountConfig {
   index: string;
   size: string;
-  fullName : string;
+  fullName: string;
 }
 export interface AdminJobPassListConfig {
   page?: number | string;
@@ -237,6 +243,13 @@ export interface AdminJobPassListConfig {
   id?: number | string;
 }
 export interface AcountFrofileInterface {
+  userId: string;
+  name: string;
+  avatar: string;
+  phone: number;
+  address: string;
+}
+export interface AcountFrofileUsersInterface {
   userId: string;
   name: string;
   avatar: string;
@@ -248,7 +261,6 @@ export interface AcountFrofileInterface {
   email: string;
   role: string;
 }
-export interface AcountFrofileInterfaceConfig {}
 
 export interface AcountInterface {
   name: string;
@@ -259,43 +271,42 @@ export interface AcountInterface {
 }
 
 export interface AcountConfig {
-  index: number
+  index: number;
   page?: number | string;
   size?: number | string;
   searchText?: string;
   searchBy?: string;
 }
 
-export interface QuestionListConfig{
+export interface QuestionListConfig {
   page?: number | string;
   size?: number | string;
-  skill?: string
-  type?: string
-  note?: number | string,
-  content?: string
+  skill?: string;
+  type?: string;
+  note?: number | string;
+  content?: string;
 }
 
-export interface QuestionListInterface{
-    skill: string
-    type: string
-    questionId?: number | string,
-    note: number | string,
-    content: string
-  
+export interface QuestionListInterface {
+  skill: string;
+  type: string;
+  questionId?: number | string;
+  note: number | string;
+  content: string;
 }
 
-export interface TypeListInterface{
-  type: string
+export interface TypeListInterface {
+  type: string;
 }
 
-export interface SkillListInterface{
-  skillId: number
-  skill: string
+export interface SkillListInterface {
+  skillId: number;
+  skill: string;
 }
 
-export interface DataSearchInterface{
-  skill?: string
-  type?: string
+export interface DataSearchInterface {
+  skill?: string;
+  type?: string;
 }
 
 export interface Pagable {

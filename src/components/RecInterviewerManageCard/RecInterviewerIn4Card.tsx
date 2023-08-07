@@ -44,11 +44,6 @@ export default function RecInterviewerIn4Card({ cardData }: any) {
                         );
                     })}
             </div>
-            <div className='mt-3 flex w-full bg-white p-3 items-center justify-center rounded-md shadow '>
-                <GrDocumentText />
-                <span className='font-medium ms-2'>{interviewer?.fullName}.pdf</span>
-                <a href='' className="px-4 py-2 gap-2 ml-4 mt-2 bg-emerald-600 hover:bg-emerald-700 border-emerald-600  text-white rounded-md">Download</a>
-            </div>
         </div>
     );
 }

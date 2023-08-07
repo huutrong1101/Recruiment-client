@@ -67,14 +67,29 @@ async function getJobFromId(jobId: string) {
   if (!jobId) {
     throw new Error(`The value jobId cannot be undefined`);
   }
-  return axiosInstance.get(`/jobs/${jobId}`);
+  return axiosInstance.get(`/jobs/${jobId}`, {
+    headers: { Authorization: `` },
+  });
 }
 
 async function getIfUserAppliedTheJob(jobId: string) {
   return axiosInstance.get(`/candidate/applied-jobs/${jobId}`);
 }
 
+const createJob = async (data: any) => {
+  return await axiosInstance.post(`recruiter/job`, data);
+};
+const deleteJob = async (data: string) => {
+  return await axiosInstance.delete(`/recruiter/job/${data}`);
+};
+const editJob = async (data: any, jobId: any) => {
+  return await axiosInstance.put(`recruiter/jobs/${jobId}`, data);
+};
+
 export const JobService = {
+  editJob,
+  deleteJob,
+  createJob,
   getJobs,
   getPosition,
   getType,

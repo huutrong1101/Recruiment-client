@@ -32,12 +32,14 @@ import { JobInterface } from "../../../services/services";
 import axiosInstance from "../../../utils/AxiosInstance";
 import moment from "moment";
 import Loader from "../../../components/Loader/Loader";
-import {JOB_POSITION} from "../../../utils/Localization";
+import { JOB_POSITION } from "../../../utils/Localization";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import { toast } from "react-toastify";
+import { JobService } from "../../../services/JobService";
 
 export default function ReccerJobDetail() {
   const [jobInformation, setJobInformation] = useState([
-    { icon: <UserIcon/>, name: "", value: "" },
+    { icon: <UserIcon />, name: "", value: "" },
   ]);
   const { jobId } = useParams();
   const [job, setJob] = useState<JobInterface | null>(null);
@@ -83,13 +85,17 @@ export default function ReccerJobDetail() {
 
   const navigate = useNavigate();
   const deleteJob = async () => {
-    const response = await axiosInstance.delete(`/recruiter/job/${jobId}`);
-    await axiosInstance.delete(`/recruiter/job/${jobId}`);
-    alert(response.data.message); // In ra thông tin phản hồi từ máy chủ
+    toast
+      .promise(JobService.deleteJob(job?.jobId), {
+        pending: `Delete Job`,
+        success: `The Job was deleted`,
+      })
+      .catch((error) => toast.error(error.response.data.result));
     navigate({
       pathname: "/recruiter/jobs",
     });
   };
+
   const routeChange = () => {
     let path = `./edit`;
     navigate(path);
@@ -123,6 +129,7 @@ export default function ReccerJobDetail() {
                     .format("Do MMM, YYYY")
                     .toString()}
                   logo={{ src: Logo, alt: "image" }}
+                  quantity = {job?.quantity}
                 />
                 {/* Details */}
                 <div
@@ -218,7 +225,7 @@ export default function ReccerJobDetail() {
                         id="alert-dialog-title"
                         className="text-center"
                       >
-                        <p className="pt-4 font-extrabold">Delete Job</p>
+                        <p className="pt-3 font-extrabold">Delete Job</p>
                       </DialogTitle>
                       <DialogContent className="text-center">
                         <div className="px-6 text-center">
@@ -268,7 +275,7 @@ export default function ReccerJobDetail() {
             </div>
 
             {/* /Applied Candidate */}
-            <Applied />
+            <Applied num={job?.quantity} />
 
             {/* Suggested Candidate*/}
             <Suggested />

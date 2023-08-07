@@ -41,8 +41,18 @@ function verifyOtp({ otp, email }: UserVerifySendParamsInterface) {
   return axiosInstance.post(`/auth/verifyOTP`, { otp, email });
 }
 
+const forgetPassword = async (email: string) => {
+  return await axiosInstance.post(`/user/forgot-password?email=${email}`);
+};
+
+const createNewPassword = async (token: string, data: FormData) => {
+  return await axiosInstance.put(`/user/reset-password?token=${token}`, data);
+};
+
 export const AuthService = {
   register,
   login,
   verifyOtp,
+  forgetPassword,
+  createNewPassword,
 };
