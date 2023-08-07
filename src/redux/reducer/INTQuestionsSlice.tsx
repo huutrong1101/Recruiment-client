@@ -129,11 +129,21 @@ const INTQuestionsSlice = createSlice({
                 state.assignedQuestionsStatus = STATUS.IDLE;
             })
 
-
+            .addCase(markScore.pending, (state, action) => {
+                toast.info(`Loading.....`, {
+                    autoClose: false,
+                    style: {
+                        background: '#007bff',
+                        color: '#fff',
+                    }
+                })
+            })
             .addCase(markScore.fulfilled, (state, action) => {
+                toast.dismiss();
                 toast.success(`Mark score successfully`);
             })
             .addCase(markScore.rejected, (state, action) => {
+                toast.dismiss();
                 if(action.error.message === "Request failed with status code 422"){
                     toast.warning(`Entry point must be in the range 0-10`, {
                         style: {
@@ -150,6 +160,33 @@ const INTQuestionsSlice = createSlice({
                     });
                 }else{
                     toast.error(`${action.error.message}`);
+                }
+            })
+
+            .addCase(addQuestionToRepo.pending, (state, action) => {
+                toast.info(`Loading.....`, {
+                    autoClose: false,
+                    style: {
+                        background: '#007bff',
+                        color: '#fff',
+                    }
+                })
+            })
+            .addCase(addQuestionToRepo.fulfilled, (state, action) => {
+                toast.dismiss();
+                toast.success(`Assign question successfully`);
+            })
+            .addCase(addQuestionToRepo.rejected, (state, action) => {
+                toast.dismiss();
+                if(action.error.message === "Request failed with status code 409"){
+                    toast.warning(`Question already exists`, {
+                        style: {
+                            background: '#FFD700',
+                            color: '#000',
+                        }
+                    });
+                }else{
+                    toast.error(action.error.message);
                 }
             })
     }
@@ -206,6 +243,28 @@ export const markScore = createAsyncThunk(
         const {ID, assignedQuestions} = data;
         const response1 = await axiosInstance.put(`/interviewer/interview/${ID}/questions`, assignedQuestions);
         const response2 = await axiosInstance.put(`/interviewer/interview/${ID}/totalScore`);
+        return response2.data;
+    }
+)
+
+export const addQuestionToRepo = createAsyncThunk(
+    'INTQuestions/addQuestionToRepo',
+    async(data : any) => {
+        const {ID, contentQ, noteQ, typeQ, skillQ} = data;
+        const question : { content : string, note: string, typeQuestion: string, skillId: string} = {
+            content: contentQ,
+            note: noteQ,
+            typeQuestion: typeQ,
+            skillId: skillQ
+        }
+        const response1 = await axiosInstance.post(`/interviewer/question`, question);
+
+        const assignQuestions :  { questionId: any; score: any, note: any}[] = [{
+            questionId : response1.data.result.questionId,
+            score : "",
+            note : ""
+        }];
+        const response2 = await axiosInstance.post(`/interviewer/interview/${ID}/questions`, assignQuestions);
         return response2.data;
     }
 )

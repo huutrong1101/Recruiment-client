@@ -19,11 +19,12 @@ const AdminProfile = () => {
         );
     }else if(adminprofilesRecentStatus === STATUS.IDLE){
     return (
-        <div className="flex gap-5">
-            <div className="bg-white rounded-lg shadow-lg w-[40%] flex justify-center items-center">
-            <div >
-                <img src={adminprofilesRecent.avatar} className="w-[175px] h-[175px] rounded-full" alt="avatar" />              
-            </div>
+        <div className="flex gap-2 mt-10 border">
+            <div className="bg-white rounded-lg shadow-lg w-[50%] flex justify-center items-center">
+                <div >
+                    <img src={adminprofilesRecent.avatar} className="w-[175px] h-[175px] rounded-full" alt="avatar" />  
+                    <h1 className="text-center mt-10 text-xl">Admin Role</h1>                         
+                </div>
             </div>
             <div className="bg-white rounded-lg shadow-lg w-[50%] h-fit sticky">
                 <div className="flex items-center justify-center text-center space-x-2 font-semibold text-green-500">

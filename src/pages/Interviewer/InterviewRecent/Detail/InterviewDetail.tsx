@@ -15,12 +15,12 @@ import { fetchINTCandidatesByID } from "../../../../redux/reducer/INTCandidatesS
 import { formatDDMMYY } from "../../CandidateRecent/CandidateRecent";
 
 // Icon
-import { TrashIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { TrashIcon, MagnifyingGlassIcon, CheckIcon } from "@heroicons/react/20/solid";
 import { BsFilterLeft } from "react-icons/bs";
 
 // Status
 import { STATUS } from "../../../../utils/Status";
-import Loader from "../../../../components/Loader/Loader";
+import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
 import { JOB_POSITION } from "../../../../utils/Localization";
 import { TYPE_alter } from "../../../../utils/Localization";
 
@@ -34,7 +34,7 @@ function formatHHMM(date : any) {
   
     return `${hours}:${minutes}`;
 }
-function truncatedString(str : any) {
+export function truncatedString(str : any) {
     const maxLength = 50;
     if (str && str.length > maxLength) {
       return str.substring(0, maxLength - 3) + '...';
@@ -42,6 +42,7 @@ function truncatedString(str : any) {
     return str;
 }
 export function checkCompleteMarkScore(lst : any){
+    if(lst.length == 0) return false;
     for (let i = 0; i < lst.length; i++) {
         if (lst[i]?.score === "") {
           return false;
@@ -80,7 +81,6 @@ const InterviewDetail = () => {
         setTimeout(() => {
             setShowDropdown(true);
         }, 300);
-        console.log(textFilter, skill, type)
     }
     const handleClickType = (event : any) => {
         const typeFilter = event.target.value;
@@ -89,7 +89,6 @@ const InterviewDetail = () => {
         setTimeout(() => {
             setShowDropdown(true);
         }, 300);
-        console.log(text, skill, typeFilter)
     }
     const handleClickSkill = (event : any) => {
         const skillFilter = event.target.value;
@@ -98,7 +97,6 @@ const InterviewDetail = () => {
         setTimeout(() => {
             setShowDropdown(true);
         }, 300);
-        console.log(text, skillFilter, type)
     }
 
     const handleAdd = (question : any) => {
@@ -107,17 +105,13 @@ const InterviewDetail = () => {
     const handleRemove = (question : any) => {
         dispatch(removeQuestions({ID, question}));
     }
-    const handleSave = () => {
-        dispatch(assignQuestionForInterview({ID, selectedQuestions}));
+    const handleSave = async () => {
+        await dispatch(assignQuestionForInterview({ID, selectedQuestions}));
         dispatch(setEmptySelectedQuestions({ID}));
-
-        dispatch(fetchINTAssignedQuestions(id));
         dispatch(fetchINTAssignedQuestions(id));
     }
-    const handleDelete = (question : any) => {
-        dispatch(deleteQuestionOfInterview({ID, question}));
-
-        dispatch(fetchINTAssignedQuestions(id));
+    const handleDelete = async (question : any) => {
+        await dispatch(deleteQuestionOfInterview({ID, question}));
         dispatch(fetchINTAssignedQuestions(id));
     }
 
@@ -144,7 +138,11 @@ const InterviewDetail = () => {
             <div className="InterviewDetail ">
                 <div className="mt-8 border-2 shadow-xl px-6 py-6 rounded-xl">
                     <div className='text-2xl font-semibold'>Interview Information</div>
-                    <div className="text-base mt-2">Position Recruiment: <span className="text-sm ml-2">
+
+                    <div className="text-base mt-2">Job Name: <span className="text-sm ml-2">
+                        {INTSingleInterview?.jobName}</span>
+                    </div>
+                    <div className="text-base">Position Recruiment: <span className="text-sm ml-2">
                         {JOB_POSITION[INTSingleInterview?.position]}</span>
                     </div>
                     <div className="text-base">Date: <span className="text-sm ml-2">
@@ -199,10 +197,14 @@ const InterviewDetail = () => {
                             </div>     
                             {showDropdown && (
                                 <ul className="absolute bg-white border border-gray-300 top-[65px] ml-6
-                                                rounded-lg custom-scroll min-w-[700px]
+                                                rounded-lg custom-scroll min-w-[700px] min-h-[50px]
                                                 max-h-[200px] overflow-y-auto">
                                     {
-                                        searchQuestionsStatus === STATUS.LOADING && <Loader/>
+                                        searchQuestionsStatus === STATUS.LOADING && (
+                                            <div className="flex justify-center">
+                                                <LoadSpinner className="w-8 h-8 mt-2"/>
+                                            </div>
+                                        )
                                     }
 
                                     {searchQuestionsStatus === STATUS.IDLE && searchQuestions?.map((question : any) => (
@@ -219,7 +221,7 @@ const InterviewDetail = () => {
                                     ))}
                                     {
                                         searchQuestionsStatus === STATUS.IDLE && searchQuestions.length === 0 && 
-                                            <li className="px-5 py-3">Không có kết quả tìm kiếm</li>                    
+                                            <li className="px-5 py-3">No results found</li>                    
                                     }
                                 </ul>
                             )}
@@ -236,24 +238,38 @@ const InterviewDetail = () => {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {assignedQuestions?.map((item: any) => (
+                                    {assignedQuestionsStatus === STATUS.LOADING && 
+                                        (
+                                        <tr className="h-[80px]">
+                                            <td colSpan={4}>
+                                                <div className='flex justify-center'>
+                                                    <LoadSpinner className='h-8 w-8 mt-2'/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        )
+                                    }
+                                    {assignedQuestionsStatus === STATUS.IDLE && assignedQuestions?.map((item: any) => (
                                         <tr key={item.questionId} className="bg-white">
                                         <td className="border px-4 py-2">{item.content}</td>
                                         <td className="border px-4 py-2 text-center">{item.typeQuestion}</td>
                                         <td className="border px-4 py-2 text-center">{item.skill}</td>
                                         <td className="border px-4 py-2 text-center">
-                                            <TrashIcon onClick={() => {handleDelete(item)}}  className="ml-3 cursor-pointer w-5 h-5 text-gray-500"/>
+                                            <div className="flex justify-center">
+                                                <TrashIcon onClick={() => {handleDelete(item)}}  className="ml-3 cursor-pointer w-5 h-5 text-gray-500 mr-2"/>
+                                                <CheckIcon className="w-5 h-5 text-gray-500"/>
+                                            </div>
                                         </td>
                                         </tr>
                                     ))}
 
-                                    {selectedQuestions[ID]?.map((item : any) => (
+                                    {assignedQuestionsStatus === STATUS.IDLE && selectedQuestions[ID]?.map((item : any) => (
                                         <tr key={item.questionId} className="bg-white">
                                             <td className="border px-4 py-2">{item.content}</td>
-                                            <td className="border px-4 py-2">{item.typeQuestion}</td>
-                                            <td className="border px-4 py-2">{item.skill.name}</td>
-                                            <td className="border px-4 py-2">
-                                                    <TrashIcon onClick={() => {handleRemove(item)}}  className="ml-3 cursor-pointer w-5 h-5 text-gray-500"/>
+                                            <td className="border px-4 py-2 text-center">{item.typeQuestion}</td>
+                                            <td className="border px-4 py-2 text-center">{item.skill.name}</td>
+                                            <td className="border px-4 py-2 text-center">
+                                                <TrashIcon onClick={() => {handleRemove(item)}}  className="ml-3 cursor-pointer w-5 h-5 text-gray-500"/>
                                             </td>
                                         </tr>
                                     ))} 
@@ -268,7 +284,14 @@ const InterviewDetail = () => {
                         </div>
                     </div>)
                 }
-                {checkCompleteMarkScore(assignedQuestions) && 
+                {checkCompleteMarkScore(assignedQuestions) && assignedQuestionsStatus === STATUS.LOADING && 
+                    (
+                        <div className='flex justify-center'>
+                            <LoadSpinner className='h-8 w-8 mt-8'/>
+                        </div>
+                    )
+                }
+                {checkCompleteMarkScore(assignedQuestions) && assignedQuestionsStatus === STATUS.IDLE && 
                     (<div className="mt-14 border-2 shadow-xl px-6 py-6 rounded-xl">
                         <div className='text-2xl font-semibold'>Result of Interview</div>
                         <table className="w-full border-collapse border border-gray-300 rounded mt-4">
@@ -291,8 +314,18 @@ const InterviewDetail = () => {
                             ))}
                             </tbody>
                         </table>
-                        <div className="flex justify-end text-xl font-medium mt-4">
-                            Total Score: {calculateTotalScore(assignedQuestions)}/{10*assignedQuestions.length}</div>
+                        <div className="flex justify-end text-base mt-4">
+                            <div className="mr-8">Number of questions: 
+                                <span className="text-xl font-medium"> {assignedQuestions.length}</span>
+                            </div>
+                            <div className="mr-8">Total score: 
+                                <span className="text-xl font-medium"> {calculateTotalScore(assignedQuestions)}/{(10*assignedQuestions.length)}</span>
+                            </div>
+                            <div>Score out of 100: 
+                                <span className="text-xl font-medium"> {Math.round(calculateTotalScore(assignedQuestions)*1.0*100/(10*assignedQuestions.length))}</span>
+                            </div>
+                        </div>
+
                     </div>)
                 }
 
