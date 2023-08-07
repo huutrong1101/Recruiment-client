@@ -184,7 +184,7 @@ export default function ScorePage() {
                         }
                      </div>
                   </div>
-                  <Link to={INTSingleCandidate?.cv}>
+                  <Link to={INTSingleCandidate?.cv}  target="_blank">
                      <button className="absolute bg-green-600 hover:bg-green-800 text-white 
                      font-bold py-2 px-4 rounded bottom-4 left-6">
                         View CV
