@@ -8,7 +8,7 @@ import { fetchINTAssignedQuestions,deleteQuestionOfInterview, addQuestionToRepo,
           setScore, setNote, markScore} from "../../redux/reducer/INTQuestionsSlice";
 
 
-import { checkCompleteMarkScore, truncatedString } from "../Interviewer/InterviewRecent/Detail/InterviewDetail";
+import { checkCompleteMarkScore, truncatedString, isDateReached } from "../Interviewer/InterviewRecent/Detail/InterviewDetail";
 import { fetchSkills, fetchTypes } from "../../redux/reducer/INTInterviewsSlice";
 import Modal from 'react-modal';
 import { TYPE_alter } from "../../utils/Localization";
@@ -98,16 +98,16 @@ export default function ScorePage() {
    useEffect(() => {
       const fetchData = async () => {
          await dispatch(fetchINTAssignedQuestions(id));
+         await dispatch(fetchINTCandidatesByID(id));
          setIsFetch(true);
       };
       fetchData();
-      dispatch(fetchINTCandidatesByID(id));
       dispatch(fetchSkills());
       dispatch(fetchTypes()); 
    }, [])
    
    useEffect(() => {
-      if(checkCompleteMarkScore(assignedQuestions)){
+      if(checkCompleteMarkScore(assignedQuestions) || !isDateReached(INTSingleCandidate?.date)){
          navigate(`/interviewer/interview-recent/${ID}`)
       }
    },[isFetch])
