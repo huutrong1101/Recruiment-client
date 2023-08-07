@@ -45,9 +45,9 @@ const changePassword = async (data: FormData) => {
 /**
  * Returns the interviews that owned by a candidate.
  */
-const getUserInterviews = async ({ page, limit }: GetUsersInterviewsParams) => {
-  const searchQuery = qs.stringify({ page: page || "1", limit: limit || "10" });
-  return await axiosInstance.get(`/candidate/interviews?${searchQuery}`);
+const getUserInterviews = async ({ index, size }: any) => {
+  const query = qs.stringify({ index, size });
+  return await axiosInstance.get(`/candidate/interviews?${query}`);
 };
 
 const getUserInformation = async () => {
