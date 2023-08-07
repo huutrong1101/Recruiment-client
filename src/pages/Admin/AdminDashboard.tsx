@@ -129,20 +129,26 @@ export default function AdminDashboard() {
             <div className="relative ">
             <input
               type="text"
-              className="font-medium outline-none text-gray-900 text-[14px] ml-5 h-[30px] text-left rounded-lg"
+              className="font-medium outline-none text-gray-900 text-[14px] ml-5 h-[30px] text-left rounded-lg italic"
               value={dataSearch.key}
               onChange={(e) =>
                 setDataSearch({ ...dataSearch, key: e.target.value })
               }
-                placeholder=" Please enter a search     "
+                placeholder="Please enter a search ... "
               />
             </div>
+            <div
+                      className={classNames(
+                        "text-[16px] cursor-pointer flex items-center justify-between mr-5",
+                      )}
+                    >
             <button
               type="submit"
-              className="bg-[#05966A] hover:bg-emerald-700 text-white p-2 rounded-md flex items-center justify-center"
+              className="bg-[#05966A] hover:bg-emerald-700 text-white p-1 rounded-md flex items-center justify-center"
             >
               Search
             </button> 
+            </div>
         </form>       
       </div>
       <div className="relative bg-white">

@@ -80,25 +80,31 @@ export default function ListCandiPass() {
     fetchPosition();
   }, []);
   return (
-    <div className="flex-col mt-3">
+    <div className="flex-col mt-10">
+     {/* Title */}
+     <div className = "flex items-center text-center space-x-2 font-semibold text-green-500 justify-center mb-10">
+        <span className = "tracking-wide text-center  text-emerald-600 text-[28px] ">List Candidate Apply Jobs</span>
+    </div>
     <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
       <Table className="text-sm text-gray-500 dark:text-gray-400 text-center sticky">
-        <TableHead className="text-xs bold text-gray-700 bg-gray-200 text-center"style={{ fontFamily: "Outfit, sans-serif" }}>
+        <TableHead className="text-xs bold text-gray-700 bg-gray-200 text-center" style={{ fontFamily: "Outfit, sans-serif" }}>
           <TableRow>
-          <TableCell scope="col" className="px-1 py-1 bold">
-              Name
+          <TableCell style={{ fontFamily: "Outfit, sans-serif" }}className="px-1 py-1 bold">
+              <div className="ml-5">
+                Name
+              </div>
             </TableCell>
-            <TableCell scope="col" className="px-1 py-1 bold">
+            <TableCell style={{ fontFamily: "Outfit, sans-serif" }}className="px-1 py-1 bold">
               Phone
             </TableCell>
-            <TableCell scope="col" className="px-1 py-1 bold">
+            <TableCell style={{ fontFamily: "Outfit, sans-serif" }}className="px-1 py-1 bold">
               State
             </TableCell>
-            <TableCell scope="col" className="px-1 py-1 bold" >
-              Date created
+            <TableCell style={{ fontFamily: "Outfit, sans-serif" }}className="px-1 py-1 bold" >
+              Graded date
             </TableCell>
-            <TableCell scope="col" className="px-1 py-1 bold">
-              Point
+            <TableCell style={{ fontFamily: "Outfit, sans-serif" }}className="px-1 py-1 bold">
+              Score
             </TableCell>
           </TableRow>
         </TableHead>
@@ -122,15 +128,17 @@ export default function ListCandiPass() {
                 }`}
               >
               <TableCell scope="row" className="px-1 py-1 font-semibold text-blue-500 whitespace-nowrap">
+                <div className="ml-5">
                 {job.name}
+                </div>
               </TableCell>
               <TableCell className="px-1 py-1 text-gray-500">{job.phone}</TableCell>
-              <TableCell className="px-1 py-1 text-green-500 italic">{job.state === "NOT_RECEIVED" ?"No interview scheduled yet ..." :(job.state === "RECEIVED" ?"Waiting for interview ..." :job.state)}</TableCell>
+              <TableCell className="px-1 py-1 text-green-500 italic">{job.state==="NOT_RECEIVED" || job.state==="FAILED" ? "Pending" : "Pass" }</TableCell>
               <TableCell className="px-1 py-1 italic">
-              {job.state === "NOT_RECEIVED" ?"No interview scheduled yet ..." :(job.state === "RECEIVED" ?"Waiting for interview ..." :moment(job.date).format("HH:mm:ss DD-MM-YYYY"))}
+                {job.date!==null?moment(job.date).format("HH:mm:ss DD-MM-YYYY"): "Pending"}
               </TableCell>
-              <TableCell className="px-1 py-1 font-semibold bold">
-                {job.score}
+              <TableCell className="px-1 py-1 font-semibold ">
+                {job.state==="NOT_RECEIVED" || job.state==="FAILED" ?" -:- ":job.score}
                 </TableCell>
             </TableRow>            
             ))): 
@@ -150,7 +158,7 @@ export default function ListCandiPass() {
         
         </Table>
         </TableContainer>   
-                <div className="flex justify-center mt-3">
+                <div className="flex justify-center mt-10">
           {/* Pagination  */}
             <Paginationpasslist  queryConfig={queryConfig} pageSize={pageSize} />
         </div >   

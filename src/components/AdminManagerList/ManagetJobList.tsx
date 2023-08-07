@@ -125,16 +125,16 @@ const ManagetJobList = () => {
                     "focus-within:border-emerald-400",
                   )}
                 >
-                    <BsFilterLeft className={classNames(`w-[20px] ml-4 mr-4`)} />
+                    <BsFilterLeft className={classNames(`w-[30px] ml-5 mr-5`)} />
                     <div
                       className={classNames(
-                        "text-[16px] cursor-pointer flex items-center justify-between",
+                        "text-[16px] cursor-pointer flex items-center text-center justify-between",
                       )}
                     >
                         Name Jobs     
                     </div>
-                    <div className=" flex items-center p-3 rounded-xl">
-                      <MagnifyingGlassIcon className="w-5 h-5 mx-2  mr-4" />
+                    <div className=" flex items-center p-2 rounded-xl">
+                      <MagnifyingGlassIcon className="w-5 h-5 mx-2 mr-5" />
                       <input
                         type="text"
                         placeholder="Fill in the search information ..."
@@ -145,7 +145,7 @@ const ManagetJobList = () => {
                     </div> 
                     <div
                       className={classNames(
-                        "text-[16px] cursor-pointer flex items-center justify-between",
+                        "text-[16px] cursor-pointer flex items-center justify-between ml-5 mr-5",
                       )}
                     >
                         <button
@@ -163,16 +163,12 @@ const ManagetJobList = () => {
         <div className="flex-col mt-5">
           <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}} >
             <Table className="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
-              <TableHead className="text-xs text-gray-500 bg-gray-200 text-center">
+              <TableHead className="text-xs text-gray-500 bg-gray-200 text-center flex-row justify-center" style={{ fontFamily: "Outfit, sans-serif" }}>
                 <TableRow>
-                  <TableCell scope="col" className="px-1 py-1 "  style={{ fontFamily: "Outfit, sans-serif" }}
-                  >  Name Jobs                 </TableCell>
-                  <TableCell scope="col" className="px-1 py-1"                style={{ fontFamily: "Outfit, sans-serif" }}
-                  >   Date created </TableCell>
-                  <TableCell scope="col" className="px-1 py-1"                style={{ fontFamily: "Outfit, sans-serif" }}
-                  >   Process </TableCell>
-                  <TableCell scope="col" className="px-1 py-1"                style={{ fontFamily: "Outfit, sans-serif" }}
-                  >   Actions </TableCell>
+                  <TableCell style={{ fontFamily: "Outfit, sans-serif" }}> <div className="ml-10 boid" > Name Jobs         </div>        </TableCell>
+                  <TableCell style={{ fontFamily: "Outfit, sans-serif" }}> <div className="ml-10 boid md:block hidden" > Date created Jobs    </div>        </TableCell>
+                  <TableCell style={{ fontFamily: "Outfit, sans-serif" }}> <div className="ml-10 boid md:block hidden" >  Process </div> </TableCell>
+                  <TableCell style={{ fontFamily: "Outfit, sans-serif" }} > <div className="flex justify-center" > Actions         </div>     </TableCell>
                 </TableRow>
               </TableHead>
               {isLoading ? (
@@ -191,21 +187,22 @@ const ManagetJobList = () => {
                {showJobLists && showJobLists.length > 0 ?
                   (showJobLists.map((job) => (                    
                   <TableRow className="text-center text-black bg-white hover:bg-gray-100" key={job.idJob}>
-                  <TableCell scope="row" className="font-medium text-gray-900 whitespace-nowrap" style={{ fontFamily: "Outfit, sans-serif" }}
-                  > {job.name}  </TableCell>
+                  <TableCell scope="row" className="font-medium text-gray-900 whitespace-nowrap ml-20" style={{ fontFamily: "Outfit, sans-serif" }}
+                  >  <div className="ml-10 boid"> {job.name}         </div>  </TableCell>
                   <TableCell className=""                 style={{ fontFamily: "Outfit, sans-serif" }}
-                  >                {moment(job.date).format("HH:mm:ss DD-MM-YYYY")}                  </TableCell>
+                  >    <div className="ml-10 md:block hidden ">            {moment(job.date).format("HH:mm:ss DD-MM-YYYY")}  </div>                </TableCell>
                   <TableCell className=" flex justify-center">
-                    <div className="w-full h-3 bg-gray-300 rounded-xl">
+                    <div className="w-full h-3 bg-gray-300 rounded-xl md:block hidden">
                       <div className="h-3 bg-emerald-400 rounded-xl"   style={{ width: `${job.member}%` }} ></div>
                       <div className=" justify-center text-center">{job.member} / {job.quantity} </div>
                     </div>
                   </TableCell>
                   <TableCell   className="px-6 py-4 items-center  flex   justify-center">
+                  <div className="flex justify-center" > 
                     <NavLink to={`/admin/jobs/${job.idJob}`} onClick={() => {}}>
                       {/* ${adminlistjobs.id} */}
                       <EyeIcon className="relative w-5 h-5 gap-2 rounded-xl" />
-                    </NavLink>
+                    </NavLink> </div>
                   </TableCell>
                 </TableRow>
                 
@@ -220,8 +217,8 @@ const ManagetJobList = () => {
             )}
             </Table>                
           </TableContainer>
-      </div> 
-        <div className="flex justify-center mt-3">
+        </div> 
+        <div className="flex justify-center mt-5">
           {/* Pagination  */}
           <Paginationjoblist  queryConfig={queryConfig} pageSize={pageSize} />
         </div> 

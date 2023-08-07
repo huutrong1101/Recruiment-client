@@ -97,13 +97,13 @@ export default function AdminChangePosition() {
   return (
     <>
       {isLoading ? (
-        <div className="flex items-center justify-center w-full h-[50px] text-[15px] mt-5 mb-5 l-16flex items-center justify-center">
+        <div className="flex items-center justify-center w-full h-[50px] text-[15px] mt-5 mb-5 l-16flex items-center ">
           <LoadSpinner className="text-2xl text-[#059669] " />
         </div>
       ) : (
         <div className="flex gap-5">
           {/* Information */}
-          <div className="bg-white rounded-lg shadow-lg w-[50%] mt-5 border ">
+          <div className="bg-white rounded-lg shadow-lg mt-5 border ">
             <div className="grid md:grid-cols-1 text-sm self-stretch px-5 py-5 ">
               {/* Title */}
               <div className="flex items-center text-center space-x-2 font-semibold text-green-500 justify-center">
@@ -116,12 +116,13 @@ export default function AdminChangePosition() {
               >
                 {/* Name */}
                 <div className="grid grid-cols-1">
-                  <div className="px-1 py-1 font-semibold text-black capitalize leading-7 tracking-wide ">
+                  <div className="px-2 py-2 font-semibold text-black capitalize leading-7 tracking-wide ">
                     FullName
                   </div>
                   <input
-                    className="px-1 py-1 self-stretch bg-white bg-opacity-0 rounded-lg border   "
+                    className="px-2 py-2 self-stretch bg-white bg-opacity-0 rounded-lg border   "
                     value={name}
+                    placeholder="Input fullName acount here..."
                     type="text"
                     onChange={(event) => setName(event.target.value)}
                     id="name"
@@ -129,38 +130,41 @@ export default function AdminChangePosition() {
                 </div>
                 {/* Phone */}
                 <div className="grid grid-cols-1">
-                  <div className="px-1 py-1 font-semibold text-black capitalize leading-7 tracking-wide">
+                  <div className="px-2 py-2 font-semibold text-black capitalize leading-7 tracking-wide">
                     Phone
                   </div>
                   <input
-                    className="px-1 py-1 self-stretch  bg-white bg-opacity-0 rounded-lg border   "
+                    className="px-2 py-2 self-stretch  bg-white bg-opacity-0 rounded-lg border   "
                     value={phone}
                     type="number"
+                    placeholder="Input phone acount here..."
                     onChange={(event) => setPhone(event.target.value)}
                     id="phone"
                   />
                 </div>
                 {/* Email */}
                 <div className="grid grid-cols-1">
-                  <div className="px-1 py-1 font-semibold text-black capitalize leading-7 tracking-wide">
+                  <div className="px-2 py-2 font-semibold text-black capitalize leading-7 tracking-wide">
                     Email.
                   </div>
                   <input
-                    className="px-1 py-1 self-stretch  bg-white bg-opacity-0 rounded-lg border   "
+                    className="px-2 py-2 self-stretch  bg-white bg-opacity-0 rounded-lg border   "
                     value={email}
                     type="email"
+                    placeholder="Input email acount here..."
                     onChange={(event) => setEmail(event.target.value)}
                     id="email"
                   />
                 </div>
                 {/* Password */}
-                <div className="grid grid-cols-1">
-                  <div className="px-1 py-1 font-semibold text-black capitalize leading-7 tracking-wide">
+                <div className="grid grid-cols-1 borded mt-1 b-1">
+                  <div className="px-2 py-2 font-semibold text-black capitalize leading-7 tracking-wide">
                     Password
                   </div>
                   <input
-                    className="px-1 py-1 self-stretch  bg-white bg-opacity-0 rounded-lg border   "
+                    className="px-2 py-2 self-stretch  bg-white bg-opacity-0 rounded-lg border   "
                     value={password}
+                    placeholder="Input password acount here..."
                     type="password"
                     onChange={(event) => setPassword(event.target.value)}
                     id="password"
@@ -168,7 +172,7 @@ export default function AdminChangePosition() {
                 </div>
                 {/*  */}
                 <div className="grid grid-cols-1">
-                  <div className="px-1 py-1 font-semibold text-black capitalize leading-7 tracking-wide">
+                  <div className="px-2 py-2 font-semibold text-black capitalize leading-7 tracking-wide">
                     Choossen Role for Acount:                  </div>
 
                   <select
@@ -184,7 +188,7 @@ export default function AdminChangePosition() {
                     {/* <option value="CANDIDATE">Candidate</option> */}
                   </select>
                   {/* Submit button */}
-                  <div className="flex-row-reverse mt-5 text-center px-1 py-1">
+                  <div className="flex justify-center mt-5 text-center px-2 py-2">
                     <button
                       type="button"
                       className="text-white rounded-xl bg-red-600 py-2 px-4 mr-5 hover:bg-red-800 font-bold"
@@ -222,12 +226,8 @@ export default function AdminChangePosition() {
                             <div className="flex border rounded-lg p-4 text-justify">
                               <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
                               <p className="flex text-red-800 font-semibold px-2">
-                                  WARNING
+                                  WARNING: You definitely want to continue
                               </p>
-                              <div className="text-left font-semibold">
-                                This action cannot be undone, the deleted item
-                                cannot be restored.
-                              </div>
                             </div>                           
                         </DialogContentText>
                     </div>
