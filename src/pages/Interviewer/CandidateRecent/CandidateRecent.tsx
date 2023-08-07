@@ -12,7 +12,7 @@ import Error from '../Error/Error';
 import { fetchINTCandidatesData } from '../../../redux/reducer/INTCandidatesSlice';
 
 // Status
-import Loader from '../../../components/Loader/Loader';
+import LoadSpinner from '../../../components/LoadSpinner/LoadSpinner';
 import { STATUS } from '../../../utils/Status';
 import { APPLICANTS_STATUS } from '../../../utils/Localization';
 
@@ -93,7 +93,11 @@ const CandidateRecent = () => {
                                 INTCandidatesStatus === STATUS.LOADING?
                                 (
                                     <TableRow className='flex justify-end items-center'>
-                                        <TableCell colSpan={6}><Loader/></TableCell>
+                                        <TableCell colSpan={6}>
+                                            <div className='flex justify-center'>
+                                                <LoadSpinner className='h-8 w-8'/>
+                                            </div>
+                                        </TableCell>
                                     </TableRow>
                                 )
                                 :
