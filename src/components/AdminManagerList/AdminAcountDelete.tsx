@@ -200,8 +200,8 @@ const AdminAcountDelete = () => {
                 </TableRow>                
                 ))): 
                 (
-                  <div className="flex justify-center w-full mb-10">
-                    <span>No results were found. Please check again</span>
+                  <div className="flex justify-center text-center w-full mt-10 mb-10">
+                    <h1>No results were found. Please check again</h1>
                   </div>
                 )}
             </TableBody>

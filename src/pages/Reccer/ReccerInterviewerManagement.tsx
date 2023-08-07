@@ -1,80 +1,50 @@
-import React, { useEffect, useState, Fragment } from "react";
-import { data } from "../../data/RecInterviewerManagementData";
-import RecInterviewerCard from "../../components/RecInterviewerManageCard/RecInterviewerManageCard";
-import { Link, createSearchParams, useNavigate } from "react-router-dom";
-import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
-import { fetchCandidateRecent } from "../../redux/reducer/CandidateRecentSlice";
-import { STATUS } from "../../utils/Status";
-import {
-  RecInterviewerInterface,
-  RecInterviewerListConfig,
-} from "../../services/services";
+import { useEffect, useState, } from "react";
+import blog_image from "../../../images/blog_image.png";
+import { Link, NavLink } from "react-router-dom";
+import { ArrowRightIcon, CalendarDaysIcon, ChevronDownIcon, ClockIcon, MagnifyingGlassIcon, } from "@heroicons/react/24/outline";
+import { EventInterface, EventListConfig } from "../../services/services";
 import useQueryParams from "../../hooks/useQueryParams";
 import { omitBy, isUndefined, isEqual } from "lodash";
+import { useAppSelector } from "../../hooks/hooks";
 import qs from "query-string";
 import axiosInstance from "../../utils/AxiosInstance";
+import moment from "moment";
+import Pagination from "../../components/Pagination/Pagination";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
-import Pagination from "./RecPagination";
-import { BsFilterLeft } from "react-icons/bs";
 import classNames from "classnames";
-
-import { Menu, Transition } from "@headlessui/react";
-import { JOB_POSITION } from "../../utils/Localization";
-import {
-  ChevronDownIcon,
-  ChevronUpIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/24/outline";
-import {
-  fetchRecInterviewerList,
-  fetchRecInterviewerSkill,
-} from "../../redux/reducer/RecInterviewerSilce";
+import { BsFilterLeft } from "react-icons/bs";
 
 export type QueryConfig = {
-  [key in keyof RecInterviewerListConfig]: string;
+  [key in keyof EventListConfig]: string;
 };
+export default function ReccerEventManagement() {
+  const events: EventInterface[] = useAppSelector((state) => state.Home.events);
 
-const ReccerInterviewerManagement = () => {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchRecInterviewerList());
-    dispatch(fetchRecInterviewerSkill());
-  }, []);
+  const totalEvents = useAppSelector((state) => state.Home.totalEvents);
 
   const queryParams: QueryConfig = useQueryParams();
+
   const queryConfig: QueryConfig = omitBy(
     {
-      page: queryParams.page || "1",
-      size: queryParams.size || 8,
-      name: queryParams.name,
-      skill: queryParams.skill,
+      index: queryParams.index || "1",
+      size: queryParams.size || 6,
+      state: queryParams.state || true,
+      name: queryParams.name || "",
     },
     isUndefined,
   );
 
-  const [prevQueryConfig, setPrevQueryConfig] =
-    useState<QueryConfig>(queryConfig);
-
-  const interviewers: RecInterviewerInterface[] = useAppSelector(
-    (state) => state.RecInterviewerList.recInterviewerList,
-  );
-  const totalInterviewers = useAppSelector(
-    (state) => state.RecInterviewerList.recInterviewerTotal,
-  );
+  const [showEvents, setShowEvents] = useState(events);
 
   const [pageSize, setPageSize] = useState(
-    Math.ceil(totalInterviewers / Number(queryParams.size ?? 10)),
+    Math.ceil(totalEvents / Number(queryParams.size || 6)),
   );
 
   const [isLoading, setIsLoading] = useState(false);
-  const [showinterviewers, setshowinterviewers] = useState(interviewers);
 
-  const [dataSearch, setDataSearch] = useState({
-    key: "",
-    skill: "",
-  });
-
+  const [prevQueryConfig, setPrevQueryConfig] =
+  useState<QueryConfig>(queryConfig);
   useEffect(() => {
     const fetchPosition = async () => {
       setIsLoading(true);
@@ -87,11 +57,6 @@ const ReccerInterviewerManagement = () => {
           setshowinterviewers(response.data.result?.content);
           setPageSize(response.data.result.totalPages);
         }
-        setDataSearch({
-          ...dataSearch,
-          key: queryConfig.name || "",
-          skill: queryConfig.skill || "",
-        });
       } catch (error) {
         console.log(error);
       } finally {
@@ -103,42 +68,40 @@ const ReccerInterviewerManagement = () => {
 
   useEffect(() => {
     if (!isEqual(prevQueryConfig, queryConfig)) {
-      const fetchInterviewers = async () => {
+      const fetchJobs = async () => {
         setIsLoading(true);
         try {
           const query = qs.stringify(queryConfig);
-          const response = await axiosInstance(
-            `/recruiter/interviewers?${query}`,
-          );
-          console.log("co vao k");
-          console.log(response);
-          setshowinterviewers(response.data.result.content);
+          const response = await axiosInstance(`/recruiter/events?${query}`);
+          setShowEvents(response.data.result.content);
           setPageSize(response.data.result.totalPages);
+          console.log(response.data.result.content);
         } catch (error) {
           console.log(error);
         } finally {
           setIsLoading(false);
         }
       };
-      fetchInterviewers();
+      fetchJobs();
       setPrevQueryConfig(queryConfig);
     }
   }, [queryConfig, prevQueryConfig]);
 
-
+  // Search
   const navigate = useNavigate();
-
-  const handleSearch = async () => {
+  const [dataSearch, setDataSearch] = useState({
+    key: "",
+  });
+  const handleSearch = async (e: any) => {
+    e.preventDefault();
     try {
       setIsLoading(true);
       navigate({
-        pathname: "../interviewers",
+        pathname: "/recruiter/events",
         search: createSearchParams({
           ...queryConfig,
-          //Dưới đây là cái parameter ở URL
+          index: "1",
           name: dataSearch.key,
-          skill: dataSearch.skill,
-          page: "1",
         }).toString(),
       });
     } catch (error) {
@@ -151,65 +114,147 @@ const ReccerInterviewerManagement = () => {
 
   return (
     <>
-      <div className="item-center flex justify-center mt-6">
-        <div
-          className={classNames(
-            "flex items-center flex-shrink-0 w-[54.5%] h-1/2 p-2 mt-1 border rounded-lg ",
-            "focus-within:border-emerald-700",
-          )}
-        >
-          <MagnifyingGlassIcon className={classNames(`w-[20px]`)} />
-          <input
-            value={dataSearch.key}
-            onChange={(e) =>
-              setDataSearch({ ...dataSearch, key: e.target.value })
-            }
-            type="text"
-            placeholder="Search your Keywords"
-            className={classNames(
-              "w-[85%] h-full text-[12px] ml-3 focus:outline-none text-base text-zinc-400",
-            )}
-          />
-        </div>
-        <div className={classNames("gap-2 ml-10 items-center justify-center")}>
+      <div>        
+            <div
+              className={classNames(
+                "flex justify-center mt-5 item-center ",
+              )}
+            >
+              <form
+                onSubmit={e => handleSearch(e)}
+              > 
+                <div
+                  className={classNames(
+                    "flex justify-center items-center w-80% p-1 border rounded-xl",
+                    "focus-within:border-emerald-400",
+                  )}
+                >
+                    <BsFilterLeft className={classNames(`w-[20px] ml-4 mr-4`)} />
+                    <div
+                      className={classNames(
+                        "text-[16px] cursor-pointer flex items-center justify-between",
+                      )}
+                    >
+                        Name      
+                    </div>
+                    <div className=" flex items-center p-3 rounded-xl">
+                      <MagnifyingGlassIcon className="w-5 h-5 mx-2  mr-4" />
+                      <input
+                        type="text"
+                        placeholder="Please enter a search ...."
+                        className="w-[85%] h-full text-base text-zinc-400 focus:outline-none"
+                        value={dataSearch.key}
+                        onChange={(e) => setDataSearch({ ...dataSearch, key: e.target.value })}
+                      />
+                    </div> 
+                    <div
+                      className={classNames(
+                        "text-[16px] cursor-pointer flex items-center justify-between mr-5",
+                      )}
+                    >
+                        <button
+                          type="submit"
+                          className="bg-[#05966A] hover:bg-emerald-700 text-white p-2 rounded-md flex items-center justify-center"
+                        >
+                          Search
+                        </button>      
+                    </div>                              
+                </div>                  
+              </form>
+            </div>           
+
+
+
+
+
+        <div className="mt-5">
+        {/* Add Event */}
           <button
-            className={classNames(
-              "bg-[#05966A] hover:bg-emerald-700 text-white p-3 rounded-md flex w-full text-center items-center justify-center",
-            )}
-            onClick={() => handleSearch()}
-          >
-            Search
+          className={classNames(  "text-white p-3 rounded-xl w-2/8  shadow text-sm font-medium leading-tight flex justify-start bg-emerald-600 ",
+          )}>
+            <NavLink to="/recruiter/events-add" onClick={() => { }}>
+              + Add Event
+            </NavLink>
           </button>
         </div>
-      </div>
-      <>
-        {isLoading ? (
-          <div className="flex justify-center my-4 min-h-[70vh] flex-col items-center">
-            <LoadSpinner className="text-3xl" />
-          </div>
-        ) : (
-          <div className="flex flex-wrap justify-center items-center mt-[20px] ">
-            {/* <!-- Card --> */}
-            {showinterviewers.length > 0 ? (
-              showinterviewers.map((interviewer: any) => (
-                <div
-                  key={interviewer.id}
-                  className=" px-3 mb-8 lg:w-1/4 md:w-1/3 sm:w-3/4"
-                >
-                  <RecInterviewerCard interviewer={interviewer} />
-                </div>
-              ))
-            ) : (
-              <div className="flex justify-center w-full mb-10">
-                <span>No Result Found</span>
-              </div>
-            )}
-          </div>
-        )}
-      </>
-      <Pagination queryConfig={queryConfig} pageSize={pageSize} url="" />
+        {/* Conten */}
+        <div>
+          {isLoading ? (
+            <div className="flex justify-center my-4 min-h-[70vh] flex-col items-center">
+                    <LoadSpinner className="text-3xl " />
+            </div>
+          ) : (
+            <div className="flex flex-wrap mx-4 mt-[50px]">
+              {/* <!-- Card --> */}
+              {showEvents && showEvents.length > 0 ?
+                (showEvents.map((event) => (
+                  <div key={event.id} className="w-full px-4 mb-5 md:w-1/3 borded-2">
+                    <div className="bg-white rounded-lg shadow-lg borded-2">
+                      <div className="w-full flex justify-center">
+                        <img
+                          src={event.img || blog_image}
+                          className="w-[250px] h-[250px] object-center rounded-xl "
+                        />
+                      </div>
+                      <div className="p-6">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-1">
+                            <CalendarDaysIcon className="w-[20px]" />
+                            <p>{moment(event.startAt).format("Do MMMM, YYYY")}</p>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <ClockIcon className="w-[20px]" />
+                            <p>{moment(event.time, "HH:mm:ss").format("HH:mm")}</p>
+                          </div>
+                        </div>
+                        <div className="mt-2 text-left">
+                          {moment().isAfter(event.deadline) ? (
+                            <p style={{ color: 'red', fontStyle: 'italic' }}>Finished ...</p>
+                          ) : moment().isSame(event.deadline, 'day') ? (
+                            <p style={{ color: '#FFD700', fontStyle: 'italic' }}>Coming to end ...</p>
+                          ) : (
+                            <p style={{ color: '#059669', fontStyle: 'italic' }}>On Going ...</p>
+                          )}
+                        </div>
+                        <div className="mt-2 text-center">
+                          <h1 className="text-xl justify text-bold italic">
+                            {event.title.length > 25
+                              ? event.title.substring(0, 15) + "  ..."
+                              : event.title}
+                          </h1>
+                        </div>
+                        <div className="mt-6 flex items-center justify-center">
+                          <Link
+                            to={`${event.id}`}
+                            className="bg-emerald-700 text-white p-1 px-3 rounded-md flex"
+                          >
+                            Read Detail
+                            {/* <ArrowRightIcon className="w-[20px] ml-1" /> */}
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))
+                ) : (
+                  <div className="flex justify-center w-full mb-10">
+                    <span>No results were found. Please check again</span>
+                  </div>
+                  )}
+
+            </div>
+          )}
+        </div>
+
+        <div>
+          {/* Pagination  */}
+          <Pagination
+            queryConfig={queryConfig}
+            pageSize={pageSize}
+            url="/recruiter/events"
+          />
+        </div>
+      </div >
     </>
   );
-};
-
-export default ReccerInterviewerManagement;
+}

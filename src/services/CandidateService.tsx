@@ -23,3 +23,7 @@ export async function getCandidateSubmittedJobs({ index, size }: any) {
 
   return axiosInstance.get(`/candidate/jobs/applicants?${query}`);
 }
+
+export async function getSkills() {
+  return axiosInstance.get(`/candidate/skills`);
+}

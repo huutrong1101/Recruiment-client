@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import CreatableSelect from "react-select/creatable";
+// import CreatableSelect from "react-select/creatable";
+import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import FieldContainer from "../../components/Field/FieldContainer";
 import {
@@ -12,13 +13,15 @@ import { toast } from "react-toastify";
 import { UserService } from "../../services/UserService";
 import { LoadingStatus } from "../../services/services";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import { getSkills } from "../../services/CandidateService";
+import { useNavigate } from "react-router-dom";
 
-const colourOptions = [
-  { value: "reactjs", label: "ReactJS" },
-  { value: "c and csharp", label: "C/C++" },
-  { value: "html", label: "HTML" },
-  { value: "java", label: "Java" },
-];
+// const colourOptions = [
+//   { value: "reactjs", label: "ReactJS" },
+//   { value: "c and csharp", label: "C/C++" },
+//   { value: "html", label: "HTML" },
+//   { value: "java", label: "Java" },
+// ];
 
 const animatedComponents = makeAnimated();
 
@@ -32,6 +35,8 @@ export default function UserProfileMyInformation() {
     skills: [],
   });
   const [loadingState, setLoadingState] = useState<LoadingStatus>("idle");
+  const [skillOptions, setSkillOptions] = useState<any[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoadingState("pending");
@@ -39,7 +44,6 @@ export default function UserProfileMyInformation() {
       .then(async (response) => {
         const fetchContainerItem = await response.data.result.information;
         if (fetchContainerItem !== null) {
-          console.log(JSON.parse(fetchContainerItem));
           setContainerItem({ ...JSON.parse(fetchContainerItem) });
         }
       })
@@ -49,18 +53,36 @@ export default function UserProfileMyInformation() {
     return () => {};
   }, []);
 
-  // useEffect
+  useEffect(() => {
+    getSkills()
+      .then((response) => {
+        const { result } = response.data;
+        setSkillOptions(
+          result.map(({ skillId, name }: any) => {
+            return {
+              label: name,
+              value: skillId,
+            };
+          }),
+        );
+      })
+      .catch(() => toast.error(`Cannot fetch candidate skills`));
+  }, []);
 
   // const [selectedOptions, setSelectedOptions] = useState([]);
 
   const handleSelectChange = (selectedOptions: any) => {
     // setSelectedOptions(selectedOptions);
-    handleValuesUpdate("skills", selectedOptions);
+    // handleValuesUpdate("skills", selectedOptions);
+    const clonedObject = structuredClone(containerItem);
+    // @ts-ignore
+    clonedObject["skills"] = selectedOptions;
+    setContainerItem({ ...clonedObject });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: any, updatedItem: any) => {
     e !== null && e.preventDefault();
-    toast.promise(UserService.updateUserInformation(containerItem), {
+    toast.promise(UserService.updateUserInformation(updatedItem), {
       pending: `Updating your information`,
       success: `Successfully update the information`,
       error: `There was an error when updated the information`,
@@ -72,7 +94,7 @@ export default function UserProfileMyInformation() {
     // @ts-ignore
     clonedObject[ofId] = values;
     setContainerItem({ ...clonedObject });
-    handleSubmit(null);
+    handleSubmit(null, { ...clonedObject });
     // Maybe save the information
     // toast.promise(
     //   {},
@@ -86,7 +108,7 @@ export default function UserProfileMyInformation() {
 
   return (
     <div className="flex flex-col flex-1 gap-4">
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <form onSubmit={(e) => handleSubmit(e, containerItem)}>
         <div className="pb-12">
           {loadingState === "pending" ? (
             <div className="min-h-[60vh] flex flex-col items-center justify-center text-2xl">
@@ -138,11 +160,11 @@ export default function UserProfileMyInformation() {
                   Skill
                 </label>
                 <div className="flex flex-wrap items-center justify-start mt-3 ">
-                  <CreatableSelect
-                    defaultValue={[colourOptions[0]]}
+                  <Select
+                    // defaultValue={[skill[0]]}
                     isMulti
                     name="colors"
-                    options={colourOptions}
+                    options={skillOptions}
                     className="w-full px-4 basic-multi-select"
                     classNamePrefix="select"
                     closeMenuOnSelect={false}
@@ -157,12 +179,24 @@ export default function UserProfileMyInformation() {
                     }}
                   />
                 </div>
-                <small>Please save your skill after</small>
+                {/* <small className={classNames(`mx-4 text-gray-400`)}>
+                  Please save your skill after changes.
+                </small> */}
               </div>
             </div>
           )}
         </div>
         <div className="flex items-center justify-end gap-x-6">
+          <button
+            type="button"
+            onClick={() => {
+              navigate("/print-resume");
+            }}
+            className="px-3 py-2 text-sm font-semibold text-white rounded-md shadow-sm bg-emerald-600 hover:bg-emerald-500
+             focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+          >
+            Export to pdf
+          </button>
           <button
             type="submit"
             className="px-3 py-2 text-sm font-semibold text-white rounded-md shadow-sm bg-emerald-600 hover:bg-emerald-500

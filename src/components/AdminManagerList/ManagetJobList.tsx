@@ -175,8 +175,8 @@ const ManagetJobList = () => {
               <TableBody>
                 <TableRow>
                   <TableCell colSpan={6}>
-                    <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-10 mb-10">
-                      <LoadSpinner className="text-2xl text-[#059669] " />
+                    <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-30 mb-30">
+                      <LoadSpinner className="text-3xl text-[#059669] mt-30" />
                     </div>
                   </TableCell>
                 </TableRow>
@@ -191,12 +191,17 @@ const ManagetJobList = () => {
                   >  <div className="ml-10 boid"> {job.name}         </div>  </TableCell>
                   <TableCell className=""                 style={{ fontFamily: "Outfit, sans-serif" }}
                   >    <div className="ml-10 md:block hidden ">            {moment(job.date).format("HH:mm:ss DD-MM-YYYY")}  </div>                </TableCell>
-                  <TableCell className=" flex justify-center">
-                    <div className="w-full h-3 bg-gray-300 rounded-xl md:block hidden">
-                      <div className="h-3 bg-emerald-400 rounded-xl"   style={{ width: `${job.member}%` }} ></div>
-                      <div className=" justify-center text-center">{job.member} / {job.quantity} </div>
+                 <TableCell className="flex justify-center items-center">
+                  <div className="w-full h-3 bg-gray-300 rounded-xl md:block hidden">
+                    <div
+                      className="h-3 bg-emerald-400 rounded-xl  "
+                      style={{ width: `${(job.member>job.quantity)?100: (job.member / job.quantity) * 100}%` }}
+                    ></div>
+                    <div className="justify-center text-center">
+                      {job.member} / {job.quantity}
                     </div>
-                  </TableCell>
+                  </div>
+                </TableCell>
                   <TableCell   className="px-6 py-4 items-center  flex   justify-center">
                   <div className="flex justify-center" > 
                     <NavLink to={`/admin/jobs/${job.idJob}`} onClick={() => {}}>
@@ -208,9 +213,15 @@ const ManagetJobList = () => {
                 
                 ))): 
                 (
-                  <div className="flex justify-center w-full mb-10">
-                    <span>Không tìm thấy kết quả</span>
-                  </div>
+                  <TableBody>
+                  <TableRow>
+                    <TableCell colSpan={6}>
+                      <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-30 mb-30">
+                      <span>No results were found. Please check again</span>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>                  
                 )}
             </TableBody>
           </>

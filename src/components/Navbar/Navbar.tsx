@@ -8,6 +8,7 @@ import LoadSpinner from "../LoadSpinner/LoadSpinner";
 import qs from "qs";
 import { useTokenAuthorize } from "../../hooks/useTokenAuthorize";
 import NavbarUserLoggedInCard from "./NavbarUserLoggedInCard";
+import "./styles/Navbar.css";
 
 export default function Navbar() {
   useTokenAuthorize();
@@ -75,7 +76,7 @@ export default function Navbar() {
   }, [currentPathname]);
 
   return (
-    <>
+    <div className={`navbar-header`}>
       {/* Small width devices */}
       <MobileNavbar />
 
@@ -182,6 +183,6 @@ export default function Navbar() {
           )}
         </div>
       </Container>
-    </>
+    </div>
   );
 }
