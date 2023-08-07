@@ -84,7 +84,7 @@ const ReccerInterviewerManagement = () => {
           const response = await axiosInstance(
             `/recruiter/interviewers?${query}`,
           );
-          setshowinterviewers(response.data.result.content);
+          setshowinterviewers(response.data.result?.content);
           setPageSize(response.data.result.totalPages);
         }
         setDataSearch({
@@ -147,6 +147,7 @@ const ReccerInterviewerManagement = () => {
       setIsLoading(false);
     }
   };
+
 
   return (
     <>
