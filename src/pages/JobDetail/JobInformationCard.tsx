@@ -9,7 +9,7 @@ import qs from "qs";
 
 export default function JobInformationCard({ cardData, jobId }: any) {
   const [visibleApplyDialog, setVisibleApplyDialog] = useState<boolean>(false);
-  const { isLoggedIn } = useAppSelector((app) => app.Auth);
+  const { isLoggedIn, user } = useAppSelector((app) => app.Auth);
   const { isApplied } = useAppSelector((state) => state.JobDetail.response);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -59,7 +59,7 @@ export default function JobInformationCard({ cardData, jobId }: any) {
             text={`Sign in to apply`}
             onClick={handleNavigateToSignIn}
           />
-        ) : (
+        ) : user && user.role === "CANDIDATE" ? (
           <>
             {!isApplied ? (
               <PrimaryButton text={`Apply`} onClick={toggleVisibleApplyModal} />
@@ -74,6 +74,8 @@ export default function JobInformationCard({ cardData, jobId }: any) {
               </button>
             )}
           </>
+        ) : (
+          <></>
         )}
       </div>
 
