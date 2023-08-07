@@ -1,7 +1,13 @@
-import { useEffect, useState, } from "react";
+import { useEffect, useState } from "react";
 import blog_image from "../../../images/blog_image.png";
 import { Link, NavLink } from "react-router-dom";
-import { ArrowRightIcon, CalendarDaysIcon, ChevronDownIcon, ClockIcon, MagnifyingGlassIcon, } from "@heroicons/react/24/outline";
+import {
+  ArrowRightIcon,
+  CalendarDaysIcon,
+  ChevronDownIcon,
+  ClockIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/outline";
 import { EventInterface, EventListConfig } from "../../services/services";
 import useQueryParams from "../../hooks/useQueryParams";
 import { omitBy, isUndefined, isEqual } from "lodash";
@@ -14,6 +20,8 @@ import { createSearchParams, useNavigate } from "react-router-dom";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import classNames from "classnames";
 import { BsFilterLeft } from "react-icons/bs";
+import RecruiterBlogCard from "../../components/BlogCard/RecruiterBlogCard";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 
 export type QueryConfig = {
   [key in keyof EventListConfig]: string;
@@ -28,7 +36,7 @@ export default function ReccerEventManagement() {
   const queryConfig: QueryConfig = omitBy(
     {
       index: queryParams.index || "1",
-      size: queryParams.size || 6,
+      size: queryParams.size || 8,
       state: queryParams.state || true,
       name: queryParams.name || "",
     },
@@ -38,13 +46,13 @@ export default function ReccerEventManagement() {
   const [showEvents, setShowEvents] = useState(events);
 
   const [pageSize, setPageSize] = useState(
-    Math.ceil(totalEvents / Number(queryParams.size || 6)),
+    Math.ceil(totalEvents / Number(queryParams.size || 8)),
   );
 
   const [isLoading, setIsLoading] = useState(false);
 
   const [prevQueryConfig, setPrevQueryConfig] =
-  useState<QueryConfig>(queryConfig);
+    useState<QueryConfig>(queryConfig);
   useEffect(() => {
     const fetchPosition = async () => {
       setIsLoading(true);
@@ -110,139 +118,90 @@ export default function ReccerEventManagement() {
   };
   return (
     <>
-      <div>        
+      <div>
+        <div className={classNames("flex mt-5 item-center gap-4")}>
+          <form
+            onSubmit={(e) => handleSearch(e)}
+            className={classNames(`flex flex-row gap-2 items-center`)}
+          >
             <div
               className={classNames(
-                "flex justify-center mt-5 item-center ",
+                "flex justify-center items-center w-full border rounded-xl",
+                "focus-within:border-emerald-400 w-full",
               )}
             >
-              <form
-                onSubmit={e => handleSearch(e)}
-              > 
-                <div
-                  className={classNames(
-                    "flex justify-center items-center w-80% p-1 border rounded-xl",
-                    "focus-within:border-emerald-400",
-                  )}
-                >
-                    <BsFilterLeft className={classNames(`w-[20px] ml-4 mr-4`)} />
-                    <div
-                      className={classNames(
-                        "text-[16px] cursor-pointer flex items-center justify-between",
-                      )}
-                    >
-                        Name      
-                    </div>
-                    <div className=" flex items-center p-3 rounded-xl">
-                      <MagnifyingGlassIcon className="w-5 h-5 mx-2  mr-4" />
-                      <input
-                        type="text"
-                        placeholder="Please enter a search ...."
-                        className="w-[85%] h-full text-base text-zinc-400 focus:outline-none"
-                        value={dataSearch.key}
-                        onChange={(e) => setDataSearch({ ...dataSearch, key: e.target.value })}
-                      />
-                    </div> 
-                    <div
-                      className={classNames(
-                        "text-[16px] cursor-pointer flex items-center justify-between mr-5",
-                      )}
-                    >
-                        <button
-                          type="submit"
-                          className="bg-[#05966A] hover:bg-emerald-700 text-white p-2 rounded-md flex items-center justify-center"
-                        >
-                          Search
-                        </button>      
-                    </div>                              
-                </div>                  
-              </form>
-            </div>           
+              {/* <BsFilterLeft className={classNames(`ml-4 mr-4`)} />
+              <div
+                className={classNames(
+                  "text-[16px] cursor-pointer flex items-center justify-between",
+                )}
+              >
+                Name
+              </div> */}
+              <div className=" flex items-center p-3 rounded-xl">
+                <MagnifyingGlassIcon className="w-5 h-5 mx-2  mr-4" />
+                <input
+                  type="text"
+                  placeholder="Search for events"
+                  className="h-full w-full text-base text-zinc-400 focus:outline-none"
+                  value={dataSearch.key}
+                  onChange={(e) =>
+                    setDataSearch({ ...dataSearch, key: e.target.value })
+                  }
+                />
+              </div>
+            </div>
 
+            <div>
+              <PrimaryButton type="submit" text={`Search`} className={`w-4`} />
+            </div>
+          </form>
 
-
-
-
-        <div className="mt-5">
-        {/* Add Event */}
-          <button
-          className={classNames(  "text-white p-3 rounded-xl w-2/8  shadow text-sm font-medium leading-tight flex justify-start bg-emerald-600 ",
-          )}>
-            <NavLink to="/recruiter/events-add" onClick={() => { }}>
-              + Add Event
-            </NavLink>
-          </button>
+          <div className="flex flex-row-reverse items-center flex-1">
+            {/* Add Event */}
+            {/* <button
+              className={classNames(
+                "text-white p-3 rounded-xl w-2/8 shadow text-sm font-medium leading-tight flex justify-start bg-emerald-600 ",
+              )}
+            >
+              <NavLink to="/recruiter/events-add" onClick={() => {}}>
+                Add Event
+              </NavLink>
+            </button> */}
+            <div>
+              <PrimaryButton
+                text={`Add event`}
+                onClick={() => {
+                  navigate(`/recruiter/events-add`);
+                }}
+              />
+            </div>
+          </div>
         </div>
-        {/* Conten */}
+
+        {/* Content */}
         <div>
           {isLoading ? (
             <div className="flex justify-center my-4 min-h-[70vh] flex-col items-center">
-                    <LoadSpinner className="text-3xl " />
+              <LoadSpinner className="text-3xl " />
             </div>
           ) : (
-            <div className="flex flex-wrap mx-4 mt-[50px]">
+            <div className="sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4 grid mt-[50px] ">
               {/* <!-- Card --> */}
-              {showEvents && showEvents.length > 0 ?
-                (showEvents.map((event) => (
-                  <div key={event.id} className="w-full px-4 mb-5 md:w-1/3 borded-2">
-                    <div className="bg-white rounded-lg shadow-lg borded-2">
-                      <div className="w-full flex justify-center">
-                        <img
-                          src={event.img || blog_image}
-                          className="w-[250px] h-[250px] object-center rounded-xl "
-                        />
-                      </div>
-                      <div className="p-6">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-1">
-                            <CalendarDaysIcon className="w-[20px]" />
-                            <p>{moment(event.startAt).format("Do MMMM, YYYY")}</p>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <ClockIcon className="w-[20px]" />
-                            <p>{moment(event.time, "HH:mm:ss").format("HH:mm")}</p>
-                          </div>
-                        </div>
-                        <div className="mt-2 text-left">
-                          {moment().isAfter(event.deadline) ? (
-                            <p style={{ color: 'red', fontStyle: 'italic' }}>Finished ...</p>
-                          ) : moment().isSame(event.deadline, 'day') ? (
-                            <p style={{ color: '#FFD700', fontStyle: 'italic' }}>Coming to end ...</p>
-                          ) : (
-                            <p style={{ color: '#059669', fontStyle: 'italic' }}>On Going ...</p>
-                          )}
-                        </div>
-                        <div className="mt-2 text-center">
-                          <h1 className="text-xl justify text-bold italic">
-                            {event.title.length > 25
-                              ? event.title.substring(0, 15) + "  ..."
-                              : event.title}
-                          </h1>
-                        </div>
-                        <div className="mt-6 flex items-center justify-center">
-                          <Link
-                            to={`${event.id}`}
-                            className="bg-emerald-700 text-white p-1 px-3 rounded-md flex"
-                          >
-                            Read Detail
-                            {/* <ArrowRightIcon className="w-[20px] ml-1" /> */}
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              {showEvents && showEvents.length > 0 ? (
+                showEvents.map((event) => (
+                  <RecruiterBlogCard event={event} key={event.id} />
                 ))
-                ) : (
-                  <div className="flex justify-center w-full mb-10">
-                    <span>No results were found. Please check again</span>
-                  </div>
-                  )}
-
+              ) : (
+                <div className="flex justify-center w-full mb-10">
+                  <span>No results were found. Please check again</span>
+                </div>
+              )}
             </div>
           )}
         </div>
 
-        <div>
+        <div className="flex flex-col mt-6">
           {/* Pagination  */}
           <Pagination
             queryConfig={queryConfig}
@@ -250,7 +209,7 @@ export default function ReccerEventManagement() {
             url="/recruiter/events"
           />
         </div>
-      </div >
+      </div>
     </>
   );
 }
