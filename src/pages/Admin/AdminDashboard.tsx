@@ -98,18 +98,19 @@ export default function AdminDashboard() {
 
 
   return (
-    <div className="flex flex-col">
+    <div className="">
+      <form
+        onSubmit={handleSearch}
+        className="flex justify-center mt-5 item-center mb-5"
+      >
+        {/* Input */} 
         <div
           className={classNames(
-            "flex justify-center item-center ","p-1 text-center mb-5 mt-5  mr-4",
+            "flex items-center flex-shrink-0 w-1/8 p-2 border rounded-lg mr-5",
+            "focus-within:border-emerald-700",
           )}
         >
-        <form
-          onSubmit={e => handleSearch(e)}
-          className=" inline-flex items-center justify-start gap-1 px-0.5 py-0.5 bg-white border rounded-xl bg-opacity-5 "
-        >
           <BsFilterLeft className={classNames(`w-[20px] ml-4 mr-4`)} />
-
           <div className="flex items-center justify-center gap-3 relative ">
               <p> Type : </p>
               <select
@@ -124,39 +125,47 @@ export default function AdminDashboard() {
               <div className="absolute inset-y-0 right-0 flex items-center pl-2 pr-1 pointer-events-none">
                   <ChevronDownIcon className={classNames("w-[20px]")}                      />      
               </div>          
-            </div>
-            <div className="flex items-center justify-center gap-3 ml-3 relative w-[20px]"><MagnifyingGlassIcon/></div>
-            <div className="relative ">
-            <input
-              type="text"
-              className="font-medium outline-none text-gray-900 text-[14px] ml-5 h-[30px] text-left rounded-lg italic"
-              value={dataSearch.key}
-              onChange={(e) =>
-                setDataSearch({ ...dataSearch, key: e.target.value })
-              }
-                placeholder="Please enter a search ... "
-              />
-            </div>
-            <div
-                      className={classNames(
-                        "text-[16px] cursor-pointer flex items-center justify-between mr-5",
-                      )}
-                    >
-            <button
-              type="submit"
-              className="bg-[#05966A] hover:bg-emerald-700 text-white p-1 rounded-md flex items-center justify-center"
-            >
-              Search
-            </button> 
-            </div>
-        </form>       
-      </div>
+          </div>
+        </div>
+
+        <div
+          className={classNames(
+            "flex items-center flex-shrink-0 w-1/3 p-2 border rounded-lg ",
+            "focus-within:border-emerald-700",
+          )}
+        >
+          <MagnifyingGlassIcon className={classNames(`w-[20px]`)} />
+          <input
+            value={dataSearch.key}
+            onChange={(e) =>
+              setDataSearch({ ...dataSearch, key: e.target.value })
+            }
+            type="text"
+            placeholder="Search your Keywords"
+            className={classNames(
+              "w-full h-full text-[12px] ml-3 focus:outline-none text-base text-zinc-400",
+            )}
+          />
+        </div>
+        {/* Button */}
+        <div className={classNames("gap-2 ml-5 w-1/8 items-center justify-center")}>
+          <button
+            className={classNames(
+              "bg-[#05966A] hover:bg-emerald-700 text-white p-3 rounded-md flex w-full text-center items-center justify-center",
+            )}
+            type="submit"
+          >
+            Search
+          </button>
+        </div>
+      </form>           
+     
       <div className="relative bg-white">
         <div className="inline-flex items-start justify-start p-1 overflow-x-auto border rounded-lg border-zinc-900 border-opacity-10 mb-5">
           {types.map((type) => (
             <div
               key={type.id}
-              className={`inline-flex flex-col items-start justify-start ${
+              className={`inline-flex flex-col items-start justify-start w-full md: w-1/2  ${
                 typeSelected === type.typename ? "rounded bg-[#DFF9EF]" : ""
               }`}
             >

@@ -375,7 +375,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
             )}
         </Table>
       </TableContainer>
-      <div className="flex justify-center mt-5">
+      <div className="flex w-full md: w-1/2 justify-center mt-5 ">
         {/* Pagination  */}
         <Paginationacountlist queryConfig={queryConfig} pageSize={pageSize} />
       </div>
