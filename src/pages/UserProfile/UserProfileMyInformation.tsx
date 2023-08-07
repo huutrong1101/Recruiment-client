@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import CreatableSelect from "react-select/creatable";
+// import CreatableSelect from "react-select/creatable";
+import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import FieldContainer from "../../components/Field/FieldContainer";
 import {
@@ -12,13 +13,15 @@ import { toast } from "react-toastify";
 import { UserService } from "../../services/UserService";
 import { LoadingStatus } from "../../services/services";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import { getSkills } from "../../services/CandidateService";
+import classNames from "classnames";
 
-const colourOptions = [
-  { value: "reactjs", label: "ReactJS" },
-  { value: "c and csharp", label: "C/C++" },
-  { value: "html", label: "HTML" },
-  { value: "java", label: "Java" },
-];
+// const colourOptions = [
+//   { value: "reactjs", label: "ReactJS" },
+//   { value: "c and csharp", label: "C/C++" },
+//   { value: "html", label: "HTML" },
+//   { value: "java", label: "Java" },
+// ];
 
 const animatedComponents = makeAnimated();
 
@@ -32,6 +35,7 @@ export default function UserProfileMyInformation() {
     skills: [],
   });
   const [loadingState, setLoadingState] = useState<LoadingStatus>("idle");
+  const [skillOptions, setSkillOptions] = useState<any[]>([]);
 
   useEffect(() => {
     setLoadingState("pending");
@@ -49,13 +53,31 @@ export default function UserProfileMyInformation() {
     return () => {};
   }, []);
 
-  // useEffect
+  useEffect(() => {
+    getSkills()
+      .then((response) => {
+        const { result } = response.data;
+        setSkillOptions(
+          result.map(({ skillId, name }: any) => {
+            return {
+              label: name,
+              value: skillId,
+            };
+          }),
+        );
+      })
+      .catch(() => toast.error(`Cannot fetch candidate skills`));
+  }, []);
 
   // const [selectedOptions, setSelectedOptions] = useState([]);
 
   const handleSelectChange = (selectedOptions: any) => {
     // setSelectedOptions(selectedOptions);
-    handleValuesUpdate("skills", selectedOptions);
+    // handleValuesUpdate("skills", selectedOptions);
+    const clonedObject = structuredClone(containerItem);
+    // @ts-ignore
+    clonedObject["skills"] = selectedOptions;
+    setContainerItem({ ...clonedObject });
   };
 
   const handleSubmit = (e: any) => {
@@ -138,11 +160,11 @@ export default function UserProfileMyInformation() {
                   Skill
                 </label>
                 <div className="flex flex-wrap items-center justify-start mt-3 ">
-                  <CreatableSelect
-                    defaultValue={[colourOptions[0]]}
+                  <Select
+                    // defaultValue={[skill[0]]}
                     isMulti
                     name="colors"
-                    options={colourOptions}
+                    options={skillOptions}
                     className="w-full px-4 basic-multi-select"
                     classNamePrefix="select"
                     closeMenuOnSelect={false}
@@ -157,7 +179,9 @@ export default function UserProfileMyInformation() {
                     }}
                   />
                 </div>
-                <small>Please save your skill after</small>
+                {/* <small className={classNames(`mx-4 text-gray-400`)}>
+                  Please save your skill after changes.
+                </small> */}
               </div>
             </div>
           )}
