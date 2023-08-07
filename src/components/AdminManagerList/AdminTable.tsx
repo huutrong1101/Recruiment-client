@@ -302,7 +302,6 @@ export default function AdminTable({ typeSelected }: TypeData) {
                             <div className="text-center">
                               <DialogContent className="text-xl mb-2">
                                 <p>Are you sure you want to delete</p>
-                                <p> "{job.fullName}"</p>
                               </DialogContent>
                               <DialogContentText
                                 id="alert-dialog-description"

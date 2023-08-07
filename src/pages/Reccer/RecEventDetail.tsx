@@ -107,24 +107,23 @@ export default function RecEventDetail() {
     formData.append("location", location);
     formData.append("time", time);     
     if (isSubmitting) return;
-    setIsSubmitting(true);
-    // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/events/create với FormData
-    axiosInstance.put( `/recruiter/events/${eventId}`, formData)
-      .then((response) => {
-        setOpenSave(true);
-        setOpenDelete(false);
-        // Xử lý phản hồi từ server (nếu cần)
-        toast.success(response.data.message); // Display the response message from the server
-        // In tất cả thông tin từ FormData
-        window.history.back();
-      })
-      .catch((error) => {
-        // Xử lý lỗi (nếu có)
-        toast.error(error.response.data.message); // Display an error message
-      }) 
-      .finally(() => {
-        setIsSubmitting(false); // Reset the submitting state after handling the request
-      });
+    setIsSubmitting(true);   
+    // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/events/create với FormData 
+    toast.promise(
+      axiosInstance.put(`/recruiter/events/${eventId}`, formData),
+      {
+        pending: 'Saving is loading...',
+        success: (response) => {
+          toast.success(response.data.message);
+          // window.history.back();
+        },
+        error: (error) => {
+          toast.error(error.response.data.message);
+        },
+      }
+    ).finally(() => {
+      setIsSubmitting(false);
+    });  
     setOpenSave(false);
   }
  
@@ -132,20 +131,24 @@ export default function RecEventDetail() {
   const handleDelete = (event:any) => {
     // Gửi yêu cầu DELETE đến API
     event.preventDefault();      
-    axiosInstance
-      .delete(`recruiter/events/${eventId}`)
-      .then((response) => {
-        // Xử lý phản hồi từ server nếu cần
-        toast.success(response.data.message);
-        // Tùy chỉnh hành động sau khi xóa thành công, ví dụ: điều hướng trang, cập nhật danh sách sự kiện, v.v.
-        window.history.back();
-      })
-      .catch((error) => {
-        // Xử lý lỗi nếu có
-        toast.error(error.response.data.message);
-      });
-      setOpenSave(false);
-      setOpenDelete(true);
+    toast.promise(
+      axiosInstance.delete(`recruiter/events/${eventId}`),
+      {
+        pending: 'Loading in few minutes...',
+        success: (response) => {
+          toast.success(response.data.message);
+        },
+        error: (error) => {
+          toast.error(error.response.data.message);
+        },
+        finally: () => {
+          window.history.back();
+        },
+      }
+    );  
+    setOpenDelete(false)
+    window.history.back();
+    setOpenSave(false);
     };
   return (
     <>
@@ -406,9 +409,9 @@ export default function RecEventDetail() {
                           className="cursor-pointer flex items-center justify-between w-full px-1 border rounded-full bg-gray-100  "
                         >
                           <option value="" disabled> Choose</option>
-                          <option value="F-Town 1">F-Town1</option>
-                          <option value="F-Town 2">F-Town2</option>
-                          <option value="F-Town 3">F-Town3</option>
+                           <option value="FTOWN1">F-Town1</option>
+                          <option value="FTOWN2">F-Town2</option>
+                          <option value="FTOWN3">F-Town3</option>
                         </select>
                       </div>
                   </div> 

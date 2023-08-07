@@ -133,12 +133,12 @@ export default function ListCandiPass() {
                 </div>
               </TableCell>
               <TableCell className="px-1 py-1 text-gray-500">{job.phone}</TableCell>
-              <TableCell className="px-1 py-1 text-green-500 italic">{job.state==="NOT_RECEIVED" || job.state==="FAILED" ? "Pending" : "Pass" }</TableCell>
+              <TableCell className="px-1 py-1 text-green-500 italic">{job.state==="NOT_RECEIVED" || job.state==="RECEIVED"|| job.state==="FAILED" ? "Pending" : "Pass" }</TableCell>
               <TableCell className="px-1 py-1 italic">
                 {job.date!==null?moment(job.date).format("HH:mm:ss DD-MM-YYYY"): "Pending"}
               </TableCell>
               <TableCell className="px-1 py-1 font-semibold ">
-                {job.state==="NOT_RECEIVED" || job.state==="FAILED" ?" -:- ":job.score}
+                {job.state==="NOT_RECEIVED" || job.state==="FAILED"  || job.state==="RECEIVED"?" -:- ":job.score}
                 </TableCell>
             </TableRow>            
             ))): 
