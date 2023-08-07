@@ -138,7 +138,7 @@ const InterviewDetail = () => {
             <div className="InterviewDetail ">
                 <div className="mt-8 border-2 shadow-xl px-6 py-6 rounded-xl">
                     <div className='text-2xl font-semibold'>Interview Information</div>
-                    
+
                     <div className="text-base mt-2">Job Name: <span className="text-sm ml-2">
                         {INTSingleInterview?.jobName}</span>
                     </div>
@@ -322,7 +322,7 @@ const InterviewDetail = () => {
                                 <span className="text-xl font-medium"> {calculateTotalScore(assignedQuestions)}/{(10*assignedQuestions.length)}</span>
                             </div>
                             <div>Score out of 100: 
-                                <span className="text-xl font-medium"> {calculateTotalScore(assignedQuestions)*1.0*100/(10*assignedQuestions.length)}</span>
+                                <span className="text-xl font-medium"> {Math.round(calculateTotalScore(assignedQuestions)*1.0*100/(10*assignedQuestions.length))}</span>
                             </div>
                         </div>
 
