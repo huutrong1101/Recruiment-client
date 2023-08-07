@@ -73,20 +73,24 @@ export default function AddEvent() {
         formData.append("time",  time+":00");       
         setIsPending(true); // Thiết lập trạng thái pending khi bắt đầu gửi yêu cầu
         // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/events/create với FormData
-        axiosInstance.post('recruiter/events/create', formData)
-          .then((response) => {
-            toast.success(response.data.result);
-            toast.success("Sussecfull event created! ");
-            window.history.back();
-          })
-          .catch((error) => {
-            // console.error('Error:', error);
-            toast.error(error.response.data.result);
-          })
+        toast.promise(
+            axiosInstance.post('recruiter/events/create', formData),
+            {
+              pending: 'Loading in few minutes...',
+              success: (response) => {
+                toast.success(response.data.result);
+                toast.success('Successful event created!');
+                window.history.back();
+              },
+              error: (error) => {
+                toast.error(error.response?.data?.result || 'An error occurred.');
+              },
+            }
+          )
           .finally(() => {
-            setIsPending(false); // Thiết lập trạng thái pending về false khi kết thúc yêu cầu (bất kể thành công hoặc lỗi)
-          });
-          
+            setIsPending(false);
+            setOpen(false);
+          }); 
         setOpen(false);
       }
       const [open, setOpen] = React.useState(false);
@@ -220,9 +224,9 @@ export default function AddEvent() {
               </Dialog>
             </div>
             </div>   
-            <div  className={classnames( "w-full md:w-3/12 flex-1 relative sticky" )} >
-              <div className="border-[2px] rounded-xl shadow sticky">
-                <div className={classnames("mt-5 mb-5 px-3 sticky")}>
+            <div  className={classnames( "w-full md:w-3/12 flex-1 relative sticky top-0" )} >
+              <div className="border-[2px] rounded-xl shadow sticky top-0">
+                <div className={classnames("mt-5 mb-5 px-3 sticky top-0")}>
                   {/* Lien he */}
                   {/* Set Time  */}
                   <div className="items-center gap-1 justify-between px-10 mt-4">
@@ -285,9 +289,9 @@ export default function AddEvent() {
                           className="cursor-pointer flex items-center justify-between w-[60%] px-1 border rounded-full bg-gray-100  "
                         >
                           <option value="" disabled> Choose</option>
-                          <option value="F-Town 1">F-Town1</option>
-                          <option value="F-Town 2">F-Town2</option>
-                          <option value="F-Town 3">F-Town3</option>
+                          <option value="FTOWN1">F-Town1</option>
+                          <option value="FTOWN2">F-Town2</option>
+                          <option value="FTOWN3">F-Town3</option>
                         </select>
                       </div>
                   </div> 

@@ -176,7 +176,7 @@ export default function ReccerEventManagement() {
         {/* Conten */}
         <div>
           {isLoading ? (
-            <div className="flex justify-center mt-10 mb-10">
+            <div className="flex justify-center mt-20 mb-20">
                     <LoadSpinner className="text-2xl text-[#059669] " />
             </div>
           ) : (
