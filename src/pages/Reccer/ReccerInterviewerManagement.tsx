@@ -183,8 +183,8 @@ const ReccerInterviewerManagement = () => {
       </div>
       <>
         {isLoading ? (
-          <div className="flex justify-center mb-10">
-            <LoadSpinner className="text-3xl mt-5" />
+          <div className="flex justify-center my-4 min-h-[70vh] flex-col items-center">
+            <LoadSpinner className="text-3xl" />
           </div>
         ) : (
           <div className="flex flex-wrap justify-center items-center mt-[20px] ">
@@ -200,7 +200,7 @@ const ReccerInterviewerManagement = () => {
               ))
             ) : (
               <div className="flex justify-center w-full mb-10">
-                <span>Không tìm thấy kết quả</span>
+                <span>No Result Found</span>
               </div>
             )}
           </div>

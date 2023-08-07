@@ -18,6 +18,7 @@ import axiosInstance from "../../../utils/AxiosInstance";
 import moment from "moment";
 import Loader from "../../../components/Loader/Loader";
 import Schedule from "./Schedule";
+import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 
 export default function ReccerJobDetail() {
   const [jobInformation, setJobInformation] = useState([
@@ -175,7 +176,7 @@ export default function ReccerJobDetail() {
             <Schedule />
           </>
         ) : (
-          <Loader />
+          <LoadSpinner />
         )}
       </div>
     </>

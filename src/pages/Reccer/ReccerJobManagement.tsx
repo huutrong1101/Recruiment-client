@@ -359,7 +359,7 @@ const ReccerJobManagement = () => {
 
       <div className="flex justify-center items-center 2 mt-[10px] ">
         {isLoading ? (
-          <div className="flex justify-center mb-10">
+          <div className="flex justify-center my-4 min-h-[70vh] flex-col items-center">
             <LoadSpinner className="text-3xl" />
           </div>
         ) : (

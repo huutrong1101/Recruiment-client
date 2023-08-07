@@ -44,7 +44,7 @@ export default function ReccerEventManagement() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [prevQueryConfig, setPrevQueryConfig] =
-  useState<QueryConfig>(queryConfig);
+    useState<QueryConfig>(queryConfig);
   useEffect(() => {
     const fetchPosition = async () => {
       setIsLoading(true);
@@ -113,81 +113,81 @@ export default function ReccerEventManagement() {
   };
   return (
     <>
-      <div>        
+      <div>
+        <div
+          className={classNames(
+            "flex justify-center mt-5 item-center ",
+          )}
+        >
+          <form
+            onSubmit={e => handleSearch(e)}
+          >
             <div
               className={classNames(
-                "flex justify-center mt-5 item-center ",
+                "flex justify-center items-center w-80% p-1 border rounded-xl",
+                "focus-within:border-emerald-400",
               )}
             >
-              <form
-                onSubmit={e => handleSearch(e)}
-              > 
-                <div
-                  className={classNames(
-                    "flex justify-center items-center w-80% p-1 border rounded-xl",
-                    "focus-within:border-emerald-400",
-                  )}
-                >
-                    <BsFilterLeft className={classNames(`w-[20px] ml-4 mr-4`)} />
-                    <div
-                      className={classNames(
-                        "text-[16px] cursor-pointer flex items-center justify-between",
-                      )}
-                    >
-                        Name Event      
-                    </div>
-                    <div className=" flex items-center p-3 rounded-xl">
-                      <MagnifyingGlassIcon className="w-5 h-5 mx-2  mr-4" />
-                      <input
-                        type="text"
-                        placeholder="Please enter a search ..."
-                        className="w-[85%] h-full text-base text-zinc-400 focus:outline-none"
-                        value={dataSearch.key}
-                        onChange={(e) => setDataSearch({ ...dataSearch, key: e.target.value })}
-                      />
-                    </div> 
-                    <div
-                      className={classNames(
-                        "text-[16px] cursor-pointer flex items-center justify-between",
-                      )}
-                    >
-                        <button
-                          type="submit"
-                          className="bg-[#05966A] hover:bg-emerald-700 text-white p-2 rounded-md flex items-center justify-center"
-                        >
-                          Search
-                        </button>      
-                    </div>                              
-                </div>                  
-              </form>
-              <div className=" ml-10">
-                {/* Add Event */}
-                  <button
-                  onClick={handleResetClick}
-                  className={classNames(  "mr-3 text-white p-3 rounded-xl  bg-red-600", 
-                  )}>
-                      Reset
-                  </button>
-                  <button
-                  className={classNames(  "ml-3 text-white p-3 rounded-xl bg-emerald-600 ",
-                  )}>
-                    <NavLink to="/recruiter/events-add" onClick={() => { }}>
-                      + Create
-                    </NavLink>
-                  </button>                 
+              <BsFilterLeft className={classNames(`w-[20px] ml-4 mr-4`)} />
+              <div
+                className={classNames(
+                  "text-[16px] cursor-pointer flex items-center justify-between",
+                )}
+              >
+                Name Event
               </div>
-            </div>           
+              <div className=" flex items-center p-3 rounded-xl">
+                <MagnifyingGlassIcon className="w-5 h-5 mx-2  mr-4" />
+                <input
+                  type="text"
+                  placeholder="Please enter a search ..."
+                  className="w-[85%] h-full text-base text-zinc-400 focus:outline-none"
+                  value={dataSearch.key}
+                  onChange={(e) => setDataSearch({ ...dataSearch, key: e.target.value })}
+                />
+              </div>
+              <div
+                className={classNames(
+                  "text-[16px] cursor-pointer flex items-center justify-between",
+                )}
+              >
+                <button
+                  type="submit"
+                  className="bg-[#05966A] hover:bg-emerald-700 text-white p-2 rounded-md flex items-center justify-center"
+                >
+                  Search
+                </button>
+              </div>
+            </div>
+          </form>
+          <div className=" ml-10">
+            {/* Add Event */}
+            <button
+              onClick={handleResetClick}
+              className={classNames("mr-3 text-white p-3 rounded-xl  bg-red-600",
+              )}>
+              Reset
+            </button>
+            <button
+              className={classNames("ml-3 text-white p-3 rounded-xl bg-emerald-600 ",
+              )}>
+              <NavLink to="/recruiter/events-add" onClick={() => { }}>
+                + Create
+              </NavLink>
+            </button>
+          </div>
+        </div>
 
 
 
 
 
-       
+
         {/* Conten */}
         <div>
           {isLoading ? (
-            <div className="flex justify-center">
-                    <LoadSpinner className="text-2xl text-[#059669] " />
+            <div className="flex justify-center my-4 min-h-[70vh] flex-col items-center">
+              <LoadSpinner className="text-3xl" />
             </div>
           ) : (
             <div className="flex flex-wrap mx-4 mt-[50px]">
@@ -246,7 +246,7 @@ export default function ReccerEventManagement() {
                   <div className="flex justify-center w-full mb-10">
                     <span>No results were found. Please check again</span>
                   </div>
-                  )}
+                )}
 
             </div>
           )}
