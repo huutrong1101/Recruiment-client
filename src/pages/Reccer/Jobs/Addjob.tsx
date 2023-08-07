@@ -46,7 +46,7 @@ export default function Addjob() {
     { icon: <MapPinIcon />, name: "Location", value: "" },
     {
       icon: <ComputerDesktopIcon />,
-      name: "Job Type",
+      name: "Position",
       value: "",
     },
 

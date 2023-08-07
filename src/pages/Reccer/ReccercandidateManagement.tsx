@@ -43,7 +43,7 @@ const ReccerCandidateManagement = () => {
   const queryConfig: QueryConfig = omitBy(
     {
       index: queryParams.index || "1",
-      size: queryParams.size || 10,
+      size: queryParams.size || 8,
       name: queryParams.name,
       skill: queryParams.skill,
     },

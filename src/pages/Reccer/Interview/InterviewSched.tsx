@@ -19,6 +19,7 @@ import moment from "moment";
 import Loader from "../../../components/Loader/Loader";
 import Schedule from "./Schedule";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import { JOB_POSITION } from "../../../utils/Localization";
 
 export default function ReccerJobDetail() {
   const [jobInformation, setJobInformation] = useState([
@@ -26,7 +27,7 @@ export default function ReccerJobDetail() {
     { icon: <MapPinIcon />, name: "Location", value: "" },
     {
       icon: <ComputerDesktopIcon />,
-      name: "Job Type",
+      name: "Position",
       value: "Back-end Developer",
     },
     { icon: <BriefcaseIcon />, name: "Experience", value: "" },
@@ -38,7 +39,7 @@ export default function ReccerJobDetail() {
     },
     {
       icon: <ClockIcon />,
-      name: "Posted at",
+      name: "End at",
       value: "",
     },
   ]);
@@ -57,12 +58,12 @@ export default function ReccerJobDetail() {
   useEffect(() => {
     if (job) {
       setJobInformation([
-        { icon: <UserIcon />, name: "Employee Type", value: job.jobType },
-        { icon: <MapPinIcon />, name: "Location", value: job.location },
+        { icon: <UserIcon />, name: "Employee Type", value: JOB_POSITION[job.jobType] },
+        { icon: <MapPinIcon />, name: "Location", value: JOB_POSITION[job.location] },
         {
           icon: <ComputerDesktopIcon />,
-          name: "Job Type",
-          value: job.position.name,
+          name: "Position",
+          value: JOB_POSITION[job.position.name],
         },
         {
           icon: <CurrencyDollarIcon />,
@@ -71,8 +72,8 @@ export default function ReccerJobDetail() {
         },
         {
           icon: <ClockIcon />,
-          name: "Posted at",
-          value: moment(job.createdAt).format("Do MMM, YYYY"),
+          name: "End at",
+          value: moment(job.deadline).format("Do MMM, YYYY"),
         },
       ]);
     }
@@ -176,7 +177,8 @@ export default function ReccerJobDetail() {
             <Schedule />
           </>
         ) : (
-          <LoadSpinner />
+          <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-30 mb-30">
+          <LoadSpinner className="text-2xl"/> </div>
         )}
       </div>
     </>

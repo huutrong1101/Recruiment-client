@@ -87,7 +87,7 @@ export default function JobDetail() {
         },
         {
           icon: <ComputerDesktopIcon />,
-          name: "Job Type",
+          name: "Position",
           value: JOB_POSITION[job.position.name],
         },
         {

@@ -65,7 +65,7 @@ export default function ReccerJobDetail() {
         },
         {
           icon: <ComputerDesktopIcon />,
-          name: "Job Type",
+          name: "Position",
           value: job.jobType,
         },
       ]);
