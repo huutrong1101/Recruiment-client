@@ -109,7 +109,7 @@ export default function FieldContainer<T>({
                 primaryLabel={primaryLabel}
                 onFieldItemChange={handleFieldItemChange}
                 onUpdateFields={handleFieldItemUpdate}
-                removable={values.length > 1}
+                removable={values.length > 0}
                 onDeleteItem={handleDeleteItem}
               />
             );

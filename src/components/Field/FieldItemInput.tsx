@@ -183,7 +183,7 @@ export default function FieldItemInput<T>({
           {removable && (
             <button
               type={"button"}
-              className={`text-red-700`}
+              className={`text-red-600`}
               onClick={handleVisibleDeleteDialog}
             >
               <HiTrash />
