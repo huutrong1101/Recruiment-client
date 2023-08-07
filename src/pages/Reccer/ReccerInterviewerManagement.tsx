@@ -125,12 +125,6 @@ const ReccerInterviewerManagement = () => {
     }
   }, [queryConfig, prevQueryConfig]);
 
-  const [showSkill, setShowSkill] = useState(false);
-  // console.log(showSkill)
-  const [skill, setInterviewerskillList] = useState("");
-  // console.log(skill)
-  const listSkills = useAppSelector((state) => state.RecInterviewerList.skill);
-  // console.log(listSkills)
 
   const navigate = useNavigate();
 
@@ -163,71 +157,6 @@ const ReccerInterviewerManagement = () => {
             "focus-within:border-emerald-700",
           )}
         >
-          {/* <div
-            className={classNames(
-              "flex items-center w-full mr-5 gap-4 md:w-[30%] border-r-2",
-            )}
-          >
-            <BsFilterLeft className={classNames(`w-[20px]  md:ml-4`)} />
-            <Menu as="div" className={classNames("relative w-full")}>
-              <Menu.Button className={classNames("w-full")}>
-                <div
-                  className={classNames(
-                    "text-[13px] cursor-pointer flex items-center justify-between",
-                  )}
-                  onClick={() => setShowSkill(!showSkill)}
-                >
-                  {skill.name || "SKILL"}
-                  {showSkill && (
-                    <ChevronUpIcon className={classNames("w-[20px] mr-4")} />
-                  )}
-                  {!showSkill && (
-                    <ChevronDownIcon className={classNames("w-[20px] mr-4")} />
-                  )}
-                </div>
-              </Menu.Button>
-
-              <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-              >
-                <Menu.Items className="absolute md:left-[-18px] w-full z-10 md:w-55 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <div className="py-1">
-                    {listSkills.map((skill, index) => (
-                      <Menu.Item key={index}>
-                        {({ active }) => (
-                          <p
-                            className={classNames(
-                              active
-                                ? "bg-gray-100 text-gray-900"
-                                : "text-gray-700",
-                              "block px-4 py-2 text-sm",
-                            )}
-                            onClick={() => {
-                              setInterviewerskillList(skill);
-                              setShowSkill(false);
-                              setDataSearch({
-                                ...dataSearch,
-                                skill: skill.name,
-                              });
-                            }}
-                          >
-                            {skill.name}
-                          </p>
-                        )}
-                      </Menu.Item>
-                    ))}
-                  </div>
-                </Menu.Items>
-              </Transition>
-            </Menu>
-          </div> */}
-          {/* Xoa search Skill */}
           <MagnifyingGlassIcon className={classNames(`w-[20px]`)} />
           <input
             value={dataSearch.key}
@@ -254,8 +183,8 @@ const ReccerInterviewerManagement = () => {
       </div>
       <>
         {isLoading ? (
-          <div className="flex justify-center mb-10">
-            <LoadSpinner className="text-3xl mt-5" />
+          <div className="flex justify-center my-4 min-h-[70vh] flex-col items-center">
+            <LoadSpinner className="text-3xl" />
           </div>
         ) : (
           <div className="flex flex-wrap justify-center items-center mt-[20px] ">
@@ -271,7 +200,7 @@ const ReccerInterviewerManagement = () => {
               ))
             ) : (
               <div className="flex justify-center w-full mb-10">
-                <span>Không tìm thấy kết quả</span>
+                <span>No Result Found</span>
               </div>
             )}
           </div>

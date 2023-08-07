@@ -27,10 +27,13 @@ const error = async (data: any) => {
   return await axiosInstance.post(`interviewer/question`, data);
 };
 
+
+
 export const InterviewService = {
   createInterview,
   createQuestion,
   updateQuestion,
   deleteQuestion,
+  error,
   getCandidateInterviews,
 };

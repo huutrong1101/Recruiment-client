@@ -225,14 +225,6 @@ export default function EventDetail() {
               </div>
             </div>
 
-            <div className={classnames("mt-5")}>
-              <button
-                className="px-6 py-3 text-white rounded-lg bg-emerald-600 hover:bg-emerald-800"
-                onClick={openModal}
-              >
-                Apply
-              </button>
-            </div>
 
             <Modal
               isOpen={isOpen}

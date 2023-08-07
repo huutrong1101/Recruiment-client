@@ -1,6 +1,7 @@
 import React from "react";
 import classnames from "classnames";
 import { HiOutlineArrowTrendingUp } from "react-icons/hi2";
+import { data } from "../../data/RecDashboardData";
 
 interface MyComponentProps {
   job: {
@@ -14,6 +15,11 @@ interface MyComponentProps {
   }
 }
 
+const temp = data.listJobs.map((props)=>{
+  return props.percentage
+})
+
+
 export default function Rec_DashboardCard({ job,index }: MyComponentProps) {
   return (
     <>
@@ -25,14 +31,14 @@ export default function Rec_DashboardCard({ job,index }: MyComponentProps) {
             )}
           >
             <h3 className={classnames("text-black text-m font-semibold ")}>
-              {job.Type}
+              {job.title}
             </h3>
           </div>
         </div>
         <div className={classnames("mt-4 flex text-2xl justify-between font-semibold ")}>
-          <p>{job.quantity}</p>
+          <p>{job.value}</p>
           <div className="flex">
-            <p className=" text-sm my-2 gap-2 inline-flex">+{job.percentage}%</p>
+            <p className=" text-sm my-2 gap-2 inline-flex">+{temp}%</p>
             <span className="flex justify-center items-center"><HiOutlineArrowTrendingUp /></span>
           </div>
         </div>
