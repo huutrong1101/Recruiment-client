@@ -44,7 +44,7 @@ export default function ReccerEventManagement() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [prevQueryConfig, setPrevQueryConfig] =
-  useState<QueryConfig>(queryConfig);
+    useState<QueryConfig>(queryConfig);
   useEffect(() => {
     const fetchPosition = async () => {
       setIsLoading(true);
@@ -110,10 +110,19 @@ export default function ReccerEventManagement() {
   };
   return (
     <>
-      <div>        
+      <div>
+        <div
+          className={classNames(
+            "flex justify-center mt-5 item-center ",
+          )}
+        >
+          <form
+            onSubmit={e => handleSearch(e)}
+          >
             <div
               className={classNames(
-                "flex justify-center mt-5 item-center ",
+                "flex justify-center items-center w-80% p-1 border rounded-xl",
+                "focus-within:border-emerald-400",
               )}
             >
               <form
@@ -163,21 +172,11 @@ export default function ReccerEventManagement() {
 
 
 
-        <div className="mt-5">
-        {/* Add Event */}
-          <button
-          className={classNames(  "text-white p-3 rounded-xl w-2/8  shadow text-sm font-medium leading-tight flex justify-start bg-emerald-600 ",
-          )}>
-            <NavLink to="/recruiter/events-add" onClick={() => { }}>
-              + Add Event
-            </NavLink>
-          </button>
-        </div>
         {/* Conten */}
         <div>
           {isLoading ? (
-            <div className="flex justify-center mt-10 mb-10">
-                    <LoadSpinner className="text-2xl text-[#059669] " />
+            <div className="flex justify-center my-4 min-h-[70vh] flex-col items-center">
+              <LoadSpinner className="text-3xl" />
             </div>
           ) : (
             <div className="flex flex-wrap mx-4 mt-[50px]">
@@ -236,7 +235,7 @@ export default function ReccerEventManagement() {
                   <div className="flex justify-center w-full mb-10">
                     <span>No results were found. Please check again</span>
                   </div>
-                  )}
+                )}
 
             </div>
           )}
