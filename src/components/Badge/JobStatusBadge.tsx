@@ -16,8 +16,8 @@ export default function JobStatusBadge({ className, status }: JobStatusBadge) {
         {
           "bg-emerald-600": status === "PASSED",
           "bg-yellow-600": status === "NOT_RECEIVED",
-          "bg-orange-600": status === "RECEIVED",
-          "bg-red-600": status === "FAILED",
+          "bg-orange-600": status === "RECEIVED" || status === "FAILED",
+          // "bg-red-600": ,
         },
 
         className,
@@ -27,16 +27,16 @@ export default function JobStatusBadge({ className, status }: JobStatusBadge) {
         className={classnames("h-2 w-2 rounded-xl", {
           "bg-emerald-800": status === "PASSED",
           "bg-yellow-800": status === "NOT_RECEIVED",
-          "bg-orange-800": status === "RECEIVED",
-          "bg-red-800": status === "FAILED",
+          "bg-orange-800": status === "RECEIVED" || status === "FAILED",
+          // "bg-red-800": status === "FAILED",
         })}
       ></span>
       <span
         className={classnames({
           "text-emerald-300": status === "PASSED",
           "text-yellow-300": status === "NOT_RECEIVED",
-          "text-orange-300": status === "RECEIVED",
-          "text-red-300": status === "FAILED",
+          "text-orange-300": status === "RECEIVED" || status === "FAILED",
+          // "text-red-300": status === "FAILED",
         })}
       >
         {/* {status === "PASS"
