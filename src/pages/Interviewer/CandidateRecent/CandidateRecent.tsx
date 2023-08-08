@@ -107,7 +107,7 @@ const CandidateRecent = () => {
                   <TableCell>Date</TableCell>
                   <TableCell>State</TableCell>
                   <TableCell>Score</TableCell>
-                  <TableCell>Button</TableCell>
+                  <TableCell>Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

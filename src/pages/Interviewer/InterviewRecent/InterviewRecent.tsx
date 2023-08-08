@@ -97,7 +97,7 @@ const InterviewRecent = () => {
                   <TableCell>Position</TableCell>
                   <TableCell>Date</TableCell>
                   <TableCell>State</TableCell>
-                  <TableCell>Button</TableCell>
+                  <TableCell>Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

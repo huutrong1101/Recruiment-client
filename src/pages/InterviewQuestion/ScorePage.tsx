@@ -217,7 +217,7 @@ export default function ScorePage() {
                     <th className="px-4 py-2">Question</th>
                     <th className="px-2 py-2">Type</th>
                     <th className="px-2 py-2">Skill</th>
-                    <th className="px-4 py-2">Button</th>
+                    <th className="px-4 py-2">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
