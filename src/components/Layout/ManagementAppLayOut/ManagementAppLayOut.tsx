@@ -32,37 +32,37 @@ export const linksAll = [
     title: "ADMIN",
     links: [
       {
-        name: "Default",
+        name: "Overview",
         icon: <HiOutlineChartPie />,
         url: "admin/users",
       },
       {
-        name: "Acount Delete",
+        name: "Account Delete",
         icon: <HiOutlineMinusCircle />,
         url: "admin/accountsDeleted",
-      }, 
+      },
       {
-        name: "Create Acount",
+        name: "Create Account",
         icon: <HiOutlinePlusCircle />,
         url: "admin/userscreate",
-      },      
+      },
       {
         name: "Manager Job",
         icon: <HiOutlineCalendarDays />,
         url: "admin/jobs",
       },
-      {
-        name: "Profile",
-        icon: <HiOutlineDocumentDuplicate />,
-        url: "admin/profile",
-      },
+      // {
+      //   name: "Profile",
+      //   icon: <HiOutlineDocumentDuplicate />,
+      //   url: "admin/profile",
+      // },
     ],
   },
   {
     title: "RECRUITER",
     links: [
       {
-        name: "Default",
+        name: "Overview",
         icon: <HiOutlineChartPie />,
         url: "recruiter/dashboard",
       },
@@ -117,9 +117,9 @@ export const linksAll = [
 const ManagementAppLayOut = () => {
   const [leftActive, setLeftActive] = useState<boolean>(false);
   const activeLink =
-    "flex items-center gap-3 py-1 rounded-lg text-black text-md  bg-gray-200 mt-1 mx-3";
+    "flex items-center gap-3 py-1 rounded-lg text-black text-md text-emerald-700 bg-gray-200 mt-1 mx-3";
   const normalLink =
-    " flex items-center gap-3 py-1 rounded-lg text-black text-md text-gray-700 hover:bg-gray-200 mt-1 mx-3";
+    " flex items-center gap-3 py-1 rounded-lg text-black text-md text-gray-700 hover:bg-gray-100 mt-1 mx-3";
 
   const { user } = useAppSelector((state: any) => state.Auth);
 
@@ -158,17 +158,21 @@ const ManagementAppLayOut = () => {
           })}
         >
           <div className="flex justify-center items-center h-[72px]">
-              <Link to="/">
-                {leftActive?<div className="text-4xl font-semibold">JP</div>:<div className="text-4xl font-semibold">JobPort</div>}
-              </Link>
+            <Link to="/">
+              {leftActive ? (
+                <div className="text-4xl font-semibold">JP</div>
+              ) : (
+                <div className="text-4xl font-semibold">JobPort</div>
+              )}
+            </Link>
           </div>
           <div className="">
             {links.map((item) => (
               <div key={item.title} className="mb-2">
-                <hr className={classnames("mx-2 border border-black")} />
+                <hr className={classnames("mx-2")} />
                 <p
                   className={classnames(
-                    "text-gray-400 mx-3 mt-2 text-x font-semibold",
+                    "text-gray-400 mx-3 mt-2 text-xs font-semibold",
                     { hidden: leftActive },
                   )}
                 >
@@ -184,10 +188,10 @@ const ManagementAppLayOut = () => {
                       }`
                     }
                   >
-                    <span className="text-2xl text-black">{link.icon}</span>
+                    <span className="text-base text-gray-600">{link.icon}</span>
                     <div
                       className={classnames({
-                        "text-black flex, hidden": leftActive,
+                        "text-gray-600 flex, hidden": leftActive,
                       })}
                     >
                       {link.name}

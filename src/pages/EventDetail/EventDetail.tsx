@@ -79,19 +79,21 @@ export default function EventDetail() {
           <>
             <div className={classnames("flex gap-5")}>
               <div
-                className={classnames("bg-white rounded-lg shadow-lg w-[70%]")}
+                className={classnames(
+                  "bg-white rounded-lg shadow-lg w-[70%] border",
+                )}
               >
                 <div>
                   <img
                     src={event?.img || blog_image}
                     alt="blog_image"
-                    className={classnames("w-full object-cover")}
+                    className={classnames("w-full object-cover rounded-t-md")}
                   />
                 </div>
 
                 <div
                   className={classnames(
-                    "flex items-center justify-between px-10 mt-4",
+                    "flex items-center justify-between px-10 mt-4 text-sm text-gray-400",
                   )}
                 >
                   <div className={classnames("flex items-center gap-1")}>
@@ -110,17 +112,17 @@ export default function EventDetail() {
                 <div className={classnames("mt-4 px-10")}>
                   <h3
                     className={classnames(
-                      "text-black font-outfit text-2xl font-medium leading-31 tracking-wider capitalize",
+                      "text-black font-outfit text-2xl font-semibold tracking-wider capitalize mb-4",
                     )}
                   >
                     {event?.title}
                   </h3>
-                  <div className={classnames("mt-2")}>
-                    <ul className={classnames("flex flex-col gap-2")}>
-                      <li>
-                        <p>{event?.description}</p>
-                      </li>
-                    </ul>
+                  <div
+                    className={classnames(
+                      "mt-2 text-justify text-base text-gray-700 leading-6",
+                    )}
+                  >
+                    <p>{event?.description}</p>
                   </div>
                 </div>
 
@@ -131,10 +133,10 @@ export default function EventDetail() {
                 >
                   <h3
                     className={classnames(
-                      "text-black font-outfit text-[17px] font-medium leading-31 tracking-wider capitalize",
+                      "text-gray-600 font-outfit text-[17px] font-medium leading-31 tracking-wider capitalize italic ",
                     )}
                   >
-                    -{event?.author}-
+                    - {event?.author} -
                   </h3>
                 </div>
               </div>
@@ -142,7 +144,7 @@ export default function EventDetail() {
               {/* Author  */}
               <div
                 className={classnames(
-                  "bg-white rounded-lg shadow-lg w-[30%] h-fit sticky top-0",
+                  "bg-white rounded-lg shadow-lg w-[30%] h-fit sticky top-4",
                 )}
               >
                 <div
@@ -224,7 +226,6 @@ export default function EventDetail() {
                 </div>
               </div>
             </div>
-
 
             <Modal
               isOpen={isOpen}

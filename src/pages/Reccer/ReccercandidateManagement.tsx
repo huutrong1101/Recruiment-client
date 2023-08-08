@@ -1,7 +1,6 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { Link, createSearchParams, useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
-import { STATUS } from "../../utils/Status";
 import {
   RecCandidateInterface,
   RecCandidateList,
@@ -11,15 +10,9 @@ import { omitBy, isUndefined, isEqual } from "lodash";
 import qs from "query-string";
 import axiosInstance from "../../utils/AxiosInstance";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
-import { BsFilterLeft } from "react-icons/bs";
 import classNames from "classnames";
 
-import { Menu, Transition } from "@headlessui/react";
-import {
-  ChevronDownIcon,
-  ChevronUpIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import {
   fetchCandidateList,
   fetchCandidateSkill,
