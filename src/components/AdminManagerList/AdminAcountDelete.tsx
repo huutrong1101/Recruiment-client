@@ -17,6 +17,7 @@ import moment from "moment";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
 import classNames from "classnames";
 import { BsFilterLeft } from "react-icons/bs";
+import Pagination from "../Pagination/Pagination";
 
 const AdminAcountDelete = () => {
   const jobs:  AdminDelete[] = useAppSelector((state) => state.adminmanagerjobList.adminmanagerJobList);
@@ -101,54 +102,43 @@ const AdminAcountDelete = () => {
   };
       return (
       <>
-           
-           <div
+         {/* Search */}
+         <form
+          onSubmit={handleSearch}
+          className="flex justify-center mt-10 mb- item-center"
+        >
+          {/* Input */}
+          <div
+            className={classNames(
+              "flex items-center flex-shrink-0 w-1/2 p-2 border rounded-lg ",
+              "focus-within:border-emerald-700",
+            )}
+          >
+            <MagnifyingGlassIcon className={classNames(`w-[20px]`)} />
+            <input
+              value={dataSearch.key}
+              onChange={(e) =>
+                setDataSearch({ ...dataSearch, key: e.target.value })
+              }
+              type="text"
+              placeholder="Search your Keywords"
               className={classNames(
-                "flex justify-center item-center mt-5",
+                "w-full h-full text-[12px] ml-3 focus:outline-none text-base text-zinc-400",
               )}
+            />
+          </div>
+          {/* Button */}
+          <div className={classNames("gap-2 ml-10 items-center justify-center")}>
+            <button
+              className={classNames(
+                "bg-[#05966A] hover:bg-emerald-700 text-white p-3 rounded-md flex w-full text-center items-center justify-center",
+              )}
+              type="submit"
             >
-              <form
-                onSubmit={e => handleSearch(e)}
-              > 
-                <div
-                  className={classNames(
-                    "flex justify-center items-center w-80% p-1 border rounded-xl ",
-                    "focus-within:border-emerald-400",
-                  )}
-                >
-                    <BsFilterLeft className={classNames(`w-[20px] ml-4 mr-4`)} />
-                    <div
-                      className={classNames(
-                        "text-[16px] cursor-pointer flex items-center justify-between",
-                      )}
-                    >
-                        Name Acount     
-                    </div>
-                    <div className=" flex items-center p-3 rounded-xl">
-                      <MagnifyingGlassIcon className="w-5 h-5 mx-2  mr-4" />
-                      <input
-                        type="text"
-                        placeholder="Please enter a search ..."
-                        className="w-[85%] h-full text-base text-zinc-400 focus:outline-none"
-                        value={dataSearch.key}
-                        onChange={(e) => setDataSearch({ ...dataSearch, key: e.target.value })}
-                      />
-                    </div> 
-                    <div
-                      className={classNames(
-                        "text-[16px] cursor-pointer flex items-center justify-between",
-                      )}
-                    >
-                        <button
-                          type="submit"
-                          className="bg-[#05966A] hover:bg-emerald-700 text-white p-2 rounded-md flex items-center justify-center"
-                        >
-                          Search
-                        </button>      
-                    </div>                              
-                </div>                  
-              </form>
-        </div>  
+              Search
+            </button>
+          </div>
+        </form>  
         <div className="flex-col mt-5">
           <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}} >
             <Table className="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
@@ -210,9 +200,11 @@ const AdminAcountDelete = () => {
             </Table>                
           </TableContainer>
       </div> 
-        <div className="flex justify-center mt-3">
+        <div className="flex justify-center mt-10">
           {/* Pagination  */}
-          <Paginationacountlistdelette  queryConfig={queryConfig} pageSize={pageSize} />
+          {/* <Paginationacountlistdelette  queryConfig={queryConfig} pageSize={pageSize} /> */}
+                <Pagination queryConfig={queryConfig} pageSize={pageSize} url="" />
+
         </div> 
     </>
     );

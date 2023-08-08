@@ -64,14 +64,14 @@ export default function AddBlacklist() {
     return (
     <> 
     {isLoading ? (
-      <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-10 mb-10">
+      <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-20 mb-20">
         {/* <Loader  className ="l-20flex items-center justify-center" /> */}
         <LoadSpinner className='text-2xl text-[#059669]'/>
     </div>
     ):(
-        <div className="flex gap-5 mt-5 " style={{ fontFamily: "Outfit, sans-serif" }}>            
+        <div className="flex gap-5 md:flex mt-10 " style={{ fontFamily: "Outfit, sans-serif" }}>            
             {/* Information */}
-            <div className="bg-white rounded-lg shadow-lg w-[50%] top-4 ">
+            <div className="bg-white rounded-lg shadow-lg w-1/3 mt-10 ml-10">
                 <div className = "grid md:grid-cols-1 text-sm self-stretch px-2 pt-[13px] pb-[11px]">
                     {/* Title */}
                     <div className = "flex items-center text-center space-x-2  font-semibold  text-green-500 justify-center">
@@ -111,7 +111,7 @@ export default function AddBlacklist() {
                 </div>
             </div>
             
-            <div className="p-4 border rounded-xl border-zinc-100">
+            <div className="p-4 border mt-10 w-1/2 rounded-xl border-zinc-100">
                 {/* Title */}
                 <div className = "flex items-center text-center space-x-2  font-semibold  text-green-500 justify-center">
                     <span className = "tracking-wide text-center  text-emerald-600 text-[28px] ">Add BlackList Account</span>
@@ -121,7 +121,7 @@ export default function AddBlacklist() {
                     <div className = "px-4 py-2  font-semibold  text-black capitalize leading-7 tracking-wide"> Reasion </div>
                     <TextareaAutosize
                         id="reasion"
-                        minRows={4}
+                        minRows={11}
                         className="resize-none p-2.5 w-full text-justify bg-white border rounded-lg border border-zinc-900 border-opacity-50"
                         onChange={(event) => setReason(event.target.value)}
                         value={reason}
@@ -141,8 +141,9 @@ export default function AddBlacklist() {
                             aria-describedby="alert-dialog-description"
                         >
                             <div className="text-center px-6">
-                            <DialogContent className=" font-semibold  text-lg mb-2" style={{ fontFamily: "Outfit, sans-serif" }}>
-                               <h1  className=" font-semibold  text-lg mb-2"> Are you sure you want to add {showJobLists.name} to Blacklist ?</h1>
+                            <DialogContent className=" font-semibold  text-lg" style={{ fontFamily: "Outfit, sans-serif" }}>
+                               <h1  className=" font-semibold  text-lg mb-2"> Are you sure you want to add menber to Blacklist ?</h1>
+                               <h1  className=" font-semibold  text-lg mb-2 text-center">{showJobLists.name}</h1>
                             </DialogContent>
                             <DialogContentText
                                 id="alert-dialog-description"
@@ -154,7 +155,7 @@ export default function AddBlacklist() {
                                     WARNING
                                 </p>
                                 </div>
-                                <div className="text-left  font-semibold " style={{ fontFamily: "Outfit, sans-serif" }}>
+                                <div className="text-center font-semibold " style={{ fontFamily: "Outfit, sans-serif" }}>
                                     <p>You definitely want to continue. Be careful with your decisions</p>
                                 </div>
                             </DialogContentText>

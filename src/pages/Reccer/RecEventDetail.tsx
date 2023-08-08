@@ -16,6 +16,7 @@ import moment from "moment";
 import { CalendarDaysIcon, ExclamationTriangleIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import { ClockIcon } from "@mui/x-date-pickers";
+import classNames from "classnames";
 export default function RecEventDetail() {
   const { eventId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
@@ -154,8 +155,8 @@ export default function RecEventDetail() {
     <>
     {isLoading ? 
       (
-        <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-20 mb-20">
-          <LoadSpinner className="text-3xl text-[#059669] " />
+        <div className="flex justify-center my-4 min-h-[70vh] flex-col items-center">
+          <LoadSpinner className="text-3xl" />
       </div>
       ):(
       <div className={classnames("flex gap-10")}>
@@ -345,78 +346,79 @@ export default function RecEventDetail() {
 
 
         <div  className={classnames( "w-full md:w-3/12 flex-1 relative mt-5" )} >
-              <div className="border-[2px] rounded-xl shadow">
-                <div className={classnames("mt-5 mb-5 px-3")}>
-                  {/* Lien he */}
-                  {/* Set Time  */}
-                  <div className="items-center gap-1 justify-between px-10 mt-4">
-                      <div className="flex mt-1 mb-1">
-                      <CalendarDaysIcon className="w-6 h-6 mr-2 "/>
-                      <h3>Day Start :</h3>
-                      </div>
-                      <div className="">
-                        <input
-                          type="date"
-                          id="startAt"
-                          className="text-emerald-600 text-sm font-medium leading-tight"
-                          value={daystar}
-                          // min={daycheck < DateStart ? daycheck : DateStart}
-                          readOnly
-                          onChange={(event) => setDaystar(event.target.value)}
-                          />
-                      </div>
-                  </div>
-                  <div className="items-center gap-1 justify-between px-10 mb-5 mt-5">
-                      <div className="flex  mt-1 mb-1">
-                        <CalendarDaysIcon className="w-6 h-6 mr-2 "/>
-                        <h3>Day End :</h3>
-                      </div>
-                      <div className="">
-                        <input
-                          type="date"
-                          id="deadline"
-                          className="text-emerald-600  border text-sm font-medium leading-tight"
-                          value={dayend}
-                          min ={daystar}
-                          onChange={(event) => setDayend(event.target.value)}
-                          />
-                      </div>
-                  </div> 
-                  <div className={classnames("items-center gap-1 justify-between px-10 mb-5 mt-5")}>
-                        <div className="flex  mt-1 mb-1">
-                          <ClockIcon className="w-6 h-6 mr-2 "/>
-                          <h3>Time:</h3>
-                        </div>
-                        <div className="">
-                          <input
-                            type="time"
-                            id="time"
-                            className="ml-2 text-emerald-600 border text-sm font-medium leading-tight"
-                            value={time}
-                            onChange={(event) => setTime(event.target.value)}
-                          />
-                        </div>
-                  </div>
-                  <div className={classnames("items-center gap-1 rounded-xl justify-between px-10 mb-5 mt-5 ")}>
-                      <div className="flex  mt-1 mb-1">
-                        <MapPinIcon className="w-6 h-6 mr-2 "/>
-                        <h3>Location:</h3>
-                      </div>
-                      <div className="">
-                        <select
-                          value={location}
-                          onChange={(event) => setlocation(event.target.value)}
-                          className="cursor-pointer flex items-center justify-between w-full px-1 border rounded-full bg-gray-100  "
-                        >
-                          <option value="" disabled> Choose</option>
-                           <option value="FTOWN1">F-Town1</option>
-                          <option value="FTOWN2">F-Town2</option>
-                          <option value="FTOWN3">F-Town3</option>
-                        </select>
-                      </div>
-                  </div> 
+          <div className= {classNames(
+            `w-full bg-white shadow-sm px-4 py-6  rounded-xl border sticky top-12`,
+            `flex flex-col gap-4 `,
+          )}>
+            {/* Lien he */}
+            {/* Set Time  */}
+            <div className="items-center gap-1 justify-between px-10 mt-4">
+                <div className="flex mt-1 mb-1">
+                <CalendarDaysIcon className="w-6 h-6 mr-2 "/>
+                <h3>Day Start :</h3>
                 </div>
-              </div>                        
+                <div className="">
+                  <input
+                    type="date"
+                    id="startAt"
+                    className="text-emerald-600 text-sm font-medium leading-tight"
+                    value={daystar}
+                    // min={daycheck < DateStart ? daycheck : DateStart}
+                    readOnly
+                    onChange={(event) => setDaystar(event.target.value)}
+                    />
+                </div>
+            </div>
+            <div className="items-center gap-1 justify-between px-10  mb-2 mt-2">
+                <div className="flex  mt-1 mb-1">
+                  <CalendarDaysIcon className="w-6 h-6 mr-2 "/>
+                  <h3>Day End :</h3>
+                </div>
+                <div className="">
+                  <input
+                    type="date"
+                    id="deadline"
+                    className="text-emerald-600  border text-sm font-medium leading-tight"
+                    value={dayend}
+                    min ={daystar}
+                    onChange={(event) => setDayend(event.target.value)}
+                    />
+                </div>
+            </div> 
+            <div className={classnames("items-center gap-1 justify-between px-10  mb-2 mt-2")}>
+                  <div className="flex  mt-1 mb-1">
+                    <ClockIcon className="w-6 h-6 mr-2 "/>
+                    <h3>Time:</h3>
+                  </div>
+                  <div className="">
+                    <input
+                      type="time"
+                      id="time"
+                      className="ml-2 text-emerald-600 border text-sm font-medium leading-tight"
+                      value={time}
+                      onChange={(event) => setTime(event.target.value)}
+                    />
+                  </div>
+            </div>
+            <div className={classnames("items-center gap-1 rounded-xl justify-between px-10  mb-2 mt-2 ")}>
+                <div className="flex  mt-1 mb-1">
+                  <MapPinIcon className="w-6 h-6 mr-2 "/>
+                  <h3>Location:</h3>
+                </div>
+                <div className="">
+                  <select
+                    value={location}
+                    onChange={(event) => setlocation(event.target.value)}
+                    className="cursor-pointer text-emerald-600 flex items-center justify-between w-full px-1 border rounded-full bg-gray-100  "
+                  >
+                    <option value="" disabled> Choose</option>
+                      <option value="FTOWN1">F-Town1</option>
+                    <option value="FTOWN2">F-Town2</option>
+                    <option value="FTOWN3">F-Town3</option>
+                  </select>
+                </div>
+            </div> 
+          </div>                                     
         </div>            
       </div>
     )} 

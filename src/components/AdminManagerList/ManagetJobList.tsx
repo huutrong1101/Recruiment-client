@@ -108,59 +108,44 @@ const ManagetJobList = () => {
   };
       return (
       <>
-        <div className="justify-center flex grid-cols-[100%] sm:grid-cols-[15%,60%,25%] gap-1 pt-5 mx-auto lg:grid-cols-[25%,60%,25%] ">
-          
-          
-            <div
+        {/* Search */}
+        <form
+          onSubmit={handleSearch}
+          className="flex justify-center mt-10 mb-10 item-center"
+        >
+          {/* Input */}
+          <div
+            className={classNames(
+              "flex items-center flex-shrink-0 w-1/2 p-2 border rounded-lg ",
+              "focus-within:border-emerald-700",
+            )}
+          >
+            <MagnifyingGlassIcon className={classNames(`w-[20px]`)} />
+            <input
+              value={dataSearch.key}
+              onChange={(e) =>
+                setDataSearch({ ...dataSearch, key: e.target.value })
+              }
+              type="text"
+              placeholder="Search your Keywords"
               className={classNames(
-                "flex justify-center item-center ",
+                "w-full h-full text-[12px] ml-3 focus:outline-none text-base text-zinc-400",
               )}
+            />
+          </div>
+          {/* Button */}
+          <div className={classNames("gap-2 ml-10 items-center justify-center")}>
+            <button
+              className={classNames(
+                "bg-[#05966A] hover:bg-emerald-700 text-white p-3 rounded-md flex w-full text-center items-center justify-center",
+              )}
+              type="submit"
             >
-              <form
-                onSubmit={e => handleSearch(e)}
-              > 
-                <div
-                  className={classNames(
-                    "flex justify-center items-center w-80% p-1 border rounded-xl",
-                    "focus-within:border-emerald-400",
-                  )}
-                >
-                    <BsFilterLeft className={classNames(`w-[30px] ml-5 mr-5`)} />
-                    <div
-                      className={classNames(
-                        "text-[16px] cursor-pointer flex items-center text-center justify-between",
-                      )}
-                    >
-                        Name Jobs     
-                    </div>
-                    <div className=" flex items-center p-2 rounded-xl">
-                      <MagnifyingGlassIcon className="w-5 h-5 mx-2 mr-5" />
-                      <input
-                        type="text"
-                        placeholder="Fill in the search information ..."
-                        className="w-[85%] h-full text-base text-zinc-400 focus:outline-none"
-                        value={dataSearch.key}
-                        onChange={(e) => setDataSearch({ ...dataSearch, key: e.target.value })}
-                      />
-                    </div> 
-                    <div
-                      className={classNames(
-                        "text-[16px] cursor-pointer flex items-center justify-between ml-5 mr-5",
-                      )}
-                    >
-                        <button
-                          type="submit"
-                          className="bg-[#05966A] hover:bg-emerald-700 text-white p-2 rounded-md flex items-center justify-center"
-                        >
-                          Search
-                        </button>      
-                    </div>                              
-                </div>                  
-              </form>
-        </div>           
-
-        </div>
-        <div className="flex-col mt-5">
+              Search
+            </button>
+          </div>
+        </form>
+        <div className="flex-col">
           <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}} >
             <Table className="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
               <TableHead className="text-xs text-gray-500 bg-gray-200 text-center flex-row justify-center" style={{ fontFamily: "Outfit, sans-serif" }}>
