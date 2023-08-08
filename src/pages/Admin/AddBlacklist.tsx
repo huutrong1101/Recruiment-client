@@ -121,7 +121,7 @@ export default function AddBlacklist() {
                     <div className = "px-4 py-2  font-semibold  text-black capitalize leading-7 tracking-wide"> Reasion </div>
                     <TextareaAutosize
                         id="reasion"
-                        minRows={10}
+                        minRows={11}
                         className="resize-none p-2.5 w-full text-justify bg-white border rounded-lg border border-zinc-900 border-opacity-50"
                         onChange={(event) => setReason(event.target.value)}
                         value={reason}
