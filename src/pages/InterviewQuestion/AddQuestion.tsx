@@ -189,7 +189,7 @@ export default function AddQuestion({ observation, onClick }: any) {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                       >
-                        <Menu.Items className="flex flex-col items-start w-full h-full bg-gray-200 rounded-md shadow-md cursor-pointer aboslute bg-opacity-90">
+                        <Menu.Items className="flex flex-col items-start w-full h-full bg-gray-200 rounded-md shadow-md cursor-pointer aboslute bg-opacity-90 max-h-[20vh] overflow-hidden overflow-y-scroll">
                           <div className="w-full h-full text-black border rounded-md border-zinc-200">
                             {showSkills.map((skill: any) => (
                               <Menu.Item key={skill.skillId}>

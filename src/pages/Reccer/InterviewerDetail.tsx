@@ -20,6 +20,7 @@ import RecInterviewRecent from "./RecInterviewRecent";
 import classNames from "classnames";
 import { toast } from "react-toastify";
 import user from "../../../images/uses.png";
+import thumbnailCover from "../../../images/cover2.jpg";
 
 export default function InterviewerDetail() {
   const { interviewerId } = useParams();
@@ -98,18 +99,18 @@ export default function InterviewerDetail() {
       {interviewer ? (
         <>
           <section className="relative">
-            <div className="shrink-0 w-full">
+            <div className="w-full shrink-0">
               <img
-                src="../../../images/cover2.jpg"
-                className="h-64 w-full object-cover lg:rounded-b-md shadow "
+                src={thumbnailCover}
+                className="object-cover w-full h-64 shadow lg:rounded-b-md "
               />
             </div>
-            <div className="md:flex ms-4 -mt-12">
+            <div className="-mt-12 md:flex ms-4">
               <div className="md:w-full">
                 <div className="relative flex items-end ">
                   <img
                     src={interviewer?.avatar || user}
-                    className="h-28 w-28 rounded-full ring-4 ring-slate-50 bg-white"
+                    className="bg-white rounded-full h-28 w-28 ring-4 ring-slate-50"
                   />
                   <div className="ms-4">
                     <p className="text-lg font-semibold">
@@ -120,7 +121,7 @@ export default function InterviewerDetail() {
               </div>
             </div>
           </section>
-          <section className="relative mt-12 md:pb-15 pb-10">
+          <section className="relative pb-10 mt-12 md:pb-15">
             <div className="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
               <div className="lg:col-span-8 md:col-span-7">
                 <div
@@ -151,7 +152,7 @@ export default function InterviewerDetail() {
                           (skill: any, index: any) => (
                             <p
                               key={index}
-                              className="px-4 py-2 gap-2 ml-2 inline-flex bg-emerald-600 hover:bg-emerald-700 border-emerald-600  text-white rounded-md"
+                              className="inline-flex gap-2 px-4 py-2 ml-2 text-white rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600"
                             >
                               {skill.label}
                             </p>
@@ -169,13 +170,13 @@ export default function InterviewerDetail() {
                   )}
                 >
                   <div className="text-2xl font-semibold">Education</div>
-                  <div className="flex gap-4 flex-wrap">
+                  <div className="flex flex-wrap gap-4">
                     {JSON.parse(interviewer.information)?.education?.map(
                       (edu: any, index: any) => (
                         <>
                           <div
                             key={index}
-                            className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                            className="px-2 py-2 mt-3 text-lg border rounded-lg shadow text-zinc-600 w-fit bg-emerald-50"
                           >
                             <p>School: {edu.school}</p>
                             <p>Major: {edu.major}</p>
@@ -194,20 +195,20 @@ export default function InterviewerDetail() {
                   )}
                 >
                   <div className="text-2xl font-semibold">Project</div>
-                  <div className="flex gap-4 flex-wrap">
+                  <div className="flex flex-wrap gap-4">
                     {JSON.parse(interviewer.information)?.project?.map(
                       (edu: any, index: any) => (
                         <div>
                           <div
                             key={index}
-                            className="text-zinc-600 mt-3 text-lg border rounded-t-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                            className="px-2 py-2 mt-3 text-lg border rounded-t-lg shadow text-zinc-600 w-fit bg-emerald-50"
                           >
                             <p>Project: {edu.name}</p>
                             <p>Description: {edu.description}</p>
                             {/* <p>Link: {edu.url}</p> */}
                           </div>
                           <button
-                            className="shadow border rounded-b-lg bg-emerald-500 hover:bg-emerald-700 border-emerald-600  text-white p-1 text-center w-full"
+                            className="w-full p-1 text-center text-white border rounded-b-lg shadow bg-emerald-500 hover:bg-emerald-700 border-emerald-600"
                             onClick={() => handleLink(edu.url)}
                           >
                             View Project
@@ -225,13 +226,13 @@ export default function InterviewerDetail() {
                   )}
                 >
                   <div className="text-2xl font-semibold">Experience</div>
-                  <div className="flex gap-4 flex-wrap">
+                  <div className="flex flex-wrap gap-4">
                     {JSON.parse(interviewer.information)?.experience?.map(
                       (edu: any, index: any) => (
                         <>
                           <div
                             key={index}
-                            className="text-zinc-600 mt-3 text-lg border rounded-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                            className="px-2 py-2 mt-3 text-lg border rounded-lg shadow text-zinc-600 w-fit bg-emerald-50"
                           >
                             <p>Company Name: {edu.companyName}</p>
                             <p>Position: {edu.position}</p>
@@ -250,13 +251,13 @@ export default function InterviewerDetail() {
                   )}
                 >
                   <div className="text-2xl font-semibold">Certificate</div>
-                  <div className="flex gap-4 flex-wrap">
+                  <div className="flex flex-wrap gap-4">
                     {JSON.parse(interviewer.information)?.certificate?.map(
                       (edu: any, index: any) => (
                         <div>
                           <div
                             key={index}
-                            className="text-zinc-600 mt-3 text-lg border rounded-t-lg w-fit py-2 px-2 shadow bg-emerald-50"
+                            className="px-2 py-2 mt-3 text-lg border rounded-t-lg shadow text-zinc-600 w-fit bg-emerald-50"
                           >
                             <p>Title: {edu.name}</p>
                             <p>Id: {edu.id}</p>
@@ -264,7 +265,7 @@ export default function InterviewerDetail() {
                             {/* <p>Link: {edu.url}</p> */}
                           </div>
                           <button
-                            className="shadow border rounded-b-lg bg-emerald-500 hover:bg-emerald-700 border-emerald-600  text-white p-1 text-center w-full"
+                            className="w-full p-1 text-center text-white border rounded-b-lg shadow bg-emerald-500 hover:bg-emerald-700 border-emerald-600"
                             onClick={() => handleLink(edu.url)}
                           >
                             View Project
@@ -276,7 +277,7 @@ export default function InterviewerDetail() {
                 </div>
               </div>
 
-              <div className="lg:col-span-4 md:col-span-5 sticky top-20 ">
+              <div className="sticky lg:col-span-4 md:col-span-5 top-20 ">
                 <RecInterviewerIn4Card cardData={InterviewerInformation} />
               </div>
             </div>

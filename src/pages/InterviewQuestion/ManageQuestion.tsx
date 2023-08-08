@@ -218,7 +218,7 @@ export default function QuestionInterview() {
                             leaveFrom="transform opacity-100 scale-100"
                             leaveTo="transform opacity-0 scale-95"
                           >
-                            <Menu.Items className="flex flex-col items-start w-full h-full rounded-md shadow-md bg-gray-50 aboslute ">
+                            <Menu.Items className="flex flex-col items-start w-full h-full rounded-md shadow-md bg-gray-50 aboslute max-h-[20vh] overflow-hidden overflow-y-scroll">
                               <div className="w-full h-full text-black border rounded-md border-zinc-200">
                                 {showSkills.map((skill: any) => (
                                   <Menu.Item key={skill.skillId}>
