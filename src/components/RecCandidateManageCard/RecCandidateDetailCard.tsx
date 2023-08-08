@@ -83,10 +83,10 @@ export default function RecCandidateDetailCard(props: any) {
                   <div className="relative flex items-end">
                     <img
                       src={candidate.avatar}
-                      className="rounded-full h-28 w-28 ring-4 ring-slate-50 "
+                      className="rounded-full h-28 w-28 ring-4 ring-slate-50"
                     />
-                    <div className="ms-4 mb-7">
-                      <p className="text-lg font-semibold">
+                    <div className="ms-4 mb-7 mt-7">
+                      <p className="text-2xl font-semibold">
                         {candidate?.fullName}
                       </p>
                     </div>
@@ -107,7 +107,7 @@ export default function RecCandidateDetailCard(props: any) {
                         `text-justify`,
                       )}
                     >
-                      <h1 className="text-2xl font-semibold">Description:</h1>
+                      <h1 className="text-2xl font-semibold">Description</h1>
                       {/* <p className='mt-3 text-lg text-zinc-600'>{candidate?.about}</p> */}
                       <p>{candidate?.about}</p>
                     </div>
@@ -119,13 +119,13 @@ export default function RecCandidateDetailCard(props: any) {
                           `text-justify`,
                         )}
                       >
-                        <div className="text-2xl font-semibold">Skill:</div>
+                        <div className="text-2xl font-semibold">Skill</div>
                         <div>
                           {JSON.parse(candidate.information)?.skills?.map(
                             (skill: any, index: any) => (
                               <p
                                 key={index}
-                                className="inline-flex gap-2 px-4 py-2 ml-2 text-white rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600"
+                                className="inline-flex gap-2 px-4 py-2 ml-2 text-white rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 mb-2"
                               >
                                 {skill.label}
                               </p>
