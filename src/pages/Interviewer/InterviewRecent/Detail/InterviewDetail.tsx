@@ -246,7 +246,7 @@ const InterviewDetail = () => {
                                         <th className="px-4 py-2 w-7/12">Question</th>
                                         <th className="px-4 py-2 w-2/12">Type</th>
                                         <th className="px-4 py-2 w-2/12">Skill</th>
-                                        <th className="px-4 py-2 w-1/12">Button</th>
+                                        <th className="px-4 py-2 w-1/12">Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
