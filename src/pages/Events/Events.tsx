@@ -87,38 +87,39 @@ export default function Events() {
       {/* List Blog  */}
       <div className={classNames("w-[70%]")}>
         {isLoading ? (
-          <div className="flex justify-center my-4">
-            <LoadSpinner className="text-3xl text-emerald-500" />
+          <div className="flex justify-center items-center my-4 min-h-[50vh]">
+            <LoadSpinner className="text-3xl text-emerald-700" />
           </div>
         ) : (
-          <div className="flex flex-wrap -mx-4">
-            {/* <!-- Card --> */}
-            {showEvents.length > 0 ? (
-              showEvents.map((event) => (
-                <div key={event.id} className="w-full px-4 mb-8 md:w-1/2">
-                  <BlogCard event={event} />
+          <>
+            <div className="flex flex-wrap -mx-4">
+              {/* <!-- Card --> */}
+              {showEvents.length > 0 ? (
+                showEvents.map((event) => (
+                  <div key={event.id} className="w-full px-4 mb-8 md:w-1/2">
+                    <BlogCard event={event} />
+                  </div>
+                ))
+              ) : (
+                <div className="flex justify-center w-full mb-10">
+                  <span>Không tìm thấy kết quả</span>
                 </div>
-              ))
-            ) : (
-              <div className="flex justify-center w-full mb-10">
-                <span>Không tìm thấy kết quả</span>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+            {/* Pagination  */}
+            <Pagination
+              queryConfig={queryConfig}
+              pageSize={pageSize}
+              url="/events"
+            />
+          </>
         )}
-
-        {/* Pagination  */}
-        <Pagination
-          queryConfig={queryConfig}
-          pageSize={pageSize}
-          url="/events"
-        />
       </div>
 
       {/* Most Popular  */}
       <div
         className={classNames(
-          "w-[30%] p-6 bg-white rounded-lg shadow-lg h-fit sticky top-1",
+          "w-[30%] p-6 bg-white rounded-lg shadow-lg h-fit sticky top-1 border",
         )}
       >
         <h3
@@ -130,35 +131,26 @@ export default function Events() {
         </h3>
         <div className={classNames("flex flex-col gap-4 mt-2 pt-2 border-t-2")}>
           {events.slice(0, 3).map((event) => {
-            const formattedDate = moment(event.startAt).format("Do MMMM, YYYY");
-            const maxCharacters = 10; // Số ký tự tối đa bạn muốn hiển thị
-            const title = event.title;
-
-            let shortenedTitle = title;
-
-            if (title.length > maxCharacters) {
-              shortenedTitle = title.substring(0, maxCharacters) + "...";
-            }
-
             return (
               <Link
                 to={`/events/${event.id}`}
                 className={classNames(
-                  "flex gap-3 w-full bg-gray-100 rounded-lg overflow-hidden cursor-pointer",
+                  "flex flex-col w-full bg-gray-50 rounded-lg overflow-hidden cursor-pointer",
+                  `border hover:border-emerald-700`,
                 )}
               >
-                <div className={classNames("w-[30%]")}>
+                <div className={classNames("")}>
                   <img
                     src={event.img || blog_image}
                     alt=""
-                    className={classNames("h-[100px] object-cover")}
+                    className={classNames("object-cover aspect-video")}
                   />
                 </div>
-                <div className={classNames("w-[70%]")}>
-                  <h3 className="text-base font-medium text-black capitalize">
-                    {shortenedTitle}
+                <div className={classNames("px-4 py-2")}>
+                  <h3 className="text-xs font-medium text-black capitalize line-clamp-3">
+                    {event.title}
                   </h3>
-                  <p className="text-gray-500">{formattedDate}</p>
+                  {/* <p className="text-gray-500"></p> */}
                 </div>
               </Link>
             );

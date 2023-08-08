@@ -127,7 +127,7 @@ export default function Applied(num: any) {
       ?.map((data) => data.state)
       .filter((state) => state === "PASSED").length;
 
-    if (countReceivedStates <= num.num) {
+    if (countReceivedStates < num.num) {
       toast
         .promise(StateService.changeState(data), {
           pending: `Changing`,
@@ -181,7 +181,13 @@ export default function Applied(num: any) {
         `text-justify`,
       )}
     >
-      <h1 className="text-2xl font-semibold">Applied Candidate</h1>
+      <div className="flex flex-row items-center">
+        <h1 className="text-2xl font-semibold flex-1">Applied Candidate</h1>
+        <span className="text-gray-700 text-base">
+          {applyCandidate.length} applicant
+          {applyCandidate.length > 1 ? `s` : ``}
+        </span>
+      </div>
 
       {applyCandidate?.length > 0 ? (
         <div className="relative p-4 overflow-x-auto max-h-96 h-80">

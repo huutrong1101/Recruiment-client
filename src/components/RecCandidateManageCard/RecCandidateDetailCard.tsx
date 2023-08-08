@@ -13,7 +13,7 @@ import moment from "moment";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
 import InterviewHistory from "./InterviewHistory";
 import { toast } from "react-toastify";
-import ava from "../../../images/ava.jpg";
+import ThumbnailCover from "../../../images/cover2.jpg";
 
 export default function RecCandidateDetailCard(props: any) {
   const candidate = props.candidate;
@@ -74,7 +74,7 @@ export default function RecCandidateDetailCard(props: any) {
             <div className="">
               <div className="relative w-full shrink-0">
                 <img
-                  src="../../../images/cover2.jpg"
+                  src={ThumbnailCover}
                   className="object-cover w-full h-64 shadow lg:rounded-xl "
                 />
               </div>
@@ -82,11 +82,11 @@ export default function RecCandidateDetailCard(props: any) {
                 <div className="md:w-full">
                   <div className="relative flex items-end">
                     <img
-                      src={candidate?.avatar ? candidate.avatar : ava}
-                      className="h-28 w-28 rounded-full ring-4 ring-slate-50 "
+                      src={candidate.avatar}
+                      className="rounded-full h-28 w-28 ring-4 ring-slate-50"
                     />
-                    <div className="ms-4 mb-7">
-                      <p className="text-lg font-semibold">
+                    <div className="ms-4 mb-7 mt-7">
+                      <p className="text-2xl font-semibold">
                         {candidate?.fullName}
                       </p>
                     </div>
@@ -107,7 +107,7 @@ export default function RecCandidateDetailCard(props: any) {
                         `text-justify`,
                       )}
                     >
-                      <h1 className="text-2xl font-semibold">Description:</h1>
+                      <h1 className="text-2xl font-semibold">Description</h1>
                       {/* <p className='mt-3 text-lg text-zinc-600'>{candidate?.about}</p> */}
                       <p>{candidate?.about}</p>
                     </div>
@@ -119,13 +119,13 @@ export default function RecCandidateDetailCard(props: any) {
                           `text-justify`,
                         )}
                       >
-                        <div className="text-2xl font-semibold">Skill:</div>
+                        <div className="text-2xl font-semibold">Skill</div>
                         <div>
                           {JSON.parse(candidate.information)?.skills?.map(
                             (skill: any, index: any) => (
                               <p
                                 key={index}
-                                className="inline-flex gap-2 px-4 py-2 ml-2 text-white rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600"
+                                className="inline-flex gap-2 px-4 py-2 mb-2 ml-2 text-white rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600"
                               >
                                 {skill.label}
                               </p>
@@ -260,12 +260,12 @@ export default function RecCandidateDetailCard(props: any) {
                       )}
                     >
                       <RecCandidateinfoCard cardData={CandidateInformaiton} />
-                      <div className="mt-3 flex w-full bg-white p-3 items-center justify-center rounded-md shadow ">
+                      <div className="flex items-center justify-center w-full p-3 mt-3 bg-white rounded-md shadow ">
                         {candidate?.resumeDetailDTO ? (
-                          <div className="flex justify-center items-center">
+                          <div className="flex items-center justify-center">
                             <GrDocumentText />
                             <span
-                              className="font-medium ms-2 hover:underline cursor-pointer"
+                              className="font-medium cursor-pointer ms-2 hover:underline"
                               onClick={handleEdit}
                             >
                               {candidate?.resumeDetailDTO?.name}
