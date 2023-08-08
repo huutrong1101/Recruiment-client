@@ -39,19 +39,22 @@ export default function JobCard({ job }: JobCardProps) {
           `p-6 bg-white rounded-lg shadow-sm border hover:border-emerald-700`,
           `ease-in-out duration-75 hover:shadow-md`,
           `flex flex-row md:flex-col`,
+          `transition-all ease-in-out duration-75`,
+          `cursor-pointer`,
         )}
       >
         <div className={classnames("w-8/12 md:w-full")}>
           <h3
             className={classnames(
-              "text-black text-md font-bold leading-7 tracking-wider capitalize break-words min-h-12 break-normal",
+              "text-black text-md font-bold leading-5 min-h-12 break-normal line-clamp-1 hover:line-clamp-none",
+              `transition-all ease-in-out duration-75`,
             )}
           >
-            {shortenedTitle}
+            {title}
           </h3>
           <div
             className={classnames(
-              "mt-2 text-gray-600 text-sm flex flex-row items-center justify-between gap-1",
+              "mt-2 text-gray-600 flex flex-row items-center justify-between gap-1 text-xs",
             )}
           >
             <div>
