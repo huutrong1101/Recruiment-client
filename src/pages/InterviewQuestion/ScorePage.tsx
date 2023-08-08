@@ -66,9 +66,10 @@ export default function ScorePage() {
   const handleChangeSkillQ = (event: any) => {
     setSkillQ(event.target.value);
   };
-  const handleSubmitQ = async () => {
-    await dispatch(addQuestionToRepo({ ID, contentQ, noteQ, typeQ, skillQ }));
-    dispatch(fetchINTAssignedQuestions(id));
+  const handleSubmitQ = async (event : any) => {
+      event.preventDefault()
+      await dispatch(addQuestionToRepo({ ID, contentQ, noteQ, typeQ, skillQ }));
+      dispatch(fetchINTAssignedQuestions(id));
   };
 
   const handleDelete = async (question: any) => {
@@ -247,9 +248,9 @@ export default function ScorePage() {
                           {truncatedString(item.content)}
                         </td>
                         <td className="px-2 py-2">{item.typeQuestion}</td>
-                        <td className="px-2 py-2">{item.skill}</td>
-                        <td className="px-4 py-2">
-                          <div className="flex items-center">
+                        <td className="px-2 py-2 text-center">{item.skill}</td>
+                        <td className="px-4 py-2 text-center">
+                          <div className="flex items-center justify-center">
                             <TrashIcon
                               onClick={() => {
                                 handleDelete(item);
@@ -333,7 +334,7 @@ export default function ScorePage() {
                     },
                   }}
                 >
-                  <div>
+                  <form onSubmit={ (event : any) => {handleSubmitQ(event)}}>
                     <div className="text-lg font-semibold">Content: </div>
                     <textarea
                       id="content"
@@ -394,10 +395,7 @@ export default function ScorePage() {
                     <div className="flex justify-end mt-4">
                       <button
                         className="bg-green-600 hover:bg-green-800 text-white font-bold py-1.5 px-2.5 rounded mr-2"
-                        onClick={() => {
-                          handleSubmitQ();
-                          handleCloseModal();
-                        }}
+                        type="submit"
                       >
                         Add
                       </button>
@@ -408,7 +406,7 @@ export default function ScorePage() {
                         Close
                       </button>
                     </div>
-                  </div>
+                  </form>
                 </Modal>
               </div>
               {/*    <Link to={`/interviewer/interview-recent/${ID}`}> */}
