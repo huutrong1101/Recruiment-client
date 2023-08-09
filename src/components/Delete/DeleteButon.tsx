@@ -27,7 +27,7 @@
 //     const userIdAsAcountInterface: AcountInterface = job.id;
 //     await handleDeleteUser(userIdAsAcountInterface);
 //   };
-  
+
 //   return (
 //     <Button
 //       onClick={handleDelete}

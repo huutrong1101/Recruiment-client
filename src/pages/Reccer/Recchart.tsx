@@ -10,7 +10,7 @@ import { useState } from "react";
 const LineChart = ({ showdata }: any) => {
   const chartData = showdata.length > 0 && [...showdata];
   let data: any[] = [];
-  console.log(chartData)
+  console.log(chartData);
   if (chartData) {
     data = [
       {

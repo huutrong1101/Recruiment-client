@@ -146,7 +146,7 @@ export default function Paginationacountlist({ queryConfig, pageSize }: Props) {
                 }}
                 className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"
               >
-               Next
+                Next
               </Link>
             )}
           </li>

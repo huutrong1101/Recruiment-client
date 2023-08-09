@@ -58,8 +58,16 @@ export default function ReccerJobDetail() {
   useEffect(() => {
     if (job) {
       setJobInformation([
-        { icon: <UserIcon />, name: "Employee Type", value: JOB_POSITION[job.jobType] },
-        { icon: <MapPinIcon />, name: "Location", value: JOB_POSITION[job.location] },
+        {
+          icon: <UserIcon />,
+          name: "Employee Type",
+          value: JOB_POSITION[job.jobType],
+        },
+        {
+          icon: <MapPinIcon />,
+          name: "Location",
+          value: JOB_POSITION[job.location],
+        },
         {
           icon: <ComputerDesktopIcon />,
           name: "Position",
@@ -178,7 +186,8 @@ export default function ReccerJobDetail() {
           </>
         ) : (
           <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-30 mb-30">
-          <LoadSpinner className="text-2xl"/> </div>
+            <LoadSpinner className="text-2xl" />{" "}
+          </div>
         )}
       </div>
     </>

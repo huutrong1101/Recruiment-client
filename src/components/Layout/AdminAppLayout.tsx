@@ -7,7 +7,6 @@ import DashboardFooter from "../RecFooter/DashboardFooter";
 export default function AdminAppLayout() {
   return (
     <div className="flex">
-
       <div className="w-2/3 flex flex-col">
         <div className="ml-[0.5%]">
           {/* <button className="group relative h-12 w-[5%] overflow-hidden rounded-lg bg-white text-lg ">

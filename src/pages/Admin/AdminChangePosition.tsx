@@ -3,10 +3,10 @@ import axiosInstance from "../../utils/AxiosInstance";
 import classnames from "classnames";
 import { toast } from "react-toastify";
 import image from "../../../images/sprite.png";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { NavLink } from "react-router-dom";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
@@ -19,12 +19,14 @@ export default function AdminChangePosition() {
   const [role, setRole] = useState("");
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
-      setOpen(true);
+    setOpen(true);
   };
   const handleClose = () => {
-      setOpen(false);
+    setOpen(false);
   };
-  const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleDropdownChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
     setRole(event.target.value);
   };
   const isValidEmail = (email) => {
@@ -33,10 +35,14 @@ export default function AdminChangePosition() {
     // Regular expression to match Gmail email format
     const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
     // Regular expression to match company email format
-    const companyPattern = /^[a-zA-Z0-9._%+-]+@(?:(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})$/;  
-    return emailPattern.test(email) && (gmailPattern.test(email) || companyPattern.test(email));
+    const companyPattern =
+      /^[a-zA-Z0-9._%+-]+@(?:(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})$/;
+    return (
+      emailPattern.test(email) &&
+      (gmailPattern.test(email) || companyPattern.test(email))
+    );
   };
-   const [isPending, setIsPending] = useState(false);
+  const [isPending, setIsPending] = useState(false);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsPending(true); // Thiết lập trạng thái pending khi bắt đầu gửi yêu cầu
@@ -45,7 +51,7 @@ export default function AdminChangePosition() {
     const inputPhone = phone;
     const isValidPhone = /^\d{10,11}$/.test(inputPhone);
     if (!isValidPhone) {
-      toast.error('Please enter a valid phone number with 10 or 11 digits.');
+      toast.error("Please enter a valid phone number with 10 or 11 digits.");
       return;
     } else {
       setPhone(inputPhone);
@@ -66,7 +72,7 @@ export default function AdminChangePosition() {
     ) {
       toast.error("Please fill in all required fields.");
       return;
-    }    
+    }
 
     if (role !== undefined) {
       const userData = {
@@ -76,8 +82,9 @@ export default function AdminChangePosition() {
         password: password,
         role: role,
       };
-            // Make the API request to create the user
-      axiosInstance.post(`admin/usercreate`, userData)
+      // Make the API request to create the user
+      axiosInstance
+        .post(`admin/usercreate`, userData)
         .then((response) => {
           // Handle success
           toast.success(response.data.message);
@@ -88,7 +95,7 @@ export default function AdminChangePosition() {
         })
         .finally(() => {
           setIsPending(false); // Thiết lập trạng thái pending về false khi kết thúc yêu cầu (bất kể thành công hoặc lỗi)
-        });;
+        });
     } else {
       toast.error("Error:");
     }
@@ -111,9 +118,7 @@ export default function AdminChangePosition() {
                   Recruiter & Interview Account
                 </span>
               </div>
-              <div
-                className="flex-1 flex flex-col gap-2"
-              >
+              <div className="flex-1 flex flex-col gap-2">
                 {/* Name */}
                 <div className="grid grid-cols-1">
                   <div className="px-3 py-3 font-semibold text-black capitalize leading-7 tracking-wide ">
@@ -173,7 +178,8 @@ export default function AdminChangePosition() {
                 {/*  */}
                 <div className="grid grid-cols-1">
                   <div className="px-3 py-3 font-semibold text-black capitalize leading-7 tracking-wide">
-                    Choossen Role for account:                 </div>
+                    Choossen Role for account:{" "}
+                  </div>
 
                   <select
                     value={role}
@@ -193,9 +199,7 @@ export default function AdminChangePosition() {
                       type="button"
                       className="text-white rounded-xl bg-red-600 py-2 px-4 mr-5 hover:bg-red-800 font-bold"
                     >
-                      <NavLink to={`/admin/users`}>
-                      Cancel
-                      </NavLink>
+                      <NavLink to={`/admin/users`}>Cancel</NavLink>
                     </button>
                     <button
                       onClick={handleClickOpen}
@@ -204,50 +208,54 @@ export default function AdminChangePosition() {
                       Save
                     </button>
                     <Dialog
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="alert-dialog-title"
+                      aria-describedby="alert-dialog-description"
                     >
-                        <div className="text-center px-6">
+                      <div className="text-center px-6">
                         <DialogContent className="font-semibold text-lg">
-                          <p className="mb-3">  Are you sure you want to create account ?</p>
+                          <p className="mb-3">
+                            {" "}
+                            Are you sure you want to create account ?
+                          </p>
                           <div className="border rounded-lg p-4 text-justify">
                             <h2 className="text-e-justify">Name: {name}</h2>
                             <h2 className="text-e-justify">Email: {email}</h2>
-                            <h2 className="text-e-justify">Password: {password}</h2>
+                            <h2 className="text-e-justify">
+                              Password: {password}
+                            </h2>
                             <h2 className="text-e-justify">Role: {role}</h2>
-                          </div>                        
+                          </div>
                         </DialogContent>
                         <DialogContentText
-                            id="alert-dialog-description"
-                            className="bg-orange-50"
+                          id="alert-dialog-description"
+                          className="bg-orange-50"
                         >
-                            <div className="flex border rounded-lg p-4 text-justify">
-                              <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
-                              <p className="flex text-red-800 font-semibold px-2">
-                                  WARNING: You definitely want to continue
-                              </p>
-                            </div>                           
+                          <div className="flex border rounded-lg p-4 text-justify">
+                            <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
+                            <p className="flex text-red-800 font-semibold px-2">
+                              WARNING: You definitely want to continue
+                            </p>
+                          </div>
                         </DialogContentText>
-                    </div>
-                        <DialogActions style={{ justifyContent: 'center' }}>
+                      </div>
+                      <DialogActions style={{ justifyContent: "center" }}>
                         <button
-                            className="rounded-lg bg-red-700 px-3 py-3 mx-1 my-1 text-white hover:bg-red-900"
-                            onClick={handleClose}
-                            >
-                            Cancel
-                            </button>
-                            <button
-                              className="rounded-lg bg-[#059669] hover:bg-green-900  px-3 py-3 mx-1 my-1 text-white"
-                              onClick = {handleSubmit}
-                              type="submit"
-                            >
-                            Agree
+                          className="rounded-lg bg-red-700 px-3 py-3 mx-1 my-1 text-white hover:bg-red-900"
+                          onClick={handleClose}
+                        >
+                          Cancel
                         </button>
-                        </DialogActions>
+                        <button
+                          className="rounded-lg bg-[#059669] hover:bg-green-900  px-3 py-3 mx-1 my-1 text-white"
+                          onClick={handleSubmit}
+                          type="submit"
+                        >
+                          Agree
+                        </button>
+                      </DialogActions>
                     </Dialog>
-
                   </div>
                 </div>
               </div>
@@ -279,10 +287,12 @@ export default function AdminChangePosition() {
                     `italic`,
                   )}
                 >
-                  This page allows the admin to create new accounts for recruiters and interviewers, 
-                  providing them with necessary access. Admins can easily manage user details, set roles, 
-                  and ensure smooth onboarding. Streamlining the process, the admin takes charge of maintaining 
-                  an efficient platform for all users.
+                  This page allows the admin to create new accounts for
+                  recruiters and interviewers, providing them with necessary
+                  access. Admins can easily manage user details, set roles, and
+                  ensure smooth onboarding. Streamlining the process, the admin
+                  takes charge of maintaining an efficient platform for all
+                  users.
                 </p>
                 {/* <Loader/> */}
                 <img
@@ -293,8 +303,8 @@ export default function AdminChangePosition() {
                     `absolute`,
                     `w-[200px]`,
                     "right-5 bottom-[-230px] absolute w-[150px]",
-                    "animate-spin-vertical"
-                   )}
+                    "animate-spin-vertical",
+                  )}
                 />
               </div>
             </div>

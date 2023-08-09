@@ -35,7 +35,6 @@ import { toast } from "react-toastify";
 import { JobService } from "../../../services/JobService";
 
 export default function ReccerJobDetail() {
-
   const [jobInformation, setJobInformation] = useState([
     { icon: <UserIcon />, name: "", value: "" },
   ]);
@@ -69,15 +68,15 @@ export default function ReccerJobDetail() {
           value: job.jobType,
         },
       ]);
-      setName(job?.name || '')
-      setDescription(job?.description || '')
-      setQuantity(job?.quantity)
-      setRequirement(job?.requirement || '')
-      setBenefit(job?.benefit || '')
-      setSkillsRequired(job?.skills.name || [])
-      setSalaryRange(job?.salaryRange || '')
-      setDeadline(job.deadline || '')
-      setjobactive(job.isActive)
+      setName(job?.name || "");
+      setDescription(job?.description || "");
+      setQuantity(job?.quantity);
+      setRequirement(job?.requirement || "");
+      setBenefit(job?.benefit || "");
+      setSkillsRequired(job?.skills.name || []);
+      setSalaryRange(job?.salaryRange || "");
+      setDeadline(job.deadline || "");
+      setjobactive(job.isActive);
     }
   }, [job]);
 
@@ -142,32 +141,26 @@ export default function ReccerJobDetail() {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     if (name === "") {
-      toast.error('Please enter Job Name');
-      return
-    }
-    else if (quantity === 0) {
-      toast.error('Please enter Quantity');
-      return
-    }
-    else if (description === "") {
-      toast.error('Please enter Description');
-      return
-    }
-    else if (requirement === "") {
-      toast.error('Please enter Requirement');
-      return
-    }
-    else if (benefit === "") {
-      toast.error('Please enter Benefit');
-      return
-    }
-    else if (selectedValues.length === 0) {
-      toast.error('Please select Skills');
-      return
-    }
-    else if (salaryRange === "") {
-      toast.error('Please enter Salary');
-      return
+      toast.error("Please enter Job Name");
+      return;
+    } else if (quantity === 0) {
+      toast.error("Please enter Quantity");
+      return;
+    } else if (description === "") {
+      toast.error("Please enter Description");
+      return;
+    } else if (requirement === "") {
+      toast.error("Please enter Requirement");
+      return;
+    } else if (benefit === "") {
+      toast.error("Please enter Benefit");
+      return;
+    } else if (selectedValues.length === 0) {
+      toast.error("Please select Skills");
+      return;
+    } else if (salaryRange === "") {
+      toast.error("Please enter Salary");
+      return;
     }
     const data = {
       name,
@@ -314,7 +307,7 @@ export default function ReccerJobDetail() {
               <button
                 onClick={handleSubmit}
                 className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-2 my-1 text-white"
-              // onClick={routeChange}
+                // onClick={routeChange}
               >
                 Save
               </button>

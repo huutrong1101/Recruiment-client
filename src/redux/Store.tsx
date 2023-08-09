@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import HomeSlice from "../pages/Home/slices/HomeSlice";
 import NavbarSlice from "../components/Navbar/slices/NavbarSlice";
 
-/// 
+///
 import INTInterviewsReducer from "./reducer/INTInterviewsSlice";
 import INTCandidatesReducer from "./reducer/INTCandidatesSlice";
 import INTQuestionsReducer from "./reducer/INTQuestionsSlice";
@@ -46,7 +46,7 @@ export const ApplicationStore = configureStore({
 
     RecJobList: RecJobListSlice,
     RecInterviewerList: RecInterviewerSilce,
-    RecDashboardList:RecdashboardSlice,
+    RecDashboardList: RecdashboardSlice,
 
     // Admin
     adminmanagerjobList: AdminListJobRecentSlice,

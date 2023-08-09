@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { STATUS } from "../../utils/Status";
 
-
 const RecDashboardSlice = createSlice({
   name: "RecDashboardList",
   initialState: {
@@ -19,8 +18,5 @@ const RecDashboardSlice = createSlice({
 });
 
 export default RecDashboardSlice.reducer;
-export const { setrecDashboardList, setrecDashboardListStatus} =
-RecDashboardSlice.actions;
-
-
-
+export const { setrecDashboardList, setrecDashboardListStatus } =
+  RecDashboardSlice.actions;

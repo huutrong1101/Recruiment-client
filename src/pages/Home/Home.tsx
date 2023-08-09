@@ -63,8 +63,6 @@ export default function Home() {
     }
   };
 
-  
-
   return (
     <div className={classnames("h-full")}>
       {/* Hero */}

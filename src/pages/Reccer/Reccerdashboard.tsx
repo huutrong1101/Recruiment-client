@@ -21,7 +21,6 @@ import { current } from "@reduxjs/toolkit";
 import { HiOutlineArrowTrendingUp } from "react-icons/hi2";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
-
 export default function Reccer_dashboard() {
   const dispatch = useAppDispatch();
 
@@ -83,8 +82,7 @@ export default function Reccer_dashboard() {
 
             <div className="mb-4 bg-white border hover:shadow-lg duration-500 rounded-2xl">
               <p className="px-[5%] pt-[3%] font-semibold text-2xl">
-              General Analytic
-
+                General Analytic
               </p>
 
               <div className="h-[400px]">

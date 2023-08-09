@@ -51,8 +51,6 @@ export default function EditJobCard({
     getJobDetail();
   }, [jobId]);
 
-
-
   setpositionId(listData[0]);
   setLocation(listData[1]);
   setjobType(listData[2]);
@@ -64,19 +62,17 @@ export default function EditJobCard({
     value: item,
   }));
 
-
   const formattedEmployeeType = employeeType.map((item, index) => ({
     id: index + 1,
     value: item,
   }));
-
 
   const formattedJobType = jobType.map((item, index) => ({
     id: index + 1,
     value: item,
   }));
 
-  const currentDate = new Date()
+  const currentDate = new Date();
   const JobData: JobDataInterface = {
     listJobInfoSearch: {
       "Employee Type": formattedEmployeeType,
