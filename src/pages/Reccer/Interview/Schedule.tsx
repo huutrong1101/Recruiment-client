@@ -1,35 +1,144 @@
+import { TrashIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
-import { PlusIcon, TrashIcon, UserPlusIcon } from "@heroicons/react/24/outline";
-import { TextareaAutosize } from "@mui/material";
-import InterviewerPopup from "./InterviewerPopup";
-// import InterviewerPopup from "./test";
+import dayjs, { Dayjs } from "dayjs";
+import * as React from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import { InterviewService } from "../../../services/InterviewService";
+import { StateService } from "../../../services/changeState";
+import axiosInstance from "../../../utils/AxiosInstance";
+import DatePicker from "./DatePicker";
+import InterviewerPopup, { Interviewer } from "./InterviewerPopup";
+
+interface UserProps {
+  userId: string;
+  jobApplyId: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  address: string;
+  dateOfBirth: Date;
+  skills: Skill[];
+  education: string;
+  experience: string;
+  certificate: string;
+  prize: string;
+  course: string | null;
+  project: string;
+  socialActivity: string;
+  resumeUpload: string;
+}
+
+interface Skill {
+  skillId: string;
+  name: string;
+}
 
 export default function Schedule() {
-  const personArray = [
-    {
-      name: "John Doe",
-      email: "johndoe@example.com",
-      phone: "111222333",
-      date: new Date().toDateString(),
-      id: "1",
-    },
-  ];
-  const interviewerArray = [
-    {
-      name: "Sarah Wilson",
-      email: "johndoe@example.com",
-      phone: "111222333",
-      date: new Date().toDateString(),
-      id: "1",
-    },
-    {
-      name: "Mark Thompson",
-      email: "johndoe@example.com",
-      phone: "111222333",
-      date: new Date().toDateString(),
-      id: "2",
-    },
-  ];
+  const { userId, jobId } = useParams();
+
+  const [interviewerArray, setInterviewers] = useState<any[]>([]);
+
+  const [candidate, setCandidate] = useState<UserProps>();
+
+  const [selectedDate, setSelectedDate] = React.useState<Dayjs | null>(dayjs());
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const currentDate = new Date();
+
+  useEffect(() => {
+    setIsLoading(true);
+    try {
+      const fetchDataCandidate = async () => {
+        const res = await axiosInstance.get(
+          `recruiter/job/${jobId}/candidates/${userId}`,
+        );
+        setCandidate(res.data.result);
+      };
+      fetchDataCandidate();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const handleOnSelectInterviewer = (newListInterviewer: Interviewer[]) => {
+    setInterviewers(newListInterviewer);
+  };
+
+  const handleDeleteInterviewer = (interviewerId: string) => {
+    const newList = interviewerArray.filter(
+      (interviewer: any) => interviewer.interviewerId !== interviewerId,
+    );
+    setInterviewers(newList);
+  };
+
+  const handleDateChange = (date: Dayjs | null) => {
+    setSelectedDate(date);
+  };
+
+  const handleCreateInterview = () => {
+    const listInterviewersId = interviewerArray.map(
+      (interviewer) => interviewer.interviewerId,
+    );
+    const selectedDateTime = selectedDate?.toDate(); // Chuyển ngày và giờ đã chọn sang dạng Date
+
+    if (selectedDateTime && selectedDateTime < new Date()) {
+      // Kiểm tra nếu ngày và giờ đã chọn trước thời gian hiện tại
+      toast.error("The selected date and time is in the past.");
+      return; // Dừng quá trình tạo buổi phỏng vấn
+    }
+
+    if (listInterviewersId.length === 0) {
+      toast.error("Please select at least one interviewer.");
+      return; // Dừng quá trình tạo buổi phỏng vấn
+    }
+
+    const timeFormat = selectedDate?.format("YYYY-MM-DDTHH:mm:ss.SSSZ");
+
+    const data = {
+      jobApplyId: candidate?.jobApplyId || "",
+      time: timeFormat || "",
+      interviewersId: listInterviewersId,
+    };
+
+    toast
+      .promise(InterviewService.createInterview(data), {
+        pending: "Creating the interview",
+        success: "The interview was created",
+      })
+      .then(() => {
+        handleChangeState();
+        routeChange();
+      })
+      .catch((error) => toast.error(error.response.data.message));
+  };
+
+  const handleChangeState = () => {
+    const data = {
+      candidateId: userId || "",
+      jobId: jobId || "",
+      state: "received",
+    };
+    StateService.changeState(data);
+  };
+
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = `../jobdetail/${jobId}`;
+    navigate(path);
+  };
+
+  const handleOnClick = () => {
+    // console.log("check");
+    handleCreateInterview();
+    // handleChangeState();
+    // routeChange();
+  };
 
   return (
     <div
@@ -43,11 +152,14 @@ export default function Schedule() {
         <h1 className="text-2xl font-semibold">Schedule</h1>
 
         {/* Add Interviewer */}
-        <InterviewerPopup />
+        <InterviewerPopup
+          interviewers={interviewerArray}
+          onSelectInterviewer={handleOnSelectInterviewer}
+        />
         {/* /////// */}
       </div>
 
-      <div className="overflow-x-auto p-4">
+      <div className="p-4 overflow-x-auto">
         <table className="w-full text-sm text-left text-gray-500">
           {/* Candidate's info */}
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
@@ -61,33 +173,43 @@ export default function Schedule() {
               <th scope="col" className="px-6 py-4">
                 Email
               </th>
-              <th scope="col" className="px-6 py-4">
+              {/* <th scope="col" className="px-6 py-4">
                 Date created
-              </th>
+              </th> */}
               <th scope="col" className="py-4">
                 Delete
               </th>
             </tr>
           </thead>
           <tbody>
-            {personArray.map((personArray) => (
-              <tr className="bg-white border-b " key={personArray.id}>
-                <td
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-                >
-                  {personArray.name}
-                </td>
-                <td className="px-6 py-4">{personArray.phone}</td>
-                <td className="px-6 py-4">{personArray.email}</td>
-                <td className="px-6 py-4">{personArray.date}</td>
-                <td className="px-4 py-4">
-                  <button>
-                    <TrashIcon className="w-6 h-6" />
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {isLoading ? (
+              <div className="flex justify-center my-4">
+                <LoadSpinner className="text-3xl text-emerald-500" />
+              </div>
+            ) : (
+              <>
+                {candidate && (
+                  <>
+                    <tr className="bg-white border-b " key={candidate.userId}>
+                      <td
+                        scope="row"
+                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                      >
+                        {candidate.fullName}
+                      </td>
+                      <td className="px-6 py-4">{candidate.phone}</td>
+                      <td className="px-6 py-4">{candidate.email}</td>
+
+                      {/* <td className="px-4 py-4">
+                        <button>
+                          <TrashIcon className="w-6 h-6" />
+                        </button>
+                      </td> */}
+                    </tr>
+                  </>
+                )}
+              </>
+            )}
           </tbody>
           {/* ////////////// */}
           {/* Interviewer Info */}
@@ -102,28 +224,32 @@ export default function Schedule() {
               <th scope="col" className="px-6 py-4">
                 Email
               </th>
-              <th scope="col" className="px-6 py-4">
+              {/* <th scope="col" className="px-6 py-4">
                 Date created
-              </th>
+              </th> */}
               <th scope="col" className="py-4">
                 Delete
               </th>
             </tr>
           </thead>
           <tbody>
-            {interviewerArray.map((interviewerArray) => (
-              <tr className="bg-white border-b" key={interviewerArray.id}>
+            {interviewerArray.map((interviewers, index) => (
+              <tr className="bg-white border-b" key={index}>
                 <td
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
                 >
-                  {interviewerArray.name}
+                  {interviewers.fullName}
                 </td>
-                <td className="px-6 py-4">{interviewerArray.phone}</td>
-                <td className="px-6 py-4">{interviewerArray.email}</td>
-                <td className="px-6 py-4">{interviewerArray.date}</td>
+                <td className="px-6 py-4">{interviewers.phone}</td>
+                <td className="px-6 py-4">{interviewers.email}</td>
+                {/* <td className="px-6 py-4">{interviewer.date}</td> */}
                 <td className="px-4 py-4">
-                  <button>
+                  <button
+                    onClick={() =>
+                      handleDeleteInterviewer(interviewers.interviewerId)
+                    }
+                  >
                     <TrashIcon className="w-6 h-6" />
                   </button>
                 </td>
@@ -132,31 +258,35 @@ export default function Schedule() {
           </tbody>
           {/* /////////// */}
         </table>
-        <div
-          className={classNames(
-            `text-sm text-gray-700 uppercase bg-gray-50 font-bold`,
-            `px-6 py-4 flex flex-col`,
-          )}
-        >
-          Interview Link:
-          <TextareaAutosize
-            minRows={1}
-            className={classNames(
-              `w-full resize-none px-1 text-sm bg-white border rounded-lg`,
-            )}
-            placeholder="https://meet.google.com/sxi-erat-ejf?authuser=1"
-          ></TextareaAutosize>
-        </div>
       </div>
-      <div className={classNames(`flex justify-center`)}>
+      <div className="flex items-start justify-start w-1/2 gap-3 px-4">
+        <h1>Choose Date</h1>
+        <DatePicker
+          value={selectedDate}
+          onChange={handleDateChange}
+          // minDate={currentDate}
+        />
+      </div>
+      <div className={classNames(`flex justify-center gap-10`)}>
         <button
           className={classNames(
             `text-lg font-normal text-white`,
             `flex items-center`,
-            `bg-emerald-700 py-2 px-4 rounded-xl`,
+            `bg-[#059669] hover:bg-green-900 py-2 px-4 rounded-xl`,
           )}
+          onClick={handleOnClick}
         >
           Save
+        </button>
+        <button
+          className={classNames(
+            `text-lg font-normal text-white`,
+            `flex items-center`,
+            `text-white bg-red-700 hover:bg-red-900 py-2 px-4 rounded-xl`,
+          )}
+          onClick={routeChange}
+        >
+          Cancel
         </button>
       </div>
     </div>

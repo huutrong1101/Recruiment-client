@@ -1,10 +1,8 @@
-import React from "react";
-import AvatarCandidate from "../../components/Candidate/Avatar";
 import {
-  ArrowDownTrayIcon,
-  DocumentTextIcon,
   DocumentArrowDownIcon,
+  DocumentTextIcon,
 } from "@heroicons/react/24/outline";
+import AvatarCandidate from "../../components/Candidate/Avatar";
 
 function CandidateProfile() {
   const avatarUrl = "../../../images/ava.jpg";
@@ -153,10 +151,7 @@ function CandidateProfile() {
               </thead>
               <tbody>
                 {interviewHistory.map((interviewHistory, index) => (
-                  <tr
-                    className="bg-white border-b"
-                    key={index}
-                  >
+                  <tr className="bg-white border-b" key={index}>
                     <td
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "

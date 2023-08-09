@@ -1,112 +1,204 @@
-import React, {useState, } from "react";
-import classnames from "classnames";
-import blog_image from "../../../images/blog_image.png";
-import { Link, NavLink } from "react-router-dom";
-import { data } from "../../data/homeData";
-import {  ArrowRightIcon,  CalendarDaysIcon,  ClockIcon,} from "@heroicons/react/24/outline";
-import SearchBar from "../../components/Search/Search";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import classNames from "classnames";
+import { isEqual, isUndefined, omitBy } from "lodash";
+import qs from "query-string";
+import { useEffect, useState } from "react";
+import { createSearchParams, useNavigate } from "react-router-dom";
+import RecruiterBlogCard from "../../components/BlogCard/RecruiterBlogCard";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import Pagination from "../../components/Pagination/Pagination";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
+import { useAppSelector } from "../../hooks/hooks";
+import useQueryParams from "../../hooks/useQueryParams";
+import { EventInterface, EventListConfig } from "../../services/services";
+import axiosInstance from "../../utils/AxiosInstance";
+
+export type QueryConfig = {
+  [key in keyof EventListConfig]: string;
+};
 export default function ReccerEventManagement() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // Perform search operation with the searchQuery
-    console.log('Searching for:', searchQuery);
-    // Reset searchQuery
-    setSearchQuery('');
-  };
-  const [ShowSearch, SearchListTrue] = useState(false) ;
-  const handleShowData1 = () => {
-    SearchListTrue(true);
-    // ShowTabaradmin1(false);
+  const events: EventInterface[] = useAppSelector((state) => state.Home.events);
+
+  const totalEvents = useAppSelector((state) => state.Home.totalEvents);
+
+  const queryParams: QueryConfig = useQueryParams();
+
+  const queryConfig: QueryConfig = omitBy(
+    {
+      index: queryParams.index || "1",
+      size: queryParams.size || 8,
+      state: queryParams.state || true,
+      name: queryParams.name || "",
+    },
+    isUndefined,
+  );
+
+  const [showEvents, setShowEvents] = useState(events);
+
+  const [pageSize, setPageSize] = useState(
+    Math.ceil(totalEvents / Number(queryParams.size || 8)),
+  );
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [prevQueryConfig, setPrevQueryConfig] =
+    useState<QueryConfig>(queryConfig);
+  useEffect(() => {
+    const fetchPosition = async () => {
+      setIsLoading(true);
+      try {
+        if (queryConfig) {
+          const query = qs.stringify(queryConfig);
+          const response = await axiosInstance(`/recruiter/events?${query}`);
+          setShowEvents(response.data.result.content);
+          setPageSize(response.data.result.totalPages);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchPosition();
+  }, []);
+
+  useEffect(() => {
+    if (!isEqual(prevQueryConfig, queryConfig)) {
+      const fetchJobs = async () => {
+        setIsLoading(true);
+        try {
+          const query = qs.stringify(queryConfig);
+          const response = await axiosInstance(`/recruiter/events?${query}`);
+          setShowEvents(response.data.result.content);
+          setPageSize(response.data.result.totalPages);
+          console.log(response.data.result.content);
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetchJobs();
+      setPrevQueryConfig(queryConfig);
+    }
+  }, [queryConfig, prevQueryConfig]);
+
+  // Search
+  const navigate = useNavigate();
+  const [dataSearch, setDataSearch] = useState({
+    key: "",
+  });
+  const handleSearch = async (e: any) => {
+    e.preventDefault();
+    try {
+      setIsLoading(true);
+      navigate({
+        pathname: "/recruiter/events",
+        search: createSearchParams({
+          ...queryConfig,
+          index: "1",
+          name: dataSearch.key,
+        }).toString(),
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
   return (
     <>
-      {/* Search */}
-      <div className="justify-center flex grid-cols-[100%] sm:grid-cols-[15%,60%,25%] gap-1 mx-auto lg:grid-cols-[25%,60%,25%] ">
-          <SearchBar />
-      </div>
-      {/* Add Event */}
-      <NavLink to="/recruiter/events-add" onClick={() => {}}>
-        <button className="text-white shadow text-sm font-medium leading-tight flex py-2 px-2 justify-start bg-emerald-600 rounded-xl ">
-          + Add Event
-        </button>
-      </NavLink>
-      
-      {/* Conten */}
       <div>
-        <div className="flex flex-wrap -mx-4 mt-[50px]">
-          {/* <!-- Card --> */}
-          {data.listEvent &&
-            data.listEvent.map((event) => (
-              <div key={event.id} className="w-full px-4 mb-8 md:w-1/3">
-                {/* <BlogCard event={event} /> */}
-                <div className="bg-white rounded-lg shadow-lg">
-                  <div className={classnames("w-full")}>
-                    <img
-                      src={blog_image}
-                      alt="blog_image"
-                      className={classnames("w-full")}
-                    />
-                  </div>
-                  <div className={classnames("p-6")}>
-                    <div className={classnames("flex items-center justify-between")}>
-                      <div className={classnames("flex items-center gap-1")}>
-                        <CalendarDaysIcon className={classnames(`w-[20px]`)} />
-                        <p>{event.date}</p>
-                      </div>
-                      <div className={classnames("flex items-center gap-1")}>
-                        <ClockIcon className={classnames(`w-[20px]`)} />
-                        <p>{event.time} min</p>
-                      </div>
-                    </div>
-                    <div className={classnames("mt-2")}>
-                      <h3
-                        className={classnames(
-                          "text-black text-base font-medium leading-7 tracking-wider capitalize",
-                        )}
-                      >
-                        {event.title}
-                      </h3>
-                    </div>
-                    <div className={classnames("mt-6 flex items-center justify-center")}>
-                      <Link
-                        to={`${event.id}`} 
-                        className={classnames(
-                          "bg-emerald-700 text-white p-2 rounded-md flex",
-                        )}
-                      >
-                        Read More
-                        <ArrowRightIcon className={classnames(`w-[20px] ml-1`)} />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-        </div>
-      </div>
-      <div>
-          {/* Pagination  */}
-          <nav
-          aria-label="Page navigation example"
-          className="flex items-center justify-center"
-        >
-          <ul className="flex list-style-none">
-            <li>
-              <a className="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-500 transition-all duration-300 hover:bg-neutral-100">
-                Previous
-              </a>
-            </li>           
-            <li>
-              <a
-                className="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100"
-                href="#!"
+        <div className={classNames("flex mt-5 item-center gap-4")}>
+          <form
+            onSubmit={(e) => handleSearch(e)}
+            className={classNames(`flex flex-row gap-2 items-center`)}
+          >
+            <div
+              className={classNames(
+                "flex justify-center items-center w-full border rounded-xl",
+                "focus-within:border-emerald-400 w-full",
+              )}
+            >
+              {/* <BsFilterLeft className={classNames(`ml-4 mr-4`)} />
+              <div
+                className={classNames(
+                  "text-[16px] cursor-pointer flex items-center justify-between",
+                )}
               >
-                Next
-              </a>
-            </li>
-          </ul>
-        </nav>
+                Name
+              </div> */}
+              <div className=" flex items-center p-3 rounded-xl">
+                <MagnifyingGlassIcon className="w-5 h-5 mx-2  mr-4" />
+                <input
+                  type="text"
+                  placeholder="Search for events"
+                  className="h-full w-full text-base text-zinc-400 focus:outline-none"
+                  value={dataSearch.key}
+                  onChange={(e) =>
+                    setDataSearch({ ...dataSearch, key: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+
+            <div>
+              <PrimaryButton type="submit" text={`Search`} className={`w-4`} />
+            </div>
+          </form>
+
+          <div className="flex flex-row-reverse items-center flex-1">
+            {/* Add Event */}
+            {/* <button
+              className={classNames(
+                "text-white p-3 rounded-xl w-2/8 shadow text-sm font-medium leading-tight flex justify-start bg-emerald-600 ",
+              )}
+            >
+              <NavLink to="/recruiter/events-add" onClick={() => {}}>
+                Add Event
+              </NavLink>
+            </button> */}
+            <div>
+              <PrimaryButton
+                text={`Add event`}
+                onClick={() => {
+                  navigate(`/recruiter/events-add`);
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div>
+          {isLoading ? (
+            <div className="flex justify-center my-4 min-h-[70vh] flex-col items-center">
+              <LoadSpinner className="text-3xl " />
+            </div>
+          ) : (
+            <div className="sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4 grid mt-[50px] ">
+              {/* <!-- Card --> */}
+              {showEvents && showEvents.length > 0 ? (
+                showEvents.map((event) => (
+                  <RecruiterBlogCard event={event} key={event.id} />
+                ))
+              ) : (
+                <div className="flex justify-center w-full mb-10">
+                  <span>No results were found. Please check again</span>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        <div className="flex flex-col mt-6">
+          {/* Pagination  */}
+          <Pagination
+            queryConfig={queryConfig}
+            pageSize={pageSize}
+            url="/recruiter/events"
+          />
+        </div>
       </div>
     </>
   );

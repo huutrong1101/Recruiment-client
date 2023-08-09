@@ -1,19 +1,25 @@
-import React, { useEffect, useState } from "react";
 import classNames from "classnames";
-import Avatar from "./../../../images/ava.jpg";
-import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
-import InputIcon from "../../components/InputIcon/InputIcon";
+import moment from "moment";
+import { ChangeEvent, useState } from "react";
+import { useForm } from "react-hook-form";
+import { AiOutlineComment } from "react-icons/ai";
 import {
-  HiUserCircle,
+  HiCalendar,
   HiEnvelope,
+  HiKey,
   HiMapPin,
   HiPhone,
-  HiKey,
+  HiUserCircle,
 } from "react-icons/hi2";
-import UserResume from "../../components/UserResume/UserResume";
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import Modal from "../../components/Modal/Modal";
+import { toast } from "react-toastify";
+import DummyAvatar from "../../components/DummyAvatar/DummyAvatar";
+import PrimaryInputFile from "../../components/InputFile/PrimaryInputFile";
+import InputIcon from "../../components/InputIcon/InputIcon";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { setUser } from "../../redux/AuthSlice";
+import { UserService } from "../../services/UserService";
 
 function UserProfileInformation() {
   const {
@@ -22,8 +28,45 @@ function UserProfileInformation() {
     formState: { errors },
   } = useForm();
 
-  const onDataChangeSubmit = (data: any) => {
-    console.log(data);
+  const { user, loading } = useAppSelector((app) => app.Auth);
+  const dispatch = useAppDispatch();
+  const [isUploading, setUploading] = useState<boolean>(false);
+
+  const handleUploadAvatar = (e: ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files;
+    if (fileList === null) {
+      return toast.error(`File is empty or not found`);
+    }
+
+    if (fileList.length === 0) {
+      return toast.error(`File is empty`);
+    }
+
+    const formData = new FormData();
+    formData.append("imageFile", fileList[0]);
+
+    setUploading(true);
+    toast
+      .promise(UserService.changeUserAvatar(formData), {
+        pending: `Uploading your avatar`,
+        success: `Your avatar was updated`,
+        error: `Failed to upload your avatar`,
+      })
+      .then((response) => {
+        const { result } = response.data;
+        dispatch(setUser({ ...user, avatar: result }));
+        setUploading(false);
+      });
+  };
+
+  const handleUpdateProfile = (data: any) => {
+    toast
+      .promise(UserService.updateProfile(data), {
+        pending: `Updating your profile`,
+        success: `Your profile was updated`,
+        error: `Failed to update your profile`,
+      })
+      .then((response) => dispatch(setUser(response.data.result)));
   };
 
   return (
@@ -31,95 +74,138 @@ function UserProfileInformation() {
       <h1 className={classNames(`text-2xl font-semibold flex-1 md:mb-4`)}>
         Information
       </h1>
-      <div className={classNames(`flex flex-col md:flex-row gap-6`)}>
-        {/* Avatar edit block */}
-        <div
-          className={classNames(
-            `flex-row w-full md:w-3/12 flex md:flex-col gap-4 px-4 items-center`,
-          )}
-        >
-          <div className={classNames(`w-3/12 md:w-auto`)}>
-            <img
+      {/* Whether is loading */}
+      {loading === "pending" ? (
+        <LoadSpinner />
+      ) : user === null || user === undefined ? (
+        // User is not found
+        <div>User not found</div>
+      ) : (
+        <div className={classNames(`flex flex-col md:flex-row gap-6`)}>
+          {/* Avatar edit block */}
+          <div
+            className={classNames(
+              `flex-row w-full md:w-3/12 flex md:flex-col gap-4 px-4 items-center`,
+            )}
+          >
+            <div className={classNames(`w-3/12 md:w-auto`)}>
+              {/* <img
               src={Avatar}
               alt={"Hi"}
               className={classNames(`rounded-full`)}
-            />
+            /> */}
+              {user.avatar === undefined || user.avatar === null ? (
+                <DummyAvatar
+                  iconClassName="text-6xl flex items-center justify-center"
+                  wrapperClassName="h-32 w-32"
+                />
+              ) : (
+                <img
+                  src={user.avatar}
+                  alt={`${user.fullName}'s avatar`}
+                  className={`rounded-full aspect-square w-full`}
+                />
+              )}
+            </div>
+            <div>
+              {/* <InputIcon icon={<HiUserCircle />} type="file" /> */}
+              {/* <PrimaryButton text={`Change`} /> */}
+              <PrimaryInputFile
+                text={`Change`}
+                onSelectedFile={handleUploadAvatar}
+                accept="image/png, image/jpeg"
+                isLoading={isUploading}
+                disabled={isUploading}
+              />
+            </div>
           </div>
-          <div>
-            {/* <InputIcon icon={<HiUserCircle />} type="file" /> */}
-            <PrimaryButton text={`Change`} />
-          </div>
-        </div>
 
-        {/* General information fields */}
-        <form
-          className={classNames(`flex-1 flex flex-col gap-2`)}
-          onSubmit={handleSubmit(onDataChangeSubmit)}
-        >
-          <div>
+          {/* General information fields */}
+          <form
+            className={classNames(`flex-1 flex flex-col gap-2`)}
+            onSubmit={handleSubmit(handleUpdateProfile)}
+          >
+            <div>
+              <InputIcon
+                icon={<HiUserCircle />}
+                placeholder={`Full Name`}
+                type={`text`}
+                register={register}
+                label={`fullName`}
+                defaultValue={user.fullName}
+                required
+              />
+
+              {/* {errors.fullName && (
+                <small className={`text-xs text-red-600`}>
+                  Full name is required
+                </small>
+              )} */}
+            </div>
+
             <InputIcon
-              type="text"
-              icon={<HiUserCircle />}
-              placeholder={`Full Name`}
-              // {...register("fullName", {
-              //   required: true,
-              // })}
+              icon={<HiEnvelope />}
+              type={`text`}
+              placeholder={`Email`}
+              register={register}
+              label={`email`}
+              required
+              defaultValue={user.email}
+              readOnly
+            />
+
+            <InputIcon
+              type={`text`}
+              icon={<HiMapPin />}
+              placeholder={`Address`}
               register={register}
               required
-              label="fullName"
+              label="address"
+              defaultValue={user.address || ""}
             />
 
-            {errors.fullName && (
-              <small className={`text-xs text-red-600`}>
-                Full name is required
-              </small>
-            )}
-          </div>
-
-          <InputIcon
-            icon={<HiEnvelope />}
-            type="text"
-            placeholder={`Email`}
-            register={register}
-            required
-            label="email"
-          />
-          <InputIcon
-            icon={<HiMapPin />}
-            placeholder={`Address`}
-            register={register}
-            required
-            label="address"
-          />
-
-          <InputIcon
-            icon={<HiPhone />}
-            type="text"
-            placeholder={`Phone`}
-            register={register}
-            required
-            label="phone"
-          />
-
-          <InputIcon
-            icon={<HiMapPin />}
-            type="text"
-            placeholder={`Location`}
-            register={register}
-            label={`location`}
-          />
-
-          {/* Submit button */}
-          <div className="flex flex-row-reverse">
-            <PrimaryButton
-              type="submit"
-              text={`Save`}
-              size={"sm"}
-              className={`md:!w-3/12`}
+            <InputIcon
+              icon={<HiPhone />}
+              type="text"
+              placeholder={`Phone`}
+              register={register}
+              required
+              label="phone"
+              defaultValue={user.phone}
+              readOnly
             />
-          </div>
-        </form>
-      </div>
+
+            <InputIcon
+              icon={<HiCalendar />}
+              type="date"
+              placeholder={`Date of birth`}
+              register={register}
+              required
+              label="dateOfBirth"
+              defaultValue={moment(user.dateOfBirth).format("YYYY-MM-DD")}
+            />
+
+            <InputIcon
+              icon={<AiOutlineComment />}
+              type="text"
+              placeholder={`About yourself`}
+              register={register}
+              defaultValue={user.about || ""}
+              label={`about`}
+            />
+
+            {/* Submit button */}
+            <div className="flex flex-row-reverse">
+              <PrimaryButton
+                type="submit"
+                text={`Save`}
+                size={"sm"}
+                className={`md:!w-3/12`}
+              />
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 }
@@ -131,9 +217,17 @@ function UserProfilePassword() {
     formState: { errors },
   } = useForm();
 
-  const onDataChangeSubmit = (data: any) => {
-    console.log(data);
+  const handleChangePassword = (data: any) => {
+    toast
+      .promise(UserService.changePassword(data), {
+        pending: `Updating your password`,
+        success: `Your password was updated`,
+      })
+      .catch((error) => toast.error(error.response.data.message));
   };
+
+  const { user } = useAppSelector((app) => app.Auth);
+
   return (
     <div className="p-4 border rounded-xl border-zinc-100">
       <h1 className={classNames(`text-2xl font-semibold flex-1 md:mb-4`)}>
@@ -147,32 +241,33 @@ function UserProfilePassword() {
 
         {/* General information fields */}
         <form
-          onSubmit={handleSubmit(onDataChangeSubmit)}
+          onSubmit={handleSubmit(handleChangePassword)}
           className={classNames(`flex-1 flex flex-col gap-2`)}
         >
+          <input type="hidden" name="email" value={user?.email} />
           <InputIcon
             icon={<HiKey />}
             placeholder={`Current password`}
             type="password"
             register={register}
+            label={`currentPassword`}
             required
-            label="currentPassword"
           />
           <InputIcon
             icon={<HiKey />}
             placeholder={`New password`}
             type={`password`}
             register={register}
+            label={`newPassword`}
             required
-            label="newPassword"
           />
           <InputIcon
             icon={<HiKey />}
             placeholder={`Confirm new password`}
             type={`password`}
             register={register}
+            label={`confirmNewPassword`}
             required
-            label="rePassword"
           />
 
           {/* Submit button */}
@@ -190,28 +285,6 @@ function UserProfilePassword() {
 }
 
 export default function UserProfileMyProfile() {
-  let [isOpen, setIsOpen] = useState(false);
-
-  const [file, setFile] = useState<File | null>(null);
-
-  const handleDelete = () => {
-    alert("Delete success");
-  };
-
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newFile: File | undefined = event.target.files?.[0];
-    setFile(newFile || null);
-  };
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-    console.log("Check");
-  }
-
   return (
     <div className={classNames(`flex-1 flex flex-col gap-4`)}>
       {/* Information */}
@@ -219,102 +292,6 @@ export default function UserProfileMyProfile() {
 
       {/* Password */}
       <UserProfilePassword />
-
-      {/* Resume */}
-      <div className="p-4 border rounded-xl border-zinc-100">
-        <h1 className={classNames(`text-2xl font-semibold flex-1 md:mb-4`)}>
-          Resume
-        </h1>
-        <div className={classNames(`flex flex-col md:flex-row gap-6`)}>
-          {/* Avatar edit block */}
-          <div
-            className={classNames(`w-full md:w-3/12 flex flex-col gap-4 px-4`)}
-          ></div>
-
-          {/* General information fields */}
-          <div className={classNames(`flex-1 flex flex-col gap-2`)}>
-            <UserResume
-              name={`Resume #1`}
-              onDelete={() => {
-                openModal();
-              }}
-              onEdit={() => {}}
-              onClick={() => {
-                alert(`hi`);
-              }}
-            />
-            <UserResume
-              name={`Resume #2`}
-              onDelete={() => {
-                openModal();
-              }}
-              onEdit={() => {}}
-              onClick={() => {
-                alert(`hi`);
-              }}
-            />
-
-            <UserResume
-              name={`Resume #3`}
-              onDelete={() => {
-                openModal();
-              }}
-              onEdit={() => {}}
-              onClick={() => {
-                alert(`hi`);
-              }}
-            />
-
-            {/* Submit button */}
-            <div className="flex flex-row-reverse gap-2">
-              <label
-                htmlFor="file-input"
-                className={classNames(
-                  `Button bg-emerald-600 hover:bg-emerald-800 text-white`,
-                  `transition-colors ease-in-out duration-100`,
-                  `rounded-lg flex-col justify-center items-center inline-flex`,
-                  "text-base px-4 py-2 w-full md:!w-5/12",
-                )}
-              >
-                Upload resume
-              </label>
-              <input
-                type="file"
-                id="file-input"
-                className="hidden"
-                onChange={handleFileUpload}
-              />
-              <Link
-                to="/create-cv"
-                className={classNames(
-                  `Button bg-emerald-600 hover:bg-emerald-800 text-white`,
-                  `transition-colors ease-in-out duration-100`,
-                  `rounded-lg flex-col justify-center items-center inline-flex`,
-                  "text-base px-4 py-2 w-full md:!w-5/12",
-                )}
-              >
-                Create resume
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <Modal
-        isOpen={isOpen}
-        onClose={closeModal}
-        title=" Do you want to delete this resume ?"
-        cancelTitle="No"
-        successClass="text-red-900 bg-red-100 hover:bg-red-200 focus-visible:ring-red-500"
-        successTitle="Yes"
-        handleSucces={handleDelete}
-        titleClass=""
-        size=""
-      >
-        <p className="text-sm text-gray-500">
-          If you agree, the resume will be removed from your resume list
-        </p>
-      </Modal>
     </div>
   );
 }

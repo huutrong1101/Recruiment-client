@@ -1,20 +1,10 @@
-import { useState } from "react";
-import FullCalendar from "@fullcalendar/react";
-import { formatDate } from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
-import {
-  Box,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-  useTheme,
-} from "@mui/material";
-import { green } from "@mui/material/colors";
-import Events from "../Events/Events";
+import FullCalendar from "@fullcalendar/react";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import { Box } from "@mui/material";
+import { useState } from "react";
 
 const Reccercalender = () => {
   const [currentEvents, setCurrentEvents] = useState([]);
@@ -46,7 +36,11 @@ const Reccercalender = () => {
 
   return (
     <Box m="20px">
-      <Box display="flex" backgroundColor="#F8FDFB" justifyContent="space-between">
+      <Box
+        display="flex"
+        backgroundColor="#F8FDFB"
+        justifyContent="space-between"
+      >
         <Box flex="1 1 100%" ml="15px" mr="20px">
           <FullCalendar
             height="88vh"

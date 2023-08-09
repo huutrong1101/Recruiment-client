@@ -1,8 +1,8 @@
+import { LockClosedIcon } from "@heroicons/react/24/outline";
 import React from "react";
+import { useForm } from "react-hook-form";
 import InputIcon from "../../components/InputIcon/InputIcon";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
-import { useForm } from "react-hook-form";
-import { LockClosedIcon } from "@heroicons/react/24/outline";
 import { UserService } from "../../services/UserService";
 
 export default function TokenPasteRequestTest() {

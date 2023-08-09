@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
 import classNames from "classnames";
+import moment from "moment";
+import { useEffect, useState } from "react";
 import Modal from "../../components/Modal/Modal";
 
 export interface TableRow {
   id: string;
   value: any;
+  format?: string | "join";
 }
 
 export interface TableProps<T> {
@@ -17,10 +19,12 @@ export default function Table<T>({ rows, data, isModal }: TableProps<T>) {
   let [isOpen, setIsOpen] = useState(false);
 
   const [itemClick, setItemClick] = useState({
-    job: "",
-    date: "",
-    interviewer: "",
-    link: "",
+    interviewId: "",
+    interviewLink: "",
+    interviewerNames: [],
+    jobId: "",
+    jobName: "",
+    time: "",
   });
 
   const handleClick = (value: any) => {
@@ -48,6 +52,8 @@ export default function Table<T>({ rows, data, isModal }: TableProps<T>) {
       }
     }
   }, []);
+
+  console.log(data);
 
   return (
     <div className="w-full list-view-table-wrapper">
@@ -84,6 +90,12 @@ export default function Table<T>({ rows, data, isModal }: TableProps<T>) {
             >
               {rows.map((_row, _index) => {
                 const key: string = _row.id;
+                let value: any = item[key];
+                if (_row.format === "join") {
+                  value = item[key].join(", ");
+                } else if (_row.format) {
+                  value = moment(item[key]).format(_row.format);
+                }
 
                 return (
                   <td
@@ -94,7 +106,7 @@ export default function Table<T>({ rows, data, isModal }: TableProps<T>) {
                     onClick={() => handleClick(item)}
                   >
                     {/* {item[key]} */}
-                    {item[key] === item.link ? "Link" : item[key]}
+                    {value === item.link ? "Link" : value}
                   </td>
                 );
               })}
@@ -117,8 +129,8 @@ export default function Table<T>({ rows, data, isModal }: TableProps<T>) {
         >
           <div className="flex items-center justify-center gap-5 mt-2">
             <div className="w-full">
-              <div className="flex flex-row justify-center mt-2">
-                <div className="flex flex-col w-[40%] ">
+              <div className="flex flex-row items-center justify-center mt-2 mr-4">
+                <div className="flex flex-col w-[50%] ">
                   {rows.map((row, _rowIdx) => {
                     return (
                       <div
@@ -133,14 +145,14 @@ export default function Table<T>({ rows, data, isModal }: TableProps<T>) {
                     );
                   })}
                 </div>
-                <div className="flex flex-col w-[60%]">
+                <div className="flex flex-col w-[50%]">
                   <div
                     className={classNames(
                       `text-zinc-400 text-left py-2 px-4 text-xs  rounded-xl`,
                       ` hover:text-emerald-600 transition-color duration-75`,
                     )}
                   >
-                    {itemClick.job}
+                    {itemClick.jobName}
                   </div>
                   <div
                     className={classNames(
@@ -148,7 +160,7 @@ export default function Table<T>({ rows, data, isModal }: TableProps<T>) {
                       ` hover:text-emerald-600 transition-color duration-75`,
                     )}
                   >
-                    {itemClick.date}
+                    {moment(itemClick.time).format("YYYY-MM-DD HH:mm:ss")}
                   </div>
                   <div
                     className={classNames(
@@ -156,17 +168,17 @@ export default function Table<T>({ rows, data, isModal }: TableProps<T>) {
                       ` hover:text-emerald-600 transition-color duration-75`,
                     )}
                   >
-                    {itemClick.interviewer}
+                    {itemClick.interviewerNames.join(", ")}
                   </div>
                   <a
-                    href={itemClick.link}
+                    href={itemClick.interviewLink}
                     target="_blank"
                     className={classNames(
                       `text-zinc-400 text-left py-2 px-4 text-xs  rounded-xl`,
                       ` hover:text-emerald-600 transition-color duration-75`,
                     )}
                   >
-                    {itemClick.link}
+                    Click here to get interview
                   </a>
                 </div>
               </div>

@@ -1,16 +1,16 @@
-import React from "react";
-import { Link, createSearchParams } from "react-router-dom";
 import classNames from "classnames";
+import { Link, createSearchParams } from "react-router-dom";
 import { QueryConfig } from "../../pages/Jobs/Jobs";
 
 interface Props {
   queryConfig: QueryConfig;
   pageSize: number;
+  url: string;
 }
 
 const RANGE = 2;
 
-export default function Pagination({ queryConfig, pageSize }: Props) {
+export default function Pagination({ queryConfig, pageSize, url }: Props) {
   const page = Number(queryConfig.index);
 
   const renderPagination = () => {
@@ -79,7 +79,7 @@ export default function Pagination({ queryConfig, pageSize }: Props) {
           <li key={index}>
             <Link
               to={{
-                pathname: "/jobs",
+                pathname: url,
                 search: createSearchParams({
                   ...queryConfig,
                   index: pageNumber.toString(),
@@ -115,7 +115,7 @@ export default function Pagination({ queryConfig, pageSize }: Props) {
             ) : (
               <Link
                 to={{
-                  pathname: "/jobs",
+                  pathname: url,
                   search: createSearchParams({
                     ...queryConfig,
                     index: (page - 1).toString(),
@@ -138,7 +138,7 @@ export default function Pagination({ queryConfig, pageSize }: Props) {
             ) : (
               <Link
                 to={{
-                  pathname: "/jobs",
+                  pathname: url,
                   search: createSearchParams({
                     ...queryConfig,
                     index: (page + 1).toString(),

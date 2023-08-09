@@ -1,22 +1,19 @@
-import React from "react";
-import classNames from "classnames";
-import about_us_1 from "../../../images/about_us_1.png";
-import about_us_2 from "../../../images/about_us_2.png";
 import {
-  CheckCircleIcon,
-  BriefcaseIcon,
-  PhoneIcon,
-  ClockIcon,
   AcademicCapIcon,
   BoltIcon,
-  LightBulbIcon,
-  SpeakerXMarkIcon,
-  UserPlusIcon,
   BookOpenIcon,
+  BriefcaseIcon,
+  CheckCircleIcon,
+  ClockIcon,
+  LightBulbIcon,
+  PhoneIcon,
+  SpeakerXMarkIcon,
 } from "@heroicons/react/24/outline";
+import classNames from "classnames";
 import { Link } from "react-router-dom";
+import about_us_1 from "../../../images/about_us_1.png";
+import about_us_2 from "../../../images/about_us_2.png";
 import AboutUsCard from "../../components/AboutUsCard/AboutUsCard";
-import { Disclosure, Transition } from "@headlessui/react";
 import Advertise from "../../components/Advertise/Advertise";
 import QuestionsAnswers from "../../components/QuestionsAnswers/QuestionsAnswers";
 

@@ -1,8 +1,7 @@
-import React from "react";
-import { BrowserRouter, Link, Outlet, Route, Routes } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import DashboardFooter from "../RecFooter/DashboardFooter";
 import RecLeftSidebar from "../RecLeftSidebar/RecLeftSidebar";
 import RecNavbar from "../RecNavDashboard/RecNavbar";
-import DashboardFooter from "../RecFooter/DashboardFooter";
 import RecRightSidebar from "../RecRightSidebar/RecRightSidebar";
 
 export default function RecruiterAppLayout() {
@@ -33,7 +32,6 @@ export default function RecruiterAppLayout() {
           {/* <!-- Right Sidebar Content --> */}
         </div>
       </div>
-
     </div>
   );
 }

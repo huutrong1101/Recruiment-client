@@ -1,15 +1,14 @@
 import { Transition } from "@headlessui/react";
 import classNames from "classnames";
-import React, { useEffect, useState } from "react";
-import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
-import { CheckCircleIcon } from "@heroicons/react/24/outline";
-import { AiOutlineLock } from "react-icons/ai";
-import OneTimePasswordInputArray from "./OneTimePasswordInputArray";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { UserVerifySendParamsInterface } from "../../services/services";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { AiOutlineLock } from "react-icons/ai";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { UserVerifySendParamsInterface } from "../../services/services";
+import OneTimePasswordInputArray from "./OneTimePasswordInputArray";
 import { sendVerify } from "./slices/OneTimePasswordSlice";
 
 export default function OneTimePasswordVerify() {

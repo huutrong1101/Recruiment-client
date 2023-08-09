@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
-import classnames from "classnames";
-import image from "../../../images/sprite.png";
+import { default as classNames, default as classnames } from "classnames";
+import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../hooks/hooks";
 import { toast } from "react-toastify";
+import image from "../../../images/sprite.png";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
-import classNames from "classnames";
+import { useAppSelector } from "../../hooks/hooks";
 
 export default function Authenticate() {
   const navigate = useNavigate();
@@ -27,11 +26,11 @@ export default function Authenticate() {
   }, [isLoggedIn, token]);
 
   if (loading === "pending") {
-    navigate(-1);
+    // navigate(-1);
     return (
       <div
         className={classNames(
-          `text-3xl text-zinc-300 min-h-screen flex flex-row items-center justify-center`,
+          `text-3xl text-zinc-300 min-h-[1vh] flex flex-row items-center justify-center`,
         )}
       >
         <div className={classNames(` `)}>
@@ -42,7 +41,7 @@ export default function Authenticate() {
   }
 
   if (isLoggedIn && token) {
-    navigate(-1);
+    // navigate(-1);
     return <div className="min-h-screen"></div>;
   }
 
@@ -50,7 +49,7 @@ export default function Authenticate() {
     <div
       className={classnames(
         "flex flex-col md:flex-row gap-12",
-        `min-h-[100vh] mb-36`,
+        `min-h-[75vh] mb-36`,
       )}
     >
       <div className="w-full md:w-1/2 lg:w-5/12 xl:w-4/12 ">
@@ -90,9 +89,10 @@ export default function Authenticate() {
           alt="Authenticate block decoration"
           src={image}
           className={classnames(
-            `right-0 bottom-[-120px] opacity-100`,
-            `absolute`,
+            `right-0 opacity-100`,
+
             `w-[200px]`,
+            `hidden sm:block sm:absolute bottom-[-240px] md:bottom-[-32px]`,
           )}
         />
       </div>

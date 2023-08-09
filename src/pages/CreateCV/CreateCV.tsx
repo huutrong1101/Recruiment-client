@@ -1,8 +1,8 @@
+import { CloudArrowUpIcon } from "@heroicons/react/24/solid";
 import React, { useState } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
-import Field from "../../components/Field/Field";
-import { CloudArrowUpIcon } from "@heroicons/react/24/solid";
+import Field from "../../components/Field/FieldContainer";
 
 const colourOptions = [
   { value: "reactjs", label: "ReactJS" },

@@ -1,45 +1,77 @@
-import React, { useState, Fragment, useEffect } from "react";
-import home_page from "../../../images/home_page.png";
-import classnames from "classnames";
 import {
   CakeIcon,
-  MagnifyingGlassIcon,
   ChevronDownIcon,
   ChevronUpIcon,
+  MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
+import classnames from "classnames";
+import { Fragment, useState } from "react";
+import home_page from "../../../images/home_page.png";
 
-import { Link } from "react-router-dom";
-import { data } from "../../data/homeData";
-import JobCard from "../../components/JobCard/JobCard";
-import BlogCard from "../../components/BlogCard/BlogCard";
-import Advertise from "../../components/Advertise/Advertise";
 import { Menu, Transition } from "@headlessui/react";
+import { isUndefined, omitBy } from "lodash";
+import { Link, createSearchParams, useNavigate } from "react-router-dom";
+import Advertise from "../../components/Advertise/Advertise";
+import BlogCard from "../../components/BlogCard/BlogCard";
+import JobCard from "../../components/JobCard/JobCard";
 import { useAppSelector } from "../../hooks/hooks";
-import { EventInterface, JobInterface } from "../../services/services";
+import useQueryParams from "../../hooks/useQueryParams";
+import {
+  EventInterface,
+  JobInterface,
+  JobListConfig,
+} from "../../services/services";
+import { JOB_POSITION } from "../../utils/Localization";
+
+export type QueryConfig = {
+  [key in keyof JobListConfig]: string;
+};
 
 export default function Home() {
-  const [showType, setShowType] = useState(false);
-
-  const [search, setSearch] = useState("");
-
-  const [type, setType] = useState(data.listTypeJobs[1].name);
-
-  const jobs: JobInterface[] = useAppSelector((state) => state.Home.jobs);
-
+  const jobs: JobInterface[] = useAppSelector((state) => state.Job.jobs);
   const events: EventInterface[] = useAppSelector((state) => state.Home.events);
+  const listType = useAppSelector((state) => state.Job.type);
+  const [type, setType] = useState("");
+  const [showType, setShowType] = useState(false);
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+  const queryParams: QueryConfig = useQueryParams();
+  const queryConfig: QueryConfig = omitBy(
+    {
+      index: queryParams.index || "1",
+      size: queryParams.size || 10,
+      name: queryParams.name,
+      posName: queryParams.posName,
+    },
+    isUndefined,
+  );
 
-  const handleSubmit = () => {
-    alert("Giá trị thu được với từ khóa: " + search + " và loại: " + type);
+  const handleSubmit = async (e: any) => {
+    try {
+      e.preventDefault();
+      navigate({
+        pathname: "/jobs",
+        search: createSearchParams({
+          ...queryConfig,
+          name: search, // Tên biến lưu từ khóa tìm kiếm trên trang Home
+          type: type, //
+          index: "1",
+        }).toString(),
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <div className={classnames("h-full")}>
-      <div className={classnames("flex justify-between")}>
-        <div
-          className={classnames(
-            "w-[55%] py-8 pl-[30px] md:pl-[60px] lg:pl-[90px]",
-          )}
-        >
+      {/* Hero */}
+      <div
+        className={classnames(
+          "flex justify-center flex-row items-center gap-12 md:gap-24 md:min-h-[80vh]",
+        )}
+      >
+        <div className={classnames("w-4/12")}>
           <img
             src={home_page}
             alt="home_page"
@@ -82,6 +114,7 @@ export default function Home() {
         className={classnames(
           "flex flex-col border rounded-md shadow-md md:shadow-lg md:flex-row p-3 gap-4 mt-[40px] md:mt-[80px]",
         )}
+        onSubmit={(e) => handleSubmit(e)}
       >
         <div
           className={classnames(
@@ -116,7 +149,7 @@ export default function Home() {
                 )}
                 onClick={() => setShowType(!showType)}
               >
-                {type}
+                {JOB_POSITION[type] || "TYPE OF JOB"}
                 {showType && (
                   <ChevronUpIcon className={classnames("w-[20px] mr-4")} />
                 )}
@@ -135,25 +168,25 @@ export default function Home() {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute left-0 z-10 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="absolute md:left-[-18px] w-full z-10 md:w-55 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="py-1">
-                  {data.listTypeJobs &&
-                    data.listTypeJobs.map((type) => (
-                      <Menu.Item key={type.id}>
+                  {listType &&
+                    listType.map((type, index) => (
+                      <Menu.Item key={index}>
                         {({ active }) => (
                           <p
                             className={classnames(
                               active
                                 ? "bg-gray-100 text-gray-900"
                                 : "text-gray-700",
-                              "block px-4 py-2 text-sm",
+                              "block px-4 py-2 text-sm cursor-pointer",
                             )}
                             onClick={() => {
-                              setType(type.name);
+                              setType(type);
                               setShowType(false);
                             }}
                           >
-                            {type.name}
+                            {JOB_POSITION[type]}
                           </p>
                         )}
                       </Menu.Item>
@@ -169,10 +202,7 @@ export default function Home() {
             "w-full md:w-[24%] flex items-center justify-center",
           )}
         >
-          <button
-            className="w-[50%] md:w-[80%] md:h-[56px] border rounded-md bg-emerald-700 shadow-md text-white"
-            onClick={() => handleSubmit()}
-          >
+          <button className="w-[50%] md:w-[80%] md:h-[56px] border rounded-md bg-emerald-700 shadow-md text-white">
             Search
           </button>
         </div>
@@ -183,14 +213,15 @@ export default function Home() {
         <div className={classnames("text-center")}>
           <h3
             className={classnames(
-              "text-black text-xl md:text-2xl font-medium leading-7 tracking-wider capitalize",
+              "text-black text-2xl md:text-3xl font-semibold tracking-wider capitalize",
             )}
           >
             Popular Jobs
           </h3>
           <p
             className={classnames(
-              "text-gray-400 text-center text-sm md:text-lg font-medium capitalize",
+              "text-gray-500 text-sm md:text-base font-medium text-center",
+              `mt-2 mb-6 mx-6`,
             )}
           >
             Search all the open positions on the web. Get your own personalized

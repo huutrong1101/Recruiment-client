@@ -8,7 +8,7 @@ interface LoadSpinnerProps {
 export default function LoadSpinner({
   className,
   ...children
-}: LoadSpinnerProps) {  
+}: LoadSpinnerProps) {
   return (
     <AiOutlineLoading
       className={classNames(`animate-spin`, className)}

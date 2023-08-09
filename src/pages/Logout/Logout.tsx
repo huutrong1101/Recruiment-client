@@ -1,10 +1,9 @@
 import { Transition } from "@headlessui/react";
-import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
-import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { useEffect, useState } from "react";
 import { RiMoonClearLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { useAppDispatch } from "../../hooks/hooks";
 import { authLogout } from "../../redux/AuthSlice";
 
@@ -17,7 +16,12 @@ export default function Logout() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(authLogout());
+    dispatch(authLogout())
+      .unwrap()
+      .then(() => {
+        history.replaceState({}, "", "/");
+      });
+
     const timeoutId = setTimeout(() => {
       setShowing(true);
     }, 1);
@@ -50,7 +54,7 @@ export default function Logout() {
       <Transition
         show={showing}
         className={classNames(
-          `px-10 py-8 rounded-[35px] w-full md:w-7/12 lg:w-5/12 xl:w-4/12 2xl:w-3/12`,
+          `px-10 py-8 rounded-[35px] w-full md:w-7/12 lg:w-6/12 xl:w-5/12 2xl:w-4/12`,
           `bg-[#176A4B]`,
           `flex flex-col shadow-lg`,
         )}

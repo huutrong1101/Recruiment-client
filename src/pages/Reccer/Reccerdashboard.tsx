@@ -1,104 +1,91 @@
-import React from "react";
-import { Fragment } from 'react'
-import { Menu, Transition } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { Link } from "react-router-dom";
-import { data } from "../../data/RecDashboardData";
+import { Menu } from "@headlessui/react";
+import { useEffect, useState } from "react";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import RecCard from "../../components/RecDashboardCard/RecDashboardCard";
-import LineChart from './Recchart';
-
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import {
+  fetchCandidateList,
+  fetchCandidateSkill,
+} from "../../redux/reducer/CandidateListSlice";
+import { fetchRecJobList } from "../../redux/reducer/RecJobSlice";
+import axiosInstance from "../../utils/AxiosInstance";
+import LineChart from "./Recchart";
 
 export default function Reccer_dashboard() {
-    return (
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchRecJobList());
+    dispatch(fetchCandidateList());
+    dispatch(fetchCandidateSkill());
+  }, []);
+  const [isLoading, setIsLoading] = useState(false);
+  const dashboard: any = useAppSelector(
+    (state) => state.RecDashboardList.recDashboardList,
+  );
+  const [showdata, setshowdata] = useState(dashboard);
+  useEffect(() => {
+    const fetchPosition = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axiosInstance(`recruiter/statistic`);
+        setshowdata(response.data.result);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchPosition();
+  }, []);
+  const currentDate = new Date();
+
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+  const day = String(currentDate.getDate()).padStart(2, "0");
+
+  const formattedDate = `${year}-${month}-${day}`;
+
+  return (
+    <>
+      {!isLoading ? (
         <>
-            <div className="mx-[3%] h-full">
-                <Menu as="div" className="relative inline-block text-left pt-4">
-                    <div>
-                        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                            Today
-                            <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
-                        </Menu.Button>
-                    </div>
+          <div className="mx-[3%] h-full">
+            <Menu as="div" className="relative inline-block pt-4 text-left">
+              <div>
+                <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                  Today Status
+                </Menu.Button>
+              </div>
+            </Menu>
 
-                    <Transition
-                        as={Fragment}
-                        enter="transition ease-out duration-100 "
-                        enterFrom="transform opacity-0 scale-95"
-                        enterTo="transform opacity-100 scale-100"
-                        leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
-                    >
-                        <Menu.Items className="absolute left-30 z-10 mt-2 w-30 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            <div className="py-1">
-                                <Menu.Item>
-                                    {({ active }) => (
-                                        <a
-                                            href="#"
-                                            className={classNames(
-                                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                'block px-4 py-2 text-sm'
-                                            )}
-                                        >
-                                            Yesterday
-                                        </a>
-                                    )}
-                                </Menu.Item>
-                                <Menu.Item>
-                                    {({ active }) => (
-                                        <a
-                                            href="#"
-                                            className={classNames(
-                                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                'block px-4 py-2 text-sm'
-                                            )}
-                                        >
-                                            Week
-                                        </a>
-                                    )}
-                                </Menu.Item>
-                                <Menu.Item>
-                                    {({ active }) => (
-                                        <a
-                                            href="#"
-                                            className={classNames(
-                                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                'block px-4 py-2 text-sm'
-                                            )}
-                                        >
-                                            Month
-                                        </a>
-                                    )}
-                                </Menu.Item>
-
-                            </div>
-                        </Menu.Items>
-                    </Transition>
-                </Menu>
-                <div className="flex flex-wrap justify-center items-center mt-[20px] ">
-                    {/* <!-- Card --> */}
-                    {data.listJobs &&
-                        data.listJobs.map((job, index) => (
-                            <div key={index} className=" px-3 mb-8 lg:w-1/4 md:w-1/2">
-                                <RecCard job={job} index={index} />
-                            </div>
-                        ))}
-                </div>
-                <div className=' bg-white drop-shadow-md rounded-2xl mb-5'>
-                    <p className='px-[5%] pt-[3%] font-semibold text-2xl'>Today DashBoard</p>
-
-                    <div className='h-[400px]'>
-                        <LineChart />
-                    </div>
-
-                </div>
-
-                
+            <div className="flex flex-wrap justify-center items-center mt-[20px] ">
+              {/* <!-- Card --> */}
+              {showdata &&
+                showdata.length > 0 &&
+                showdata.map((data: any, index: any) => (
+                  <div key={index} className=" px-3 mb-8 lg:w-1/5 md:w-1/2">
+                    <RecCard job={data} index={index} />
+                  </div>
+                ))}
             </div>
 
+            <div className="mb-4 bg-white border hover:shadow-lg duration-500 rounded-2xl">
+              <p className="px-[5%] pt-[3%] font-semibold text-2xl">
+                General Analytic
+              </p>
+
+              <div className="h-[400px]">
+                <LineChart showdata={showdata} />
+              </div>
+            </div>
+          </div>
         </>
-    )
+      ) : (
+        <div className="flex justify-center my-4 min-h-[70vh] flex-col items-center">
+          <LoadSpinner className="text-3xl" />
+        </div>
+      )}
+    </>
+  );
 }

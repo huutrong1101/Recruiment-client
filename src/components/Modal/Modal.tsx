@@ -1,6 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState, useEffect } from "react";
 import classnames from "classnames";
+import { Fragment, useEffect, useState } from "react";
 
 interface ModalProps {
   isOpen: boolean;

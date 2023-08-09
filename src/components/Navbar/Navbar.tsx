@@ -1,36 +1,82 @@
-import { useEffect, useState } from "react";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
-import Container from "../Container/Container";
-import MobileNavbar from "./MobileNavbar";
+import qs from "qs";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../hooks/hooks";
-import LoadSpinner from "../LoadSpinner/LoadSpinner";
-
 import { useTokenAuthorize } from "../../hooks/useTokenAuthorize";
+import Container from "../Container/Container";
+import LoadSpinner from "../LoadSpinner/LoadSpinner";
+import MobileNavbar from "./MobileNavbar";
 import NavbarUserLoggedInCard from "./NavbarUserLoggedInCard";
+import "./styles/Navbar.css";
 
 export default function Navbar() {
   useTokenAuthorize();
 
-  const { items: leftMenu } = useAppSelector((app) => app.Navbar);
-
+  const { items } = useAppSelector((app) => app.Navbar);
   const { isLoggedIn, loading, user } = useAppSelector((app) => app.Auth);
-
-  let updatedLeftMenu = leftMenu;
+  const [updatedLeftMenu, setUpdatedLeftMenu] = useState([...items]);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (user !== null && user !== undefined) {
-      if (user.role !== "CANDIDATE") {
-        updatedLeftMenu = [
-          ...leftMenu,
-          { name: "Dashboard", url: "/recruiter/dashboard" },
-        ];
+      if (user.role === "RECRUITER") {
+        if (updatedLeftMenu.length < 4) {
+          setUpdatedLeftMenu([
+            ...updatedLeftMenu,
+            { name: "Dashboard", url: "/recruiter/dashboard" },
+          ]);
+        }
+      } else if (user.role === "INTERVIEWER") {
+        const updatedMenuWithoutDashboard = updatedLeftMenu.filter(
+          (item) => item.name !== "Dashboard",
+        );
+        setUpdatedLeftMenu([
+          ...updatedMenuWithoutDashboard,
+          { name: "Dashboard", url: "/interviewer/interview-recent" },
+        ]);
+      } else if (user.role === "ADMIN") {
+        const updatedMenuWithoutDashboard = updatedLeftMenu.filter(
+          (item) => item.name !== "Dashboard",
+        );
+        setUpdatedLeftMenu([
+          ...updatedMenuWithoutDashboard,
+          { name: "Dashboard", url: "/admin/users" },
+        ]);
+      } else {
+        const updatedMenuWithoutDashboard = updatedLeftMenu.filter(
+          (item) => item.name !== "Dashboard",
+        );
+        setUpdatedLeftMenu([...updatedMenuWithoutDashboard]);
       }
+    } else {
+      const updatedMenuWithoutDashboard = updatedLeftMenu.filter(
+        (item) => item.name !== "Dashboard",
+      );
+      setUpdatedLeftMenu([...updatedMenuWithoutDashboard]);
     }
   }, [user]);
 
+  const { pathname: currentPathname } = useLocation();
+
+  const [compiledQuerySearch, setCompiledQuerySearch] = useState(
+    qs.stringify({}),
+  );
+  useEffect(() => {
+    setCompiledQuerySearch(
+      qs.stringify(
+        currentPathname.includes(`/auth/login`) ||
+          currentPathname.includes(`/logout`) ||
+          currentPathname.includes(`/otp`) ||
+          currentPathname.includes("/email")
+          ? {}
+          : { from: currentPathname },
+      ),
+    );
+  }, [currentPathname]);
+
   return (
-    <>
+    <div className={`navbar-header`}>
       {/* Small width devices */}
       <MobileNavbar />
 
@@ -83,7 +129,7 @@ export default function Navbar() {
             !isLoggedIn ? (
               <div className={classNames(`flex flex-row gap-4`)}>
                 <Link
-                  to="/auth/login"
+                  to={`/auth/login?${compiledQuerySearch}`}
                   className={classNames(
                     `px-3 py-2`,
                     `bg-emerald-600 text-white hover:bg-emerald-700`,
@@ -137,6 +183,6 @@ export default function Navbar() {
           )}
         </div>
       </Container>
-    </>
+    </div>
   );
 }

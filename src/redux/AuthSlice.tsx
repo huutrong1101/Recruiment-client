@@ -1,18 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import { AuthService } from "../services/AuthService";
+import { UserService } from "../services/UserService";
 import {
   UserLoginParamsInterface,
   UserRegisterParamsInterface,
 } from "../services/services";
-import { UserService } from "../services/UserService";
+import axiosInstance from "../utils/AxiosInstance";
 import {
   clearLocalToken,
+  clearRefreshToken,
   getLocalToken,
   hasLocalToken,
   setLocalToken,
+  setRefreshToken,
 } from "../utils/localToken";
-import { toast } from "react-toastify";
-import axiosInstance from "../utils/AxiosInstance";
 
 type RoleType = "CANDIDATE" | "RECRUITER" | "ADMIN" | "INTERVIEWER";
 
@@ -101,6 +103,7 @@ export const authLogin = createAsyncThunk(
     try {
       const response = await AuthService.login({ credentialId, password });
 
+      console.log(response);
       if (response.status !== 200) {
         throw new Error(
           `There are some error when register: ${response.statusText}`,
@@ -109,9 +112,11 @@ export const authLogin = createAsyncThunk(
 
       const { result } = response.data;
       const { accessToken, refreshToken } = result;
-      thunkAPI.dispatch(setSignedInLoadingState(`success`));
       // Set the token onto localStorage
       setLocalToken(accessToken);
+      setRefreshToken(refreshToken);
+
+      thunkAPI.dispatch(setSignedInLoadingState(`success`));
       thunkAPI.dispatch(setToken(accessToken));
       // Fetch the user from token
       thunkAPI.dispatch(fetchUserFromToken(undefined));
@@ -144,7 +149,7 @@ export const fetchUserFromToken = createAsyncThunk(
     } catch (err: any) {
       const { data, status } = err.response;
       toast.error(`There was an error when fetch a profile from token.`);
-      clearLocalToken();
+      // clearLocalToken();
       throw err;
       // return thunkAPI.rejectWithValue(data);
     }
@@ -157,6 +162,7 @@ export const authLogout = createAsyncThunk("Auth/logout", (_, thunkAPI) => {
   thunkAPI.dispatch(setUserLoggedIn(false));
 
   clearLocalToken();
+  clearRefreshToken();
 });
 
 const AuthSlice = createSlice({
@@ -210,6 +216,12 @@ const AuthSlice = createSlice({
       state.user = null;
       state.isLoggedIn = false;
       state.loading = `failed`;
+    });
+
+    builder.addCase(authLogout.fulfilled, (state) => {
+      state.isLoggedIn = false;
+      state.token = null;
+      state.user = null;
     });
   },
 });

@@ -1,161 +1,284 @@
 import {
-  AcademicCapIcon,
-  BriefcaseIcon,
   ClockIcon,
   ComputerDesktopIcon,
   CurrencyDollarIcon,
+  ExclamationTriangleIcon,
   MapPinIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import classNames from "classnames";
-import { useParams } from "react-router-dom";
-import { useState } from "react";
-import ReccerJobDescriptionWidget from "../../../components/RecJob/ReccerJobDescriptionWidget";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Logo from "../../../../images/logo_FPT.png";
+import ReccerJobDescriptionWidget from "../../../components/RecJob/ReccerJobDescriptionWidget";
 import RecJobInformationCard from "../../../components/RecJob/ReccerJobInformationCard";
-import JobCard from "../../../components/JobCard/JobCard";
-import { Avatar } from "@mui/material";
 
-import AvatarCandidate from "../../../components/Candidate/Avatar";
+import moment from "moment";
+import { toast } from "react-toastify";
+import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import { JobService } from "../../../services/JobService";
+import { JobInterface } from "../../../services/services";
+import axiosInstance from "../../../utils/AxiosInstance";
+import { JOB_POSITION } from "../../../utils/Localization";
 import Applied from "./AppliedCandidate";
 import Suggested from "./SuggestedCandidate";
 
 export default function ReccerJobDetail() {
-  const { jobId } = useParams();
-  const listSkills = ["React", "Java", "HTML", "Figma", "WordPress"];
-
   const [jobInformation, setJobInformation] = useState([
-    { icon: <UserIcon />, name: "Employee Type", value: "Full time" },
-    { icon: <MapPinIcon />, name: "Location", value: "Ftown3" },
-    {
-      icon: <ComputerDesktopIcon />,
-      name: "Job Type",
-      value: "Back-end Developer",
-    },
-    { icon: <BriefcaseIcon />, name: "Experience", value: "2+ years" },
-    { icon: <AcademicCapIcon />, name: "Qualification", value: "MCA" },
-    {
-      icon: <CurrencyDollarIcon />,
-      name: "Salary",
-      value: "12 Mil (negotiable)",
-    },
-    {
-      icon: <ClockIcon />,
-      name: "Posted at",
-      value: new Date().toDateString(),
-    },
+    { icon: <UserIcon />, name: "", value: "" },
   ]);
+  const { jobId } = useParams();
+  const [job, setJob] = useState<JobInterface | null>(null);
+  useEffect(() => {
+    const getJobDetail = async () => {
+      const response = await axiosInstance.get(`recruiter/jobs/${jobId}`); //Viết API cho BE viết lấy 1 job trong list job của reccer
+      setJob(response.data.result);
+    };
+    getJobDetail();
+  }, [jobId]);
+
+  useEffect(() => {
+    if (job) {
+      setJobInformation([
+        {
+          icon: <UserIcon />,
+          name: "Employee Type",
+          value: JOB_POSITION[job.jobType],
+        },
+        {
+          icon: <MapPinIcon />,
+          name: "Location",
+          value: JOB_POSITION[job.location],
+        },
+        {
+          icon: <ComputerDesktopIcon />,
+          name: "Position",
+          value: JOB_POSITION[job.position.name],
+        },
+        {
+          icon: <CurrencyDollarIcon />,
+          name: "Salary",
+          value: job.salaryRange,
+        },
+        {
+          icon: <ClockIcon />,
+          name: "End At",
+          value: moment(job.deadline).format("Do MMM, YYYY"),
+        },
+      ]);
+    }
+  }, [job]);
+
+  const navigate = useNavigate();
+  const deleteJob = async () => {
+    toast
+      .promise(JobService.deleteJob(job?.jobId), {
+        pending: `Delete Job`,
+        success: `The Job was deleted`,
+      })
+      .catch((error) => toast.error(error.response.data.result));
+    navigate({
+      pathname: "/recruiter/jobs",
+    });
+  };
+
+  const routeChange = () => {
+    let path = `./edit`;
+    navigate(path);
+  };
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
-    <div className={classNames(`job-detail`, `flex flex-col gap-6`)}>
-      <div className={classNames(`flex flex-col md:flex-row gap-12`)}>
-        {/* Left side description */}
-        <div className={classNames(`w-full md:w-8/12`, `flex flex-col gap-6`)}>
-          {/* Widgets */}
-          <ReccerJobDescriptionWidget
-            companyName="FPT Software"
-            jobRole="Web Designer"
-            publishDate={new Date()}
-            logo={{ src: Logo, alt: "image" }}
-          />
-          {/* Details */}
-          <div
-            className={classNames(
-              `border bg-white shadow-sm rounded-xl`,
-              `px-8 py-8`,
-              `text-justify`,
-            )}
-          >
-            <div>
-              <h1 className="text-2xl font-semibold">Job description</h1>
-              <p>
-                One disadvantage of Lorum Ipsum is that in Latin certain letters
-                appear more frequently than others - which creates a distinct
-                visual impression. Moreover, in Latin only words at the
-                beginning of sentences are capitalized. This means that Lorem
-                Ipsum cannot accurately represent, for example, German, in which
-                all nouns are capitalized. Thus, Lorem Ipsum has only limited
-                suitability as a visual filler for German texts. If the fill
-                text is intended to illustrate the characteristics of different
-                typefaces. It sometimes makes sense to select texts containing
-                the various letters and symbols specific to the output language.
-              </p>
-            </div>
-          </div>
-
-          {/* Responsibility */}
-          <div
-            className={classNames(
-              `border bg-white shadow-sm rounded-xl`,
-              `px-8 py-8`,
-              `text-justify`,
-            )}
-          >
-            <div>
-              <h1 className="text-2xl font-semibold">
-                Responsibility and Duties
-              </h1>
-              <p>
-                One disadvantage of Lorum Ipsum is that in Latin certain letters
-                appear more frequently than others - which creates a distinct
-                visual impression. Moreover, in Latin only words at the
-                beginning of sentences are capitalized. This means that Lorem
-                Ipsum cannot accurately represent, for example, German, in which
-                all nouns are capitalized. Thus, Lorem Ipsum has only limited
-                suitability as a visual filler for German texts. If the fill
-                text is intended to illustrate the characteristics of different
-                typefaces. It sometimes makes sense to select texts containing
-                the various letters and symbols specific to the output language.
-              </p>
-            </div>
-          </div>
-
-          {/* Skill */}
-          <div
-            className={classNames(
-              `border bg-white shadow-sm rounded-xl`,
-              `px-8 py-8`,
-              `text-justify`,
-            )}
-          >
-            <div>
-              <h1 className="text-2xl font-semibold">Skills Require</h1>
-              <div className="flex flex-wrap p-4">
-                {listSkills.map((item, index) => (
-                  <div key={index}>
-                    <span
-                      key={index}
-                      className="rounded-lg bg-[#78AF9A] bg-opacity-40 p-2 mx-2 my-1 text-[#218F6E]"
-                    >
-                      {item}
-                    </span>
+    <>
+      <div className={classNames(`job-detail`, `flex flex-col gap-6`)}>
+        {job ? (
+          <>
+            <div className={classNames(`flex flex-col md:flex-row gap-12`)}>
+              {/* Left side description */}
+              <div
+                className={classNames(
+                  `w-full md:w-8/12`,
+                  `flex flex-col gap-6 mt-2`,
+                )}
+              >
+                {/* Widgets */}
+                <ReccerJobDescriptionWidget
+                  companyName="FPT Software"
+                  jobRole={job?.name}
+                  publishDate={moment(job?.createdAt)
+                    .format("Do MMM, YYYY")
+                    .toString()}
+                  logo={{ src: Logo, alt: "image" }}
+                  quantity={job?.quantity}
+                />
+                {/* Details */}
+                <div
+                  className={classNames(
+                    `border bg-white shadow-sm rounded-xl`,
+                    `px-8 py-8`,
+                    `text-justify`,
+                  )}
+                >
+                  <div>
+                    <h1 className="text-2xl font-semibold">Job description</h1>
+                    <p>{job?.description}</p>
                   </div>
-                ))}
+                </div>
+
+                {/* Requirement */}
+                <div
+                  className={classNames(
+                    `border bg-white shadow-sm rounded-xl`,
+                    `px-8 py-8`,
+                    `text-justify`,
+                  )}
+                >
+                  <div>
+                    <h1 className="text-2xl font-semibold">Requirement</h1>
+                    <p>{job?.requirement}</p>
+                  </div>
+                </div>
+
+                {/* Benefit */}
+                <div
+                  className={classNames(
+                    `border bg-white shadow-sm rounded-xl`,
+                    `px-8 py-8`,
+                    `text-justify`,
+                  )}
+                >
+                  <div>
+                    <h1 className="text-2xl font-semibold">Benefit</h1>
+                    <p>{job?.benefit}</p>
+                  </div>
+                </div>
+
+                {/* Skill */}
+                <div
+                  className={classNames(
+                    `border bg-white shadow-sm rounded-xl`,
+                    `px-8 py-8`,
+                    `text-justify`,
+                  )}
+                >
+                  <div>
+                    <h1 className="text-2xl font-semibold">Skills Require</h1>
+                    <div className="flex flex-wrap p-4">
+                      {job?.skills.map((item, index) => (
+                        <div key={index}>
+                          <span
+                            key={index}
+                            className="rounded-lg bg-[#78AF9A] bg-opacity-40 p-2 mx-2 my-1 text-[#218F6E]"
+                          >
+                            {item.name}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                {/* /Skill */}
+                <div className={classNames(`flex`)}>
+                  <div className={classNames(`px-8 py-8`, `text-justify`)}>
+                    <button
+                      className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-2 my-1 text-white"
+                      onClick={routeChange}
+                    >
+                      Edit Job
+                    </button>
+                  </div>
+                  <div className={classNames(`py-8`, `text-justify`)}>
+                    <button
+                      className="px-4 py-2 mx-2 my-1 text-white bg-red-700 rounded-lg hover:bg-red-900"
+                      // onClick={deleteJob}
+                      onClick={handleClickOpen}
+                    >
+                      Delete Job
+                    </button>
+                    <Dialog
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="alert-dialog-title"
+                      aria-describedby="alert-dialog-description"
+                    >
+                      <DialogTitle
+                        id="alert-dialog-title"
+                        className="text-center"
+                      >
+                        <p className="pt-3 font-extrabold">Delete Job</p>
+                      </DialogTitle>
+                      <DialogContent className="text-center">
+                        <div className="px-6 text-center">
+                          <DialogContent className="mb-2 text-lg font-semibold">
+                            Are you sure you want to delete "{job.name}"?
+                          </DialogContent>
+                          <DialogContentText
+                            id="alert-dialog-description"
+                            className="px-3 py-2 bg-orange-100 border "
+                          >
+                            <div className="flex">
+                              <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
+                              <p className="flex px-2 font-semibold text-red-800">
+                                WARNING
+                              </p>
+                            </div>
+                            <div className="font-semibold text-left">
+                              This action cannot be undone, the deleted item
+                              cannot be restored.
+                            </div>
+                          </DialogContentText>
+                        </div>
+                      </DialogContent>
+                      <DialogActions>
+                        <button
+                          className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-1 my-1 text-white"
+                          onClick={handleClose}
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          className="px-4 py-2 mx-1 my-1 text-white bg-red-700 rounded-lg hover:bg-red-900"
+                          onClick={deleteJob}
+                          autoFocus
+                        >
+                          Delete
+                        </button>
+                      </DialogActions>
+                    </Dialog>
+                  </div>
+                </div>
+              </div>
+              {/* Right side description */}
+              <div className={classNames(`w-full md:w-3/12 flex-1 relative`)}>
+                <RecJobInformationCard cardData={jobInformation} />
               </div>
             </div>
-          </div>
-          {/* /Skill */}
 
-          <div className={classNames(`px-8 py-8`, `text-justify`)}>
-            <button
-              className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-2 my-1 text-white"
-              // onClick={routeChange}
-            >
-              Edit Job
-            </button>
+            {/* /Applied Candidate */}
+            <Applied num={job?.quantity} />
+
+            {/* Suggested Candidate*/}
+            <Suggested />
+          </>
+        ) : (
+          <div className="flex justify-center mt-5">
+            <LoadSpinner className="text-3xl" />
           </div>
-        </div>
-        {/* Right side description */}
-        <div className={classNames(`w-full md:w-3/12 flex-1 relative`)}>
-          <RecJobInformationCard cardData={jobInformation} />
-        </div>
+        )}
       </div>
-
-      {/* /Applied Candidate */}
-      <Applied />
-
-      {/* Suggested Candidate*/}
-      <Suggested />
-    </div>
+    </>
   );
 }

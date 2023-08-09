@@ -1,22 +1,23 @@
-import React from "react";
-import Badge from "./Badge";
 import classnames from "classnames";
+import React from "react";
+import { APPLICANTS_STATUS } from "../../utils/Localization";
+import Badge from "./Badge";
 
 interface JobStatusBadge extends React.HTMLProps<HTMLDivElement> {
   className?: string;
-  status: "reviewing" | "pending" | "passed" | "failed";
+  status: "NOT_RECEIVED" | "RECEIVED" | "PASSED" | "FAILED";
 }
 
 export default function JobStatusBadge({ className, status }: JobStatusBadge) {
   return (
     <Badge
       className={classnames(
-        `px-2`,
+        `px-2 w-32`,
         {
-          "bg-emerald-600": status === "passed",
-          "bg-yellow-600": status === "reviewing",
-          "bg-orange-600": status === "pending",
-          "bg-red-600": status === "failed",
+          "bg-emerald-600": status === "PASSED",
+          "bg-yellow-600": status === "NOT_RECEIVED",
+          "bg-orange-600": status === "RECEIVED" || status === "FAILED",
+          // "bg-red-600": ,
         },
 
         className,
@@ -24,29 +25,30 @@ export default function JobStatusBadge({ className, status }: JobStatusBadge) {
     >
       <span
         className={classnames("h-2 w-2 rounded-xl", {
-          "bg-emerald-800": status === "passed",
-          "bg-yellow-800": status === "reviewing",
-          "bg-orange-800": status === "pending",
-          "bg-red-800": status === "failed",
+          "bg-emerald-800": status === "PASSED",
+          "bg-yellow-800": status === "NOT_RECEIVED",
+          "bg-orange-800": status === "RECEIVED" || status === "FAILED",
+          // "bg-red-800": status === "FAILED",
         })}
       ></span>
       <span
         className={classnames({
-          "text-emerald-300": status === "passed",
-          "text-yellow-300": status === "reviewing",
-          "text-orange-300": status === "pending",
-          "text-red-300": status === "failed",
+          "text-emerald-300": status === "PASSED",
+          "text-yellow-300": status === "NOT_RECEIVED",
+          "text-orange-300": status === "RECEIVED" || status === "FAILED",
+          // "text-red-300": status === "FAILED",
         })}
       >
-        {status === "passed"
+        {/* {status === "PASS"
           ? `Passed`
-          : status === `failed`
+          : status === `FAILED`
           ? `Failed`
-          : status === `reviewing`
+          : status === `NOT_RECEIVED`
           ? `Reviewing`
-          : status === "pending"
+          : status === "RECEIVED"
           ? `Pending`
-          : `NaN`}
+          : `NaN`} */}
+        {APPLICANTS_STATUS[status]}
       </span>
     </Badge>
   );

@@ -1,7 +1,11 @@
-import CandidateRecent from "./CandidateRecent/CandidateRecen";
-import InterviewRecent from "./InterviewRecent/InterviewRecent";
-import InterviewQuestion from "./InterviewQuestion/InterviewQuestion";
-
+import CandidateRecent from "./CandidateRecent/CandidateRecent";
+import INTCandidateDetail from "./CandidateRecent/Detail/INTCandidateDetail";
 import InterviewDetail from "./InterviewRecent/Detail/InterviewDetail";
+import InterviewRecent from "./InterviewRecent/InterviewRecent";
 
-export {CandidateRecent, InterviewRecent, InterviewQuestion, InterviewDetail};
+export {
+  CandidateRecent,
+  INTCandidateDetail,
+  InterviewDetail,
+  InterviewRecent,
+};

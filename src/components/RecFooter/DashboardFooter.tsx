@@ -1,6 +1,3 @@
-import React from "react";
-import home from "../../pages/Home/Home";
-
 export default function DashboardFooter(props: any) {
   const style = {
     width: props.check

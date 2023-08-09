@@ -1,44 +1,31 @@
-import { useState, useEffect } from "react";
 import classNames from "classnames";
-import {
-  HiUserCircle,
-  HiCog6Tooth,
-  HiQuestionMarkCircle,
-  HiArrowLeftOnRectangle,
-  HiInformationCircle,
-} from "react-icons/hi2";
+import { useEffect, useState } from "react";
+
 import { Link, Outlet, useLocation } from "react-router-dom";
+import { useAppSelector } from "../../hooks/hooks";
+import {
+  prepareCandidateProvider,
+  prepareInterviewerProvider,
+  prepareOtherProvider,
+} from "../../utils/NavigateMenu";
 
 export default function UserProfileLayout() {
-  const [asideMenuItems] = useState([
-    {
-      url: "/profile/",
-      icon: <HiUserCircle />,
-      text: "My Profile",
-    },
-    {
-      url: "/profile/information",
-      icon: <HiInformationCircle />,
-      text: "My Information",
-    },
-    {
-      url: "/profile/interviews",
-      icon: <HiCog6Tooth />,
-      text: "Interview",
-    },
-    {
-      url: "/profile/submitted-jobs",
-      icon: <HiQuestionMarkCircle />,
-      text: "Submitted Jobs",
-    },
-    {
-      url: "/logout",
-      icon: <HiArrowLeftOnRectangle />,
-      text: "Log out",
-    },
-  ]);
-
+  const { loading, user } = useAppSelector((app) => app.Auth);
+  const [asideMenuItems, setAsideMenuItems] = useState<any[]>([]);
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (loading === "success" && user) {
+      const supplyMenuItems: any[] =
+        user.role === "CANDIDATE"
+          ? prepareCandidateProvider()
+          : user.role === "INTERVIEWER"
+          ? prepareInterviewerProvider()
+          : prepareOtherProvider();
+
+      setAsideMenuItems([...supplyMenuItems]);
+    }
+  }, [user, loading]);
 
   return (
     <div className={classNames(`flex flex-col md:flex-row mb-4 gap-6`)}>

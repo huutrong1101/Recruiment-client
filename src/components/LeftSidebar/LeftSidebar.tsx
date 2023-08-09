@@ -1,4 +1,3 @@
-import React from "react";
 import image from "../../../images/avatar.png";
 export default function LeftSidebar() {
   return (

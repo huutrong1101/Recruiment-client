@@ -1,5 +1,3 @@
-import { BiLogoFacebook } from "react-icons/bi";
-
 export const data = {
   listTypeJobs: [
     {

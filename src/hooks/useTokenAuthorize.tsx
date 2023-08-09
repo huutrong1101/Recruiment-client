@@ -1,30 +1,43 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "./hooks";
 import { authLogout, fetchUserFromToken } from "../redux/AuthSlice";
+import { requestRefreshAccessToken } from "../utils/AxiosInstance";
+import {
+  getLocalToken,
+  hasLocalToken,
+  hasRefreshToken,
+} from "../utils/localToken";
+import { useAppDispatch } from "./hooks";
 
 export function useTokenAuthorize() {
   const dispatch = useAppDispatch();
 
-  const token = useAppSelector((app) => app.Auth.token);
+  // const token = useAppSelector((app) => app.Auth.token);
 
   useEffect(() => {
-    if (token !== null) {
-      // Get the profile from signed in token.
-      dispatch(fetchUserFromToken({ token }))
-        .unwrap()
-        .catch((error: any) => {
-          // if failed, trying to look at the scenario.
-          // First, if the token is broken
-          if (!error.success && error.statusCode === 500) {
-            dispatch(authLogout());
-          }
-
-          // Second one, when expired, we trying to refresh it
-        });
+    if (hasRefreshToken()) {
+      if (!hasLocalToken()) {
+        requestRefreshAccessToken().then(
+          ({ refreshToken, accessToken }: any) => {
+            dropDispatchFetchUser(accessToken);
+          },
+        );
+      } else {
+        dropDispatchFetchUser(getLocalToken());
+      }
     }
-
-    return () => {
-      // Clean up here
-    };
   }, []);
+
+  const dropDispatchFetchUser = async (token: string) => {
+    return dispatch(fetchUserFromToken({ token }))
+      .unwrap()
+      .catch((error: any) => {
+        // if failed, trying to look at the scenario.
+        // First, if the token is broken
+        if (!error.success && error.statusCode === 500) {
+          dispatch(authLogout());
+        }
+
+        // Second one, when expired, we trying to refresh it
+      });
+  };
 }

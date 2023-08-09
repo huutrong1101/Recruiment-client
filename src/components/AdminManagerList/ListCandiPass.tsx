@@ -1,192 +1,212 @@
-import React, { useState } from "react";
-import SearchBar from "../../components/Search/Search";
-import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
-import TablePagination from '@mui/material/TablePagination';
-const rowsPerPageOptions = [10];
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
+import { useEffect, useState } from "react";
+
+import { isUndefined, omitBy } from "lodash";
+import useQueryParams from "../../hooks/useQueryParams";
+import {
+  AdminJobPassInterface,
+  AdminJobPassListConfig,
+} from "../../services/services";
+
+import { isEqual } from "lodash";
+import moment from "moment";
+import qs from "query-string";
+import { useParams } from "react-router-dom";
+import { useAppSelector } from "../../hooks/hooks";
+import axiosInstance from "../../utils/AxiosInstance";
+import LoadSpinner from "../LoadSpinner/LoadSpinner";
+import Paginationpasslist from "./Pagination/Paginationpasslist";
+
+export type QueryConfig = {
+  [key in keyof AdminJobPassListConfig]: string;
+};
+
 export default function ListCandiPass() {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const handleChangePage = (event: any, newPage: number) => {
-      setPage(newPage);
-  };
-  const handleChangeRowsPerPage = (event: any) => {
-      setRowsPerPage(parseInt(event.target.value, 100));
-      setPage(0);
-  };
-  let ListCandiPassList = [
-    {      nameCan: "Nguyen Van A",      day: "9/2/2022",       point: "50",      email: "name@example.com",      phone: "098212xxx",    },
-    {      nameCan: "Nguyen Van B",      day: "9/3/2021",       point: "25",      email: "name@example.com",      phone: "098212xxx",    },
-    {      nameCan: "Nguyen Van C",      day: "9/1/2019",       point: "75",      email: "name@example.com",      phone: "098212xxx",    },
-    {      nameCan: "Nguyen Van D",      day: "9/10/2020",      point: "65",      email: "name@example.com",      phone: "098212xxx",    },
-    {      nameCan: "Nguyen Van E",      day: "9/10/2023",      point: "55",      email: "name@example.com",      phone: "098212xxx",    },
-    {      nameCan: "Nguyen Van F",      day: "9/10/2023",      point: "15",      email: "name@example.com",      phone: "098212xxx",    },
-    {      nameCan: "Nguyen Van R",      day: "9/10/2023",      point: "15",      email: "name@example.com",      phone: "098212xxx",    },
-    {      nameCan: "Nguyen Van h",      day: "9/11/2023",      point: "25",      email: "name@example.com",      phone: "098212xxx",    },
-    {      nameCan: "Nguyen Van d",      day: "5/03/2023",      point: "75",      email: "name@example.com",      phone: "098212xxx",    },
-    {      nameCan: "Nguyen Van f",      day: "9/01/2023",      point: "95",      email: "name@example.com",      phone: "098212xxx",    },
-  ];
+  const { jobId } = useParams();
+
+  const jobs: AdminJobPassInterface[] = useAppSelector(
+    (state) => state.adminmanagerpassList.adminmanagerpassList,
+  );
+  const totalListJobs = useAppSelector(
+    (state) => state.adminmanagerpassList.totalListPassJobs,
+  );
+  const queryParams: QueryConfig = useQueryParams();
+  const queryConfig: QueryConfig = omitBy(
+    {
+      page: queryParams.page || "1",
+      size: queryParams.size || 5,
+    },
+    isUndefined,
+  );
+  const [prevQueryConfig, setPrevQueryConfig] =
+    useState<QueryConfig>(queryConfig);
+  const [pageSize, setPageSize] = useState(
+    Math.ceil(totalListJobs / Number(queryParams.size || 7)),
+  );
+  const [showJobLists, setAdminManagerPassList] = useState(jobs);
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    if (!isEqual(prevQueryConfig, queryConfig)) {
+      const fetchJobs = async () => {
+        // setIsLoading(true);
+        try {
+          const query = qs.stringify(queryConfig);
+          const response = await axiosInstance(`/admin/jobs/${jobId}?${query}`);
+          setAdminManagerPassList(response.data.result.content);
+          setPageSize(response.data.result.totalPages);
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetchJobs();
+      setPrevQueryConfig(queryConfig);
+    }
+  }, [queryConfig, prevQueryConfig]);
+
+  useEffect(() => {
+    const fetchPosition = async () => {
+      setIsLoading(true);
+      try {
+        if (queryConfig) {
+          const query = qs.stringify(queryConfig);
+          const response = await axiosInstance(`/admin/jobs/${jobId}?${query}`);
+          setAdminManagerPassList(response.data.result.content);
+          setPageSize(response.data.result.totalPages);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchPosition();
+  }, []);
   return (
-    <div className="">
-    <div className="flex justify-center w-200%">
-      <SearchBar />
-    </div>
-    <div className="mt-10 elative rounded-lg">
-    <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
-      <Table className="text-sm text-gray-500 dark:text-gray-400 text-center sticky">
-        <TableHead className="text-xs text-gray-700 uppercase bg-gray-200 text-center">
-          <TableRow>
-          <TableCell scope="col" className="px-3 py-1">
-              Name
-            </TableCell>
-            <TableCell scope="col" className="px-3 py-1">
-              Phone
-            </TableCell>
-            <TableCell scope="col" className="px-3 py-1">
-              Email
-            </TableCell>
-            <TableCell scope="col" className="px-3 py-1">
-              Date created
-            </TableCell>
-            <TableCell scope="col" className="px-3 py-1">
-              Point
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-        {ListCandiPassList.sort((a, b) => b.point - a.point).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, index,ListCandiPassList:any) => (
-            <TableRow className="text-black bg-white text-center" key={index}>
-              <TableCell scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">   {item.nameCan}  </TableCell>
-              <TableCell className="px-6 py-4">{item.phone}</TableCell>
-              <TableCell className="px-6 py-4">{item.email}</TableCell>
-              <TableCell className="px-6 py-4">{item.day}</TableCell>
-              <TableCell className="px-6 py-4">{item.point}</TableCell>
+    <div className="flex-col mt-10">
+      {/* Title */}
+      <div className="flex items-center text-center space-x-2 font-semibold text-green-500 justify-center mb-10">
+        <span className="tracking-wide text-center  text-emerald-600 text-[28px] ">
+          List Candidate Apply Jobs
+        </span>
+      </div>
+      <TableContainer
+        component={Paper}
+        sx={{ border: "1px solid rgba(0, 0, 0, 0.4)" }}
+      >
+        <Table className="text-sm text-gray-500 dark:text-gray-400 text-center sticky">
+          <TableHead
+            className="text-xs bold text-gray-700 bg-gray-200 text-center"
+            style={{ fontFamily: "Outfit, sans-serif" }}
+          >
+            <TableRow>
+              <TableCell
+                style={{ fontFamily: "Outfit, sans-serif" }}
+                className="px-1 py-1 bold"
+              >
+                <div className="ml-5">Name</div>
+              </TableCell>
+              <TableCell
+                style={{ fontFamily: "Outfit, sans-serif" }}
+                className="px-1 py-1 bold"
+              >
+                Phone
+              </TableCell>
+              <TableCell
+                style={{ fontFamily: "Outfit, sans-serif" }}
+                className="px-1 py-1 bold"
+              >
+                State
+              </TableCell>
+              <TableCell
+                style={{ fontFamily: "Outfit, sans-serif" }}
+                className="px-1 py-1 bold"
+              >
+                Graded date
+              </TableCell>
+              <TableCell
+                style={{ fontFamily: "Outfit, sans-serif" }}
+                className="px-1 py-1 bold"
+              >
+                Score
+              </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <TablePagination
-            rowsPerPageOptions={rowsPerPageOptions}
-            component="div"
-            count={100}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+          </TableHead>
+          {isLoading ? (
+            <TableBody>
+              <TableRow>
+                <TableCell colSpan={6}>
+                  <div className="flex items-center justify-center w-full h-[50px] text-[13px] mt-10 mb-10">
+                    <LoadSpinner className="text-2xl text-[#059669] " />
+                  </div>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          ) : (
+            <TableBody>
+              {showJobLists && showJobLists.length > 0 ? (
+                showJobLists.map((job) => (
+                  <TableRow
+                    className={`text-center text-black bg-white hover:bg-gray-100 
+                }`}
+                  >
+                    <TableCell
+                      scope="row"
+                      className="px-1 py-1 font-semibold text-blue-500 whitespace-nowrap"
+                    >
+                      <div className="ml-5">{job.name}</div>
+                    </TableCell>
+                    <TableCell className="px-1 py-1 text-gray-500">
+                      {job.phone}
+                    </TableCell>
+                    <TableCell className="px-1 py-1 text-green-500 italic">
+                      {job.state === "NOT_RECEIVED" ||
+                      job.state === "RECEIVED" ||
+                      job.state === "FAILED"
+                        ? "Pending"
+                        : "Pass"}
+                    </TableCell>
+                    <TableCell className="px-1 py-1 italic">
+                      {job.date !== null
+                        ? moment(job.date).format("HH:mm:ss DD-MM-YYYY")
+                        : "Pending"}
+                    </TableCell>
+                    <TableCell className="px-1 py-1 font-semibold ">
+                      {job.state === "NOT_RECEIVED" ||
+                      job.state === "FAILED" ||
+                      job.state === "RECEIVED"
+                        ? " -:- "
+                        : job.score}
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableBody>
+                  <TableRow>
+                    <TableCell colSpan={4} className="text-center">
+                      <p>No results were found. Please check again</p>
+                      {/* <PageNotFound /> */}
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              )}
+            </TableBody>
+          )}
+        </Table>
       </TableContainer>
+      <div className="flex justify-center mt-10">
+        {/* Pagination  */}
+        <Paginationpasslist queryConfig={queryConfig} pageSize={pageSize} />
+      </div>
     </div>
-  </div>
   );
 }
-
-
-
-
-//
-// import React, { useState,useEffect } from "react";
-// import SearchBar from "../../components/Search/Search";
-// import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
-// import TablePagination from '@mui/material/TablePagination';
-// import {fetchAdminManagerPassList} from "../../redux/reducer/AdminListPassRecentSlice";
-// import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-// import Loader from "../../components/Loader/Loader";
-// import { STATUS } from '../../utils/Status';
-
-
-// const rowsPerPageOptions = [10];
-// export default function ListCandiPass() {
-//   const {adminmanagerpassList, adminmanagerpassListStatus} = useAppSelector(
-//     (state: any) => state.adminmanagerpassList,
-//   );
-
-//   const dispatch = useAppDispatch();
-//   useEffect(() => {
-//     dispatch(fetchAdminManagerPassList())
-//   }, []);
-//   useEffect(() => {
-//     console.log(adminmanagerpassList);
-//   }, [adminmanagerpassList]);
-
-
-//   const [page, setPage] = useState(0);
-//   const [rowsPerPage, setRowsPerPage] = useState(10);
-//   const handleChangePage = (event: any, newPage: number) => {
-//       setPage(newPage);
-//   };
-//   const handleChangeRowsPerPage = (event: any) => {
-//       setRowsPerPage(parseInt(event.target.value, 100));
-//       setPage(0);
-//   };
-//   let ListCandiPassList = [
-//     {      nameCan: "Nguyen Van A",      day: "9/2/2022",       point: "50",      email: "name@example.com",      phone: "098212xxx",    },
-//     {      nameCan: "Nguyen Van B",      day: "9/3/2021",       point: "25",      email: "name@example.com",      phone: "098212xxx",    },
-//     {      nameCan: "Nguyen Van C",      day: "9/1/2019",       point: "75",      email: "name@example.com",      phone: "098212xxx",    },
-//     {      nameCan: "Nguyen Van D",      day: "9/10/2020",      point: "65",      email: "name@example.com",      phone: "098212xxx",    },
-//     {      nameCan: "Nguyen Van E",      day: "9/10/2023",      point: "55",      email: "name@example.com",      phone: "098212xxx",    },
-//     {      nameCan: "Nguyen Van F",      day: "9/10/2023",      point: "15",      email: "name@example.com",      phone: "098212xxx",    },
-//     {      nameCan: "Nguyen Van R",      day: "9/10/2023",      point: "15",      email: "name@example.com",      phone: "098212xxx",    },
-//     {      nameCan: "Nguyen Van h",      day: "9/11/2023",      point: "25",      email: "name@example.com",      phone: "098212xxx",    },
-//     {      nameCan: "Nguyen Van d",      day: "5/03/2023",      point: "75",      email: "name@example.com",      phone: "098212xxx",    },
-//     {      nameCan: "Nguyen Van f",      day: "9/01/2023",      point: "95",      email: "name@example.com",      phone: "098212xxx",    },
-//   ];
-  
-//   if(adminmanagerpassListStatus === STATUS.LOADING){
-//     return (
-//         <Loader/>
-//     );
-//   }
-//   else if(adminmanagerpassListStatus === STATUS.IDLE){
-//     return (
-//       <div className="">
-//       <div className="flex justify-center w-200%">
-//         <SearchBar />
-//       </div>
-//       <div className="mt-10 elative rounded-lg">
-//       <TableContainer component={Paper} sx={{ border: '1px solid rgba(0, 0, 0, 0.4)'}}>
-//         <Table className="text-sm text-gray-500 dark:text-gray-400 text-center sticky">
-//           <TableHead className="text-xs text-gray-700 uppercase bg-gray-200 text-center">
-//             <TableRow>
-//             <TableCell scope="col" className="px-3 py-1">
-//                 Name
-//               </TableCell>
-//               <TableCell scope="col" className="px-3 py-1">
-//                 Phone
-//               </TableCell>
-//               <TableCell scope="col" className="px-3 py-1">
-//                 Email
-//               </TableCell>
-//               <TableCell scope="col" className="px-3 py-1">
-//                 Date created
-//               </TableCell>
-//               <TableCell scope="col" className="px-3 py-1">
-//                 Point
-//               </TableCell>
-//             </TableRow>
-//           </TableHead>
-//           <TableBody>
-//           {adminmanagerpassList.sort((a, b) => b.score - a.score).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((adminlistpass:any) => (
-//               <TableRow className="text-black bg-white text-center" key={index}>
-//                 <TableCell scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">   {adminlistpass.name}  </TableCell>
-//                 <TableCell className="px-6 py-4">{adminlistpass.phone}</TableCell>
-//                 <TableCell className="px-6 py-4">{adminlistpass.email}</TableCell>
-//                 <TableCell className="px-6 py-4">{adminlistpass.day}</TableCell>
-//                 <TableCell className="px-6 py-4">{adminlistpass.score}</TableCell>
-//               </TableRow>
-//             ))}
-//           </TableBody>
-//         </Table>
-//         <TablePagination
-//               rowsPerPageOptions={rowsPerPageOptions}
-//               component="div"
-//               count={100}
-//               rowsPerPage={rowsPerPage}
-//               page={page}
-//               onPageChange={handleChangePage}
-//               onRowsPerPageChange={handleChangeRowsPerPage}
-//             />
-//         </TableContainer>
-//       </div>
-//     </div>
-//     );
-//   }
-// }

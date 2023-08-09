@@ -1,9 +1,9 @@
 import { Transition } from "@headlessui/react";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
-import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 
 export default function CompleteConfirmEmail() {
   const [showing, setShowing] = useState(false);

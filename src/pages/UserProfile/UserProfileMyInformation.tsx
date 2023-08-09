@@ -1,143 +1,206 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+// import CreatableSelect from "react-select/creatable";
+import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
-import Field from "../../components/Field/Field";
+import { toast } from "react-toastify";
+import FieldContainer from "../../components/Field/FieldContainer";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import { getSkills } from "../../services/CandidateService";
+import { UserService } from "../../services/UserService";
+import { LoadingStatus } from "../../services/services";
+import {
+  CertificateSchema,
+  EducationSchema,
+  ExperienceSchema,
+  ProjectSchema,
+} from "./UserProfileMyInformationSchema";
 
-const colourOptions = [
-  { value: "reactjs", label: "ReactJS" },
-  { value: "html-css", label: "HTML-CSS" },
-  { value: "java", label: "Java" },
-];
+// const colourOptions = [
+//   { value: "reactjs", label: "ReactJS" },
+//   { value: "c and csharp", label: "C/C++" },
+//   { value: "html", label: "HTML" },
+//   { value: "java", label: "Java" },
+// ];
 
 const animatedComponents = makeAnimated();
 
 export default function UserProfileMyInformation() {
-  const [education, setEducation] = useState([
-    [
-      { title: "School Name", value: "" },
-      { title: "Specialized", value: "" },
-      { title: "Certificate", value: "" },
-    ],
-  ]);
-  const [experience, setExperience] = useState([
-    [
-      { title: "Company Name", value: "" },
-      { title: "Position", value: "" },
-      { title: "Time", value: "" },
-    ],
-  ]);
-  const [certificate, setCertificate] = useState([
-    [
-      { title: "Certificate Name", value: "" },
-      { title: "Certification body", value: "" },
-      { title: "Certification time", value: "" },
-    ],
-  ]);
-  const [aware, setAware] = useState([
-    [
-      { title: "Award Name", value: "" },
-      { title: "Award organization", value: "" },
-      { title: "Award winning time", value: "" },
-    ],
-  ]);
-  const [course, setCourse] = useState([
-    [
-      { title: "Course name", value: "" },
-      { title: "Training organizations", value: "" },
-      { title: "Completion time", value: "" },
-    ],
-  ]);
-  const [project, setProject] = useState([
-    [
-      { title: "Name of project", value: "" },
-      { title: "Position in the project", value: "" },
-      { title: "Decription", value: "" },
-    ],
-  ]);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  // Container item is a item that fetch from information field
+  const [containerItem, setContainerItem] = useState({
+    education: [],
+    experience: [],
+    certificate: [],
+    project: [],
+    skills: [],
+  });
+  const [loadingState, setLoadingState] = useState<LoadingStatus>("idle");
+  const [skillOptions, setSkillOptions] = useState<any[]>([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setLoadingState("pending");
+    UserService.getUserInformation()
+      .then(async (response) => {
+        const fetchContainerItem = await response.data.result.information;
+        if (fetchContainerItem !== null) {
+          setContainerItem({ ...JSON.parse(fetchContainerItem) });
+        }
+      })
+      .then(() => setLoadingState("fulfill"))
+      .catch(() => setLoadingState("failed"));
+
+    return () => {};
+  }, []);
+
+  useEffect(() => {
+    getSkills()
+      .then((response) => {
+        const { result } = response.data;
+        setSkillOptions(
+          result.map(({ skillId, name }: any) => {
+            return {
+              label: name,
+              value: skillId,
+            };
+          }),
+        );
+      })
+      .catch(() => toast.error(`Cannot fetch candidate skills`));
+  }, []);
+
+  // const [selectedOptions, setSelectedOptions] = useState([]);
 
   const handleSelectChange = (selectedOptions: any) => {
-    setSelectedOptions(selectedOptions);
+    // setSelectedOptions(selectedOptions);
+    // handleValuesUpdate("skills", selectedOptions);
+    const clonedObject = structuredClone(containerItem);
+    // @ts-ignore
+    clonedObject["skills"] = selectedOptions;
+    setContainerItem({ ...clonedObject });
   };
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    alert(
-      JSON.stringify({
-        education,
-        experience,
-        certificate,
-        aware,
-        course,
-        project,
-        selectedOptions,
-      }),
-    );
+  const handleSubmit = (e: any, updatedItem: any) => {
+    e !== null && e.preventDefault();
+    toast.promise(UserService.updateUserInformation(updatedItem), {
+      pending: `Updating your information`,
+      success: `Successfully update the information`,
+      error: `There was an error when updated the information`,
+    });
+  };
+
+  const handleValuesUpdate = (ofId: string, values: any[]) => {
+    const clonedObject = structuredClone(containerItem);
+    // @ts-ignore
+    clonedObject[ofId] = values;
+    setContainerItem({ ...clonedObject });
+    handleSubmit(null, { ...clonedObject });
+    // Maybe save the information
+    // toast.promise(
+    //   {},
+    //   {
+    //     pending: `Saving changes`,
+    //     error: `Failed to save change`,
+    //     success: `Successfully changed`,
+    //   },
+    // );
   };
 
   return (
     <div className="flex flex-col flex-1 gap-4">
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <form onSubmit={(e) => handleSubmit(e, containerItem)}>
         <div className="pb-12">
-          <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-2 sm:grid-cols-6">
-            <Field
-              label="Education"
-              values={education}
-              onChange={setEducation}
-            />
+          {loadingState === "pending" ? (
+            <div className="min-h-[60vh] flex flex-col items-center justify-center text-2xl">
+              <LoadSpinner />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6">
+              <FieldContainer
+                label="Education"
+                // values={educationItems}
+                // onChange={setEducation}
+                initialValues={containerItem.education}
+                primaryLabel={`school`}
+                fieldListSchema={EducationSchema}
+                onFieldUpdate={(data) => handleValuesUpdate("education", data)}
+              />
 
-            <Field
-              label="Experience"
-              values={experience}
-              onChange={setExperience}
-            />
+              <FieldContainer
+                label="Experience"
+                initialValues={containerItem.experience}
+                fieldListSchema={ExperienceSchema}
+                primaryLabel={`companyName`}
+                onFieldUpdate={(data) => handleValuesUpdate("experience", data)}
+              />
 
-            <div className="pb-8 mb-3 border-b col-span-full border-gray-900/10">
-              <label
-                htmlFor="street-address"
-                className="text-xl font-bold leading-7 text-center text-green-600 font-Outfit"
-              >
-                Skill
-              </label>
-              <div className="flex flex-wrap items-center justify-start mt-3 ">
-                <Select
-                  defaultValue={[colourOptions[0]]}
-                  isMulti
-                  name="colors"
-                  options={colourOptions}
-                  className="w-full px-4 basic-multi-select"
-                  classNamePrefix="select"
-                  closeMenuOnSelect={false}
-                  components={animatedComponents}
-                  value={selectedOptions}
-                  onChange={handleSelectChange}
-                  styles={{
-                    menu: (provided) => ({
-                      ...provided,
-                      width: "96.5%",
-                    }),
-                  }}
-                />
+              <FieldContainer
+                label="Certificate"
+                initialValues={containerItem.certificate}
+                fieldListSchema={CertificateSchema}
+                primaryLabel={`name`}
+                onFieldUpdate={(data) =>
+                  handleValuesUpdate("certificate", data)
+                }
+              />
+
+              <FieldContainer
+                label="Project"
+                initialValues={containerItem.project}
+                fieldListSchema={ProjectSchema}
+                primaryLabel={`name`}
+                onFieldUpdate={(data) => handleValuesUpdate("project", data)}
+              />
+
+              <div className="pb-8 mb-3 border-b col-span-full border-gray-900/10">
+                <label
+                  htmlFor="street-address"
+                  className="text-xl font-bold leading-7 text-center text-green-600 font-Outfit"
+                >
+                  Skill
+                </label>
+                <div className="flex flex-wrap items-center justify-start mt-3 ">
+                  <Select
+                    // defaultValue={[skill[0]]}
+                    isMulti
+                    name="colors"
+                    options={skillOptions}
+                    className="w-full px-4 basic-multi-select"
+                    classNamePrefix="select"
+                    closeMenuOnSelect={false}
+                    components={animatedComponents}
+                    value={containerItem.skills}
+                    onChange={handleSelectChange}
+                    styles={{
+                      menu: (provided) => ({
+                        ...provided,
+                        width: "96.5%",
+                      }),
+                    }}
+                  />
+                </div>
+                {/* <small className={classNames(`mx-4 text-gray-400`)}>
+                  Please save your skill after changes.
+                </small> */}
               </div>
             </div>
-
-            <Field
-              label="Certificate"
-              values={certificate}
-              onChange={setCertificate}
-            />
-
-            <Field label="Aware" values={aware} onChange={setAware} />
-
-            <Field label="Course" values={course} onChange={setCourse} />
-
-            <Field label="Project" values={project} onChange={setProject} />
-          </div>
+          )}
         </div>
         <div className="flex items-center justify-end gap-x-6">
           <button
+            type="button"
+            onClick={() => {
+              navigate("/print-resume");
+            }}
+            className="px-3 py-2 text-sm font-semibold text-white rounded-md shadow-sm bg-emerald-600 hover:bg-emerald-500
+             focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+          >
+            Export to pdf
+          </button>
+          <button
             type="submit"
-            className="px-3 py-2 text-sm font-semibold text-white rounded-md shadow-sm bg-emerald-600 hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="px-3 py-2 text-sm font-semibold text-white rounded-md shadow-sm bg-emerald-600 hover:bg-emerald-500
+             focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
           >
             Save
           </button>
