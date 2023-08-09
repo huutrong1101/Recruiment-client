@@ -158,3 +158,6 @@ sketch
 
 # Because this project is using yarn, so eliminate package lock file.
 package-lock.json
+
+# GitLab pages ignore 
+public
