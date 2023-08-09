@@ -66,10 +66,10 @@ export default function ScorePage() {
   const handleChangeSkillQ = (event: any) => {
     setSkillQ(event.target.value);
   };
-  const handleSubmitQ = async (event : any) => {
-      event.preventDefault()
-      await dispatch(addQuestionToRepo({ ID, contentQ, noteQ, typeQ, skillQ }));
-      dispatch(fetchINTAssignedQuestions(id));
+  const handleSubmitQ = async (event: any) => {
+    event.preventDefault();
+    await dispatch(addQuestionToRepo({ ID, contentQ, noteQ, typeQ, skillQ }));
+    dispatch(fetchINTAssignedQuestions(id));
   };
 
   const handleDelete = async (question: any) => {
@@ -334,7 +334,11 @@ export default function ScorePage() {
                     },
                   }}
                 >
-                  <form onSubmit={ (event : any) => {handleSubmitQ(event)}}>
+                  <form
+                    onSubmit={(event: any) => {
+                      handleSubmitQ(event);
+                    }}
+                  >
                     <div className="text-lg font-semibold">Content: </div>
                     <textarea
                       id="content"

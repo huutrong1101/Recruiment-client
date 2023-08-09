@@ -33,7 +33,6 @@ export default function RecruiterAppLayout() {
           {/* <!-- Right Sidebar Content --> */}
         </div>
       </div>
-
     </div>
   );
 }

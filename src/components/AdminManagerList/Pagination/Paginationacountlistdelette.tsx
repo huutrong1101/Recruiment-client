@@ -10,7 +10,10 @@ interface Props {
 
 const RANGE = 2;
 
-export default function Paginationacountlistdelette({ queryConfig, pageSize }: Props) {
+export default function Paginationacountlistdelette({
+  queryConfig,
+  pageSize,
+}: Props) {
   const page = Number(queryConfig.page);
 
   const renderPaginationacountlistdelette = () => {
@@ -146,7 +149,7 @@ export default function Paginationacountlistdelette({ queryConfig, pageSize }: P
                 }}
                 className="px-3 py-2 mx-2 bg-white border rounded shadow-sm cursor-pointer"
               >
-               Next
+                Next
               </Link>
             )}
           </li>

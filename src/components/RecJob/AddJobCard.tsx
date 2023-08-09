@@ -20,19 +20,26 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { JOB_POSITION } from "../../utils/Localization";
 
-export default function AddJobCard({ cardData, setCardData, setpositionId, setLocation, setjobType, salary, setSalary, deadline, setDeadline }: any) {
-  const location = useAppSelector(state => state.Job.location)
-  const employeeType = useAppSelector(state => state.Job.postion)
-  const jobType = useAppSelector(state => state.Job.type)
+export default function AddJobCard({
+  cardData,
+  setCardData,
+  setpositionId,
+  setLocation,
+  setjobType,
+  salary,
+  setSalary,
+  deadline,
+  setDeadline,
+}: any) {
+  const location = useAppSelector((state) => state.Job.location);
+  const employeeType = useAppSelector((state) => state.Job.postion);
+  const jobType = useAppSelector((state) => state.Job.type);
 
+  const listData = cardData.map((data: any) => data.value);
 
-  const listData = cardData.map((data: any) => (
-    data.value
-  ));
-
-  setpositionId(listData[0])
-  setLocation(listData[1])
-  setjobType(listData[2])
+  setpositionId(listData[0]);
+  setLocation(listData[1]);
+  setjobType(listData[2]);
   // console.log(positionId)
   const handleDateChange = (date) => {
     setDeadline(date);
@@ -56,9 +63,9 @@ export default function AddJobCard({ cardData, setCardData, setpositionId, setLo
     listJobInfoSearch: {
       "Employee Type": formattedEmployeeType,
       Location: formattedLocation,
-      "Position": formattedJobType,
+      Position: formattedJobType,
     },
-  }
+  };
   const currentDate = new Date();
   const nextDay = new Date(currentDate);
   nextDay.setDate(currentDate.getDate() + 1);
@@ -144,7 +151,9 @@ export default function AddJobCard({ cardData, setCardData, setpositionId, setLo
           })}
       </div>
       <div className={classNames(`flex flex-row items-center gap-4`)}>
-        <div className={classNames(`w-1/12 mx-2`)}><CurrencyDollarIcon /></div>
+        <div className={classNames(`w-1/12 mx-2`)}>
+          <CurrencyDollarIcon />
+        </div>
         <div className={classNames(`flex flex-col flex-1`)}>
           <div>Salary</div>
           <TextareaAutosize
@@ -152,16 +161,16 @@ export default function AddJobCard({ cardData, setCardData, setpositionId, setLo
             minRows={4}
             value={salary}
             style={{
-              lineHeight: 'normal',
-              outline: 'none',
-              border: '1px solid #ccc',
-              borderRadius: '4px',
-              fontSize: '16px',
-              height: '26px',
-              width: '160px',
-              overflow: 'hidden',
-              resize: 'none',
-              padding: '2px'
+              lineHeight: "normal",
+              outline: "none",
+              border: "1px solid #ccc",
+              borderRadius: "4px",
+              fontSize: "16px",
+              height: "26px",
+              width: "160px",
+              overflow: "hidden",
+              resize: "none",
+              padding: "2px",
             }}
             className="focus:outline-none focus:ring-black focus:ring-1"
             placeholder=""
@@ -170,7 +179,9 @@ export default function AddJobCard({ cardData, setCardData, setpositionId, setLo
         </div>
       </div>
       <div className={classNames(`flex flex-row items-center gap-4`)}>
-        <div className={classNames(`w-1/12 mx-2`)}><ClockIcon /></div>
+        <div className={classNames(`w-1/12 mx-2`)}>
+          <ClockIcon />
+        </div>
         <div className={classNames(`flex flex-col flex-1`)}>
           <div>End At</div>
           <DatePicker
@@ -179,7 +190,7 @@ export default function AddJobCard({ cardData, setCardData, setpositionId, setLo
             onChange={handleDateChange}
             dateFormat="yyyy-MM-dd"
             placeholderText="Select a day"
-            minDate ={nextDay}
+            minDate={nextDay}
             className="border w-[160px] p-[1px] focus:outline-none focus:ring-black focus:ring-1 rounded-md"
           />
         </div>

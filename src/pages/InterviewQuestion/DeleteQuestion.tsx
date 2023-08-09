@@ -7,7 +7,7 @@
 //   const navigate = useNavigate()
 //   if (conf) {
 //     return (
-//       axiosInstance.delete('interviewer/question/'+id) 
+//       axiosInstance.delete('interviewer/question/'+id)
 //       .then (res => {
 //         alert('Question has deleted. Page will be reloaded')
 //         navigate('interviewer/interview-question')

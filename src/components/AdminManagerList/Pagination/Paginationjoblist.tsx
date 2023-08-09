@@ -102,7 +102,7 @@ export default function Paginationjoblist({ queryConfig, pageSize }: Props) {
   };
   return (
     <>
-      <nav 
+      <nav
         aria-label="Page navigation example"
         className="flex items-center justify-center"
       >

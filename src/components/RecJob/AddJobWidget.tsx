@@ -16,9 +16,8 @@ interface JobDescriptionWidgetProps {
   };
 }
 
-
-export default function AddJobWidget(props : any) {
-  const {nameData, setNameData,quantityData,setQuantityData} = props;
+export default function AddJobWidget(props: any) {
+  const { nameData, setNameData, quantityData, setQuantityData } = props;
   return (
     <div
       className={classNames(
@@ -59,9 +58,10 @@ export default function AddJobWidget(props : any) {
               value={quantityData}
               className="resize-none p-1 w-10 text-center bg-white border rounded-lg inline-flex"
               onChange={(event) => setQuantityData(event.target.value)}
-
             />
-            <div className="flex justify-center items-center ml-1">Applicants</div>
+            <div className="flex justify-center items-center ml-1">
+              Applicants
+            </div>
           </div>
         </div>
         {/* Right */}

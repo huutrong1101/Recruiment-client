@@ -1,17 +1,17 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 import { Dispatch } from "@reduxjs/toolkit";
-import axiosInstance from '../../../utils/AxiosInstance'
+import axiosInstance from "../../../utils/AxiosInstance";
 const SkillSlice = createSlice({
-    name: 'SkillList',
-    initialState: {
-        skillList: [],
+  name: "SkillList",
+  initialState: {
+    skillList: [],
+  },
+  reducers: {
+    setSkillList(state, action) {
+      state.skillList = action.payload;
     },
-    reducers: {
-        setSkillList(state, action) {
-            state.skillList = action.payload
-        }
-    }
-})
+  },
+});
 
-export default SkillSlice.reducer
-export const { setSkillList } = SkillSlice.actions
+export default SkillSlice.reducer;
+export const { setSkillList } = SkillSlice.actions;

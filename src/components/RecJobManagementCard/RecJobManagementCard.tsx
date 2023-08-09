@@ -26,7 +26,7 @@ export default function RecDashboardCard({ job }: any) {
   } else if (currentDateMoment.isSame(targetDateMoment)) {
     console.log("Current date is the same as the target date.");
   } else {
-    JobService.editJob(temp, job?.jobId)
+    JobService.editJob(temp, job?.jobId);
   }
   const handleActive = (data: boolean) => {
     var temp = "";
@@ -74,8 +74,9 @@ export default function RecDashboardCard({ job }: any) {
                 Salary: {job.salaryRange}
               </span>
               <span
-                className={`ml-3 text-sm font-semibold ${job?.isActive === true ? "text-green-700" : "text-red-600"
-                  } `}
+                className={`ml-3 text-sm font-semibold ${
+                  job?.isActive === true ? "text-green-700" : "text-red-600"
+                } `}
               >
                 {handleActive(job?.isActive)}
               </span>

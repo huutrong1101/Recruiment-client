@@ -4,9 +4,7 @@ interface UserSubmittedJobInterface {
   // jobs: [];
 }
 
-const initialState: UserSubmittedJobInterface = {
-
-};
+const initialState: UserSubmittedJobInterface = {};
 
 const UserSubmittedJob = createSlice({
   name: "UserSubmittedJob",

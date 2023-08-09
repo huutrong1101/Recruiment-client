@@ -29,17 +29,15 @@ export default function Addjob() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchRecInterviewerSkill())
+    dispatch(fetchRecInterviewerSkill());
   }, []);
   // console.log(showSkill)
   const listSkills = useAppSelector((state) => state.RecInterviewerList.skill);
-
 
   const listSkillsData = listSkills.map((skill) => ({
     value: skill.skillId,
     label: `${skill.name}`,
   }));
-
 
   const [jobInformation, setJobInformation] = useState([
     { icon: <UserIcon />, name: "Employee Type", value: "" },
@@ -49,25 +47,24 @@ export default function Addjob() {
       name: "Position",
       value: "",
     },
-
   ]);
 
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [quantity, setQuantity] = useState<number>(0);
-  const [description, setDescription] = useState('')
-  const [requirement, setRequirement] = useState('')
-  const [benefit, setBenefit] = useState('')
-  const [skillsRequired, setSkillsRequired] = useState([])
-  const [positionName, setPositionName] = useState([])
-  const [location, setLocation] = useState([])
-  const [jobType, setjobType] = useState([])
-  const [salaryRange, setSalaryRange] = useState('')
-  const [deadline, setDeadline] = useState('')
+  const [description, setDescription] = useState("");
+  const [requirement, setRequirement] = useState("");
+  const [benefit, setBenefit] = useState("");
+  const [skillsRequired, setSkillsRequired] = useState([]);
+  const [positionName, setPositionName] = useState([]);
+  const [location, setLocation] = useState([]);
+  const [jobType, setjobType] = useState([]);
+  const [salaryRange, setSalaryRange] = useState("");
+  const [deadline, setDeadline] = useState("");
 
   const selectedValues = skillsRequired.map((option) => option.label);
 
   const handleSelectChange = (selectedOptions: any) => {
-    setSkillsRequired(selectedOptions)
+    setSkillsRequired(selectedOptions);
   };
 
   const navigate = useNavigate();
@@ -75,50 +72,39 @@ export default function Addjob() {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     if (name === "") {
-      toast.error('Please enter Job Name');
-      return
-    }
-    else if (jobType?.length === 0) {
-      toast.error('Please select Job Type');
-      return
-    }
-    else if (quantity === 0) {
-      toast.error('Please enter Quantity');
-      return
-    }
-    else if (description === "") {
-      toast.error('Please enter Description');
-      return
-    }
-    else if (requirement === "") {
-      toast.error('Please enter Requirement');
-      return
-    }
-    else if (positionName.length === 0) {
-      toast.error('Please select Employee Type');
-      return
-    }
-    else if (benefit === "") {
-      toast.error('Please enter Benefit');
-      return
-    }
-    else if (selectedValues.length === 0) {
-      toast.error('Please select Skills');
-      return
-    }
-    else if (salaryRange === "") {
-      toast.error('Please enter Salary');
-      return
-    }
-    else if (location.length === 0) {
-      toast.error('Please select location');
-      return
-    }
-    else if (deadline === "") {
-      toast.error('Please enter end day');
-      return
-    }
-    else {
+      toast.error("Please enter Job Name");
+      return;
+    } else if (jobType?.length === 0) {
+      toast.error("Please select Job Type");
+      return;
+    } else if (quantity === 0) {
+      toast.error("Please enter Quantity");
+      return;
+    } else if (description === "") {
+      toast.error("Please enter Description");
+      return;
+    } else if (requirement === "") {
+      toast.error("Please enter Requirement");
+      return;
+    } else if (positionName.length === 0) {
+      toast.error("Please select Employee Type");
+      return;
+    } else if (benefit === "") {
+      toast.error("Please enter Benefit");
+      return;
+    } else if (selectedValues.length === 0) {
+      toast.error("Please select Skills");
+      return;
+    } else if (salaryRange === "") {
+      toast.error("Please enter Salary");
+      return;
+    } else if (location.length === 0) {
+      toast.error("Please select location");
+      return;
+    } else if (deadline === "") {
+      toast.error("Please enter end day");
+      return;
+    } else {
       const data = {
         name: name,
         jobType: jobType,
@@ -132,26 +118,32 @@ export default function Addjob() {
         positionName: positionName,
         skillsRequired: selectedValues,
       };
-      console.log(data)
+      console.log(data);
       navigate({
         pathname: "/recruiter/jobs",
       });
       // Gửi yêu cầu POST đến URL http://localhost:8080/api/v1/recruiter/job
-      toast
-        .promise(JobService.createJob(data), {
-          pending: `Creating Job`,
-          success: `Job was created`,
-        })
+      toast.promise(JobService.createJob(data), {
+        pending: `Creating Job`,
+        success: `Job was created`,
+      });
     }
-  }
+  };
 
   return (
     <div className={classNames(`job-detail`, `flex flex-col gap-6`)}>
       <div className={classNames(`flex flex-col md:flex-row gap-12`)}>
         {/* Left side description */}
-        <form className={classNames(`w-full md:w-8/12`, `flex flex-col gap-6 mt-5`)}>
+        <form
+          className={classNames(`w-full md:w-8/12`, `flex flex-col gap-6 mt-5`)}
+        >
           {/* Widgets */}
-          <AddJobWidget nameData={name} setNameData={setName} quantityData={quantity} setQuantityData={setQuantity} />
+          <AddJobWidget
+            nameData={name}
+            setNameData={setName}
+            quantityData={quantity}
+            setQuantityData={setQuantity}
+          />
           {/* Details */}
           <div
             className={classNames(
@@ -182,9 +174,7 @@ export default function Addjob() {
             )}
           >
             <div>
-              <h1 className="text-2xl font-semibold">
-                Requirement
-              </h1>
+              <h1 className="text-2xl font-semibold">Requirement</h1>
               <TextareaAutosize
                 id="requirement"
                 minRows={4}
@@ -204,9 +194,7 @@ export default function Addjob() {
             )}
           >
             <div>
-              <h1 className="text-2xl font-semibold">
-                Benefit
-              </h1>
+              <h1 className="text-2xl font-semibold">Benefit</h1>
               <TextareaAutosize
                 id="requirement"
                 minRows={4}
@@ -238,9 +226,10 @@ export default function Addjob() {
           </div>
 
           <div className={classNames(`px-8 py-8`, `text-justify`)}>
-            <button onClick={handleSubmit}
+            <button
+              onClick={handleSubmit}
               className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-2 my-1 text-white"
-            // onClick={routeChange}
+              // onClick={routeChange}
             >
               Add Job
             </button>

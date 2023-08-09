@@ -22,15 +22,19 @@ const RecJobListSlice = createSlice({
     setTotalJobs(state, action) {
       state.recjobTotal = action.payload;
     },
-    setRecjobType(state,action){
+    setRecjobType(state, action) {
       state.recjobType = action.payload;
-    }
+    },
   },
 });
 
 export default RecJobListSlice.reducer;
-export const { setRecjobsList, setRecjobsListStatus, setTotalJobs,setRecjobType } =
-  RecJobListSlice.actions;
+export const {
+  setRecjobsList,
+  setRecjobsListStatus,
+  setTotalJobs,
+  setRecjobType,
+} = RecJobListSlice.actions;
 
 export const fetchRecJobList = () => {
   return async function fetchRecJobListThunk(dispatch: Dispatch) {

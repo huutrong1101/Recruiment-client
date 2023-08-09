@@ -1,4 +1,9 @@
-import { PlusIcon, TrashIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  PlusIcon,
+  TrashIcon,
+  XCircleIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 import { UserPlusIcon } from "@heroicons/react/24/outline";

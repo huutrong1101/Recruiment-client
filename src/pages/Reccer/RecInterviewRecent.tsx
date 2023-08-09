@@ -24,7 +24,6 @@ export default function RecInterviewRecent() {
           setInterview(response.data.result.contents);
         }
         setInterview2(response.data.result);
-
       } catch (error) {
         console.log(error);
       }
@@ -32,11 +31,10 @@ export default function RecInterviewRecent() {
     getInterviewHistory();
   }, [interviewerId]);
 
-
   interview.map((interview: any, index) => {
     const data = moment(interview.time).format("Do MMM, YYYY");
   });
-  
+
   return (
     <div className="bg-white p-6 border rounded-2xl">
       <div className="relative overflow-x-auto">
@@ -77,16 +75,23 @@ export default function RecInterviewRecent() {
                     <td className="px-6 py-4">{date}</td>
                     <td className="px-4 py-4 rounded-lg p-2 mx-2 my-1">
                       <span
-                        className={`rounded-lg p-2 mx-2 my-1  ${interview.state === "PASSED"
-                          ? "bg-green-200"
-                          : interview.state === "FAILED"
+                        className={`rounded-lg p-2 mx-2 my-1  ${
+                          interview.state === "PASSED"
+                            ? "bg-green-200"
+                            : interview.state === "FAILED"
                             ? "bg-green-200"
                             : interview.state === "NOT_RECEIVED"
-                              ? "bg-yellow-100"
-                              : "bg-yellow-100"
-                          }`}
+                            ? "bg-yellow-100"
+                            : "bg-yellow-100"
+                        }`}
                       >
-                        {interview.state === "RECEIVED" ? "Pending" : interview.state === "NOT_RECEIVED" ? "Pending" : interview.state === "PASSED" ? "Finish" : "Finish"}
+                        {interview.state === "RECEIVED"
+                          ? "Pending"
+                          : interview.state === "NOT_RECEIVED"
+                          ? "Pending"
+                          : interview.state === "PASSED"
+                          ? "Finish"
+                          : "Finish"}
                       </span>
                     </td>
                   </tr>

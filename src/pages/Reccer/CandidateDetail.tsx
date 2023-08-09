@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import RecCandidateDetailCard from "../../components/RecCandidateManageCard/RecCandidateDetailCard";
-  import {
+import {
   MdOutlineEmail,
   MdOutlineCalendarMonth,
   MdOutlineLocationOn,
