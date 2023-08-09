@@ -1,26 +1,26 @@
-import React, { useState, Fragment, useEffect } from "react";
-import home_page from "../../../images/home_page.png";
-import classnames from "classnames";
 import {
   CakeIcon,
-  MagnifyingGlassIcon,
   ChevronDownIcon,
   ChevronUpIcon,
+  MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
+import classnames from "classnames";
+import { Fragment, useState } from "react";
+import home_page from "../../../images/home_page.png";
 
-import { Link, createSearchParams, useNavigate } from "react-router-dom";
-import JobCard from "../../components/JobCard/JobCard";
-import BlogCard from "../../components/BlogCard/BlogCard";
-import Advertise from "../../components/Advertise/Advertise";
 import { Menu, Transition } from "@headlessui/react";
+import { isUndefined, omitBy } from "lodash";
+import { Link, createSearchParams, useNavigate } from "react-router-dom";
+import Advertise from "../../components/Advertise/Advertise";
+import BlogCard from "../../components/BlogCard/BlogCard";
+import JobCard from "../../components/JobCard/JobCard";
 import { useAppSelector } from "../../hooks/hooks";
+import useQueryParams from "../../hooks/useQueryParams";
 import {
   EventInterface,
   JobInterface,
   JobListConfig,
 } from "../../services/services";
-import useQueryParams from "../../hooks/useQueryParams";
-import { omitBy, isUndefined } from "lodash";
 import { JOB_POSITION } from "../../utils/Localization";
 
 export type QueryConfig = {

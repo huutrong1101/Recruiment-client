@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { UserVerifySendParamsInterface } from "../../../services/services";
 import { AuthService } from "../../../services/AuthService";
+import { UserVerifySendParamsInterface } from "../../../services/services";
 
 type LoadingState = "failed" | "idle" | "pending" | "success";
 

@@ -1,31 +1,28 @@
-import { useState, useEffect } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import {
-  TableContainer,
+  Paper,
   Table,
+  TableBody,
+  TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableCell,
-  TableBody,
-  Paper,
 } from "@mui/material";
-import { useAppSelector } from "../../hooks/hooks";
-import { AdminDeleteAcountConfig, AdminDelete } from "../../services/services";
-import { omitBy, isUndefined } from "lodash";
-import useQueryParams from "../../hooks/useQueryParams";
+import classNames from "classnames";
+import { isEqual, isUndefined, omitBy } from "lodash";
+import moment from "moment";
 import qs from "query-string";
+import { useEffect, useState } from "react";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { isEqual } from "lodash";
+import { useAppSelector } from "../../hooks/hooks";
+import useQueryParams from "../../hooks/useQueryParams";
+import { AdminDelete, AdminDeleteAcountConfig } from "../../services/services";
+import axiosInstance from "../../utils/AxiosInstance";
+import LoadSpinner from "../LoadSpinner/LoadSpinner";
+import Pagination from "../Pagination/Pagination";
 export type QueryConfig = {
   [key in keyof AdminDeleteAcountConfig]: string;
 };
-import axiosInstance from "../../utils/AxiosInstance";
-import Paginationacountlistdelette from "./Pagination/Paginationacountlistdelette";
-import moment from "moment";
-import LoadSpinner from "../LoadSpinner/LoadSpinner";
-import classNames from "classnames";
-import { BsFilterLeft } from "react-icons/bs";
-import Pagination from "../Pagination/Pagination";
 
 const AdminAcountDelete = () => {
   const jobs: AdminDelete[] = useAppSelector(

@@ -1,45 +1,39 @@
-import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
 import {
   ExclamationTriangleIcon,
   PencilSquareIcon,
   TrashIcon,
   UserMinusIcon,
 } from "@heroicons/react/24/outline";
+import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 
 import {
-  TableContainer,
+  Paper,
   Table,
+  TableBody,
+  TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableCell,
-  TableBody,
-  Paper,
 } from "@mui/material";
-import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+import { isEqual, isUndefined, omitBy } from "lodash";
+import qs from "query-string";
+import { useAppSelector } from "../../hooks/hooks";
+import useQueryParams from "../../hooks/useQueryParams";
+import { AcountConfig, AcountInterface } from "../../services/services";
+import axiosInstance from "../../utils/AxiosInstance";
+import Paginationacountlist from "./Pagination/Paginationacountlist";
 interface TypeData {
   typeSelected: string;
 }
-import { useAppSelector } from "../../hooks/hooks";
-import { AcountConfig, AcountInterface } from "../../services/services";
-import { omitBy, isUndefined } from "lodash";
-import useQueryParams from "../../hooks/useQueryParams";
-import qs from "query-string";
-import { isEqual } from "lodash";
-import axiosInstance from "../../utils/AxiosInstance";
-import Paginationacountlist from "./Pagination/Paginationacountlist";
-import moment from "moment";
 // import UserAccountDeletionButton from "../Delete/DeleteButon";
-import Loader from "../Loader/Loader";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
 
 import { toast } from "react-toastify";
-import Pagination from "../Pagination/Pagination";
 
 export type QueryConfig = {
   [key in keyof AcountConfig]: string;

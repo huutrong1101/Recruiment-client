@@ -1,21 +1,17 @@
 import { useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 
 // Component & Icon
-import {
-  BriefcaseIcon,
-  AcademicCapIcon,
-  CheckBadgeIcon,
-} from "@heroicons/react/24/outline";
+import { AcademicCapIcon, BriefcaseIcon } from "@heroicons/react/24/outline";
 import Error from "../../Error/Error";
 
 // Function from Slice
 import { fetchINTCandidatesByID } from "../../../../redux/reducer/INTCandidatesSlice";
 
 // Status
-import { STATUS } from "../../../../utils/Status";
 import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
+import { STATUS } from "../../../../utils/Status";
 
 const INTCandidateDetail = () => {
   const { id } = useParams();

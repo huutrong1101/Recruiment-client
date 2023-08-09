@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from "react";
 import classnames from "classnames";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAppSelector } from "../../hooks/hooks";
 import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-toastify";
-import axiosInstance from "../../utils/AxiosInstance";
-import moment from "moment";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import axiosInstance from "../../utils/AxiosInstance";
 
-import { HiCalendarDays, HiClock, HiMapPin } from "react-icons/hi2";
 import classNames from "classnames";
-import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
+import { HiCalendarDays, HiClock, HiMapPin } from "react-icons/hi2";
 import Dialog from "../../components/Modal/Dialog";
 import NotFound from "../../components/NotFound/NotFound";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 interface DialogDataState {
   visible: boolean;
   currentDeleteEvent: any | null;

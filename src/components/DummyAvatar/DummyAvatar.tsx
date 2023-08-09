@@ -1,7 +1,7 @@
-import { Fragment, HTMLProps, useEffect, useState } from "react";
-import classNames from "classnames";
-import { AiOutlineUser } from "react-icons/ai";
 import { Transition } from "@headlessui/react";
+import classNames from "classnames";
+import { useEffect, useState } from "react";
+import { AiOutlineUser } from "react-icons/ai";
 
 interface DummyAvatarProps {
   wrapperClassName?: string;

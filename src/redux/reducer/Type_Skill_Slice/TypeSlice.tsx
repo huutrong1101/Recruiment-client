@@ -1,5 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { Dispatch } from "@reduxjs/toolkit";
+import { Dispatch, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../../../utils/AxiosInstance";
 const TypeSlice = createSlice({
   name: "typeList",

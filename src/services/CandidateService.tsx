@@ -1,5 +1,5 @@
-import axiosInstance from "../utils/AxiosInstance";
 import qs from "qs";
+import axiosInstance from "../utils/AxiosInstance";
 
 export function getCandidateResume() {
   return axiosInstance.get(`/candidate/resumes`);

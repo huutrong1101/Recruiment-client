@@ -1,28 +1,20 @@
-import React, { useState, useEffect, Fragment } from "react";
-import classNames from "classnames";
-import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import { Menu, Transition } from "@headlessui/react";
-import { JobDataInterface } from "../../data/jobData";
 import {
-  AcademicCapIcon,
-  BriefcaseIcon,
   ChevronDownIcon,
-  ChevronUpIcon,
   ClockIcon,
-  ComputerDesktopIcon,
   CurrencyDollarIcon,
-  MapPinIcon,
-  UserIcon,
 } from "@heroicons/react/24/outline";
-import { useAppSelector } from "../../hooks/hooks";
 import { TextareaAutosize } from "@mui/material";
+import classNames from "classnames";
+import moment from "moment";
+import React, { Fragment, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { JOB_POSITION } from "../../utils/Localization";
 import { useParams } from "react-router-dom";
+import { JobDataInterface } from "../../data/jobData";
+import { useAppSelector } from "../../hooks/hooks";
 import { JobInterface } from "../../services/services";
 import axiosInstance from "../../utils/AxiosInstance";
-import moment from "moment";
 
 export default function EditJobCard({
   cardData,

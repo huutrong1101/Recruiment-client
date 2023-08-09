@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Dispatch } from "@reduxjs/toolkit";
-import axiosInstance from "../../../utils/AxiosInstance";
 const SkillSlice = createSlice({
   name: "SkillList",
   initialState: {

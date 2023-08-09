@@ -1,4 +1,3 @@
-import React from "react";
 import classnames from "classnames";
 import { HiOutlineArrowTrendingUp } from "react-icons/hi2";
 import { data } from "../../data/RecDashboardData";

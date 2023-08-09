@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "./hooks";
 import { authLogout, fetchUserFromToken } from "../redux/AuthSlice";
+import { requestRefreshAccessToken } from "../utils/AxiosInstance";
 import {
   getLocalToken,
   hasLocalToken,
   hasRefreshToken,
 } from "../utils/localToken";
-import { requestRefreshAccessToken } from "../utils/AxiosInstance";
+import { useAppDispatch } from "./hooks";
 
 export function useTokenAuthorize() {
   const dispatch = useAppDispatch();

@@ -1,9 +1,9 @@
-import classNames from "classnames";
-import { EnvelopeIcon } from "@heroicons/react/24/outline";
-import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { Transition } from "@headlessui/react";
+import { EnvelopeIcon } from "@heroicons/react/24/outline";
+import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 
 export default function IncompleteConfirmEmail() {
   const navigate = useNavigate();

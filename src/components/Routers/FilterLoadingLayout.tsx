@@ -1,4 +1,3 @@
-import React from "react";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
 
 export default function FilterLoadingLayout() {

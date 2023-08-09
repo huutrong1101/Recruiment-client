@@ -1,11 +1,11 @@
-import React from "react";
-import InputIcon from "../../components/InputIcon/InputIcon";
-import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
-import { useForm } from "react-hook-form";
-import { CodeBracketIcon, LockClosedIcon } from "@heroicons/react/24/outline";
-import axiosInstance from "../../utils/AxiosInstance";
+import { CodeBracketIcon } from "@heroicons/react/24/outline";
 import { JsonViewer } from "@textea/json-viewer";
 import classNames from "classnames";
+import React from "react";
+import { useForm } from "react-hook-form";
+import InputIcon from "../../components/InputIcon/InputIcon";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
+import axiosInstance from "../../utils/AxiosInstance";
 
 interface FormParams {
   urlPath: string;

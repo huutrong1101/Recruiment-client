@@ -1,17 +1,7 @@
-import React, { Dispatch, useEffect, useState } from "react";
-import ListQuestions from "./ListQuestion";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { Fragment } from "react";
 import classNames from "classnames";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { fetchTypeList } from "../../redux/reducer/Type_Skill_Slice/TypeSlice";
-import axiosInstance from "../../utils/AxiosInstance";
-import {
-  QuestionListConfig,
-  QuestionListInterface,
-  TypeListInterface,
-} from "../../services/services";
+import React, { Fragment, useState } from "react";
 //------------------------------------------TYPE
 
 interface IDataSearch {

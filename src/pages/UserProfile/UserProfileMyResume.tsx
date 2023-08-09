@@ -1,15 +1,13 @@
 import classNames from "classnames";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import moment from "moment";
+import { ChangeEvent, useEffect, useState } from "react";
+import { HiArrowUpTray } from "react-icons/hi2";
+import { toast } from "react-toastify";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import Modal from "../../components/Modal/Modal";
 import UserResume from "../../components/UserResume/UserResume";
-import { Link, useNavigate } from "react-router-dom";
-import { HiArrowUpTray, HiPlus } from "react-icons/hi2";
-import axiosInstance from "../../utils/AxiosInstance";
-import moment from "moment";
-import { toast } from "react-toastify";
-import { UserService } from "../../services/UserService";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import { getCandidateResume } from "../../services/CandidateService";
+import { UserService } from "../../services/UserService";
 
 function ResumeDeleteModal({ visible, onAccept, onCancel }: any) {
   return (

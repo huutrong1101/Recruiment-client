@@ -1,13 +1,12 @@
-import React, { useState } from "react";
 import classnames from "classnames";
-import blog_image from "../../../images/blog_image.png";
+import { useState } from "react";
 import axiosInstance from "../../utils/AxiosInstance";
 
 import {
   BiLogoFacebook,
+  BiLogoGitlab,
   BiLogoInstagram,
   BiLogoLinkedin,
-  BiLogoGitlab,
   BiLogoTwitter,
 } from "react-icons/bi";
 export default function Contact() {

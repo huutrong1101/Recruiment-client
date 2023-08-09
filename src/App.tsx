@@ -7,78 +7,77 @@ import AuthenticateSignUp from "./pages/Authenticate/AuthenticateSignUp";
 
 import UserAppLayout from "./components/Layout/UserAppLayout";
 
-import Jobs from "./pages/Jobs/Jobs";
-import Events from "./pages/Events/Events";
-import EventDetail from "./pages/EventDetail/EventDetail";
 import Contact from "./pages/Contact/Contact";
+import CompleteConfirmEmail from "./pages/EmailConfirmation/CompleteConfirmEmail";
 import EmailConfirmationLayout from "./pages/EmailConfirmation/EmailConfirmationLayout";
 import IncompleteConfirmEmail from "./pages/EmailConfirmation/IncompleteConfirmEmail";
-import CompleteConfirmEmail from "./pages/EmailConfirmation/CompleteConfirmEmail";
+import EventDetail from "./pages/EventDetail/EventDetail";
+import Events from "./pages/Events/Events";
+import Jobs from "./pages/Jobs/Jobs";
 
-import JobDetail from "./pages/JobDetail/JobDetail";
-import AdminDashboard from "./pages/Admin/AdminDashboard";
-import AdminProfile from "./pages/Admin/AdminProfile";
-import AdminChangePosition from "./pages/Admin/AdminChangePosition";
-import AddBlacklist from "./pages/Admin/AddBlacklist";
 import ManagetJobList from "./components/AdminManagerList/ManagetJobList";
 import AboutUs from "./pages/AboutUs/AboutUs";
-import ReccerJobManagement from "./pages/Reccer/ReccerJobManagement";
-import ReccerDashboard from "./pages/Reccer/Reccerdashboard";
-import Reccercalender from "./pages/Reccer/Reccercalender";
-import ScorePage from "./pages/InterviewQuestion/ScorePage";
+import AddBlacklist from "./pages/Admin/AddBlacklist";
+import AdminChangePosition from "./pages/Admin/AdminChangePosition";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import AdminProfile from "./pages/Admin/AdminProfile";
 import ManageQuestion from "./pages/InterviewQuestion/ManageQuestion";
+import ScorePage from "./pages/InterviewQuestion/ScorePage";
+import JobDetail from "./pages/JobDetail/JobDetail";
+import ReccerJobManagement from "./pages/Reccer/ReccerJobManagement";
+import Reccercalender from "./pages/Reccer/Reccercalender";
+import ReccerDashboard from "./pages/Reccer/Reccerdashboard";
 
-import ReccerInterviewerManagement from "./pages/Reccer/ReccerInterviewerManagement";
-import ReccerEventManagement from "./pages/Reccer/ReccerEventManagement";
-import ReccerInterviewerDetail from "./pages/Reccer/InterviewerDetail";
-import CandidateProfile from "./pages/Reccer/CandidateProfile";
 import {
   CandidateRecent,
-  InterviewRecent,
-  InterviewDetail,
   INTCandidateDetail,
+  InterviewDetail,
+  InterviewRecent,
 } from "./pages/Interviewer/InterviewerPages";
+import CandidateProfile from "./pages/Reccer/CandidateProfile";
+import ReccerInterviewerDetail from "./pages/Reccer/InterviewerDetail";
+import ReccerEventManagement from "./pages/Reccer/ReccerEventManagement";
+import ReccerInterviewerManagement from "./pages/Reccer/ReccerInterviewerManagement";
+import UserProfileInterviews from "./pages/UserProfile/UserProfileInterviews/UserProfileInterviews";
 import UserProfileLayout from "./pages/UserProfile/UserProfileLayout";
 import UserProfileMyProfile from "./pages/UserProfile/UserProfileMyProfile";
-import UserProfileInterviews from "./pages/UserProfile/UserProfileInterviews/UserProfileInterviews";
 import UserProfileSubmittedJob from "./pages/UserProfile/UserProfileSubmittedJob";
 
-import ReccerJobDetail from "./pages/Reccer/Jobs/ReccerJobDetail";
-import Addjob from "./pages/Reccer/Jobs/Addjob";
 import ManagementAppLayOut from "./components/Layout/ManagementAppLayOut/ManagementAppLayOut";
+import Addjob from "./pages/Reccer/Jobs/Addjob";
+import ReccerJobDetail from "./pages/Reccer/Jobs/ReccerJobDetail";
 import ReccerCandidateManagement from "./pages/Reccer/ReccercandidateManagement";
 
-import RecEventDetail from "./pages/Reccer/RecEventDetail";
+import { useEffect } from "react";
 import AddEvent from "./components/AddEvent/AddEvent";
 import ListCandiPass from "./components/AdminManagerList/ListCandiPass";
+import { useAppDispatch } from "./hooks/hooks";
 import DeleteBlacklist from "./pages/Admin/DeleteBlacklist";
 import CreateCV from "./pages/CreateCV/CreateCV";
-import RequestTest from "./pages/RequestTest/RequestTest";
 import InterviewSched from "./pages/Reccer/Interview/InterviewSched";
-import { useEffect } from "react";
-import { useAppDispatch } from "./hooks/hooks";
-import { useTokenAuthorize } from "./hooks/useTokenAuthorize";
+import RecEventDetail from "./pages/Reccer/RecEventDetail";
+import RequestTest from "./pages/RequestTest/RequestTest";
 // import { EventService } from "./services/JobService";
-import UserProfileMyInformation from "./pages/UserProfile/UserProfileMyInformation";
-import { JobService } from "./services/JobService";
+import AdminAcountDelete from "./components/AdminManagerList/AdminAcountDelete";
+import NotFound from "./components/NotFound/NotFound";
+import FilterAdmin from "./components/Routers/FilterAdmin";
+import FilterCandidate from "./components/Routers/FilterCandidate";
+import FilterInterviewer from "./components/Routers/FilterInterviewer";
+import FilterNonLogin from "./components/Routers/FilterNonLogin";
+import FilterRecruiter from "./components/Routers/FilterRecruiter";
+import AdminProflieUser from "./pages/Admin/AdminProflieUser";
+import ConfirmPassword from "./pages/ForgetPassword/ConfirmPassword";
+import ForgetPassword from "./pages/ForgetPassword/ForgetPassword";
+import ForgetPasswordLayout from "./pages/ForgetPassword/ForgetPasswordLayout";
 import Logout from "./pages/Logout/Logout";
 import OneTimePasswordVerify from "./pages/OneTimePasswordVerify/OneTimePasswordVerify";
-import { EventService } from "./services/EventService";
 import PrintResume from "./pages/PrintResume/PrintResume";
 import CandidateDetail from "./pages/Reccer/CandidateDetail";
-import UserProfileMyResume from "./pages/UserProfile/UserProfileMyResume";
 import ReccerEditJob from "./pages/Reccer/Jobs/EditJob";
-import FilterNonLogin from "./components/Routers/FilterNonLogin";
-import FilterCandidate from "./components/Routers/FilterCandidate";
-import FilterAdmin from "./components/Routers/FilterAdmin";
-import FilterInterviewer from "./components/Routers/FilterInterviewer";
-import FilterRecruiter from "./components/Routers/FilterRecruiter";
-import NotFound from "./components/NotFound/NotFound";
-import AdminProflieUser from "./pages/Admin/AdminProflieUser";
-import AdminAcountDelete from "./components/AdminManagerList/AdminAcountDelete";
-import ForgetPasswordLayout from "./pages/ForgetPassword/ForgetPasswordLayout";
-import ForgetPassword from "./pages/ForgetPassword/ForgetPassword";
-import ConfirmPassword from "./pages/ForgetPassword/ConfirmPassword";
+import UserProfileMyInformation from "./pages/UserProfile/UserProfileMyInformation";
+import UserProfileMyResume from "./pages/UserProfile/UserProfileMyResume";
+import { EventService } from "./services/EventService";
+import { JobService } from "./services/JobService";
 
 export default function App() {
   const dispatch = useAppDispatch();

@@ -1,6 +1,3 @@
-import React from "react";
-import { PhoneIcon } from "@heroicons/react/24/outline";
-
 interface AboutUsCardProps {
   item: {
     id: number;

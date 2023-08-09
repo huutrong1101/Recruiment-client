@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // import CreatableSelect from "react-select/creatable";
+import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+import { toast } from "react-toastify";
 import FieldContainer from "../../components/Field/FieldContainer";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import { getSkills } from "../../services/CandidateService";
+import { UserService } from "../../services/UserService";
+import { LoadingStatus } from "../../services/services";
 import {
   CertificateSchema,
   EducationSchema,
   ExperienceSchema,
   ProjectSchema,
 } from "./UserProfileMyInformationSchema";
-import { toast } from "react-toastify";
-import { UserService } from "../../services/UserService";
-import { LoadingStatus } from "../../services/services";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
-import { getSkills } from "../../services/CandidateService";
-import { useNavigate } from "react-router-dom";
 
 // const colourOptions = [
 //   { value: "reactjs", label: "ReactJS" },

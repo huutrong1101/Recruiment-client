@@ -1,5 +1,5 @@
-import { HiEye, HiPencilSquare, HiStar, HiTrash } from "react-icons/hi2";
 import classNames from "classnames";
+import { HiEye, HiTrash } from "react-icons/hi2";
 import logo_FPT from "../../../images/logo_FPT.png";
 
 interface UserResumeProps {

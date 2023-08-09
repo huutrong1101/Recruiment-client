@@ -1,29 +1,25 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
 import classNames from "classnames";
-import Avatar from "./../../../images/ava.jpg";
-import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
-import InputIcon from "../../components/InputIcon/InputIcon";
+import moment from "moment";
+import { ChangeEvent, useState } from "react";
+import { useForm } from "react-hook-form";
+import { AiOutlineComment } from "react-icons/ai";
 import {
-  HiUserCircle,
+  HiCalendar,
   HiEnvelope,
+  HiKey,
   HiMapPin,
   HiPhone,
-  HiKey,
-  HiCalendar,
+  HiUserCircle,
 } from "react-icons/hi2";
-import UserResume from "../../components/UserResume/UserResume";
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import Modal from "../../components/Modal/Modal";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import { toast } from "react-toastify";
-import { UserService } from "../../services/UserService";
-import { setUser } from "../../redux/AuthSlice";
-import { AiOutlineComment } from "react-icons/ai";
-import moment from "moment";
-import PrimaryInputFile from "../../components/InputFile/PrimaryInputFile";
 import DummyAvatar from "../../components/DummyAvatar/DummyAvatar";
+import PrimaryInputFile from "../../components/InputFile/PrimaryInputFile";
+import InputIcon from "../../components/InputIcon/InputIcon";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { setUser } from "../../redux/AuthSlice";
+import { UserService } from "../../services/UserService";
 
 function UserProfileInformation() {
   const {

@@ -1,17 +1,16 @@
-import classNames from "classnames";
 import { TrashIcon } from "@heroicons/react/24/outline";
-import InterviewerPopup, { Interviewer } from "./InterviewerPopup";
-import { useEffect, useState } from "react";
-import axiosInstance from "../../../utils/AxiosInstance";
-import { useNavigate, useParams } from "react-router-dom";
-import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
-import DatePicker from "./DatePicker";
-import * as React from "react";
+import classNames from "classnames";
 import dayjs, { Dayjs } from "dayjs";
+import * as React from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 import { InterviewService } from "../../../services/InterviewService";
 import { StateService } from "../../../services/changeState";
-import moment from "moment";
+import axiosInstance from "../../../utils/AxiosInstance";
+import DatePicker from "./DatePicker";
+import InterviewerPopup, { Interviewer } from "./InterviewerPopup";
 
 interface UserProps {
   userId: string;

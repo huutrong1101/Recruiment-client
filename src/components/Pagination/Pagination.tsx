@@ -1,6 +1,5 @@
-import React from "react";
-import { Link, createSearchParams } from "react-router-dom";
 import classNames from "classnames";
+import { Link, createSearchParams } from "react-router-dom";
 import { QueryConfig } from "../../pages/Jobs/Jobs";
 
 interface Props {

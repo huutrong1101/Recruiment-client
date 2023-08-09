@@ -1,14 +1,8 @@
-import {
-  PlusIcon,
-  TrashIcon,
-  XCircleIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
-import React, { useEffect, useState } from "react";
-import classNames from "classnames";
-import { UserPlusIcon } from "@heroicons/react/24/outline";
-import axiosInstance from "../../../utils/AxiosInstance";
+import { PlusIcon, UserPlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Checkbox } from "@mui/material";
+import classNames from "classnames";
+import { useEffect, useState } from "react";
+import axiosInstance from "../../../utils/AxiosInstance";
 
 export interface Interviewer {
   name: string | null;

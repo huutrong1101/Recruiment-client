@@ -1,27 +1,17 @@
-import { useEffect, useState } from "react";
-import blog_image from "../../../images/blog_image.png";
-import { Link, NavLink } from "react-router-dom";
-import {
-  ArrowRightIcon,
-  CalendarDaysIcon,
-  ChevronDownIcon,
-  ClockIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/24/outline";
-import { EventInterface, EventListConfig } from "../../services/services";
-import useQueryParams from "../../hooks/useQueryParams";
-import { omitBy, isUndefined, isEqual } from "lodash";
-import { useAppSelector } from "../../hooks/hooks";
-import qs from "query-string";
-import axiosInstance from "../../utils/AxiosInstance";
-import moment from "moment";
-import Pagination from "../../components/Pagination/Pagination";
-import { createSearchParams, useNavigate } from "react-router-dom";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
-import { BsFilterLeft } from "react-icons/bs";
+import { isEqual, isUndefined, omitBy } from "lodash";
+import qs from "query-string";
+import { useEffect, useState } from "react";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import RecruiterBlogCard from "../../components/BlogCard/RecruiterBlogCard";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import Pagination from "../../components/Pagination/Pagination";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
+import { useAppSelector } from "../../hooks/hooks";
+import useQueryParams from "../../hooks/useQueryParams";
+import { EventInterface, EventListConfig } from "../../services/services";
+import axiosInstance from "../../utils/AxiosInstance";
 
 export type QueryConfig = {
   [key in keyof EventListConfig]: string;

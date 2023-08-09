@@ -1,35 +1,28 @@
-import React, { useEffect, useState } from "react";
-import classnames from "classnames";
-import blog_image from "../../../images/blog_image.png";
 import { CalendarDaysIcon, ClockIcon } from "@heroicons/react/24/outline";
+import classnames from "classnames";
+import { useEffect, useState } from "react";
 import {
   BiLogoFacebook,
+  BiLogoGitlab,
   BiLogoInstagram,
   BiLogoLinkedin,
-  BiLogoGitlab,
   BiLogoTwitter,
 } from "react-icons/bi";
+import blog_image from "../../../images/blog_image.png";
 
-import {
-  HiUserCircle,
-  HiEnvelope,
-  HiMapPin,
-  HiPhone,
-  HiKey,
-} from "react-icons/hi2";
+import { HiEnvelope, HiMapPin, HiPhone, HiUserCircle } from "react-icons/hi2";
 
+import moment from "moment";
+import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
 import avatar from "../../../images/ava.jpg";
-import { data } from "../../data/homeData";
 import BlogCard from "../../components/BlogCard/BlogCard";
 import InputIcon from "../../components/InputIcon/InputIcon";
-import Modal from "../../components/Modal/Modal";
-import { useForm } from "react-hook-form";
-import { Link, useParams } from "react-router-dom";
-import { EventInterface } from "../../services/services";
-import { useAppSelector } from "../../hooks/hooks";
-import axiosInstance from "../../utils/AxiosInstance";
-import moment from "moment";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import Modal from "../../components/Modal/Modal";
+import { useAppSelector } from "../../hooks/hooks";
+import { EventInterface } from "../../services/services";
+import axiosInstance from "../../utils/AxiosInstance";
 
 export default function EventDetail() {
   const {

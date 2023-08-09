@@ -1,10 +1,10 @@
+import { Dialog, Transition } from "@headlessui/react";
 import classNames from "classnames";
 import { Fragment, useState } from "react";
-import { RxChevronDown, RxChevronUp } from "react-icons/rx";
-import { FieldSchema } from "./FieldContainer";
-import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import { HiTrash } from "react-icons/hi2";
-import { Dialog, Transition } from "@headlessui/react";
+import { RxChevronDown, RxChevronUp } from "react-icons/rx";
+import PrimaryButton from "../PrimaryButton/PrimaryButton";
+import { FieldSchema } from "./FieldContainer";
 
 interface RemoveItemDialogProps {
   visible: boolean;

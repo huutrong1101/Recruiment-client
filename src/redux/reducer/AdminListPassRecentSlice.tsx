@@ -1,7 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { STATUS } from "../../utils/Status";
-import { Dispatch } from "@reduxjs/toolkit";
+import { Dispatch, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../../utils/AxiosInstance";
+import { STATUS } from "../../utils/Status";
 
 const AdminListPassRecentSlice = createSlice({
   name: "adminmanagerpassList",

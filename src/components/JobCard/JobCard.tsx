@@ -1,17 +1,15 @@
-import React from "react";
-import classnames from "classnames";
-import logo_FPT from "../../../images/logo_FPT.png";
-import { Link } from "react-router-dom";
+import { default as classNames, default as classnames } from "classnames";
 import moment from "moment";
+import {
+  HiComputerDesktop,
+  HiMapPin,
+  HiMiniUser,
+  HiUser,
+} from "react-icons/hi2";
+import { Link } from "react-router-dom";
+import logo_FPT from "../../../images/logo_FPT.png";
 import { JobInterface } from "../../services/services";
 import { JOB_POSITION } from "../../utils/Localization";
-import {
-  HiMapPin,
-  HiUser,
-  HiComputerDesktop,
-  HiMiniUser,
-} from "react-icons/hi2";
-import classNames from "classnames";
 
 interface JobCardProps {
   job: JobInterface;

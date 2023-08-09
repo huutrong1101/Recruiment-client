@@ -8,23 +8,20 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import classNames from "classnames";
-import { useNavigate, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import JobDescriptionWidget from "./JobDescriptionWidget";
-import Logo from "./../../../images/logo_FPT.png";
-import JobInformationCard from "./JobInformationCard";
-import JobCard from "../../components/JobCard/JobCard";
-import axiosInstance from "../../utils/AxiosInstance";
 import moment from "moment";
-import { JobInterface } from "../../services/services";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
-import { JobService } from "../../services/JobService";
-import { fetchJobDetail } from "./slice/JobDetailSlice";
-import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import JobCard from "../../components/JobCard/JobCard";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import NotFound from "../../components/NotFound/NotFound";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { JobInterface } from "../../services/services";
 import { JOB_POSITION } from "../../utils/Localization";
+import Logo from "./../../../images/logo_FPT.png";
+import JobDescriptionWidget from "./JobDescriptionWidget";
+import JobInformationCard from "./JobInformationCard";
+import { fetchJobDetail } from "./slice/JobDetailSlice";
 
 export default function JobDetail() {
   const { jobId } = useParams();

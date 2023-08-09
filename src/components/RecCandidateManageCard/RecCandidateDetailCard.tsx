@@ -1,19 +1,19 @@
 // import { avatar } from "@material-tailwind/react";
+import classNames from "classnames";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { GrDocumentText } from "react-icons/gr";
-import classNames from "classnames";
-import RecCandidateinfoCard from "./RecCandidateInfoCard";
+import { HiOutlineDeviceMobile } from "react-icons/hi";
 import {
-  MdOutlineEmail,
   MdOutlineCalendarMonth,
+  MdOutlineEmail,
   MdOutlineLocationOn,
 } from "react-icons/md";
-import { HiOutlineDeviceMobile } from "react-icons/hi";
-import moment from "moment";
-import LoadSpinner from "../LoadSpinner/LoadSpinner";
-import InterviewHistory from "./InterviewHistory";
 import { toast } from "react-toastify";
 import ThumbnailCover from "../../../images/cover2.jpg";
+import LoadSpinner from "../LoadSpinner/LoadSpinner";
+import InterviewHistory from "./InterviewHistory";
+import RecCandidateinfoCard from "./RecCandidateInfoCard";
 
 export default function RecCandidateDetailCard(props: any) {
   const candidate = props.candidate;

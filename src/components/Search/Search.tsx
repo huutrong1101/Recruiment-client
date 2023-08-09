@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
 function SearchBar() {
   const [searchQuery, setSearchQuery] = useState("");
   const handleSearch = (e: any) => {

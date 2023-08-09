@@ -1,11 +1,11 @@
 import classNames from "classnames";
-import { useState } from "react";
-import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
-import JobInformationApplyModal from "./JobInformationApplyModal";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { setJobIsApplied } from "./slice/JobDetailSlice";
-import { useNavigate } from "react-router-dom";
 import qs from "qs";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import JobInformationApplyModal from "./JobInformationApplyModal";
+import { setJobIsApplied } from "./slice/JobDetailSlice";
 
 export default function JobInformationCard({ cardData, jobId }: any) {
   const [visibleApplyDialog, setVisibleApplyDialog] = useState<boolean>(false);

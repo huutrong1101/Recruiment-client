@@ -1,31 +1,25 @@
-import React, { useState, useEffect } from "react";
-import "./ManagementAppLayOut.scss";
-import { Link, Outlet, NavLink } from "react-router-dom";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 import classnames from "classnames";
+import { useState } from "react";
 import {
-  Bars3Icon,
-  XMarkIcon,
-  MagnifyingGlassIcon,
-  ChevronRightIcon,
-} from "@heroicons/react/24/outline";
-import {
-  HiOutlineFolder,
   HiOutlineCalendarDays,
-  HiOutlineUser,
   HiOutlineChartPie,
-  HiOutlinePlusCircle,
-  HiOutlineMinusCircle,
-  HiOutlineDocumentDuplicate,
   HiOutlineClipboardDocument,
   HiOutlineClipboardDocumentList,
+  HiOutlineFolder,
+  HiOutlineMinusCircle,
+  HiOutlinePlusCircle,
+  HiOutlineUser,
 } from "react-icons/hi2";
 import {
   MdOutlineEventAvailable,
   MdOutlineManageAccounts,
 } from "react-icons/md";
-import RecFooter from "../../RecFooter/DashboardFooter";
+import { Link, NavLink, Outlet } from "react-router-dom";
+import { useAppSelector } from "../../../hooks/hooks";
 import NavbarUserLoggedInCard from "../../Navbar/NavbarUserLoggedInCard";
-import { useAppSelector, useAppDispatch } from "../../../hooks/hooks";
+import RecFooter from "../../RecFooter/DashboardFooter";
+import "./ManagementAppLayOut.scss";
 
 export const linksAll = [
   {

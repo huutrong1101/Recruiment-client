@@ -8,18 +8,17 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import classNames from "classnames";
-import { useParams } from "react-router-dom";
+import moment from "moment";
 import { useEffect, useState } from "react";
-import ReccerJobDescriptionWidget from "../../../components/RecJob/ReccerJobDescriptionWidget";
+import { useParams } from "react-router-dom";
 import Logo from "../../../../images/logo_FPT.png";
+import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import ReccerJobDescriptionWidget from "../../../components/RecJob/ReccerJobDescriptionWidget";
 import RecJobInformationCard from "../../../components/RecJob/ReccerJobInformationCard";
 import { JobInterface } from "../../../services/services";
 import axiosInstance from "../../../utils/AxiosInstance";
-import moment from "moment";
-import Loader from "../../../components/Loader/Loader";
-import Schedule from "./Schedule";
-import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 import { JOB_POSITION } from "../../../utils/Localization";
+import Schedule from "./Schedule";
 
 export default function ReccerJobDetail() {
   const [jobInformation, setJobInformation] = useState([

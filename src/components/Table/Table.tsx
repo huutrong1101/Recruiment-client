@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
 import classNames from "classnames";
-import Modal from "../../components/Modal/Modal";
 import moment from "moment";
+import { useEffect, useState } from "react";
+import Modal from "../../components/Modal/Modal";
 
 export interface TableRow {
   id: string;

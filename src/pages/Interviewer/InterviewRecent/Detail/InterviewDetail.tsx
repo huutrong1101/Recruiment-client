@@ -1,45 +1,44 @@
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
-import { useEffect, useState } from "react";
 
 // Component
-import { INTCandidateDetail } from "../../InterviewerPages";
 import Error from "../../Error/Error";
+import { INTCandidateDetail } from "../../InterviewerPages";
 
 // Function from Slice
+import { fetchINTCandidatesByID } from "../../../../redux/reducer/INTCandidatesSlice";
 import {
   fetchINTInterviewByID,
   fetchSkills,
   fetchTypes,
-  setText,
   setSkill,
+  setText,
   setType,
 } from "../../../../redux/reducer/INTInterviewsSlice";
 import {
-  selectQuestions,
-  removeQuestions,
-  setEmptySelectedQuestions,
-  fetchINTAssignedQuestions,
   assignQuestionForInterview,
-  fetchINTQuestionData,
   deleteQuestionOfInterview,
+  fetchINTAssignedQuestions,
+  fetchINTQuestionData,
+  removeQuestions,
+  selectQuestions,
+  setEmptySelectedQuestions,
 } from "../../../../redux/reducer/INTQuestionsSlice";
-import { fetchINTCandidatesByID } from "../../../../redux/reducer/INTCandidatesSlice";
 import { formatDDMMYY } from "../../CandidateRecent/CandidateRecent";
 
 // Icon
 import {
-  TrashIcon,
-  MagnifyingGlassIcon,
   CheckIcon,
+  MagnifyingGlassIcon,
+  TrashIcon,
 } from "@heroicons/react/20/solid";
 import { BsFilterLeft } from "react-icons/bs";
 
 // Status
-import { STATUS } from "../../../../utils/Status";
 import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
-import { JOB_POSITION } from "../../../../utils/Localization";
-import { TYPE_alter } from "../../../../utils/Localization";
+import { JOB_POSITION, TYPE_alter } from "../../../../utils/Localization";
+import { STATUS } from "../../../../utils/Status";
 
 function formatHHMM(date: any) {
   if (!(date instanceof Date)) {

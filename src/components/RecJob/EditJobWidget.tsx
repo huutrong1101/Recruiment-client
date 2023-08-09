@@ -1,9 +1,6 @@
-import { Fragment, useState } from "react";
-import { Transition } from "@headlessui/react";
-import classNames from "classnames";
 import { TextareaAutosize } from "@mui/material";
+import classNames from "classnames";
 import Logo from "../../../images/logo_FPT.png";
-import axiosInstance from "../../utils/AxiosInstance";
 
 export default function EditJobWidget(props: any) {
   const { nameData, setNameData, quantityData, setQuantityData } = props;

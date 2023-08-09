@@ -1,13 +1,11 @@
 import { Transition } from "@headlessui/react";
-import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
-import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import InputIcon from "../../components/InputIcon/InputIcon";
-import { HiEnvelope } from "react-icons/hi2";
 import { useForm } from "react-hook-form";
+import { HiEnvelope } from "react-icons/hi2";
 import { toast } from "react-toastify";
+import InputIcon from "../../components/InputIcon/InputIcon";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { AuthService } from "../../services/AuthService";
 
 export default function ForgetPassword() {

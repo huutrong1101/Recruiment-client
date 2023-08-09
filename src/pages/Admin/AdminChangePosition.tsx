@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import axiosInstance from "../../utils/AxiosInstance";
-import classnames from "classnames";
-import { toast } from "react-toastify";
-import image from "../../../images/sprite.png";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import classnames from "classnames";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
+import image from "../../../images/sprite.png";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import axiosInstance from "../../utils/AxiosInstance";
 export default function AdminChangePosition() {
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");

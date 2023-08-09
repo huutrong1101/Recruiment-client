@@ -1,7 +1,5 @@
-import React from "react";
-import AvatarCandidate from "../../components/Candidate/Avatar";
 import { useNavigate } from "react-router-dom";
-import SearchBar from "../../components/Layout/SearchBar";
+import AvatarCandidate from "../../components/Candidate/Avatar";
 
 function CandidateList() {
   let navigate = useNavigate();

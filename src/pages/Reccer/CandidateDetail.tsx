@@ -1,14 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import RecCandidateDetailCard from "../../components/RecCandidateManageCard/RecCandidateDetailCard";
-import {
-  MdOutlineEmail,
-  MdOutlineCalendarMonth,
-  MdOutlineLocationOn,
-} from "react-icons/md";
-import axiosInstance from "../../utils/AxiosInstance";
 import { RecCandidateInterface } from "../../services/services";
-import InterviewHistory from "../../components/RecCandidateManageCard/InterviewHistory";
+import axiosInstance from "../../utils/AxiosInstance";
 
 export default function CandidateDetail() {
   const { userId } = useParams();

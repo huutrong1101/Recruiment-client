@@ -1,18 +1,15 @@
-import { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import classnames from "classnames";
-import { HiMagnifyingGlass, HiFunnel, HiListBullet } from "react-icons/hi2";
+import { Fragment, useEffect, useState } from "react";
+import { HiListBullet } from "react-icons/hi2";
 
-import InputIcon from "../../../components/InputIcon/InputIcon";
 import UserProfileInterviewListViewTable from "../../../components/Table/Table";
 
-import PrimaryButton from "../../../components/PrimaryButton/PrimaryButton";
-import Button from "../../../components/Button/Button";
 import { useForm } from "react-hook-form";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { getCandidateInterviews } from "../../../services/InterviewService";
-import moment from "moment";
+import { useSearchParams } from "react-router-dom";
+import Button from "../../../components/Button/Button";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import { getCandidateInterviews } from "../../../services/InterviewService";
 
 const INTERVIEW_STATUS = ["Any", "Pending", "Finished"];
 

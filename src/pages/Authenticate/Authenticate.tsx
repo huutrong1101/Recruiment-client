@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
-import classnames from "classnames";
-import image from "../../../images/sprite.png";
+import { default as classNames, default as classnames } from "classnames";
+import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../hooks/hooks";
 import { toast } from "react-toastify";
+import image from "../../../images/sprite.png";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
-import classNames from "classnames";
+import { useAppSelector } from "../../hooks/hooks";
 
 export default function Authenticate() {
   const navigate = useNavigate();

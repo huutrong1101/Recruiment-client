@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { fetchAdminProfileRecent } from "../../redux/reducer/AdminProfileRecentSlice";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { STATUS } from "../../utils/Status";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { fetchAdminProfileRecent } from "../../redux/reducer/AdminProfileRecentSlice";
+import { STATUS } from "../../utils/Status";
 
 const AdminProfile = () => {
   const { adminprofilesRecent, adminprofilesRecentStatus } = useAppSelector(

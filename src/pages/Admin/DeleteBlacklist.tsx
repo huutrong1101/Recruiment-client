@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-import axiosInstance from "../../utils/AxiosInstance";
-import { AcountFrofileInterface } from "../../services/services";
-import { useParams } from "react-router-dom";
-import { useAppSelector } from "../../hooks/hooks";
-import moment from "moment";
-import classNames from "classnames";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { TextareaAutosize } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import classNames from "classnames";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
-import { TextareaAutosize } from "@mui/material";
+import { useAppSelector } from "../../hooks/hooks";
+import { AcountFrofileInterface } from "../../services/services";
+import axiosInstance from "../../utils/AxiosInstance";
 export default function AdminChangePosition() {
   const { userId } = useParams();
   const jobs: AcountFrofileInterface[] = useAppSelector(

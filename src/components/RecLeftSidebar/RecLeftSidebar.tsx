@@ -1,17 +1,16 @@
-import React from "react";
+import { NavLink } from "react-router-dom";
 import image from "../../../images/avatar.png";
-import { Link, NavLink } from "react-router-dom";
 
+import {
+  HiOutlineCalendarDays,
+  HiOutlineChartPie,
+  HiOutlineFolder,
+  HiOutlineUser,
+} from "react-icons/hi2";
 import {
   MdOutlineEventAvailable,
   MdOutlineManageAccounts,
 } from "react-icons/md";
-import {
-  HiOutlineFolder,
-  HiOutlineCalendarDays,
-  HiOutlineUser,
-  HiOutlineChartPie,
-} from "react-icons/hi2";
 export const links = [
   {
     title: "Dash board",

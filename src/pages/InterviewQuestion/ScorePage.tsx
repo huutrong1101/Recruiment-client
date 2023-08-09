@@ -1,37 +1,37 @@
 import {
-  TrashIcon,
-  BriefcaseIcon,
   AcademicCapIcon,
+  BriefcaseIcon,
   CheckIcon,
+  TrashIcon,
 } from "@heroicons/react/24/outline";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { useParams, useNavigate, Link } from "react-router-dom";
 
 import { fetchINTCandidatesByID } from "../../redux/reducer/INTCandidatesSlice";
 import {
-  fetchINTAssignedQuestions,
-  deleteQuestionOfInterview,
   addQuestionToRepo,
-  setScore,
-  setNote,
+  deleteQuestionOfInterview,
+  fetchINTAssignedQuestions,
   markScore,
+  setNote,
+  setScore,
 } from "../../redux/reducer/INTQuestionsSlice";
 
-import {
-  checkCompleteMarkScore,
-  truncatedString,
-  isDateReached,
-} from "../Interviewer/InterviewRecent/Detail/InterviewDetail";
+import Modal from "react-modal";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import {
   fetchSkills,
   fetchTypes,
 } from "../../redux/reducer/INTInterviewsSlice";
-import Modal from "react-modal";
 import { TYPE_alter } from "../../utils/Localization";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import { STATUS } from "../../utils/Status";
 import Error from "../Interviewer/Error/Error";
+import {
+  checkCompleteMarkScore,
+  isDateReached,
+  truncatedString,
+} from "../Interviewer/InterviewRecent/Detail/InterviewDetail";
 
 export default function ScorePage() {
   const { id } = useParams();

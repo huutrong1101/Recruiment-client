@@ -1,6 +1,6 @@
-import { UserService } from "./../../../services/UserService";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { GetUsersInterviewsParams } from "../../../services/services";
+import { UserService } from "./../../../services/UserService";
 
 interface UserInterview {
   interviewId: string;

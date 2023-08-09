@@ -1,13 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { CalendarDaysIcon, ClockIcon } from "@heroicons/react/24/outline";
 import classnames from "classnames";
-import blog_image from "../../../images/blog_image.png";
-import {
-  ArrowRightIcon,
-  CalendarDaysIcon,
-  ClockIcon,
-} from "@heroicons/react/24/outline";
 import moment from "moment";
+import { Link } from "react-router-dom";
+import blog_image from "../../../images/blog_image.png";
 import { EventInterface } from "../../services/services";
 
 interface BlogCardProps {

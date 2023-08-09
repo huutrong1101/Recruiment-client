@@ -1,7 +1,6 @@
-import { Outlet, useNavigate } from "react-router-dom";
-import { hasLocalToken } from "../../utils/localToken";
-import NotFound from "../NotFound/NotFound";
+import { Outlet } from "react-router-dom";
 import { useAppSelector } from "../../hooks/hooks";
+import NotFound from "../NotFound/NotFound";
 import FilterLoadingLayout from "./FilterLoadingLayout";
 
 export default function FilterNonLogin() {

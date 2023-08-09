@@ -1,24 +1,24 @@
-import React, { useEffect, useState, Fragment } from "react";
-import { Link, createSearchParams, useNavigate } from "react-router-dom";
-import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
+import classNames from "classnames";
+import { isEqual, isUndefined, omitBy } from "lodash";
+import qs from "query-string";
+import { useEffect, useState } from "react";
+import { createSearchParams, useNavigate } from "react-router-dom";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import useQueryParams from "../../hooks/useQueryParams";
 import {
   RecCandidateInterface,
   RecCandidateList,
 } from "../../services/services";
-import useQueryParams from "../../hooks/useQueryParams";
-import { omitBy, isUndefined, isEqual } from "lodash";
-import qs from "query-string";
 import axiosInstance from "../../utils/AxiosInstance";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
-import classNames from "classnames";
 
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import Pagination from "../../components/Pagination/Pagination";
+import RecCandidateCard from "../../components/RecCandidateManageCard/RecCandidateManageCard";
 import {
   fetchCandidateList,
   fetchCandidateSkill,
 } from "../../redux/reducer/CandidateListSlice";
-import RecCandidateCard from "../../components/RecCandidateManageCard/RecCandidateManageCard";
-import Pagination from "../../components/Pagination/Pagination";
 
 export type QueryConfig = {
   [key in keyof RecCandidateList]: string;

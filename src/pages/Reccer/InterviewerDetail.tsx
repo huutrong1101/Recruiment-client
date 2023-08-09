@@ -1,26 +1,20 @@
-import { avatar } from "@material-tailwind/react";
-import React, { useEffect, useState } from "react";
-import { GrDocumentText } from "react-icons/gr";
-import { RecInterviewerInterface } from "../../services/services";
-import axiosInstance from "../../utils/AxiosInstance";
-import { useParams } from "react-router-dom";
+import classNames from "classnames";
+import moment from "moment";
+import { useEffect, useState } from "react";
+import { HiOutlineDeviceMobile } from "react-icons/hi";
 import {
-  MdOutlineEmail,
   MdOutlineCalendarMonth,
+  MdOutlineEmail,
   MdOutlineLocationOn,
 } from "react-icons/md";
-import { HiOutlineDeviceMobile } from "react-icons/hi";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
-import InterviewerRecent from "../../pages/Interviewer/InterviewRecent/InterviewRecent";
-import RecInterviewerIn4Card from "../../components/RecInterviewerManageCard/RecInterviewerIn4Card";
-import moment from "moment";
-import InterviewRecent from "../../pages/Interviewer/InterviewRecent/InterviewRecent";
-import RecInterviewrecent from "./RecInterviewRecent";
-import RecInterviewRecent from "./RecInterviewRecent";
-import classNames from "classnames";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import user from "../../../images/uses.png";
 import thumbnailCover from "../../../images/cover2.jpg";
+import user from "../../../images/uses.png";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import RecInterviewerIn4Card from "../../components/RecInterviewerManageCard/RecInterviewerIn4Card";
+import axiosInstance from "../../utils/AxiosInstance";
+import RecInterviewRecent from "./RecInterviewRecent";
 
 export default function InterviewerDetail() {
   const { interviewerId } = useParams();

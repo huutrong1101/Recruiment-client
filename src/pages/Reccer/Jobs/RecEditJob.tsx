@@ -1,28 +1,18 @@
-import React from "react";
 import {
-  AcademicCapIcon,
-  BriefcaseIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-  ClockIcon,
   ComputerDesktopIcon,
-  CurrencyDollarIcon,
   MapPinIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
 import classNames from "classnames";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Select from "react-select";
-import { Fragment, useEffect, useState } from "react";
-import AddJobWidget from "../../../components/RecJob/AddJobWidget";
-import Logo from "../../../../images/logo_FPT.png";
-import AddJobCard from "../../../components/RecJob/AddJobCard";
 import TextareaAutosize from "react-textarea-autosize";
-import axiosInstance from "../../../utils/AxiosInstance";
+import AddJobCard from "../../../components/RecJob/AddJobCard";
+import AddJobWidget from "../../../components/RecJob/AddJobWidget";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { fetchRecInterviewerSkill } from "../../../redux/reducer/RecInterviewerSilce";
-import { Menu, Transition } from "@headlessui/react";
-import { useNavigate } from "react-router-dom";
-import { JobInterface } from "../../../services/services";
+import axiosInstance from "../../../utils/AxiosInstance";
 
 function RecEditJob() {
   const dispatch = useAppDispatch();

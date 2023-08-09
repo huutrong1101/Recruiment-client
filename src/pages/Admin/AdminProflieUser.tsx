@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import axiosInstance from "../../utils/AxiosInstance";
-import { AcountFrofileUsersInterface } from "../../services/services";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useAppSelector } from "../../hooks/hooks";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import DummyAvatar from "../../components/DummyAvatar/DummyAvatar";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import { useAppSelector } from "../../hooks/hooks";
+import { AcountFrofileUsersInterface } from "../../services/services";
+import axiosInstance from "../../utils/AxiosInstance";
 
 export default function AdminProflieUser() {
   const { userId } = useParams();
