@@ -37,8 +37,9 @@ import moment from "moment";
 // import UserAccountDeletionButton from "../Delete/DeleteButon";
 import Loader from "../Loader/Loader";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
-import PageNotFound from "../Notfound/Notfound";
+
 import { toast } from "react-toastify";
+import Pagination from "../Pagination/Pagination";
 
 export type QueryConfig = {
   [key in keyof AcountConfig]: string;
@@ -60,7 +61,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
   const queryConfig: QueryConfig = omitBy(
     {
       size: queryParams.size || 5,
-      page: queryParams.page,
+      page: queryParams.page || 1,
       role:
         queryParams.role ||
         (typeSelected === "Blacklist"
@@ -313,7 +314,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
                                   open={open}
                                   onClose={handleClose}
                                   BackdropProps={{ invisible: true }}
-                                  sx={{ borderRadius: 30 }}
+                                  sx={{ borderRadius: 45 }}
                                   style={{ fontFamily: "Outfit, sans-serif" }}
                                   aria-labelledby="alert-dialog-title"
                                   aria-describedby="alert-dialog-description"
@@ -321,7 +322,10 @@ export default function AdminTable({ typeSelected }: TypeData) {
                                   <DialogContent className="text-center">
                                     <div className="text-center">
                                       <DialogContent className="text-xl mb-2">
-                                        <p>Are you sure you want to delete</p>
+                                        <p>
+                                          Are you sure you want to delete
+                                          account ?
+                                        </p>
                                       </DialogContent>
                                       <DialogContentText
                                         id="alert-dialog-description"
@@ -343,16 +347,16 @@ export default function AdminTable({ typeSelected }: TypeData) {
                                   <DialogActions>
                                     <button
                                       className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-1 my-1 text-white"
-                                      onClick={handleClose}
+                                      onClick={handleDelete}
                                     >
-                                      Cancel
+                                      Yes
                                     </button>
                                     <button
                                       className="rounded-lg bg-red-700 hover:bg-red-900 px-4 py-2 mx-1 my-1 text-white"
-                                      onClick={handleDelete}
+                                      onClick={handleClose}
                                       autoFocus
                                     >
-                                      Delete
+                                      No
                                     </button>
                                   </DialogActions>
                                 </Dialog>
@@ -398,6 +402,7 @@ export default function AdminTable({ typeSelected }: TypeData) {
       </TableContainer>
       <div className="flex w-full md: w-1/2 justify-center mt-5 ">
         {/* Pagination  */}
+        {/* <Pagination queryConfig={queryConfig} pageSize={pageSize} url="" /> */}
         <Paginationacountlist queryConfig={queryConfig} pageSize={pageSize} />
       </div>
     </div>

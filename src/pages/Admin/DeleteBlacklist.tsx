@@ -135,13 +135,13 @@ export default function AdminChangePosition() {
             {/* Title */}
             <div className="px-5 py-4 flex items-center text-center space-x-2 font-semibold text-green-500 justify-center">
               <span className="tracking-wide text-center  text-emerald-600 text-[28px] ">
-                Resion Add blacklist
+                Reasion Add blacklist
               </span>
             </div>
             {/* Resion Blacklist */}
             <div className="grid grid-cols-1">
               <div className="px-4 py-2 font-semibold text-black capitalize leading-7 tracking-wide">
-                Resion
+                Reasion
               </div>
               <TextareaAutosize
                 id="reasion"
@@ -180,7 +180,7 @@ export default function AdminChangePosition() {
                 className="px-6 py-3 text-white rounded-xl bg-emerald-600 hover:bg-emerald-800 ml-5"
               >
                 {" "}
-                Delete{" "}
+                UnClock{" "}
               </button>
               <Dialog
                 open={open}
@@ -193,7 +193,7 @@ export default function AdminChangePosition() {
                 </DialogTitle>
                 <DialogContent className="text-center">
                   <div className="text-center px-6">
-                    <DialogContent className="font-semibold text-lg mb-2">
+                    <DialogContent className="font-semibold text-lg">
                       <p>Are you sure you want to delete </p>
                       <p>{showJobLists.name}</p>
                     </DialogContent>
@@ -204,29 +204,26 @@ export default function AdminChangePosition() {
                       <div className="flex">
                         <ExclamationTriangleIcon className="w-6 h-6 text-red-800" />
                         <p className="flex text-red-800 font-semibold px-2">
-                          WARNING
+                          WARNING : This action cannot be undone, the deleted
+                          item cannot be restored.
                         </p>
-                      </div>
-                      <div className="text-center font-semibold">
-                        This action cannot be undone, the deleted item cannot be
-                        restored.
                       </div>
                     </DialogContentText>
                   </div>
                 </DialogContent>
                 <DialogActions>
                   <button
-                    className="rounded-lg bg-[#059669] hover:bg-green-900 px-4 py-2 mx-1 my-1 text-white"
+                    className="rounded-lg bg-red-700 hover:bg-red-900 px-4 py-2 mx-1 my-1 text-white"
                     onClick={handleClose}
                   >
                     Cancel
                   </button>
                   <button
-                    className="rounded-lg bg-red-700 hover:bg-red-900 px-4 py-2 mx-1 my-1 text-white"
+                    className="rounded-lg bg-[#059669] hover:bg-green-900  px-4 py-2 mx-1 my-1 text-white"
                     onClick={handleSubmitDelete}
                     autoFocus
                   >
-                    Delete
+                    UnClock
                   </button>
                 </DialogActions>
               </Dialog>

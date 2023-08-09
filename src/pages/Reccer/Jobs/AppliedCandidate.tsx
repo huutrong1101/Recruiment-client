@@ -127,7 +127,7 @@ export default function Applied(num: any) {
       ?.map((data) => data.state)
       .filter((state) => state === "PASSED").length;
 
-    if (countReceivedStates <= num.num) {
+    if (countReceivedStates < num.num) {
       toast
         .promise(StateService.changeState(data), {
           pending: `Changing`,
