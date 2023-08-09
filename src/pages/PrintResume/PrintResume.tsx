@@ -1,11 +1,13 @@
 import classNames from "classnames";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { HiMail } from "react-icons/hi";
 import { HiMapPin, HiPhone } from "react-icons/hi2";
 import { Link } from "react-router-dom";
-import { UserService } from "../../services/UserService";
 import { toast } from "react-toastify";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { useAppSelector } from "../../hooks/hooks";
+import { UserService } from "../../services/UserService";
 import {
   CertificateSchema,
   EducationSchema,
@@ -13,8 +15,6 @@ import {
   ProjectSchema,
 } from "../UserProfile/UserProfileMyInformationSchema";
 import "./styles/PrintResume.css";
-import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
 function ResumeRenderSection<T>({
   keyId,

@@ -1,25 +1,12 @@
-import React, { useState, useEffect } from "react";
-import classnames from "classnames";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import TextareaAutosize from "react-textarea-autosize";
-import axiosInstance from "../../utils/AxiosInstance";
+import { default as classNames, default as classnames } from "classnames";
 import moment from "moment";
-import { toast } from "react-toastify";
-import classNames from "classnames";
-import {
-  CalendarDaysIcon,
-  ExclamationTriangleIcon,
-  MapPinIcon,
-} from "@heroicons/react/24/outline";
-import { ClockIcon } from "@mui/x-date-pickers";
+import { useEffect, useState } from "react";
 import { HiCalendarDays, HiClock, HiMapPin } from "react-icons/hi2";
-import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import { useNavigate } from "react-router-dom";
+import TextareaAutosize from "react-textarea-autosize";
+import { toast } from "react-toastify";
+import axiosInstance from "../../utils/AxiosInstance";
+import PrimaryButton from "../PrimaryButton/PrimaryButton";
 export default function AddEvent() {
   //Event Content
   const [time, setTime] = useState("");

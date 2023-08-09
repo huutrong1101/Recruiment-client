@@ -1,11 +1,11 @@
+import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
-import AvatarCandidate from "../../../components/Candidate/Avatar";
-import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axiosInstance from "../../../utils/AxiosInstance";
-import { CalendarDaysIcon, EnvelopeIcon } from "@heroicons/react/24/outline";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import AvatarCandidate from "../../../components/Candidate/Avatar";
 import { InviteService } from "../../../services/InviteService";
+import axiosInstance from "../../../utils/AxiosInstance";
 
 export default function Suggested() {
   const { jobId } = useParams();

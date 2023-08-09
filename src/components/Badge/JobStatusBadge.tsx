@@ -1,7 +1,7 @@
-import React from "react";
-import Badge from "./Badge";
 import classnames from "classnames";
+import React from "react";
 import { APPLICANTS_STATUS } from "../../utils/Localization";
+import Badge from "./Badge";
 
 interface JobStatusBadge extends React.HTMLProps<HTMLDivElement> {
   className?: string;

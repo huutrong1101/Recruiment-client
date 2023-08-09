@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import {
-  MagnifyingGlassIcon,
   ChevronDownIcon,
+  MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
 import classNames from "classnames";
-import JobCard from "../../components/JobCard/JobCard";
-import { useAppSelector } from "../../hooks/hooks";
-import { JobInterface, JobListConfig } from "../../services/services";
-import Pagination from "../../components/Pagination/Pagination";
-import axiosInstance from "../../utils/AxiosInstance";
-import { omitBy, isUndefined } from "lodash";
-import useQueryParams from "../../hooks/useQueryParams";
-import Loader from "../../components/Loader/Loader";
-import { createSearchParams, useNavigate, useParams } from "react-router-dom";
-import { omit, isEqual } from "lodash";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
-import { JOB_POSITION } from "../../utils/Localization";
-import { AiOutlineBlock } from "react-icons/ai";
+import { isEqual, isUndefined, omit, omitBy } from "lodash";
 import qs from "query-string";
+import { Fragment, useEffect, useState } from "react";
+import { AiOutlineBlock } from "react-icons/ai";
+import { createSearchParams, useNavigate } from "react-router-dom";
+import JobCard from "../../components/JobCard/JobCard";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import Pagination from "../../components/Pagination/Pagination";
+import { useAppSelector } from "../../hooks/hooks";
+import useQueryParams from "../../hooks/useQueryParams";
+import { JobInterface, JobListConfig } from "../../services/services";
+import axiosInstance from "../../utils/AxiosInstance";
+import { JOB_POSITION } from "../../utils/Localization";
 
 export type QueryConfig = {
   [key in keyof JobListConfig]: string;

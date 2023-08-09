@@ -1,11 +1,7 @@
-import React from "react";
-import AvatarInterviewer from "../../components/Candidate/Avatar";
-import { useAppSelector } from "../../hooks/hooks";
-import { Link } from "react-router-dom";
-import user from "../../../images/uses.png";
-import DummyAvatar from "../DummyAvatar/DummyAvatar";
 import classNames from "classnames";
 import { AiFillPhone } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import user from "../../../images/uses.png";
 
 const RecInterviewerManageCard = (props: any) => {
   const interviewer = props.interviewer;

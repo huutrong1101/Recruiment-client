@@ -1,32 +1,29 @@
+import { Menu, Transition } from "@headlessui/react";
 import {
+  ChevronDownIcon,
+  PencilIcon,
   PlusCircleIcon,
   TrashIcon,
-  PencilIcon,
-  ChevronDownIcon,
 } from "@heroicons/react/24/outline";
-import { Menu, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useState } from "react";
-import AddQuestion from "./AddQuestion";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import classNames from "classnames";
+import { isEqual, isUndefined, omit, omitBy } from "lodash";
 import qs from "query-string";
-import { omit, isEqual } from "lodash";
-import useQuerParams from "../../hooks/useQueryParams";
+import { Fragment, useEffect, useState } from "react";
+import { Link, createSearchParams, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
-import axiosInstance from "../../utils/AxiosInstance";
-import { omitBy, isUndefined } from "lodash";
+import { useAppSelector } from "../../hooks/hooks";
+import useQuerParams from "../../hooks/useQueryParams";
+import { InterviewService } from "../../services/InterviewService";
 import {
   QuestionListConfig,
   QuestionListInterface,
-  SkillListInterface,
-  TypeListInterface,
 } from "../../services/services";
-import { Link, createSearchParams, useNavigate } from "react-router-dom";
-import PaginationInterview from "./PaginationInterview";
-import classNames from "classnames";
+import axiosInstance from "../../utils/AxiosInstance";
 import { TYPE_alter } from "../../utils/Localization";
+import AddQuestion from "./AddQuestion";
+import PaginationInterview from "./PaginationInterview";
 import UpdateQuestion from "./UpdateQuestion";
-import { toast } from "react-toastify";
-import { InterviewService } from "../../services/InterviewService";
 
 export type QueryConfig = {
   [key in keyof QuestionListConfig]: string;

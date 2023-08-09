@@ -1,22 +1,22 @@
-import { useState, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 
 // Component & Icon
 import {
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Paper,
-} from "@mui/material";
-import {
-  PencilIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
+  PencilIcon,
 } from "@heroicons/react/24/outline";
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import Error from "../Error/Error";
 
 // Function from Slice
@@ -25,8 +25,8 @@ import { formatDDMMYY } from "../CandidateRecent/CandidateRecent";
 
 // Status
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
-import { STATUS } from "../../../utils/Status";
 import { ADMIN_APPLICANTS_STATUS } from "../../../utils/Localization";
+import { STATUS } from "../../../utils/Status";
 
 const rowsPerPageOptions = [5, 10, 15];
 

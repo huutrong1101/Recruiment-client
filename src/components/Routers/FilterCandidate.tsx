@@ -1,6 +1,6 @@
-import { useTokenAuthorize } from "../../hooks/useTokenAuthorize";
-import { useAppSelector } from "../../hooks/hooks";
 import { Outlet, useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../hooks/hooks";
+import { useTokenAuthorize } from "../../hooks/useTokenAuthorize";
 import NotFound from "../NotFound/NotFound";
 import FilterLoadingLayout from "./FilterLoadingLayout";
 

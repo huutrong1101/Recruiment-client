@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import { AuthService } from "../services/AuthService";
+import { UserService } from "../services/UserService";
 import {
   UserLoginParamsInterface,
   UserRegisterParamsInterface,
 } from "../services/services";
-import { UserService } from "../services/UserService";
+import axiosInstance from "../utils/AxiosInstance";
 import {
   clearLocalToken,
   clearRefreshToken,
@@ -13,8 +15,6 @@ import {
   setLocalToken,
   setRefreshToken,
 } from "../utils/localToken";
-import { toast } from "react-toastify";
-import axiosInstance from "../utils/AxiosInstance";
 
 type RoleType = "CANDIDATE" | "RECRUITER" | "ADMIN" | "INTERVIEWER";
 

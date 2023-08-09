@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from "react";
-import classnames from "classnames";
-import TextareaAutosize from "react-textarea-autosize";
-import { NavLink } from "react-router-dom";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import axiosInstance from "../../utils/AxiosInstance";
-import { AcountFrofileInterface } from "../../services/services";
-import { useParams } from "react-router-dom";
-import { useAppSelector } from "../../hooks/hooks";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import classnames from "classnames";
+import React, { useEffect, useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
+import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-toastify";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import { useAppSelector } from "../../hooks/hooks";
+import { AcountFrofileInterface } from "../../services/services";
+import axiosInstance from "../../utils/AxiosInstance";
 
 export default function AddBlacklist() {
   const { userId } = useParams();

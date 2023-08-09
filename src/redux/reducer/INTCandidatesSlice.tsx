@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { STATUS } from "../../utils/Status";
-import axiosInstance from "../../utils/AxiosInstance";
 import { toast } from "react-toastify";
+import axiosInstance from "../../utils/AxiosInstance";
+import { STATUS } from "../../utils/Status";
 
 const INTCandidatesSlice = createSlice({
   name: "INTCandidates",

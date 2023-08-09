@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
 import classNames from "classnames";
+import { useEffect, useState } from "react";
+import { AiFillEye } from "react-icons/ai";
+import { GrDocumentPdf } from "react-icons/gr";
+import { Link, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import Dialog from "../../components/Modal/Dialog";
+import { useAppSelector } from "../../hooks/hooks";
 import {
   getCandidateResume,
   sendApplyRequestToJob,
 } from "../../services/CandidateService";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import { LoadingStatus, ResumeResponse } from "../../services/services";
-import { AiFillEye } from "react-icons/ai";
-import { useAppSelector } from "../../hooks/hooks";
-import { Link, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { GrDocumentPdf } from "react-icons/gr";
-import Dialog from "../../components/Modal/Dialog";
 
 export interface JobInformationApplyModal {
   visible: boolean;

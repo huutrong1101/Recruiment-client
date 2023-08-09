@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
 import classNames from "classnames";
-import { Link, useLocation } from "react-router-dom";
-import Container from "../Container/Container";
-import MobileNavbar from "./MobileNavbar";
-import { useAppSelector } from "../../hooks/hooks";
-import LoadSpinner from "../LoadSpinner/LoadSpinner";
 import qs from "qs";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useAppSelector } from "../../hooks/hooks";
 import { useTokenAuthorize } from "../../hooks/useTokenAuthorize";
+import Container from "../Container/Container";
+import LoadSpinner from "../LoadSpinner/LoadSpinner";
+import MobileNavbar from "./MobileNavbar";
 import NavbarUserLoggedInCard from "./NavbarUserLoggedInCard";
 import "./styles/Navbar.css";
 

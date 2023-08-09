@@ -1,22 +1,16 @@
-import classnames from "classnames";
-import InputIcon from "../../components/InputIcon/InputIcon";
-import { HiFunnel, HiListBullet, HiMagnifyingGlass } from "react-icons/hi2";
 import { Listbox, Transition } from "@headlessui/react";
-import Table from "../../components/Table/Table";
-import Button from "../../components/Button/Button";
+import classnames from "classnames";
 import { Fragment, useEffect, useState } from "react";
+import { HiListBullet } from "react-icons/hi2";
+import Button from "../../components/Button/Button";
+import Table from "../../components/Table/Table";
 
-import JobStatusBadge from "../../components/Badge/JobStatusBadge";
-import { useForm } from "react-hook-form";
-import { getCandidateSubmittedJobs } from "../../services/CandidateService";
-import {
-  createSearchParams,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import moment from "moment";
+import { useForm } from "react-hook-form";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import JobStatusBadge from "../../components/Badge/JobStatusBadge";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import { getCandidateSubmittedJobs } from "../../services/CandidateService";
 
 export default function UserProfileSubmittedJob() {
   const [filterType, setFilterType] = useState<number>(0);

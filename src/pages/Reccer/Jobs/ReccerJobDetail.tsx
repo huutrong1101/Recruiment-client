@@ -1,41 +1,34 @@
 import {
-  AcademicCapIcon,
-  BriefcaseIcon,
   ClockIcon,
   ComputerDesktopIcon,
   CurrencyDollarIcon,
-  ExclamationCircleIcon,
   ExclamationTriangleIcon,
   MapPinIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
-import classNames from "classnames";
-import { useNavigate, useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import ReccerJobDescriptionWidget from "../../../components/RecJob/ReccerJobDescriptionWidget";
-import Logo from "../../../../images/logo_FPT.png";
-import RecJobInformationCard from "../../../components/RecJob/ReccerJobInformationCard";
-import JobCard from "../../../components/JobCard/JobCard";
 import {
-  Avatar,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
+import classNames from "classnames";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import Logo from "../../../../images/logo_FPT.png";
+import ReccerJobDescriptionWidget from "../../../components/RecJob/ReccerJobDescriptionWidget";
+import RecJobInformationCard from "../../../components/RecJob/ReccerJobInformationCard";
 
-import AvatarCandidate from "../../../components/Candidate/Avatar";
-import Applied from "./AppliedCandidate";
-import Suggested from "./SuggestedCandidate";
+import moment from "moment";
+import { toast } from "react-toastify";
+import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import { JobService } from "../../../services/JobService";
 import { JobInterface } from "../../../services/services";
 import axiosInstance from "../../../utils/AxiosInstance";
-import moment from "moment";
-import Loader from "../../../components/Loader/Loader";
 import { JOB_POSITION } from "../../../utils/Localization";
-import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
-import { toast } from "react-toastify";
-import { JobService } from "../../../services/JobService";
+import Applied from "./AppliedCandidate";
+import Suggested from "./SuggestedCandidate";
 
 export default function ReccerJobDetail() {
   const [jobInformation, setJobInformation] = useState([

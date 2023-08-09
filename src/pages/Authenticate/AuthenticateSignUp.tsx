@@ -1,20 +1,19 @@
-import React, { Fragment, useEffect, useState } from "react";
-import classnames from "classnames";
-import { useForm } from "react-hook-form";
+import { Dialog, Transition } from "@headlessui/react";
 import {
   EnvelopeIcon,
   LockClosedIcon,
   PhoneIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
-import { Link, useNavigate } from "react-router-dom";
+import classnames from "classnames";
+import { Fragment, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import InputIcon from "../../components/InputIcon/InputIcon";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { authRegister } from "../../redux/AuthSlice";
-import { toast } from "react-toastify";
-import { Dialog, Transition } from "@headlessui/react";
-import classNames from "classnames";
 
 function TermAndConditionsDialog({ visible, onClose, onOkay }: any) {
   return (

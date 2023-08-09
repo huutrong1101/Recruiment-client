@@ -1,21 +1,19 @@
-import { Fragment, useEffect, useState } from "react";
-import { Tab } from "@headlessui/react";
-import classnames from "classnames";
-import { HiListBullet, HiCalendarDays } from "react-icons/hi2";
-import UserProfileInterviewListView from "./UserProfileInterviewListView";
-import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
-import Modal from "../../../components/Modal/Modal";
-import classNames from "classnames";
+import FullCalendar from "@fullcalendar/react";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import { Tab } from "@headlessui/react";
+import { default as classNames, default as classnames } from "classnames";
 import moment from "moment";
+import { useEffect, useState } from "react";
+import { HiCalendarDays, HiListBullet } from "react-icons/hi2";
+import { useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import Modal from "../../../components/Modal/Modal";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { getUserInterviews } from "../slices/UserInterviewSlice";
-import { useSearchParams } from "react-router-dom";
-import qs from "qs";
-import { toast } from "react-toastify";
+import UserProfileInterviewListView from "./UserProfileInterviewListView";
 
 export interface TableRow {
   id: string;

@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
 import classNames from "classnames";
-import BlogCard from "../../components/BlogCard/BlogCard";
+import { isEqual, isUndefined, omitBy } from "lodash";
+import qs from "query-string";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import blog_image from "../../../images/blog_image.png";
-import { EventInterface, EventListConfig } from "../../services/services";
+import BlogCard from "../../components/BlogCard/BlogCard";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import Pagination from "../../components/Pagination/Pagination";
 import { useAppSelector } from "../../hooks/hooks";
 import useQueryParams from "../../hooks/useQueryParams";
-import { omitBy, isUndefined, isEqual } from "lodash";
-import qs from "query-string";
+import { EventInterface, EventListConfig } from "../../services/services";
 import axiosInstance from "../../utils/AxiosInstance";
-import Pagination from "../../components/Pagination/Pagination";
-import moment from "moment";
-import { Link } from "react-router-dom";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
 export type QueryConfig = {
   [key in keyof EventListConfig]: string;

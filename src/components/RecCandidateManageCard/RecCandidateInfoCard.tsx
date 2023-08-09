@@ -1,10 +1,4 @@
 import classNames from "classnames";
-import PrimaryButton from "../PrimaryButton/PrimaryButton";
-import { GrDocumentText } from "react-icons/gr";
-import { useParams } from "react-router-dom";
-import { RecCandidateInterface } from "../../services/services";
-import { useEffect, useState } from "react";
-import axiosInstance from "../../utils/AxiosInstance";
 
 export default function RecCandidateinfoCard({ cardData }: any) {
   return (

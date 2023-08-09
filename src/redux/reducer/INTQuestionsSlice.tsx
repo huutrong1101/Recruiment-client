@@ -1,7 +1,7 @@
-import { createAsyncThunk, PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { STATUS } from "../../utils/Status";
-import axiosInstance from "../../utils/AxiosInstance";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import axiosInstance from "../../utils/AxiosInstance";
+import { STATUS } from "../../utils/Status";
 
 interface INTQuestionsState {
   selectedQuestions: { [key: string]: any[] };

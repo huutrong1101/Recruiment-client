@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PrimaryButton from "../PrimaryButton/PrimaryButton";
 
 export default function RecJobInformationCard({ cardData }: any) {
   return (

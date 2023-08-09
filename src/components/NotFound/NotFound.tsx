@@ -1,7 +1,7 @@
-import classNames from "classnames";
-import { Link } from "react-router-dom";
-import { TbBarrierBlock } from "react-icons/tb";
 import { Transition } from "@headlessui/react";
+import classNames from "classnames";
+import { TbBarrierBlock } from "react-icons/tb";
+import { Link } from "react-router-dom";
 
 export default function NotFound() {
   return (

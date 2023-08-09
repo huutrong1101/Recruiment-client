@@ -1,22 +1,16 @@
-import { NavLink, Outlet } from "react-router-dom";
-import AdminTable from "../../components/AdminManagerList/AdminTable";
-import React, { useState, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { STATUS } from "../../utils/Status";
-import { AcountConfig, AcountInterface } from "../../services/services";
-import { omitBy, isUndefined } from "lodash";
-import useQueryParams from "../../hooks/useQueryParams";
-import qs from "query-string";
-import { createSearchParams, useNavigate } from "react-router-dom";
-import { omit, isEqual } from "lodash";
-import axiosInstance from "../../utils/AxiosInstance";
-import Paginationacountlist from "../../components/AdminManagerList/Pagination/Paginationacountlist";
-import moment from "moment";
-import Loader from "../../components/Loader/Loader";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import {
+  ChevronDownIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/outline";
 import classNames from "classnames";
+import { isUndefined, omitBy } from "lodash";
+import { useState } from "react";
 import { BsFilterLeft } from "react-icons/bs";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { Outlet, createSearchParams, useNavigate } from "react-router-dom";
+import AdminTable from "../../components/AdminManagerList/AdminTable";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import useQueryParams from "../../hooks/useQueryParams";
+import { AcountConfig, AcountInterface } from "../../services/services";
 
 export type QueryConfig = {
   [key in keyof AcountConfig]: string;

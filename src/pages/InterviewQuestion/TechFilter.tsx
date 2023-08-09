@@ -1,14 +1,9 @@
-import React, { useState, useEffect } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { Fragment } from "react";
 import classNames from "classnames";
-import axiosInstance from "../../utils/AxiosInstance";
-import useQueryParams from "../../hooks/useQueryParams";
-import { omit, isEqual } from "lodash";
-import { omitBy, isUndefined } from "lodash";
+import React, { Fragment, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { DataSearchInterface } from "../../services/services";
-import { createSearchParams, useNavigate } from "react-router-dom";
 //----------------SKILL
 interface IDataSearch {
   skill: string;

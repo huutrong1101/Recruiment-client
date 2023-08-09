@@ -1,5 +1,5 @@
 import { Dialog as HeadlessDialog, Transition } from "@headlessui/react";
-import { Fragment, useState, useEffect, ReactElement } from "react";
+import { Fragment, ReactElement } from "react";
 
 interface DialogProps {
   visible: boolean;

@@ -1,7 +1,3 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import { Link, NavLink } from "react-router-dom";
-
 import { PiSidebar, PiStarLight } from "react-icons/pi";
 
 export default function RecNavbar() {

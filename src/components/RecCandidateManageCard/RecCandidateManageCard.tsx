@@ -1,10 +1,8 @@
-import React from "react";
-import { useAppSelector } from "../../hooks/hooks";
-import { Link } from "react-router-dom";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
-import user from "../../../images/uses.png";
 import classNames from "classnames";
 import { AiFillPhone } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import user from "../../../images/uses.png";
 
 const RecCandidateCard = (props: any) => {
   const candidate = props.candidate;

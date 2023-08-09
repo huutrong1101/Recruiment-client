@@ -1,23 +1,15 @@
 import { Menu, Transition } from "@headlessui/react";
 import classNames from "classnames";
 import { Fragment, useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { Link } from "react-router-dom";
-import { setNavbarMenu } from "./slices/NavbarSlice";
-import DummyAvatar from "../DummyAvatar/DummyAvatar";
-import {
-  HiArrowLeftOnRectangle,
-  HiCog6Tooth,
-  HiEnvelope,
-  HiInformationCircle,
-  HiQuestionMarkCircle,
-  HiUserCircle,
-} from "react-icons/hi2";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import {
   prepareCandidateProvider,
   prepareInterviewerProvider,
   prepareOtherProvider,
 } from "../../utils/NavigateMenu";
+import DummyAvatar from "../DummyAvatar/DummyAvatar";
+import { setNavbarMenu } from "./slices/NavbarSlice";
 
 // const SIGNED_IN_DROPDOWN_ITEMS = [
 //   {

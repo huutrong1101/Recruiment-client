@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+import { Transition } from "@headlessui/react";
 import classNames from "classnames";
 import { TbBarrierBlock } from "react-icons/tb";
-import { Transition } from "@headlessui/react";
+import { Link } from "react-router-dom";
 import { STATUS } from "../../../utils/Status";
 
 const Error = (props: any) => {

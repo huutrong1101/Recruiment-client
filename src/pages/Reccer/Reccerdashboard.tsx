@@ -1,25 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { Link } from "react-router-dom";
-import { data } from "../../data/RecDashboardData";
+import { Menu } from "@headlessui/react";
+import { useEffect, useState } from "react";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import RecCard from "../../components/RecDashboardCard/RecDashboardCard";
-import LineChart from "./Recchart";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { fetchRecJobList } from "../../redux/reducer/RecJobSlice";
-import {
-  fetchRecInterviewerList,
-  fetchRecInterviewerSkill,
-} from "../../redux/reducer/RecInterviewerSilce";
 import {
   fetchCandidateList,
   fetchCandidateSkill,
 } from "../../redux/reducer/CandidateListSlice";
+import { fetchRecJobList } from "../../redux/reducer/RecJobSlice";
 import axiosInstance from "../../utils/AxiosInstance";
-import { current } from "@reduxjs/toolkit";
-import { HiOutlineArrowTrendingUp } from "react-icons/hi2";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import LineChart from "./Recchart";
 
 export default function Reccer_dashboard() {
   const dispatch = useAppDispatch();

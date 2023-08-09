@@ -1,10 +1,10 @@
-import moment from "moment";
-import { HiCalendarDays, HiClock } from "react-icons/hi2";
-import blog_image from "../../../images/blog_image.png";
 import classNames from "classnames";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
 import he from "he";
+import moment from "moment";
+import { useEffect } from "react";
+import { HiCalendarDays } from "react-icons/hi2";
+import { Link } from "react-router-dom";
+import blog_image from "../../../images/blog_image.png";
 
 export default function RecruiterBlogCard({ event }: any) {
   useEffect(() => {

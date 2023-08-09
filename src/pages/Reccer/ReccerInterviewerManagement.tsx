@@ -1,30 +1,21 @@
-import React, { useEffect, useState, Fragment } from "react";
-import { data } from "../../data/RecInterviewerManagementData";
+import { useEffect, useState } from "react";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import RecInterviewerCard from "../../components/RecInterviewerManageCard/RecInterviewerManageCard";
-import { Link, createSearchParams, useNavigate } from "react-router-dom";
-import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 // import { fetchCandidateRecent } from "../../redux/reducer/CandidateRecentSlice";
-import { STATUS } from "../../utils/Status";
+import classNames from "classnames";
+import { isEqual, isUndefined, omitBy } from "lodash";
+import qs from "query-string";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import useQueryParams from "../../hooks/useQueryParams";
 import {
   RecInterviewerInterface,
   RecInterviewerListConfig,
 } from "../../services/services";
-import useQueryParams from "../../hooks/useQueryParams";
-import { omitBy, isUndefined, isEqual } from "lodash";
-import qs from "query-string";
 import axiosInstance from "../../utils/AxiosInstance";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import Pagination from "./RecPagination";
-import { BsFilterLeft } from "react-icons/bs";
-import classNames from "classnames";
 
-import { Menu, Transition } from "@headlessui/react";
-import { JOB_POSITION } from "../../utils/Localization";
-import {
-  ChevronDownIcon,
-  ChevronUpIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import {
   fetchRecInterviewerList,
   fetchRecInterviewerSkill,

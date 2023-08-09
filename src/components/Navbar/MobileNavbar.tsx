@@ -1,12 +1,12 @@
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import classNames from "classnames";
 import { Transition } from "@headlessui/react";
-import { Link } from "react-router-dom";
-import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Bars4Icon } from "@heroicons/react/24/outline";
-import { setNavbarDrawerVisible } from "./slices/NavbarSlice";
+import { XMarkIcon } from "@heroicons/react/24/solid";
+import classNames from "classnames";
+import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import NavbarUserLoggedInCard from "./NavbarUserLoggedInCard";
 import NavbarUserNotLoggedInCard from "./NavbarUserNotLoggedInCard";
+import { setNavbarDrawerVisible } from "./slices/NavbarSlice";
 
 export default function MobileNavbar() {
   const { drawerVisible, items } = useAppSelector((app) => app.Navbar);

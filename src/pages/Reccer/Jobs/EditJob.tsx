@@ -1,19 +1,10 @@
 import {
-  AcademicCapIcon,
-  BriefcaseIcon,
-  ClockIcon,
   ComputerDesktopIcon,
-  CurrencyDollarIcon,
   ExclamationTriangleIcon,
   MapPinIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
-import classNames from "classnames";
-import { useNavigate, useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import RecJobInformationCard from "../../../components/RecJob/ReccerJobInformationCard";
 import {
-  Avatar,
   Dialog,
   DialogActions,
   DialogContent,
@@ -21,18 +12,18 @@ import {
   DialogTitle,
   TextareaAutosize,
 } from "@mui/material";
+import classNames from "classnames";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
+import { toast } from "react-toastify";
+import EditJobCard from "../../../components/RecJob/EditJobCard";
+import EditJobWidget from "../../../components/RecJob/EditJobWidget";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import { fetchRecInterviewerSkill } from "../../../redux/reducer/RecInterviewerSilce";
+import { JobService } from "../../../services/JobService";
 import { JobInterface } from "../../../services/services";
 import axiosInstance from "../../../utils/AxiosInstance";
-import moment from "moment";
-import { JOB_POSITION } from "../../../utils/Localization";
-import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
-import EditJobWidget from "../../../components/RecJob/EditJobWidget";
-import { fetchRecInterviewerSkill } from "../../../redux/reducer/RecInterviewerSilce";
-import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
-import EditJobCard from "../../../components/RecJob/EditJobCard";
-import { toast } from "react-toastify";
-import { JobService } from "../../../services/JobService";
 
 export default function ReccerJobDetail() {
   const [jobInformation, setJobInformation] = useState([

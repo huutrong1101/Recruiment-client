@@ -1,9 +1,7 @@
 import classNames from "classnames";
-import PrimaryButton from "../PrimaryButton/PrimaryButton";
-import { GrDocumentText } from "react-icons/gr";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { RecInterviewerInterface } from "../../services/services";
-import { useEffect, useState } from "react";
 import axiosInstance from "../../utils/AxiosInstance";
 
 export default function RecInterviewerIn4Card({ cardData }: any) {

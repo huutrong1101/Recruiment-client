@@ -1,27 +1,14 @@
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import QuestionFilter from "./QuestionFilter";
 import { Menu, Transition } from "@headlessui/react";
-import { postCreateQuestion } from "../../redux/reducer/CreateQuestion";
-import { Fragment, useEffect, useState } from "react";
-import qs from "query-string";
-import { omit, isEqual } from "lodash";
-import useQuerParams from "../../hooks/useQueryParams";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
-import axiosInstance from "../../utils/AxiosInstance";
-import { omitBy, isUndefined } from "lodash";
-import {
-  QuestionListConfig,
-  QuestionListInterface,
-  SkillListInterface,
-  TypeListInterface,
-} from "../../services/services";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
-import { TYPE_alter } from "../../utils/Localization";
-import { useAppSelector } from "../../hooks/hooks";
-import { input } from "@material-tailwind/react";
+import { Fragment, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useAppSelector } from "../../hooks/hooks";
 import { InterviewService } from "../../services/InterviewService";
+import { QuestionListInterface } from "../../services/services";
+import axiosInstance from "../../utils/AxiosInstance";
+import { TYPE_alter } from "../../utils/Localization";
 
 const INITIAL_INPUT_DATA = {
   note: "",

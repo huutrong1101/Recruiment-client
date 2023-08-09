@@ -1,13 +1,12 @@
-import React from "react";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
 import {
   BsFacebook,
-  BsInstagram,
-  BsYoutube,
   BsFillCartCheckFill,
   BsFillTelephoneFill,
+  BsInstagram,
+  BsYoutube,
 } from "react-icons/bs";
+import { Link } from "react-router-dom";
 import Container from "../Container/Container";
 import "./styles/Footer.css";
 

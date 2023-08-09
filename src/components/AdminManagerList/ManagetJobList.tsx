@@ -1,40 +1,33 @@
-import { useState, useEffect } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { EyeIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import {
-  EyeIcon,
-  MagnifyingGlassCircleIcon,
-} from "@heroicons/react/24/outline";
-import {
-  TableContainer,
+  Paper,
   Table,
+  TableBody,
+  TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableCell,
-  TableBody,
-  Paper,
 } from "@mui/material";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 
-import { fetchAdminManagerJobList } from "../../redux/reducer/AdminListJobRecentSlice";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { STATUS } from "../../utils/Status";
-import { AdminJobListConfig, AdminJobInterface } from "../../services/services";
-import { omitBy, isUndefined } from "lodash";
+import { isUndefined, omitBy } from "lodash";
+import { useAppSelector } from "../../hooks/hooks";
 import useQueryParams from "../../hooks/useQueryParams";
+import { AdminJobInterface, AdminJobListConfig } from "../../services/services";
 
+import classNames from "classnames";
+import { isEqual } from "lodash";
+import moment from "moment";
 import qs from "query-string";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { omit, isEqual } from "lodash";
+import axiosInstance from "../../utils/AxiosInstance";
+import LoadSpinner from "../LoadSpinner/LoadSpinner";
+import Paginationjoblist from "./Pagination/Paginationjoblist";
 
 export type QueryConfig = {
   [key in keyof AdminJobListConfig]: string;
 };
-import axiosInstance from "../../utils/AxiosInstance";
-import Paginationjoblist from "./Pagination/Paginationjoblist";
-import moment from "moment";
-import LoadSpinner from "../LoadSpinner/LoadSpinner";
-import classNames from "classnames";
-import { BsFilterLeft } from "react-icons/bs";
 
 const ManagetJobList = () => {
   const jobs: AdminJobInterface[] = useAppSelector(

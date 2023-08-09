@@ -1,8 +1,6 @@
-import { BrowserRouter, Outlet, Link, NavLink } from "react-router-dom";
-import { PiSidebar, PiStarLight } from "react-icons/pi";
-import Footer from "../../components/Footer/Footer";
-import Rec_RightSidebar from "../RecRightSidebar/RecRightSidebar";
+import { Outlet } from "react-router-dom";
 import DashboardFooter from "../RecFooter/DashboardFooter";
+import Rec_RightSidebar from "../RecRightSidebar/RecRightSidebar";
 
 export default function AdminAppLayout() {
   return (

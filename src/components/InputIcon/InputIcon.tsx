@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import { FieldValues, UseFormRegister, Path } from "react-hook-form";
+import { FieldValues, Path, UseFormRegister } from "react-hook-form";
 
 // export interface InputIconValues extends React.HTMLProps<HTMLInputElement> {}
 

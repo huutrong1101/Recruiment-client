@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
 import classnames from "classnames";
-import logo_FPT from "../../../images/logo_FPT.png";
-import { Link, useParams } from "react-router-dom";
 import moment from "moment";
-import { JOB_POSITION } from "../../utils/Localization";
-import { JobInterface } from "../../services/services";
-import axiosInstance from "../../utils/AxiosInstance";
+import { Link } from "react-router-dom";
+import logo_FPT from "../../../images/logo_FPT.png";
 import { JobService } from "../../services/JobService";
+import { JOB_POSITION } from "../../utils/Localization";
 
 export default function RecDashboardCard({ job }: any) {
   const now = moment();

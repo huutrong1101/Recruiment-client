@@ -1,8 +1,8 @@
-import React, { HTMLInputTypeAttribute, useEffect, useState } from "react";
-import { PlusIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { PlusIcon } from "@heroicons/react/24/solid";
 import classNames from "classnames";
-import FieldItemInput from "./FieldItemInput";
+import { HTMLInputTypeAttribute, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import FieldItemInput from "./FieldItemInput";
 
 export interface FieldSchemaItem<K> {
   id: keyof K;

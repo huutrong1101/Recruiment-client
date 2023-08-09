@@ -1,12 +1,11 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App";
 import { Provider } from "react-redux";
-import { ApplicationStore } from "./redux/Store";
-import "./Index.css";
-import { ToastContainer } from "react-toastify";
+import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Slide } from "react-toastify";
+import App from "./App";
+import "./Index.css";
+import { ApplicationStore } from "./redux/Store";
 
 const appElement = document.getElementById("app");
 if (appElement === null) {

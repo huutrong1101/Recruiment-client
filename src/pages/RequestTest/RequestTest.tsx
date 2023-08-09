@@ -1,13 +1,9 @@
-import React from "react";
-import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import classNames from "classnames";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import axiosInstance from "../../utils/AxiosInstance";
-import { UserService } from "../../services/UserService";
-import { useAppSelector } from "../../hooks/hooks";
-import InputIcon from "../../components/InputIcon/InputIcon";
-import TokenPasteRequestTest from "./TokenPasteRequestTest";
 import CustomRequestTest from "./CustomRequestTest";
 import ToastHelperTest from "./ToastHelperTest";
+import TokenPasteRequestTest from "./TokenPasteRequestTest";
 
 export default function RequestTest() {
   const handleTestButton = async () => {

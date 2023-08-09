@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import axiosInstance from "../../utils/AxiosInstance";
-import { useNavigate, useParams } from "react-router-dom";
-import moment from "moment";
 import classNames from "classnames";
-import { REC_CANDIDATE_STATUS } from "../../utils/Localization";
+import moment from "moment";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axiosInstance from "../../utils/AxiosInstance";
 
 export default function InterviewHistory() {
   const { userId } = useParams();

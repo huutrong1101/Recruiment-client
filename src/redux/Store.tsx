@@ -1,29 +1,29 @@
 import { configureStore } from "@reduxjs/toolkit";
-import HomeSlice from "../pages/Home/slices/HomeSlice";
 import NavbarSlice from "../components/Navbar/slices/NavbarSlice";
+import HomeSlice from "../pages/Home/slices/HomeSlice";
 
 ///
-import INTInterviewsReducer from "./reducer/INTInterviewsSlice";
 import INTCandidatesReducer from "./reducer/INTCandidatesSlice";
+import INTInterviewsReducer from "./reducer/INTInterviewsSlice";
 import INTQuestionsReducer from "./reducer/INTQuestionsSlice";
 
 // import SearchReducer from "./reducer/SearchSlice";
-import AuthSlice from "./AuthSlice";
 import OneTimePasswordSlice from "../pages/OneTimePasswordVerify/slices/OneTimePasswordSlice";
+import AuthSlice from "./AuthSlice";
 import CandidateListSlice from "./reducer/CandidateListSlice";
 import RecJobListSlice from "./reducer/RecJobSlice";
 // Admin
-import AdminListJobRecentSlice from "./reducer/AdminListJobRecentSlice";
-import AdminProfileRecentSlice from "./reducer/AdminProfileRecentSlice";
-import AdminAcountListSlice from "./reducer/AdminListAcountRecentSlice";
-import AdminListPassRecentSlice from "./reducer/AdminListPassRecentSlice";
-import JobSlice from "./JobSlice";
-import QuestionListSlice from "./reducer/QuestionListSlice";
-import RecInterviewerSilce from "./reducer/RecInterviewerSilce";
-import AdminAcountUseProfileSlice from "./reducer/AdminAcountUseProfileSlice";
-import RecEventSlice from "./reducer/RecEventSlice";
 import JobDetailSlice from "../pages/JobDetail/slice/JobDetailSlice";
 import UserInterviewSlice from "../pages/UserProfile/slices/UserInterviewSlice";
+import JobSlice from "./JobSlice";
+import AdminAcountUseProfileSlice from "./reducer/AdminAcountUseProfileSlice";
+import AdminAcountListSlice from "./reducer/AdminListAcountRecentSlice";
+import AdminListJobRecentSlice from "./reducer/AdminListJobRecentSlice";
+import AdminListPassRecentSlice from "./reducer/AdminListPassRecentSlice";
+import AdminProfileRecentSlice from "./reducer/AdminProfileRecentSlice";
+import QuestionListSlice from "./reducer/QuestionListSlice";
+import RecEventSlice from "./reducer/RecEventSlice";
+import RecInterviewerSilce from "./reducer/RecInterviewerSilce";
 import RecdashboardSlice from "./reducer/RecdashboardSlice";
 
 export const ApplicationStore = configureStore({

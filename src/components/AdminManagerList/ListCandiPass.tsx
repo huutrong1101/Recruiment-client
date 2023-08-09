@@ -1,35 +1,33 @@
-import React, { useState, useEffect } from "react";
 import {
-  TableContainer,
+  Paper,
   Table,
+  TableBody,
+  TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableCell,
-  TableBody,
-  Paper,
 } from "@mui/material";
+import { useEffect, useState } from "react";
 
-import {
-  AdminJobPassListConfig,
-  AdminJobPassInterface,
-} from "../../services/services";
-import { omitBy, isUndefined } from "lodash";
+import { isUndefined, omitBy } from "lodash";
 import useQueryParams from "../../hooks/useQueryParams";
+import {
+  AdminJobPassInterface,
+  AdminJobPassListConfig,
+} from "../../services/services";
 
+import { isEqual } from "lodash";
+import moment from "moment";
 import qs from "query-string";
 import { useParams } from "react-router-dom";
-import { isEqual } from "lodash";
 import { useAppSelector } from "../../hooks/hooks";
+import axiosInstance from "../../utils/AxiosInstance";
+import LoadSpinner from "../LoadSpinner/LoadSpinner";
+import Paginationpasslist from "./Pagination/Paginationpasslist";
 
 export type QueryConfig = {
   [key in keyof AdminJobPassListConfig]: string;
 };
-import axiosInstance from "../../utils/AxiosInstance";
-import Paginationpasslist from "./Pagination/Paginationpasslist";
-import Loader from "../Loader/Loader";
-import LoadSpinner from "../LoadSpinner/LoadSpinner";
-import moment from "moment";
-import PageNotFound from "../Notfound/Notfound";
 
 export default function ListCandiPass() {
   const { jobId } = useParams();

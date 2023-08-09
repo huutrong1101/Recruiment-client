@@ -1,21 +1,15 @@
-import React from "react";
+import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/outline";
 import classnames from "classnames";
 import { useForm } from "react-hook-form";
-import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/outline";
 import InputIcon from "../../components/InputIcon/InputIcon";
 
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { authLogin } from "../../redux/AuthSlice";
 import { UserLoginParamsInterface } from "../../services/services";
-import { toast } from "react-toastify";
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
 export default function AuthenticateLogin() {
   const { register, handleSubmit } = useForm<UserLoginParamsInterface>();

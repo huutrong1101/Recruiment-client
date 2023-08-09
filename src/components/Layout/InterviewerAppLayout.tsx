@@ -1,12 +1,8 @@
-import React from "react";
 import { Outlet } from "react-router-dom";
-import image from "../../../images/avatar.png";
-import LeftSidebar from "../LeftSidebar/LeftSidebar";
-import RightSidebar from "../RightSidebar/RightSidebar";
 import DashboardFooter from "../../components/RecFooter/DashboardFooter";
 import RecLeftSidebar from "../RecLeftSidebar/RecLeftSidebar";
-import RecRightSidebar from "../RecRightSidebar/RecRightSidebar";
 import RecNavbar from "../RecNavDashboard/RecNavbar";
+import RecRightSidebar from "../RecRightSidebar/RecRightSidebar";
 
 export default function InterviewerAppLayout() {
   return (

@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../../utils/AxiosInstance";
-import { Dispatch } from "@reduxjs/toolkit";
 const CreateQuestionSlice = createSlice({
   name: "createQuestion",
   initialState: {

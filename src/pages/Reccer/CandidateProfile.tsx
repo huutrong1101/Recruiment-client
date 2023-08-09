@@ -1,10 +1,8 @@
-import React from "react";
-import AvatarCandidate from "../../components/Candidate/Avatar";
 import {
-  ArrowDownTrayIcon,
-  DocumentTextIcon,
   DocumentArrowDownIcon,
+  DocumentTextIcon,
 } from "@heroicons/react/24/outline";
+import AvatarCandidate from "../../components/Candidate/Avatar";
 
 function CandidateProfile() {
   const avatarUrl = "../../../images/ava.jpg";

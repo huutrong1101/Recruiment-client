@@ -1,10 +1,10 @@
 import {
-  HiUserCircle,
-  HiCog6Tooth,
-  HiQuestionMarkCircle,
   HiArrowLeftOnRectangle,
-  HiInformationCircle,
+  HiCog6Tooth,
   HiEnvelope,
+  HiInformationCircle,
+  HiQuestionMarkCircle,
+  HiUserCircle,
 } from "react-icons/hi2";
 
 export const prepareMenuItem = (data: any) => [

@@ -1,38 +1,32 @@
+import { Menu, Transition } from "@headlessui/react";
 import {
   AdjustmentsHorizontalIcon,
   CalendarDaysIcon,
   CheckIcon,
-  ChevronDoubleDownIcon,
   ChevronUpDownIcon,
-  MagnifyingGlassIcon,
-  PencilSquareIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import {
+  Popover,
+  PopoverContent,
+  PopoverHandler,
+} from "@material-tailwind/react";
 import classNames from "classnames";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { isEqual, isUndefined, omitBy } from "lodash";
+import qs from "query-string";
+import { Fragment, useEffect, useState } from "react";
 import {
   Link,
   createSearchParams,
   useNavigate,
   useParams,
 } from "react-router-dom";
+import { toast } from "react-toastify";
+import useQueryParams from "../../../hooks/useQueryParams";
+import { StateService } from "../../../services/changeState";
+import { AppliedCandidateListConfig } from "../../../services/services";
 import axiosInstance from "../../../utils/AxiosInstance";
 import { APPLY_STATUS } from "../../../utils/Localization";
-import { toast } from "react-toastify";
-import { StateService } from "../../../services/changeState";
-import { Menu, Transition } from "@headlessui/react";
-import { omitBy, isUndefined } from "lodash";
-import { AppliedCandidateListConfig } from "../../../services/services";
-import useQueryParams from "../../../hooks/useQueryParams";
-import { isEqual } from "lodash";
-import qs from "query-string";
-import { BsFilterLeft } from "react-icons/bs";
-import {
-  Popover,
-  PopoverHandler,
-  PopoverContent,
-  Button,
-} from "@material-tailwind/react";
 
 interface UserProps {
   candidateId: string;

@@ -1,7 +1,7 @@
+import { Transition } from "@headlessui/react";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import "./OneTimePasswordInputArray.scss";
-import { Transition } from "@headlessui/react";
 
 interface OneTimePasswordInputArrayProps {
   onFilled?: (otp: string) => void;

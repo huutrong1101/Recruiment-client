@@ -1,32 +1,23 @@
-import { useEffect, useState, Fragment } from "react";
-import { Link } from "react-router-dom";
-import RecJobCard from "../../components/RecJobManagementCard/RecJobManagementCard";
-import Loader from "../../components/Loader/Loader";
-import { useAppSelector } from "../../hooks/hooks";
+import { Menu, Transition } from "@headlessui/react";
 import {
-  JobInterface,
-  JobListConfig,
-  JobReccerListConfig,
-} from "../../services/services";
-import { omitBy, isUndefined } from "lodash";
-import useQuerParams from "../../hooks/useQueryParams";
-import { omit, isEqual } from "lodash";
-import axiosInstance from "../../utils/AxiosInstance";
-import qs from "query-string";
-import Pagination from "../../components/Pagination/Pagination";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
-import classNames from "classnames";
-import {
-  CakeIcon,
   ChevronDownIcon,
   ChevronUpIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import { createSearchParams, useNavigate, useParams } from "react-router-dom";
-import { Menu, Transition } from "@headlessui/react";
-import { JOB_POSITION } from "../../utils/Localization";
+import classNames from "classnames";
+import { isEqual, isUndefined, omit, omitBy } from "lodash";
+import qs from "query-string";
+import { Fragment, useEffect, useState } from "react";
 import { BsFilterLeft } from "react-icons/bs";
-import { data } from "../../data/homeData";
+import { Link, createSearchParams, useNavigate } from "react-router-dom";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import Pagination from "../../components/Pagination/Pagination";
+import RecJobCard from "../../components/RecJobManagementCard/RecJobManagementCard";
+import { useAppSelector } from "../../hooks/hooks";
+import useQuerParams from "../../hooks/useQueryParams";
+import { JobInterface, JobListConfig } from "../../services/services";
+import axiosInstance from "../../utils/AxiosInstance";
+import { JOB_POSITION } from "../../utils/Localization";
 
 export type QueryConfig = {
   [key in keyof JobListConfig]: string;
